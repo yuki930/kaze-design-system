@@ -58,6 +58,12 @@
     "build-storybook": "storybook build",
     "typecheck": "tsc --noEmit"
   },
+  "dependencies": {
+    "lucide-react": "^0.575.0",
+    "next": "^16.1.6",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4"
+  },
   "peerDependencies": {
     "lucide-react": "^0.575.0",
     "react": "^18.0.0 || ^19.0.0",
@@ -85,11 +91,7 @@
     "@vitest/browser-playwright": "^4.0.18",
     "@vitest/coverage-v8": "^4.0.18",
     "jsdom": "^28.1.0",
-    "lucide-react": "^0.575.0",
-    "next": "^16.1.6",
     "playwright": "^1.58.2",
-    "react": "^19.2.4",
-    "react-dom": "^19.2.4",
     "rollup-plugin-preserve-directives": "^0.4.0",
     "storybook": "^10.2.10",
     "typescript": "^5.9.3",
