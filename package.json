@@ -5,7 +5,17 @@
   "type": "module",
   "license": "MIT",
   "description": "Zinc-based minimal design system optimized for Japanese typography and financial UI",
-  "keywords": ["design-system", "react", "css", "japanese", "zinc", "typography", "dark-mode", "components", "ui"],
+  "keywords": [
+    "design-system",
+    "react",
+    "css",
+    "japanese",
+    "zinc",
+    "typography",
+    "dark-mode",
+    "components",
+    "ui"
+  ],
   "main": "dist/index.js",
   "module": "dist/index.js",
   "types": "dist/types/components/index.d.ts",
@@ -49,7 +59,7 @@
     "typecheck": "tsc --noEmit"
   },
   "peerDependencies": {
-    "lucide-react": ">=0.300.0",
+    "lucide-react": "^0.575.0",
     "react": "^18.0.0 || ^19.0.0",
     "react-dom": "^18.0.0 || ^19.0.0"
   },
