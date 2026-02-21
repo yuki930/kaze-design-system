@@ -1,6 +1,10 @@
 # @kaze-ds/react
 
+[![GitHub](https://img.shields.io/github/license/yuki930/kaze-design-system)](https://github.com/yuki930/kaze-design-system/blob/main/LICENSE)
+
 Zinc ベースのミニマルデザインシステム。日本語組版に最適化。
+
+**GitHub**: https://github.com/yuki930/kaze-design-system
 
 > **ESM only** — このパッケージは ES Modules のみを提供します。
 > `"type": "module"` が設定された環境、または ESM 対応バンドラー（Vite, Next.js, webpack 5+）で使用してください。
@@ -130,6 +134,10 @@ npm run storybook     # Storybook 起動
 npm run typecheck     # TypeScript 型チェック
 ```
 
+## コントリビュート
+
+バグ報告・機能リクエストは [Issues](https://github.com/yuki930/kaze-design-system/issues) へお願いします。
+
 ## ライセンス
 
-MIT
+[MIT](https://github.com/yuki930/kaze-design-system/blob/main/LICENSE)

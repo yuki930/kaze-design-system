@@ -4,6 +4,14 @@
   "private": false,
   "type": "module",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yuki930/kaze-design-system.git"
+  },
+  "homepage": "https://github.com/yuki930/kaze-design-system",
+  "bugs": {
+    "url": "https://github.com/yuki930/kaze-design-system/issues"
+  },
   "description": "Zinc-based minimal design system optimized for Japanese typography and financial UI",
   "keywords": [
     "design-system",
