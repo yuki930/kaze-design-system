@@ -311,7 +311,7 @@ export function ShowcasePage() {
           </NavbarLink>
           <NavbarLink href="/docs">ドキュメント</NavbarLink>
           <NavbarLink href="#" target="_blank">
-            ソースコード
+            GitHub
           </NavbarLink>
         </NavbarLinks>
       </Navbar>
@@ -330,7 +330,7 @@ export function ShowcasePage() {
           <Button size="lg" variant="outline">
             <span className={styles.ctaGroup}>
               <Github size={16} />
-              ソースコード
+              GitHub
             </span>
           </Button>
         </a>
@@ -604,7 +604,7 @@ export function ShowcasePage() {
           </a>
           <a href="#">
             <Button size="lg" variant="outline">
-              ソースコードを見る
+              GitHubで見る
             </Button>
           </a>
         </CTABanner>
@@ -630,7 +630,7 @@ export function ShowcasePage() {
               { label: "ドキュメント", href: "/docs" },
               { label: "はじめに", href: "/docs/getting-started" },
               { label: "サンプル集", href: "/showcase" },
-              { label: "ソースコード", href: "#" },
+              { label: "GitHub", href: "#" },
             ],
           },
           {

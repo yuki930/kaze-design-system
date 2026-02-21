@@ -57,7 +57,7 @@ const popularArticles = [
 
 const recentArticles = [
   { title: "2026年2月のアップデート — ダッシュボード改善", badge: "NEW", badgeVariant: "positive" as const },
-  { title: "チャットツール連携の設定手順が変わりました", badge: "更新", badgeVariant: "warning" as const },
+  { title: "Slack連携の設定手順が変わりました", badge: "更新", badgeVariant: "warning" as const },
   { title: "新しい権限モデルについて", badge: "NEW", badgeVariant: "positive" as const },
   { title: "モバイルアプリ v2.0 リリースノート", badge: null, badgeVariant: "default" as const },
 ];

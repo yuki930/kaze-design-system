@@ -1443,7 +1443,7 @@ import { Icon } from "@kaze-ds/react";
           description="美しいUIを、もっと速く。"
           columns={[
             { title: "プロダクト", links: [{ label: "機能", href: "#" }, { label: "料金", href: "#" }] },
-            { title: "リソース", links: [{ label: "ドキュメント", href: "#" }, { label: "ソースコード", href: "#" }] },
+            { title: "リソース", links: [{ label: "ドキュメント", href: "#" }, { label: "GitHub", href: "#" }] },
           ]}
           bottomLeft={<span>© 2026 Kaze</span>}
         />

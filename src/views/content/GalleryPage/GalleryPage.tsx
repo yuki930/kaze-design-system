@@ -273,10 +273,10 @@ export function GalleryPage() {
           {
             title: "SNS",
             links: [
-              { label: "フォトストリーム", href: "#" },
-              { label: "トークライン", href: "#" },
-              { label: "クリエイターズ", href: "#" },
-              { label: "デザインボード", href: "#" },
+              { label: "Instagram", href: "#" },
+              { label: "Twitter", href: "#" },
+              { label: "Behance", href: "#" },
+              { label: "Dribbble", href: "#" },
             ],
           },
         ]}

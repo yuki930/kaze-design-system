@@ -231,7 +231,7 @@ export function PricingPage() {
               { label: "ドキュメント", href: "#" },
               { label: "はじめに", href: "#" },
               { label: "ブログ", href: "#" },
-              { label: "ソースコード", href: "#" },
+              { label: "GitHub", href: "#" },
             ],
           },
           {

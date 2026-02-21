@@ -223,7 +223,7 @@ export function LandingPage() {
               "Free プランのすべて",
               "デザインファイル",
               "優先メールサポート",
-              "プライベートチャットチャンネル",
+              "プライベートDiscordチャンネル",
               "新コンポーネントの先行アクセス",
             ]}
           >
@@ -314,7 +314,7 @@ export function LandingPage() {
             </span>
           </Button>
           <Button size="lg" variant="outline" className={styles.ctaBtnOutline}>
-            ソースコードを見る
+            GitHubで見る
           </Button>
         </CTABanner>
       </Section>
@@ -339,7 +339,7 @@ export function LandingPage() {
               { label: "ドキュメント", href: "#" },
               { label: "はじめに", href: "#" },
               { label: "ブログ", href: "#" },
-              { label: "ソースコード", href: "#" },
+              { label: "GitHub", href: "#" },
             ],
           },
           {
