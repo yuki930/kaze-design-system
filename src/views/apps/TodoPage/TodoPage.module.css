@@ -1,0 +1,148 @@
+/* ── App shell (mobile-first) ───────────────────────────── */
+
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
+  max-width: 480px;
+  margin: 0 auto;
+  background: var(--color-bg);
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+
+/* ── Header ────────────────────────────────────────────── */
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4) var(--space-4) var(--space-2);
+  flex-shrink: 0;
+}
+
+.headerLeft {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+/* headerTitle: replaced by <Text size="xl" weight="bold"> */
+
+.headerRight {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+/* ── Progress ──────────────────────────────────────────── */
+
+.progressBar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 0 var(--space-4) var(--space-3);
+  flex-shrink: 0;
+}
+
+.progressBar > :first-child {
+  flex: 1;
+}
+
+/* progressLabel: replaced by <Text size="xs" color="subtle"> */
+
+/* ── Main scroll ───────────────────────────────────────── */
+
+.main {
+  flex: 1;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 0 var(--space-4) var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+/* ── Add section ───────────────────────────────────────── */
+
+.addSection {
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+}
+
+.addSection input {
+  flex: 1;
+}
+
+/* ── Filter row ────────────────────────────────────────── */
+
+.filterRow {
+  display: flex;
+  align-items: center;
+}
+
+/* ── List card ─────────────────────────────────────────── */
+
+.listCard {
+  flex-shrink: 0;
+}
+
+/* ── Todo list ─────────────────────────────────────────── */
+
+.todoList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.todoItem {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-3);
+  transition: background var(--duration-fast) var(--ease-default);
+}
+
+.todoItem:active {
+  background: var(--color-bg-secondary);
+}
+
+.todoLeft {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2-5);
+  flex: 1;
+  min-width: 0;
+}
+
+.todoContent {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  min-width: 0;
+  padding-top: 2px;
+}
+
+/* todoText: typography replaced by <Text size="sm"> */
+
+.todoTextDone {
+  text-decoration: line-through;
+  word-break: break-word;
+}
+
+.todoMeta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  flex-wrap: wrap;
+}
+
+/* ── Clear button ──────────────────────────────────────── */
+
+.clearBtn {
+  align-self: center;
+}
+

@@ -1,0 +1,57 @@
+/* ── Project Header ─────────────────────────────────────────── */
+
+.projectHeader {
+  margin-bottom: var(--space-6);
+}
+
+.projectHeaderTitle {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.stepperWrapper {
+  margin-bottom: var(--space-4);
+}
+
+/* ── Team Member Rows ──────────────────────────────────────── */
+
+.memberRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) 0;
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.memberRow:last-child {
+  border-bottom: none;
+}
+
+.memberInfo {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1;
+}
+
+.memberProgress {
+  min-width: 100px;
+}
+
+/* ── Table ──────────────────────────────────────────────────── */
+
+.tableHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.assigneeCell {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+/* ── Responsive ────────────────────────────────────────────── */
+

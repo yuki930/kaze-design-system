@@ -1,0 +1,105 @@
+/* ── Alert ─────────────────────────────────────────────────── */
+
+.alertSection {
+  margin-bottom: var(--space-4);
+}
+
+/* ── KPI Card Inner ──────────────────────────────────────── */
+
+.kpiCardInner {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+/* ── Charts ───────────────────────────────────────────────── */
+
+.chartsGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+}
+
+/* ── Orders ───────────────────────────────────────────────── */
+
+.ordersHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.ordersHeaderActions {
+  margin-left: auto;
+}
+
+.orderIdCell {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-2xs);
+  color: var(--color-fg-secondary);
+}
+
+.customerCell {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.tabularNums {
+  font-variant-numeric: tabular-nums;
+}
+
+.paginationWrapper {
+  display: flex;
+  justify-content: center;
+  padding: var(--space-4) 0;
+}
+
+/* ── Rank Badge ───────────────────────────────────────────── */
+
+.rankBadge {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-2xs);
+  font-weight: var(--font-weight-semibold);
+  background: var(--color-bg-tertiary);
+  color: var(--color-fg-secondary);
+  flex-shrink: 0;
+}
+
+/* ── Stock Indicator ──────────────────────────────────────── */
+
+.stockIndicator {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--space-1);
+  min-width: 80px;
+}
+
+/* ── Summary Footer ───────────────────────────────────────── */
+
+.summaryFooter {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.sidebarFooterTruncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── Responsive ───────────────────────────────────────────── */
+
+@media (min-width: 1025px) {
+  .chartsGrid {
+    grid-template-columns: 3fr 2fr;
+  }
+}
+

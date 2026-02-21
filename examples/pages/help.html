@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="ja" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ヘルプセンター — Kaze</title>
+  <link rel="stylesheet" href="../../tokens.css" />
+  <link rel="stylesheet" href="../../reset.css" />
+  <link rel="stylesheet" href="../../components.css" />
+  <link rel="stylesheet" href="../../utilities.css" />
+  <style>
+    body {
+      background-color: var(--zinc-50);
+      color: var(--zinc-900);
+      font-family: "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+      line-height: 1.7;
+    }
+
+    /* ── Header ─────────────────────────────── */
+    .help-header {
+      background-color: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 0;
+    }
+    .help-header__inner {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .help-header__logo {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--zinc-900);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+    }
+    .help-header__back {
+      font-size: 13px;
+      color: var(--zinc-500);
+      text-decoration: none;
+    }
+    .help-header__back:hover {
+      color: var(--zinc-900);
+    }
+
+    /* ── Hero / Search ─────────────────────── */
+    .help-hero {
+      background-color: var(--zinc-900);
+      color: var(--zinc-50);
+      padding: 56px 24px;
+      text-align: center;
+    }
+    .help-hero__title {
+      font-size: 28px;
+      font-weight: 800;
+      margin: 0 0 8px;
+    }
+    .help-hero__subtitle {
+      font-size: 15px;
+      color: var(--zinc-400);
+      margin: 0 0 28px;
+    }
+    .help-search {
+      max-width: 480px;
+      margin: 0 auto;
+      position: relative;
+    }
+    .help-search__input {
+      width: 100%;
+      padding: 14px 16px 14px 44px;
+      font-size: 15px;
+      border: none;
+      border-radius: 10px;
+      background-color: var(--zinc-800);
+      color: var(--zinc-50);
+      outline: none;
+      box-sizing: border-box;
+    }
+    .help-search__input::placeholder {
+      color: var(--zinc-500);
+    }
+    .help-search__icon {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 16px;
+      color: var(--zinc-500);
+      pointer-events: none;
+    }
+
+    /* ── Content ────────────────────────────── */
+    .help-content {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 40px 24px 80px;
+    }
+
+    /* ── Categories ─────────────────────────── */
+    .section-title {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--zinc-400);
+      margin: 0 0 20px;
+    }
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 48px;
+    }
+    .category-card {
+      background-color: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      text-decoration: none;
+      color: inherit;
+      transition: box-shadow 0.15s ease, border-color 0.15s ease;
+    }
+    .category-card:hover {
+      border-color: var(--zinc-300);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    .category-card__icon {
+      font-size: 28px;
+      margin-bottom: 12px;
+    }
+    .category-card__title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--zinc-900);
+      margin-bottom: 6px;
+    }
+    .category-card__desc {
+      font-size: 13px;
+      color: var(--zinc-500);
+      line-height: 1.5;
+    }
+    .category-card__count {
+      font-size: 11px;
+      color: var(--zinc-400);
+      margin-top: 12px;
+    }
+
+    /* ── FAQ ────────────────────────────────── */
+    .faq-list {
+      margin-bottom: 48px;
+    }
+    .faq-item {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      margin-bottom: 8px;
+      overflow: hidden;
+      background-color: var(--surface);
+    }
+    .faq-item__question {
+      width: 100%;
+      background: none;
+      border: none;
+      padding: 16px 20px;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--zinc-900);
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: inherit;
+    }
+    .faq-item__question:hover {
+      background-color: var(--zinc-50);
+    }
+    .faq-item__chevron {
+      font-size: 12px;
+      color: var(--zinc-400);
+      transition: transform 0.2s ease;
+    }
+    .faq-item[open] .faq-item__chevron {
+      transform: rotate(180deg);
+    }
+    .faq-item__answer {
+      padding: 0 20px 16px;
+      font-size: 14px;
+      color: var(--zinc-600);
+      line-height: 1.8;
+    }
+
+    /* ── Contact CTA ───────────────────────── */
+    .contact-cta {
+      background-color: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 32px;
+      text-align: center;
+    }
+    .contact-cta__icon {
+      font-size: 32px;
+      margin-bottom: 12px;
+    }
+    .contact-cta__title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--zinc-900);
+      margin: 0 0 8px;
+    }
+    .contact-cta__desc {
+      font-size: 14px;
+      color: var(--zinc-500);
+      margin: 0 0 20px;
+    }
+    .contact-cta__btn {
+      display: inline-block;
+      background-color: var(--zinc-900);
+      color: #ffffff;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 10px 28px;
+      border-radius: 8px;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+    }
+    .contact-cta__btn:hover {
+      background-color: var(--zinc-800);
+    }
+
+    /* ── Responsive ─────────────────────────── */
+    @media (max-width: 768px) {
+      .category-grid {
+        grid-template-columns: 1fr;
+      }
+      .help-hero__title {
+        font-size: 22px;
+      }
+    }
+    @media (max-width: 480px) {
+      .help-hero {
+        padding: 40px 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="help-header">
+    <div class="help-header__inner">
+      <a href="#" class="help-header__logo">Kaze ヘルプ</a>
+      <a href="#" class="help-header__back">&larr; アプリに戻る</a>
+    </div>
+  </header>
+
+  <!-- Hero / Search -->
+  <section class="help-hero">
+    <h1 class="help-hero__title">何かお困りですか？</h1>
+    <p class="help-hero__subtitle">キーワードで記事を検索、またはカテゴリから探せます</p>
+    <div class="help-search">
+      <span class="help-search__icon">&#128269;</span>
+      <input type="search" class="help-search__input" placeholder="例: パスワードのリセット方法" />
+    </div>
+  </section>
+
+  <div class="help-content">
+
+    <!-- Categories -->
+    <h2 class="section-title">カテゴリ</h2>
+    <div class="category-grid">
+
+      <a href="#" class="category-card">
+        <div class="category-card__icon">&#128640;</div>
+        <div class="category-card__title">はじめに</div>
+        <div class="category-card__desc">アカウント作成から初期設定まで、使い始めるためのガイド</div>
+        <div class="category-card__count">12 記事</div>
+      </a>
+
+      <a href="#" class="category-card">
+        <div class="category-card__icon">&#128100;</div>
+        <div class="category-card__title">アカウント・プロフィール</div>
+        <div class="category-card__desc">メールアドレス変更、パスワードリセット、二段階認証の設定</div>
+        <div class="category-card__count">8 記事</div>
+      </a>
+
+      <a href="#" class="category-card">
+        <div class="category-card__icon">&#128176;</div>
+        <div class="category-card__title">お支払い・プラン</div>
+        <div class="category-card__desc">プランの変更、請求書の確認、お支払い方法の管理</div>
+        <div class="category-card__count">10 記事</div>
+      </a>
+
+      <a href="#" class="category-card">
+        <div class="category-card__icon">&#128101;</div>
+        <div class="category-card__title">チーム管理</div>
+        <div class="category-card__desc">メンバーの招待・権限設定、チーム設定の変更</div>
+        <div class="category-card__count">6 記事</div>
+      </a>
+
+      <a href="#" class="category-card">
+        <div class="category-card__icon">&#128295;</div>
+        <div class="category-card__title">連携・API</div>
+        <div class="category-card__desc">外部サービスとの連携、APIキーの発行、Webhookの設定</div>
+        <div class="category-card__count">9 記事</div>
+      </a>
+
+      <a href="#" class="category-card">
+        <div class="category-card__icon">&#128272;</div>
+        <div class="category-card__title">セキュリティ</div>
+        <div class="category-card__desc">セキュリティ設定、監査ログ、SSO・SAMLの構成</div>
+        <div class="category-card__count">5 記事</div>
+      </a>
+
+    </div>
+
+    <!-- FAQ -->
+    <h2 class="section-title">よくある質問</h2>
+    <div class="faq-list">
+
+      <details class="faq-item">
+        <summary class="faq-item__question">
+          パスワードを忘れた場合はどうすればよいですか？
+          <span class="faq-item__chevron">&#9660;</span>
+        </summary>
+        <div class="faq-item__answer">
+          ログイン画面の「パスワードをお忘れですか？」リンクをクリックし、登録済みのメールアドレスを入力してください。パスワードリセット用のリンクが記載されたメールが届きます。リンクの有効期限は24時間です。
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-item__question">
+          プランのアップグレード・ダウングレードはいつでもできますか？
+          <span class="faq-item__chevron">&#9660;</span>
+        </summary>
+        <div class="faq-item__answer">
+          はい、いつでも変更可能です。アップグレードの場合は即座に反映され、日割り計算で差額が請求されます。ダウングレードの場合は、現在の請求期間の終了時に新しいプランが適用されます。
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-item__question">
+          チームメンバーの権限にはどのような種類がありますか？
+          <span class="faq-item__chevron">&#9660;</span>
+        </summary>
+        <div class="faq-item__answer">
+          <strong>オーナー</strong>：すべての設定変更、メンバー管理、請求管理が可能。<br />
+          <strong>管理者</strong>：メンバーの招待・削除、プロジェクト設定の変更が可能。<br />
+          <strong>メンバー</strong>：プロジェクト内のタスク作成・編集が可能。<br />
+          <strong>ゲスト</strong>：招待されたプロジェクトの閲覧のみ可能。
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-item__question">
+          データのエクスポートはできますか？
+          <span class="faq-item__chevron">&#9660;</span>
+        </summary>
+        <div class="faq-item__answer">
+          はい。設定画面の「データ管理」からCSVまたはJSON形式でエクスポートできます。エクスポートにはオーナーまたは管理者の権限が必要です。大量のデータがある場合は、完了までに数分かかることがあります。
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-item__question">
+          解約後、データはどうなりますか？
+          <span class="faq-item__chevron">&#9660;</span>
+        </summary>
+        <div class="faq-item__answer">
+          解約後もデータは30日間保持されます。この期間中に再度サブスクリプションを開始すれば、データを復元できます。30日を過ぎるとデータは完全に削除され、復元できなくなりますのでご注意ください。
+        </div>
+      </details>
+
+    </div>
+
+    <!-- Contact CTA -->
+    <div class="contact-cta">
+      <div class="contact-cta__icon">&#128172;</div>
+      <h3 class="contact-cta__title">解決しませんでしたか？</h3>
+      <p class="contact-cta__desc">サポートチームが平日 10:00〜18:00 で対応しています</p>
+      <a href="#" class="contact-cta__btn">お問い合わせ</a>
+    </div>
+
+  </div>
+
+</body>
+</html>

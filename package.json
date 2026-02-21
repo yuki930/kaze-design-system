@@ -1,0 +1,88 @@
+{
+  "name": "@kaze-ds/react",
+  "version": "0.1.0",
+  "private": false,
+  "type": "module",
+  "license": "MIT",
+  "description": "Zinc-based minimal design system optimized for Japanese typography and financial UI",
+  "keywords": ["design-system", "react", "css", "japanese", "zinc", "typography", "dark-mode", "components", "ui"],
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/types/components/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/types/components/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./hooks": {
+      "types": "./dist/types/hooks/index.d.ts",
+      "import": "./dist/hooks.js"
+    },
+    "./tokens": {
+      "types": "./dist/types/tokens/tokens.d.ts",
+      "import": "./dist/tokens.js"
+    },
+    "./css/tokens": "./tokens.css",
+    "./css/reset": "./reset.css",
+    "./css/components": "./components.css",
+    "./css/utilities": "./utilities.css",
+    "./css/all": "./kaze.css"
+  },
+  "files": [
+    "dist",
+    "tokens.css",
+    "reset.css",
+    "components.css",
+    "utilities.css",
+    "kaze.css"
+  ],
+  "sideEffects": [
+    "*.css"
+  ],
+  "scripts": {
+    "dev": "next dev --turbopack -p 4173",
+    "build": "next build",
+    "start": "next start",
+    "build:lib": "rm -rf dist && vite build --config vite.config.lib.ts && tsc -p tsconfig.build.json",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
+    "typecheck": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "lucide-react": ">=0.300.0",
+    "react": "^18.0.0 || ^19.0.0",
+    "react-dom": "^18.0.0 || ^19.0.0"
+  },
+  "peerDependenciesMeta": {
+    "lucide-react": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@chromatic-com/storybook": "^5.0.1",
+    "@storybook/addon-a11y": "^10.2.10",
+    "@storybook/addon-docs": "^10.2.10",
+    "@storybook/addon-vitest": "^10.2.10",
+    "@storybook/nextjs": "^10.2.10",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/node": "25.3.0",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^5.1.4",
+    "@vitest/browser": "^4.0.18",
+    "@vitest/browser-playwright": "^4.0.18",
+    "@vitest/coverage-v8": "^4.0.18",
+    "jsdom": "^28.1.0",
+    "next": "^16.1.6",
+    "playwright": "^1.58.2",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "rollup-plugin-preserve-directives": "^0.4.0",
+    "storybook": "^10.2.10",
+    "typescript": "^5.9.3",
+    "vite": "^7.3.1",
+    "vitest": "^4.0.18"
+  }
+}

@@ -1,0 +1,11 @@
+app/
+src/
+.storybook/
+.next/
+examples/
+figma-tokens.json
+*.config.ts
+*.config.lib.ts
+tsconfig*.json
+vitest.*
+.eslintrc*

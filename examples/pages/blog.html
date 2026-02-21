@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="ja" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>効率的なチーム運営のための5つのヒント — Kaze Blog</title>
+  <link rel="stylesheet" href="../../tokens.css" />
+  <link rel="stylesheet" href="../../reset.css" />
+  <link rel="stylesheet" href="../../components.css" />
+  <link rel="stylesheet" href="../../utilities.css" />
+  <style>
+    body {
+      background-color: var(--zinc-50);
+      color: var(--zinc-900);
+      font-family: "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+      line-height: 1.8;
+    }
+
+    /* ── Header ─────────────────────────────── */
+    .blog-header {
+      background-color: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 0;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .blog-header__inner {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .blog-header__logo {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--zinc-900);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+    }
+    .blog-header__nav {
+      display: flex;
+      gap: 24px;
+    }
+    .blog-header__nav a {
+      font-size: 13px;
+      color: var(--zinc-500);
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .blog-header__nav a:hover {
+      color: var(--zinc-900);
+    }
+
+    /* ── Layout ─────────────────────────────── */
+    .blog-layout {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 40px 24px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 48px;
+    }
+
+    /* ── Article ────────────────────────────── */
+    .article-meta {
+      margin-bottom: 32px;
+    }
+    .article-meta__category {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--zinc-500);
+      background-color: var(--zinc-100);
+      padding: 4px 10px;
+      border-radius: 4px;
+      margin-bottom: 16px;
+    }
+    .article-meta__title {
+      font-size: 28px;
+      font-weight: 800;
+      line-height: 1.4;
+      color: var(--zinc-900);
+      margin: 0 0 16px;
+    }
+    .article-meta__info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 13px;
+      color: var(--zinc-500);
+    }
+    .article-meta__avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background-color: var(--zinc-200);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--zinc-600);
+    }
+    .article-meta__author {
+      font-weight: 600;
+      color: var(--zinc-700);
+    }
+
+    .article-hero {
+      width: 100%;
+      height: 320px;
+      background-color: var(--zinc-200);
+      border-radius: 12px;
+      margin-bottom: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 48px;
+      color: var(--zinc-400);
+    }
+
+    .article-body h2 {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--zinc-900);
+      margin: 32px 0 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+    .article-body h3 {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--zinc-800);
+      margin: 24px 0 8px;
+    }
+    .article-body p {
+      font-size: 15px;
+      color: var(--zinc-700);
+      margin: 0 0 16px;
+      line-height: 1.9;
+    }
+    .article-body blockquote {
+      margin: 24px 0;
+      padding: 16px 20px;
+      border-left: 3px solid var(--zinc-300);
+      background-color: var(--zinc-50);
+      border-radius: 0 8px 8px 0;
+      font-size: 14px;
+      color: var(--zinc-600);
+      font-style: italic;
+    }
+    .article-body ul {
+      padding-left: 20px;
+      margin: 0 0 16px;
+    }
+    .article-body li {
+      font-size: 15px;
+      color: var(--zinc-700);
+      margin-bottom: 8px;
+      line-height: 1.7;
+    }
+    .article-body code {
+      font-family: "SF Mono", "Fira Code", monospace;
+      font-size: 13px;
+      background-color: var(--zinc-100);
+      padding: 2px 6px;
+      border-radius: 4px;
+      color: var(--zinc-800);
+    }
+
+    .article-tags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 32px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+    .article-tags__item {
+      font-size: 12px;
+      color: var(--zinc-500);
+      background-color: var(--zinc-100);
+      padding: 4px 12px;
+      border-radius: 9999px;
+    }
+
+    /* ── Sidebar ────────────────────────────── */
+    .sidebar-section {
+      margin-bottom: 32px;
+    }
+    .sidebar-section__title {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--zinc-400);
+      margin: 0 0 16px;
+    }
+
+    .author-card {
+      background-color: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+    }
+    .author-card__avatar {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background-color: var(--zinc-200);
+      margin: 0 auto 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--zinc-600);
+    }
+    .author-card__name {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--zinc-900);
+      margin-bottom: 4px;
+    }
+    .author-card__role {
+      font-size: 12px;
+      color: var(--zinc-500);
+      margin-bottom: 12px;
+    }
+    .author-card__bio {
+      font-size: 13px;
+      color: var(--zinc-600);
+      line-height: 1.6;
+    }
+
+    .toc {
+      background-color: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+    }
+    .toc__list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .toc__list li {
+      font-size: 13px;
+      color: var(--zinc-600);
+      padding: 6px 0;
+      border-bottom: 1px solid var(--zinc-100);
+    }
+    .toc__list li:last-child {
+      border-bottom: none;
+    }
+    .toc__list a {
+      color: inherit;
+      text-decoration: none;
+    }
+    .toc__list a:hover {
+      color: var(--zinc-900);
+    }
+
+    .related-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .related-list li {
+      padding: 10px 0;
+      border-bottom: 1px solid var(--zinc-100);
+    }
+    .related-list li:last-child {
+      border-bottom: none;
+    }
+    .related-list a {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--zinc-700);
+      text-decoration: none;
+      line-height: 1.5;
+      display: block;
+    }
+    .related-list a:hover {
+      color: var(--zinc-900);
+    }
+    .related-list__date {
+      font-size: 11px;
+      color: var(--zinc-400);
+      margin-top: 2px;
+    }
+
+    /* ── Responsive ─────────────────────────── */
+    @media (max-width: 768px) {
+      .blog-layout {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+      .article-meta__title {
+        font-size: 22px;
+      }
+      .article-hero {
+        height: 200px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="blog-header">
+    <div class="blog-header__inner">
+      <a href="#" class="blog-header__logo">Kaze Blog</a>
+      <nav class="blog-header__nav">
+        <a href="#">プロダクト</a>
+        <a href="#">エンジニアリング</a>
+        <a href="#">デザイン</a>
+        <a href="#">カルチャー</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main -->
+  <div class="blog-layout">
+
+    <!-- Article -->
+    <article>
+      <div class="article-meta">
+        <span class="article-meta__category">プロダクト</span>
+        <h1 class="article-meta__title">効率的なチーム運営のための5つのヒント</h1>
+        <div class="article-meta__info">
+          <div class="article-meta__avatar">TN</div>
+          <div>
+            <span class="article-meta__author">田中 美咲</span>
+            <span>&middot; 2025年2月20日 &middot; 8分で読めます</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="article-hero">&#128221;</div>
+
+      <div class="article-body">
+        <p>
+          リモートワークが普及した今、チームのコラボレーションを効率化する方法はこれまで以上に重要になっています。本記事では、実際にKazeチームで実践している5つのヒントをご紹介します。
+        </p>
+
+        <h2>1. 非同期コミュニケーションを基本にする</h2>
+        <p>
+          すべてのやり取りをリアルタイムで行う必要はありません。ドキュメントやタスク管理ツールを活用し、各メンバーが自分のペースで情報をキャッチアップできる環境を整えましょう。
+        </p>
+        <blockquote>
+          「会議を減らし、ドキュメントを増やす。それだけでチームの生産性は大きく変わります。」
+        </blockquote>
+
+        <h2>2. 明確なゴールと期待値を設定する</h2>
+        <p>
+          プロジェクトの開始時に、何を達成するのか、いつまでに完了させるのかを明確にします。OKR（Objectives and Key Results）の手法を取り入れることで、チーム全体の方向性を合わせることができます。
+        </p>
+        <ul>
+          <li><strong>Objective:</strong> 定性的で野心的な目標</li>
+          <li><strong>Key Result:</strong> 定量的で測定可能な成果指標</li>
+          <li><strong>Initiative:</strong> 具体的なアクションプラン</li>
+        </ul>
+
+        <h2>3. 定期的なふりかえりを実施する</h2>
+        <p>
+          週次または隔週でレトロスペクティブを行い、うまくいったこと・改善すべきことを率直に話し合いましょう。心理的安全性を確保することが、率直なフィードバックの前提条件です。
+        </p>
+
+        <h2>4. ツールを統一し、情報のサイロ化を防ぐ</h2>
+        <p>
+          プロジェクト管理、コミュニケーション、ドキュメント管理のツールをチーム内で統一しましょう。ツールが分散すると、情報の見落としや二重作業が発生しやすくなります。
+        </p>
+
+        <h3>推奨ツールスタック</h3>
+        <p>
+          Kazeチームでは <code>Linear</code> でタスク管理、<code>Notion</code> でドキュメント、<code>Slack</code> でコミュニケーションを統一しています。大切なのはツール自体よりも、使い方のルールを決めることです。
+        </p>
+
+        <h2>5. 1on1を習慣化する</h2>
+        <p>
+          マネージャーとメンバーの間で定期的な1on1を実施することで、個人の課題やキャリアについての対話を促進できます。15〜30分の短い時間でも、継続することに意味があります。
+        </p>
+        <p>
+          以上の5つのヒントを参考に、ぜひ皆さんのチームでも実践してみてください。小さな改善の積み重ねが、大きな変化につながります。
+        </p>
+
+        <div class="article-tags">
+          <span class="article-tags__item">チーム運営</span>
+          <span class="article-tags__item">リモートワーク</span>
+          <span class="article-tags__item">生産性</span>
+          <span class="article-tags__item">マネジメント</span>
+          <span class="article-tags__item">OKR</span>
+        </div>
+      </div>
+    </article>
+
+    <!-- Sidebar -->
+    <aside>
+      <div class="sidebar-section">
+        <h3 class="sidebar-section__title">著者</h3>
+        <div class="author-card">
+          <div class="author-card__avatar">TN</div>
+          <div class="author-card__name">田中 美咲</div>
+          <div class="author-card__role">プロダクトマネージャー</div>
+          <div class="author-card__bio">
+            SaaS企業でPMを務め、チームビルディングとプロダクト戦略を担当。趣味はランニングとコーヒー。
+          </div>
+        </div>
+      </div>
+
+      <div class="sidebar-section">
+        <h3 class="sidebar-section__title">目次</h3>
+        <div class="toc">
+          <ol class="toc__list">
+            <li><a href="#">1. 非同期コミュニケーションを基本にする</a></li>
+            <li><a href="#">2. 明確なゴールと期待値を設定する</a></li>
+            <li><a href="#">3. 定期的なふりかえりを実施する</a></li>
+            <li><a href="#">4. ツールを統一し、情報のサイロ化を防ぐ</a></li>
+            <li><a href="#">5. 1on1を習慣化する</a></li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="sidebar-section">
+        <h3 class="sidebar-section__title">関連記事</h3>
+        <ul class="related-list">
+          <li>
+            <a href="#">リモートチームのための心理的安全性ガイド</a>
+            <div class="related-list__date">2025年2月15日</div>
+          </li>
+          <li>
+            <a href="#">OKR導入の失敗パターンと対策</a>
+            <div class="related-list__date">2025年2月8日</div>
+          </li>
+          <li>
+            <a href="#">エンジニアリングマネージャーの1on1テンプレート</a>
+            <div class="related-list__date">2025年1月28日</div>
+          </li>
+        </ul>
+      </div>
+    </aside>
+
+  </div>
+
+</body>
+</html>

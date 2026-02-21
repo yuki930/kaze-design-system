@@ -1,0 +1,141 @@
+/* ── HelpPage ─────────────────────────────────────────────── */
+
+.page {
+  min-height: 100dvh;
+  background: var(--color-bg);
+}
+
+/* ── Search hero ─────────────────────────────────────────── */
+
+.searchHero {
+  text-align: center;
+}
+
+.searchHeroInner {
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.searchBox {
+  position: relative;
+}
+
+.searchIcon {
+  position: absolute;
+  left: var(--space-4);
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-fg-tertiary);
+  pointer-events: none;
+}
+
+.searchInput {
+  width: 100%;
+  padding: var(--space-3) var(--space-4) var(--space-3) var(--space-10);
+  font-size: var(--font-size-base);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  color: var(--color-fg);
+  outline: none;
+  transition: border-color var(--duration-fast) var(--ease-default),
+              box-shadow var(--duration-fast) var(--ease-default);
+}
+
+.searchInput::placeholder {
+  color: var(--color-fg-tertiary);
+}
+
+.searchInput:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 var(--ring-width) var(--ring-color);
+}
+
+/* ── Content area ────────────────────────────────────────── */
+
+.content {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: var(--space-12) var(--space-6) var(--space-16);
+}
+
+/* ── Category cards ──────────────────────────────────────── */
+
+.catGridSpacing {
+  margin-bottom: var(--space-12);
+}
+
+.catCard {
+  text-align: center;
+  cursor: pointer;
+}
+
+.catIconWrap {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto var(--space-3);
+  font-size: 1.25rem;
+}
+
+/* ── Article list ────────────────────────────────────────── */
+
+.articleList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.articleItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  transition: background var(--duration-fast) var(--ease-default);
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+}
+
+.articleItem:hover {
+  background: var(--color-surface-hover);
+}
+
+.articleIcon {
+  color: var(--color-fg-tertiary);
+  flex-shrink: 0;
+}
+
+.articleTitle {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-fg);
+  flex: 1;
+}
+
+.articleBadge {
+  flex-shrink: 0;
+}
+
+.articleArrow {
+  color: var(--color-fg-tertiary);
+  flex-shrink: 0;
+}
+
+/* ── Contact section ─────────────────────────────────────── */
+
+.contactIcon {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-md);
+  background: var(--color-bg-tertiary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-fg-secondary);
+  margin-bottom: var(--space-3);
+}

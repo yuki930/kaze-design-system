@@ -1,0 +1,216 @@
+/* ── Page shell ────────────────────────────────────────── */
+
+.page {
+  min-height: 100dvh;
+  background: var(--color-bg);
+  position: relative;
+}
+
+/* ── Stats Section ─────────────────────────────────────── */
+
+.statsSection {
+  background: var(--color-primary);
+  padding: var(--space-10) var(--space-4) var(--space-16);
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+[data-theme="dark"] .statsSection {
+  background: var(--color-primary);
+}
+
+.statsInner {
+  max-width: 960px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.statsHeading {
+  font-size: clamp(var(--font-size-3xl), 5vw, 3rem);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-fg-inverse);
+  text-align: center;
+  line-height: var(--line-height-tight);
+  margin-bottom: var(--space-4);
+}
+
+.statsSubtitle {
+  font-size: var(--font-size-base);
+  color: color-mix(in srgb, var(--color-fg-inverse) 80%, transparent);
+  text-align: center;
+  margin-bottom: var(--space-10);
+  line-height: var(--line-height-relaxed);
+}
+
+/* ── Cards Grid ────────────────────────────────────────── */
+
+.cardsGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+}
+
+.statsCard.statsCard {
+  border-radius: var(--radius-2xl);
+  border: none;
+  box-shadow: none;
+  overflow: hidden;
+}
+
+.statsCardWide {
+  grid-column: 1 / -1;
+}
+
+.cardInner {
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-6);
+  text-align: center;
+}
+
+/* ── Card text ─────────────────────────────────────────── */
+
+.cardLabel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-fg);
+  margin-bottom: var(--space-3);
+}
+
+.cardNumber {
+  font-size: clamp(var(--font-size-3xl), 4vw, 2.75rem);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-fg);
+  line-height: 1;
+  margin-bottom: var(--space-3);
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+.cardNumberLg {
+  font-size: clamp(var(--font-size-4xl), 5vw, 3.5rem);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-fg);
+  line-height: 1;
+  margin-bottom: var(--space-3);
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+
+/* ── Card chart area ───────────────────────────────────── */
+
+.cardChart {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+/* ── Mini legend ───────────────────────────────────────── */
+
+.miniLegend {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.miniLegendItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1-5);
+  font-size: var(--font-size-2xs);
+  color: var(--color-fg-secondary);
+  white-space: nowrap;
+}
+
+.miniLegendDot {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-full);
+  flex-shrink: 0;
+}
+
+/* ── Vertical bar chart (decorative) ───────────────────── */
+
+.barChart {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.barLabels {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--font-size-2xs);
+  color: var(--color-fg-tertiary);
+}
+
+.barLabel {
+  width: 24px;
+  text-align: center;
+}
+
+.bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 6px;
+  height: 80px;
+}
+
+.bar {
+  width: 24px;
+  border-radius: 4px 4px 2px 2px;
+  transition: height var(--duration-slow) var(--ease-default);
+}
+
+/* ── Theme toggle (glassmorphism overrides for FAB) ───── */
+
+.themeToggleFab {
+  border: 1px solid color-mix(in srgb, var(--color-fg-inverse) 30%, transparent);
+  background: color-mix(in srgb, var(--color-fg-inverse) 20%, transparent);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  color: var(--color-fg-inverse);
+}
+
+.themeToggleFab:hover {
+  background: color-mix(in srgb, var(--color-fg-inverse) 30%, transparent);
+}
+
+/* ── Responsive ────────────────────────────────────────── */
+
+@media (min-width: 769px) {
+  .cardsGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .cardInner {
+    flex-direction: row;
+    padding: var(--space-8);
+    text-align: left;
+  }
+
+  .barChart {
+    align-items: flex-end;
+  }
+
+  .cardLabel {
+    justify-content: flex-start;
+  }
+
+  .statsSection {
+    padding: var(--space-16) var(--space-6) var(--space-20);
+  }
+}

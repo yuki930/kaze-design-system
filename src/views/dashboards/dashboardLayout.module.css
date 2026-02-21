@@ -1,0 +1,50 @@
+/* ── Shared Dashboard Layout Classes ───────────────────────── */
+
+/* ── Sidebar Footer ────────────────────────────────────────── */
+
+.sidebarFooter {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.sidebarFooterInfo {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+/* ── TopBar Actions ────────────────────────────────────────── */
+
+.topBarActions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+/* ── Table Wrapper (horizontal scroll on mobile) ───────────── */
+
+.tableWrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* ── Chart Header ──────────────────────────────────────────── */
+
+.chartHeader {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+/* ── Responsive ────────────────────────────────────────────── */
+
+@media (min-width: 769px) {
+  .chartHeader {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}

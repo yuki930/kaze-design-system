@@ -1,0 +1,163 @@
+/* ── Login Page Layout ──────────────────────────────────────── */
+
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-bg);
+  padding: var(--space-6);
+  position: relative;
+  overflow: hidden;
+}
+
+/* ── Background Decorations ────────────────────────────────── */
+
+.bgOrbTop {
+  position: absolute;
+  top: -30%;
+  right: -10%;
+  width: 40rem;
+  height: 40rem;
+  border-radius: var(--radius-full);
+  background: var(--color-primary);
+  opacity: 0.03;
+  filter: blur(80px);
+  pointer-events: none;
+}
+
+.bgOrbBottom {
+  position: absolute;
+  bottom: -20%;
+  left: -10%;
+  width: 30rem;
+  height: 30rem;
+  border-radius: var(--radius-full);
+  background: var(--color-primary);
+  opacity: 0.03;
+  filter: blur(80px);
+  pointer-events: none;
+}
+
+/* ── Logo ──────────────────────────────────────────────────── */
+
+.logoWrap {
+  margin-bottom: var(--space-8);
+  position: relative;
+}
+
+/* ── Card ──────────────────────────────────────────────────── */
+
+.card {
+  width: 100%;
+  max-width: 24rem;
+  position: relative;
+}
+
+.cardHeaderCenter {
+  text-align: center;
+}
+
+.subtitle {
+  margin: var(--space-1) 0 0;
+  font-size: var(--font-size-sm);
+  color: var(--color-fg-secondary);
+}
+
+/* ── Social Login ──────────────────────────────────────────── */
+
+.socialRow {
+  display: flex;
+  gap: var(--space-3);
+  margin-bottom: var(--space-5);
+}
+
+.divider {
+  margin-bottom: var(--space-5);
+}
+
+/* ── Form ──────────────────────────────────────────────────── */
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.passwordWrap {
+  position: relative;
+}
+
+.passwordInput {
+  padding-right: var(--space-10);
+}
+
+.passwordToggle {
+  position: absolute;
+  right: var(--space-2);
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border: none;
+  background: transparent;
+  color: var(--color-fg-secondary);
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  transition: color var(--duration-normal) var(--ease-default);
+}
+
+/* ── Remember + Forgot ─────────────────────────────────────── */
+
+.rememberRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.forgotLink {
+  font-size: var(--font-size-sm);
+  color: var(--color-primary);
+  text-decoration: none;
+  font-weight: var(--font-weight-medium);
+  white-space: nowrap;
+}
+
+/* ── Submit ─────────────────────────────────────────────────── */
+
+.submitBtn {
+  margin-top: var(--space-2);
+}
+
+/* ── Footer ────────────────────────────────────────────────── */
+
+.cardFooter {
+  text-align: center;
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--color-border);
+}
+
+.footerText {
+  margin: 0;
+  font-size: var(--font-size-sm);
+  color: var(--color-fg-secondary);
+}
+
+.signupLink {
+  color: var(--color-primary);
+  text-decoration: none;
+  font-weight: var(--font-weight-semibold);
+}
+
+/* ── Copyright ─────────────────────────────────────────────── */
+
+.copyright {
+  margin-top: var(--space-8);
+  font-size: var(--font-size-xs);
+  color: var(--color-fg-tertiary);
+  position: relative;
+}

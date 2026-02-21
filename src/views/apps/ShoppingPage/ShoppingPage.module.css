@@ -1,0 +1,174 @@
+/* ── App shell (mobile-first) ───────────────────────────── */
+
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
+  max-width: 480px;
+  margin: 0 auto;
+  background: var(--color-bg);
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+
+/* ── Header ────────────────────────────────────────────── */
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4) var(--space-4) var(--space-2);
+  flex-shrink: 0;
+}
+
+.headerLeft {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+/* headerTitle: replaced by <Text size="xl" weight="bold"> */
+
+.headerRight {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+/* ── Budget summary ───────────────────────────────────── */
+
+.budgetBar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1-5);
+  padding: 0 var(--space-4) var(--space-3);
+  flex-shrink: 0;
+}
+
+.budgetRow {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+/* budgetLabel: replaced by <Text size="xs" color="subtle"> */
+
+.budgetAmount {
+  font-variant-numeric: tabular-nums;
+}
+
+.budgetMeta {
+  display: flex;
+  justify-content: space-between;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Main scroll ───────────────────────────────────────── */
+
+.main {
+  flex: 1;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 0 var(--space-4) var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+/* ── Add section ───────────────────────────────────────── */
+
+.addSection {
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+}
+
+.addSection input:first-child {
+  flex: 1;
+}
+
+.qtyInput {
+  width: 80px;
+  flex-shrink: 0;
+}
+
+/* ── Filter row ────────────────────────────────────────── */
+
+.filterRow {
+  display: flex;
+  align-items: center;
+}
+
+/* ── Item list ─────────────────────────────────────────── */
+
+.itemList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.itemCard {
+  border-radius: var(--radius-lg);
+}
+
+.itemRow {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-2);
+  padding: var(--space-3);
+}
+
+.itemLeft {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2-5);
+  flex: 1;
+  min-width: 0;
+}
+
+.itemContent {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  min-width: 0;
+  padding-top: 2px;
+  flex: 1;
+}
+
+.itemNameRow {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+/* itemName: typography replaced by <Text size="sm"> */
+
+.itemNameDone {
+  text-decoration: line-through;
+  word-break: break-word;
+}
+
+.itemQty {
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.itemMeta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  flex-wrap: wrap;
+}
+
+/* ── Clear button ──────────────────────────────────────── */
+
+.clearBtn {
+  align-self: center;
+}
+

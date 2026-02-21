@@ -1,0 +1,204 @@
+/* ── Dashboard Page Layout ──────────────────────────────────── */
+
+.heroSection {
+  margin-bottom: var(--space-6);
+}
+
+/* ── Charts Grid (3:1 ratio) ───────────────────────────────── */
+
+.chartsGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+}
+
+/* ── Performance Chart Placeholder ─────────────────────────── */
+
+.chartArea {
+  height: 240px;
+  border-radius: var(--radius-md);
+  background: linear-gradient(
+    180deg,
+    var(--color-positive-light) 0%,
+    var(--color-positive-light) 40%,
+    transparent 100%
+  );
+  position: relative;
+  overflow: hidden;
+}
+
+.chartArea::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    transparent 14%,
+    var(--color-border-subtle) 14%,
+    var(--color-border-subtle) 14.5%,
+    transparent 14.5%,
+    transparent 28.5%,
+    var(--color-border-subtle) 28.5%,
+    var(--color-border-subtle) 29%,
+    transparent 29%,
+    transparent 43%,
+    var(--color-border-subtle) 43%,
+    var(--color-border-subtle) 43.5%,
+    transparent 43.5%,
+    transparent 57%,
+    var(--color-border-subtle) 57%,
+    var(--color-border-subtle) 57.5%,
+    transparent 57.5%,
+    transparent 71.5%,
+    var(--color-border-subtle) 71.5%,
+    var(--color-border-subtle) 72%,
+    transparent 72%,
+    transparent 86%,
+    var(--color-border-subtle) 86%,
+    var(--color-border-subtle) 86.5%,
+    transparent 86.5%
+  );
+}
+
+.chartLine {
+  position: absolute;
+  bottom: 20%;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--color-positive);
+  mask-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    black 5%,
+    black 95%,
+    transparent 100%
+  );
+  clip-path: polygon(
+    0% 80%,
+    10% 70%,
+    20% 60%,
+    30% 55%,
+    40% 65%,
+    50% 40%,
+    60% 30%,
+    70% 35%,
+    80% 20%,
+    90% 15%,
+    100% 10%,
+    100% 100%,
+    0% 100%
+  );
+  height: 60%;
+  bottom: 0;
+  opacity: 0.15;
+}
+
+.chartLinePath {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 100%;
+}
+
+.chartLinePath svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* ── Sector List ───────────────────────────────────────────── */
+
+.sectorList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.sectorItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: var(--font-size-sm);
+}
+
+.sectorLabel {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.sectorDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.sectorDotEmerald {
+  background-color: var(--color-positive);
+}
+
+.sectorDotBlue {
+  background-color: var(--color-info);
+}
+
+.sectorDotPurple {
+  background-color: var(--violet-500);
+}
+
+.sectorDotAmber {
+  background-color: var(--color-warning);
+}
+
+.sectorDotRed {
+  background-color: var(--color-negative);
+}
+
+/* ── Holdings Section ──────────────────────────────────────── */
+
+.holdingsHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.profitPositive {
+  color: var(--color-positive);
+}
+
+.profitNegative {
+  color: var(--color-negative);
+}
+
+.notificationBtn {
+  position: relative;
+}
+
+.notificationDot {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: var(--color-positive);
+  border: 1.5px solid var(--color-surface);
+}
+
+/* ── Tabular Nums ──────────────────────────────────────────── */
+
+.tabularNums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Responsive ────────────────────────────────────────────── */
+
+@media (min-width: 1025px) {
+  .chartsGrid {
+    grid-template-columns: 3fr 1fr;
+  }
+}
+

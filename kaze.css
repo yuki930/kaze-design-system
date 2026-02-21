@@ -1,0 +1,20 @@
+/* ============================================================
+   Kaze (風) Design System
+   Ultra-minimalist CSS design system for data-dense Japanese UI
+
+   Usage:
+     <link rel="stylesheet" href="kaze.css">
+
+   Layers (in order):
+     1. tokens     — Design tokens (colors, spacing, typography)
+     2. reset      — Modern CSS reset & base styles
+     3. components — UI component classes
+     4. utilities  — Utility classes (highest specificity)
+   ============================================================ */
+
+@layer tokens, reset, components, utilities;
+
+@import url("tokens.css") layer(tokens);
+@import url("reset.css") layer(reset);
+@import url("components.css") layer(components);
+@import url("utilities.css") layer(utilities);

@@ -1,0 +1,231 @@
+/* ── App shell (mobile-first) ───────────────────────────── */
+
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
+  max-width: 480px;
+  margin: 0 auto;
+  background: var(--color-bg);
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+
+/* ── Header ────────────────────────────────────────────── */
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4) var(--space-4) var(--space-2);
+  flex-shrink: 0;
+}
+
+.headerLeft {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+/* headerTitle: replaced by <Text size="xl" weight="bold"> */
+
+.headerRight {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+/* ── Search bar ───────────────────────────────────────── */
+
+.searchBar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 0 var(--space-4) var(--space-2);
+  flex-shrink: 0;
+}
+
+.searchInputWrap {
+  flex: 1;
+  position: relative;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-fg-tertiary);
+  pointer-events: none;
+}
+
+.searchInput {
+  padding-left: var(--space-8);
+}
+
+.filterBtnActive {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+/* ── Category tabs ────────────────────────────────────── */
+
+.categoryRow {
+  padding: 0 var(--space-4) var(--space-2);
+  flex-shrink: 0;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* ── Main scroll ───────────────────────────────────────── */
+
+.main {
+  flex: 1;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 0 var(--space-4) var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+/* ── Job list ──────────────────────────────────────────── */
+
+.jobList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2-5);
+}
+
+.jobCard {
+  border-radius: var(--radius-lg);
+}
+
+.jobInner {
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2-5);
+}
+
+/* ── Top row (company + save) ──────────────────────────── */
+
+.jobTopRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.companyRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+.companyName {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.saveBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: none;
+  color: var(--color-fg-tertiary);
+  cursor: pointer;
+  min-width: 44px;
+  min-height: 44px;
+  padding: var(--space-2-5);
+  margin: calc(-1 * var(--space-2)) calc(-1 * var(--space-2)) 0 0;
+  border-radius: var(--radius-md);
+  transition: color var(--duration-fast) var(--ease-default);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.saveBtn:active {
+  color: var(--color-fg-secondary);
+}
+
+.saveBtnActive {
+  color: var(--color-primary);
+}
+
+/* ── Job title ─────────────────────────────────────────── */
+
+.jobTitle {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.newBadge {
+  flex-shrink: 0;
+}
+
+/* ── Salary row (独立・強調) ──────────────────────────── */
+
+.salaryRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1-5);
+}
+
+/* ── Meta row ──────────────────────────────────────────── */
+
+.jobMeta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.metaItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  white-space: nowrap;
+}
+
+/* ── Tags ──────────────────────────────────────────────── */
+
+.tagRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  flex-wrap: wrap;
+}
+
+/* ── Action row (CTA) ──────────────────────────────────── */
+
+.actionRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* ── Filter Dialog ─────────────────────────────────────── */
+
+.filterSection {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-2) 0;
+}
+
+/* filterLabel: replaced by <Text size="sm" weight="semibold"> */
+
+.filterOptions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2-5);
+}
+

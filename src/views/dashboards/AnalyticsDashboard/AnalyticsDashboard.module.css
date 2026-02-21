@@ -1,0 +1,66 @@
+/* ── Analytics Dashboard Layout ────────────────────────────── */
+
+.heroSection {
+  margin-bottom: var(--space-6);
+}
+
+/* ── Charts Row (2:1 ratio) ───────────────────────────────── */
+
+.chartsGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+}
+
+/* ── Traffic Table ────────────────────────────────────────── */
+
+.tableHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+/* ── Rank Badge ───────────────────────────────────────────── */
+
+.rankBadge {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-2xs);
+  font-weight: var(--font-weight-semibold);
+  background: var(--color-bg-tertiary);
+  color: var(--color-fg-secondary);
+  flex-shrink: 0;
+}
+
+/* ── Popular Pages ────────────────────────────────────────── */
+
+.pageTrailing {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-width: 140px;
+}
+
+.progressWrap {
+  min-width: 60px;
+}
+
+/* ── Tabular Nums ─────────────────────────────────────────── */
+
+.tabularNums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Responsive ───────────────────────────────────────────── */
+
+@media (min-width: 1025px) {
+  .chartsGrid {
+    grid-template-columns: 2fr 1fr;
+  }
+}
+

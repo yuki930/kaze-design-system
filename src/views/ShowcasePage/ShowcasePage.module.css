@@ -1,0 +1,318 @@
+/* ── ShowcasePage ─────────────────────────────────────────── */
+
+.page {
+  min-height: 100dvh;
+  background: var(--color-bg);
+}
+
+/* ── Hero overrides ──────────────────────────────────────── */
+
+.heroSection {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--blue-200) 50%, var(--color-bg)) 0%,
+    color-mix(in srgb, var(--violet-200) 40%, var(--color-bg)) 50%,
+    color-mix(in srgb, var(--amber-200) 35%, var(--color-bg)) 100%
+  );
+}
+
+
+/* ── Navbar actions ──────────────────────────────────────── */
+
+.navActions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.iconLink {
+  display: flex;
+  align-items: center;
+}
+
+/* ── Rich Stats Cards ────────────────────────────────────── */
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.statsCardWide {
+  grid-column: 1 / -1;
+}
+
+.statsCardInner {
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-6);
+  text-align: center;
+}
+
+.statsCardText {
+  flex: 1;
+  min-width: 0;
+}
+
+.statsCardLabel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-fg-secondary);
+  margin-bottom: var(--space-2);
+}
+
+.statsCardNumber {
+  font-size: clamp(var(--font-size-3xl), 4vw, 2.75rem);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-fg);
+  line-height: 1;
+  margin-bottom: var(--space-2);
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+
+
+.statsCardChart {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.miniLegend {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.miniLegendItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1-5);
+  font-size: var(--font-size-2xs);
+  color: var(--color-fg-secondary);
+  white-space: nowrap;
+}
+
+.miniLegendDot {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-full);
+  flex-shrink: 0;
+}
+
+/* Palette strip in stats */
+
+.palettePreview {
+  display: flex;
+  flex: 1;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  height: 32px;
+  min-width: 0;
+}
+
+.palettePreviewSwatch {
+  flex: 1;
+  transition: flex var(--duration-fast) var(--ease-default);
+}
+
+.palettePreviewSwatch:hover {
+  flex: 2;
+}
+
+/* Mini bar chart */
+
+.barChart {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.barLabels {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--font-size-2xs);
+  color: var(--color-fg-tertiary);
+}
+
+.barLabel {
+  width: 28px;
+  text-align: center;
+}
+
+.bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 6px;
+  height: 72px;
+}
+
+.bar {
+  width: 28px;
+  border-radius: 4px 4px 2px 2px;
+}
+
+/* ── Sample Pages Grid ───────────────────────────────────── */
+
+.sampleGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+}
+
+.sampleLink {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.sampleCard {
+  height: 100%;
+}
+
+.sampleCardHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.sampleEmoji {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-lg);
+  background: var(--color-bg-tertiary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  flex-shrink: 0;
+}
+
+.sampleFooter {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-top: var(--space-4);
+}
+
+.sampleViewLink {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: var(--font-size-sm);
+  color: var(--color-fg-secondary);
+  font-weight: var(--font-weight-medium);
+}
+
+.showMoreWrap {
+  text-align: center;
+  margin-top: var(--space-8);
+}
+
+/* ── Components Categories ───────────────────────────────── */
+
+.catGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+  margin-bottom: var(--space-10);
+}
+
+.catHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-3);
+}
+
+.catIcon {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+
+.catBar {
+  height: 4px;
+  border-radius: var(--radius-full);
+  background: var(--color-bg-tertiary);
+  overflow: hidden;
+}
+
+.catBarFill {
+  height: 100%;
+  border-radius: var(--radius-full);
+  transition: width var(--duration-slow) var(--ease-default);
+}
+
+.catCta {
+  text-align: center;
+}
+
+
+/* ── Centered section layout ─────────────────────────────── */
+
+.sectionInner {
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+}
+
+.sectionHeading {
+  text-align: center;
+  margin-bottom: var(--space-12);
+}
+
+/* ── CTA button group ────────────────────────────────────── */
+
+.ctaGroup {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+/* ── Responsive ──────────────────────────────────────────── */
+
+@media (min-width: 769px) {
+  .statsGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .statsCardInner {
+    flex-direction: row;
+    padding: var(--space-6) var(--space-8);
+    text-align: left;
+  }
+  .statsCardLabel {
+    justify-content: flex-start;
+  }
+  .barChart {
+    align-items: flex-end;
+  }
+  .sampleGrid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
+  .catGrid {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  }
+}
