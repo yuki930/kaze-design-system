@@ -5,11 +5,11 @@ export type GridColumns = 1 | 2 | 3 | 4 | 5 | 6;
 export type GridGap = "xs" | "sm" | "md" | "lg" | "xl" | (string & {});
 
 const GAP_MAP: Record<string, string> = {
-  xs: "var(--space-1)",
-  sm: "var(--space-2)",
-  md: "var(--space-4)",
-  lg: "var(--space-6)",
-  xl: "var(--space-8)",
+  xs: "0.25rem",
+  sm: "0.5rem",
+  md: "1rem",
+  lg: "1.5rem",
+  xl: "2rem",
 };
 
 export interface GridProps extends HTMLAttributes<HTMLDivElement> {
@@ -31,14 +31,18 @@ const resolveGap = (v: string) => GAP_MAP[v] ?? v;
 
 export const Grid = forwardRef<HTMLDivElement, GridProps>(
   ({ columns, columnsMd, columnsSm, gap, gapMd, gapSm, className, style, ...rest }, ref) => {
+    const resolvedGap = gap != null ? resolveGap(gap) : undefined;
+    const resolvedGapMd = gapMd != null ? resolveGap(gapMd) : undefined;
+    const resolvedGapSm = gapSm != null ? resolveGap(gapSm) : undefined;
+
     const vars: CSSProperties = {
       ...style,
       ...(columns != null ? { "--grid-cols": columns } : {}),
       ...(columnsMd != null ? { "--grid-cols-md": columnsMd } : {}),
       ...(columnsSm != null ? { "--grid-cols-sm": columnsSm } : {}),
-      ...(gap != null ? { "--grid-gap": resolveGap(gap) } : {}),
-      ...(gapMd != null ? { "--grid-gap-md": resolveGap(gapMd) } : {}),
-      ...(gapSm != null ? { "--grid-gap-sm": resolveGap(gapSm) } : {}),
+      ...(resolvedGap != null ? { "--grid-gap": resolvedGap } : {}),
+      ...(resolvedGapMd != null ? { "--grid-gap-md": resolvedGapMd } : {}),
+      ...(resolvedGapSm != null ? { "--grid-gap-sm": resolvedGapSm } : {}),
     } as CSSProperties;
 
     return (
