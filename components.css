@@ -1919,6 +1919,10 @@
   .testimonial-grid { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
 }
 
+@media (min-width: 1024px) {
+  .stats { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
+}
+
 @media (min-width: 768px) {
   .lp-footer__nav { grid-template-columns: repeat(3, 1fr); }
 }
@@ -2380,18 +2384,20 @@
 .grid {
   display: grid;
   grid-template-columns: repeat(var(--grid-cols-sm, var(--grid-cols-md, var(--grid-cols, 3))), 1fr);
-  gap: var(--grid-gap, var(--space-6));
+  gap: var(--grid-gap-sm, var(--grid-gap-md, var(--grid-gap, var(--space-6))));
 }
 
 @media (min-width: 640px) {
   .grid {
     grid-template-columns: repeat(var(--grid-cols-md, var(--grid-cols, 3)), 1fr);
+    gap: var(--grid-gap-md, var(--grid-gap, var(--space-6)));
   }
 }
 
 @media (min-width: 1024px) {
   .grid {
     grid-template-columns: repeat(var(--grid-cols, 3), 1fr);
+    gap: var(--grid-gap, var(--space-6));
   }
 }
 

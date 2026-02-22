@@ -21,16 +21,24 @@ export interface GridProps extends HTMLAttributes<HTMLDivElement> {
   columnsSm?: GridColumns;
   /** Gap between items — semantic token ("sm", "md", etc.) or any CSS value */
   gap?: GridGap;
+  /** Gap at ≤1024px — falls back to gap */
+  gapMd?: GridGap;
+  /** Gap at ≤640px — falls back to gapMd, then gap */
+  gapSm?: GridGap;
 }
 
+const resolveGap = (v: string) => GAP_MAP[v] ?? v;
+
 export const Grid = forwardRef<HTMLDivElement, GridProps>(
-  ({ columns, columnsMd, columnsSm, gap, className, style, ...rest }, ref) => {
+  ({ columns, columnsMd, columnsSm, gap, gapMd, gapSm, className, style, ...rest }, ref) => {
     const vars: CSSProperties = {
       ...style,
       ...(columns != null ? { "--grid-cols": columns } : {}),
       ...(columnsMd != null ? { "--grid-cols-md": columnsMd } : {}),
       ...(columnsSm != null ? { "--grid-cols-sm": columnsSm } : {}),
-      ...(gap != null ? { "--grid-gap": GAP_MAP[gap] ?? gap } : {}),
+      ...(gap != null ? { "--grid-gap": resolveGap(gap) } : {}),
+      ...(gapMd != null ? { "--grid-gap-md": resolveGap(gapMd) } : {}),
+      ...(gapSm != null ? { "--grid-gap-sm": resolveGap(gapSm) } : {}),
     } as CSSProperties;
 
     return (
