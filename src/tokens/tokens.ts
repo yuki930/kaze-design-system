@@ -34,6 +34,12 @@ export const color = {
   info: "var(--color-info)",
   infoLight: "var(--color-info-light)",
   infoFg: "var(--color-info-fg)",
+  accentA: "var(--color-accent-a)",
+  accentALight: "var(--color-accent-a-light)",
+  accentAFg: "var(--color-accent-a-fg)",
+  accentB: "var(--color-accent-b)",
+  accentBLight: "var(--color-accent-b-light)",
+  accentBFg: "var(--color-accent-b-fg)",
 } as const;
 
 export const chart = {
@@ -66,6 +72,7 @@ export const space = {
 } as const;
 
 export const radius = {
+  sharp: "var(--radius-sharp)",
   sm: "var(--radius-sm)",
   md: "var(--radius-md)",
   lg: "var(--radius-lg)",
@@ -75,3 +82,4 @@ export const radius = {
 } as const;
 
 export type Theme = "light" | "dark";
+export type Palette = "warm" | "cool";

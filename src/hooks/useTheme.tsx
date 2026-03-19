@@ -11,15 +11,19 @@ import {
 } from "react";
 
 export type Theme = "light" | "dark" | "system";
+export type Palette = "warm" | "cool";
 
 export interface ThemeContextValue {
   theme: Theme;
   resolvedTheme: "light" | "dark";
   setTheme: (theme: Theme) => void;
   toggleTheme: () => void;
+  palette: Palette;
+  setPalette: (palette: Palette) => void;
 }
 
 const STORAGE_KEY = "kaze-theme";
+const PALETTE_STORAGE_KEY = "kaze-palette";
 
 const ThemeContext = createContext<ThemeContextValue | undefined>(undefined);
 
@@ -44,6 +48,22 @@ function resolveTheme(theme: Theme): "light" | "dark" {
   return theme;
 }
 
+function getStoredPalette(): Palette {
+  if (typeof window === "undefined") return "warm";
+  const stored = localStorage.getItem(PALETTE_STORAGE_KEY);
+  if (stored === "warm" || stored === "cool") return stored;
+  return "warm";
+}
+
+function applyPalette(palette: Palette) {
+  if (typeof document === "undefined") return;
+  if (palette === "cool") {
+    document.documentElement.setAttribute("data-palette", "cool");
+  } else {
+    document.documentElement.removeAttribute("data-palette");
+  }
+}
+
 export interface ThemeProviderProps {
   children: ReactNode;
   defaultTheme?: Theme;
@@ -54,6 +74,7 @@ export function ThemeProvider({
   defaultTheme,
 }: ThemeProviderProps) {
   const [theme, setThemeState] = useState<Theme>(defaultTheme ?? "light");
+  const [palette, setPaletteState] = useState<Palette>("warm");
 
   const [resolvedTheme, setResolvedTheme] = useState<"light" | "dark">(
     defaultTheme === "dark" ? "dark" : "light",
@@ -81,13 +102,25 @@ export function ThemeProvider({
     setTheme(resolvedTheme === "light" ? "dark" : "light");
   }, [resolvedTheme, setTheme]);
 
-  // Read stored theme from localStorage on mount (client-side only)
+  const setPalette = useCallback((newPalette: Palette) => {
+    setPaletteState(newPalette);
+    if (typeof window !== "undefined") {
+      localStorage.setItem(PALETTE_STORAGE_KEY, newPalette);
+    }
+    applyPalette(newPalette);
+  }, []);
+
+  // Read stored theme & palette from localStorage on mount (client-side only)
   useEffect(() => {
     const stored = getStoredTheme();
     if (stored !== (defaultTheme ?? "light")) {
       setThemeState(stored);
     }
     applyTheme(resolveTheme(stored));
+
+    const storedPalette = getStoredPalette();
+    setPaletteState(storedPalette);
+    applyPalette(storedPalette);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Apply theme when theme changes (after initial mount)
@@ -109,8 +142,8 @@ export function ThemeProvider({
   }, [theme, applyTheme]);
 
   const value = useMemo<ThemeContextValue>(
-    () => ({ theme, resolvedTheme, setTheme, toggleTheme }),
-    [theme, resolvedTheme, setTheme, toggleTheme],
+    () => ({ theme, resolvedTheme, setTheme, toggleTheme, palette, setPalette }),
+    [theme, resolvedTheme, setTheme, toggleTheme, palette, setPalette],
   );
 
   return (
