@@ -18,6 +18,19 @@
   --zinc-900: #1c1917;
   --zinc-950: #0c0a09;
 
+  /* ── Color: Cool Slate Scale (purple-tinted) ─────────── */
+  --slate-50:  #f8f8fa;
+  --slate-100: #f0eff4;
+  --slate-200: #e0dfe8;
+  --slate-300: #cccad8;
+  --slate-400: #6b6880;
+  --slate-500: #56536b;
+  --slate-600: #423f57;
+  --slate-700: #302e40;
+  --slate-800: #211f2c;
+  --slate-900: #16141f;
+  --slate-950: #0f0e16;
+
   /* ── Color: Palette (12 hues × 10 shades) ─────────────── */
 
   --red-50:  #fef2f2;  --red-100: #fee2e2;  --red-200: #fecaca;
@@ -79,6 +92,14 @@
   --pink-300: #f9a8d4;  --pink-400: #f472b6;  --pink-500: #ec4899;
   --pink-600: #db2777;  --pink-700: #be185d;  --pink-800: #9d174d;
   --pink-900: #831843;
+
+  /* ── Color: Accent (dual-accent for category tagging) ── */
+  --color-accent-a:     var(--blue-500);
+  --color-accent-a-light: var(--blue-50);
+  --color-accent-a-fg:  var(--blue-600);
+  --color-accent-b:     var(--red-500);
+  --color-accent-b-light: var(--red-50);
+  --color-accent-b-fg:  var(--red-600);
 
   /* ── Color: Semantic ───────────────────────────────────── */
   --color-bg:            #ffffff;
@@ -211,6 +232,7 @@
 
   /* ── Border Radius ─────────────────────────────────────── */
   --radius-none: 0;
+  --radius-sharp: 0px;      /* deliberate zero radius — typographic / tool UI */
   --radius-sm:   0.375rem;  /* 6px */
   --radius-md:   0.5rem;    /* 8px */
   --radius-lg:   0.625rem;  /* 10px — default card */
@@ -218,10 +240,11 @@
   --radius-2xl:  1rem;      /* 16px */
   --radius-full: 9999px;
 
-  /* 3-tier semantic radius (inspired by DaisyUI) */
-  --radius-box:      var(--radius-lg);   /* Card, Modal, Panel */
-  --radius-field:    var(--radius-md);   /* Input, Button, Select */
-  --radius-selector: var(--radius-sm);   /* Checkbox, Toggle, Badge */
+  /* 4-tier semantic radius (inspired by DaisyUI) */
+  --radius-box:      var(--radius-lg);     /* Card, Modal, Panel */
+  --radius-field:    var(--radius-md);     /* Input, Button, Select */
+  --radius-selector: var(--radius-sm);     /* Checkbox, Toggle, Badge */
+  /* --radius-sharp: available for deliberate zero-radius design decisions */
 
   /* ── Shadows — Minimal ─────────────────────────────────── */
   --shadow-none: none;
@@ -322,6 +345,13 @@
   --color-info-fg:        var(--blue-400);      /* Brighter blue for dark bg readability */
   --color-info-strong:    var(--blue-500);
 
+  --color-accent-a:     var(--blue-400);
+  --color-accent-a-light: rgba(59, 130, 246, 0.1);
+  --color-accent-a-fg:  var(--blue-400);
+  --color-accent-b:     var(--red-400);
+  --color-accent-b-light: rgba(239, 68, 68, 0.1);
+  --color-accent-b-fg:  var(--red-400);
+
   --color-overlay:        rgba(0, 0, 0, 0.7);
 
   --shadow-xs:   0 1px 2px rgba(0, 0, 0, 0.2);
@@ -331,6 +361,72 @@
   --shadow-xl:   0 16px 48px rgba(0, 0, 0, 0.5);
 
   --ring-color:  rgba(168, 162, 158, 0.3);
+}
+
+/* ── Cool Palette (slate-based, purple-tinted) ────────────── */
+/* Switch from warm zinc to cool slate via data-palette="cool".
+   Composable with data-theme: works for both light and dark. */
+[data-palette="cool"] {
+  --color-bg:            #ffffff;
+  --color-bg-secondary:  var(--slate-50);
+  --color-bg-tertiary:   var(--slate-100);
+  --color-bg-inverse:    var(--slate-950);
+
+  --color-fg:            var(--slate-950);
+  --color-fg-secondary:  var(--slate-500);
+  --color-fg-tertiary:   var(--slate-400);
+  --color-fg-inverse:    #ffffff;
+  --color-fg-muted:      var(--slate-600);
+
+  --color-border:        var(--slate-200);
+  --color-border-strong: var(--slate-300);
+  --color-border-subtle: var(--slate-100);
+
+  --color-surface:       #ffffff;
+  --color-surface-hover: var(--slate-50);
+  --color-surface-active: var(--slate-100);
+
+  --color-primary:       var(--slate-950);
+  --color-primary-fg:    #ffffff;
+  --color-primary-hover: var(--slate-800);
+
+  --color-secondary:     var(--slate-100);
+  --color-secondary-fg:  var(--slate-900);
+  --color-secondary-hover: var(--slate-200);
+
+  --ring-color:  rgba(107, 104, 128, 0.3);
+}
+
+/* Cool palette × Dark theme */
+[data-palette="cool"][data-theme="dark"] {
+  --color-bg:            var(--slate-950);
+  --color-bg-secondary:  var(--slate-900);
+  --color-bg-tertiary:   var(--slate-800);
+  --color-bg-inverse:    #ffffff;
+
+  --color-fg:            var(--slate-50);
+  --color-fg-secondary:  var(--slate-400);
+  --color-fg-tertiary:   var(--slate-400);
+  --color-fg-inverse:    var(--slate-950);
+  --color-fg-muted:      var(--slate-400);
+
+  --color-border:        var(--slate-800);
+  --color-border-strong: var(--slate-700);
+  --color-border-subtle: var(--slate-900);
+
+  --color-surface:       var(--slate-900);
+  --color-surface-hover: var(--slate-800);
+  --color-surface-active: var(--slate-700);
+
+  --color-primary:       #ffffff;
+  --color-primary-fg:    var(--slate-950);
+  --color-primary-hover: var(--slate-200);
+
+  --color-secondary:     var(--slate-800);
+  --color-secondary-fg:  var(--slate-100);
+  --color-secondary-hover: var(--slate-700);
+
+  --ring-color:  rgba(204, 202, 216, 0.3);
 }
 
 /* ── Dark Theme Fallback (JS-disabled) ────────────────────── */
@@ -386,6 +482,13 @@
     --color-info-light:     rgba(59, 130, 246, 0.1);
     --color-info-fg:        var(--blue-400);
     --color-info-strong:    var(--blue-500);
+
+    --color-accent-a:     var(--blue-400);
+    --color-accent-a-light: rgba(59, 130, 246, 0.1);
+    --color-accent-a-fg:  var(--blue-400);
+    --color-accent-b:     var(--red-400);
+    --color-accent-b-light: rgba(239, 68, 68, 0.1);
+    --color-accent-b-fg:  var(--red-400);
 
     --color-overlay:        rgba(0, 0, 0, 0.7);
 

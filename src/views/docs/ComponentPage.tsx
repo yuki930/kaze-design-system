@@ -1553,7 +1553,7 @@ import { Icon } from "@kaze-ds/react";
       { name: "columns", type: "1 | 2 | 3 | 4 | 5 | 6", default: "3", description: "デスクトップ時のカラム数" },
       { name: "columnsMd", type: "1 | 2 | 3 | 4 | 5 | 6", description: "≤1024px 時のカラム数（省略時は columns を継承）" },
       { name: "columnsSm", type: "1 | 2 | 3 | 4 | 5 | 6", description: "≤640px 時のカラム数（省略時は columnsMd を継承）" },
-      { name: "gap", type: "string", default: "var(--space-6)", description: "アイテム間のギャップ（CSS値）" },
+      { name: "gap", type: "number | string", default: "var(--space-6)", description: "アイテム間のギャップ（space トークン/数値/CSS値）" },
     ],
     usage: `<Grid columns={3} columnsMd={2} columnsSm={1}>
   <Card>...</Card>

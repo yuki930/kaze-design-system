@@ -1,8 +1,18 @@
 import { forwardRef, type CSSProperties, type HTMLAttributes } from "react";
 import { cn } from "@/lib/utils";
+import { space } from "@/tokens/tokens";
 
 export type GridColumns = 1 | 2 | 3 | 4 | 5 | 6;
-export type GridGap = "xs" | "sm" | "md" | "lg" | "xl" | (string & {});
+type SpaceToken = keyof typeof space;
+export type GridGap =
+  | "xs"
+  | "sm"
+  | "md"
+  | "lg"
+  | "xl"
+  | SpaceToken
+  | number
+  | (string & {});
 
 const GAP_MAP: Record<string, string> = {
   xs: "0.25rem",
@@ -19,7 +29,7 @@ export interface GridProps extends HTMLAttributes<HTMLDivElement> {
   columnsMd?: GridColumns;
   /** Column count at ≤640px */
   columnsSm?: GridColumns;
-  /** Gap between items — semantic token ("sm", "md", etc.) or any CSS value */
+  /** Gap between items — semantic token ("sm", "md", etc.), space token (e.g. 4), or any CSS value */
   gap?: GridGap;
   /** Gap at ≤1024px — falls back to gap */
   gapMd?: GridGap;
@@ -27,7 +37,21 @@ export interface GridProps extends HTMLAttributes<HTMLDivElement> {
   gapSm?: GridGap;
 }
 
-const resolveGap = (v: string) => GAP_MAP[v] ?? v;
+const resolveGap = (v: GridGap) => {
+  if (typeof v === "number") {
+    return space[v as SpaceToken] ?? `${v}px`;
+  }
+
+  if (v in GAP_MAP) {
+    return GAP_MAP[v];
+  }
+
+  if (v in space) {
+    return space[v as SpaceToken];
+  }
+
+  return v;
+};
 
 export const Grid = forwardRef<HTMLDivElement, GridProps>(
   ({ columns, columnsMd, columnsSm, gap, gapMd, gapSm, className, style, ...rest }, ref) => {
