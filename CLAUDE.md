@@ -1,7 +1,7 @@
 # CLAUDE.md — Kaze Design System
 
 ## プロジェクト概要
-- **パッケージ名**: `@kaze-ds/react`
+- **パッケージ名**: `kaze-design-system`
 - **GitHub**: https://github.com/yuki930/kaze-design-system
 - **技術スタック**: React 19 + TypeScript + Next.js 16 (App Router) + Storybook 10
 - **デザイン方針**: Zinc ベースのミニマルデザインシステム、日本語組版最適化
