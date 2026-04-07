@@ -174,6 +174,20 @@
   --chart-yellow:   var(--yellow-500);
   --chart-green:    var(--green-500);
 
+  /* Numbered aliases for programmatic access */
+  --chart-1:  var(--chart-blue);
+  --chart-2:  var(--chart-emerald);
+  --chart-3:  var(--chart-amber);
+  --chart-4:  var(--chart-pink);
+  --chart-5:  var(--chart-cyan);
+  --chart-6:  var(--chart-red);
+  --chart-7:  var(--chart-lime);
+  --chart-8:  var(--chart-purple);
+  --chart-9:  var(--chart-orange);
+  --chart-10: var(--chart-teal);
+  --chart-11: var(--chart-yellow);
+  --chart-12: var(--chart-green);
+
   /* ── Typography ────────────────────────────────────────── */
   --font-sans: var(--font-montserrat, "Montserrat"), var(--font-noto-sans-jp, "Noto Sans JP"), -apple-system, BlinkMacSystemFont,
     "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo,
