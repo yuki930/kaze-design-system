@@ -6,4 +6,10 @@ export const CHART_COLORS = [
   "var(--chart-amber)",
   "var(--chart-red)",
   "var(--chart-cyan)",
+  "var(--chart-lime)",
+  "var(--chart-pink)",
+  "var(--chart-orange)",
+  "var(--chart-teal)",
+  "var(--chart-yellow)",
+  "var(--chart-green)",
 ] as const;

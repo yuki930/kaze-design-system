@@ -49,6 +49,12 @@ export const chart = {
   amber: "var(--chart-amber)",
   red: "var(--chart-red)",
   cyan: "var(--chart-cyan)",
+  lime: "var(--chart-lime)",
+  pink: "var(--chart-pink)",
+  orange: "var(--chart-orange)",
+  teal: "var(--chart-teal)",
+  yellow: "var(--chart-yellow)",
+  green: "var(--chart-green)",
 } as const;
 
 export const space = {

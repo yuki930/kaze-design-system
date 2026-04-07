@@ -29,6 +29,9 @@ export type {
 export { Badge } from "./Badge";
 export type { BadgeProps, BadgeVariant } from "./Badge";
 
+export { FilterPill } from "./FilterPill";
+export type { FilterPillProps } from "./FilterPill";
+
 export { Input } from "./Input";
 export type { InputProps } from "./Input";
 
