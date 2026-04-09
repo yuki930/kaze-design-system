@@ -56,3 +56,44 @@ export const NavItem = forwardRef<HTMLElement, NavItemProps>(
 );
 
 NavItem.displayName = "NavItem";
+
+/* ── SidebarGroupLabel ────────────────────────────────────── */
+
+export interface SidebarGroupLabelProps extends HTMLAttributes<HTMLDivElement> {
+  children: ReactNode;
+}
+
+export const SidebarGroupLabel = forwardRef<HTMLDivElement, SidebarGroupLabelProps>(
+  ({ className, children, ...rest }, ref) => {
+    return (
+      <div
+        ref={ref}
+        className={cn("sidebar__group-label", className)}
+        {...rest}
+      >
+        {children}
+      </div>
+    );
+  },
+);
+
+SidebarGroupLabel.displayName = "SidebarGroupLabel";
+
+/* ── SidebarDivider ───────────────────────────────────────── */
+
+export interface SidebarDividerProps extends HTMLAttributes<HTMLDivElement> {}
+
+export const SidebarDivider = forwardRef<HTMLDivElement, SidebarDividerProps>(
+  ({ className, ...rest }, ref) => {
+    return (
+      <div
+        ref={ref}
+        className={cn("sidebar__divider", className)}
+        role="separator"
+        {...rest}
+      />
+    );
+  },
+);
+
+SidebarDivider.displayName = "SidebarDivider";
