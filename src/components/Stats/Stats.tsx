@@ -22,14 +22,19 @@ Stats.displayName = "Stats";
 export interface StatItemProps extends HTMLAttributes<HTMLDivElement> {
   value: string;
   label: string;
+  /** Optional description / sub-text below the label */
+  description?: string;
 }
 
 export const StatItem = forwardRef<HTMLDivElement, StatItemProps>(
-  ({ value, label, className, ...rest }, ref) => {
+  ({ value, label, description, className, ...rest }, ref) => {
     return (
       <div ref={ref} className={cn("stat", className)} {...rest}>
         <span className="stat__value">{value}</span>
         <span className="stat__label">{label}</span>
+        {description && (
+          <span className="stat__description">{description}</span>
+        )}
       </div>
     );
   },
