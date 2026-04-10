@@ -71,6 +71,7 @@ import { Meter } from "@/components/Meter/Meter";
 import { Tracker } from "@/components/Tracker/Tracker";
 import { BarList } from "@/components/BarList/BarList";
 import { NumberField } from "@/components/NumberField/NumberField";
+import { FilterPill } from "@/components/FilterPill/FilterPill";
 import {
   Search as SearchIcon,
   Settings,
@@ -1333,7 +1334,7 @@ import { Icon } from "@kaze-ds/react";
     description: "数値ハイライト",
     preview: (
       <Stats>
-        <StatItem value="24+" label="コンポーネント" />
+        <StatItem value="24+" label="コンポーネント" description="UIライブラリに含まれる総数" />
         <StatItem value="100%" label="TypeScript" />
         <StatItem value="0" label="依存関係" />
       </Stats>
@@ -1341,9 +1342,10 @@ import { Icon } from "@kaze-ds/react";
     props: [
       { name: "value", type: "string", description: "数値（StatItem）" },
       { name: "label", type: "string", description: "ラベル（StatItem）" },
+      { name: "description", type: "string", description: "補足テキスト（StatItem）", default: "—" },
     ],
     usage: `<Stats>
-  <StatItem value="24+" label="コンポーネント" />
+  <StatItem value="24+" label="コンポーネント" description="UIライブラリに含まれる総数" />
   <StatItem value="100%" label="TypeScript" />
 </Stats>`,
   },
@@ -2274,6 +2276,27 @@ import { Icon } from "@kaze-ds/react";
   currency="JPY"
   onChange={(v) => setValue(v)}
 />`,
+  },
+
+  "filter-pill": {
+    title: "FilterPill",
+    description: "フィルター用ピル型トグルボタン",
+    preview: (
+      <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
+        <FilterPill active>すべて</FilterPill>
+        <FilterPill color="#3b82f6" dot>テクノロジー</FilterPill>
+        <FilterPill color="#10b981" dot>デザイン</FilterPill>
+        <FilterPill>マーケティング</FilterPill>
+      </div>
+    ),
+    props: [
+      { name: "active", type: "boolean", default: "false", description: "アクティブ（選択中）状態" },
+      { name: "color", type: "string", description: "アクセントカラー（CSS色値）" },
+      { name: "dot", type: "boolean", default: "false", description: "カラードットインジケータを表示" },
+    ],
+    usage: `<FilterPill active>すべて</FilterPill>
+<FilterPill color="#3b82f6" dot>テクノロジー</FilterPill>
+<FilterPill>マーケティング</FilterPill>`,
   },
 };
 

@@ -26,6 +26,7 @@ const categories: Category[] = [
       { name: "Textarea", path: "textarea", description: "テキストエリア" },
       { name: "Switch", path: "switch", description: "トグルスイッチ" },
       { name: "FormField", path: "form-field", description: "フォームフィールド" },
+      { name: "FilterPill", path: "filter-pill", description: "フィルター用ピルトグル" },
     ],
   },
   {
@@ -124,7 +125,7 @@ export function ComponentsOverview() {
     <div>
       <h1 className={styles.pageTitle}>コンポーネント一覧</h1>
       <p className={styles.pageDescription}>
-        Kaze Design Systemで利用可能な全59コンポーネントをカテゴリ別に紹介します。
+        Kaze Design Systemで利用可能な全60コンポーネントをカテゴリ別に紹介します。
         各コンポーネントをクリックすると、詳細なドキュメントとプレビューを確認できます。
       </p>
 
