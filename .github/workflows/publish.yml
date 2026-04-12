@@ -21,6 +21,15 @@ on:
       - 'kaze.css'
       - 'vite.config.lib.ts'
       - 'tsconfig.build.json'
+      # Test/story files never ship in dist (only dist + root CSS are in
+      # the package's `files` field), so they must not trigger a
+      # release even though they live under src/components.
+      - '!src/components/**/*.stories.tsx'
+      - '!src/components/**/*.test.tsx'
+      - '!src/components/**/*.test.ts'
+      - '!src/hooks/**/*.stories.tsx'
+      - '!src/hooks/**/*.test.tsx'
+      - '!src/hooks/**/*.test.ts'
 
 jobs:
   publish:
