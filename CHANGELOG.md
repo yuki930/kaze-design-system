@@ -12,6 +12,17 @@ Commit prefix determines the next version bump on release:
 - `feat!:`, `fix!:`, `refactor!:` or a commit body containing `BREAKING CHANGE:` → **major** bump
 
 CHANGELOG entries and version bumps are generated automatically by `.github/workflows/publish.yml` on every push to `main` that touches library source files.
+## [0.4.0] - 2026-04-12
+
+### Features
+
+- feat: add Disclosure component and relax useLegendToggle types
+- feat(docs): auto-extract component Props from TypeScript sources
+
+### Other
+
+- ci: drive semver bumps from Conventional Commit prefixes
+- ci: only publish when library source changes + refresh README
 
 ## [0.3.3] - 2026-04-12
 
@@ -34,4 +45,3 @@ Baseline release (initial CHANGELOG). Prior releases are documented via git tags
 
 - `publish.yml` now filters by paths so docs/app/scripts changes never trigger empty npm publishes
 - Semver bump now driven by Conventional Commit prefixes, not fixed patch
-
