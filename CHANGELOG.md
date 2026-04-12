@@ -12,6 +12,14 @@ Commit prefix determines the next version bump on release:
 - `feat!:`, `fix!:`, `refactor!:` or a commit body containing `BREAKING CHANGE:` → **major** bump
 
 CHANGELOG entries and version bumps are generated automatically by `.github/workflows/publish.yml` on every push to `main` that touches library source files.
+## [0.4.1] - 2026-04-12
+
+### Other
+
+- chore: add Storybook stories for 16 previously-uncovered components
+- docs: rewrite Zinc-based intro copy for non-designer audience
+- docs: add sample page links + clearer overview to README
+
 ## [0.4.0] - 2026-04-12
 
 ### Features
@@ -24,6 +32,7 @@ CHANGELOG entries and version bumps are generated automatically by `.github/work
 - ci: drive semver bumps from Conventional Commit prefixes
 - ci: only publish when library source changes + refresh README
 
+## [0.3.3] - 2026-04-12
 ## [0.3.3] - 2026-04-12
 
 Baseline release (initial CHANGELOG). Prior releases are documented via git tags.
