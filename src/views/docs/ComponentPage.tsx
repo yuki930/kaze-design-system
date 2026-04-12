@@ -61,6 +61,8 @@ import { Progress } from "@/components/Progress/Progress";
 import { Switch } from "@/components/Switch/Switch";
 import { Skeleton } from "@/components/Skeleton/Skeleton";
 import { EmptyState } from "@/components/EmptyState/EmptyState";
+import { StatusBadge } from "@/components/StatusBadge/StatusBadge";
+import { HelpButton } from "@/components/HelpButton/HelpButton";
 import { Breadcrumb } from "@/components/Breadcrumb/Breadcrumb";
 import { Pagination } from "@/components/Pagination/Pagination";
 import { Stepper } from "@/components/Stepper/Stepper";
@@ -434,6 +436,49 @@ const componentDocs: Record<string, ComponentDoc> = {
 <Badge variant="negative" solid>エラー</Badge>`,
   },
 
+  "status-badge": {
+    title: "StatusBadge",
+    description:
+      "データ状態（live / stale / missing / manual / loading）を一目で示すバッジ。内部で Badge をラップし、適切な variant・ラベル・role=status を自動付与します。ダッシュボード系 UI で各指標の鮮度表示に最適。",
+    preview: (
+      <div className={styles.previewColumn} style={{ gap: "1rem" }}>
+        <div className={styles.preview}>
+          <StatusBadge status="live" />
+          <StatusBadge status="stale" />
+          <StatusBadge status="missing" />
+          <StatusBadge status="manual" />
+          <StatusBadge status="loading" />
+        </div>
+        <div className={styles.preview}>
+          <StatusBadge status="live" label="リアルタイム" />
+          <StatusBadge status="stale" label="5分前更新" />
+        </div>
+      </div>
+    ),
+    props: [
+      {
+        name: "status",
+        type: '"live" | "stale" | "missing" | "manual" | "loading"',
+        description: "データの状態",
+      },
+      {
+        name: "label",
+        type: "string",
+        description: "デフォルトラベルを上書きする表示テキスト",
+      },
+      {
+        name: "dot",
+        type: "boolean",
+        default: "true",
+        description: "ドットインジケーターを表示するかどうか",
+      },
+    ],
+    usage: `<StatusBadge status="live" />
+<StatusBadge status="stale" />
+<StatusBadge status="missing" />
+<StatusBadge status="live" label="リアルタイム" />`,
+  },
+
   table: {
     title: "Table",
     description: "テーブル",
@@ -718,6 +763,78 @@ const componentDocs: Record<string, ComponentDoc> = {
     usage: `<Tooltip content="ヘルプテキスト">
   <Button>ホバー</Button>
 </Tooltip>`,
+  },
+
+  "help-button": {
+    title: "HelpButton",
+    description:
+      "ラベルの横に配置する「?」ボタン。クリックで詳細説明の popover が開きます。outside click / ESC キーで閉じ、Portal でレンダリングされるためスクロールや z-index の影響を受けません。Tooltip（ホバー起動・一時表示）と異なり、クリックで開閉する永続モードを提供します。",
+    preview: (
+      <div className={styles.previewColumn} style={{ gap: "1rem" }}>
+        <div className={styles.preview} style={{ alignItems: "center", gap: "2rem" }}>
+          <span style={{ display: "inline-flex", alignItems: "center", gap: "0.375rem" }}>
+            AI系リファラル数
+            <HelpButton title="AI系リファラルの判定ロジック" position="bottom">
+              <p>GA4 の sessionSource に以下のドメインが含まれる場合、AI系リファラルとして集計しています。</p>
+              <ul style={{ margin: "0.5rem 0 0 1rem", padding: 0 }}>
+                <li>chatgpt.com</li>
+                <li>perplexity.ai</li>
+                <li>claude.ai</li>
+              </ul>
+            </HelpButton>
+          </span>
+          <span style={{ display: "inline-flex", alignItems: "center", gap: "0.375rem" }}>
+            CVR
+            <HelpButton title="CVR の算出方法" size="sm" position="bottom">
+              <p>CV 数 ÷ セッション数 × 100 で算出しています。</p>
+            </HelpButton>
+          </span>
+        </div>
+      </div>
+    ),
+    props: [
+      {
+        name: "title",
+        type: "string",
+        description: "popover 上部に表示するタイトル",
+      },
+      {
+        name: "children",
+        type: "React.ReactNode",
+        description: "popover の本文（文字列・JSX どちらも可）",
+      },
+      {
+        name: "position",
+        type: '"top" | "bottom" | "left" | "right"',
+        default: '"bottom"',
+        description: "popover の表示位置",
+      },
+      {
+        name: "size",
+        type: '"sm" | "md" | "lg"',
+        default: '"md"',
+        description: "popover の最大幅（sm: 220px, md: 300px, lg: 420px）",
+      },
+      {
+        name: "icon",
+        type: "React.ReactNode",
+        default: '"?"',
+        description: "トリガーボタンに表示するアイコン",
+      },
+      {
+        name: "ariaLabel",
+        type: "string",
+        default: '"ヘルプ"',
+        description: "トリガーボタンの aria-label",
+      },
+    ],
+    usage: `<HelpButton title="AI系リファラルの判定ロジック">
+  <p>GA4 の sessionSource に以下のドメインが含まれる場合...</p>
+  <ul>
+    <li>chatgpt.com</li>
+    <li>perplexity.ai</li>
+  </ul>
+</HelpButton>`,
   },
 
   dropdown: {
@@ -1984,22 +2101,62 @@ import { Icon } from "@kaze-ds/react";
 
   "empty-state": {
     title: "EmptyState",
-    description: "データが存在しない場合に表示する空状態コンポーネント。アイコン・説明・アクション付き。",
+    description:
+      "データが存在しない場合に表示する空状態コンポーネント。sm / md / lg の3サイズに対応し、テーブルセル内の小さな表示からページ全体の大きな表示まで使い分けられます。role=\"status\" が自動付与されます。",
     preview: (
-      <EmptyState
-        icon={<FileX size={48} />}
-        title="データがありません"
-        description="まだデータが登録されていません。新しいアイテムを追加してください。"
-        actions={<Button><Plus size={16} /> 新規作成</Button>}
-      />
+      <div className={styles.previewColumn} style={{ gap: "2rem" }}>
+        <div>
+          <p style={{ fontSize: "0.875rem", fontWeight: 600, marginBottom: "0.5rem" }}>
+            sm（テーブルセル内 / インライン用）
+          </p>
+          <div style={{ border: "1px dashed var(--color-border)", borderRadius: "8px" }}>
+            <EmptyState size="sm" title="データがありません" />
+          </div>
+        </div>
+        <div>
+          <p style={{ fontSize: "0.875rem", fontWeight: 600, marginBottom: "0.5rem" }}>
+            md（セクション内）
+          </p>
+          <div style={{ border: "1px dashed var(--color-border)", borderRadius: "8px" }}>
+            <EmptyState
+              size="md"
+              icon={<FileX size={32} />}
+              title="まだ記事がありません"
+            />
+          </div>
+        </div>
+        <div>
+          <p style={{ fontSize: "0.875rem", fontWeight: 600, marginBottom: "0.5rem" }}>
+            lg（ページ全体）
+          </p>
+          <div style={{ border: "1px dashed var(--color-border)", borderRadius: "8px" }}>
+            <EmptyState
+              size="lg"
+              icon={<FileX size={48} />}
+              title="データがありません"
+              description="まだデータが登録されていません。新しいアイテムを追加してください。"
+              actions={<Button><Plus size={16} /> 新規作成</Button>}
+            />
+          </div>
+        </div>
+      </div>
     ),
     props: [
+      {
+        name: "size",
+        type: '"sm" | "md" | "lg"',
+        default: '"md"',
+        description: "表示サイズ。sm はテーブルセル内、md はセクション、lg はページ全体向け",
+      },
       { name: "icon", type: "React.ReactNode", description: "中央に表示するアイコン" },
-      { name: "title", type: "string", description: "タイトルテキスト" },
-      { name: "description", type: "string", description: "説明テキスト" },
+      { name: "title", type: "string", description: "タイトルテキスト（必須）" },
+      { name: "description", type: "React.ReactNode", description: "説明テキスト" },
       { name: "actions", type: "React.ReactNode", description: "アクションボタンなどの要素" },
     ],
-    usage: `<EmptyState
+    usage: `<EmptyState size="sm" title="データがありません" />
+
+<EmptyState
+  size="lg"
   icon={<FileX size={48} />}
   title="データがありません"
   description="新しいアイテムを追加してください。"

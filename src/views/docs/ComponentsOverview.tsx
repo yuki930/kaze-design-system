@@ -34,6 +34,7 @@ const categories: Category[] = [
     components: [
       { name: "Card", path: "card", description: "カードコンポーネント" },
       { name: "Badge", path: "badge", description: "バッジ" },
+      { name: "StatusBadge", path: "status-badge", description: "データ状態バッジ（live/stale/missing）" },
       { name: "Table", path: "table", description: "テーブル" },
       { name: "Metric", path: "metric", description: "メトリクス表示" },
       { name: "Avatar", path: "avatar", description: "アバター" },
@@ -77,6 +78,7 @@ const categories: Category[] = [
     components: [
       { name: "Dialog", path: "dialog", description: "ダイアログ" },
       { name: "Tooltip", path: "tooltip", description: "ツールチップ" },
+      { name: "HelpButton", path: "help-button", description: "ヘルプポップオーバー（クリック起動）" },
       { name: "Dropdown", path: "dropdown", description: "ドロップダウンメニュー" },
       { name: "CommandPalette", path: "command-palette", description: "コマンドパレット" },
     ],
@@ -125,7 +127,7 @@ export function ComponentsOverview() {
     <div>
       <h1 className={styles.pageTitle}>コンポーネント一覧</h1>
       <p className={styles.pageDescription}>
-        Kaze Design Systemで利用可能な全60コンポーネントをカテゴリ別に紹介します。
+        Kaze Design Systemで利用可能な全62コンポーネントをカテゴリ別に紹介します。
         各コンポーネントをクリックすると、詳細なドキュメントとプレビューを確認できます。
       </p>
 
