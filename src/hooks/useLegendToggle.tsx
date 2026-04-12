@@ -2,13 +2,17 @@
 
 import { useState, useCallback, useMemo, type CSSProperties } from "react";
 
-interface RechartsLegendClickEvent {
-  dataKey?: string | number;
-  value?: string;
-  color?: string;
-  [key: string]: unknown;
-}
-
+/**
+ * Public shape of `legendProps`. The `onClick` and `formatter` signatures
+ * intentionally use `unknown` (rather than a hand-rolled Recharts shim)
+ * so the object is structurally assignable to Recharts' own
+ * `<Legend>` props without needing a peer-dep on `recharts`.
+ *
+ * See kaze-design-system#27 — earlier versions used a narrow custom
+ * `RechartsLegendClickEvent` type which failed to unify with Recharts'
+ * `LegendProps['onClick']`, forcing downstream users to wrap with
+ * `as any`.
+ */
 export interface UseLegendToggleResult {
   /** Whether a given dataKey is currently hidden */
   isHidden: (dataKey: string) => boolean;
@@ -19,11 +23,8 @@ export interface UseLegendToggleResult {
   /** Props to spread onto a Recharts `<Legend />` */
   legendProps: {
     wrapperStyle: CSSProperties;
-    onClick: (e: RechartsLegendClickEvent) => void;
-    formatter: (
-      value: string,
-      entry: { dataKey?: string | number; color?: string },
-    ) => React.ReactNode;
+    onClick: (e: unknown) => void;
+    formatter: (value: string, entry: unknown) => React.ReactNode;
   };
 }
 
@@ -64,21 +65,22 @@ export function useLegendToggle(): UseLegendToggleResult {
         fontSize: 12,
         cursor: "pointer",
       } as CSSProperties,
-      onClick: (e: RechartsLegendClickEvent) => {
-        if (e?.dataKey != null) toggle(String(e.dataKey));
+      onClick: (e: unknown) => {
+        const dataKey = (e as { dataKey?: string | number } | null)?.dataKey;
+        if (dataKey != null) toggle(String(dataKey));
       },
-      formatter: (
-        value: string,
-        entry: { dataKey?: string | number; color?: string },
-      ) => {
-        const key = entry?.dataKey != null ? String(entry.dataKey) : "";
+      formatter: (value: string, entry: unknown) => {
+        const e = entry as
+          | { dataKey?: string | number; color?: string }
+          | null;
+        const key = e?.dataKey != null ? String(e.dataKey) : "";
         const hidden = hiddenSeries.has(key);
         return (
           <span
             style={{
               color: hidden
                 ? "var(--color-fg-tertiary, #a1a1aa)"
-                : entry?.color,
+                : e?.color,
               transition: "color 0.15s ease",
             }}
           >

@@ -71,6 +71,7 @@ const categories: Category[] = [
       { name: "Breadcrumb", path: "breadcrumb", description: "パンくずリスト" },
       { name: "Pagination", path: "pagination", description: "ページネーション" },
       { name: "Stepper", path: "stepper", description: "ステッパー" },
+      { name: "Disclosure", path: "disclosure", description: "単一項目の展開UI（コラプシブル）" },
     ],
   },
   {
@@ -127,7 +128,7 @@ export function ComponentsOverview() {
     <div>
       <h1 className={styles.pageTitle}>コンポーネント一覧</h1>
       <p className={styles.pageDescription}>
-        Kaze Design Systemで利用可能な全62コンポーネントをカテゴリ別に紹介します。
+        Kaze Design Systemで利用可能な全63コンポーネントをカテゴリ別に紹介します。
         各コンポーネントをクリックすると、詳細なドキュメントとプレビューを確認できます。
       </p>
 

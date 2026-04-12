@@ -63,6 +63,7 @@ import { Skeleton } from "@/components/Skeleton/Skeleton";
 import { EmptyState } from "@/components/EmptyState/EmptyState";
 import { StatusBadge } from "@/components/StatusBadge/StatusBadge";
 import { HelpButton } from "@/components/HelpButton/HelpButton";
+import { Disclosure } from "@/components/Disclosure/Disclosure";
 import { Breadcrumb } from "@/components/Breadcrumb/Breadcrumb";
 import { Pagination } from "@/components/Pagination/Pagination";
 import { Stepper } from "@/components/Stepper/Stepper";
@@ -2236,6 +2237,83 @@ import { Icon } from "@kaze-ds/react";
     { label: "完了" },
   ]}
 />`,
+  },
+
+  disclosure: {
+    title: "Disclosure",
+    description:
+      "単一項目の展開/折りたたみ UI（コラプシブル）。HTML の <details>/<summary> の代替として、ブラウザ間のマーカー位置ズレを解消し、kaze のトークンで余白・色・フォントを統一します。内部的には <button> + 領域分けで構築し、aria-expanded/aria-controls を付与、Escape キーで閉じる操作にも対応。FAQ コンポーネントが複数 Q&A の束であるのに対し、Disclosure はテーブル内の補足やヘルプテキストなど任意の場所に単品で挿入できます。",
+    preview: (
+      <div className={styles.previewColumn} style={{ gap: "1rem" }}>
+        <Disclosure title="ペアカード関連キーワード内訳（直近月）">
+          <p>
+            この項目は GA4 の sessionSource が chatgpt.com / perplexity.ai / claude.ai
+            のいずれかを含む場合に集計されます。
+          </p>
+        </Disclosure>
+        <Disclosure
+          title="詳細オプション"
+          icon="plus"
+          variant="bordered"
+          defaultOpen
+        >
+          <p>変数の値は CSS カスタムプロパティとしてエクスポートされます。</p>
+          <p>テーマ切り替え時は自動で上書きされるため、上書きが必要な場合は :root より詳細度の高いセレクタを使ってください。</p>
+        </Disclosure>
+        <Disclosure
+          title="右側にマーカーを表示"
+          iconPosition="right"
+          variant="ghost"
+          size="sm"
+        >
+          <p>サイズ sm + ghost バリアントで、テーブルセル内の補足にも使えます。</p>
+        </Disclosure>
+      </div>
+    ),
+    props: [
+      { name: "title", type: "ReactNode", description: "常時表示される見出し" },
+      { name: "children", type: "ReactNode", description: "展開時に表示される中身" },
+      { name: "defaultOpen", type: "boolean", default: "false", description: "初期展開状態（uncontrolled）" },
+      { name: "open", type: "boolean", description: "展開状態の制御（controlled）" },
+      { name: "onOpenChange", type: "(open: boolean) => void", description: "開閉時に呼ばれるコールバック" },
+      {
+        name: "icon",
+        type: '"chevron" | "plus" | ReactNode',
+        default: '"chevron"',
+        description: "マーカーアイコン。カスタム ReactNode を渡すと自動回転はオフになります",
+      },
+      {
+        name: "iconPosition",
+        type: '"left" | "right"',
+        default: '"left"',
+        description: "マーカーの表示位置",
+      },
+      {
+        name: "size",
+        type: '"sm" | "md" | "lg"',
+        default: '"md"',
+        description: "トリガー行の密度",
+      },
+      {
+        name: "variant",
+        type: '"default" | "ghost" | "bordered"',
+        default: '"default"',
+        description: "ビジュアル（default: 背景ホバーあり / ghost: 背景なし / bordered: 枠線で囲む）",
+      },
+      { name: "disabled", type: "boolean", default: "false", description: "トリガーを無効化" },
+    ],
+    usage: `<Disclosure title="詳細を見る">
+  <p>補足情報をここに。</p>
+</Disclosure>
+
+<Disclosure
+  title="詳細オプション"
+  icon="plus"
+  variant="bordered"
+  defaultOpen
+>
+  <SomeDetailPanel />
+</Disclosure>`,
   },
 
   radio: {

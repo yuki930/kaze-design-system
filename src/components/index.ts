@@ -39,6 +39,15 @@ export type {
   HelpButtonSize,
 } from "./HelpButton";
 
+export { Disclosure } from "./Disclosure";
+export type {
+  DisclosureProps,
+  DisclosureIcon,
+  DisclosureIconPosition,
+  DisclosureSize,
+  DisclosureVariant,
+} from "./Disclosure";
+
 export { FilterPill } from "./FilterPill";
 export type { FilterPillProps } from "./FilterPill";
 

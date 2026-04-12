@@ -1079,6 +1079,66 @@ Docs: https://kaze-design-system.vercel.app/docs/components/stepper
 />
 ```
 
+#### Disclosure
+
+単一項目の展開/折りたたみ UI（コラプシブル）。HTML の <details>/<summary> の代替として、ブラウザ間のマーカー位置ズレを解消し、kaze のトークンで余白・色・フォントを統一します。内部的には <button> + 領域分けで構築し、aria-expanded/aria-controls を付与、Escape キーで閉じる操作にも対応。FAQ コンポーネントが複数 Q&A の束であるのに対し、Disclosure はテーブル内の補足やヘルプテキストなど任意の場所に単品で挿入できます。
+
+Docs: https://kaze-design-system.vercel.app/docs/components/disclosure
+
+**Props**
+
+- `title`: `ReactNode`
+  - Always-visible label on the trigger row
+- `children`: `ReactNode`
+  - Content shown when the disclosure is expanded
+- `defaultOpen?`: `boolean`
+  - Default: `false`
+  - Initial expanded state (uncontrolled)
+- `open?`: `boolean`
+  - Controlled expanded state
+- `onOpenChange?`: `(open: boolean) => void`
+  - Called when the expanded state changes
+- `icon?`: `"chevron" | "plus" | ReactNode`
+  - Default: `"chevron"`
+  - Marker icon. Use `"chevron"` (default) or `"plus"` for the built-in
+icons, or pass any ReactNode for a custom marker. Custom markers are
+not auto-rotated.
+- `iconPosition?`: `"left" | "right"`
+  - Default: `"left"`
+  - Which side the marker appears on
+- `size?`: `"sm" | "md" | "lg"`
+  - Default: `"md"`
+  - Trigger row density
+- `variant?`: `"default" | "ghost" | "bordered"`
+  - Default: `"default"`
+  - Visual treatment
+- `className?`: `string`
+  - Additional class on the root wrapper
+- `triggerClassName?`: `string`
+  - Additional class on the trigger button
+- `contentClassName?`: `string`
+  - Additional class on the content region
+- `disabled?`: `boolean`
+  - Default: `false`
+  - Disables the trigger
+
+**Usage**
+
+```tsx
+<Disclosure title="詳細を見る">
+  <p>補足情報をここに。</p>
+</Disclosure>
+
+<Disclosure
+  title="詳細オプション"
+  icon="plus"
+  variant="bordered"
+  defaultOpen
+>
+  <SomeDetailPanel />
+</Disclosure>
+```
+
 ### オーバーレイ
 
 #### Dialog

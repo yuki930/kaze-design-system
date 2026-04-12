@@ -2,7 +2,7 @@
 
 > Zinc-based minimal design system optimized for Japanese typography and financial UI
 
-kaze-design-system is a React 19 + TypeScript design system with 62 components. It is Zinc-based, optimized for Japanese typography (PALT enabled globally), uses CSS custom properties for theming (light/dark via `data-theme` attribute), and ships as ESM with peer dependencies on react, react-dom, and lucide-react.
+kaze-design-system is a React 19 + TypeScript design system with 63 components. It is Zinc-based, optimized for Japanese typography (PALT enabled globally), uses CSS custom properties for theming (light/dark via `data-theme` attribute), and ships as ESM with peer dependencies on react, react-dom, and lucide-react.
 
 ## Installation
 
@@ -71,6 +71,7 @@ import { Button, Card, Badge } from "kaze-design-system";
 - [Breadcrumb](https://kaze-design-system.vercel.app/docs/components/breadcrumb): 現在のページ位置を階層的に表示するパンくずリストコンポーネント。
 - [Pagination](https://kaze-design-system.vercel.app/docs/components/pagination): ページ分割されたコンテンツをナビゲートするページネーションコンポーネント。
 - [Stepper](https://kaze-design-system.vercel.app/docs/components/stepper): 複数ステップの進行状況を表示するステッパーコンポーネント。ウィザードやフォームに最適。
+- [Disclosure](https://kaze-design-system.vercel.app/docs/components/disclosure): 単一項目の展開/折りたたみ UI（コラプシブル）。HTML の <details>/<summary> の代替として、ブラウザ間のマーカー位置ズレを解消し、kaze のトークンで余白・色・フォントを統一します。内部的には <button> + 領域分けで構築し、aria-expanded/aria-controls を付与、Escape キーで閉じる操作にも対応。FAQ コンポーネントが複数 Q&A の束であるのに対し、Disclosure はテーブル内の補足やヘルプテキストなど任意の場所に単品で挿入できます。
 
 ### オーバーレイ
 
