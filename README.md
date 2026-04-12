@@ -3,11 +3,49 @@
 [![npm version](https://img.shields.io/npm/v/kaze-design-system)](https://www.npmjs.com/package/kaze-design-system)
 [![GitHub](https://img.shields.io/github/license/yuki930/kaze-design-system)](https://github.com/yuki930/kaze-design-system/blob/main/LICENSE)
 
-Zinc ベースのミニマルデザインシステム。日本語組版に最適化。React 19 + TypeScript、62 コンポーネント、ライト/ダーク両対応。
+**Kaze (風)** は、日本語アプリと金融・管理画面向けに作られた React 用ミニマルデザインシステムです。Tailwind CSS v4 の Zinc パレット（温かみのあるニュートラルグレー）をベースに、63 のコンポーネント、ライト/ダークテーマ、日本語組版最適化（PALT・行間・和欧混植）を 1 パッケージで提供します。
 
-- **Docs**: https://kaze-design-system.vercel.app/docs/components
-- **npm**: https://www.npmjs.com/package/kaze-design-system
-- **GitHub**: https://github.com/yuki930/kaze-design-system
+- 🎨 **63 コンポーネント** — フォーム、テーブル、チャート、ダッシュボード UI、ランディングページ、マーケティングパーツまで
+- 🌏 **日本語組版に最適化** — PALT グローバル適用、和欧混植、括弧ツメ、適切な line-height
+- 🌓 **ライト / ダーク両対応** — `data-theme` 属性で切替、`prefers-color-scheme` 連動
+- 🎯 **素の CSS + カスケードレイヤー** — `@layer tokens, reset, components, utilities` でカスケード管理、Tailwind/CSS-in-JS 不要
+- 📦 **ESM only + Tree-shakeable** — React 19 + TypeScript、peer deps は `react`, `react-dom`, `lucide-react` のみ
+- 🤖 **AI フレンドリー** — [`/llms.txt`](https://kaze-design-system.vercel.app/llms.txt) で全コンポーネント API を 1 ファイル配信
+
+## 🚀 Links
+
+| | |
+|---|---|
+| **ライブプレビュー (ショーケース)** | https://kaze-design-system.vercel.app |
+| **コンポーネントドキュメント** | https://kaze-design-system.vercel.app/docs/components |
+| **サンプルページギャラリー** | https://kaze-design-system.vercel.app/gallery |
+| **npm パッケージ** | https://www.npmjs.com/package/kaze-design-system |
+| **GitHub** | https://github.com/yuki930/kaze-design-system |
+
+## 🖼 Live Examples
+
+実際のアプリケーション/ページ単位のサンプル実装。Vercel にデプロイされています:
+
+### ダッシュボード / 管理画面
+- [**分析ダッシュボード**](https://kaze-design-system.vercel.app/dashboard) — メトリック、チャート、テーブル組み合わせ
+- [**Analytics**](https://kaze-design-system.vercel.app/analytics) — KPI 一覧、BarList、Tracker
+- [**SaaS Stats**](https://kaze-design-system.vercel.app/saas-stats) — SaaS 系ダッシュボード
+- [**EC ダッシュボード**](https://kaze-design-system.vercel.app/ec-dashboard) — EC 管理画面
+- [**設定画面**](https://kaze-design-system.vercel.app/settings) — フォーム・FormField 活用例
+
+### ランディング・マーケティング
+- [**LP (SaaS)**](https://kaze-design-system.vercel.app/lp) — Hero, Features, Pricing, Testimonial, FAQ, CTA
+- [**LP 2**](https://kaze-design-system.vercel.app/lp2) — 異なる雰囲気の LP
+- [**Pricing**](https://kaze-design-system.vercel.app/pricing) — 料金プラン
+- [**Blog**](https://kaze-design-system.vercel.app/blog) — 記事一覧・記事詳細
+- [**Jobs**](https://kaze-design-system.vercel.app/jobs) — 求人ページ
+
+### アプリケーション
+- [**Login**](https://kaze-design-system.vercel.app/login) — 認証画面
+- [**Todo**](https://kaze-design-system.vercel.app/todo) — シンプルな Todo アプリ
+- [**Shopping**](https://kaze-design-system.vercel.app/shopping) — EC 商品一覧
+- [**Article**](https://kaze-design-system.vercel.app/article) — 記事ページ
+- [**Help**](https://kaze-design-system.vercel.app/help) — ヘルプセンター
 
 > **ESM only** — このパッケージは ES Modules のみを提供します。
 > `"type": "module"` が設定された環境、または ESM 対応バンドラー（Vite, Next.js, webpack 5+）で使用してください。
@@ -79,7 +117,7 @@ function App() {
 }
 ```
 
-## コンポーネント一覧（62 コンポーネント）
+## コンポーネント一覧（63 コンポーネント）
 
 | カテゴリ | コンポーネント |
 |---|---|
@@ -87,11 +125,13 @@ function App() {
 | **データ表示** | Card, Badge, StatusBadge, Table, Metric, Avatar, BarList, Tracker, Watermark |
 | **チャート** | BarChart, DonutChart, Sparkline |
 | **フィードバック** | Alert, Progress, Meter, Skeleton, EmptyState, Toast |
-| **ナビゲーション** | Tabs, Sidebar, TopBar, Breadcrumb, Pagination, Stepper |
+| **ナビゲーション** | Tabs, Sidebar, TopBar, Breadcrumb, Pagination, Stepper, Disclosure |
 | **オーバーレイ** | Dialog, Tooltip, HelpButton, Dropdown, CommandPalette |
 | **レイアウト** | AppLayout, Divider, Grid, Search, Logo, Icon, Heading, Text |
 | **リスト** | List, DescriptionList, Timeline |
 | **マーケティング** | Navbar, Hero, Section, SplitSection, FeatureGrid, Stats, Pricing, Testimonial, FAQ, CTABanner, LPFooter |
+
+詳細は [kaze-design-system.vercel.app/docs/components](https://kaze-design-system.vercel.app/docs/components) を参照してください。
 
 ## Hooks
 
