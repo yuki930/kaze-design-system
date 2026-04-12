@@ -429,7 +429,7 @@ function main() {
   shortLines.push(`> ${pkg.description}`);
   shortLines.push("");
   shortLines.push(
-    `kaze-design-system is a React 19 + TypeScript design system with ${totalComponents} components. It is Zinc-based, optimized for Japanese typography (PALT enabled globally), uses CSS custom properties for theming (light/dark via \`data-theme\` attribute), and ships as ESM with peer dependencies on react, react-dom, and lucide-react.`,
+    `kaze-design-system is a React 19 + TypeScript design system with ${totalComponents} components. It is built around a warm neutral gray palette, optimized for Japanese typography (PALT enabled globally), uses CSS custom properties for theming (light/dark via \`data-theme\` attribute), and ships as ESM with peer dependencies on react, react-dom, and lucide-react.`,
   );
   shortLines.push("");
   shortLines.push("## Installation");
