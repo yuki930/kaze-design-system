@@ -3,7 +3,7 @@
 [![npm version](https://img.shields.io/npm/v/kaze-design-system)](https://www.npmjs.com/package/kaze-design-system)
 [![GitHub](https://img.shields.io/github/license/yuki930/kaze-design-system)](https://github.com/yuki930/kaze-design-system/blob/main/LICENSE)
 
-**Kaze (風)** は、日本語アプリと金融・管理画面向けに作られた React 用ミニマルデザインシステムです。Tailwind CSS v4 の Zinc パレット（温かみのあるニュートラルグレー）をベースに、63 のコンポーネント、ライト/ダークテーマ、日本語組版最適化（PALT・行間・和欧混植）を 1 パッケージで提供します。
+**Kaze (風)** は、管理画面・ダッシュボード・金融系アプリのための React デザインシステムです。**白と温かみのあるグレーを基調にした静かな配色**と、日本語組版への丁寧な最適化（PALT・和欧混植・読みやすい行間）、そしてコピペで完結する 63 のコンポーネントを 1 パッケージにまとめています。派手な色や装飾ではなく「読みやすさ」「情報密度」「長時間見続けても疲れないこと」を設計の中心に置いています。
 
 - 🎨 **63 コンポーネント** — フォーム、テーブル、チャート、ダッシュボード UI、ランディングページ、マーケティングパーツまで
 - 🌏 **日本語組版に最適化** — PALT グローバル適用、和欧混植、括弧ツメ、適切な line-height

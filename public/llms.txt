@@ -1,6 +1,6 @@
 # kaze-design-system
 
-> Zinc-based minimal design system optimized for Japanese typography and financial UI
+> Minimal React design system for dashboards and Japanese UI — quiet neutral grays, 63 components, light/dark themes, typography tuned for CJK text
 
 kaze-design-system is a React 19 + TypeScript design system with 63 components. It is Zinc-based, optimized for Japanese typography (PALT enabled globally), uses CSS custom properties for theming (light/dark via `data-theme` attribute), and ships as ESM with peer dependencies on react, react-dom, and lucide-react.
 

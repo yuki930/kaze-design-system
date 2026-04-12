@@ -90,8 +90,8 @@ export function TokensPage() {
         すべてのコンポーネントと画面で一貫性を保つために使用されます。
       </p>
 
-      {/* ---- Color: Zinc Scale ---- */}
-      <h2 className={styles.sectionTitle}>カラー: Zinc スケール</h2>
+      {/* ---- Color: Neutral Scale ---- */}
+      <h2 className={styles.sectionTitle}>カラー: ニュートラルスケール（zinc-*）</h2>
       <div className={styles.tokenGrid}>
         {zincColors.map((color) => (
           <div key={color.name} className={styles.tokenCard}>

@@ -1,8 +1,8 @@
 # kaze-design-system — Full API Reference
 
-> Zinc-based minimal design system optimized for Japanese typography and financial UI
+> Minimal React design system for dashboards and Japanese UI — quiet neutral grays, 63 components, light/dark themes, typography tuned for CJK text
 
-Version: 0.3.3
+Version: 0.4.0
 Site: https://kaze-design-system.vercel.app
 Package: kaze-design-system
 

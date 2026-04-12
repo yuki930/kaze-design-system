@@ -420,8 +420,8 @@ export function ShowcasePage() {
                 </div>
                 <div className={styles.statsCardNumber}>12×10</div>
                 <Text size="sm" color="muted">
-                  12色相 × 10階調のカラーパレットと Warm Zinc の中間色。
-                  テーマを切り替えると配色が自動で変わります。
+                  12色相 × 10階調のカラーパレットに、温かみのあるニュートラルグレーの
+                  11段階。テーマを切り替えると配色が自動で変わります。
                 </Text>
               </div>
               <div className={styles.statsCardChart}>
@@ -442,7 +442,7 @@ export function ShowcasePage() {
                   </div>
                   <div className={styles.miniLegendItem}>
                     <span className={styles.miniLegendDot} style={{ background: "var(--color-fg-tertiary)" }} />
-                    <span>Zinc 11段階</span>
+                    <span>ニュートラル 11段階</span>
                   </div>
                 </div>
               </div>

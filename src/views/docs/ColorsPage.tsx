@@ -250,7 +250,7 @@ export function ColorsPage() {
       <h1 className={styles.pageTitle}>カラー</h1>
       <p className={styles.pageDescription}>
         Kaze のカラーシステムは 3層構造で設計されています。12色×10階調のプリミティブパレット、
-        Warm Zinc のニュートラルスケール、そしてテーマ対応のセマンティックトークン。
+        温かみのあるニュートラルグレースケール（`zinc-*`）、そしてテーマ対応のセマンティックトークン。
       </p>
 
       {/* ── Palette ────────────────────────────────────────── */}
@@ -322,7 +322,7 @@ export function ColorsPage() {
       </div>
 
       {/* ── Zinc Scale ─────────────────────────────────────── */}
-      <h2 className={styles.sectionTitle}>Zinc Scale（ニュートラル）</h2>
+      <h2 className={styles.sectionTitle}>ニュートラルスケール（zinc-*）</h2>
       <p style={{ fontSize: "var(--font-size-sm)", color: "var(--color-fg-secondary)", marginBottom: "var(--space-4)" }}>
         Sand-tinted な暖かいグレースケール。セマンティックカラー（bg / fg / border 等）の基盤です。
         11段階（50〜950）。
