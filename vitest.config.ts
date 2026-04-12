@@ -11,6 +11,14 @@ const dirname = typeof __dirname !== 'undefined' ? __dirname : path.dirname(file
 // More info at: https://storybook.js.org/docs/next/writing-tests/integrations/vitest-addon
 export default defineConfig({
   plugins: [react()],
+  // Next.js internals (pulled in by @storybook/nextjs) reference
+  // `process.env.*` at module top level, so we polyfill enough of
+  // `process` for the browser test environment.
+  define: {
+    "process.env.NODE_ENV": JSON.stringify("test"),
+    "process.env.__NEXT_ROUTER_BASEPATH": JSON.stringify(""),
+    "process.env.__NEXT_HAS_REWRITES": JSON.stringify(false),
+  },
   resolve: {
     alias: {
       "@": resolve(__dirname, "src")

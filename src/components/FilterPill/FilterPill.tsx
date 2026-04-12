@@ -12,7 +12,7 @@ export interface FilterPillProps
 }
 
 export const FilterPill = forwardRef<HTMLButtonElement, FilterPillProps>(
-  ({ active, color, dot, className, style, children, ...rest }, ref) => {
+  ({ active = false, color, dot, className, style, children, ...rest }, ref) => {
     const pillStyle: CSSProperties | undefined = color
       ? { ...style, "--filter-pill-color": color } as CSSProperties
       : style;
