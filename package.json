@@ -59,7 +59,9 @@
   ],
   "scripts": {
     "dev": "next dev --turbopack -p 4173",
+    "prebuild": "node scripts/generate-llms.mjs",
     "build": "next build",
+    "docs:llms": "node scripts/generate-llms.mjs",
     "start": "next start",
     "build:lib": "rm -rf dist && vite build --config vite.config.lib.ts && tsc -p tsconfig.build.json",
     "storybook": "storybook dev -p 6006",

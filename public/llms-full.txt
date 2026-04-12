@@ -1,0 +1,1874 @@
+# kaze-design-system — Full API Reference
+
+> Zinc-based minimal design system optimized for Japanese typography and financial UI
+
+Version: 0.3.1
+Site: https://kaze-design-system.vercel.app
+Package: kaze-design-system
+
+## Installation
+
+```bash
+npm install kaze-design-system
+```
+
+Peer dependencies: `react@^19`, `react-dom@^19`, `lucide-react`.
+
+Import CSS once at the app root:
+
+```tsx
+// Option A: all layers (tokens, reset, components, utilities)
+import "kaze-design-system/css/all";
+
+// Option B: pick individual layers
+import "kaze-design-system/css/tokens";
+import "kaze-design-system/css/reset";
+import "kaze-design-system/css/components";
+import "kaze-design-system/css/utilities";
+```
+
+## Theming
+
+Dark mode is controlled via `[data-theme]` attribute on `<html>` or `<body>`, with `prefers-color-scheme` as fallback. Use the `ThemeProvider` and `useTheme` hook for imperative control:
+
+```tsx
+import { ThemeProvider, useTheme } from "kaze-design-system";
+
+function App() {
+  return (
+    <ThemeProvider defaultTheme="system">
+      <YourApp />
+    </ThemeProvider>
+  );
+}
+```
+
+## Components
+
+### フォーム
+
+#### Button
+
+ボタンコンポーネント
+
+Docs: https://kaze-design-system.vercel.app/docs/components/button
+
+**Props**
+
+- `variant`: `"primary" | "secondary" | "outline" | "ghost" | "destructive"`
+  - Default: `"primary"`
+  - ボタンのスタイルバリアント
+- `size`: `"xs" | "sm" | "md" | "lg"`
+  - Default: `"md"`
+  - ボタンのサイズ
+- `fullWidth`: `boolean`
+  - Default: `false`
+  - 幅を100%にするかどうか
+- `iconOnly`: `boolean`
+  - Default: `false`
+  - アイコンのみのボタンにするかどうか
+- `disabled`: `boolean`
+  - Default: `false`
+  - 無効状態にするかどうか
+
+**Usage**
+
+```tsx
+<Button variant="primary" size="md">ボタン</Button>
+```
+
+#### FAB
+
+フローティングアクションボタン
+
+Docs: https://kaze-design-system.vercel.app/docs/components/fab
+
+**Props**
+
+- `label`: `string`
+  - ボタンのアクセシブルラベル（必須）
+- `variant`: `"primary" | "secondary"`
+  - Default: `"primary"`
+  - スタイルバリアント
+- `size`: `"sm" | "md" | "lg"`
+  - Default: `"md"`
+  - ボタンのサイズ
+- `position`: `"bottom-right" | "bottom-left" | "top-right" | "top-left"`
+  - Default: `"bottom-right"`
+  - 配置位置
+- `extended`: `boolean`
+  - Default: `false`
+  - ラベルテキストを表示するかどうか
+
+**Usage**
+
+```tsx
+<FAB label="追加">
+  <PlusIcon />
+</FAB>
+```
+
+#### Input
+
+テキスト入力
+
+Docs: https://kaze-design-system.vercel.app/docs/components/input
+
+**Props**
+
+- `error`: `boolean`
+  - Default: `false`
+  - エラー状態を表示するかどうか
+- `className`: `string`
+  - Default: `undefined`
+  - 追加のCSSクラス名
+
+**Usage**
+
+```tsx
+<Input placeholder="入力してください" />
+```
+
+#### NumberField
+
+通貨対応数値入力
+
+Docs: https://kaze-design-system.vercel.app/docs/components/number-field
+
+**Props**
+
+- `value`: `number | null`
+  - 現在の数値
+- `onChange`: `(value: number | null) => void`
+  - 値変更時のコールバック
+- `currency`: `"JPY" | "USD" | "EUR" | "GBP" | "CNY" | "KRW"`
+  - 通貨コード
+- `min`: `number`
+  - 最小値
+- `max`: `number`
+  - 最大値
+- `step`: `number`
+  - Default: `1`
+  - 増減のステップ値
+- `showStepper`: `boolean`
+  - Default: `true`
+  - 増減ボタンを表示するか
+- `prefix`: `string`
+  - 接頭辞テキスト（通貨で自動設定）
+- `suffix`: `string`
+  - 接尾辞テキスト
+- `label`: `string`
+  - ラベル
+- `error`: `boolean`
+  - Default: `false`
+  - エラー状態
+
+**Usage**
+
+```tsx
+<NumberField
+  label="金額"
+  value={15000}
+  currency="JPY"
+  onChange={(v) => setValue(v)}
+/>
+```
+
+#### Select
+
+セレクトボックス
+
+Docs: https://kaze-design-system.vercel.app/docs/components/select
+
+**Props**
+
+- `error`: `boolean`
+  - Default: `false`
+  - エラー状態を表示するかどうか
+- `children`: `React.ReactNode`
+  - optionエレメント
+
+**Usage**
+
+```tsx
+<Select>
+  <option>選択肢1</option>
+  <option>選択肢2</option>
+</Select>
+```
+
+#### Checkbox
+
+チェックボックス
+
+Docs: https://kaze-design-system.vercel.app/docs/components/checkbox
+
+**Props**
+
+- `label`: `string`
+  - チェックボックスのラベルテキスト
+- `checked`: `boolean`
+  - Default: `false`
+  - 選択状態
+- `onChange`: `(e: ChangeEvent) => void`
+  - 変更時のコールバック
+- `id`: `string`
+  - 要素のID（labelとの紐付けに使用）
+
+**Usage**
+
+```tsx
+<Checkbox label="同意する" />
+```
+
+#### Radio
+
+ラジオボタン
+
+Docs: https://kaze-design-system.vercel.app/docs/components/radio
+
+**Props**
+
+- `label`: `string`
+  - ラジオボタンのラベル
+- `error`: `boolean`
+  - Default: `false`
+  - エラー状態
+
+**Usage**
+
+```tsx
+<RadioGroup label="選択肢">
+  <Radio label="選択肢A" name="choice" value="a" />
+  <Radio label="選択肢B" name="choice" value="b" />
+</RadioGroup>
+```
+
+#### Textarea
+
+テキストエリア
+
+Docs: https://kaze-design-system.vercel.app/docs/components/textarea
+
+**Props**
+
+- `error`: `boolean`
+  - Default: `false`
+  - エラー状態を表示するかどうか
+- `className`: `string`
+  - Default: `undefined`
+  - 追加のCSSクラス名
+
+**Usage**
+
+```tsx
+<Textarea placeholder="メッセージ" />
+```
+
+#### Switch
+
+オン・オフを切り替えるトグルスイッチコンポーネント。ラベル付きで使用可能。
+
+Docs: https://kaze-design-system.vercel.app/docs/components/switch
+
+**Props**
+
+- `label`: `string`
+  - スイッチのラベルテキスト
+- `checked`: `boolean`
+  - 制御モード時のオン・オフ状態
+- `defaultChecked`: `boolean`
+  - Default: `false`
+  - 非制御モード時の初期状態
+- `disabled`: `boolean`
+  - Default: `false`
+  - 無効状態にするかどうか
+- `onChange`: `(checked: boolean) => void`
+  - 状態変更時のコールバック
+
+**Usage**
+
+```tsx
+<Switch label="通知を有効にする" />
+<Switch label="ダークモード" defaultChecked onChange={(v) => console.log(v)} />
+```
+
+#### FormField
+
+フォームフィールド
+
+Docs: https://kaze-design-system.vercel.app/docs/components/form-field
+
+**Props**
+
+- `label`: `string`
+  - フィールドのラベル
+- `description`: `string`
+  - フィールドの説明テキスト
+- `error`: `string`
+  - エラーメッセージ
+- `required`: `boolean`
+  - Default: `false`
+  - 必須フィールドかどうか
+- `maxLength`: `number`
+  - 最大文字数（カウンター表示用）
+- `currentLength`: `number`
+  - 現在の文字数（カウンター表示用）
+
+**Usage**
+
+```tsx
+<FormField label="メール" error="入力してください">
+  <Input />
+</FormField>
+```
+
+#### FilterPill
+
+フィルター用ピル型トグルボタン
+
+Docs: https://kaze-design-system.vercel.app/docs/components/filter-pill
+
+**Props**
+
+- `active`: `boolean`
+  - Default: `false`
+  - アクティブ（選択中）状態
+- `color`: `string`
+  - アクセントカラー（CSS色値）
+- `dot`: `boolean`
+  - Default: `false`
+  - カラードットインジケータを表示
+
+**Usage**
+
+```tsx
+<FilterPill active>すべて</FilterPill>
+<FilterPill color="#3b82f6" dot>テクノロジー</FilterPill>
+<FilterPill>マーケティング</FilterPill>
+```
+
+### データ表示
+
+#### Card
+
+カードコンポーネント
+
+Docs: https://kaze-design-system.vercel.app/docs/components/card
+
+**Props**
+
+- `variant`: `"default" | "fill" | "interactive" | "compact"`
+  - Default: `"default"`
+  - カードのスタイルバリアント
+- `children`: `React.ReactNode`
+  - カードの内容
+- `CardHeader`: `サブコンポーネント`
+  - カードのヘッダー領域
+- `CardTitle`: `サブコンポーネント`
+  - カードのタイトル
+- `CardBody`: `サブコンポーネント`
+  - カードの本文領域
+- `CardFooter`: `サブコンポーネント`
+  - カードのフッター領域
+
+**Usage**
+
+```tsx
+{/* デフォルト（ボーダー付き） */}
+<Card>
+  <CardHeader>
+    <CardTitle>タイトル</CardTitle>
+  </CardHeader>
+  <CardBody>内容</CardBody>
+</Card>
+
+{/* Fill（背景のみ、ボーダーなし） */}
+<Card variant="fill">
+  <CardBody>背景カード</CardBody>
+</Card>
+```
+
+#### Badge
+
+バッジ
+
+Docs: https://kaze-design-system.vercel.app/docs/components/badge
+
+**Props**
+
+- `variant`: `"default" | "positive" | "negative" | "warning" | "info"`
+  - Default: `"default"`
+  - バッジのスタイルバリアント
+- `dot`: `boolean`
+  - Default: `false`
+  - ドットインジケーターを表示するかどうか
+- `solid`: `boolean`
+  - Default: `false`
+  - 反転スタイル（塗り背景 + 白文字）
+
+**Usage**
+
+```tsx
+<Badge variant="positive">成功</Badge>
+<Badge variant="negative" solid>エラー</Badge>
+```
+
+#### StatusBadge
+
+データ状態（live / stale / missing / manual / loading）を一目で示すバッジ。内部で Badge をラップし、適切な variant・ラベル・role=status を自動付与します。ダッシュボード系 UI で各指標の鮮度表示に最適。
+
+Docs: https://kaze-design-system.vercel.app/docs/components/status-badge
+
+**Props**
+
+- `status`: `"live" | "stale" | "missing" | "manual" | "loading"`
+  - データの状態
+- `label`: `string`
+  - デフォルトラベルを上書きする表示テキスト
+- `dot`: `boolean`
+  - Default: `true`
+  - ドットインジケーターを表示するかどうか
+
+**Usage**
+
+```tsx
+<StatusBadge status="live" />
+<StatusBadge status="stale" />
+<StatusBadge status="missing" />
+<StatusBadge status="live" label="リアルタイム" />
+```
+
+#### Table
+
+テーブル
+
+Docs: https://kaze-design-system.vercel.app/docs/components/table
+
+**Props**
+
+- `Table`: `コンポーネント`
+  - テーブルのルート要素
+- `TableHeader`: `サブコンポーネント`
+  - テーブルのヘッダー部分（thead）
+- `TableBody`: `サブコンポーネント`
+  - テーブルの本体部分（tbody）
+- `TableRow`: `サブコンポーネント`
+  - テーブルの行（tr）
+- `TableHead`: `サブコンポーネント`
+  - ヘッダーセル（th）
+- `TableCell`: `サブコンポーネント`
+  - データセル（td）
+
+**Usage**
+
+```tsx
+<Table>
+  <TableHeader>
+    <TableRow>
+      <TableHead>名前</TableHead>
+      <TableHead>メール</TableHead>
+    </TableRow>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>田中太郎</TableCell>
+      <TableCell>tanaka@example.com</TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+```
+
+#### Metric
+
+メトリクス表示
+
+Docs: https://kaze-design-system.vercel.app/docs/components/metric
+
+**Props**
+
+- `label`: `string`
+  - メトリクスのラベル
+- `value`: `string`
+  - 表示する値
+- `change`: `{ value: string; trend: "positive" | "negative" }`
+  - 変化率の表示
+- `large`: `boolean`
+  - Default: `false`
+  - 大きいサイズで表示するかどうか
+
+**Usage**
+
+```tsx
+<Metric label="売上" value="1,234,567" change={{ value: "+12%", trend: "positive" }} />
+```
+
+#### Avatar
+
+アバター
+
+Docs: https://kaze-design-system.vercel.app/docs/components/avatar
+
+**Props**
+
+- `src`: `string`
+  - アバター画像のURL
+- `alt`: `string`
+  - 画像の代替テキスト
+- `fallback`: `string`
+  - 画像がない場合に表示するテキスト（イニシャルなど）
+- `size`: `"sm" | "md" | "lg"`
+  - Default: `"md"`
+  - アバターのサイズ
+
+**Usage**
+
+```tsx
+<Avatar fallback="KZ" size="md" />
+```
+
+#### BarList
+
+ランキングリスト
+
+Docs: https://kaze-design-system.vercel.app/docs/components/bar-list
+
+**Props**
+
+- `data`: `BarListItem[]`
+  - データ配列（必須）
+- `sortOrder`: `"ascending" | "descending" | "none"`
+  - Default: `"descending"`
+  - ソート順
+- `valueFormatter`: `(value: number) => string`
+  - 値のフォーマッタ関数
+
+**Usage**
+
+```tsx
+<BarList
+  data={[
+    { label: "ワイズサーチ", value: 3420 },
+    { label: "トークライン", value: 1280 },
+  ]}
+/>
+```
+
+#### Tracker
+
+時系列ステータス
+
+Docs: https://kaze-design-system.vercel.app/docs/components/tracker
+
+**Props**
+
+- `data`: `TrackerItem[]`
+  - ステータスセグメントの配列（必須）
+- `label`: `string`
+  - アクセシブルラベル
+
+**Usage**
+
+```tsx
+<Tracker
+  data={[
+    { status: "positive", tooltip: "正常" },
+    { status: "warning", tooltip: "遅延" },
+    { status: "negative", tooltip: "障害" },
+  ]}
+  label="サービス稼働状況"
+/>
+```
+
+#### Watermark
+
+透かし表示
+
+Docs: https://kaze-design-system.vercel.app/docs/components/watermark
+
+**Props**
+
+- `text`: `string`
+  - 透かしテキスト（必須）
+- `fontSize`: `number`
+  - Default: `16`
+  - フォントサイズ（px）
+- `rotate`: `number`
+  - Default: `-22`
+  - 回転角度（度）
+- `gap`: `number`
+  - Default: `100`
+  - 透かし間の間隔（px）
+- `opacity`: `number`
+  - Default: `0.08`
+  - 透かしの不透明度
+
+**Usage**
+
+```tsx
+<Watermark text="社外秘">
+  <div>コンテンツ</div>
+</Watermark>
+```
+
+### チャート
+
+#### BarChart
+
+水平棒グラフコンポーネント。データの比較を直感的に表示。
+
+Docs: https://kaze-design-system.vercel.app/docs/components/bar-chart
+
+**Props**
+
+- `data`: `BarChartItem[]`
+  - { label, value, color? } の配列
+- `max`: `number`
+  - 最大値（省略時はデータの最大値）
+- `formatValue`: `(value: number) => string`
+  - 値のフォーマット関数
+
+**Usage**
+
+```tsx
+<BarChart
+  aria-label="フレームワーク別人気度"
+  data={[
+    { label: "React", value: 85 },
+    { label: "Vue", value: 62 },
+  ]}
+  formatValue={(v) => `${v}%`}
+/>
+```
+
+#### DonutChart
+
+SVGベースのドーナツチャート。凡例とセンターラベル付き。
+
+Docs: https://kaze-design-system.vercel.app/docs/components/donut-chart
+
+**Props**
+
+- `data`: `DonutChartSegment[]`
+  - { label, value, color? } の配列
+- `size`: `number`
+  - Default: `120`
+  - SVGのサイズ（px）
+- `strokeWidth`: `number`
+  - Default: `16`
+  - リングの太さ
+- `centerLabel`: `string`
+  - 中央に表示するテキスト
+- `showLegend`: `boolean`
+  - Default: `true`
+  - 凡例を表示するか
+
+**Usage**
+
+```tsx
+<DonutChart
+  aria-label="デバイス別アクセス数"
+  data={[
+    { label: "デスクトップ", value: 4820 },
+    { label: "モバイル", value: 3200 },
+  ]}
+  centerLabel="8,020"
+/>
+```
+
+#### Sparkline
+
+インラインのミニ折れ線グラフ。テーブルやメトリクスの横に配置。
+
+Docs: https://kaze-design-system.vercel.app/docs/components/sparkline
+
+**Props**
+
+- `data`: `number[]`
+  - 数値の配列
+- `width`: `number`
+  - Default: `80`
+  - SVGの幅
+- `height`: `number`
+  - Default: `24`
+  - SVGの高さ
+- `color`: `string`
+  - Default: `var(--chart-emerald)`
+  - 線の色
+- `showArea`: `boolean`
+  - Default: `false`
+  - 塗りつぶしエリアを表示
+
+**Usage**
+
+```tsx
+<Sparkline
+  data={[10, 15, 12, 20, 18, 25]}
+  color="var(--chart-emerald)"
+  showArea
+/>
+```
+
+### フィードバック
+
+#### Alert
+
+ユーザーに重要な情報を伝えるアラートコンポーネント。情報・成功・警告・エラーの4バリアント。
+
+Docs: https://kaze-design-system.vercel.app/docs/components/alert
+
+**Props**
+
+- `variant`: `"info" | "positive" | "warning" | "negative"`
+  - Default: `"info"`
+  - アラートのスタイルバリアント
+- `icon`: `React.ReactNode`
+  - 左側に表示するアイコン
+- `title`: `string`
+  - アラートのタイトル（太字で表示）
+- `children`: `React.ReactNode`
+  - アラートの内容
+
+**Usage**
+
+```tsx
+<Alert variant="info" icon={<Info size={18} />}>
+  新しいバージョンが利用可能です。
+</Alert>
+<Alert variant="positive" icon={<CheckCircle size={18} />}>
+  データが正常に保存されました。
+</Alert>
+<Alert variant="info" icon={<Info size={18} />} title="お知らせ">
+  タイトル付きのアラートです。
+</Alert>
+```
+
+#### Progress
+
+処理の進捗状況を視覚的に表示するプログレスバーコンポーネント。サイズ・カラー・ラベル対応。
+
+Docs: https://kaze-design-system.vercel.app/docs/components/progress
+
+**Props**
+
+- `value`: `number`
+  - 進捗値（0〜100）
+- `size`: `"sm" | "md" | "lg"`
+  - Default: `"md"`
+  - プログレスバーの高さ
+- `color`: `"primary" | "positive" | "warning" | "negative"`
+  - Default: `"primary"`
+  - バーの色
+- `label`: `string`
+  - バーの上に表示するラベルテキスト
+- `showValue`: `boolean`
+  - Default: `false`
+  - パーセンテージ値を表示するかどうか
+
+**Usage**
+
+```tsx
+<Progress value={72} label="アップロード中..." showValue />
+<Progress value={45} color="warning" size="lg" />
+```
+
+#### Meter
+
+メーター（既知範囲の値表示）
+
+Docs: https://kaze-design-system.vercel.app/docs/components/meter
+
+**Props**
+
+- `value`: `number`
+  - 現在の値（必須）
+- `min`: `number`
+  - Default: `0`
+  - 最小値
+- `max`: `number`
+  - Default: `100`
+  - 最大値
+- `label`: `string`
+  - ラベルテキスト
+- `showValue`: `boolean`
+  - Default: `false`
+  - 値を表示するか
+- `color`: `"default" | "positive" | "negative" | "warning" | "info"`
+  - カラーバリアント
+- `warningThreshold`: `number`
+  - Default: `0.7`
+  - 警告しきい値（0-1）
+- `dangerThreshold`: `number`
+  - Default: `0.9`
+  - 危険しきい値（0-1）
+
+**Usage**
+
+```tsx
+<Meter value={75} label="使用率" showValue />
+```
+
+#### Skeleton
+
+コンテンツの読み込み中に表示するスケルトンプレースホルダーコンポーネント。
+
+Docs: https://kaze-design-system.vercel.app/docs/components/skeleton
+
+**Props**
+
+- `width`: `string | number`
+  - 幅（px または %）
+- `height`: `string | number`
+  - 高さ（px）
+- `circle`: `boolean`
+  - Default: `false`
+  - 円形にする（border-radius: 50%）
+
+**Usage**
+
+```tsx
+<Skeleton width="80%" height="1em" />
+<Skeleton circle width={48} height={48} />
+<Skeleton width="100%" height={120} />
+```
+
+#### EmptyState
+
+データが存在しない場合に表示する空状態コンポーネント。sm / md / lg の3サイズに対応し、テーブルセル内の小さな表示からページ全体の大きな表示まで使い分けられます。role="status" が自動付与されます。
+
+Docs: https://kaze-design-system.vercel.app/docs/components/empty-state
+
+**Props**
+
+- `size`: `"sm" | "md" | "lg"`
+  - Default: `"md"`
+  - 表示サイズ。sm はテーブルセル内、md はセクション、lg はページ全体向け
+- `icon`: `React.ReactNode`
+  - 中央に表示するアイコン
+- `title`: `string`
+  - タイトルテキスト（必須）
+- `description`: `React.ReactNode`
+  - 説明テキスト
+- `actions`: `React.ReactNode`
+  - アクションボタンなどの要素
+
+**Usage**
+
+```tsx
+<EmptyState size="sm" title="データがありません" />
+
+<EmptyState
+  size="lg"
+  icon={<FileX size={48} />}
+  title="データがありません"
+  description="新しいアイテムを追加してください。"
+  actions={<Button>新規作成</Button>}
+/>
+```
+
+#### Toast
+
+トースト通知
+
+Docs: https://kaze-design-system.vercel.app/docs/components/toast
+
+**Props**
+
+- `variant`: `"success" | "error" | "warning" | "info"`
+  - トーストの種類
+- `title`: `string`
+  - トーストのタイトル
+- `children`: `React.ReactNode`
+  - トーストの内容
+
+**Usage**
+
+```tsx
+<Toast variant="success" title="保存完了">
+  データが正常に保存されました。
+</Toast>
+```
+
+### ナビゲーション
+
+#### Tabs
+
+タブナビゲーション
+
+Docs: https://kaze-design-system.vercel.app/docs/components/tabs
+
+**Props**
+
+- `active`: `boolean`
+  - Default: `false`
+  - アクティブ状態かどうか（Tab）
+- `onClick`: `() => void`
+  - クリック時のコールバック（Tab）
+- `children`: `React.ReactNode`
+  - タブの内容
+
+**Usage**
+
+```tsx
+<Tabs>
+  <Tab active>タブ1</Tab>
+  <Tab>タブ2</Tab>
+</Tabs>
+```
+
+#### Sidebar
+
+サイドバーナビゲーション
+
+Docs: https://kaze-design-system.vercel.app/docs/components/sidebar
+
+**Props**
+
+- `logo`: `React.ReactNode`
+  - サイドバー上部に表示するロゴ要素
+- `footer`: `React.ReactNode`
+  - サイドバー下部のフッター要素
+- `children`: `React.ReactNode`
+  - ナビゲーション項目など
+
+**Usage**
+
+```tsx
+<Sidebar logo={<Logo />}>
+  <NavItem icon={<Home />} active>ダッシュボード</NavItem>
+  <NavItem icon={<Settings />}>設定</NavItem>
+</Sidebar>
+```
+
+#### TopBar
+
+トップバー
+
+Docs: https://kaze-design-system.vercel.app/docs/components/topbar
+
+**Props**
+
+- `children`: `React.ReactNode`
+  - トップバーの主要コンテンツ（タイトルなど）
+- `actions`: `React.ReactNode`
+  - 右側に表示するアクション要素
+
+**Usage**
+
+```tsx
+<TopBar actions={<Button>新規作成</Button>}>
+  <h2>ダッシュボード</h2>
+</TopBar>
+```
+
+#### Breadcrumb
+
+現在のページ位置を階層的に表示するパンくずリストコンポーネント。
+
+Docs: https://kaze-design-system.vercel.app/docs/components/breadcrumb
+
+**Props**
+
+- `items`: `BreadcrumbItem[]`
+  - パンくずアイテムの配列 { label, href? }
+
+**Usage**
+
+```tsx
+<Breadcrumb
+  items={[
+    { label: "ホーム", href: "/" },
+    { label: "プロジェクト", href: "/projects" },
+    { label: "設定" },
+  ]}
+/>
+```
+
+#### Pagination
+
+ページ分割されたコンテンツをナビゲートするページネーションコンポーネント。
+
+Docs: https://kaze-design-system.vercel.app/docs/components/pagination
+
+**Props**
+
+- `currentPage`: `number`
+  - 現在のページ番号
+- `totalPages`: `number`
+  - 総ページ数
+- `onPageChange`: `(page: number) => void`
+  - ページ変更時のコールバック
+- `siblingCount`: `number`
+  - Default: `1`
+  - 現在のページの前後に表示するページ数
+
+**Usage**
+
+```tsx
+<Pagination
+  currentPage={3}
+  totalPages={10}
+  onPageChange={(page) => setCurrentPage(page)}
+/>
+```
+
+#### Stepper
+
+複数ステップの進行状況を表示するステッパーコンポーネント。ウィザードやフォームに最適。
+
+Docs: https://kaze-design-system.vercel.app/docs/components/stepper
+
+**Props**
+
+- `steps`: `StepperStep[]`
+  - ステップの配列 { label }
+- `currentStep`: `number`
+  - 現在のステップ番号（0始まり）
+
+**Usage**
+
+```tsx
+<Stepper
+  currentStep={2}
+  steps={[
+    { label: "アカウント情報" },
+    { label: "プロフィール設定" },
+    { label: "確認" },
+    { label: "完了" },
+  ]}
+/>
+```
+
+### オーバーレイ
+
+#### Dialog
+
+ダイアログ
+
+Docs: https://kaze-design-system.vercel.app/docs/components/dialog
+
+**Props**
+
+- `open`: `boolean`
+  - ダイアログの表示状態
+- `onClose`: `() => void`
+  - 閉じる時のコールバック
+- `title`: `string`
+  - ダイアログのタイトル
+- `children`: `React.ReactNode`
+  - ダイアログの内容
+
+**Usage**
+
+```tsx
+<Dialog open={isOpen} onClose={() => setOpen(false)} title="確認">
+  <p>本当に削除しますか？</p>
+</Dialog>
+```
+
+#### Tooltip
+
+ツールチップ
+
+Docs: https://kaze-design-system.vercel.app/docs/components/tooltip
+
+**Props**
+
+- `content`: `string`
+  - ツールチップに表示するテキスト
+- `side`: `"top" | "bottom" | "left" | "right"`
+  - Default: `"top"`
+  - ツールチップの表示位置
+- `children`: `React.ReactNode`
+  - トリガーとなる要素
+
+**Usage**
+
+```tsx
+<Tooltip content="ヘルプテキスト">
+  <Button>ホバー</Button>
+</Tooltip>
+```
+
+#### HelpButton
+
+ラベルの横に配置する「?」ボタン。クリックで詳細説明の popover が開きます。outside click / ESC キーで閉じ、Portal でレンダリングされるためスクロールや z-index の影響を受けません。Tooltip（ホバー起動・一時表示）と異なり、クリックで開閉する永続モードを提供します。
+
+Docs: https://kaze-design-system.vercel.app/docs/components/help-button
+
+**Props**
+
+- `title`: `string`
+  - popover 上部に表示するタイトル
+- `children`: `React.ReactNode`
+  - popover の本文（文字列・JSX どちらも可）
+- `position`: `"top" | "bottom" | "left" | "right"`
+  - Default: `"bottom"`
+  - popover の表示位置
+- `size`: `"sm" | "md" | "lg"`
+  - Default: `"md"`
+  - popover の最大幅（sm: 220px, md: 300px, lg: 420px）
+- `icon`: `React.ReactNode`
+  - Default: `"?"`
+  - トリガーボタンに表示するアイコン
+- `ariaLabel`: `string`
+  - Default: `"ヘルプ"`
+  - トリガーボタンの aria-label
+
+**Usage**
+
+```tsx
+<HelpButton title="AI系リファラルの判定ロジック">
+  <p>GA4 の sessionSource に以下のドメインが含まれる場合...</p>
+  <ul>
+    <li>chatgpt.com</li>
+    <li>perplexity.ai</li>
+  </ul>
+</HelpButton>
+```
+
+#### Dropdown
+
+ドロップダウンメニュー
+
+Docs: https://kaze-design-system.vercel.app/docs/components/dropdown
+
+**Props**
+
+- `Dropdown`: `コンポーネント`
+  - ドロップダウンのルート要素
+- `DropdownTrigger`: `サブコンポーネント`
+  - ドロップダウンを開くトリガー要素
+- `DropdownMenu`: `サブコンポーネント`
+  - ドロップダウンのメニューコンテナ
+- `DropdownItem`: `サブコンポーネント`
+  - メニューアイテム
+- `DropdownSeparator`: `サブコンポーネント`
+  - メニューアイテム間のセパレーター
+
+**Usage**
+
+```tsx
+<Dropdown>
+  <DropdownTrigger>
+    <Button>メニュー</Button>
+  </DropdownTrigger>
+  <DropdownMenu>
+    <DropdownItem>項目1</DropdownItem>
+    <DropdownItem>項目2</DropdownItem>
+  </DropdownMenu>
+</Dropdown>
+```
+
+#### CommandPalette
+
+コマンドパレット
+
+Docs: https://kaze-design-system.vercel.app/docs/components/command-palette
+
+**Props**
+
+- `open`: `boolean`
+  - 表示状態
+- `onOpenChange`: `(open: boolean) => void`
+  - 表示状態変更時のコールバック
+- `commands`: `Command[]`
+  - コマンドの配列 { id, label, icon?, group?, onSelect }
+- `placeholder`: `string`
+  - Default: `"コマンドを検索..."`
+  - 検索入力のプレースホルダー
+
+**Usage**
+
+```tsx
+<CommandPalette
+  open={isOpen}
+  onOpenChange={setOpen}
+  commands={[
+    { id: "1", label: "ホーム", onSelect: () => navigate("/") },
+    { id: "2", label: "設定", group: "一般", onSelect: () => navigate("/settings") },
+  ]}
+/>
+```
+
+### レイアウト
+
+#### AppLayout
+
+アプリレイアウト
+
+Docs: https://kaze-design-system.vercel.app/docs/components/layout
+
+**Props**
+
+- `sidebar`: `React.ReactNode`
+  - サイドバー要素
+- `topbar`: `React.ReactNode`
+  - トップバー要素
+- `children`: `React.ReactNode`
+  - メインコンテンツ
+
+**Usage**
+
+```tsx
+<AppLayout
+  sidebar={<Sidebar logo={<Logo />}>...</Sidebar>}
+  topbar={<TopBar>ページタイトル</TopBar>}
+>
+  <p>メインコンテンツ</p>
+</AppLayout>
+```
+
+#### Divider
+
+区切り線
+
+Docs: https://kaze-design-system.vercel.app/docs/components/divider
+
+**Props**
+
+- `text`: `string`
+  - 中央に表示するテキスト（指定するとテキスト付き区切り線になる）
+- `subtle`: `boolean`
+  - Default: `false`
+  - 薄い色のバリアント
+
+**Usage**
+
+```tsx
+<Divider />
+<Divider subtle />
+<Divider text="または" />
+```
+
+#### Grid
+
+レスポンシブ対応のグリッドレイアウト。ブレイクポイントごとのカラム数を prop で制御。
+
+Docs: https://kaze-design-system.vercel.app/docs/components/grid
+
+**Props**
+
+- `columns`: `1 | 2 | 3 | 4 | 5 | 6`
+  - Default: `3`
+  - デスクトップ時のカラム数
+- `columnsMd`: `1 | 2 | 3 | 4 | 5 | 6`
+  - ≤1024px 時のカラム数（省略時は columns を継承）
+- `columnsSm`: `1 | 2 | 3 | 4 | 5 | 6`
+  - ≤640px 時のカラム数（省略時は columnsMd を継承）
+- `gap`: `number | string`
+  - Default: `var(--space-6)`
+  - アイテム間のギャップ（space トークン/数値/CSS値）
+
+**Usage**
+
+```tsx
+<Grid columns={3} columnsMd={2} columnsSm={1}>
+  <Card>...</Card>
+  <Card>...</Card>
+  <Card>...</Card>
+</Grid>
+
+<Grid columns={4} columnsSm={2} gap="var(--space-4)">
+  {items.map(item => <Card key={item.id}>...</Card>)}
+</Grid>
+```
+
+#### Search
+
+検索入力
+
+Docs: https://kaze-design-system.vercel.app/docs/components/search
+
+**Props**
+
+- `placeholder`: `string`
+  - プレースホルダーテキスト
+- `shortcut`: `string`
+  - キーボードショートカットの表示テキスト
+- `onSearch`: `(value: string) => void`
+  - 検索テキスト変更時のコールバック
+- `aria-label`: `string`
+  - アクセシビリティ用のラベル
+
+**Usage**
+
+```tsx
+<Search placeholder="検索..." shortcut="⌘K" onSearch={handleSearch} />
+```
+
+#### Logo
+
+ロゴ
+
+Docs: https://kaze-design-system.vercel.app/docs/components/logo
+
+**Props**
+
+- `size`: `"sm" | "md" | "lg"`
+  - Default: `"md"`
+  - ロゴのサイズ
+- `showText`: `boolean`
+  - Default: `true`
+  - テキスト（kaze 風）を表示するかどうか
+
+**Usage**
+
+```tsx
+<Logo size="md" />
+<Logo size="sm" showText={false} />
+```
+
+#### Icon
+
+アイコン
+
+Docs: https://kaze-design-system.vercel.app/docs/components/icon
+
+**Props**
+
+- `icon`: `LucideIcon`
+  - lucide-react のアイコンコンポーネント
+- `size`: `"xs" | "sm" | "md" | "lg" | "xl"`
+  - Default: `"md"`
+  - アイコンのサイズ（xs=12, sm=14, md=16, lg=20, xl=24）
+- `label`: `string`
+  - アクセシブルラベル（省略時は装飾アイコンとして aria-hidden）
+
+**Usage**
+
+```tsx
+import { Search, Settings } from "lucide-react";
+import { Icon } from "@kaze-ds/react";
+
+<Icon icon={Search} size="md" />
+<Icon icon={Settings} size="lg" label="設定" />
+```
+
+#### Heading
+
+セマンティックな見出しコンポーネント。レベル1〜6、説明テキスト、ボーダー付きに対応。
+
+Docs: https://kaze-design-system.vercel.app/docs/components/heading
+
+**Props**
+
+- `level`: `1 | 2 | 3 | 4 | 5 | 6`
+  - Default: `2`
+  - 見出しレベル（サイズとセマンティクス）
+- `as`: `"h1" | "h2" | ... | "h6"`
+  - レンダリングするHTML要素を上書き
+- `description`: `React.ReactNode`
+  - 見出し下の説明テキスト
+- `bordered`: `boolean`
+  - Default: `false`
+  - 下線ボーダーを表示
+
+**Usage**
+
+```tsx
+<Heading level={1}>大見出し</Heading>
+<Heading level={2} description="補足テキスト">中見出し</Heading>
+<Heading level={3} bordered>ボーダー付き</Heading>
+```
+
+#### Text
+
+汎用テキストコンポーネント。variant / size / weight / color / align を prop で制御。LP や UI で独自 CSS なしにテキストを扱える。
+
+Docs: https://kaze-design-system.vercel.app/docs/components/text
+
+**Props**
+
+- `variant`: `"body" | "lead" | "caption" | "overline"`
+  - Default: `"body"`
+  - テキストの用途別スタイル
+- `size`: `"xs" | "sm" | "base" | "lg" | "xl" | "2xl"`
+  - フォントサイズの上書き
+- `weight`: `"normal" | "medium" | "semibold" | "bold"`
+  - フォントウェイトの上書き
+- `color`: `"default" | "muted" | "subtle" | "inherit" | "primary" | "positive" | "warning" | "negative"`
+  - Default: `"default"`
+  - テキストカラー
+- `align`: `"left" | "center" | "right"`
+  - テキスト揃え
+- `as`: `"p" | "span" | "div" | "label" | "small" | "strong" | "em"`
+  - Default: `"p"`
+  - レンダリングする HTML 要素
+
+**Usage**
+
+```tsx
+<Text variant="lead">サービスの説明文がここに入ります。</Text>
+<Text>通常の本文テキスト。</Text>
+<Text variant="caption" color="muted">2024年1月1日 公開</Text>
+<Text variant="overline">カテゴリ</Text>
+<Text weight="bold" color="primary">重要なテキスト</Text>
+```
+
+### リスト
+
+#### List
+
+アイテム一覧を表示するリストコンポーネント。アイコン・説明・アクション付き。
+
+Docs: https://kaze-design-system.vercel.app/docs/components/list
+
+**Props**
+
+- `divided`: `boolean`
+  - Default: `false`
+  - アイテム間に区切り線を表示（List）
+- `marker`: `"disc" | "decimal" | "none"`
+  - リストマーカーのスタイル（List）
+- `leading`: `React.ReactNode`
+  - 左側のアイコンなど（ListItem）
+- `title`: `React.ReactNode`
+  - アイテムのタイトル（ListItem）
+- `description`: `React.ReactNode`
+  - タイトル下の説明文（ListItem）
+- `trailing`: `React.ReactNode`
+  - 右側の補足テキストやアイコン（ListItem）
+- `interactive`: `boolean`
+  - Default: `false`
+  - ホバーエフェクトを有効化（ListItem）
+
+**Usage**
+
+```tsx
+{/* アイコン付きリスト */}
+<List divided>
+  <ListItem
+    leading={<Star size={16} />}
+    title="お気に入り機能"
+    description="よく使うアイテムをブックマーク"
+    trailing="新着"
+  />
+  <ListItem
+    leading={<Settings size={16} />}
+    title="設定"
+    description="アプリの設定を変更"
+  />
+</List>
+
+{/* 箇条書き */}
+<List marker="disc">
+  <ListItem title="シンプルなテキスト" />
+  <ListItem title="マーカー付き箇条書き" />
+</List>
+
+{/* 番号付き */}
+<List marker="decimal">
+  <ListItem title="手順1" />
+  <ListItem title="手順2" />
+</List>
+```
+
+#### DescriptionList
+
+用語と説明のペアを表示する定義リストコンポーネント。
+
+Docs: https://kaze-design-system.vercel.app/docs/components/description-list
+
+**Props**
+
+- `horizontal`: `boolean`
+  - Default: `false`
+  - 用語と説明を横並びで表示（DescriptionList）
+- `bordered`: `boolean`
+  - Default: `false`
+  - 各項目に下線ボーダーを表示（DescriptionList）
+- `term`: `React.ReactNode`
+  - 用語・ラベル（DescriptionItem）
+- `children`: `React.ReactNode`
+  - 説明・値（DescriptionItem）
+
+**Usage**
+
+```tsx
+{/* 縦並び + ボーダー */}
+<DescriptionList bordered>
+  <DescriptionItem term="プロジェクト名">Kaze Design System</DescriptionItem>
+  <DescriptionItem term="バージョン">v0.1.0</DescriptionItem>
+</DescriptionList>
+
+{/* 横並び */}
+<DescriptionList horizontal>
+  <DescriptionItem term="ラベル">値</DescriptionItem>
+</DescriptionList>
+```
+
+#### Timeline
+
+時系列のイベントを縦に表示するタイムラインコンポーネント。
+
+Docs: https://kaze-design-system.vercel.app/docs/components/timeline
+
+**Props**
+
+- `time`: `string`
+  - タイムスタンプ表示（TimelineItem）
+- `title`: `React.ReactNode`
+  - イベントのタイトル（TimelineItem）
+- `description`: `React.ReactNode`
+  - イベントの詳細説明（TimelineItem）
+- `status`: `"default" | "positive" | "negative" | "info" | "warning"`
+  - Default: `"default"`
+  - ドットの色（TimelineItem）
+
+**Usage**
+
+```tsx
+<Timeline>
+  <TimelineItem
+    time="2026-02-19"
+    title="イベント名"
+    description="詳細説明"
+    status="positive"
+  />
+</Timeline>
+```
+
+### マーケティング
+
+#### Navbar
+
+マーケティングサイト用ナビゲーションバー
+
+Docs: https://kaze-design-system.vercel.app/docs/components/navbar
+
+**Props**
+
+- `logo`: `React.ReactNode`
+  - ロゴ要素
+- `actions`: `React.ReactNode`
+  - 右側のアクション要素
+- `transparent`: `boolean`
+  - Default: `false`
+  - 透明背景にするかどうか
+- `NavbarLinks`: `サブコンポーネント`
+  - ナビリンクのコンテナ
+- `NavbarLink`: `サブコンポーネント`
+  - 個々のナビリンク（active prop 対応）
+
+**Usage**
+
+```tsx
+<Navbar logo={<Logo />} actions={<Button>はじめる</Button>}>
+  <NavbarLinks>
+    <NavbarLink href="/features" active>機能</NavbarLink>
+    <NavbarLink href="/pricing">料金</NavbarLink>
+  </NavbarLinks>
+</Navbar>
+```
+
+#### Hero
+
+ヒーローセクション
+
+Docs: https://kaze-design-system.vercel.app/docs/components/hero
+
+**Props**
+
+- `title`: `string`
+  - メインタイトル
+- `subtitle`: `string`
+  - サブタイトル
+- `badge`: `string`
+  - タイトル上のバッジテキスト
+- `bg`: `string`
+  - 背景色。例: "var(--blue-500)"
+- `bgImage`: `string`
+  - 背景画像 URL または CSS gradient
+- `overlay`: `boolean | number`
+  - 暗めオーバーレイの不透明度。true = 0.5
+- `children`: `React.ReactNode`
+  - CTAボタンなどのアクション要素
+
+**Usage**
+
+```tsx
+<Hero title="メインタイトル" subtitle="説明テキスト" badge="New">
+  <Button>はじめる</Button>
+</Hero>
+
+{/* 背景色付き */}
+<Hero title="タイトル" subtitle="説明" bg="var(--blue-500)">
+  <Button>CTA</Button>
+</Hero>
+
+{/* 背景画像 + オーバーレイ */}
+<Hero title="タイトル" bgImage="url(...)" overlay={0.4}>
+  <Button>CTA</Button>
+</Hero>
+```
+
+#### Section
+
+汎用セクションラッパー
+
+Docs: https://kaze-design-system.vercel.app/docs/components/section
+
+**Props**
+
+- `size`: `"sm" | "md" | "lg"`
+  - Default: `"md"`
+  - 上下パディングのサイズ
+- `background`: `"default" | "muted" | "dark"`
+  - Default: `"default"`
+  - 背景色バリアント
+- `children`: `React.ReactNode`
+  - セクションの内容
+
+**Usage**
+
+```tsx
+<Section size="md" background="muted">
+  <SectionHeader title="タイトル" description="説明" />
+  <FeatureGrid>...</FeatureGrid>
+</Section>
+```
+
+#### SplitSection
+
+画像＋テキストの左右分割レイアウト。LP の交互セクションに最適。
+
+Docs: https://kaze-design-system.vercel.app/docs/components/split-section
+
+**Props**
+
+- `media`: `React.ReactNode`
+  - メディアエリアに表示する要素
+- `mediaBg`: `string`
+  - メディアエリアの背景（CSS gradient / color）
+- `reverse`: `boolean`
+  - Default: `false`
+  - テキスト左・画像右に反転
+- `children`: `React.ReactNode`
+  - テキストエリアの内容
+
+**Usage**
+
+```tsx
+<SplitSection mediaBg="linear-gradient(135deg, #e7e4df, #a8a29e)">
+  <Text variant="overline">Philosophy</Text>
+  <Text size="2xl" weight="bold">見出しテキスト</Text>
+  <Text variant="lead">説明テキスト</Text>
+  <Button variant="outline">詳しく見る</Button>
+</SplitSection>
+
+<SplitSection mediaBg="..." reverse>
+  {/* reverse で左右反転 */}
+</SplitSection>
+```
+
+#### FeatureGrid
+
+機能紹介グリッド
+
+Docs: https://kaze-design-system.vercel.app/docs/components/feature-grid
+
+**Props**
+
+- `columns`: `2 | 3 | 4`
+  - Default: `3`
+  - カラム数
+
+**Usage**
+
+```tsx
+<FeatureGrid columns={3}>
+  <FeatureCard icon={<Zap />} title="高速" description="説明テキスト" />
+</FeatureGrid>
+```
+
+#### Stats
+
+数値ハイライト
+
+Docs: https://kaze-design-system.vercel.app/docs/components/stats
+
+**Props**
+
+- `value`: `string`
+  - 数値（StatItem）
+- `label`: `string`
+  - ラベル（StatItem）
+- `description`: `string`
+  - Default: `—`
+  - 補足テキスト（StatItem）
+
+**Usage**
+
+```tsx
+<Stats>
+  <StatItem value="24+" label="コンポーネント" description="UIライブラリに含まれる総数" />
+  <StatItem value="100%" label="TypeScript" />
+</Stats>
+```
+
+#### Pricing
+
+料金プラン
+
+Docs: https://kaze-design-system.vercel.app/docs/components/pricing
+
+**Props**
+
+- `name`: `string`
+  - プラン名
+- `price`: `string`
+  - 価格
+- `period`: `string`
+  - 課金期間
+- `features`: `string[]`
+  - 機能リスト
+- `featured`: `boolean`
+  - Default: `false`
+  - ハイライト表示
+- `badge`: `string`
+  - バッジテキスト
+
+**Usage**
+
+```tsx
+<PricingGrid>
+  <PricingCard name="Pro" price="¥2,980" period="/月" features={["機能1", "機能2"]} featured badge="おすすめ">
+    <Button fullWidth>選択</Button>
+  </PricingCard>
+</PricingGrid>
+```
+
+#### Testimonial
+
+お客様の声
+
+Docs: https://kaze-design-system.vercel.app/docs/components/testimonial
+
+**Props**
+
+- `quote`: `string`
+  - 引用テキスト
+- `authorName`: `string`
+  - 著者名
+- `authorRole`: `string`
+  - 役職
+- `authorImage`: `string`
+  - 著者画像URL
+
+**Usage**
+
+```tsx
+<TestimonialGrid>
+  <TestimonialCard quote="素晴らしいです。" authorName="田中太郎" authorRole="エンジニア" />
+</TestimonialGrid>
+```
+
+#### FAQ
+
+よくある質問
+
+Docs: https://kaze-design-system.vercel.app/docs/components/faq
+
+**Props**
+
+- `question`: `string`
+  - 質問テキスト（FAQItem）
+- `answer`: `string`
+  - 回答テキスト（FAQItem）
+- `children`: `React.ReactNode`
+  - 回答コンテンツ（FAQItem、answerの代替）
+
+**Usage**
+
+```tsx
+<FAQ>
+  <FAQItem question="質問テキスト" answer="回答テキスト" />
+</FAQ>
+```
+
+#### CTABanner
+
+コール・トゥ・アクション
+
+Docs: https://kaze-design-system.vercel.app/docs/components/cta-banner
+
+**Props**
+
+- `title`: `string`
+  - タイトル
+- `description`: `string`
+  - 説明テキスト
+- `children`: `React.ReactNode`
+  - アクションボタン
+
+**Usage**
+
+```tsx
+<CTABanner title="今すぐ始めましょう" description="無料で始められます。">
+  <Button variant="secondary">はじめる</Button>
+</CTABanner>
+```
+
+#### LPFooter
+
+サイトフッター
+
+Docs: https://kaze-design-system.vercel.app/docs/components/lp-footer
+
+**Props**
+
+- `logo`: `React.ReactNode`
+  - ロゴ要素
+- `description`: `string`
+  - ブランド説明文
+- `columns`: `FooterColumn[]`
+  - フッターリンク列 { title, links: { label, href }[] }
+- `bottomLeft`: `React.ReactNode`
+  - フッター下部左側
+- `bottomRight`: `React.ReactNode`
+  - フッター下部右側
+
+**Usage**
+
+```tsx
+<LPFooter
+  logo={<Logo />}
+  description="ブランド説明"
+  columns={[
+    { title: "プロダクト", links: [{ label: "機能", href: "/features" }] },
+  ]}
+  bottomLeft={<span>© 2026 Kaze</span>}
+/>
+```
+
+## Hooks
+
+#### useTheme
+
+Returns the current theme and a setter. Must be used inside `<ThemeProvider>`.
+
+```tsx
+import { useTheme } from "kaze-design-system";
+const { theme, setTheme } = useTheme();
+```
+
+#### useFocusTrap
+
+Traps focus within a container for modal/dialog-like overlays.
+
+#### useLegendToggle
+
+Toggle series visibility on a Recharts `<Legend>` by clicking. Does not import Recharts (`legendProps` is spread onto `<Legend>` and is structurally compatible).
+
+```tsx
+import { useLegendToggle } from "kaze-design-system/hooks";
+
+const { isHidden, legendProps, reset } = useLegendToggle();
+
+<BarChart data={data}>
+  <Legend {...legendProps} />
+  <Bar dataKey="revenue" hide={isHidden("revenue")} />
+  <Bar dataKey="cost" hide={isHidden("cost")} />
+</BarChart>
+```

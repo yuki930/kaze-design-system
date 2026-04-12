@@ -1,0 +1,118 @@
+# kaze-design-system
+
+> Zinc-based minimal design system optimized for Japanese typography and financial UI
+
+kaze-design-system is a React 19 + TypeScript design system with 62 components. It is Zinc-based, optimized for Japanese typography (PALT enabled globally), uses CSS custom properties for theming (light/dark via `data-theme` attribute), and ships as ESM with peer dependencies on react, react-dom, and lucide-react.
+
+## Installation
+
+```bash
+npm install kaze-design-system
+```
+
+```tsx
+import "kaze-design-system/css/all";
+import { Button, Card, Badge } from "kaze-design-system";
+```
+
+## Full API reference
+
+- [Full API reference (llms-full.txt)](https://kaze-design-system.vercel.app/llms-full.txt): every component with props, types, and usage examples
+- [Interactive docs](https://kaze-design-system.vercel.app/docs/components): live previews of every component
+
+## Components
+
+### フォーム
+
+- [Button](https://kaze-design-system.vercel.app/docs/components/button): ボタンコンポーネント
+- [FAB](https://kaze-design-system.vercel.app/docs/components/fab): フローティングアクションボタン
+- [Input](https://kaze-design-system.vercel.app/docs/components/input): テキスト入力
+- [NumberField](https://kaze-design-system.vercel.app/docs/components/number-field): 通貨対応数値入力
+- [Select](https://kaze-design-system.vercel.app/docs/components/select): セレクトボックス
+- [Checkbox](https://kaze-design-system.vercel.app/docs/components/checkbox): チェックボックス
+- [Radio](https://kaze-design-system.vercel.app/docs/components/radio): ラジオボタン
+- [Textarea](https://kaze-design-system.vercel.app/docs/components/textarea): テキストエリア
+- [Switch](https://kaze-design-system.vercel.app/docs/components/switch): オン・オフを切り替えるトグルスイッチコンポーネント。ラベル付きで使用可能。
+- [FormField](https://kaze-design-system.vercel.app/docs/components/form-field): フォームフィールド
+- [FilterPill](https://kaze-design-system.vercel.app/docs/components/filter-pill): フィルター用ピル型トグルボタン
+
+### データ表示
+
+- [Card](https://kaze-design-system.vercel.app/docs/components/card): カードコンポーネント
+- [Badge](https://kaze-design-system.vercel.app/docs/components/badge): バッジ
+- [StatusBadge](https://kaze-design-system.vercel.app/docs/components/status-badge): データ状態（live / stale / missing / manual / loading）を一目で示すバッジ。内部で Badge をラップし、適切な variant・ラベル・role=status を自動付与します。ダッシュボード系 UI で各指標の鮮度表示に最適。
+- [Table](https://kaze-design-system.vercel.app/docs/components/table): テーブル
+- [Metric](https://kaze-design-system.vercel.app/docs/components/metric): メトリクス表示
+- [Avatar](https://kaze-design-system.vercel.app/docs/components/avatar): アバター
+- [BarList](https://kaze-design-system.vercel.app/docs/components/bar-list): ランキングリスト
+- [Tracker](https://kaze-design-system.vercel.app/docs/components/tracker): 時系列ステータス
+- [Watermark](https://kaze-design-system.vercel.app/docs/components/watermark): 透かし表示
+
+### チャート
+
+- [BarChart](https://kaze-design-system.vercel.app/docs/components/bar-chart): 水平棒グラフコンポーネント。データの比較を直感的に表示。
+- [DonutChart](https://kaze-design-system.vercel.app/docs/components/donut-chart): SVGベースのドーナツチャート。凡例とセンターラベル付き。
+- [Sparkline](https://kaze-design-system.vercel.app/docs/components/sparkline): インラインのミニ折れ線グラフ。テーブルやメトリクスの横に配置。
+
+### フィードバック
+
+- [Alert](https://kaze-design-system.vercel.app/docs/components/alert): ユーザーに重要な情報を伝えるアラートコンポーネント。情報・成功・警告・エラーの4バリアント。
+- [Progress](https://kaze-design-system.vercel.app/docs/components/progress): 処理の進捗状況を視覚的に表示するプログレスバーコンポーネント。サイズ・カラー・ラベル対応。
+- [Meter](https://kaze-design-system.vercel.app/docs/components/meter): メーター（既知範囲の値表示）
+- [Skeleton](https://kaze-design-system.vercel.app/docs/components/skeleton): コンテンツの読み込み中に表示するスケルトンプレースホルダーコンポーネント。
+- [EmptyState](https://kaze-design-system.vercel.app/docs/components/empty-state): データが存在しない場合に表示する空状態コンポーネント。sm / md / lg の3サイズに対応し、テーブルセル内の小さな表示からページ全体の大きな表示まで使い分けられます。role="status" が自動付与されます。
+- [Toast](https://kaze-design-system.vercel.app/docs/components/toast): トースト通知
+
+### ナビゲーション
+
+- [Tabs](https://kaze-design-system.vercel.app/docs/components/tabs): タブナビゲーション
+- [Sidebar](https://kaze-design-system.vercel.app/docs/components/sidebar): サイドバーナビゲーション
+- [TopBar](https://kaze-design-system.vercel.app/docs/components/topbar): トップバー
+- [Breadcrumb](https://kaze-design-system.vercel.app/docs/components/breadcrumb): 現在のページ位置を階層的に表示するパンくずリストコンポーネント。
+- [Pagination](https://kaze-design-system.vercel.app/docs/components/pagination): ページ分割されたコンテンツをナビゲートするページネーションコンポーネント。
+- [Stepper](https://kaze-design-system.vercel.app/docs/components/stepper): 複数ステップの進行状況を表示するステッパーコンポーネント。ウィザードやフォームに最適。
+
+### オーバーレイ
+
+- [Dialog](https://kaze-design-system.vercel.app/docs/components/dialog): ダイアログ
+- [Tooltip](https://kaze-design-system.vercel.app/docs/components/tooltip): ツールチップ
+- [HelpButton](https://kaze-design-system.vercel.app/docs/components/help-button): ラベルの横に配置する「?」ボタン。クリックで詳細説明の popover が開きます。outside click / ESC キーで閉じ、Portal でレンダリングされるためスクロールや z-index の影響を受けません。Tooltip（ホバー起動・一時表示）と異なり、クリックで開閉する永続モードを提供します。
+- [Dropdown](https://kaze-design-system.vercel.app/docs/components/dropdown): ドロップダウンメニュー
+- [CommandPalette](https://kaze-design-system.vercel.app/docs/components/command-palette): コマンドパレット
+
+### レイアウト
+
+- [Layout (AppLayout)](https://kaze-design-system.vercel.app/docs/components/layout): アプリレイアウト
+- [Divider](https://kaze-design-system.vercel.app/docs/components/divider): 区切り線
+- [Grid](https://kaze-design-system.vercel.app/docs/components/grid): レスポンシブ対応のグリッドレイアウト。ブレイクポイントごとのカラム数を prop で制御。
+- [Search](https://kaze-design-system.vercel.app/docs/components/search): 検索入力
+- [Logo](https://kaze-design-system.vercel.app/docs/components/logo): ロゴ
+- [Icon](https://kaze-design-system.vercel.app/docs/components/icon): アイコン
+- [Heading](https://kaze-design-system.vercel.app/docs/components/heading): セマンティックな見出しコンポーネント。レベル1〜6、説明テキスト、ボーダー付きに対応。
+- [Text](https://kaze-design-system.vercel.app/docs/components/text): 汎用テキストコンポーネント。variant / size / weight / color / align を prop で制御。LP や UI で独自 CSS なしにテキストを扱える。
+
+### リスト
+
+- [List](https://kaze-design-system.vercel.app/docs/components/list): アイテム一覧を表示するリストコンポーネント。アイコン・説明・アクション付き。
+- [DescriptionList](https://kaze-design-system.vercel.app/docs/components/description-list): 用語と説明のペアを表示する定義リストコンポーネント。
+- [Timeline](https://kaze-design-system.vercel.app/docs/components/timeline): 時系列のイベントを縦に表示するタイムラインコンポーネント。
+
+### マーケティング
+
+- [Navbar](https://kaze-design-system.vercel.app/docs/components/navbar): マーケティングサイト用ナビゲーションバー
+- [Hero](https://kaze-design-system.vercel.app/docs/components/hero): ヒーローセクション
+- [Section](https://kaze-design-system.vercel.app/docs/components/section): 汎用セクションラッパー
+- [SplitSection](https://kaze-design-system.vercel.app/docs/components/split-section): 画像＋テキストの左右分割レイアウト。LP の交互セクションに最適。
+- [FeatureGrid](https://kaze-design-system.vercel.app/docs/components/feature-grid): 機能紹介グリッド
+- [Stats](https://kaze-design-system.vercel.app/docs/components/stats): 数値ハイライト
+- [Pricing](https://kaze-design-system.vercel.app/docs/components/pricing): 料金プラン
+- [Testimonial](https://kaze-design-system.vercel.app/docs/components/testimonial): お客様の声
+- [FAQ](https://kaze-design-system.vercel.app/docs/components/faq): よくある質問
+- [CTABanner](https://kaze-design-system.vercel.app/docs/components/cta-banner): コール・トゥ・アクション
+- [LPFooter](https://kaze-design-system.vercel.app/docs/components/lp-footer): サイトフッター
+
+## Hooks
+
+- `useTheme` — theme context (light/dark toggle), exported from `kaze-design-system`
+- `useFocusTrap` — focus-trap helper for modal/dialog components
+- `useLegendToggle` — Recharts `<Legend>` show/hide series toggle, exported from `kaze-design-system/hooks`
