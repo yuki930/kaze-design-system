@@ -29,6 +29,16 @@ export type {
 export { Badge } from "./Badge";
 export type { BadgeProps, BadgeVariant } from "./Badge";
 
+export { StatusBadge } from "./StatusBadge";
+export type { StatusBadgeProps, StatusBadgeStatus } from "./StatusBadge";
+
+export { HelpButton } from "./HelpButton";
+export type {
+  HelpButtonProps,
+  HelpButtonPosition,
+  HelpButtonSize,
+} from "./HelpButton";
+
 export { FilterPill } from "./FilterPill";
 export type { FilterPillProps } from "./FilterPill";
 
@@ -198,7 +208,7 @@ export { Skeleton } from "./Skeleton";
 export type { SkeletonProps } from "./Skeleton";
 
 export { EmptyState } from "./EmptyState";
-export type { EmptyStateProps } from "./EmptyState";
+export type { EmptyStateProps, EmptyStateSize } from "./EmptyState";
 
 /* ── Navigation ────────────────────────────────────────────── */
 
