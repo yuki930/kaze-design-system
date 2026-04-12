@@ -205,16 +205,216 @@ function parseCategories() {
 
 function formatPropRow(prop) {
   const parts = [];
-  parts.push(`- \`${prop.name}\`: \`${prop.type}\``);
+  const optional = prop.optional ? "?" : "";
+  parts.push(`- \`${prop.name}${optional}\`: \`${prop.type}\``);
   if (prop.default) parts.push(`  - Default: \`${prop.default}\``);
   if (prop.description) parts.push(`  - ${prop.description}`);
   return parts.join("\n");
+}
+
+/**
+ * Convert a JSDoc comment field into a flat string.
+ * TypeScript exposes `.comment` as either a string or a NodeArray of
+ * SyntaxKind.JSDocText / SyntaxKind.JSDocLink entries.
+ */
+function jsDocCommentToString(comment) {
+  if (!comment) return "";
+  if (typeof comment === "string") return comment.trim();
+  if (Array.isArray(comment)) {
+    return comment
+      .map((c) => (typeof c === "string" ? c : c.text || ""))
+      .join("")
+      .trim();
+  }
+  return "";
+}
+
+/**
+ * Read a single `.tsx` file and extract the fields of the exported
+ * interface that matches `interfaceName`. Returns a list of
+ * `{ name, type, optional, description, default }` or `null` if the
+ * interface cannot be found.
+ *
+ * Only direct members are extracted — inherited HTML attributes from
+ * e.g. `extends HTMLAttributes<HTMLDivElement>` are intentionally
+ * skipped since they are implicit.
+ */
+function extractPropsFromFile(filePath, interfaceName) {
+  if (!fs.existsSync(filePath)) return null;
+  const sf = parseSourceFile(filePath);
+  let target = null;
+  const typeAliases = new Map(); // name → inlined type text
+
+  walk(sf, (node) => {
+    if (
+      ts.isInterfaceDeclaration(node) &&
+      node.name.text === interfaceName
+    ) {
+      target = node;
+    }
+    if (ts.isTypeAliasDeclaration(node)) {
+      typeAliases.set(node.name.text, node.type.getText());
+    }
+  });
+
+  if (!target) return null;
+
+  const normalizeType = (text) =>
+    text.replace(/\s+/g, " ").replace(/^\|\s*/, "").trim();
+
+  const resolveType = (typeText) => {
+    // Inline simple named type aliases defined in the same file.
+    // e.g. `ButtonVariant` → `"primary" | "secondary" | ...`
+    if (typeAliases.has(typeText)) {
+      return normalizeType(typeAliases.get(typeText));
+    }
+    return normalizeType(typeText);
+  };
+
+  const props = [];
+  for (const member of target.members) {
+    if (!ts.isPropertySignature(member)) continue;
+
+    const name = member.name.getText().replace(/^['"]|['"]$/g, "");
+    const rawType = member.type ? member.type.getText() : "any";
+    const type = resolveType(rawType);
+    const optional = !!member.questionToken;
+
+    let description = "";
+    let defaultValue = "";
+
+    const jsDocs = ts.getJSDocCommentsAndTags(member);
+    for (const doc of jsDocs) {
+      if (ts.isJSDoc(doc)) {
+        if (!description && doc.comment) {
+          description = jsDocCommentToString(doc.comment);
+        }
+        if (doc.tags) {
+          for (const tag of doc.tags) {
+            const tagName = tag.tagName?.text;
+            if (
+              (tagName === "default" || tagName === "defaultValue") &&
+              tag.comment
+            ) {
+              defaultValue = jsDocCommentToString(tag.comment);
+            }
+          }
+        }
+      }
+    }
+
+    props.push({ name, type, optional, description, default: defaultValue });
+  }
+
+  return props;
+}
+
+/**
+ * Resolve a componentDocs entry to a concrete .tsx file + interface name.
+ * Uses the doc's `title` (e.g. "StatusBadge") as the folder / interface
+ * base; handles a few known aliases for compound/odd-named components.
+ */
+const TITLE_OVERRIDES = {
+  AppLayout: { folder: "Layout", interface: "AppLayoutProps" },
+  Toast: { folder: "Toast", interface: "ToastProviderProps" },
+  Tabs: { folder: "Tabs", interface: "TabsProps" },
+  Pricing: { folder: "Pricing", interface: "PricingCardProps" },
+  Testimonial: { folder: "Testimonial", interface: "TestimonialCardProps" },
+  FAQ: { folder: "FAQ", interface: "FAQProps" },
+  FeatureGrid: { folder: "FeatureGrid", interface: "FeatureGridProps" },
+  Stats: { folder: "Stats", interface: "StatsProps" },
+  Navbar: { folder: "Navbar", interface: "NavbarProps" },
+  List: { folder: "List", interface: "ListProps" },
+  DescriptionList: {
+    folder: "DescriptionList",
+    interface: "DescriptionListProps",
+  },
+  Timeline: { folder: "Timeline", interface: "TimelineProps" },
+  Radio: { folder: "Radio", interface: "RadioGroupProps" },
+  Sidebar: { folder: "Sidebar", interface: "SidebarProps" },
+  Dropdown: { folder: "Dropdown", interface: "DropdownProps" },
+  Dialog: { folder: "Dialog", interface: "DialogProps" },
+};
+
+function resolveExtractionTarget(title) {
+  const override = TITLE_OVERRIDES[title];
+  if (override) {
+    return {
+      file: path.join(root, "src/components", override.folder, `${override.folder}.tsx`),
+      interface: override.interface,
+    };
+  }
+  // Default: folder = title, interface = `${title}Props`
+  return {
+    file: path.join(root, "src/components", title, `${title}.tsx`),
+    interface: `${title}Props`,
+  };
+}
+
+/**
+ * Merge extracted (source-of-truth) props with hand-written docs (curated
+ * descriptions + inherited HTML props). Extracted entries win on type /
+ * optionality; hand-written wins on description / default when extracted
+ * has neither. Hand-written entries not present in extracted (typically
+ * inherited HTML attrs) are appended at the end.
+ */
+function mergeProps(extracted, handWritten) {
+  if (!extracted) return handWritten || [];
+
+  const merged = [];
+  const handByName = new Map(
+    (handWritten || []).map((p) => [p.name, p]),
+  );
+
+  for (const ex of extracted) {
+    const hw = handByName.get(ex.name);
+    merged.push({
+      name: ex.name,
+      type: ex.type,
+      optional: ex.optional,
+      description: ex.description || hw?.description || "",
+      default: ex.default || hw?.default || "",
+    });
+    handByName.delete(ex.name);
+  }
+
+  // Append hand-written-only props (inherited HTML attrs, etc.)
+  for (const hw of handByName.values()) {
+    merged.push({
+      name: hw.name,
+      type: hw.type,
+      optional: true, // hand-written inherited props are almost always optional
+      description: hw.description || "",
+      default: hw.default || "",
+    });
+  }
+
+  return merged;
 }
 
 function main() {
   const pkg = JSON.parse(fs.readFileSync(PACKAGE_JSON, "utf8"));
   const docs = parseComponentDocs();
   const categories = parseCategories();
+
+  // Augment each doc entry with props extracted from the real .tsx file.
+  // This makes llms-full.txt authoritative when hand-written docs drift.
+  let extractedCount = 0;
+  let missingCount = 0;
+  for (const doc of docs) {
+    if (!doc.title) continue;
+    const target = resolveExtractionTarget(doc.title);
+    const extracted = extractPropsFromFile(target.file, target.interface);
+    if (extracted) {
+      doc.props = mergeProps(extracted, doc.props);
+      extractedCount++;
+    } else {
+      missingCount++;
+      console.log(
+        `[llms] no props extracted for "${doc.title}" (looked for ${target.interface} in ${path.relative(root, target.file)})`,
+      );
+    }
+  }
 
   const docBySlug = new Map(docs.map((d) => [d.slug, d]));
   const totalComponents = categories.reduce(
@@ -422,6 +622,9 @@ function main() {
   );
   console.log(
     `[llms] wrote ${path.relative(root, OUT_FULL)} (${fullLines.length} lines, ${docs.length} component docs from ${totalComponents} catalog entries)`,
+  );
+  console.log(
+    `[llms] props extracted from source: ${extractedCount} / ${docs.length} components (${missingCount} fell back to hand-written)`,
   );
 }
 

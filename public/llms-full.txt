@@ -2,7 +2,7 @@
 
 > Zinc-based minimal design system optimized for Japanese typography and financial UI
 
-Version: 0.3.1
+Version: 0.3.3
 Site: https://kaze-design-system.vercel.app
 Package: kaze-design-system
 
@@ -55,19 +55,19 @@ Docs: https://kaze-design-system.vercel.app/docs/components/button
 
 **Props**
 
-- `variant`: `"primary" | "secondary" | "outline" | "ghost" | "destructive"`
+- `variant?`: `"primary" | "secondary" | "outline" | "ghost" | "destructive"`
   - Default: `"primary"`
   - ボタンのスタイルバリアント
-- `size`: `"xs" | "sm" | "md" | "lg"`
+- `size?`: `"xs" | "sm" | "md" | "lg"`
   - Default: `"md"`
   - ボタンのサイズ
-- `fullWidth`: `boolean`
+- `fullWidth?`: `boolean`
   - Default: `false`
   - 幅を100%にするかどうか
-- `iconOnly`: `boolean`
+- `iconOnly?`: `boolean`
   - Default: `false`
   - アイコンのみのボタンにするかどうか
-- `disabled`: `boolean`
+- `disabled?`: `boolean`
   - Default: `false`
   - 無効状態にするかどうか
 
@@ -86,19 +86,19 @@ Docs: https://kaze-design-system.vercel.app/docs/components/fab
 **Props**
 
 - `label`: `string`
-  - ボタンのアクセシブルラベル（必須）
-- `variant`: `"primary" | "secondary"`
+  - Accessible label for the button (required for icon-only FABs)
+- `variant?`: `"primary" | "secondary"`
   - Default: `"primary"`
   - スタイルバリアント
-- `size`: `"sm" | "md" | "lg"`
+- `size?`: `"sm" | "md" | "lg"`
   - Default: `"md"`
   - ボタンのサイズ
-- `position`: `"bottom-right" | "bottom-left" | "top-right" | "top-left"`
+- `position?`: `"bottom-right" | "bottom-left" | "top-right" | "top-left"`
   - Default: `"bottom-right"`
   - 配置位置
-- `extended`: `boolean`
+- `extended?`: `boolean`
   - Default: `false`
-  - ラベルテキストを表示するかどうか
+  - When true, shows icon + label side by side
 
 **Usage**
 
@@ -116,10 +116,12 @@ Docs: https://kaze-design-system.vercel.app/docs/components/input
 
 **Props**
 
-- `error`: `boolean`
+- `error?`: `boolean`
   - Default: `false`
   - エラー状態を表示するかどうか
-- `className`: `string`
+- `aria-describedby?`: `string`
+  - ID of the element that describes this input (e.g. error or helper text)
+- `className?`: `string`
   - Default: `undefined`
   - 追加のCSSクラス名
 
@@ -137,31 +139,39 @@ Docs: https://kaze-design-system.vercel.app/docs/components/number-field
 
 **Props**
 
-- `value`: `number | null`
-  - 現在の数値
-- `onChange`: `(value: number | null) => void`
-  - 値変更時のコールバック
-- `currency`: `"JPY" | "USD" | "EUR" | "GBP" | "CNY" | "KRW"`
-  - 通貨コード
-- `min`: `number`
-  - 最小値
-- `max`: `number`
-  - 最大値
-- `step`: `number`
+- `value?`: `number | null`
+  - Current numeric value
+- `onChange?`: `(value: number | null) => void`
+  - Change handler
+- `min?`: `number`
+  - Minimum allowed value
+- `max?`: `number`
+  - Maximum allowed value
+- `step?`: `number`
   - Default: `1`
-  - 増減のステップ値
-- `showStepper`: `boolean`
+  - Increment step
+- `currency?`: `"JPY" | "USD" | "EUR" | "GBP" | "CNY" | "KRW"`
+  - Currency code for formatting
+- `locale?`: `string`
+  - Locale for formatting (default: "ja-JP")
+- `showStepper?`: `boolean`
   - Default: `true`
-  - 増減ボタンを表示するか
-- `prefix`: `string`
-  - 接頭辞テキスト（通貨で自動設定）
-- `suffix`: `string`
-  - 接尾辞テキスト
-- `label`: `string`
-  - ラベル
-- `error`: `boolean`
+  - Whether to show increment/decrement buttons
+- `label?`: `string`
+  - Label
+- `error?`: `boolean`
   - Default: `false`
-  - エラー状態
+  - Error state
+- `errorMessage?`: `string`
+  - Error message
+- `prefix?`: `string`
+  - Prefix text (e.g. "¥") — auto-set by currency
+- `suffix?`: `string`
+  - Suffix text (e.g. "%", "件")
+- `decrementLabel?`: `string`
+  - Accessible label for decrement button (default: "減少")
+- `incrementLabel?`: `string`
+  - Accessible label for increment button (default: "増加")
 
 **Usage**
 
@@ -182,10 +192,10 @@ Docs: https://kaze-design-system.vercel.app/docs/components/select
 
 **Props**
 
-- `error`: `boolean`
+- `error?`: `boolean`
   - Default: `false`
   - エラー状態を表示するかどうか
-- `children`: `React.ReactNode`
+- `children?`: `React.ReactNode`
   - optionエレメント
 
 **Usage**
@@ -205,14 +215,14 @@ Docs: https://kaze-design-system.vercel.app/docs/components/checkbox
 
 **Props**
 
-- `label`: `string`
+- `label?`: `string`
   - チェックボックスのラベルテキスト
-- `checked`: `boolean`
+- `checked?`: `boolean`
   - Default: `false`
   - 選択状態
-- `onChange`: `(e: ChangeEvent) => void`
+- `onChange?`: `(e: ChangeEvent) => void`
   - 変更時のコールバック
-- `id`: `string`
+- `id?`: `string`
   - 要素のID（labelとの紐付けに使用）
 
 **Usage**
@@ -229,11 +239,13 @@ Docs: https://kaze-design-system.vercel.app/docs/components/radio
 
 **Props**
 
-- `label`: `string`
+- `label?`: `string`
   - ラジオボタンのラベル
-- `error`: `boolean`
+- `orientation?`: `"horizontal" | "vertical"`
+- `error?`: `boolean`
   - Default: `false`
   - エラー状態
+- `errorMessage?`: `string`
 
 **Usage**
 
@@ -252,10 +264,10 @@ Docs: https://kaze-design-system.vercel.app/docs/components/textarea
 
 **Props**
 
-- `error`: `boolean`
+- `error?`: `boolean`
   - Default: `false`
   - エラー状態を表示するかどうか
-- `className`: `string`
+- `className?`: `string`
   - Default: `undefined`
   - 追加のCSSクラス名
 
@@ -273,17 +285,17 @@ Docs: https://kaze-design-system.vercel.app/docs/components/switch
 
 **Props**
 
-- `label`: `string`
+- `label?`: `string`
   - スイッチのラベルテキスト
-- `checked`: `boolean`
+- `checked?`: `boolean`
   - 制御モード時のオン・オフ状態
-- `defaultChecked`: `boolean`
+- `defaultChecked?`: `boolean`
   - Default: `false`
   - 非制御モード時の初期状態
-- `disabled`: `boolean`
+- `disabled?`: `boolean`
   - Default: `false`
   - 無効状態にするかどうか
-- `onChange`: `(checked: boolean) => void`
+- `onChange?`: `(checked: boolean) => void`
   - 状態変更時のコールバック
 
 **Usage**
@@ -301,19 +313,21 @@ Docs: https://kaze-design-system.vercel.app/docs/components/form-field
 
 **Props**
 
-- `label`: `string`
-  - フィールドのラベル
-- `description`: `string`
-  - フィールドの説明テキスト
-- `error`: `string`
-  - エラーメッセージ
-- `required`: `boolean`
+- `label?`: `string`
+  - Label text for the form control
+- `description?`: `string`
+  - Description / helper text shown below the label
+- `error?`: `string`
+  - Error message. When set, the child control receives aria-invalid
+- `required?`: `boolean`
   - Default: `false`
-  - 必須フィールドかどうか
-- `maxLength`: `number`
-  - 最大文字数（カウンター表示用）
-- `currentLength`: `number`
-  - 現在の文字数（カウンター表示用）
+  - Whether the field is required (appends * to label)
+- `maxLength?`: `number`
+  - Maximum character count – renders a counter below the control
+- `currentLength?`: `number`
+  - Current character count for the counter display
+- `children?`: `ReactElement`
+  - The form control element (Input, Select, Textarea, etc.)
 
 **Usage**
 
@@ -331,14 +345,14 @@ Docs: https://kaze-design-system.vercel.app/docs/components/filter-pill
 
 **Props**
 
-- `active`: `boolean`
+- `active?`: `boolean`
   - Default: `false`
-  - アクティブ（選択中）状態
-- `color`: `string`
-  - アクセントカラー（CSS色値）
-- `dot`: `boolean`
+  - Whether the pill is in an active/selected state
+- `color?`: `string`
+  - Dynamic accent color (CSS color value). Applied via --filter-pill-color custom property
+- `dot?`: `boolean`
   - Default: `false`
-  - カラードットインジケータを表示
+  - Show a colored dot indicator before the label
 
 **Usage**
 
@@ -358,18 +372,18 @@ Docs: https://kaze-design-system.vercel.app/docs/components/card
 
 **Props**
 
-- `variant`: `"default" | "fill" | "interactive" | "compact"`
+- `variant?`: `"default" | "interactive" | "compact" | "fill"`
   - Default: `"default"`
   - カードのスタイルバリアント
-- `children`: `React.ReactNode`
+- `children?`: `React.ReactNode`
   - カードの内容
-- `CardHeader`: `サブコンポーネント`
+- `CardHeader?`: `サブコンポーネント`
   - カードのヘッダー領域
-- `CardTitle`: `サブコンポーネント`
+- `CardTitle?`: `サブコンポーネント`
   - カードのタイトル
-- `CardBody`: `サブコンポーネント`
+- `CardBody?`: `サブコンポーネント`
   - カードの本文領域
-- `CardFooter`: `サブコンポーネント`
+- `CardFooter?`: `サブコンポーネント`
   - カードのフッター領域
 
 **Usage**
@@ -397,15 +411,17 @@ Docs: https://kaze-design-system.vercel.app/docs/components/badge
 
 **Props**
 
-- `variant`: `"default" | "positive" | "negative" | "warning" | "info"`
+- `variant?`: `"default" | "positive" | "negative" | "warning" | "info"`
   - Default: `"default"`
   - バッジのスタイルバリアント
-- `dot`: `boolean`
+- `dot?`: `boolean`
   - Default: `false`
   - ドットインジケーターを表示するかどうか
-- `solid`: `boolean`
+- `solid?`: `boolean`
   - Default: `false`
-  - 反転スタイル（塗り背景 + 白文字）
+  - Solid (inverted) style — filled background with white text
+- `live?`: `boolean`
+  - When true, adds role="status" for live-region announcements
 
 **Usage**
 
@@ -424,9 +440,9 @@ Docs: https://kaze-design-system.vercel.app/docs/components/status-badge
 
 - `status`: `"live" | "stale" | "missing" | "manual" | "loading"`
   - データの状態
-- `label`: `string`
-  - デフォルトラベルを上書きする表示テキスト
-- `dot`: `boolean`
+- `label?`: `string`
+  - Overrides the default label for the given status
+- `dot?`: `boolean`
   - Default: `true`
   - ドットインジケーターを表示するかどうか
 
@@ -447,17 +463,18 @@ Docs: https://kaze-design-system.vercel.app/docs/components/table
 
 **Props**
 
-- `Table`: `コンポーネント`
+- `compact?`: `boolean`
+- `Table?`: `コンポーネント`
   - テーブルのルート要素
-- `TableHeader`: `サブコンポーネント`
+- `TableHeader?`: `サブコンポーネント`
   - テーブルのヘッダー部分（thead）
-- `TableBody`: `サブコンポーネント`
+- `TableBody?`: `サブコンポーネント`
   - テーブルの本体部分（tbody）
-- `TableRow`: `サブコンポーネント`
+- `TableRow?`: `サブコンポーネント`
   - テーブルの行（tr）
-- `TableHead`: `サブコンポーネント`
+- `TableHead?`: `サブコンポーネント`
   - ヘッダーセル（th）
-- `TableCell`: `サブコンポーネント`
+- `TableCell?`: `サブコンポーネント`
   - データセル（td）
 
 **Usage**
@@ -489,13 +506,13 @@ Docs: https://kaze-design-system.vercel.app/docs/components/metric
 
 - `label`: `string`
   - メトリクスのラベル
-- `value`: `string`
+- `value`: `string | number`
   - 表示する値
-- `change`: `{ value: string; trend: "positive" | "negative" }`
-  - 変化率の表示
-- `large`: `boolean`
+- `large?`: `boolean`
   - Default: `false`
   - 大きいサイズで表示するかどうか
+- `change?`: `MetricChange`
+  - 変化率の表示
 
 **Usage**
 
@@ -511,15 +528,15 @@ Docs: https://kaze-design-system.vercel.app/docs/components/avatar
 
 **Props**
 
-- `src`: `string`
-  - アバター画像のURL
-- `alt`: `string`
-  - 画像の代替テキスト
-- `fallback`: `string`
-  - 画像がない場合に表示するテキスト（イニシャルなど）
-- `size`: `"sm" | "md" | "lg"`
+- `size?`: `"xs" | "sm" | "md" | "lg"`
   - Default: `"md"`
   - アバターのサイズ
+- `src?`: `string`
+  - アバター画像のURL
+- `alt?`: `string`
+  - 画像の代替テキスト
+- `fallback?`: `string`
+  - 画像がない場合に表示するテキスト（イニシャルなど）
 
 **Usage**
 
@@ -536,12 +553,12 @@ Docs: https://kaze-design-system.vercel.app/docs/components/bar-list
 **Props**
 
 - `data`: `BarListItem[]`
-  - データ配列（必須）
-- `sortOrder`: `"ascending" | "descending" | "none"`
+  - Array of items to display
+- `sortOrder?`: `"ascending" | "descending" | "none"`
   - Default: `"descending"`
-  - ソート順
-- `valueFormatter`: `(value: number) => string`
-  - 値のフォーマッタ関数
+  - Sort order
+- `valueFormatter?`: `(value: number) => string`
+  - Value formatter function
 
 **Usage**
 
@@ -563,9 +580,9 @@ Docs: https://kaze-design-system.vercel.app/docs/components/tracker
 **Props**
 
 - `data`: `TrackerItem[]`
-  - ステータスセグメントの配列（必須）
-- `label`: `string`
-  - アクセシブルラベル
+  - Array of status segments
+- `label?`: `string`
+  - Accessible label for the tracker (default: `${data.length} segments`)
 
 **Usage**
 
@@ -589,19 +606,22 @@ Docs: https://kaze-design-system.vercel.app/docs/components/watermark
 **Props**
 
 - `text`: `string`
-  - 透かしテキスト（必須）
-- `fontSize`: `number`
+  - Watermark text (e.g. "社外秘", "CONFIDENTIAL")
+- `fontSize?`: `number`
   - Default: `16`
-  - フォントサイズ（px）
-- `rotate`: `number`
+  - Font size in px
+- `rotate?`: `number`
   - Default: `-22`
-  - 回転角度（度）
-- `gap`: `number`
+  - Rotation angle in degrees
+- `gap?`: `number`
   - Default: `100`
-  - 透かし間の間隔（px）
-- `opacity`: `number`
+  - Gap between watermark instances in px
+- `color?`: `string`
+  - Watermark text color
+- `opacity?`: `number`
   - Default: `0.08`
-  - 透かしの不透明度
+  - Watermark text opacity
+- `children?`: `ReactNode`
 
 **Usage**
 
@@ -623,10 +643,12 @@ Docs: https://kaze-design-system.vercel.app/docs/components/bar-chart
 
 - `data`: `BarChartItem[]`
   - { label, value, color? } の配列
-- `max`: `number`
+- `max?`: `number`
   - 最大値（省略時はデータの最大値）
-- `formatValue`: `(value: number) => string`
+- `formatValue?`: `(value: number) => string`
   - 値のフォーマット関数
+- `aria-label`: `string`
+  - Accessible label for the chart (required for accessibility)
 
 **Usage**
 
@@ -651,17 +673,19 @@ Docs: https://kaze-design-system.vercel.app/docs/components/donut-chart
 
 - `data`: `DonutChartSegment[]`
   - { label, value, color? } の配列
-- `size`: `number`
+- `size?`: `number`
   - Default: `120`
   - SVGのサイズ（px）
-- `strokeWidth`: `number`
+- `strokeWidth?`: `number`
   - Default: `16`
   - リングの太さ
-- `centerLabel`: `string`
+- `centerLabel?`: `string`
   - 中央に表示するテキスト
-- `showLegend`: `boolean`
+- `showLegend?`: `boolean`
   - Default: `true`
   - 凡例を表示するか
+- `aria-label`: `string`
+  - Accessible label for the chart (required for accessibility)
 
 **Usage**
 
@@ -686,16 +710,16 @@ Docs: https://kaze-design-system.vercel.app/docs/components/sparkline
 
 - `data`: `number[]`
   - 数値の配列
-- `width`: `number`
+- `width?`: `number`
   - Default: `80`
   - SVGの幅
-- `height`: `number`
+- `height?`: `number`
   - Default: `24`
   - SVGの高さ
-- `color`: `string`
+- `color?`: `string`
   - Default: `var(--chart-emerald)`
   - 線の色
-- `showArea`: `boolean`
+- `showArea?`: `boolean`
   - Default: `false`
   - 塗りつぶしエリアを表示
 
@@ -719,14 +743,14 @@ Docs: https://kaze-design-system.vercel.app/docs/components/alert
 
 **Props**
 
-- `variant`: `"info" | "positive" | "warning" | "negative"`
+- `variant?`: `"info" | "positive" | "warning" | "negative"`
   - Default: `"info"`
   - アラートのスタイルバリアント
-- `icon`: `React.ReactNode`
+- `icon?`: `ReactNode`
   - 左側に表示するアイコン
-- `title`: `string`
+- `title?`: `string`
   - アラートのタイトル（太字で表示）
-- `children`: `React.ReactNode`
+- `children`: `ReactNode`
   - アラートの内容
 
 **Usage**
@@ -753,17 +777,18 @@ Docs: https://kaze-design-system.vercel.app/docs/components/progress
 
 - `value`: `number`
   - 進捗値（0〜100）
-- `size`: `"sm" | "md" | "lg"`
-  - Default: `"md"`
-  - プログレスバーの高さ
-- `color`: `"primary" | "positive" | "warning" | "negative"`
-  - Default: `"primary"`
-  - バーの色
-- `label`: `string`
+- `max?`: `number`
+- `label?`: `string`
   - バーの上に表示するラベルテキスト
-- `showValue`: `boolean`
+- `showValue?`: `boolean`
   - Default: `false`
   - パーセンテージ値を表示するかどうか
+- `color?`: `"default" | "positive" | "negative" | "warning" | "info"`
+  - Default: `"primary"`
+  - バーの色
+- `size?`: `"sm" | "md" | "lg"`
+  - Default: `"md"`
+  - プログレスバーの高さ
 
 **Usage**
 
@@ -781,26 +806,28 @@ Docs: https://kaze-design-system.vercel.app/docs/components/meter
 **Props**
 
 - `value`: `number`
-  - 現在の値（必須）
-- `min`: `number`
+  - Current value
+- `min?`: `number`
   - Default: `0`
-  - 最小値
-- `max`: `number`
+  - Minimum value
+- `max?`: `number`
   - Default: `100`
-  - 最大値
-- `label`: `string`
-  - ラベルテキスト
-- `showValue`: `boolean`
-  - Default: `false`
-  - 値を表示するか
-- `color`: `"default" | "positive" | "negative" | "warning" | "info"`
-  - カラーバリアント
-- `warningThreshold`: `number`
+  - Maximum value
+- `warningThreshold?`: `number`
   - Default: `0.7`
-  - 警告しきい値（0-1）
-- `dangerThreshold`: `number`
+  - Threshold for warning zone (optional, expressed as fraction 0-1)
+- `dangerThreshold?`: `number`
   - Default: `0.9`
-  - 危険しきい値（0-1）
+  - Threshold for danger zone (optional, expressed as fraction 0-1)
+- `label?`: `string`
+  - Label text
+- `showValue?`: `boolean`
+  - Default: `false`
+  - Show percentage text
+- `color?`: `"default" | "positive" | "negative" | "warning" | "info"`
+  - Color variant (overrides threshold-based coloring)
+- `size?`: `"sm" | "md" | "lg"`
+  - Size
 
 **Usage**
 
@@ -816,11 +843,11 @@ Docs: https://kaze-design-system.vercel.app/docs/components/skeleton
 
 **Props**
 
-- `width`: `string | number`
+- `width?`: `string | number`
   - 幅（px または %）
-- `height`: `string | number`
+- `height?`: `string | number`
   - 高さ（px）
-- `circle`: `boolean`
+- `circle?`: `boolean`
   - Default: `false`
   - 円形にする（border-radius: 50%）
 
@@ -840,17 +867,17 @@ Docs: https://kaze-design-system.vercel.app/docs/components/empty-state
 
 **Props**
 
-- `size`: `"sm" | "md" | "lg"`
-  - Default: `"md"`
-  - 表示サイズ。sm はテーブルセル内、md はセクション、lg はページ全体向け
-- `icon`: `React.ReactNode`
+- `icon?`: `ReactNode`
   - 中央に表示するアイコン
 - `title`: `string`
   - タイトルテキスト（必須）
-- `description`: `React.ReactNode`
+- `description?`: `ReactNode`
   - 説明テキスト
-- `actions`: `React.ReactNode`
+- `actions?`: `ReactNode`
   - アクションボタンなどの要素
+- `size?`: `"sm" | "md" | "lg"`
+  - Default: `"md"`
+  - 表示サイズ。sm はテーブルセル内、md はセクション、lg はページ全体向け
 
 **Usage**
 
@@ -874,12 +901,16 @@ Docs: https://kaze-design-system.vercel.app/docs/components/toast
 
 **Props**
 
-- `variant`: `"success" | "error" | "warning" | "info"`
-  - トーストの種類
-- `title`: `string`
-  - トーストのタイトル
-- `children`: `React.ReactNode`
+- `children`: `ReactNode`
   - トーストの内容
+- `closeLabel?`: `string`
+  - Accessible label for the close button on each toast (default: "閉じる")
+- `containerLabel?`: `string`
+  - Accessible label for the toast container (default: "通知")
+- `variant?`: `"success" | "error" | "warning" | "info"`
+  - トーストの種類
+- `title?`: `string`
+  - トーストのタイトル
 
 **Usage**
 
@@ -899,12 +930,13 @@ Docs: https://kaze-design-system.vercel.app/docs/components/tabs
 
 **Props**
 
-- `active`: `boolean`
+- `variant?`: `"default" | "pills"`
+- `active?`: `boolean`
   - Default: `false`
   - アクティブ状態かどうか（Tab）
-- `onClick`: `() => void`
+- `onClick?`: `() => void`
   - クリック時のコールバック（Tab）
-- `children`: `React.ReactNode`
+- `children?`: `React.ReactNode`
   - タブの内容
 
 **Usage**
@@ -924,12 +956,12 @@ Docs: https://kaze-design-system.vercel.app/docs/components/sidebar
 
 **Props**
 
-- `logo`: `React.ReactNode`
-  - サイドバー上部に表示するロゴ要素
-- `footer`: `React.ReactNode`
-  - サイドバー下部のフッター要素
-- `children`: `React.ReactNode`
+- `children`: `ReactNode`
   - ナビゲーション項目など
+- `logo?`: `ReactNode`
+  - サイドバー上部に表示するロゴ要素
+- `footer?`: `ReactNode`
+  - サイドバー下部のフッター要素
 
 **Usage**
 
@@ -948,9 +980,9 @@ Docs: https://kaze-design-system.vercel.app/docs/components/topbar
 
 **Props**
 
-- `children`: `React.ReactNode`
+- `children?`: `ReactNode`
   - トップバーの主要コンテンツ（タイトルなど）
-- `actions`: `React.ReactNode`
+- `actions?`: `ReactNode`
   - 右側に表示するアクション要素
 
 **Usage**
@@ -971,6 +1003,8 @@ Docs: https://kaze-design-system.vercel.app/docs/components/breadcrumb
 
 - `items`: `BreadcrumbItem[]`
   - パンくずアイテムの配列 { label, href? }
+- `label?`: `string`
+  - Accessible label for the nav element (default: "パンくず")
 
 **Usage**
 
@@ -996,11 +1030,17 @@ Docs: https://kaze-design-system.vercel.app/docs/components/pagination
   - 現在のページ番号
 - `totalPages`: `number`
   - 総ページ数
-- `onPageChange`: `(page: number) => void`
+- `onPageChange?`: `(page: number) => void`
   - ページ変更時のコールバック
-- `siblingCount`: `number`
+- `siblingCount?`: `number`
   - Default: `1`
   - 現在のページの前後に表示するページ数
+- `label?`: `string`
+  - Accessible label for the nav element (default: "ページネーション")
+- `prevLabel?`: `string`
+  - Accessible label for the previous button (default: "前のページ")
+- `nextLabel?`: `string`
+  - Accessible label for the next button (default: "次のページ")
 
 **Usage**
 
@@ -1053,9 +1093,10 @@ Docs: https://kaze-design-system.vercel.app/docs/components/dialog
   - ダイアログの表示状態
 - `onClose`: `() => void`
   - 閉じる時のコールバック
-- `title`: `string`
+- `returnFocusRef?`: `RefObject<HTMLElement | null>`
+- `title?`: `string`
   - ダイアログのタイトル
-- `children`: `React.ReactNode`
+- `children?`: `React.ReactNode`
   - ダイアログの内容
 
 **Usage**
@@ -1074,13 +1115,15 @@ Docs: https://kaze-design-system.vercel.app/docs/components/tooltip
 
 **Props**
 
-- `content`: `string`
-  - ツールチップに表示するテキスト
-- `side`: `"top" | "bottom" | "left" | "right"`
+- `content`: `ReactNode`
+  - Content to render inside the tooltip
+- `children`: `ReactElement`
+  - The element that triggers the tooltip
+- `side?`: `"top" | "bottom" | "left" | "right"`
   - Default: `"top"`
-  - ツールチップの表示位置
-- `children`: `React.ReactNode`
-  - トリガーとなる要素
+  - Which side the tooltip appears on
+- `delay?`: `number`
+  - Delay in ms before the tooltip shows
 
 **Usage**
 
@@ -1098,22 +1141,23 @@ Docs: https://kaze-design-system.vercel.app/docs/components/help-button
 
 **Props**
 
-- `title`: `string`
-  - popover 上部に表示するタイトル
-- `children`: `React.ReactNode`
-  - popover の本文（文字列・JSX どちらも可）
-- `position`: `"top" | "bottom" | "left" | "right"`
+- `title?`: `string`
+  - Popover title
+- `children`: `ReactNode`
+  - Popover body content
+- `position?`: `"top" | "bottom" | "left" | "right"`
   - Default: `"bottom"`
-  - popover の表示位置
-- `size`: `"sm" | "md" | "lg"`
+  - Preferred side the popover appears on
+- `size?`: `"sm" | "md" | "lg"`
   - Default: `"md"`
-  - popover の最大幅（sm: 220px, md: 300px, lg: 420px）
-- `icon`: `React.ReactNode`
+  - Popover width
+- `icon?`: `ReactNode`
   - Default: `"?"`
-  - トリガーボタンに表示するアイコン
-- `ariaLabel`: `string`
+  - Icon shown inside the trigger button (defaults to "?")
+- `ariaLabel?`: `string`
   - Default: `"ヘルプ"`
-  - トリガーボタンの aria-label
+  - Accessible label for the trigger
+- `className?`: `string`
 
 **Usage**
 
@@ -1135,15 +1179,18 @@ Docs: https://kaze-design-system.vercel.app/docs/components/dropdown
 
 **Props**
 
-- `Dropdown`: `コンポーネント`
+- `children`: `ReactNode`
+- `open?`: `boolean`
+- `onOpenChange?`: `(open: boolean) => void`
+- `Dropdown?`: `コンポーネント`
   - ドロップダウンのルート要素
-- `DropdownTrigger`: `サブコンポーネント`
+- `DropdownTrigger?`: `サブコンポーネント`
   - ドロップダウンを開くトリガー要素
-- `DropdownMenu`: `サブコンポーネント`
+- `DropdownMenu?`: `サブコンポーネント`
   - ドロップダウンのメニューコンテナ
-- `DropdownItem`: `サブコンポーネント`
+- `DropdownItem?`: `サブコンポーネント`
   - メニューアイテム
-- `DropdownSeparator`: `サブコンポーネント`
+- `DropdownSeparator?`: `サブコンポーネント`
   - メニューアイテム間のセパレーター
 
 **Usage**
@@ -1174,9 +1221,15 @@ Docs: https://kaze-design-system.vercel.app/docs/components/command-palette
   - 表示状態変更時のコールバック
 - `commands`: `Command[]`
   - コマンドの配列 { id, label, icon?, group?, onSelect }
-- `placeholder`: `string`
+- `placeholder?`: `string`
   - Default: `"コマンドを検索..."`
   - 検索入力のプレースホルダー
+- `searchLabel?`: `string`
+  - Accessible label for the search input (default: "コマンド検索")
+- `label?`: `string`
+  - Accessible label for the dialog (default: "コマンドパレット")
+- `emptyMessage?`: `string`
+  - Message shown when no commands match (default: "該当するコマンドが見つかりません")
 
 **Usage**
 
@@ -1201,11 +1254,11 @@ Docs: https://kaze-design-system.vercel.app/docs/components/layout
 
 **Props**
 
-- `sidebar`: `React.ReactNode`
+- `sidebar?`: `ReactNode`
   - サイドバー要素
-- `topbar`: `React.ReactNode`
+- `topbar?`: `ReactNode`
   - トップバー要素
-- `children`: `React.ReactNode`
+- `children`: `ReactNode`
   - メインコンテンツ
 
 **Usage**
@@ -1227,9 +1280,9 @@ Docs: https://kaze-design-system.vercel.app/docs/components/divider
 
 **Props**
 
-- `text`: `string`
+- `text?`: `string`
   - 中央に表示するテキスト（指定するとテキスト付き区切り線になる）
-- `subtle`: `boolean`
+- `subtle?`: `boolean`
   - Default: `false`
   - 薄い色のバリアント
 
@@ -1249,16 +1302,20 @@ Docs: https://kaze-design-system.vercel.app/docs/components/grid
 
 **Props**
 
-- `columns`: `1 | 2 | 3 | 4 | 5 | 6`
+- `columns?`: `1 | 2 | 3 | 4 | 5 | 6`
   - Default: `3`
-  - デスクトップ時のカラム数
-- `columnsMd`: `1 | 2 | 3 | 4 | 5 | 6`
-  - ≤1024px 時のカラム数（省略時は columns を継承）
-- `columnsSm`: `1 | 2 | 3 | 4 | 5 | 6`
-  - ≤640px 時のカラム数（省略時は columnsMd を継承）
-- `gap`: `number | string`
+  - Column count at desktop (default)
+- `columnsMd?`: `1 | 2 | 3 | 4 | 5 | 6`
+  - Column count at ≤1024px
+- `columnsSm?`: `1 | 2 | 3 | 4 | 5 | 6`
+  - Column count at ≤640px
+- `gap?`: `"xs" | "sm" | "md" | "lg" | "xl" | SpaceToken | number | (string & {})`
   - Default: `var(--space-6)`
-  - アイテム間のギャップ（space トークン/数値/CSS値）
+  - Gap between items — semantic token ("sm", "md", etc.), space token (e.g. 4), or any CSS value
+- `gapMd?`: `"xs" | "sm" | "md" | "lg" | "xl" | SpaceToken | number | (string & {})`
+  - Gap at ≤1024px — falls back to gap
+- `gapSm?`: `"xs" | "sm" | "md" | "lg" | "xl" | SpaceToken | number | (string & {})`
+  - Gap at ≤640px — falls back to gapMd, then gap
 
 **Usage**
 
@@ -1282,14 +1339,18 @@ Docs: https://kaze-design-system.vercel.app/docs/components/search
 
 **Props**
 
-- `placeholder`: `string`
+- `placeholder?`: `string`
   - プレースホルダーテキスト
-- `shortcut`: `string`
+- `shortcut?`: `string`
   - キーボードショートカットの表示テキスト
-- `onSearch`: `(value: string) => void`
+- `onSearch?`: `(value: string) => void`
   - 検索テキスト変更時のコールバック
-- `aria-label`: `string`
-  - アクセシビリティ用のラベル
+- `value?`: `string`
+  - Controlled value
+- `onChange?`: `(value: string) => void`
+  - Change handler for controlled mode
+- `aria-label?`: `string`
+  - Accessible label for the search input
 
 **Usage**
 
@@ -1305,10 +1366,10 @@ Docs: https://kaze-design-system.vercel.app/docs/components/logo
 
 **Props**
 
-- `size`: `"sm" | "md" | "lg"`
+- `size?`: `"sm" | "md" | "lg"`
   - Default: `"md"`
   - ロゴのサイズ
-- `showText`: `boolean`
+- `showText?`: `boolean`
   - Default: `true`
   - テキスト（kaze 風）を表示するかどうか
 
@@ -1328,12 +1389,12 @@ Docs: https://kaze-design-system.vercel.app/docs/components/icon
 **Props**
 
 - `icon`: `LucideIcon`
-  - lucide-react のアイコンコンポーネント
-- `size`: `"xs" | "sm" | "md" | "lg" | "xl"`
+  - A lucide-react icon component
+- `size?`: `"xs" | "sm" | "md" | "lg" | "xl"`
   - Default: `"md"`
-  - アイコンのサイズ（xs=12, sm=14, md=16, lg=20, xl=24）
-- `label`: `string`
-  - アクセシブルラベル（省略時は装飾アイコンとして aria-hidden）
+  - Size of the icon
+- `label?`: `string`
+  - Accessible label — if omitted, the icon is decorative (aria-hidden)
 
 **Usage**
 
@@ -1353,16 +1414,17 @@ Docs: https://kaze-design-system.vercel.app/docs/components/heading
 
 **Props**
 
-- `level`: `1 | 2 | 3 | 4 | 5 | 6`
+- `level?`: `1 | 2 | 3 | 4 | 5 | 6`
   - Default: `2`
   - 見出しレベル（サイズとセマンティクス）
-- `as`: `"h1" | "h2" | ... | "h6"`
+- `as?`: ``h${HeadingLevel}``
   - レンダリングするHTML要素を上書き
-- `description`: `React.ReactNode`
+- `description?`: `ReactNode`
   - 見出し下の説明テキスト
-- `bordered`: `boolean`
+- `bordered?`: `boolean`
   - Default: `false`
   - 下線ボーダーを表示
+- `children`: `ReactNode`
 
 **Usage**
 
@@ -1380,21 +1442,21 @@ Docs: https://kaze-design-system.vercel.app/docs/components/text
 
 **Props**
 
-- `variant`: `"body" | "lead" | "caption" | "overline"`
+- `variant?`: `"body" | "lead" | "caption" | "overline"`
   - Default: `"body"`
   - テキストの用途別スタイル
-- `size`: `"xs" | "sm" | "base" | "lg" | "xl" | "2xl"`
+- `size?`: `"xs" | "sm" | "base" | "lg" | "xl" | "2xl"`
   - フォントサイズの上書き
-- `weight`: `"normal" | "medium" | "semibold" | "bold"`
+- `weight?`: `"normal" | "medium" | "semibold" | "bold"`
   - フォントウェイトの上書き
-- `color`: `"default" | "muted" | "subtle" | "inherit" | "primary" | "positive" | "warning" | "negative"`
+- `color?`: `"default" | "muted" | "subtle" | "inherit" | "primary" | "positive" | "warning" | "negative"`
   - Default: `"default"`
   - テキストカラー
-- `align`: `"left" | "center" | "right"`
+- `align?`: `"left" | "center" | "right"`
   - テキスト揃え
-- `as`: `"p" | "span" | "div" | "label" | "small" | "strong" | "em"`
+- `as?`: `"p" | "span" | "div" | "label" | "small" | "strong" | "em"`
   - Default: `"p"`
-  - レンダリングする HTML 要素
+  - Render as a different element (default: "p")
 
 **Usage**
 
@@ -1416,20 +1478,21 @@ Docs: https://kaze-design-system.vercel.app/docs/components/list
 
 **Props**
 
-- `divided`: `boolean`
+- `divided?`: `boolean`
   - Default: `false`
   - アイテム間に区切り線を表示（List）
-- `marker`: `"disc" | "decimal" | "none"`
-  - リストマーカーのスタイル（List）
-- `leading`: `React.ReactNode`
+- `marker?`: `"disc" | "decimal" | "none"`
+  - List marker style
+- `children`: `ReactNode`
+- `leading?`: `React.ReactNode`
   - 左側のアイコンなど（ListItem）
-- `title`: `React.ReactNode`
+- `title?`: `React.ReactNode`
   - アイテムのタイトル（ListItem）
-- `description`: `React.ReactNode`
+- `description?`: `React.ReactNode`
   - タイトル下の説明文（ListItem）
-- `trailing`: `React.ReactNode`
+- `trailing?`: `React.ReactNode`
   - 右側の補足テキストやアイコン（ListItem）
-- `interactive`: `boolean`
+- `interactive?`: `boolean`
   - Default: `false`
   - ホバーエフェクトを有効化（ListItem）
 
@@ -1472,16 +1535,16 @@ Docs: https://kaze-design-system.vercel.app/docs/components/description-list
 
 **Props**
 
-- `horizontal`: `boolean`
+- `horizontal?`: `boolean`
   - Default: `false`
   - 用語と説明を横並びで表示（DescriptionList）
-- `bordered`: `boolean`
+- `bordered?`: `boolean`
   - Default: `false`
   - 各項目に下線ボーダーを表示（DescriptionList）
-- `term`: `React.ReactNode`
-  - 用語・ラベル（DescriptionItem）
-- `children`: `React.ReactNode`
+- `children`: `ReactNode`
   - 説明・値（DescriptionItem）
+- `term?`: `React.ReactNode`
+  - 用語・ラベル（DescriptionItem）
 
 **Usage**
 
@@ -1506,13 +1569,14 @@ Docs: https://kaze-design-system.vercel.app/docs/components/timeline
 
 **Props**
 
-- `time`: `string`
+- `children`: `ReactNode`
+- `time?`: `string`
   - タイムスタンプ表示（TimelineItem）
-- `title`: `React.ReactNode`
+- `title?`: `React.ReactNode`
   - イベントのタイトル（TimelineItem）
-- `description`: `React.ReactNode`
+- `description?`: `React.ReactNode`
   - イベントの詳細説明（TimelineItem）
-- `status`: `"default" | "positive" | "negative" | "info" | "warning"`
+- `status?`: `"default" | "positive" | "negative" | "info" | "warning"`
   - Default: `"default"`
   - ドットの色（TimelineItem）
 
@@ -1539,16 +1603,16 @@ Docs: https://kaze-design-system.vercel.app/docs/components/navbar
 
 **Props**
 
-- `logo`: `React.ReactNode`
+- `logo?`: `ReactNode`
   - ロゴ要素
-- `actions`: `React.ReactNode`
+- `actions?`: `ReactNode`
   - 右側のアクション要素
-- `transparent`: `boolean`
+- `transparent?`: `boolean`
   - Default: `false`
   - 透明背景にするかどうか
-- `NavbarLinks`: `サブコンポーネント`
+- `NavbarLinks?`: `サブコンポーネント`
   - ナビリンクのコンテナ
-- `NavbarLink`: `サブコンポーネント`
+- `NavbarLink?`: `サブコンポーネント`
   - 個々のナビリンク（active prop 対応）
 
 **Usage**
@@ -1570,19 +1634,19 @@ Docs: https://kaze-design-system.vercel.app/docs/components/hero
 
 **Props**
 
+- `badge?`: `string`
+  - タイトル上のバッジテキスト
 - `title`: `string`
   - メインタイトル
-- `subtitle`: `string`
+- `subtitle?`: `string`
   - サブタイトル
-- `badge`: `string`
-  - タイトル上のバッジテキスト
-- `bg`: `string`
-  - 背景色。例: "var(--blue-500)"
-- `bgImage`: `string`
-  - 背景画像 URL または CSS gradient
-- `overlay`: `boolean | number`
-  - 暗めオーバーレイの不透明度。true = 0.5
-- `children`: `React.ReactNode`
+- `bg?`: `string`
+  - Background color — any CSS value, e.g. "var(--blue-500)"
+- `bgImage?`: `string`
+  - Background image — URL or CSS gradient, e.g. "url(...)" or "linear-gradient(...)"
+- `overlay?`: `boolean | number`
+  - Dark overlay opacity (0–1). true = 0.5. Useful for readability on images.
+- `children?`: `React.ReactNode`
   - CTAボタンなどのアクション要素
 
 **Usage**
@@ -1611,13 +1675,13 @@ Docs: https://kaze-design-system.vercel.app/docs/components/section
 
 **Props**
 
-- `size`: `"sm" | "md" | "lg"`
+- `size?`: `"sm" | "md" | "lg"`
   - Default: `"md"`
   - 上下パディングのサイズ
-- `background`: `"default" | "muted" | "dark"`
+- `background?`: `"default" | "muted" | "dark"`
   - Default: `"default"`
   - 背景色バリアント
-- `children`: `React.ReactNode`
+- `children?`: `React.ReactNode`
   - セクションの内容
 
 **Usage**
@@ -1637,14 +1701,14 @@ Docs: https://kaze-design-system.vercel.app/docs/components/split-section
 
 **Props**
 
-- `media`: `React.ReactNode`
-  - メディアエリアに表示する要素
-- `mediaBg`: `string`
-  - メディアエリアの背景（CSS gradient / color）
-- `reverse`: `boolean`
+- `media?`: `ReactNode`
+  - Media slot (image placeholder, gradient, etc.)
+- `mediaBg?`: `string`
+  - Background for the media area (CSS gradient or color)
+- `reverse?`: `boolean`
   - Default: `false`
-  - テキスト左・画像右に反転
-- `children`: `React.ReactNode`
+  - Reverse layout: text left, image right
+- `children?`: `React.ReactNode`
   - テキストエリアの内容
 
 **Usage**
@@ -1670,7 +1734,7 @@ Docs: https://kaze-design-system.vercel.app/docs/components/feature-grid
 
 **Props**
 
-- `columns`: `2 | 3 | 4`
+- `columns?`: `2 | 3 | 4`
   - Default: `3`
   - カラム数
 
@@ -1690,11 +1754,11 @@ Docs: https://kaze-design-system.vercel.app/docs/components/stats
 
 **Props**
 
-- `value`: `string`
+- `value?`: `string`
   - 数値（StatItem）
-- `label`: `string`
+- `label?`: `string`
   - ラベル（StatItem）
-- `description`: `string`
+- `description?`: `string`
   - Default: `—`
   - 補足テキスト（StatItem）
 
@@ -1717,16 +1781,17 @@ Docs: https://kaze-design-system.vercel.app/docs/components/pricing
 
 - `name`: `string`
   - プラン名
+- `description?`: `string`
 - `price`: `string`
   - 価格
-- `period`: `string`
+- `period?`: `string`
   - 課金期間
 - `features`: `string[]`
   - 機能リスト
-- `featured`: `boolean`
+- `featured?`: `boolean`
   - Default: `false`
   - ハイライト表示
-- `badge`: `string`
+- `badge?`: `string`
   - バッジテキスト
 
 **Usage**
@@ -1751,10 +1816,12 @@ Docs: https://kaze-design-system.vercel.app/docs/components/testimonial
   - 引用テキスト
 - `authorName`: `string`
   - 著者名
-- `authorRole`: `string`
+- `authorRole?`: `string`
   - 役職
-- `authorImage`: `string`
+- `authorImage?`: `string`
   - 著者画像URL
+- `showIcon?`: `boolean`
+  - Show avatar or initials icon
 
 **Usage**
 
@@ -1772,11 +1839,11 @@ Docs: https://kaze-design-system.vercel.app/docs/components/faq
 
 **Props**
 
-- `question`: `string`
+- `question?`: `string`
   - 質問テキスト（FAQItem）
-- `answer`: `string`
+- `answer?`: `string`
   - 回答テキスト（FAQItem）
-- `children`: `React.ReactNode`
+- `children?`: `React.ReactNode`
   - 回答コンテンツ（FAQItem、answerの代替）
 
 **Usage**
@@ -1797,9 +1864,9 @@ Docs: https://kaze-design-system.vercel.app/docs/components/cta-banner
 
 - `title`: `string`
   - タイトル
-- `description`: `string`
+- `description?`: `string`
   - 説明テキスト
-- `children`: `React.ReactNode`
+- `children?`: `React.ReactNode`
   - アクションボタン
 
 **Usage**
@@ -1818,15 +1885,15 @@ Docs: https://kaze-design-system.vercel.app/docs/components/lp-footer
 
 **Props**
 
-- `logo`: `React.ReactNode`
+- `logo?`: `ReactNode`
   - ロゴ要素
-- `description`: `string`
+- `description?`: `string`
   - ブランド説明文
 - `columns`: `FooterColumn[]`
   - フッターリンク列 { title, links: { label, href }[] }
-- `bottomLeft`: `React.ReactNode`
+- `bottomLeft?`: `ReactNode`
   - フッター下部左側
-- `bottomRight`: `React.ReactNode`
+- `bottomRight?`: `ReactNode`
   - フッター下部右側
 
 **Usage**
