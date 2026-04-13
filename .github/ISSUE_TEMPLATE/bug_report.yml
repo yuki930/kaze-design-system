@@ -1,0 +1,80 @@
+name: 🐛 バグ報告
+description: 期待通りに動作しない挙動を報告する
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        バグ報告ありがとうございます。再現可能な情報を教えてください。
+
+  - type: input
+    id: version
+    attributes:
+      label: kaze-design-system のバージョン
+      description: "例: 0.4.2"
+      placeholder: "0.4.2"
+    validations:
+      required: true
+
+  - type: input
+    id: component
+    attributes:
+      label: 対象コンポーネント / hook
+      description: "どのコンポーネントで発生していますか？"
+      placeholder: "Disclosure / useLegendToggle / etc."
+    validations:
+      required: false
+
+  - type: textarea
+    id: description
+    attributes:
+      label: 現象の説明
+      description: 何が起きていますか？
+      placeholder: |
+        Disclosure を開くと content が...
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: 再現手順
+      description: 最小再現コードがあれば貼ってください
+      render: tsx
+      placeholder: |
+        <Disclosure title="...">
+          ...
+        </Disclosure>
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: 期待する挙動
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: 実際の挙動
+    validations:
+      required: true
+
+  - type: input
+    id: env
+    attributes:
+      label: 環境
+      description: "ブラウザ / OS / React バージョン / bundler"
+      placeholder: "Chrome 131 / macOS 14 / React 19 / Next.js 16"
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: 確認事項
+      options:
+        - label: 最新版 (latest) で再現することを確認した
+        - label: 既存の Issue を検索して重複がないことを確認した

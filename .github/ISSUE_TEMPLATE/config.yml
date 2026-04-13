@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 📚 ドキュメント
+    url: https://kaze-design-system.vercel.app/docs/components
+    about: 63 コンポーネントのプレビューと API リファレンス
+  - name: 🤖 AI アシスタント向け API カタログ
+    url: https://kaze-design-system.vercel.app/llms-full.txt
+    about: Claude / Cursor / ChatGPT で使える機械可読な API リファレンス
+  - name: 💬 質問 / 雑談
+    url: https://github.com/yuki930/kaze-design-system/discussions
+    about: バグ/機能要望ではない相談はこちら

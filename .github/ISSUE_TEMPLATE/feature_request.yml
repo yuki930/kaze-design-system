@@ -1,0 +1,59 @@
+name: ✨ 機能要望 / 新コンポーネント提案
+description: 新しいコンポーネント、hook、または既存コンポーネントの機能追加を提案する
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        提案ありがとうございます。kaze に追加すべき機能か、ユースケースと合わせて教えてください。
+
+  - type: textarea
+    id: background
+    attributes:
+      label: 背景 / ユースケース
+      description: なぜこれが必要ですか？実際にどこで使われる想定ですか？
+      placeholder: |
+        ダッシュボード系プロジェクトで「...」する UI が繰り返し現れており、
+        現状は各プロジェクトで独自実装しています。
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: 提案する API
+      description: こうなっていると嬉しい、という API を書いてください
+      render: tsx
+      placeholder: |
+        <NewComponent variant="foo" size="md">
+          ...
+        </NewComponent>
+    validations:
+      required: true
+
+  - type: textarea
+    id: props
+    attributes:
+      label: Props / 仕様
+      description: 主要な props と、それぞれの用途
+      placeholder: |
+        - `variant?: "primary" | "secondary"` — スタイルバリアント
+        - `size?: "sm" | "md" | "lg"` — サイズ
+    validations:
+      required: false
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: 代替案 / 類似実装
+      description: 他のデザインシステム（Radix, shadcn, Headless UI 等）に類似実装があれば教えてください
+    validations:
+      required: false
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: その他メモ
+      description: アクセシビリティ、実装上の注意点、デザインの参考画像など
+    validations:
+      required: false

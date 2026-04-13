@@ -144,6 +144,23 @@ import { useLegendToggle } from "kaze-design-system/hooks";
 - `useFocusTrap` — モーダル向けフォーカストラップ
 - `useLegendToggle` — Recharts の凡例クリックで系列 show/hide を切り替え
 
+## 📦 バンドルサイズ
+
+63 コンポーネント全部込みで **JS 38 kB gzip + CSS 23 kB gzip ≒ 61 kB gz**。ただし、個別 import すれば使った分だけが bundle に入ります。
+
+| 区分 | 生サイズ | gzip |
+|---|---:|---:|
+| JS: 全コンポーネント合計 (tree-shake 対象) | 110 kB | **38 kB** |
+| JS: 最大 (CommandPalette) | 6.4 kB | 1.9 kB |
+| JS: 中央値 (StatusBadge) | 896 B | 476 B |
+| JS: 最小 (Textarea) | 481 B | 280 B |
+| CSS: `tokens.css` | 20.1 kB | 4.9 kB |
+| CSS: `components.css` | 101 kB | 13.6 kB |
+| CSS: `utilities.css` | 18.9 kB | 3.4 kB |
+| CSS: `reset.css` | 3.7 kB | 1.1 kB |
+
+`npm run size` でローカルで最新のサイズを計測できます。React / lucide-react 等の peer dependencies は含まれていません。
+
 ## デザイントークン
 
 CSS カスタムプロパティベース:
