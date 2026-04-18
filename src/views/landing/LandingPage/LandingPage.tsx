@@ -114,7 +114,12 @@ export function LandingPage() {
         logo={<Logo size="md" />}
         actions={
           <div className={styles.navActions}>
-            <a href="#" aria-label="リポジトリ">
+            <a
+              href="https://github.com/yuki930/kaze-design-system"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="リポジトリ"
+            >
               <Button variant="ghost" size="sm" iconOnly aria-label="リポジトリ">
                 <Github size={18} />
               </Button>
@@ -313,9 +318,15 @@ export function LandingPage() {
               無料ではじめる
             </span>
           </Button>
-          <Button size="lg" variant="outline" className={styles.ctaBtnOutline}>
-            GitHubで見る
-          </Button>
+          <a
+            href="https://github.com/yuki930/kaze-design-system"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Button size="lg" variant="outline" className={styles.ctaBtnOutline}>
+              GitHubで見る
+            </Button>
+          </a>
         </CTABanner>
       </Section>
 
@@ -339,7 +350,7 @@ export function LandingPage() {
               { label: "ドキュメント", href: "#" },
               { label: "はじめに", href: "#" },
               { label: "ブログ", href: "#" },
-              { label: "GitHub", href: "#" },
+              { label: "GitHub", href: "https://github.com/yuki930/kaze-design-system" },
             ],
           },
           {
