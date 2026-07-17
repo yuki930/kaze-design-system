@@ -1,3 +1,4 @@
+import type { CSSProperties, ReactNode } from "react";
 import styles from "./docs.module.css";
 import Link from "next/link";
 
@@ -7,14 +8,24 @@ interface ComponentInfo {
   description: string;
 }
 
+/**
+ * Kaze is "1 package, 3 layers": Foundation (tokens / utilities, shared) →
+ * Application UI → Marketing. Foundation has no component entries of its
+ * own (it links out to the tokens/colors/utilities docs), so every
+ * `Category` below belongs to exactly one of the two component catalogs.
+ */
+type Layer = "application-ui" | "marketing";
+
 interface Category {
   title: string;
+  layer: Layer;
   components: ComponentInfo[];
 }
 
 const categories: Category[] = [
   {
     title: "フォーム",
+    layer: "application-ui",
     components: [
       { name: "Button", path: "button", description: "ボタンコンポーネント" },
       { name: "FAB", path: "fab", description: "フローティングアクションボタン" },
@@ -31,6 +42,7 @@ const categories: Category[] = [
   },
   {
     title: "データ表示",
+    layer: "application-ui",
     components: [
       { name: "Card", path: "card", description: "カードコンポーネント" },
       { name: "Badge", path: "badge", description: "バッジ" },
@@ -45,6 +57,7 @@ const categories: Category[] = [
   },
   {
     title: "チャート",
+    layer: "application-ui",
     components: [
       { name: "BarChart", path: "bar-chart", description: "棒グラフ" },
       { name: "DonutChart", path: "donut-chart", description: "ドーナツチャート" },
@@ -53,6 +66,7 @@ const categories: Category[] = [
   },
   {
     title: "フィードバック",
+    layer: "application-ui",
     components: [
       { name: "Alert", path: "alert", description: "アラート通知" },
       { name: "Progress", path: "progress", description: "プログレスバー" },
@@ -64,6 +78,7 @@ const categories: Category[] = [
   },
   {
     title: "ナビゲーション",
+    layer: "application-ui",
     components: [
       { name: "Tabs", path: "tabs", description: "タブナビゲーション" },
       { name: "Sidebar", path: "sidebar", description: "サイドバー" },
@@ -76,6 +91,7 @@ const categories: Category[] = [
   },
   {
     title: "オーバーレイ",
+    layer: "application-ui",
     components: [
       { name: "Dialog", path: "dialog", description: "ダイアログ" },
       { name: "Tooltip", path: "tooltip", description: "ツールチップ" },
@@ -86,6 +102,7 @@ const categories: Category[] = [
   },
   {
     title: "レイアウト",
+    layer: "application-ui",
     components: [
       { name: "Layout (AppLayout)", path: "layout", description: "アプリレイアウト" },
       { name: "Divider", path: "divider", description: "区切り線" },
@@ -99,6 +116,7 @@ const categories: Category[] = [
   },
   {
     title: "リスト",
+    layer: "application-ui",
     components: [
       { name: "List", path: "list", description: "リスト" },
       { name: "DescriptionList", path: "description-list", description: "定義リスト" },
@@ -107,6 +125,7 @@ const categories: Category[] = [
   },
   {
     title: "マーケティング",
+    layer: "marketing",
     components: [
       { name: "Navbar", path: "navbar", description: "ナビゲーションバー" },
       { name: "Hero", path: "hero", description: "ヒーローセクション" },
@@ -123,79 +142,197 @@ const categories: Category[] = [
   },
 ];
 
+interface FoundationLink {
+  name: string;
+  href: string;
+  description: string;
+}
+
+const foundationLinks: FoundationLink[] = [
+  {
+    name: "デザイントークン",
+    href: "/docs/tokens",
+    description: "カラー、余白、タイポグラフィなどの CSS カスタムプロパティ",
+  },
+  {
+    name: "カラー",
+    href: "/docs/colors",
+    description: "12色相 × 10階調のパレットとセマンティックカラー",
+  },
+  {
+    name: "ユーティリティ",
+    href: "/docs/utilities",
+    description: "レイアウト、スペーシング、テキストのユーティリティクラス",
+  },
+];
+
+const gridStyle: CSSProperties = {
+  display: "grid",
+  gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))",
+  gap: "var(--space-4)",
+};
+
+const layerDescriptionStyle: CSSProperties = {
+  fontSize: "var(--font-size-sm)",
+  color: "var(--color-fg-secondary)",
+  marginBottom: "var(--space-6)",
+  maxWidth: "56ch",
+};
+
+const countBadgeStyle: CSSProperties = {
+  marginLeft: "var(--space-2)",
+  fontSize: "var(--font-size-sm)",
+  fontWeight: "var(--font-weight-medium)",
+  color: "var(--color-fg-tertiary)",
+};
+
+/** Single overview card. Shared by Foundation links and component entries. */
+function OverviewCard({
+  href,
+  name,
+  description,
+}: {
+  href: string;
+  name: string;
+  description: string;
+}) {
+  return (
+    <Link href={href} style={{ textDecoration: "none", color: "inherit" }}>
+      <div
+        style={{
+          border: "1px solid var(--color-border)",
+          borderRadius: "var(--radius-lg)",
+          padding: "var(--space-5)",
+          height: "100%",
+          transition:
+            "box-shadow var(--duration-fast) var(--ease-default), border-color var(--duration-fast) var(--ease-default)",
+          cursor: "pointer",
+          background: "var(--color-surface)",
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.boxShadow = "0 2px 8px rgba(0, 0, 0, 0.08)";
+          e.currentTarget.style.borderColor = "var(--color-primary)";
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.boxShadow = "none";
+          e.currentTarget.style.borderColor = "var(--color-border)";
+        }}
+      >
+        <h3
+          style={{
+            fontSize: "var(--font-size-md)",
+            fontWeight: "var(--font-weight-semibold)",
+            marginBottom: "var(--space-1)",
+          }}
+        >
+          {name}
+        </h3>
+        <p
+          style={{
+            fontSize: "var(--font-size-sm)",
+            color: "var(--color-fg-secondary)",
+            margin: 0,
+          }}
+        >
+          {description}
+        </p>
+      </div>
+    </Link>
+  );
+}
+
+function LayerHeading({ children, count }: { children: ReactNode; count: number }) {
+  return (
+    <h2 className={styles.sectionTitle}>
+      {children}
+      <span style={countBadgeStyle}>{count}</span>
+    </h2>
+  );
+}
+
 export function ComponentsOverview() {
+  const applicationCategories = categories.filter((c) => c.layer === "application-ui");
+  const marketingCategories = categories.filter((c) => c.layer === "marketing");
+  const marketingComponents = marketingCategories.flatMap((c) => c.components);
+
+  const applicationCount = applicationCategories.reduce(
+    (sum, c) => sum + c.components.length,
+    0,
+  );
+  const marketingCount = marketingComponents.length;
+  const totalCount = applicationCount + marketingCount;
+
   return (
     <div>
       <h1 className={styles.pageTitle}>コンポーネント一覧</h1>
       <p className={styles.pageDescription}>
-        Kaze Design Systemで利用可能な全63コンポーネントをカテゴリ別に紹介します。
+        Kaze Design System は Foundation（デザイントークンとユーティリティ）を土台に、Application UI（
+        {applicationCount}）と Marketing（{marketingCount}）の2つのカタログで全{totalCount}個のコンポーネントを提供します。
         各コンポーネントをクリックすると、詳細なドキュメントとプレビューを確認できます。
       </p>
 
-      {categories.map((category) => (
-        <section key={category.title} style={{ marginBottom: "2rem" }}>
-          <h2 className={styles.sectionTitle}>{category.title}</h2>
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))",
-              gap: "1rem",
-            }}
-          >
-            {category.components.map((component) => (
-              <Link
-                key={component.path}
-                href={`/docs/components/${component.path}`}
-                style={{
-                  textDecoration: "none",
-                  color: "inherit",
-                }}
-              >
-                <div
-                  style={{
-                    border: "1px solid var(--color-border, #e2e8f0)",
-                    borderRadius: "8px",
-                    padding: "1.25rem",
-                    transition: "box-shadow 0.2s, border-color 0.2s",
-                    cursor: "pointer",
-                    background: "var(--color-surface, #fff)",
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.boxShadow =
-                      "0 2px 8px rgba(0, 0, 0, 0.08)";
-                    e.currentTarget.style.borderColor =
-                      "var(--color-primary, #3b82f6)";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.boxShadow = "none";
-                    e.currentTarget.style.borderColor =
-                      "var(--color-border, #e2e8f0)";
-                  }}
-                >
-                  <h3
-                    style={{
-                      fontSize: "1rem",
-                      fontWeight: 600,
-                      marginBottom: "0.25rem",
-                    }}
-                  >
-                    {component.name}
-                  </h3>
-                  <p
-                    style={{
-                      fontSize: "0.875rem",
-                      color: "var(--color-fg-secondary)",
-                      margin: 0,
-                    }}
-                  >
-                    {component.description}
-                  </p>
-                </div>
-              </Link>
-            ))}
+      {/* ── Foundation ────────────────────────────────────────── */}
+      <section style={{ marginBottom: "var(--space-12)" }}>
+        <h2 className={styles.sectionTitle}>Foundation</h2>
+        <p style={layerDescriptionStyle}>
+          Application UI と Marketing の両カタログが共有する土台です。色、余白、タイポグラフィはすべてここから継承されます。
+        </p>
+        <div style={gridStyle}>
+          {foundationLinks.map((link) => (
+            <OverviewCard
+              key={link.href}
+              href={link.href}
+              name={link.name}
+              description={link.description}
+            />
+          ))}
+        </div>
+      </section>
+
+      {/* ── Application UI ────────────────────────────────────── */}
+      <section style={{ marginBottom: "var(--space-12)" }}>
+        <LayerHeading count={applicationCount}>Application UI</LayerHeading>
+        <p style={layerDescriptionStyle}>
+          管理画面やダッシュボードなど、業務アプリケーションの画面を組み立てるための8カテゴリです。
+        </p>
+
+        {applicationCategories.map((category) => (
+          <div key={category.title} style={{ marginBottom: "var(--space-8)" }}>
+            <h3 className={styles.subsectionTitle}>
+              {category.title}
+              <span style={countBadgeStyle}>{category.components.length}</span>
+            </h3>
+            <div style={gridStyle}>
+              {category.components.map((component) => (
+                <OverviewCard
+                  key={component.path}
+                  href={`/docs/components/${component.path}`}
+                  name={component.name}
+                  description={component.description}
+                />
+              ))}
+            </div>
           </div>
-        </section>
-      ))}
+        ))}
+      </section>
+
+      {/* ── Marketing ─────────────────────────────────────────── */}
+      <section>
+        <LayerHeading count={marketingCount}>Marketing</LayerHeading>
+        <p style={layerDescriptionStyle}>
+          ランディングページやプロダクトサイトを組み立てるための、正準の{marketingCount}コンポーネントです。
+        </p>
+        <div style={gridStyle}>
+          {marketingComponents.map((component) => (
+            <OverviewCard
+              key={component.path}
+              href={`/docs/components/${component.path}`}
+              name={component.name}
+              description={component.description}
+            />
+          ))}
+        </div>
+      </section>
     </div>
   );
 }

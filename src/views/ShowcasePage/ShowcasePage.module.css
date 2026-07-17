@@ -237,11 +237,38 @@
 
 /* ── Components Categories ───────────────────────────────── */
 
+/* Groups the flat category grid into the Application UI / Marketing
+   layers so the 2-catalog taxonomy reads visually, not just as a label. */
+.layerBlock {
+  margin-bottom: var(--space-8);
+}
+
+.layerBlock:last-of-type {
+  margin-bottom: var(--space-10);
+}
+
+.layerHeader {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: var(--space-3);
+}
+
+.layerHeaderTitle {
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-wider);
+}
+
 .catGrid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: var(--space-4);
-  margin-bottom: var(--space-10);
+}
+
+/* Marketing is presented as one cohesive catalog rather than
+   subcategories, so its single card spans the full grid row. */
+.catCardWide {
+  grid-column: 1 / -1;
 }
 
 .catHeader {

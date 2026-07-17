@@ -223,29 +223,83 @@ const samplePages: SamplePage[] = [
   },
 ];
 
+type ComponentLayer = "application-ui" | "marketing";
+
 interface ComponentCategory {
   name: string;
   count: number;
   icon: React.ReactNode;
   color: string;
+  layer: ComponentLayer;
 }
 
-/* 9カテゴリを2群に整理: データ可視化系(データ表示・チャート)だけ
+/* Kaze は Foundation → Application UI → Marketing の3層構成（1パッケージ・3レイヤー）。
+   Foundation は共有前提のためカード化しない。ここでは Application UI 8カテゴリ /
+   Marketing 1カタログの2層で見せる。データ可視化系(データ表示・チャート)だけ
    単一アクセントで強調し、残りはニュートラルトーンに統一する。
    内訳は docs の ComponentsOverview の分類（計63）と一致させる。 */
 const componentCategories: ComponentCategory[] = [
-  { name: "フォーム", count: 11, icon: <FormInput size={18} />, color: "var(--color-fg-tertiary)" },
-  { name: "データ表示", count: 9, icon: <Table2 size={18} />, color: "var(--color-accent-a)" },
-  { name: "チャート", count: 3, icon: <BarChart3 size={18} />, color: "var(--color-accent-a)" },
-  { name: "フィードバック", count: 6, icon: <MessageSquare size={18} />, color: "var(--color-fg-tertiary)" },
-  { name: "ナビゲーション", count: 7, icon: <Compass size={18} />, color: "var(--color-fg-tertiary)" },
-  { name: "オーバーレイ", count: 5, icon: <Layers size={18} />, color: "var(--color-fg-tertiary)" },
-  { name: "レイアウト", count: 8, icon: <LayoutGrid size={18} />, color: "var(--color-fg-tertiary)" },
-  { name: "リスト", count: 3, icon: <ClipboardList size={18} />, color: "var(--color-fg-tertiary)" },
-  { name: "マーケティング", count: 11, icon: <Megaphone size={18} />, color: "var(--color-fg-tertiary)" },
+  { name: "フォーム", count: 11, icon: <FormInput size={18} />, color: "var(--color-fg-tertiary)", layer: "application-ui" },
+  { name: "データ表示", count: 9, icon: <Table2 size={18} />, color: "var(--color-accent-a)", layer: "application-ui" },
+  { name: "チャート", count: 3, icon: <BarChart3 size={18} />, color: "var(--color-accent-a)", layer: "application-ui" },
+  { name: "フィードバック", count: 6, icon: <MessageSquare size={18} />, color: "var(--color-fg-tertiary)", layer: "application-ui" },
+  { name: "ナビゲーション", count: 7, icon: <Compass size={18} />, color: "var(--color-fg-tertiary)", layer: "application-ui" },
+  { name: "オーバーレイ", count: 5, icon: <Layers size={18} />, color: "var(--color-fg-tertiary)", layer: "application-ui" },
+  { name: "レイアウト", count: 8, icon: <LayoutGrid size={18} />, color: "var(--color-fg-tertiary)", layer: "application-ui" },
+  { name: "リスト", count: 3, icon: <ClipboardList size={18} />, color: "var(--color-fg-tertiary)", layer: "application-ui" },
+  { name: "マーケティング", count: 11, icon: <Megaphone size={18} />, color: "var(--color-fg-tertiary)", layer: "marketing" },
 ];
 
+const applicationUiCategories = componentCategories.filter((c) => c.layer === "application-ui");
+const marketingCategories = componentCategories.filter((c) => c.layer === "marketing");
+const applicationUiTotal = applicationUiCategories.reduce((sum, c) => sum + c.count, 0);
+const marketingTotal = marketingCategories.reduce((sum, c) => sum + c.count, 0);
+
 const INITIAL_SHOW = 6;
+
+/** Single category card used in both the Application UI grid and the
+ * Marketing grid. `wide` spans the full grid row — used for Marketing,
+ * which is presented as one cohesive catalog rather than subcategories. */
+function ComponentCategoryCard({
+  category,
+  wide,
+}: {
+  category: ComponentCategory;
+  wide?: boolean;
+}) {
+  return (
+    <Card variant="interactive" className={wide ? styles.catCardWide : undefined}>
+      <CardBody>
+        <div className={styles.catHeader}>
+          <div
+            className={styles.catIcon}
+            style={{
+              background: `color-mix(in srgb, ${category.color} 12%, transparent)`,
+              color: category.color,
+            }}
+          >
+            {category.icon}
+          </div>
+          <div>
+            <Text as="div" size="sm" weight="medium">{category.name}</Text>
+            <Text as="div" size="xs" color="subtle">
+              {category.count} コンポーネント
+            </Text>
+          </div>
+        </div>
+        <div className={styles.catBar}>
+          <div
+            className={styles.catBarFill}
+            style={{
+              width: `${(category.count / 11) * 100}%`,
+              background: category.color,
+            }}
+          />
+        </div>
+      </CardBody>
+    </Card>
+  );
+}
 
 /* ── ShowcasePage ──────────────────────────────────────────────── */
 
@@ -457,45 +511,42 @@ export function ShowcasePage() {
           <div className={styles.sectionHeading}>
             <Heading
               level={2}
-              description="フォーム、データ表示、ナビゲーション、チャートなど、よく使う UI 部品を一通り揃えています。"
+              description="Foundation の上に、Application UI と Marketing の2つのカタログを揃えています。"
             >
               63のコンポーネント
             </Heading>
           </div>
 
-          <div className={styles.catGrid}>
-            {componentCategories.map((cat) => (
-              <Card key={cat.name} variant="interactive">
-                <CardBody>
-                  <div className={styles.catHeader}>
-                    <div
-                      className={styles.catIcon}
-                      style={{
-                        background: `color-mix(in srgb, ${cat.color} 12%, transparent)`,
-                        color: cat.color,
-                      }}
-                    >
-                      {cat.icon}
-                    </div>
-                    <div>
-                      <Text as="div" size="sm" weight="medium">{cat.name}</Text>
-                      <Text as="div" size="xs" color="subtle">
-                        {cat.count} コンポーネント
-                      </Text>
-                    </div>
-                  </div>
-                  <div className={styles.catBar}>
-                    <div
-                      className={styles.catBarFill}
-                      style={{
-                        width: `${(cat.count / 11) * 100}%`,
-                        background: cat.color,
-                      }}
-                    />
-                  </div>
-                </CardBody>
-              </Card>
-            ))}
+          <div className={styles.layerBlock}>
+            <div className={styles.layerHeader}>
+              <Text as="span" size="xs" weight="semibold" className={styles.layerHeaderTitle}>
+                Application UI
+              </Text>
+              <Text as="span" size="xs" color="subtle">
+                {applicationUiTotal} コンポーネント
+              </Text>
+            </div>
+            <div className={styles.catGrid}>
+              {applicationUiCategories.map((cat) => (
+                <ComponentCategoryCard key={cat.name} category={cat} />
+              ))}
+            </div>
+          </div>
+
+          <div className={styles.layerBlock}>
+            <div className={styles.layerHeader}>
+              <Text as="span" size="xs" weight="semibold" className={styles.layerHeaderTitle}>
+                Marketing
+              </Text>
+              <Text as="span" size="xs" color="subtle">
+                {marketingTotal} コンポーネント
+              </Text>
+            </div>
+            <div className={styles.catGrid}>
+              {marketingCategories.map((cat) => (
+                <ComponentCategoryCard key={cat.name} category={cat} wide />
+              ))}
+            </div>
           </div>
 
           <div className={styles.catCta}>

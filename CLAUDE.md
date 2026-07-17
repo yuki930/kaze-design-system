@@ -68,6 +68,23 @@ tsconfig.build.json     # ライブラリビルド用 TypeScript 設定
 - 静的コンポーネント（Card, Badge, Avatar, Heading 等）は Server Component 可能
 - barrel export (`components/index.ts`, `hooks/index.ts`) は `"use client"` 付き
 
+## レイヤー構成（Foundation / Application UI / Marketing）
+Kaze は「1パッケージ・3レイヤー」構成。上位レイヤーは下位レイヤーのトークンだけを参照し、逆方向の参照はしない。
+
+- **Foundation**: `tokens.css` / `utilities.css` など、両カタログが共有する土台。単独のコンポーネントは持たず、`/docs/tokens`・`/docs/colors`・`/docs/utilities` として提示する。
+- **Application UI**: 業務アプリ・ダッシュボードの画面を組む52コンポーネント。フォーム/データ表示/チャート/フィードバック/ナビゲーション/オーバーレイ/レイアウト/リストの8カテゴリ。
+- **Marketing**: LP・プロダクトサイトを組む正準11コンポーネント。Navbar, Hero, Section, SplitSection, FeatureGrid, Stats, Pricing, Testimonial, FAQ, CTABanner, LPFooter。この11個以外を追加する場合は Issue で合意を取ってから増やす（勝手に一点ものを足さない）。
+- コンポーネント総数は 63（52 + 11）。`src/views/docs/ComponentsOverview.tsx` の `categories` 配列がこの2カタログ + Foundation 導線の唯一のソース。`scripts/generate-llms.mjs` がこの配列を TypeScript Compiler API で解析して `llms.txt` / `llms-full.txt` を生成するため、カテゴリ構造を変える際は両方を追従修正し `npm run docs:llms` で63個出力されることを確認する。
+
+### Marketing コンポーネントのデモ制約
+Marketing はランディングページの世界観を見せる場なので、Application UI より表現の自由度は上げてよいが、以下は例外なく守る。
+
+- **世界観スペックに準拠**: Zinc ベース + 単一アクセントのミニマル基調を保つ。装飾のためのグラデーションや過度なエフェクトは足さない。
+- **多色グラデーション禁止**: 複数色相を混ぜたレインボー/パステル系グラデーションは使わない。使うなら単一アクセント色の抑えたグロー（例: `heroSection::before` の 1 色 blur）まで。
+- **em-dash 禁止**: 実文言に `—` / `―` を使わない（下記「コンテンツのルール」と同一基準。コード内コメントの区切りは対象外）。
+- **見出し絵文字禁止**: h1〜h3 に装飾絵文字を使わない。
+- **人名・社名はプールから**: テスティモニアルやダミーデータは下記「コンテンツのルール」のプールから割り当てる。新規デモのために架空名を思いつきで増やさない。
+
 ## コンテンツのルール
 - **実在企業名**: UIラベル（フッター、ナビ、CTA）では GitHub, Twitter, Instagram 等のサービス名 OK
 - **人名**: テスティモニアル、ダミーデータ、記事の著者、SettingsPage 等の個人情報には以下のプールから文脈ごとに割り当てる。同じ名前を複数ページで使い回さない

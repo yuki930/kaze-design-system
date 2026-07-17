@@ -123,11 +123,33 @@
   gap: var(--space-1);
 }
 
-/* 9-item legend (component categories) - 2 columns keeps the card compact */
+/* 8-item legend (Application UI subcategories) - 2 columns keeps the card compact */
 .miniLegendGrid {
   display: grid;
   grid-template-columns: repeat(2, auto);
   gap: var(--space-1) var(--space-3);
+}
+
+/* Groups the component-category legend into Application UI / Marketing
+   so the 2-layer taxonomy reads in the legend, not just in the donut. */
+.miniLegendGroups {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.miniLegendGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.miniLegendGroupTitle {
+  font-size: var(--font-size-2xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-fg-tertiary);
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-wider);
 }
 
 .miniLegendItem {

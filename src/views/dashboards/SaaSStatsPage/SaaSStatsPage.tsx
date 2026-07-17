@@ -7,21 +7,30 @@ import styles from "./SaaSStatsPage.module.css";
 /* ── Data ─────────────────────────────────────────────────────
    すべて kaze-design-system 自身の実数。
    コンポーネントカテゴリは src/views/docs/ComponentsOverview.tsx の
-   分類（全63コンポーネント）と一致させている。
+   分類（全63コンポーネント）と一致させている。Kaze は Foundation →
+   Application UI → Marketing の3層構成。Foundation は共有前提のため
+   ドーナツには乗せず、Application UI 8カテゴリ / Marketing 1カタログの
+   2層が読み取れるよう layer でグルーピングする。
    ------------------------------------------------------------ */
 
-const componentCategoryData = [
-  { label: "フォーム", value: 11, color: "var(--chart-1)" },
-  { label: "マーケティング", value: 11, color: "var(--chart-2)" },
-  { label: "データ表示", value: 9, color: "var(--chart-3)" },
-  { label: "レイアウト", value: 8, color: "var(--chart-4)" },
-  { label: "ナビゲーション", value: 7, color: "var(--chart-5)" },
-  { label: "フィードバック", value: 6, color: "var(--chart-6)" },
-  { label: "オーバーレイ", value: 5, color: "var(--chart-7)" },
-  { label: "チャート", value: 3, color: "var(--chart-8)" },
-  { label: "リスト", value: 3, color: "var(--chart-9)" },
+type ComponentLayer = "application-ui" | "marketing";
+
+const componentCategoryData: { label: string; value: number; color: string; layer: ComponentLayer }[] = [
+  { label: "フォーム", value: 11, color: "var(--chart-1)", layer: "application-ui" },
+  { label: "データ表示", value: 9, color: "var(--chart-3)", layer: "application-ui" },
+  { label: "レイアウト", value: 8, color: "var(--chart-4)", layer: "application-ui" },
+  { label: "ナビゲーション", value: 7, color: "var(--chart-5)", layer: "application-ui" },
+  { label: "フィードバック", value: 6, color: "var(--chart-6)", layer: "application-ui" },
+  { label: "オーバーレイ", value: 5, color: "var(--chart-7)", layer: "application-ui" },
+  { label: "チャート", value: 3, color: "var(--chart-8)", layer: "application-ui" },
+  { label: "リスト", value: 3, color: "var(--chart-9)", layer: "application-ui" },
+  { label: "マーケティング", value: 11, color: "var(--chart-2)", layer: "marketing" },
 ];
 const COMPONENT_TOTAL = componentCategoryData.reduce((s, c) => s + c.value, 0); // 63
+const applicationUiCategoryData = componentCategoryData.filter((d) => d.layer === "application-ui");
+const marketingCategoryData = componentCategoryData.filter((d) => d.layer === "marketing");
+const APPLICATION_UI_TOTAL = applicationUiCategoryData.reduce((s, c) => s + c.value, 0); // 52
+const MARKETING_TOTAL = marketingCategoryData.reduce((s, c) => s + c.value, 0); // 11
 
 // npm run build:lib 後、gzip 圧縮した各 CSS ファイルの実測サイズ（kB）
 const bundleData = [
@@ -77,7 +86,7 @@ export function SaaSStatsPage() {
                   </div>
                   <div className={styles.cardNumber}>{COMPONENT_TOTAL}</div>
                   <Text size="sm" color="muted">
-                    9カテゴリに分類。
+                    Application UI {APPLICATION_UI_TOTAL} + Marketing {MARKETING_TOTAL} の2カタログ。
                     <br />
                     内訳は /docs/components を参照。
                   </Text>
@@ -90,18 +99,39 @@ export function SaaSStatsPage() {
                     strokeWidth={22}
                     showLegend={false}
                   />
-                  <div className={`${styles.miniLegend} ${styles.miniLegendGrid}`}>
-                    {componentCategoryData.map((d) => (
-                      <div key={d.label} className={styles.miniLegendItem}>
-                        <span
-                          className={styles.miniLegendDot}
-                          style={{ background: d.color }}
-                        />
-                        <span>
-                          {d.label} {d.value}
-                        </span>
+                  <div className={styles.miniLegendGroups}>
+                    <div className={styles.miniLegendGroup}>
+                      <span className={styles.miniLegendGroupTitle}>Application UI</span>
+                      <div className={`${styles.miniLegend} ${styles.miniLegendGrid}`}>
+                        {applicationUiCategoryData.map((d) => (
+                          <div key={d.label} className={styles.miniLegendItem}>
+                            <span
+                              className={styles.miniLegendDot}
+                              style={{ background: d.color }}
+                            />
+                            <span>
+                              {d.label} {d.value}
+                            </span>
+                          </div>
+                        ))}
                       </div>
-                    ))}
+                    </div>
+                    <div className={styles.miniLegendGroup}>
+                      <span className={styles.miniLegendGroupTitle}>Marketing</span>
+                      <div className={styles.miniLegend}>
+                        {marketingCategoryData.map((d) => (
+                          <div key={d.label} className={styles.miniLegendItem}>
+                            <span
+                              className={styles.miniLegendDot}
+                              style={{ background: d.color }}
+                            />
+                            <span>
+                              {d.label} {d.value}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
