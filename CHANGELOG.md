@@ -12,6 +12,23 @@ Commit prefix determines the next version bump on release:
 - `feat!:`, `fix!:`, `refactor!:` or a commit body containing `BREAKING CHANGE:` → **major** bump
 
 CHANGELOG entries and version bumps are generated automatically by `.github/workflows/publish.yml` on every push to `main` that touches library source files.
+## [0.5.0] - 2026-07-17
+
+### Features
+
+- feat: add kaze-design-system/marketing subpath export (#30)
+- feat: introduce density tokens with data-density=compact support (#31)
+- feat: align status variant vocab, zero runtime deps, and overhaul demo content
+
+### Bug Fixes
+
+- fix(landing): wire GitHub buttons to the actual repo URL
+
+### Other
+
+- docs: present component catalog as Application UI / Marketing two-layer taxonomy (#29)
+- docs: add CONTRIBUTING.md, issue/PR templates, and bundle size tooling
+
 ## [0.4.2] - 2026-04-12
 
 ### Bug Fixes
