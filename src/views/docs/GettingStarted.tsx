@@ -87,6 +87,17 @@ function Dashboard() {
   );
 }`}
       </pre>
+      <p>
+        LP・キャンペーンページ向けの Marketing コンポーネント（Hero, PricingGrid,
+        CTABanner など）は{" "}
+        <code className={styles.inlineCode}>kaze-design-system/marketing</code>{" "}
+        サブパスからも import できます。管理画面では Application UI 層だけを、LP では
+        Marketing 層だけを使う、というレイヤーの使い分けを import 文で表現できます。
+      </p>
+      <pre className={styles.codeBlock}>
+{`// Marketing レイヤー（ルートからの import も引き続き有効）
+import { Hero, PricingGrid, CTABanner } from "kaze-design-system/marketing";`}
+      </pre>
 
       {/* Theme Setup */}
       <h2 className={styles.sectionTitle}>テーマの設定</h2>

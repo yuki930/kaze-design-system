@@ -117,7 +117,25 @@ function App() {
 }
 ```
 
+## レイヤー構成
+
+kaze は1パッケージ・3レイヤーで構成されています。
+
+- **Foundation**: デザイントークン（カラー・タイポグラフィ・スペーシング）と CSS。両レイヤー共通の土台
+- **Application UI**: 管理画面・アプリ向けの52コンポーネント。`kaze-design-system` から import
+- **Marketing**: LP・キャンペーンページ向けの11コンポーネント。`kaze-design-system/marketing` から import
+
+```tsx
+// Application UI
+import { Table, Sidebar, CommandPalette } from "kaze-design-system";
+
+// Marketing（ルートからの import も引き続き使えます）
+import { Hero, PricingGrid, CTABanner } from "kaze-design-system/marketing";
+```
+
 ## コンポーネント一覧（63 コンポーネント）
+
+### Application UI（52）
 
 | カテゴリ | コンポーネント |
 |---|---|
@@ -129,6 +147,11 @@ function App() {
 | **オーバーレイ** | Dialog, Tooltip, HelpButton, Dropdown, CommandPalette |
 | **レイアウト** | AppLayout, Divider, Grid, Search, Logo, Icon, Heading, Text |
 | **リスト** | List, DescriptionList, Timeline |
+
+### Marketing（11）
+
+| カテゴリ | コンポーネント |
+|---|---|
 | **マーケティング** | Navbar, Hero, Section, SplitSection, FeatureGrid, Stats, Pricing, Testimonial, FAQ, CTABanner, LPFooter |
 
 詳細は [kaze-design-system.vercel.app/docs/components](https://kaze-design-system.vercel.app/docs/components) を参照してください。

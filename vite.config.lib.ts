@@ -15,6 +15,7 @@ export default defineConfig({
     lib: {
       entry: {
         index: resolve(__dirname, "src/components/index.ts"),
+        marketing: resolve(__dirname, "src/components/marketing.ts"),
         hooks: resolve(__dirname, "src/hooks/index.ts"),
         tokens: resolve(__dirname, "src/tokens/tokens.ts"),
       },
