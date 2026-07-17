@@ -13,8 +13,8 @@ export const Default: Story = {
   args: {
     children: (
       <>
-        <DescriptionItem term="氏名">山田 太郎</DescriptionItem>
-        <DescriptionItem term="メール">yamada@example.com</DescriptionItem>
+        <DescriptionItem term="氏名">野々村 圭</DescriptionItem>
+        <DescriptionItem term="メール">kei.nonomura@norn.co.jp</DescriptionItem>
         <DescriptionItem term="所属">技術開発部</DescriptionItem>
       </>
     ),

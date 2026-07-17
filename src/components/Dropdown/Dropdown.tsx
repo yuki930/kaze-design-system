@@ -47,8 +47,6 @@ interface DropdownContextValue {
   triggerRef: React.RefObject<HTMLElement | null>;
   highlightedIndex: number;
   setHighlightedIndex: (index: number) => void;
-  itemCount: number;
-  registerItem: () => number;
   resetItems: () => void;
 }
 
@@ -88,10 +86,6 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
       [isControlled, onOpenChange],
     );
 
-    const registerItem = useCallback(() => {
-      return itemCountRef.current++;
-    }, []);
-
     const resetItems = useCallback(() => {
       itemCountRef.current = 0;
     }, []);
@@ -104,8 +98,6 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
           triggerRef,
           highlightedIndex,
           setHighlightedIndex,
-          itemCount: itemCountRef.current,
-          registerItem,
           resetItems,
         }}
       >

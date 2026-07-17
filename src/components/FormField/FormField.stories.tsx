@@ -22,7 +22,7 @@ export const Default: Story = {
   },
   render: (args) => (
     <FormField {...args}>
-      <Input placeholder="山田太郎" />
+      <Input placeholder="堀内 昌平" />
     </FormField>
   ),
 };
@@ -93,7 +93,7 @@ export const CompleteForm: Story = {
       return (
         <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem", maxWidth: "28rem" }}>
           <FormField label="名前" required>
-            <Input placeholder="山田太郎" defaultValue="山田太郎" />
+            <Input placeholder="堀内 昌平" defaultValue="堀内 昌平" />
           </FormField>
 
           <FormField

@@ -1,4 +1,4 @@
-# CLAUDE.md — Kaze Design System
+# CLAUDE.md（Kaze Design System）
 
 ## プロジェクト概要
 - **パッケージ名**: `kaze-design-system`
@@ -7,7 +7,7 @@
 - **デザイン方針**: Zinc ベースのミニマルデザインシステム、日本語組版最適化
 - **CSS**: カスタムプロパティ（CSS Variables）ベース、`@layer` でカスケード管理
 - **テーマ**: ライト / ダーク（`data-theme` 属性 + `prefers-color-scheme` フォールバック）
-- **コンポーネント数**: 60
+- **コンポーネント数**: 63
 
 ## 環境セットアップ
 ```bash
@@ -47,13 +47,14 @@ tsconfig.build.json     # ライブラリビルド用 TypeScript 設定
 ```
 
 ## package.json の構造
-- **dependencies**: `next`, `react`, `react-dom`, `lucide-react` — Vercel ビルドに必要
+- **dependencies**: なし（ランタイム依存 0。ライブラリ利用者に余計なパッケージを入れさせない）
 - **peerDependencies**: ライブラリとして使う場合の要件（`react`, `react-dom`, `lucide-react`）
-- **devDependencies**: Storybook, テスト, ビルドツール等
+- **devDependencies**: `next`, `react`, `react-dom`, `lucide-react`（docs サイト用）+ Storybook, テスト, ビルドツール等
 
 ### 重要: Vercel デプロイ時の注意
-Vercel は `NODE_ENV=production` で `npm install` するため、**devDependencies はインストールされない**。
-ビルドに必要なパッケージ（next, react, lucide-react 等）は必ず `dependencies` に入れること。
+標準の Vercel は devDependencies もインストールするため、docs サイトのビルドはこの構成で通る。
+ただし Vercel プロジェクト設定の環境変数に `NODE_ENV=production` が設定されている場合は devDependencies がスキップされてビルドが落ちるので、その場合は環境変数を外すか `installCommand` を `npm install --include=dev` にする。
+`next` 等を dependencies に戻すのは禁止（npm 利用者全員に Next.js が入ってしまう）。
 
 ## CSS 設計
 - **PALT**: `font-feature-settings: "palt" 1` は `tokens.css` の `:root` でグローバル適用
@@ -69,9 +70,13 @@ Vercel は `NODE_ENV=production` で `npm install` するため、**devDependenc
 
 ## コンテンツのルール
 - **実在企業名**: UIラベル（フッター、ナビ、CTA）では GitHub, Twitter, Instagram 等のサービス名 OK
-- **架空にすべき箇所**: テスティモニアル、ダミーデータ（BarList 等）、求人情報、ブログ記事タイトルでは架空の名前を使用
-  - 例: マルシェテック、ワークフロー、ワイズサーチ、テックノート、クラウドセキュリティ株式会社
-- **個人情報**: SettingsPage 等のダミーデータには架空の情報を使用（山田太郎、yamada@example.com 等）
+- **人名**: テスティモニアル、ダミーデータ、記事の著者、SettingsPage 等の個人情報には以下のプールから文脈ごとに割り当てる。同じ名前を複数ページで使い回さない
+  - 相楽 実咲 / 堀内 昌平 / 宮田 千夏 / 呉羽 直樹 / 桐生 あかね / 野々村 圭 / 早瀬 遼平 / 志摩 このみ / 三隅 拓海 / 綿貫 玲奈 / 大迫 航 / 藤枝 蒼
+- **メールアドレス**: 架空の自社ドメイン `@norn.co.jp` に統一する（例: misaki.sagara@norn.co.jp）。docs のコード例に限り `example.com` を使ってよい
+- **社名**: テスティモニアル、ダミーデータ（BarList 等）、求人情報などには以下のプールか、生成規則を散らした新造社名（地名・語呂・カタカナ一語など）を使用
+  - ノルン株式会社 / 株式会社ノーツ / 八十八株式会社 / 合同会社潮目 / 株式会社みなも / 燕コンピュータ株式会社 / 合同会社雨と種
+- **役職**: SRE、プロダクトオーナー、デザインエンジニア、カスタマーサクセス、情シス、取締役CTO など偏らせない
+- **表記**: 実文言に em-dash（—/―）を使わない。句読点・括弧・体言止めに置換する（コード内コメントの区切りは対象外）。見出しに絵文字を使わない
 
 ## Git / リリース
 - **リポジトリ**: https://github.com/yuki930/kaze-design-system (owner: yuki930)

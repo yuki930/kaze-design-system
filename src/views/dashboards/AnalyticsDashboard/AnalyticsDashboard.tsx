@@ -120,10 +120,10 @@ export function AnalyticsDashboard() {
       logo={<Logo />}
       footer={
         <div className={layoutStyles.sidebarFooter}>
-          <Avatar size="sm" fallback="TM" />
+          <Avatar size="sm" fallback="MC" />
           <div className={layoutStyles.sidebarFooterInfo}>
-            <Text as="span" size="sm" weight="medium" style={truncateStyle}>田中 美咲</Text>
-            <Text as="span" size="xs" color="subtle" style={truncateStyle}>m.tanaka@example.com</Text>
+            <Text as="span" size="sm" weight="medium" style={truncateStyle}>宮田 千夏</Text>
+            <Text as="span" size="xs" color="subtle" style={truncateStyle}>chinatsu.miyata@norn.co.jp</Text>
           </div>
         </div>
       }
@@ -150,7 +150,7 @@ export function AnalyticsDashboard() {
             <option value="90d">過去90日間</option>
             <option value="1y">過去1年間</option>
           </Select>
-          <Avatar size="sm" fallback="TM" />
+          <Avatar size="sm" fallback="MC" />
         </div>
       }
     >

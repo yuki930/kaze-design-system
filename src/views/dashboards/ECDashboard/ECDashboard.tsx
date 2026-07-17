@@ -159,10 +159,10 @@ export function ECDashboard() {
       logo={<Logo />}
       footer={
         <div className={layoutStyles.sidebarFooter}>
-          <Avatar size="sm" fallback="YN" />
+          <Avatar size="sm" fallback="SK" />
           <div className={layoutStyles.sidebarFooterInfo}>
-            <Text as="span" size="sm" weight="medium" className={styles.sidebarFooterTruncate}>中村 優花</Text>
-            <Text as="span" variant="caption" color="subtle" className={styles.sidebarFooterTruncate}>y.nakamura@example.com</Text>
+            <Text as="span" size="sm" weight="medium" className={styles.sidebarFooterTruncate}>志摩 このみ</Text>
+            <Text as="span" variant="caption" color="subtle" className={styles.sidebarFooterTruncate}>konomi.shima@norn.co.jp</Text>
           </div>
         </div>
       }
@@ -190,7 +190,7 @@ export function ECDashboard() {
             <option value="month">今月</option>
             <option value="quarter">四半期</option>
           </Select>
-          <Avatar size="sm" fallback="YN" />
+          <Avatar size="sm" fallback="SK" />
         </div>
       }
     >

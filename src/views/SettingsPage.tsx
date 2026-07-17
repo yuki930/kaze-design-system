@@ -49,7 +49,7 @@ export function SettingsPage() {
             <Button variant="ghost" size="sm">
               ヘルプ
             </Button>
-            <Avatar fallback="TY" size="sm" />
+            <Avatar fallback="HR" size="sm" />
           </div>
         }
       >
@@ -122,7 +122,7 @@ export function SettingsPage() {
             <div className="settings-profile">
               <Avatar
                 src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=128&h=128&fit=crop&crop=face"
-                fallback="TY"
+                fallback="HR"
                 size="lg"
               />
               <DescriptionList
@@ -131,13 +131,13 @@ export function SettingsPage() {
                 style={{ flex: 1 }}
               >
                 <DescriptionItem term="表示名">
-                  山田 太郎
+                  早瀬 遼平
                 </DescriptionItem>
                 <DescriptionItem term="メールアドレス">
-                  yamada@example.com
+                  ryohei.hayase@norn.co.jp
                 </DescriptionItem>
                 <DescriptionItem term="ユーザーID">
-                  @t-yamada
+                  @r-hayase
                 </DescriptionItem>
                 <DescriptionItem term="自己紹介">
                   フロントエンドエンジニア。デザインシステムとアクセシビリティに情熱を持っています。TypeScript / React / CSS が得意です。

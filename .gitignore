@@ -36,3 +36,6 @@ coverage/
 # Env
 .env*
 !.env.example
+
+# npm auth (contains publish token)
+.npmrc

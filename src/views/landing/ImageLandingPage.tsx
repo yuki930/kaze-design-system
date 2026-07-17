@@ -20,24 +20,26 @@ import {
 } from "@/components";
 import { useTheme } from "@/hooks";
 import { Moon, Sun, ArrowRight } from "lucide-react";
+import styles from "./ImageLandingPage.module.css";
 
 /* ── Data ─────────────────────────────────────────────────── */
 
+// 統一トーン: Zinc の濃淡のみ。商品ごとの色分けはしない（アクセントはカード下端の1本のみ）。
 const products = [
   {
     name: "KAZE チェア",
     price: "¥89,800",
-    gradient: "linear-gradient(160deg, #667eea 0%, #764ba2 100%)",
+    gradient: "linear-gradient(160deg, var(--zinc-800) 0%, var(--zinc-950) 100%)",
   },
   {
     name: "KAZE デスクライト",
     price: "¥24,800",
-    gradient: "linear-gradient(160deg, #f093fb 0%, #f5576c 100%)",
+    gradient: "linear-gradient(160deg, var(--zinc-800) 0%, var(--zinc-950) 100%)",
   },
   {
     name: "KAZE スピーカー",
     price: "¥34,800",
-    gradient: "linear-gradient(160deg, #4facfe 0%, #00f2fe 100%)",
+    gradient: "linear-gradient(160deg, var(--zinc-800) 0%, var(--zinc-950) 100%)",
   },
 ];
 
@@ -87,18 +89,22 @@ export function ImageLandingPage() {
       </Navbar>
 
       {/* ── Full-width Hero ─────────────────────────────────── */}
+      {/* コンセプト上、常に暗色（zinc-950 相当）で固定するヒーロー。
+          サイトのライト/ダーク切替に連動しないため、hero__title・
+          hero__subtitle の文字色も styles.heroFixed で明示的に固定する。 */}
       <Hero
         title={"暮らしを、\nデザインする。"}
         subtitle={"日本の美意識から生まれたプロダクトブランド KAZE。\n機能美と素材の質感にこだわった、上質な日常をお届けします。"}
-        bg="linear-gradient(135deg, #0c0a09 0%, #292524 40%, #44403c 100%)"
+        bg="linear-gradient(135deg, var(--zinc-950) 0%, var(--zinc-800) 40%, var(--zinc-700) 100%)"
         overlay={0.5}
+        className={styles.heroFixed}
         style={{ minHeight: "80vh" }}
       >
         <Button
           size="lg"
           style={{
-            background: "#ffffff",
-            color: "#0c0a09",
+            background: "var(--zinc-50)",
+            color: "var(--zinc-950)",
             border: "none",
           }}
         >
@@ -108,8 +114,8 @@ export function ImageLandingPage() {
           size="lg"
           variant="outline"
           style={{
-            borderColor: "rgba(255,255,255,0.4)",
-            color: "#ffffff",
+            borderColor: "color-mix(in srgb, var(--zinc-50) 40%, transparent)",
+            color: "var(--zinc-50)",
           }}
         >
           ストーリーを読む
@@ -118,7 +124,7 @@ export function ImageLandingPage() {
 
       {/* ── Feature Row 1 (Image Left, Text Right) ──────────── */}
       <SplitSection
-        mediaBg="linear-gradient(135deg, #e7e4df 0%, #d6d2cc 50%, #a8a29e 100%)"
+        mediaBg="linear-gradient(135deg, var(--zinc-200) 0%, var(--zinc-300) 50%, var(--zinc-400) 100%)"
       >
         <Text variant="overline" as="div">Philosophy</Text>
         <Text as="div" size="2xl" weight="bold" style={{ letterSpacing: "var(--letter-spacing-tight)", lineHeight: "var(--line-height-tight)" }}>
@@ -147,7 +153,7 @@ export function ImageLandingPage() {
 
       {/* ── Feature Row 2 (Text Left, Image Right) ──────────── */}
       <SplitSection
-        mediaBg="linear-gradient(135deg, #d6d2cc 0%, #a8a29e 50%, #78716c 100%)"
+        mediaBg="linear-gradient(135deg, var(--zinc-300) 0%, var(--zinc-400) 50%, var(--zinc-500) 100%)"
         reverse
       >
         <Text variant="overline" as="div">Craftsmanship</Text>
@@ -183,14 +189,14 @@ export function ImageLandingPage() {
           alignItems: "center",
           justifyContent: "center",
           background:
-            "linear-gradient(135deg, #44403c 0%, #292524 50%, #1c1917 100%)",
+            "linear-gradient(135deg, var(--zinc-700) 0%, var(--zinc-800) 50%, var(--zinc-900) 100%)",
         }}
       >
         <div style={{ textAlign: "center", padding: "var(--space-8)" }}>
-          <Text as="div" size="2xl" weight="bold" color="inherit" style={{ color: "#ffffff", margin: "0 0 var(--space-2)" }}>
-            2025 Spring Collection
+          <Text as="div" size="2xl" weight="bold" color="inherit" style={{ color: "var(--zinc-50)", margin: "0 0 var(--space-2)" }}>
+            2026 Spring Collection
           </Text>
-          <Text as="div" color="inherit" style={{ color: "rgba(255,255,255,0.8)", margin: 0 }}>
+          <Text as="div" color="inherit" style={{ color: "color-mix(in srgb, var(--zinc-50) 80%, transparent)", margin: 0 }}>
             春の新作コレクション、まもなく公開
           </Text>
         </div>
@@ -212,6 +218,7 @@ export function ImageLandingPage() {
                   borderRadius: "var(--radius-lg)",
                   width: "100%",
                   background: product.gradient,
+                  borderBottom: "2px solid var(--amber-500)",
                 }}
               />
               <CardBody>
@@ -235,19 +242,19 @@ export function ImageLandingPage() {
         <TestimonialGrid>
           <TestimonialCard
             quote="KAZEのチェアに座ると、仕事への集中力が変わりました。見た目の美しさだけでなく、長時間座っても疲れない設計が素晴らしいです。"
-            authorName="山本 真理子"
+            authorName="呉羽 直樹"
             authorRole="建築デザイナー"
             showIcon
           />
           <TestimonialCard
             quote="デスクライトの光が柔らかくて、夜の読書が楽しくなりました。和紙を通した光は、まるで月明かりのようです。"
-            authorName="木村 健一"
+            authorName="桐生 あかね"
             authorRole="編集者"
             showIcon
           />
           <TestimonialCard
             quote="スピーカーの音質と木の質感に一目惚れ。インテリアとしても美しく、毎日の暮らしに豊かさをもたらしてくれます。"
-            authorName="林 美優"
+            authorName="野々村 圭"
             authorRole="インテリアスタイリスト"
             showIcon
           />

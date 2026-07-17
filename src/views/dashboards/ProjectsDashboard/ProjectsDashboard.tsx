@@ -98,33 +98,33 @@ const milestones: StepperStep[] = [
 ];
 
 const tasks: Task[] = [
-  { id: "KZ-142", title: "Buttonコンポーネントのa11y改善", assignee: "佐藤 健太", assigneeInitials: "KS", priority: "高", dueDate: "2月25日", status: "進行中" },
-  { id: "KZ-139", title: "ダークモードのカラートークン調整", assignee: "鈴木 あい", assigneeInitials: "AS", priority: "高", dueDate: "2月22日", status: "レビュー待ち" },
-  { id: "KZ-145", title: "Tableコンポーネントのソート機能", assignee: "山田 太郎", assigneeInitials: "TY", priority: "中", dueDate: "3月1日", status: "未着手" },
-  { id: "KZ-138", title: "Storybook v8へのマイグレーション", assignee: "佐藤 健太", assigneeInitials: "KS", priority: "中", dueDate: "3月5日", status: "進行中" },
+  { id: "KZ-142", title: "Buttonコンポーネントのa11y改善", assignee: "三隅 拓海", assigneeInitials: "MT", priority: "高", dueDate: "2月25日", status: "進行中" },
+  { id: "KZ-139", title: "ダークモードのカラートークン調整", assignee: "綿貫 玲奈", assigneeInitials: "WR", priority: "高", dueDate: "2月22日", status: "レビュー待ち" },
+  { id: "KZ-145", title: "Tableコンポーネントのソート機能", assignee: "大迫 航", assigneeInitials: "OK", priority: "中", dueDate: "3月1日", status: "未着手" },
+  { id: "KZ-138", title: "Storybook v8へのマイグレーション", assignee: "三隅 拓海", assigneeInitials: "MT", priority: "中", dueDate: "3月5日", status: "進行中" },
   { id: "KZ-150", title: "CI/CDパイプラインの最適化", assignee: "田村 裕子", assigneeInitials: "YT", priority: "低", dueDate: "3月10日", status: "未着手" },
 ];
 
 const teamMembers: TeamMember[] = [
-  { name: "佐藤 健太", initials: "KS", role: "リードエンジニア", activeTasks: 5, maxTasks: 6, completedThisWeek: 8 },
-  { name: "鈴木 あい", initials: "AS", role: "デザイナー", activeTasks: 3, maxTasks: 5, completedThisWeek: 5 },
-  { name: "山田 太郎", initials: "TY", role: "フロントエンド", activeTasks: 4, maxTasks: 6, completedThisWeek: 3 },
+  { name: "三隅 拓海", initials: "MT", role: "リードエンジニア", activeTasks: 5, maxTasks: 6, completedThisWeek: 8 },
+  { name: "綿貫 玲奈", initials: "WR", role: "デザイナー", activeTasks: 3, maxTasks: 5, completedThisWeek: 5 },
+  { name: "大迫 航", initials: "OK", role: "フロントエンド", activeTasks: 4, maxTasks: 6, completedThisWeek: 3 },
   { name: "田村 裕子", initials: "YT", role: "バックエンド", activeTasks: 2, maxTasks: 5, completedThisWeek: 6 },
 ];
 
 const activities = [
-  { time: "14:32", title: "佐藤 健太がKZ-142を進行中に変更", status: "info" as const },
-  { time: "13:15", title: "鈴木 あいがKZ-139のレビューを依頼", status: "warning" as const },
-  { time: "11:48", title: "山田 太郎がKZ-136を完了", status: "positive" as const },
+  { time: "14:32", title: "三隅 拓海がKZ-142を進行中に変更", status: "info" as const },
+  { time: "13:15", title: "綿貫 玲奈がKZ-139のレビューを依頼", status: "warning" as const },
+  { time: "11:48", title: "大迫 航がKZ-136を完了", status: "positive" as const },
   { time: "10:20", title: "田村 裕子がKZ-150を作成", status: "default" as const },
-  { time: "09:05", title: "佐藤 健太がKZ-138にコメントを追加", status: "info" as const },
+  { time: "09:05", title: "三隅 拓海がKZ-138にコメントを追加", status: "info" as const },
 ];
 
 const deadlines: Deadline[] = [
-  { task: "KZ-139: ダークモードカラー調整", project: "Design System v2", assignee: "鈴木 あい", assigneeInitials: "AS", dueDate: "2月22日", daysLeft: 2, priority: "高" },
-  { task: "KZ-142: Button a11y改善", project: "Design System v2", assignee: "佐藤 健太", assigneeInitials: "KS", dueDate: "2月25日", daysLeft: 5, priority: "高" },
-  { task: "KZ-145: Tableソート機能", project: "Design System v2", assignee: "山田 太郎", assigneeInitials: "TY", dueDate: "3月1日", daysLeft: 9, priority: "中" },
-  { task: "KZ-138: Storybook移行", project: "Design System v2", assignee: "佐藤 健太", assigneeInitials: "KS", dueDate: "3月5日", daysLeft: 13, priority: "中" },
+  { task: "KZ-139: ダークモードカラー調整", project: "Design System v2", assignee: "綿貫 玲奈", assigneeInitials: "WR", dueDate: "2月22日", daysLeft: 2, priority: "高" },
+  { task: "KZ-142: Button a11y改善", project: "Design System v2", assignee: "三隅 拓海", assigneeInitials: "MT", dueDate: "2月25日", daysLeft: 5, priority: "高" },
+  { task: "KZ-145: Tableソート機能", project: "Design System v2", assignee: "大迫 航", assigneeInitials: "OK", dueDate: "3月1日", daysLeft: 9, priority: "中" },
+  { task: "KZ-138: Storybook移行", project: "Design System v2", assignee: "三隅 拓海", assigneeInitials: "MT", dueDate: "3月5日", daysLeft: 13, priority: "中" },
 ];
 
 const taskTabs: TaskTab[] = ["すべて", "マイタスク", "チーム"];
@@ -173,10 +173,10 @@ export function ProjectsDashboard() {
       logo={<Logo />}
       footer={
         <div className={layoutStyles.sidebarFooter}>
-          <Avatar size="sm" fallback="KS" />
+          <Avatar size="sm" fallback="MT" />
           <div className={layoutStyles.sidebarFooterInfo}>
-            <Text as="span" size="sm" weight="medium" style={truncateStyle}>佐藤 健太</Text>
-            <Text as="span" size="xs" color="subtle" style={truncateStyle}>k.sato@example.com</Text>
+            <Text as="span" size="sm" weight="medium" style={truncateStyle}>三隅 拓海</Text>
+            <Text as="span" size="xs" color="subtle" style={truncateStyle}>takumi.misumi@norn.co.jp</Text>
           </div>
         </div>
       }
@@ -202,7 +202,7 @@ export function ProjectsDashboard() {
             <Plus size={14} />
             新規タスク
           </Button>
-          <Avatar size="sm" fallback="KS" />
+          <Avatar size="sm" fallback="MT" />
         </div>
       }
     >

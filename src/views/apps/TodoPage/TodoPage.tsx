@@ -130,7 +130,7 @@ const priorityConfig: Record<
   high: { label: "高", variant: "negative" },
   medium: { label: "中", variant: "warning" },
   low: { label: "低", variant: "info" },
-  none: { label: "—", variant: "default" },
+  none: { label: "なし", variant: "default" },
 };
 
 const tabConfig: Record<BottomTab, { label: string; icon: typeof Inbox }> = {

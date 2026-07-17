@@ -11,7 +11,7 @@ function ToastTrigger({
 }: {
   title: string;
   description?: string;
-  variant?: "default" | "positive" | "negative" | "warning";
+  variant?: "default" | "positive" | "negative" | "warning" | "info";
 }) {
   const { toast } = useToast();
   return (
@@ -77,6 +77,16 @@ export const Warning: Story = {
       title="注意が必要です"
       description="ストレージの使用量が90%を超えています。"
       variant="warning"
+    />
+  ),
+};
+
+export const Info: Story = {
+  render: () => (
+    <ToastTrigger
+      title="お知らせ"
+      description="新しいバージョンが利用可能です。"
+      variant="info"
     />
   ),
 };

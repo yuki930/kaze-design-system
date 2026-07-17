@@ -76,7 +76,7 @@ const initialJobs: Job[] = [
   {
     id: "1",
     title: "シニアフロントエンドエンジニア",
-    company: "テックスタート株式会社",
+    company: "ノルン株式会社",
     location: "東京・渋谷",
     salary: "800〜1,200万円",
     salaryMin: 800,
@@ -91,7 +91,7 @@ const initialJobs: Job[] = [
   {
     id: "2",
     title: "UIデザイナー",
-    company: "クリエイティブラボ合同会社",
+    company: "株式会社ノーツ",
     location: "東京・目黒",
     salary: "500〜700万円",
     salaryMin: 500,
@@ -106,7 +106,7 @@ const initialJobs: Job[] = [
   {
     id: "3",
     title: "バックエンドエンジニア（Go）",
-    company: "ファイナンスプラス株式会社",
+    company: "八十八株式会社",
     location: "東京・大手町",
     salary: "700〜1,000万円",
     salaryMin: 700,
@@ -121,7 +121,7 @@ const initialJobs: Job[] = [
   {
     id: "4",
     title: "プロダクトマネージャー",
-    company: "SaaSフォース株式会社",
+    company: "合同会社潮目",
     location: "大阪・梅田",
     salary: "600〜900万円",
     salaryMin: 600,
@@ -136,7 +136,7 @@ const initialJobs: Job[] = [
   {
     id: "5",
     title: "マーケティングディレクター",
-    company: "グロースハック株式会社",
+    company: "株式会社みなも",
     location: "東京・六本木",
     salary: "700〜950万円",
     salaryMin: 700,
@@ -151,7 +151,7 @@ const initialJobs: Job[] = [
   {
     id: "6",
     title: "フロントエンド開発（業務委託）",
-    company: "モバイルワークス株式会社",
+    company: "燕コンピュータ株式会社",
     location: "フルリモート",
     salary: "月80〜100万円",
     salaryMin: 960,
@@ -166,7 +166,7 @@ const initialJobs: Job[] = [
   {
     id: "7",
     title: "インサイドセールス",
-    company: "クラウドセキュリティ株式会社",
+    company: "合同会社雨と種",
     location: "東京・品川",
     salary: "450〜650万円",
     salaryMin: 450,
@@ -181,7 +181,7 @@ const initialJobs: Job[] = [
   {
     id: "8",
     title: "データエンジニア",
-    company: "アナリティクスジャパン株式会社",
+    company: "蓮田システムズ株式会社",
     location: "東京・丸の内",
     salary: "650〜900万円",
     salaryMin: 650,
@@ -196,7 +196,7 @@ const initialJobs: Job[] = [
   {
     id: "9",
     title: "UXリサーチャー（契約社員）",
-    company: "ユーザーファースト株式会社",
+    company: "株式会社ソラト",
     location: "福岡・天神",
     salary: "400〜550万円",
     salaryMin: 400,
@@ -211,7 +211,7 @@ const initialJobs: Job[] = [
   {
     id: "10",
     title: "テックリード",
-    company: "ネクストイノベーション株式会社",
+    company: "合同会社ニコイチ",
     location: "東京・恵比寿",
     salary: "1,000〜1,500万円",
     salaryMin: 1000,

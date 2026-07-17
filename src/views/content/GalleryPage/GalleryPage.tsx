@@ -22,127 +22,136 @@ import styles from "./GalleryPage.module.css";
 
 /* ── Types ────────────────────────────────────────────────── */
 
-type Category = "すべて" | "風景" | "建築" | "ポートレート" | "抽象";
+type Category = "すべて" | "ダッシュボード" | "アプリ" | "コンテンツ";
 
 interface GalleryItem {
   id: number;
   title: string;
+  pageHref: string;
   author: string;
   category: Exclude<Category, "すべて">;
-  gradient: string;
+  image: string;
+  theme: "light" | "dark";
 }
 
-/* ── Data ─────────────────────────────────────────────────── */
+/* ── Data ─────────────────────────────────────────────────────
+   kaze-design-system で実装したデモページのスクリーンショット集。
+   dev サーバー (npm run dev) 上で各ページを light / dark 両テーマで
+   実際にキャプチャし、public/gallery/ に webp で保存したもの。
+   ------------------------------------------------------------ */
 
-const categories: Category[] = [
-  "すべて",
-  "風景",
-  "建築",
-  "ポートレート",
-  "抽象",
-];
+const categories: Category[] = ["すべて", "ダッシュボード", "アプリ", "コンテンツ"];
 
 const galleryItems: GalleryItem[] = [
   {
     id: 1,
-    title: "朝霧の湖畔",
-    author: "山田 太郎",
-    category: "風景",
-    gradient: "linear-gradient(135deg, var(--blue-400) 0%, var(--violet-500) 100%)",
+    title: "ダッシュボード",
+    pageHref: "/dashboard",
+    author: "相楽 実咲",
+    category: "ダッシュボード",
+    image: "/gallery/dashboard-light.webp",
+    theme: "light",
   },
   {
     id: 2,
-    title: "東京タワーの夜景",
-    author: "佐藤 花子",
-    category: "建築",
-    gradient: "linear-gradient(135deg, var(--pink-400) 0%, var(--red-400) 100%)",
+    title: "EC管理画面",
+    pageHref: "/ec-dashboard",
+    author: "堀内 昌平",
+    category: "ダッシュボード",
+    image: "/gallery/ec-dashboard-dark.webp",
+    theme: "dark",
   },
   {
     id: 3,
-    title: "光と影のポートレート",
-    author: "鈴木 一郎",
-    category: "ポートレート",
-    gradient: "linear-gradient(135deg, var(--cyan-300) 0%, var(--blue-400) 100%)",
+    title: "アナリティクス",
+    pageHref: "/analytics",
+    author: "宮田 千夏",
+    category: "ダッシュボード",
+    image: "/gallery/analytics-light.webp",
+    theme: "light",
   },
   {
     id: 4,
-    title: "幾何学模様",
-    author: "田中 美咲",
-    category: "抽象",
-    gradient: "linear-gradient(135deg, var(--emerald-400) 0%, var(--teal-300) 100%)",
+    title: "プロジェクト管理",
+    pageHref: "/projects",
+    author: "呉羽 直樹",
+    category: "ダッシュボード",
+    image: "/gallery/projects-dark.webp",
+    theme: "dark",
   },
   {
     id: 5,
-    title: "富士山と桜",
-    author: "高橋 大輔",
-    category: "風景",
-    gradient: "linear-gradient(135deg, var(--orange-400) 0%, var(--amber-300) 100%)",
+    title: "設定",
+    pageHref: "/settings",
+    author: "桐生 あかね",
+    category: "ダッシュボード",
+    image: "/gallery/settings-dark.webp",
+    theme: "dark",
   },
   {
     id: 6,
-    title: "コンクリートと空",
-    author: "渡辺 裕子",
-    category: "建築",
-    gradient: "linear-gradient(135deg, var(--violet-300) 0%, var(--pink-200) 100%)",
+    title: "ヘルプセンター",
+    pageHref: "/help",
+    author: "野々村 圭",
+    category: "ダッシュボード",
+    image: "/gallery/help-dark.webp",
+    theme: "dark",
   },
   {
     id: 7,
-    title: "窓辺の横顔",
-    author: "伊藤 健太",
-    category: "ポートレート",
-    gradient: "linear-gradient(135deg, var(--amber-100) 0%, var(--orange-200) 100%)",
+    title: "ログイン",
+    pageHref: "/login",
+    author: "早瀬 遼平",
+    category: "アプリ",
+    image: "/gallery/login-light.webp",
+    theme: "light",
   },
   {
     id: 8,
-    title: "流れるインク",
-    author: "中村 あい",
-    category: "抽象",
-    gradient: "linear-gradient(135deg, var(--cyan-200) 0%, var(--blue-400) 100%)",
+    title: "Todoアプリ",
+    pageHref: "/todo",
+    author: "志摩 このみ",
+    category: "アプリ",
+    image: "/gallery/todo-dark.webp",
+    theme: "dark",
   },
   {
     id: 9,
-    title: "棚田の夕暮れ",
-    author: "小林 誠",
-    category: "風景",
-    gradient: "linear-gradient(135deg, var(--pink-200) 0%, var(--violet-100) 100%)",
+    title: "お買い物リスト",
+    pageHref: "/shopping",
+    author: "三隅 拓海",
+    category: "アプリ",
+    image: "/gallery/shopping-light.webp",
+    theme: "light",
   },
   {
     id: 10,
-    title: "ガラスの反射",
-    author: "加藤 真理",
-    category: "建築",
-    gradient: "linear-gradient(135deg, var(--lime-300) 0%, var(--green-300) 100%)",
+    title: "求人検索",
+    pageHref: "/jobs",
+    author: "綿貫 玲奈",
+    category: "アプリ",
+    image: "/gallery/jobs-dark.webp",
+    theme: "dark",
   },
   {
     id: 11,
-    title: "モノクロームの瞳",
-    author: "松本 翔",
-    category: "ポートレート",
-    gradient: "linear-gradient(135deg, var(--zinc-200) 0%, var(--zinc-300) 100%)",
+    title: "ブログ一覧",
+    pageHref: "/blog",
+    author: "大迫 航",
+    category: "コンテンツ",
+    image: "/gallery/blog-light.webp",
+    theme: "light",
   },
   {
     id: 12,
-    title: "波紋のリズム",
-    author: "吉田 優",
-    category: "抽象",
-    gradient: "linear-gradient(135deg, var(--yellow-100) 0%, var(--amber-200) 100%)",
+    title: "デザイントークン",
+    pageHref: "/docs/tokens",
+    author: "藤枝 蒼",
+    category: "コンテンツ",
+    image: "/gallery/docs-tokens-light.webp",
+    theme: "light",
   },
 ];
-
-function categoryVariant(
-  category: GalleryItem["category"]
-): "info" | "positive" | "warning" | "negative" {
-  switch (category) {
-    case "風景":
-      return "positive";
-    case "建築":
-      return "info";
-    case "ポートレート":
-      return "warning";
-    case "抽象":
-      return "negative";
-  }
-}
 
 /* ── Gallery Page ─────────────────────────────────────────── */
 
@@ -181,23 +190,25 @@ export function GalleryPage() {
                 <Sun size={18} />
               )}
             </Button>
-            <Button size="sm">お問い合わせ</Button>
+            <a href="/docs">
+              <Button size="sm">ドキュメント</Button>
+            </a>
           </div>
         }
       >
         <NavbarLinks>
           <NavbarLink href="/gallery" active>
-            作品集
+            ギャラリー
           </NavbarLink>
-          <NavbarLink href="#">About</NavbarLink>
-          <NavbarLink href="#">Contact</NavbarLink>
+          <NavbarLink href="/">サンプル集</NavbarLink>
+          <NavbarLink href="/docs">ドキュメント</NavbarLink>
         </NavbarLinks>
       </Navbar>
 
       {/* Hero */}
       <Hero
-        title="Gallery"
-        subtitle="日本の美しさを切り取った写真コレクション。風景、建築、ポートレート、抽象アートまで幅広く展示しています。"
+        title="デモページギャラリー"
+        subtitle="Kaze で実装したデモページのスクリーンショット集です。ダッシュボードからアプリ、ドキュメントまで、light / dark 両テーマでの見え方をまとめています。"
       />
 
       {/* Category Filter */}
@@ -219,70 +230,80 @@ export function GalleryPage() {
       <div className={styles.galleryGridWrapper}>
         <Grid columns={3} columnsMd={2} columnsSm={1} gap="var(--space-4)">
           {filtered.map((item) => (
-            <Card key={item.id} variant="interactive">
-              <div
-                className={styles.galleryImage}
-                style={{ background: item.gradient }}
-              />
-              <CardBody>
-                <div className={styles.galleryMeta}>
-                  <div>
-                    <Text as="div" size="sm" weight="semibold">{item.title}</Text>
-                    <Text as="div" variant="caption">{item.author}</Text>
-                  </div>
-                  <Badge variant={categoryVariant(item.category)}>
-                    {item.category}
-                  </Badge>
+            <a key={item.id} href={item.pageHref} className={styles.galleryLink}>
+              <Card variant="interactive">
+                <div className={styles.galleryImageWrap}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={item.image}
+                    alt={`${item.title}ページのスクリーンショット（${item.theme === "light" ? "ライト" : "ダーク"}テーマ）`}
+                    className={styles.galleryImage}
+                    loading="lazy"
+                    width={800}
+                    height={500}
+                  />
+                  <span className={styles.themeTag}>
+                    {item.theme === "light" ? "Light" : "Dark"}
+                  </span>
                 </div>
-              </CardBody>
-            </Card>
+                <CardBody>
+                  <div className={styles.galleryMeta}>
+                    <div>
+                      <Text as="div" size="sm" weight="semibold">{item.title}</Text>
+                      <Text as="div" variant="caption">撮影: {item.author}</Text>
+                    </div>
+                    <Badge variant="default">{item.category}</Badge>
+                  </div>
+                </CardBody>
+              </Card>
+            </a>
           ))}
         </Grid>
       </div>
 
       {/* CTA */}
       <div className={styles.ctaWrapper}>
-        <Button variant="outline" size="lg">
-          もっと見る
-        </Button>
+        <a href="/">
+          <Button variant="outline" size="lg">
+            サンプル集をもっと見る
+          </Button>
+        </a>
       </div>
 
       {/* Footer */}
       <LPFooter
         logo={<Logo size="sm" />}
-        description="写真を通じて、日本の美しさを世界に届けるギャラリーサイトです。"
+        description="kaze-design-system で組んだ画面をまとめたスクリーンショットギャラリーです。"
         columns={[
           {
-            title: "ギャラリー",
+            title: "カテゴリ",
             links: [
-              { label: "風景", href: "#" },
-              { label: "建築", href: "#" },
-              { label: "ポートレート", href: "#" },
-              { label: "抽象", href: "#" },
+              { label: "ダッシュボード", href: "#" },
+              { label: "アプリ", href: "#" },
+              { label: "コンテンツ", href: "#" },
+            ],
+          },
+          {
+            title: "リソース",
+            links: [
+              { label: "ドキュメント", href: "/docs" },
+              { label: "サンプル集", href: "/showcase" },
+              { label: "デザイントークン", href: "/docs/tokens" },
+              { label: "GitHub", href: "https://github.com/yuki930/kaze-design-system" },
             ],
           },
           {
             title: "情報",
             links: [
-              { label: "About", href: "#" },
-              { label: "Contact", href: "#" },
+              { label: "会社概要", href: "#" },
               { label: "プライバシーポリシー", href: "#" },
               { label: "利用規約", href: "#" },
-            ],
-          },
-          {
-            title: "SNS",
-            links: [
-              { label: "Instagram", href: "#" },
-              { label: "Twitter", href: "#" },
-              { label: "Behance", href: "#" },
-              { label: "Dribbble", href: "#" },
             ],
           },
         ]}
         bottomLeft={
           <span>
-            &copy; {new Date().getFullYear()} Kaze Gallery. All rights reserved.
+            &copy; {new Date().getFullYear()} Kaze Design System. All rights reserved.
           </span>
         }
       />

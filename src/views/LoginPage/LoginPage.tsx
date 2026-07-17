@@ -67,11 +67,11 @@ export function LoginPage() {
           <div className={styles.socialRow}>
             <Button variant="outline" fullWidth>
               <SocialIconA />
-              ソーシャルアカウント A
+              Google でログイン
             </Button>
             <Button variant="outline" fullWidth>
               <SocialIconB />
-              ソーシャルアカウント B
+              Apple でログイン
             </Button>
           </div>
 

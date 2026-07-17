@@ -26,7 +26,7 @@ npm install
 
 | コマンド | 用途 |
 |---|---|
-| `npm run dev` | Next.js 開発サーバー (port 4173, Turbopack) — `/docs/components` にアクセスして全コンポーネントを確認 |
+| `npm run dev` | Next.js 開発サーバー (port 4173, Turbopack)。`/docs/components` にアクセスして全コンポーネントを確認 |
 | `npm run storybook` | Storybook 起動 (port 6006) |
 | `npm run typecheck` | TypeScript 型チェック |
 | `npm test` | Vitest で unit + storybook browser テスト実行 |
@@ -114,7 +114,7 @@ npm run size
 5. `npm run build:lib` でビルド
 6. `npm publish` で npm に公開
 
-**手動で `npm version` / `npm publish` / `git tag` を実行しないでください** — Action と競合します。
+**手動で `npm version` / `npm publish` / `git tag` を実行しないでください。** Action と競合します。
 
 `src/components/**`, `src/hooks/**`, ルート CSS ファイル等の **ライブラリ本体** への変更があった場合のみトリガーされます。README やドキュメント、scripts の変更では publish されません。
 
@@ -125,7 +125,7 @@ npm run size
 - **TypeScript strict モード** (strict + noUncheckedIndexedAccess) を維持すること
 - **forwardRef** を使って ref を適切に転送
 - **JSDoc** を Props interface に追加すると、自動生成される docs / llms.txt / Storybook の argTypes に反映されます
-- **CSS-in-JS / Tailwind は使わない** — 素の CSS + カスタムプロパティで統一
+- **CSS-in-JS / Tailwind は使わない**: 素の CSS + カスタムプロパティで統一
 - **アクセシビリティ**: role / aria 属性を適切に設定、キーボード操作対応
 
 ---
@@ -134,8 +134,8 @@ npm run size
 
 バグや機能要望は [GitHub Issues](https://github.com/yuki930/kaze-design-system/issues) へお願いします。テンプレートが用意されています:
 
-- **🐛 バグ報告**: 再現手順 / 期待する挙動 / 実際の挙動を含めてください
-- **✨ 機能要望**: ユースケースと提案 API を含めてください
+- **バグ報告**: 再現手順 / 期待する挙動 / 実際の挙動を含めてください
+- **機能要望**: ユースケースと提案 API を含めてください
 
 ---
 

@@ -494,18 +494,18 @@ const componentDocs: Record<string, ComponentDoc> = {
         </TableHeader>
         <TableBody>
           <TableRow>
-            <TableCell>田中太郎</TableCell>
-            <TableCell>tanaka@example.com</TableCell>
+            <TableCell>堀内昌平</TableCell>
+            <TableCell>shohei.horiuchi@norn.co.jp</TableCell>
             <TableCell>管理者</TableCell>
           </TableRow>
           <TableRow>
-            <TableCell>佐藤花子</TableCell>
-            <TableCell>sato@example.com</TableCell>
+            <TableCell>志摩このみ</TableCell>
+            <TableCell>konomi.shima@norn.co.jp</TableCell>
             <TableCell>編集者</TableCell>
           </TableRow>
           <TableRow>
-            <TableCell>鈴木一郎</TableCell>
-            <TableCell>suzuki@example.com</TableCell>
+            <TableCell>野々村圭</TableCell>
+            <TableCell>kei.nonomura@norn.co.jp</TableCell>
             <TableCell>閲覧者</TableCell>
           </TableRow>
         </TableBody>
@@ -552,8 +552,8 @@ const componentDocs: Record<string, ComponentDoc> = {
   </TableHeader>
   <TableBody>
     <TableRow>
-      <TableCell>田中太郎</TableCell>
-      <TableCell>tanaka@example.com</TableCell>
+      <TableCell>堀内昌平</TableCell>
+      <TableCell>shohei.horiuchi@norn.co.jp</TableCell>
     </TableRow>
   </TableBody>
 </Table>`,
@@ -940,7 +940,7 @@ const componentDocs: Record<string, ComponentDoc> = {
     preview: (
       <div className={styles.previewColumn} style={{ gap: "1.5rem", maxWidth: "400px" }}>
         <FormField label="名前" description="フルネームを入力してください">
-          <Input placeholder="山田太郎" />
+          <Input placeholder="堀内昌平" />
         </FormField>
         <FormField label="メールアドレス" required error="正しいメールアドレスを入力してください">
           <Input placeholder="email@example.com" error />
@@ -1034,7 +1034,7 @@ const componentDocs: Record<string, ComponentDoc> = {
       },
     ],
     usage: `import { Search, Settings } from "lucide-react";
-import { Icon } from "@kaze-ds/react";
+import { Icon } from "kaze-design-system";
 
 <Icon icon={Search} size="md" />
 <Icon icon={Settings} size="lg" label="設定" />`,
@@ -1460,7 +1460,7 @@ import { Icon } from "@kaze-ds/react";
     props: [
       { name: "value", type: "string", description: "数値（StatItem）" },
       { name: "label", type: "string", description: "ラベル（StatItem）" },
-      { name: "description", type: "string", description: "補足テキスト（StatItem）", default: "—" },
+      { name: "description", type: "string", description: "補足テキスト（StatItem）", default: "なし" },
     ],
     usage: `<Stats>
   <StatItem value="24+" label="コンポーネント" description="UIライブラリに含まれる総数" />
@@ -1501,8 +1501,8 @@ import { Icon } from "@kaze-ds/react";
     description: "お客様の声",
     preview: (
       <TestimonialGrid>
-        <TestimonialCard quote="Kazeのおかげで開発速度が2倍になりました。" authorName="田中太郎" authorRole="フロントエンドエンジニア" />
-        <TestimonialCard quote="ミニマルで美しいデザインシステムです。" authorName="佐藤花子" authorRole="デザイナー" />
+        <TestimonialCard quote="Kazeのおかげで開発速度が2倍になりました。" authorName="堀内昌平" authorRole="フロントエンドエンジニア" />
+        <TestimonialCard quote="ミニマルで美しいデザインシステムです。" authorName="志摩このみ" authorRole="デザイナー" />
       </TestimonialGrid>
     ),
     props: [
@@ -1512,7 +1512,7 @@ import { Icon } from "@kaze-ds/react";
       { name: "authorImage", type: "string", description: "著者画像URL" },
     ],
     usage: `<TestimonialGrid>
-  <TestimonialCard quote="素晴らしいです。" authorName="田中太郎" authorRole="エンジニア" />
+  <TestimonialCard quote="素晴らしいです。" authorName="堀内昌平" authorRole="エンジニア" />
 </TestimonialGrid>`,
   },
 
@@ -1620,10 +1620,10 @@ import { Icon } from "@kaze-ds/react";
     description: "汎用テキストコンポーネント。variant / size / weight / color / align を prop で制御。LP や UI で独自 CSS なしにテキストを扱える。",
     preview: (
       <div className={styles.previewColumn} style={{ gap: "1rem" }}>
-        <Text variant="overline">Overline — カテゴリラベル</Text>
-        <Text variant="lead">Lead — ページやセクションの導入文。大きめのサイズとミュートカラーで読みやすく。</Text>
-        <Text>Body — 標準の本文テキストです。デフォルトの variant です。</Text>
-        <Text variant="caption">Caption — 補足説明やメタ情報に使う小さめテキスト。</Text>
+        <Text variant="overline">Overline：カテゴリラベル</Text>
+        <Text variant="lead">Lead：ページやセクションの導入文。大きめのサイズとミュートカラーで読みやすく。</Text>
+        <Text>Body：標準の本文テキストです。デフォルトの variant です。</Text>
+        <Text variant="caption">Caption：補足説明やメタ情報に使う小さめテキスト。</Text>
         <Divider />
         <Text weight="bold">太字テキスト</Text>
         <Text color="primary">プライマリカラー</Text>
@@ -2583,7 +2583,7 @@ export function ComponentPage({ name }: { name?: string } = {}) {
               <td>
                 <code>{prop.type}</code>
               </td>
-              <td>{prop.default ? <code>{prop.default}</code> : "—"}</td>
+              <td>{prop.default ? <code>{prop.default}</code> : "なし"}</td>
               <td>{prop.description}</td>
             </tr>
           ))}

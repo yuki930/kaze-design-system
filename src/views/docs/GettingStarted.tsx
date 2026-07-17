@@ -30,7 +30,7 @@ export function GettingStarted() {
         </li>
         <li className={styles.checkListItem}>
           <Server size={18} className={styles.checkListIcon} />
-          <span>SSR / RSC 対応 — CSS カスタムプロパティのみで動作</span>
+          <span>SSR / RSC 対応: CSS カスタムプロパティのみで動作</span>
         </li>
         <li className={styles.checkListItem}>
           <Paintbrush size={18} className={styles.checkListIcon} />
@@ -44,25 +44,25 @@ export function GettingStarted() {
         npm で Kaze デザインシステムのパッケージをインストールします。
       </p>
       <pre className={styles.codeBlock}>
-{`npm install @kaze-ds/react`}
+{`npm install kaze-design-system`}
       </pre>
 
       {/* CSS Setup */}
       <h2 className={styles.sectionTitle}>CSS の読み込み</h2>
       <p>
-        <strong>推奨</strong> — CSS を一括で読み込む方法です。
+        <strong>推奨</strong>: CSS を一括で読み込む方法です。
       </p>
       <pre className={styles.codeBlock}>
-{`import "@kaze-ds/react/css/all";`}
+{`import "kaze-design-system/css/all";`}
       </pre>
       <p>
-        <strong>上級</strong> — 個別の CSS ファイルを読み込んで、必要なスタイルだけに絞ることもできます。
+        <strong>上級</strong>: 個別の CSS ファイルを読み込んで、必要なスタイルだけに絞ることもできます。
       </p>
       <pre className={styles.codeBlock}>
-{`import "@kaze-ds/react/css/tokens";      // デザイントークン（カラー、スペーシング、タイポグラフィ）
-import "@kaze-ds/react/css/reset";       // CSS リセット
-import "@kaze-ds/react/css/components";  // コンポーネントスタイル
-import "@kaze-ds/react/css/utilities";   // ユーティリティクラス`}
+{`import "kaze-design-system/css/tokens";      // デザイントークン（カラー、スペーシング、タイポグラフィ）
+import "kaze-design-system/css/reset";       // CSS リセット
+import "kaze-design-system/css/components";  // コンポーネントスタイル
+import "kaze-design-system/css/utilities";   // ユーティリティクラス`}
       </pre>
 
       {/* Basic Usage */}
@@ -71,7 +71,7 @@ import "@kaze-ds/react/css/utilities";   // ユーティリティクラス`}
         パッケージからコンポーネントを import して、React アプリケーションで使用します。
       </p>
       <pre className={styles.codeBlock}>
-{`import { Button, Card, CardHeader, CardTitle, CardBody } from "@kaze-ds/react";
+{`import { Button, Card, CardHeader, CardTitle, CardBody } from "kaze-design-system";
 
 function Dashboard() {
   return (
@@ -96,7 +96,7 @@ function Dashboard() {
         ライト / ダークテーマの切り替えが有効になります。
       </p>
       <pre className={styles.codeBlock}>
-{`import { ThemeProvider } from "@kaze-ds/react/hooks";
+{`import { ThemeProvider } from "kaze-design-system";
 
 function App() {
   return (
@@ -124,7 +124,7 @@ function App() {
       {/* Available Components */}
       <h2 className={styles.sectionTitle}>収録コンポーネント</h2>
       <p>
-        Kaze には 9 カテゴリ・59 個のプロダクション対応コンポーネントが含まれています。
+        Kaze には 9 カテゴリ・63 個のプロダクション対応コンポーネントが含まれています。
         詳細は{" "}
         <a href="/docs/components" style={{ color: "var(--color-info-fg)" }}>
           コンポーネント一覧
@@ -132,15 +132,15 @@ function App() {
         をご覧ください。
       </p>
       <div className={styles.preview}>
-        <p><strong>フォーム</strong> — Button, FAB, Input, NumberField, Select, Checkbox, Radio, Textarea, Switch, FormField</p>
-        <p><strong>データ表示</strong> — Card, Badge, Table, Metric, Avatar, BarList, Tracker, Watermark</p>
-        <p><strong>チャート</strong> — BarChart, DonutChart, Sparkline</p>
-        <p><strong>フィードバック</strong> — Alert, Progress, Meter, Skeleton, EmptyState, Toast</p>
-        <p><strong>ナビゲーション</strong> — Tabs, Sidebar, TopBar, Breadcrumb, Pagination, Stepper</p>
-        <p><strong>オーバーレイ</strong> — Dialog, Tooltip, Dropdown, CommandPalette</p>
-        <p><strong>レイアウト</strong> — AppLayout, Divider, Grid, Search, Logo, Icon, Heading, Text</p>
-        <p><strong>リスト</strong> — List, DescriptionList, Timeline</p>
-        <p><strong>マーケティング</strong> — Navbar, Hero, Section, SplitSection, FeatureGrid, Stats, Pricing, Testimonial, FAQ, CTABanner, LPFooter</p>
+        <p><strong>フォーム</strong>: Button, FAB, Input, NumberField, Select, Checkbox, Radio, Textarea, Switch, FormField</p>
+        <p><strong>データ表示</strong>: Card, Badge, Table, Metric, Avatar, BarList, Tracker, Watermark</p>
+        <p><strong>チャート</strong>: BarChart, DonutChart, Sparkline</p>
+        <p><strong>フィードバック</strong>: Alert, Progress, Meter, Skeleton, EmptyState, Toast</p>
+        <p><strong>ナビゲーション</strong>: Tabs, Sidebar, TopBar, Breadcrumb, Pagination, Stepper</p>
+        <p><strong>オーバーレイ</strong>: Dialog, Tooltip, Dropdown, CommandPalette</p>
+        <p><strong>レイアウト</strong>: AppLayout, Divider, Grid, Search, Logo, Icon, Heading, Text</p>
+        <p><strong>リスト</strong>: List, DescriptionList, Timeline</p>
+        <p><strong>マーケティング</strong>: Navbar, Hero, Section, SplitSection, FeatureGrid, Stats, Pricing, Testimonial, FAQ, CTABanner, LPFooter</p>
       </div>
 
       {/* Design Principles */}
@@ -150,17 +150,17 @@ function App() {
       </p>
       <div className={styles.preview}>
         <p>
-          <strong>温かみのあるニュートラルグレーのミニマルパレット</strong> — カラーシステム全体を
+          <strong>温かみのあるニュートラルグレーのミニマルパレット</strong>: カラーシステム全体を
           わずかに温度を帯びたグレースケールで統一し、集中を妨げない落ち着いたインターフェースを
           実現しています。アクセントカラーは意図的に最小限に抑え、データそのものを主役にします。
         </p>
         <p>
-          <strong>日本語に最適化した 15px ベースフォント</strong> — ベースフォントサイズ
+          <strong>日本語に最適化した 15px ベースフォント</strong>: ベースフォントサイズ
           15px は、データ密度の高いレイアウトで日本語と欧文が混在するテキストを
           読みやすくするために選定しています。行間やスペーシングも CJK 文字の描画に合わせて調整済みです。
         </p>
         <p>
-          <strong>Montserrat + Noto Sans JP</strong> — 見出しや UI ラベルには
+          <strong>Montserrat + Noto Sans JP</strong>: 見出しや UI ラベルには
           Montserrat を使い、クリーンで幾何学的な印象を与えます。本文や日本語コンテンツには
           Noto Sans JP を採用し、かな・漢字・ラテン文字のすべてで一貫した表示を確保しています。
         </p>

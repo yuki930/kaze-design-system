@@ -41,29 +41,25 @@ const features = [
     icon: <Zap size={24} />,
     title: "圧倒的な軽量さ",
     description:
-      "ランタイム JavaScript ゼロ。gzip 後 4KB 未満の CSS で、すべてのコンポーネントをスタイリング。パフォーマンスを犠牲にしません。",
-    bg: "linear-gradient(135deg, var(--blue-500), var(--cyan-400))",
+      "ランタイム JavaScript ゼロ。gzip 後 23KB 程度の CSS で、すべてのコンポーネントをスタイリングします。パフォーマンスを犠牲にしません。",
   },
   {
     icon: <Palette size={24} />,
     title: "デザイントークン",
     description:
-      "カラー・タイポグラフィ・スペーシングを一元管理。CSS カスタムプロパティベースで、テーマの切り替えもわずか数行。",
-    bg: "linear-gradient(135deg, var(--violet-500), var(--pink-400))",
+      "カラー・タイポグラフィ・スペーシングを一元管理。CSS カスタムプロパティベースで、テーマの切り替えもわずか数行です。",
   },
   {
     icon: <Accessibility size={24} />,
     title: "アクセシビリティ",
     description:
-      "WAI-ARIA ガイドラインに準拠。キーボード操作、スクリーンリーダー対応を標準搭載し、すべてのユーザーに最適な体験を。",
-    bg: "linear-gradient(135deg, var(--emerald-500), var(--teal-400))",
+      "WAI-ARIA ガイドラインに準拠。キーボード操作、スクリーンリーダー対応を標準搭載し、すべてのユーザーに配慮した体験を届けます。",
   },
   {
     icon: <Moon size={24} />,
     title: "ダークモード",
     description:
       "ライト / ダークをワンクリックで切り替え。デザイントークンの自動変換により、追加の CSS は一切不要です。",
-    bg: "linear-gradient(135deg, var(--amber-500), var(--orange-400))",
   },
 ];
 
@@ -73,33 +69,33 @@ const testimonials = [
   {
     quote:
       "Kaze を導入してから、UIの実装スピードが劇的に向上しました。デザイントークンのおかげで、デザイナーとエンジニアの認識のズレがなくなり、手戻りが大幅に減りました。",
-    name: "田中 太郎",
-    role: "フロントエンドリード — マルシェテック",
-    initial: "T",
+    name: "相楽 実咲",
+    role: "デザインエンジニア（八十八株式会社）",
+    initial: "実",
   },
   {
     quote:
       "軽量でありながら、アクセシビリティまでしっかり対応しているのが素晴らしい。ダークモードの実装もトークンの切り替えだけで完了し、工数を大幅に削減できました。",
-    name: "佐藤 花子",
-    role: "プロダクトデザイナー — ワークフロー",
-    initial: "S",
+    name: "堀内 昌平",
+    role: "SRE（合同会社潮目）",
+    initial: "昌",
   },
   {
     quote:
       "依存関係ゼロというのは本当に心強い。バンドルサイズを気にせず使えるので、パフォーマンスを最優先にするプロジェクトでも安心して採用できます。",
-    name: "鈴木 一郎",
-    role: "CTO — スタートアップ",
-    initial: "I",
+    name: "宮田 千夏",
+    role: "取締役CTO（燕コンピュータ株式会社）",
+    initial: "千",
   },
 ];
 
 /* ── Stats data ───────────────────────────────────────────── */
 
 const stats = [
-  { value: "54+", label: "コンポーネント" },
+  { value: "63", label: "コンポーネント" },
   { value: "0", label: "依存関係" },
   { value: "100%", label: "TypeScript" },
-  { value: "<4KB", label: "CSS gzipped" },
+  { value: "23KB", label: "CSS gzip 合計" },
 ];
 
 /* ── LandingPage ──────────────────────────────────────────── */
@@ -143,20 +139,20 @@ export function LandingPage() {
 
       {/* ── 2. Hero ────────────────────────────────────────── */}
       <Hero
-        badge="AI & Human Friendly"
+        badge="日本語組版 × Quiet Gray"
         title="美しいUIを、もっと速く"
         subtitle="Kaze は、人にもAIにも扱いやすいデザインシステムです。明快なトークン設計と軽量な CSS で、AI コーディングツールとの協業でも、手書きでも、迷わず美しい UI を組み立てられます。"
-        bg="linear-gradient(135deg, var(--violet-600), var(--blue-600) 40%, var(--cyan-500) 70%, var(--emerald-400))"
+        bg="var(--color-bg-inverse)"
         className={styles.heroSection}
       >
         <div className={styles.heroActions}>
-          <Button size="lg">
+          <Button size="lg" className={styles.bandBtnPrimary}>
             <span className={styles.btnIconLabel}>
               <Sparkles size={16} />
               はじめる
             </span>
           </Button>
-          <Button size="lg" variant="outline">
+          <Button size="lg" variant="outline" className={styles.bandBtnOutline}>
             ドキュメント
           </Button>
         </div>
@@ -166,13 +162,13 @@ export function LandingPage() {
       <Section size="sm" className={styles.statsSection}>
         <Stats className={styles.statsGrid}>
           {stats.map((s) => (
-            <StatItem key={s.label} value={s.value} label={s.label} className={styles.statCard} />
+            <StatItem key={s.label} value={s.value} label={s.label} />
           ))}
         </Stats>
       </Section>
 
       {/* ── 4. Features ────────────────────────────────────── */}
-      <Section id="features" className={styles.featuresSection}>
+      <Section id="features">
         <SectionHeader
           title="なぜ Kaze を選ぶのか"
           description="開発体験とユーザー体験の両方を追求した、モダンなデザインシステム。"
@@ -181,11 +177,7 @@ export function LandingPage() {
           {features.map((f) => (
             <FeatureCard
               key={f.title}
-              icon={
-                <div className={styles.featureIconWrap} style={{ background: f.bg }}>
-                  {f.icon}
-                </div>
-              }
+              icon={f.icon}
               title={f.title}
               description={f.description}
             />
@@ -269,7 +261,6 @@ export function LandingPage() {
               authorName={t.name}
               authorRole={t.role}
               showIcon
-              className={styles.testimonialCard}
             />
           ))}
         </TestimonialGrid>
@@ -310,9 +301,8 @@ export function LandingPage() {
         <CTABanner
           title="今すぐ始めましょう"
           description="Kaze で、美しく高速な UI を構築しませんか。オープンソースで、すぐに使い始められます。"
-          className={styles.ctaBanner}
         >
-          <Button size="lg" className={styles.ctaBtnPrimary}>
+          <Button size="lg" className={styles.bandBtnPrimary}>
             <span className={styles.btnIconLabel}>
               <Sparkles size={16} />
               無料ではじめる
@@ -323,7 +313,7 @@ export function LandingPage() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <Button size="lg" variant="outline" className={styles.ctaBtnOutline}>
+            <Button size="lg" variant="outline" className={styles.bandBtnOutline}>
               GitHubで見る
             </Button>
           </a>

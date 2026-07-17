@@ -5,14 +5,14 @@
 
 **Kaze (風)** は、管理画面・ダッシュボード・金融系アプリのための React デザインシステムです。**白と温かみのあるグレーを基調にした静かな配色**と、日本語組版への丁寧な最適化（PALT・和欧混植・読みやすい行間）、そしてコピペで完結する 63 のコンポーネントを 1 パッケージにまとめています。派手な色や装飾ではなく「読みやすさ」「情報密度」「長時間見続けても疲れないこと」を設計の中心に置いています。
 
-- 🎨 **63 コンポーネント** — フォーム、テーブル、チャート、ダッシュボード UI、ランディングページ、マーケティングパーツまで
-- 🌏 **日本語組版に最適化** — PALT グローバル適用、和欧混植、括弧ツメ、適切な line-height
-- 🌓 **ライト / ダーク両対応** — `data-theme` 属性で切替、`prefers-color-scheme` 連動
-- 🎯 **素の CSS + カスケードレイヤー** — `@layer tokens, reset, components, utilities` でカスケード管理、Tailwind/CSS-in-JS 不要
-- 📦 **ESM only + Tree-shakeable** — React 19 + TypeScript、peer deps は `react`, `react-dom`, `lucide-react` のみ
-- 🤖 **AI フレンドリー** — [`/llms.txt`](https://kaze-design-system.vercel.app/llms.txt) で全コンポーネント API を 1 ファイル配信
+- **63 コンポーネント**: フォーム、テーブル、チャート、ダッシュボード UI、ランディングページ、マーケティングパーツまで
+- **日本語組版に最適化**: PALT グローバル適用、和欧混植、括弧ツメ、適切な line-height
+- **ライト / ダーク両対応**: `data-theme` 属性で切替、`prefers-color-scheme` 連動
+- **素の CSS + カスケードレイヤー**: `@layer tokens, reset, components, utilities` でカスケード管理、Tailwind/CSS-in-JS 不要
+- **ESM only + Tree-shakeable**: React 19 + TypeScript、peer deps は `react`, `react-dom`, `lucide-react` のみ
+- **AI フレンドリー**: [`/llms.txt`](https://kaze-design-system.vercel.app/llms.txt) で全コンポーネント API を 1 ファイル配信
 
-## 🚀 Links
+## Links
 
 | | |
 |---|---|
@@ -22,32 +22,32 @@
 | **npm パッケージ** | https://www.npmjs.com/package/kaze-design-system |
 | **GitHub** | https://github.com/yuki930/kaze-design-system |
 
-## 🖼 Live Examples
+## Live Examples
 
 実際のアプリケーション/ページ単位のサンプル実装。Vercel にデプロイされています:
 
 ### ダッシュボード / 管理画面
-- [**分析ダッシュボード**](https://kaze-design-system.vercel.app/dashboard) — メトリック、チャート、テーブル組み合わせ
-- [**Analytics**](https://kaze-design-system.vercel.app/analytics) — KPI 一覧、BarList、Tracker
-- [**SaaS Stats**](https://kaze-design-system.vercel.app/saas-stats) — SaaS 系ダッシュボード
-- [**EC ダッシュボード**](https://kaze-design-system.vercel.app/ec-dashboard) — EC 管理画面
-- [**設定画面**](https://kaze-design-system.vercel.app/settings) — フォーム・FormField 活用例
+- [**分析ダッシュボード**](https://kaze-design-system.vercel.app/dashboard): メトリック、チャート、テーブル組み合わせ
+- [**Analytics**](https://kaze-design-system.vercel.app/analytics): KPI 一覧、BarList、Tracker
+- [**SaaS Stats**](https://kaze-design-system.vercel.app/saas-stats): SaaS 系ダッシュボード
+- [**EC ダッシュボード**](https://kaze-design-system.vercel.app/ec-dashboard): EC 管理画面
+- [**設定画面**](https://kaze-design-system.vercel.app/settings): フォーム・FormField 活用例
 
 ### ランディング・マーケティング
-- [**LP (SaaS)**](https://kaze-design-system.vercel.app/lp) — Hero, Features, Pricing, Testimonial, FAQ, CTA
-- [**LP 2**](https://kaze-design-system.vercel.app/lp2) — 異なる雰囲気の LP
-- [**Pricing**](https://kaze-design-system.vercel.app/pricing) — 料金プラン
-- [**Blog**](https://kaze-design-system.vercel.app/blog) — 記事一覧・記事詳細
-- [**Jobs**](https://kaze-design-system.vercel.app/jobs) — 求人ページ
+- [**LP (SaaS)**](https://kaze-design-system.vercel.app/lp): Hero, Features, Pricing, Testimonial, FAQ, CTA
+- [**LP 2**](https://kaze-design-system.vercel.app/lp2): 異なる雰囲気の LP
+- [**Pricing**](https://kaze-design-system.vercel.app/pricing): 料金プラン
+- [**Blog**](https://kaze-design-system.vercel.app/blog): 記事一覧・記事詳細
+- [**Jobs**](https://kaze-design-system.vercel.app/jobs): 求人ページ
 
 ### アプリケーション
-- [**Login**](https://kaze-design-system.vercel.app/login) — 認証画面
-- [**Todo**](https://kaze-design-system.vercel.app/todo) — シンプルな Todo アプリ
-- [**Shopping**](https://kaze-design-system.vercel.app/shopping) — EC 商品一覧
-- [**Article**](https://kaze-design-system.vercel.app/article) — 記事ページ
-- [**Help**](https://kaze-design-system.vercel.app/help) — ヘルプセンター
+- [**Login**](https://kaze-design-system.vercel.app/login): 認証画面
+- [**Todo**](https://kaze-design-system.vercel.app/todo): シンプルな Todo アプリ
+- [**Shopping**](https://kaze-design-system.vercel.app/shopping): EC 商品一覧
+- [**Article**](https://kaze-design-system.vercel.app/article): 記事ページ
+- [**Help**](https://kaze-design-system.vercel.app/help): ヘルプセンター
 
-> **ESM only** — このパッケージは ES Modules のみを提供します。
+> **ESM only**: このパッケージは ES Modules のみを提供します。
 > `"type": "module"` が設定された環境、または ESM 対応バンドラー（Vite, Next.js, webpack 5+）で使用してください。
 
 ## For AI assistants (Claude / Cursor / ChatGPT)
@@ -57,7 +57,7 @@ AI コーディングアシスタントは以下のファイルからライブ�
 - **Short index**: https://kaze-design-system.vercel.app/llms.txt
 - **Full API reference**: https://kaze-design-system.vercel.app/llms-full.txt
 
-`llms-full.txt` には 62 コンポーネントの `Props` / `Usage` / カテゴリが機械可読形式で含まれており、Storybook を参照しなくても正確なコード提案が可能です。[llmstxt.org](https://llmstxt.org) 準拠。
+`llms-full.txt` には 63 コンポーネントの `Props` / `Usage` / カテゴリが機械可読形式で含まれており、Storybook を参照しなくても正確なコード提案が可能です。[llmstxt.org](https://llmstxt.org) 準拠。
 
 ## インストール
 
@@ -140,11 +140,11 @@ import { ThemeProvider, useTheme, useFocusTrap } from "kaze-design-system";
 import { useLegendToggle } from "kaze-design-system/hooks";
 ```
 
-- `useTheme` — ライト/ダークの切り替え
-- `useFocusTrap` — モーダル向けフォーカストラップ
-- `useLegendToggle` — Recharts の凡例クリックで系列 show/hide を切り替え
+- `useTheme`: ライト/ダークの切り替え
+- `useFocusTrap`: モーダル向けフォーカストラップ
+- `useLegendToggle`: Recharts の凡例クリックで系列 show/hide を切り替え
 
-## 📦 バンドルサイズ
+## バンドルサイズ
 
 63 コンポーネント全部込みで **JS 38 kB gzip + CSS 23 kB gzip ≒ 61 kB gz**。ただし、個別 import すれば使った分だけが bundle に入ります。
 

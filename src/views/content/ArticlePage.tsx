@@ -47,8 +47,7 @@ export function ArticlePage() {
         <header className="article__header">
           <span className="article__category">デザインシステム</span>
           <h1 className="article__title">
-            なぜデザインシステムが必要なのか
-            ―小さなチームこそ導入すべき理由
+            なぜ小さなチームほどデザインシステムが必要なのか
           </h1>
           <div className="article__meta">
             <div className="article__meta-author">
@@ -65,7 +64,7 @@ export function ArticlePage() {
         {/* Body */}
         <div className="article__body prose">
           <p>
-            「デザインシステムは大企業のもの」—そう思っていませんか？
+            「デザインシステムは大企業のもの」、そう思っていませんか？
             実は、少人数のチームこそデザインシステムの恩恵を最も受けられます。
             この記事では、小さなチームがデザインシステムを導入すべき理由と、
             最小構成で始める方法を解説します。
@@ -231,19 +230,19 @@ export function ArticlePage() {
               {
                 title: "CSSカスタムプロパティで作るダークモード",
                 image: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=400&h=250&fit=crop",
-                author: "鈴木 一郎",
+                author: "呉羽 直樹",
                 date: "2026年2月12日",
               },
               {
                 title: "アクセシビリティを最初から考える設計",
                 image: "https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?w=400&h=250&fit=crop",
-                author: "佐藤 花子",
+                author: "志摩 このみ",
                 date: "2026年2月10日",
               },
               {
                 title: "Reactコンポーネントの命名規則ベストプラクティス",
                 image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400&h=250&fit=crop",
-                author: "田中 太郎",
+                author: "野々村 圭",
                 date: "2026年2月8日",
               },
             ].map((article) => (

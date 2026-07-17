@@ -44,8 +44,8 @@ const articles = [
     title: "デザインシステムを小さく始める方法",
     excerpt:
       "大規模なデザインシステムを構築する必要はありません。最小限のトークンと5つのコンポーネントから始める実践的なアプローチを紹介します。",
-    author: "佐藤 花子",
-    authorFallback: "SH",
+    author: "相楽 実咲",
+    authorFallback: "SM",
     date: "2026年2月16日",
     likes: 198,
   },
@@ -57,8 +57,8 @@ const articles = [
     title: "TypeScript 5.8の新機能を徹底解説",
     excerpt:
       "TypeScript 5.8で追加された型推論の改善、パフォーマンス最適化、新しいユーティリティ型について、実際のコード例を交えて解説します。",
-    author: "田中 太郎",
-    authorFallback: "TT",
+    author: "堀内 昌平",
+    authorFallback: "HS",
     date: "2026年2月14日",
     likes: 256,
   },
@@ -70,8 +70,8 @@ const articles = [
     title: "AIコーディングアシスタントを最大限活用するプロンプト術",
     excerpt:
       "AIコーディングツールを日常の開発で活用するための具体的なプロンプトテクニック。効率を3倍にする実践的な使い方を紹介。",
-    author: "鈴木 一郎",
-    authorFallback: "SI",
+    author: "早瀬 遼平",
+    authorFallback: "HR",
     date: "2026年2月12日",
     likes: 421,
   },
@@ -109,8 +109,8 @@ const articles = [
     title: "CSSカスタムプロパティでダークモードを完全攻略する",
     excerpt:
       "CSS変数を使ったダークモード実装の決定版。デザイントークンの設計からアニメーション付きトランジションまで、包括的に解説します。",
-    author: "山田 愛",
-    authorFallback: "YA",
+    author: "桐生 あかね",
+    authorFallback: "KA",
     date: "2026年2月6日",
     likes: 234,
   },
@@ -133,9 +133,9 @@ const popularTags = [
 
 const popularAuthors = [
   { name: "原山 悠", fallback: "YH", articles: 42 },
-  { name: "佐藤 花子", fallback: "SH", articles: 38 },
-  { name: "田中 太郎", fallback: "TT", articles: 35 },
-  { name: "鈴木 一郎", fallback: "SI", articles: 29 },
+  { name: "相楽 実咲", fallback: "SM", articles: 38 },
+  { name: "堀内 昌平", fallback: "HS", articles: 35 },
+  { name: "早瀬 遼平", fallback: "HR", articles: 29 },
   { name: "中村 美咲", fallback: "NM", articles: 24 },
 ];
 
@@ -456,12 +456,12 @@ const trendingArticles = [
   },
   {
     title: "デザインツールからコードへ：デザインとコードの架け橋",
-    author: "佐藤 花子",
+    author: "相楽 実咲",
     likes: 387,
   },
   {
     title: "モノレポ管理のベストプラクティス 2026年版",
-    author: "田中 太郎",
+    author: "堀内 昌平",
     likes: 356,
   },
 ];

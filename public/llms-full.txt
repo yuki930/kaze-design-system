@@ -2,7 +2,7 @@
 
 > Minimal React design system for dashboards and Japanese UI — quiet neutral grays, 63 components, light/dark themes, typography tuned for CJK text
 
-Version: 0.4.1
+Version: 0.4.2
 Site: https://kaze-design-system.vercel.app
 Package: kaze-design-system
 
@@ -489,8 +489,8 @@ Docs: https://kaze-design-system.vercel.app/docs/components/table
   </TableHeader>
   <TableBody>
     <TableRow>
-      <TableCell>田中太郎</TableCell>
-      <TableCell>tanaka@example.com</TableCell>
+      <TableCell>堀内昌平</TableCell>
+      <TableCell>shohei.horiuchi@norn.co.jp</TableCell>
     </TableRow>
   </TableBody>
 </Table>
@@ -743,7 +743,7 @@ Docs: https://kaze-design-system.vercel.app/docs/components/alert
 
 **Props**
 
-- `variant?`: `"info" | "positive" | "warning" | "negative"`
+- `variant?`: `"default" | "positive" | "negative" | "warning" | "info"`
   - Default: `"info"`
   - アラートのスタイルバリアント
 - `icon?`: `ReactNode`
@@ -1460,7 +1460,7 @@ Docs: https://kaze-design-system.vercel.app/docs/components/icon
 
 ```tsx
 import { Search, Settings } from "lucide-react";
-import { Icon } from "@kaze-ds/react";
+import { Icon } from "kaze-design-system";
 
 <Icon icon={Search} size="md" />
 <Icon icon={Settings} size="lg" label="設定" />
@@ -1819,7 +1819,7 @@ Docs: https://kaze-design-system.vercel.app/docs/components/stats
 - `label?`: `string`
   - ラベル（StatItem）
 - `description?`: `string`
-  - Default: `—`
+  - Default: `なし`
   - 補足テキスト（StatItem）
 
 **Usage**
@@ -1887,7 +1887,7 @@ Docs: https://kaze-design-system.vercel.app/docs/components/testimonial
 
 ```tsx
 <TestimonialGrid>
-  <TestimonialCard quote="素晴らしいです。" authorName="田中太郎" authorRole="エンジニア" />
+  <TestimonialCard quote="素晴らしいです。" authorName="堀内昌平" authorRole="エンジニア" />
 </TestimonialGrid>
 ```
 

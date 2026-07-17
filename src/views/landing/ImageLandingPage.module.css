@@ -1,0 +1,23 @@
+/* ── ImageLandingPage ─────────────────────────────────────────
+   このページのコンセプトは「暗色 × 日本の美意識」で、Hero は
+   サイト全体のライト/ダーク切替に関わらず常に暗色で固定する。
+   Hero コンポーネントの `hero--colored` はテーマに連動する
+   --color-fg-inverse で文字色を決めるため、そのままではダーク
+   テーマ時に「ほぼ黒地に、ほぼ黒文字」になってしまう。
+   ここで明示的に zinc-50 系へ固定し、テーマに関わらず読める
+   コントラストを保証する。
+   ------------------------------------------------------------ */
+
+.heroFixed {
+  color: var(--zinc-50);
+}
+
+.heroFixed :global(.hero__subtitle) {
+  color: color-mix(in srgb, var(--zinc-50) 82%, transparent);
+}
+
+.heroFixed :global(.hero__badge) {
+  color: var(--zinc-50);
+  background: color-mix(in srgb, var(--zinc-50) 15%, transparent);
+  border-color: color-mix(in srgb, var(--zinc-50) 25%, transparent);
+}

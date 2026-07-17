@@ -14,8 +14,8 @@ describe("Avatar", () => {
   });
 
   it("has aria-label set to fallback text", () => {
-    render(<Avatar fallback="田中" />);
-    expect(screen.getByRole("img")).toHaveAttribute("aria-label", "田中");
+    render(<Avatar fallback="相楽" />);
+    expect(screen.getByRole("img")).toHaveAttribute("aria-label", "相楽");
   });
 
   it("does not have role='img' when src is provided", () => {

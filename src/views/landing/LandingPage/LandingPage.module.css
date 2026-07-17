@@ -1,4 +1,4 @@
-/* ── LandingPage — Colorful Edition ─────────────────────── */
+/* ── LandingPage ───────────────────────────────────────── */
 
 .page {
   min-height: 100dvh;
@@ -26,30 +26,19 @@
   overflow: hidden;
 }
 
-.heroSection::before,
-.heroSection::after {
+/* Single restrained accent glow - no rainbow blobs */
+.heroSection::before {
   content: "";
   position: absolute;
+  width: 480px;
+  height: 480px;
   border-radius: var(--radius-full);
-  filter: blur(100px);
-  opacity: 0.45;
+  background: color-mix(in srgb, var(--color-accent-a) 45%, transparent);
+  filter: blur(120px);
+  opacity: 0.35;
+  top: -140px;
+  right: -100px;
   pointer-events: none;
-}
-
-.heroSection::before {
-  width: 500px;
-  height: 500px;
-  background: var(--pink-400);
-  top: -120px;
-  right: -80px;
-}
-
-.heroSection::after {
-  width: 400px;
-  height: 400px;
-  background: var(--amber-400);
-  bottom: -100px;
-  left: -60px;
 }
 
 .heroActions {
@@ -57,6 +46,28 @@
   flex-direction: column;
   align-items: center;
   gap: var(--space-3);
+}
+
+/* 反転バンド上のボタン配色。Hero(--color-bg-inverse)と CTABanner(--color-primary)は
+   どちらも fg と同系の帯のため、既定の primary/outline ボタンでは帯と同化する。
+   ※ 現状 --color-primary(-fg) は --color-bg/fg-inverse と同値のため両バンド共用 */
+.bandBtnPrimary {
+  background: var(--color-fg-inverse);
+  color: var(--color-bg-inverse);
+}
+
+.bandBtnPrimary:hover {
+  background: color-mix(in srgb, var(--color-fg-inverse) 85%, var(--color-bg-inverse));
+}
+
+.bandBtnOutline {
+  color: var(--color-fg-inverse);
+  border-color: color-mix(in srgb, var(--color-fg-inverse) 35%, transparent);
+}
+
+.bandBtnOutline:hover {
+  background: color-mix(in srgb, var(--color-fg-inverse) 10%, transparent);
+  border-color: color-mix(in srgb, var(--color-fg-inverse) 55%, transparent);
 }
 
 /* ── Stats Section ─────────────────────────────────────── */
@@ -71,116 +82,13 @@
   margin: 0 auto;
 }
 
-.statCard {
-  position: relative;
-  overflow: hidden;
-}
-
-.statCard::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-}
-
-.statCard:nth-child(1)::before { background: linear-gradient(90deg, var(--blue-400), var(--violet-400)); }
-.statCard:nth-child(2)::before { background: linear-gradient(90deg, var(--emerald-400), var(--cyan-400)); }
-.statCard:nth-child(3)::before { background: linear-gradient(90deg, var(--amber-400), var(--orange-400)); }
-.statCard:nth-child(4)::before { background: linear-gradient(90deg, var(--pink-400), var(--red-400)); }
-
 /* ── Features ──────────────────────────────────────────── */
-
-.featuresSection {
-  background: linear-gradient(
-    180deg,
-    var(--color-bg) 0%,
-    color-mix(in srgb, var(--violet-100) 20%, var(--color-bg)) 100%
-  );
-}
-
-.featureIconWrap {
-  width: 48px;
-  height: 48px;
-  border-radius: var(--radius-lg);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--color-fg-inverse);
-}
 
 /* ── Testimonials ──────────────────────────────────────── */
 
 .testimonialGrid {
   max-width: var(--content-max-width);
   margin: 0 auto;
-}
-
-.testimonialCard {
-  position: relative;
-  overflow: hidden;
-}
-
-.testimonialCard::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  width: 4px;
-}
-
-.testimonialCard:nth-child(1)::before { background: linear-gradient(180deg, var(--blue-400), var(--violet-500)); }
-.testimonialCard:nth-child(2)::before { background: linear-gradient(180deg, var(--emerald-400), var(--cyan-500)); }
-.testimonialCard:nth-child(3)::before { background: linear-gradient(180deg, var(--amber-400), var(--pink-500)); }
-
-/* ── CTA ───────────────────────────────────────────────── */
-
-.ctaBanner {
-  background: linear-gradient(
-    135deg,
-    var(--violet-600) 0%,
-    var(--blue-600) 50%,
-    var(--cyan-500) 100%
-  );
-  position: relative;
-  overflow: hidden;
-}
-
-.ctaBanner::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(
-    circle at 70% 20%,
-    color-mix(in srgb, var(--pink-400) 30%, transparent) 0%,
-    transparent 50%
-  );
-  pointer-events: none;
-}
-
-/* CTA button overrides */
-.ctaBtnPrimary {
-  background: var(--color-bg);
-  color: var(--violet-700);
-  border: none;
-  font-weight: var(--font-weight-semibold);
-}
-
-.ctaBtnPrimary:hover {
-  background: color-mix(in srgb, var(--color-fg-inverse) 90%, transparent);
-}
-
-.ctaBtnOutline {
-  background: transparent;
-  color: var(--color-fg-inverse);
-  border: 1px solid color-mix(in srgb, var(--color-fg-inverse) 40%, transparent);
-}
-
-.ctaBtnOutline:hover {
-  background: color-mix(in srgb, var(--color-fg-inverse) 10%, transparent);
-  border-color: color-mix(in srgb, var(--color-fg-inverse) 60%, transparent);
 }
 
 /* ── Responsive ────────────────────────────────────────── */

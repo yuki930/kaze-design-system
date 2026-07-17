@@ -290,10 +290,10 @@ export function Dashboard() {
       logo={<Logo />}
       footer={
         <div className={layoutStyles.sidebarFooter}>
-          <Avatar size="sm" fallback="YH" />
+          <Avatar size="sm" fallback="FA" />
           <div className={layoutStyles.sidebarFooterInfo}>
-            <Text as="span" size="sm" weight="medium" style={truncateStyle}>春山 裕太</Text>
-            <Text as="span" size="xs" color="subtle" style={truncateStyle}>y.haruyama@example.com</Text>
+            <Text as="span" size="sm" weight="medium" style={truncateStyle}>藤枝 蒼</Text>
+            <Text as="span" size="xs" color="subtle" style={truncateStyle}>ao.fujieda@norn.co.jp</Text>
           </div>
         </div>
       }
@@ -319,7 +319,7 @@ export function Dashboard() {
             </Button>
             <span className={styles.notificationDot} />
           </div>
-          <Avatar size="sm" fallback="YH" />
+          <Avatar size="sm" fallback="FA" />
         </div>
       }
     >

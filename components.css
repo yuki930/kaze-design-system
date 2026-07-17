@@ -1398,12 +1398,7 @@
 .feature-card__icon {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  width: 2.5rem;
-  height: 2.5rem;
-  border-radius: var(--radius-lg);
-  background: var(--color-bg-tertiary);
-  color: var(--color-fg);
+  color: var(--color-fg-secondary);
   margin-bottom: var(--space-4);
 }
 
@@ -3204,6 +3199,13 @@
   line-height: var(--line-height-relaxed);
 }
 
+.alert--default {
+  background: var(--color-surface);
+  border-color: var(--color-border);
+}
+
+.alert--default .alert__icon { color: var(--color-fg-secondary); }
+
 .alert--info {
   background: var(--color-info-light);
   border-color: var(--color-info);
@@ -3878,6 +3880,14 @@
 
 .toast--warning .toast__icon {
   color: var(--color-warning);
+}
+
+.toast--info {
+  border-left: 3px solid var(--color-info);
+}
+
+.toast--info .toast__icon {
+  color: var(--color-info);
 }
 
 /* ── Dropdown ───────────────────────────────────────────── */

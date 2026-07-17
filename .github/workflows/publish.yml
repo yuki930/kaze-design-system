@@ -52,6 +52,12 @@ jobs:
 
       - run: npm ci
 
+      - name: Type check
+        run: npm run typecheck
+        # `npm run test` is intentionally not gated here — the Storybook
+        # browser test suite depends on a Playwright runtime that has been
+        # unreliable in CI. Revisit once those tests are stable.
+
       - name: Determine semver bump from conventional commits
         id: bump
         run: |
@@ -130,8 +136,13 @@ jobs:
           fi
 
           # Split header (everything before first "## [" entry) from the rest.
+          # NOTE: the awk pattern below intentionally sets the flag and prints
+          # in a single rule (not two separate `f {print}` / `/^## \[/ {...}`
+          # rules) — with two rules, every "## [" line after the first would
+          # match both rules and get printed twice, duplicating that heading
+          # on every release run (compounding on prior duplicates each time).
           HEADER=$(awk '/^## \[/ {exit} {print}' CHANGELOG.md)
-          REST=$(awk 'f {print} /^## \[/ {f=1; print}' CHANGELOG.md)
+          REST=$(awk '/^## \[/ {f=1} f {print}' CHANGELOG.md)
 
           {
             printf '%s\n' "$HEADER"

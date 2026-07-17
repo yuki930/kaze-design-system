@@ -10,12 +10,21 @@
 .heroSection {
   position: relative;
   overflow: hidden;
-  background: linear-gradient(
-    135deg,
-    color-mix(in srgb, var(--blue-200) 50%, var(--color-bg)) 0%,
-    color-mix(in srgb, var(--violet-200) 40%, var(--color-bg)) 50%,
-    color-mix(in srgb, var(--amber-200) 35%, var(--color-bg)) 100%
-  );
+}
+
+/* Single restrained accent glow - no pastel rainbow gradient */
+.heroSection::before {
+  content: "";
+  position: absolute;
+  width: 480px;
+  height: 480px;
+  border-radius: var(--radius-full);
+  background: color-mix(in srgb, var(--color-accent-a) 40%, transparent);
+  filter: blur(120px);
+  opacity: 0.3;
+  top: -160px;
+  right: -100px;
+  pointer-events: none;
 }
 
 
