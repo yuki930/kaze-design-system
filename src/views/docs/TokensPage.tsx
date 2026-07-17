@@ -81,6 +81,18 @@ const easings = [
   { name: "--ease-in-out", value: "cubic-bezier(0.4, 0, 0.2, 1)" },
 ];
 
+const densityTokens = [
+  { name: "--density-control-height", normal: "2.25rem", compact: "2rem" },
+  { name: "--density-row-py", normal: "var(--space-3) / 12px", compact: "var(--space-2) / 8px" },
+  { name: "--density-row-px", normal: "var(--space-4) / 16px", compact: "var(--space-3) / 12px" },
+  { name: "--density-font-size-ui", normal: "var(--font-size-sm) / 14px", compact: "var(--font-size-xs) / 13px" },
+  { name: "--density-line-height-ui", normal: "var(--line-height-normal) / 1.5", compact: "var(--line-height-snug) / 1.375" },
+  { name: "--density-nav-py", normal: "var(--space-2) / 8px", compact: "var(--space-1-5) / 6px" },
+  { name: "--density-nav-gap", normal: "var(--space-2-5) / 10px", compact: "var(--space-2) / 8px" },
+  { name: "--density-dropdown-py", normal: "var(--space-1-5) / 6px", compact: "var(--space-1) / 4px" },
+  { name: "--density-tab-py", normal: "var(--space-2) / 8px", compact: "var(--space-1-5) / 6px" },
+];
+
 export function TokensPage() {
   return (
     <div>
@@ -244,6 +256,111 @@ export function TokensPage() {
           <div key={ease.name} style={{ marginBottom: "8px" }}>
             <code className={styles.inlineCode}>{ease.name}</code>{" "}
             <span className={styles.tokenValue}>{ease.value}</span>
+          </div>
+        ))}
+      </div>
+
+      {/* ---- Density ---- */}
+      <h2 className={styles.sectionTitle}>密度（Density）</h2>
+      <p
+        className={styles.pageDescription}
+        style={{ fontSize: "var(--font-size-sm)", marginBottom: "var(--space-4)" }}
+      >
+        <code className={styles.inlineCode}>data-density=&quot;compact&quot;</code>{" "}
+        をルート、または任意のコンテナに付与すると、コントロール高・行パディング・UI
+        フォントサイズ・行間が一段階詰まります。カスタムプロパティは子孫要素に継承されるため、
+        どの階層に付けても効きます。<code className={styles.inlineCode}>data-theme</code>{" "}
+        （ライト / ダーク）とは独立した軸なので、自由に組み合わせられます。
+      </p>
+
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "1fr 1fr",
+          gap: "var(--space-6)",
+        }}
+      >
+        <div>
+          <div className={styles.previewLabel}>通常密度（既定）</div>
+          <div className={styles.previewColumn}>
+            <div className="table-wrapper">
+              <table className="table">
+                <thead>
+                  <tr>
+                    <th>担当者</th>
+                    <th>ステータス</th>
+                    <th>金額</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>相楽 実咲</td>
+                    <td>完了</td>
+                    <td className="table__cell--numeric">¥12,000</td>
+                  </tr>
+                  <tr>
+                    <td>堀内 昌平</td>
+                    <td>保留</td>
+                    <td className="table__cell--numeric">¥8,400</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div style={{ display: "flex", gap: "var(--space-2)", marginTop: "var(--space-4)" }}>
+              <input className="input" placeholder="検索" style={{ flex: 1 }} readOnly />
+              <button className="btn btn--primary btn--md" type="button">
+                実行
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div className={styles.previewLabel}>
+            compact（<code className={styles.inlineCode}>data-density=&quot;compact&quot;</code>）
+          </div>
+          <div className={styles.previewColumn} data-density="compact">
+            <div className="table-wrapper">
+              <table className="table">
+                <thead>
+                  <tr>
+                    <th>担当者</th>
+                    <th>ステータス</th>
+                    <th>金額</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>相楽 実咲</td>
+                    <td>完了</td>
+                    <td className="table__cell--numeric">¥12,000</td>
+                  </tr>
+                  <tr>
+                    <td>堀内 昌平</td>
+                    <td>保留</td>
+                    <td className="table__cell--numeric">¥8,400</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div style={{ display: "flex", gap: "var(--space-2)", marginTop: "var(--space-4)" }}>
+              <input className="input" placeholder="検索" style={{ flex: 1 }} readOnly />
+              <button className="btn btn--primary btn--md" type="button">
+                実行
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h3 className={styles.subsectionTitle}>密度トークン</h3>
+      <div className={styles.codeBlock}>
+        {densityTokens.map((token) => (
+          <div key={token.name} style={{ marginBottom: "8px" }}>
+            <code className={styles.inlineCode}>{token.name}</code>{" "}
+            <span className={styles.tokenValue}>
+              {token.normal} → {token.compact}
+            </span>
           </div>
         ))}
       </div>

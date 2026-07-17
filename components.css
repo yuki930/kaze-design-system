@@ -65,9 +65,9 @@
 }
 
 .btn--md {
-  height: 2.25rem;
+  height: var(--density-control-height);
   padding-inline: var(--space-4);
-  font-size: var(--font-size-sm);
+  font-size: var(--density-font-size-ui);
 }
 
 .btn--lg {
@@ -290,9 +290,9 @@
 .input {
   display: flex;
   width: 100%;
-  height: 2.25rem;
+  height: var(--density-control-height);
   padding-inline: var(--space-3);
-  font-size: var(--font-size-sm);
+  font-size: var(--density-font-size-ui);
   background-color: var(--color-bg-tertiary);
   border: 1px solid transparent;
   border-radius: var(--radius-field);
@@ -322,10 +322,10 @@
 .select {
   display: flex;
   width: 100%;
-  height: 2.25rem;
+  height: var(--density-control-height);
   padding-inline: var(--space-3);
   padding-right: var(--space-8);
-  font-size: var(--font-size-sm);
+  font-size: var(--density-font-size-ui);
   background-color: var(--color-bg-tertiary);
   border: 1px solid transparent;
   border-radius: var(--radius-field);
@@ -611,7 +611,8 @@
 
 .table {
   width: 100%;
-  font-size: var(--font-size-sm);
+  font-size: var(--density-font-size-ui);
+  line-height: var(--density-line-height-ui);
 }
 
 .table th {
@@ -621,12 +622,12 @@
   text-transform: uppercase;
   letter-spacing: var(--letter-spacing-wider);
   color: var(--color-fg-tertiary);
-  padding: var(--space-3) var(--space-4);
+  padding: var(--density-row-py) var(--density-row-px);
   border-bottom: 1px solid var(--color-border);
 }
 
 .table td {
-  padding: var(--space-3) var(--space-4);
+  padding: var(--density-row-py) var(--density-row-px);
   border-bottom: 1px solid var(--color-border-subtle);
   color: var(--color-fg);
   vertical-align: middle;
@@ -697,8 +698,8 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: var(--space-2) var(--space-3);
-  font-size: var(--font-size-sm);
+  padding: var(--density-tab-py) var(--space-3);
+  font-size: var(--density-font-size-ui);
   font-weight: var(--font-weight-normal);
   color: var(--color-fg-tertiary);
   cursor: pointer;
@@ -750,9 +751,9 @@
 .nav-item {
   display: flex;
   align-items: center;
-  gap: var(--space-2-5);
-  padding: var(--space-2) var(--space-3);
-  font-size: var(--font-size-sm);
+  gap: var(--density-nav-gap);
+  padding: var(--density-nav-py) var(--space-3);
+  font-size: var(--density-font-size-ui);
   font-weight: var(--font-weight-medium);
   color: var(--color-fg-tertiary);
   border-radius: var(--radius-md);
@@ -2588,8 +2589,9 @@
   display: flex;
   align-items: center;
   gap: var(--space-3);
-  padding: var(--space-3) 0;
-  font-size: var(--font-size-sm);
+  padding: var(--density-row-py) 0;
+  font-size: var(--density-font-size-ui);
+  line-height: var(--density-line-height-ui);
   color: var(--color-fg);
 }
 
@@ -2629,7 +2631,7 @@
 .list-item--interactive {
   cursor: pointer;
   border-radius: var(--radius-md);
-  padding: var(--space-3) var(--space-3);
+  padding: var(--density-row-py) var(--space-3);
   transition: background var(--duration-fast) var(--ease-default);
 }
 
@@ -3912,8 +3914,8 @@
   display: flex;
   align-items: center;
   gap: var(--space-2);
-  padding: var(--space-1-5) var(--space-3);
-  font-size: var(--font-size-sm);
+  padding: var(--density-dropdown-py) var(--space-3);
+  font-size: var(--density-font-size-ui);
   border-radius: var(--radius-md);
   cursor: pointer;
   color: var(--color-fg);

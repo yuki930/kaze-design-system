@@ -296,6 +296,22 @@
   --topbar-height: 3.5rem;
   --content-max-width: 1280px;
 
+  /* ── Density (component sizing — orthogonal to color theme) ──
+     Two-stage system: normal values here, [data-density="compact"]
+     overrides below. Attach the attribute to :root or any container;
+     custom properties inherit down the subtree either way.
+     Every normal value below equals the literal it replaces, so the
+     default appearance does not change when this section is added. */
+  --density-control-height:  2.25rem;              /* Input / Select / Button (default size) */
+  --density-row-py:          var(--space-3);       /* Table cell / List-item vertical padding */
+  --density-row-px:          var(--space-4);       /* Table cell horizontal padding */
+  --density-font-size-ui:    var(--font-size-sm);  /* Table / List / Tabs / Dropdown / Sidebar / controls */
+  --density-line-height-ui:  var(--line-height-normal); /* Table / List row line-height */
+  --density-nav-py:          var(--space-2);       /* Sidebar nav-item vertical padding */
+  --density-nav-gap:         var(--space-2-5);     /* Sidebar nav-item icon gap */
+  --density-dropdown-py:     var(--space-1-5);     /* Dropdown item vertical padding */
+  --density-tab-py:          var(--space-2);       /* Tabs vertical padding */
+
   /* ── Fluid Typography (inspired by Pico CSS) ─────────── */
   /* Root font-size scales fluidly between 640px and 1280px viewport */
   /* Components using rem will scale proportionally */
@@ -308,6 +324,24 @@
   /* lg:  1024px — デスクトップ */
   /* xl:  1280px — ワイドスクリーン */
   /* 2xl: 1536px — 超ワイド */
+}
+
+/* ── Density: compact ──────────────────────────────────────────
+   Tightens control height, row padding, UI font-size and line-height
+   by roughly one step. Works wherever the attribute is applied —
+   :root for a whole app, or a single container (e.g. a dense table
+   panel) — since custom properties inherit to descendants either way.
+   Orthogonal to [data-theme] / [data-palette]: combine freely. ──── */
+[data-density="compact"] {
+  --density-control-height:  2rem;
+  --density-row-py:          var(--space-2);
+  --density-row-px:          var(--space-3);
+  --density-font-size-ui:    var(--font-size-xs);
+  --density-line-height-ui:  var(--line-height-snug);
+  --density-nav-py:          var(--space-1-5);
+  --density-nav-gap:         var(--space-2);
+  --density-dropdown-py:     var(--space-1);
+  --density-tab-py:          var(--space-1-5);
 }
 
 /* ── Dark Theme ────────────────────────────────────────────── */

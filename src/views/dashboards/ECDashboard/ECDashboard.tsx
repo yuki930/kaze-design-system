@@ -201,7 +201,7 @@ export function ECDashboard() {
   /* ── Render ────────────────────────────────────────────── */
 
   return (
-    <AppLayout sidebar={sidebar} topbar={topbar}>
+    <AppLayout sidebar={sidebar} topbar={topbar} data-density="compact">
       {/* Alert Banner */}
       <div className={styles.alertSection}>
         <Alert variant="warning" title="在庫アラート">
