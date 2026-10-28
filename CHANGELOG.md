@@ -12,6 +12,17 @@ Commit prefix determines the next version bump on release:
 - `feat!:`, `fix!:`, `refactor!:` or a commit body containing `BREAKING CHANGE:` → **major** bump
 
 CHANGELOG entries and version bumps are generated automatically by `.github/workflows/publish.yml` on every push to `main` that touches library source files.
+## [0.7.0] - 2026-10-28
+
+### Features
+
+- feat: add LineChart, ColumnChart, Heatmap, CategoryBar, ChartLegend and SegmentedControl (#37)
+
+### Bug Fixes
+
+- fix(site): link the docs and sample pages back to the GitHub repository (#36)
+
+
 ## [0.6.1] - 2026-10-28
 
 ### Other
