@@ -1,12 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardBody,
-  CardFooter,
-} from "./Card";
+import { Card, CardHeader, CardTitle, CardBody, CardFooter } from "./Card";
 
 describe("Card", () => {
   it("renders with correct className", () => {

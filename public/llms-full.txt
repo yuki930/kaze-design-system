@@ -1465,7 +1465,7 @@ Docs: https://kaze-design-system.vercel.app/docs/components/icon
 
 **Props**
 
-- `icon`: `ComponentType<{ size?: number | string; strokeWidth?: number | string }>`
+- `icon`: `ComponentType<{ size?: number | string; strokeWidth?: number | string; }>`
   - An icon component such as a lucide-react icon
 - `size?`: `"xs" | "sm" | "md" | "lg" | "xl"`
   - Default: `"md"`

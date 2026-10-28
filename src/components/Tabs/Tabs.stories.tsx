@@ -21,11 +21,7 @@ export const Default: Story = {
     return (
       <Tabs {...args}>
         {tabs.map((tab) => (
-          <Tab
-            key={tab.id}
-            active={active === tab.id}
-            onClick={() => setActive(tab.id)}
-          >
+          <Tab key={tab.id} active={active === tab.id} onClick={() => setActive(tab.id)}>
             {tab.label}
           </Tab>
         ))}
@@ -46,11 +42,7 @@ export const Pills: Story = {
     return (
       <Tabs {...args} variant="pills">
         {tabs.map((tab) => (
-          <Tab
-            key={tab.id}
-            active={active === tab.id}
-            onClick={() => setActive(tab.id)}
-          >
+          <Tab key={tab.id} active={active === tab.id} onClick={() => setActive(tab.id)}>
             {tab.label}
           </Tab>
         ))}

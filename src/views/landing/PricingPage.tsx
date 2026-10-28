@@ -94,10 +94,7 @@ export function PricingPage() {
             </Tab>
             <Tab active={isYearly} onClick={() => setIsYearly(true)}>
               年払い
-              <Badge
-                variant="positive"
-                style={{ marginLeft: "var(--space-2)" }}
-              >
+              <Badge variant="positive" style={{ marginLeft: "var(--space-2)" }}>
                 20% OFF
               </Badge>
             </Tab>
@@ -245,10 +242,7 @@ export function PricingPage() {
           },
         ]}
         bottomLeft={
-          <span>
-            &copy; {new Date().getFullYear()} Kaze Design System. All rights
-            reserved.
-          </span>
+          <span>&copy; {new Date().getFullYear()} Kaze Design System. All rights reserved.</span>
         }
       />
     </>

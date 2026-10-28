@@ -7,23 +7,17 @@ export interface DescriptionListProps extends HTMLAttributes<HTMLDListElement> {
   children: ReactNode;
 }
 
-export const DescriptionList = forwardRef<
-  HTMLDListElement,
-  DescriptionListProps
->(({ horizontal, bordered, className, children, ...rest }, ref) => (
-  <dl
-    ref={ref}
-    className={cn(
-      "dl",
-      horizontal && "dl--horizontal",
-      bordered && "dl--bordered",
-      className,
-    )}
-    {...rest}
-  >
-    {children}
-  </dl>
-));
+export const DescriptionList = forwardRef<HTMLDListElement, DescriptionListProps>(
+  ({ horizontal, bordered, className, children, ...rest }, ref) => (
+    <dl
+      ref={ref}
+      className={cn("dl", horizontal && "dl--horizontal", bordered && "dl--bordered", className)}
+      {...rest}
+    >
+      {children}
+    </dl>
+  ),
+);
 DescriptionList.displayName = "DescriptionList";
 
 export interface DescriptionItemProps extends HTMLAttributes<HTMLDivElement> {

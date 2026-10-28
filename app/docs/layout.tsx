@@ -91,17 +91,13 @@ const navSections = [
   },
 ];
 
-export default function DocsLayoutWrapper({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function DocsLayoutWrapper({ children }: { children: React.ReactNode }) {
   const { theme, setTheme } = useTheme();
   const pathname = usePathname();
 
   const isActive = (href: string, exact?: boolean) => {
     if (exact) return pathname === href;
-    return pathname === href || pathname.startsWith(href + "/");
+    return pathname === href || pathname.startsWith(`${href}/`);
   };
 
   return (
@@ -138,6 +134,7 @@ export default function DocsLayoutWrapper({
 
         <div className={styles.sidebarFooter}>
           <button
+            type="button"
             className={styles.themeToggle}
             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
           >

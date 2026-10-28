@@ -65,53 +65,46 @@ export interface TabsProps extends HTMLAttributes<HTMLDivElement> {
 
 export const Tabs = forwardRef<HTMLDivElement, TabsProps>(
   ({ variant = "default", className, children, ...rest }, ref) => {
-    const handleKeyDown = useCallback(
-      (e: KeyboardEvent<HTMLDivElement>) => {
-        const target = e.target as HTMLElement;
-        if (target.getAttribute("role") !== "tab") return;
+    const handleKeyDown = useCallback((e: KeyboardEvent<HTMLDivElement>) => {
+      const target = e.target as HTMLElement;
+      if (target.getAttribute("role") !== "tab") return;
 
-        const tabs = Array.from(
-          (e.currentTarget as HTMLElement).querySelectorAll<HTMLElement>(
-            '[role="tab"]:not([disabled])',
-          ),
-        );
+      const tabs = Array.from(
+        (e.currentTarget as HTMLElement).querySelectorAll<HTMLElement>(
+          '[role="tab"]:not([disabled])',
+        ),
+      );
 
-        const currentIndex = tabs.indexOf(target);
-        if (currentIndex === -1) return;
+      const currentIndex = tabs.indexOf(target);
+      if (currentIndex === -1) return;
 
-        let nextIndex: number | null = null;
+      let nextIndex: number | null = null;
 
-        if (e.key === "ArrowRight") {
-          nextIndex = (currentIndex + 1) % tabs.length;
-        } else if (e.key === "ArrowLeft") {
-          nextIndex = (currentIndex - 1 + tabs.length) % tabs.length;
-        } else if (e.key === "Home") {
-          nextIndex = 0;
-        } else if (e.key === "End") {
-          nextIndex = tabs.length - 1;
+      if (e.key === "ArrowRight") {
+        nextIndex = (currentIndex + 1) % tabs.length;
+      } else if (e.key === "ArrowLeft") {
+        nextIndex = (currentIndex - 1 + tabs.length) % tabs.length;
+      } else if (e.key === "Home") {
+        nextIndex = 0;
+      } else if (e.key === "End") {
+        nextIndex = tabs.length - 1;
+      }
+
+      if (nextIndex !== null) {
+        const nextTab = tabs[nextIndex];
+        if (nextTab) {
+          e.preventDefault();
+          nextTab.focus();
+          nextTab.click();
         }
-
-        if (nextIndex !== null) {
-          const nextTab = tabs[nextIndex];
-          if (nextTab) {
-            e.preventDefault();
-            nextTab.focus();
-            nextTab.click();
-          }
-        }
-      },
-      [],
-    );
+      }
+    }, []);
 
     return (
       <div
         ref={ref}
         role="tablist"
-        className={cn(
-          "tabs",
-          variant === "pills" && "tabs--pills",
-          className,
-        )}
+        className={cn("tabs", variant === "pills" && "tabs--pills", className)}
         onKeyDown={handleKeyDown}
         {...rest}
       >

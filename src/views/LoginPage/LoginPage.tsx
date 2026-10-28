@@ -57,9 +57,7 @@ export function LoginPage() {
       <Card className={styles.card}>
         <CardHeader className={styles.cardHeaderCenter}>
           <CardTitle>ログイン</CardTitle>
-          <p className={styles.subtitle}>
-            アカウントにサインインしてください
-          </p>
+          <p className={styles.subtitle}>アカウントにサインインしてください</p>
         </CardHeader>
 
         <CardBody>
@@ -79,10 +77,7 @@ export function LoginPage() {
           <Divider text="または" className={styles.divider} />
 
           {/* ── Form ──────────────────────────────────── */}
-          <form
-            onSubmit={(e) => e.preventDefault()}
-            className={styles.form}
-          >
+          <form onSubmit={(e) => e.preventDefault()} className={styles.form}>
             {/* Email */}
             <FormField label="メールアドレス" required>
               <Input
@@ -152,9 +147,7 @@ export function LoginPage() {
       </Card>
 
       {/* ── Copyright ────────────────────────────────────── */}
-      <p className={styles.copyright}>
-        &copy; 2026 Kaze Design System. All rights reserved.
-      </p>
+      <p className={styles.copyright}>&copy; 2026 Kaze Design System. All rights reserved.</p>
     </div>
   );
 }

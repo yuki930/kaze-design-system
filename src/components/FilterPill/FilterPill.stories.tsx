@@ -39,11 +39,21 @@ export const AllStates: Story = {
     <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
       <FilterPill>すべて</FilterPill>
       <FilterPill active>選択中</FilterPill>
-      <FilterPill active color="#10b981" dot>ペアカード</FilterPill>
-      <FilterPill active color="#3b82f6" dot>口座開設</FilterPill>
-      <FilterPill active color="#f59e0b" dot>お知らせ</FilterPill>
-      <FilterPill active color="#ef4444" dot>キャンペーン</FilterPill>
-      <FilterPill active color="#8b5cf6" dot>アプリ</FilterPill>
+      <FilterPill active color="#10b981" dot>
+        ペアカード
+      </FilterPill>
+      <FilterPill active color="#3b82f6" dot>
+        口座開設
+      </FilterPill>
+      <FilterPill active color="#f59e0b" dot>
+        お知らせ
+      </FilterPill>
+      <FilterPill active color="#ef4444" dot>
+        キャンペーン
+      </FilterPill>
+      <FilterPill active color="#8b5cf6" dot>
+        アプリ
+      </FilterPill>
     </div>
   ),
 };

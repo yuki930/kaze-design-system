@@ -10,11 +10,7 @@ export interface SidebarProps extends HTMLAttributes<HTMLElement> {
 export const Sidebar = forwardRef<HTMLElement, SidebarProps>(
   ({ children, logo, footer, className, ...rest }, ref) => {
     return (
-      <aside
-        ref={ref}
-        className={cn("sidebar", className)}
-        {...rest}
-      >
+      <aside ref={ref} className={cn("sidebar", className)} {...rest}>
         {logo && <div className="sidebar__logo">{logo}</div>}
         <nav className="sidebar__nav">{children}</nav>
         {footer && <div className="sidebar__footer">{footer}</div>}
@@ -66,11 +62,7 @@ export interface SidebarGroupLabelProps extends HTMLAttributes<HTMLDivElement> {
 export const SidebarGroupLabel = forwardRef<HTMLDivElement, SidebarGroupLabelProps>(
   ({ className, children, ...rest }, ref) => {
     return (
-      <div
-        ref={ref}
-        className={cn("sidebar__group-label", className)}
-        {...rest}
-      >
+      <div ref={ref} className={cn("sidebar__group-label", className)} {...rest}>
         {children}
       </div>
     );
@@ -86,12 +78,7 @@ export interface SidebarDividerProps extends HTMLAttributes<HTMLDivElement> {}
 export const SidebarDivider = forwardRef<HTMLDivElement, SidebarDividerProps>(
   ({ className, ...rest }, ref) => {
     return (
-      <div
-        ref={ref}
-        className={cn("sidebar__divider", className)}
-        role="separator"
-        {...rest}
-      />
+      <div ref={ref} className={cn("sidebar__divider", className)} role="separator" {...rest} />
     );
   },
 );

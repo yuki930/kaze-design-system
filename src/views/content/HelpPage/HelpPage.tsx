@@ -37,8 +37,18 @@ import styles from "./HelpPage.module.css";
 
 const categories = [
   { icon: <BookOpen size={22} />, title: "はじめに", count: 8, color: "var(--chart-blue)" },
-  { icon: <Settings size={22} />, title: "アカウント設定", count: 12, color: "var(--chart-emerald)" },
-  { icon: <CreditCard size={22} />, title: "料金・お支払い", count: 6, color: "var(--chart-amber)" },
+  {
+    icon: <Settings size={22} />,
+    title: "アカウント設定",
+    count: 12,
+    color: "var(--chart-emerald)",
+  },
+  {
+    icon: <CreditCard size={22} />,
+    title: "料金・お支払い",
+    count: 6,
+    color: "var(--chart-amber)",
+  },
   { icon: <Users size={22} />, title: "チーム管理", count: 9, color: "var(--chart-purple)" },
   { icon: <Shield size={22} />, title: "セキュリティ", count: 5, color: "var(--chart-red)" },
   { icon: <Zap size={22} />, title: "API・連携", count: 11, color: "var(--chart-cyan)" },
@@ -56,7 +66,11 @@ const popularArticles = [
 ];
 
 const recentArticles = [
-  { title: "2026年2月のアップデート：ダッシュボード改善", badge: "NEW", badgeVariant: "positive" as const },
+  {
+    title: "2026年2月のアップデート：ダッシュボード改善",
+    badge: "NEW",
+    badgeVariant: "positive" as const,
+  },
   { title: "Slack連携の設定手順が変わりました", badge: "更新", badgeVariant: "warning" as const },
   { title: "新しい権限モデルについて", badge: "NEW", badgeVariant: "positive" as const },
   { title: "モバイルアプリ v2.0 リリースノート", badge: null, badgeVariant: "default" as const },
@@ -79,7 +93,9 @@ export function HelpPage() {
         }
       >
         <NavbarLinks>
-          <NavbarLink href="/help" active>ヘルプセンター</NavbarLink>
+          <NavbarLink href="/help" active>
+            ヘルプセンター
+          </NavbarLink>
           <NavbarLink href="#">コミュニティ</NavbarLink>
           <NavbarLink href="#">ステータス</NavbarLink>
         </NavbarLinks>
@@ -89,9 +105,7 @@ export function HelpPage() {
       <Section background="muted" className={styles.searchHero}>
         <div className={styles.searchHeroInner}>
           <Heading level={1}>何かお困りですか？</Heading>
-          <Text color="muted">
-            キーワードで記事を検索するか、カテゴリから探してください。
-          </Text>
+          <Text color="muted">キーワードで記事を検索するか、カテゴリから探してください。</Text>
           <div className={styles.searchBox}>
             <Search size={18} className={styles.searchIcon} />
             <input
@@ -107,7 +121,13 @@ export function HelpPage() {
       <div className={styles.content}>
         {/* ── Categories ──────────────────────────────── */}
         <Heading level={2}>カテゴリから探す</Heading>
-        <Grid columns={3} columnsMd={2} columnsSm={2} gap="var(--space-4)" className={styles.catGridSpacing}>
+        <Grid
+          columns={3}
+          columnsMd={2}
+          columnsSm={2}
+          gap="var(--space-4)"
+          className={styles.catGridSpacing}
+        >
           {categories.map((cat) => (
             <Card key={cat.title} variant="interactive" className={styles.catCard}>
               <CardBody>
@@ -120,8 +140,12 @@ export function HelpPage() {
                 >
                   {cat.icon}
                 </div>
-                <Text as="div" size="sm" weight="semibold">{cat.title}</Text>
-                <Text as="div" variant="caption">{cat.count} 記事</Text>
+                <Text as="div" size="sm" weight="semibold">
+                  {cat.title}
+                </Text>
+                <Text as="div" variant="caption">
+                  {cat.count} 記事
+                </Text>
               </CardBody>
             </Card>
           ))}
@@ -179,7 +203,9 @@ export function HelpPage() {
               <div className={styles.contactIcon}>
                 <MessageCircle size={20} />
               </div>
-              <Text as="div" size="sm" weight="semibold">チャットサポート</Text>
+              <Text as="div" size="sm" weight="semibold">
+                チャットサポート
+              </Text>
               <Text variant="caption">
                 平日 9:00〜18:00 にリアルタイムでお答えします。平均応答時間は3分です。
               </Text>
@@ -191,11 +217,13 @@ export function HelpPage() {
               <div className={styles.contactIcon}>
                 <Mail size={20} />
               </div>
-              <Text as="div" size="sm" weight="semibold">メールサポート</Text>
-              <Text variant="caption">
-                24時間受付。通常1営業日以内にご返信いたします。
+              <Text as="div" size="sm" weight="semibold">
+                メールサポート
               </Text>
-              <Button size="sm" variant="outline">メールを送る</Button>
+              <Text variant="caption">24時間受付。通常1営業日以内にご返信いたします。</Text>
+              <Button size="sm" variant="outline">
+                メールを送る
+              </Button>
             </CardBody>
           </Card>
           <Card>
@@ -203,11 +231,15 @@ export function HelpPage() {
               <div className={styles.contactIcon}>
                 <Users size={20} />
               </div>
-              <Text as="div" size="sm" weight="semibold">コミュニティ</Text>
+              <Text as="div" size="sm" weight="semibold">
+                コミュニティ
+              </Text>
               <Text variant="caption">
                 他のユーザーやチームメンバーに質問できるフォーラムです。
               </Text>
-              <Button size="sm" variant="outline">フォーラムへ</Button>
+              <Button size="sm" variant="outline">
+                フォーラムへ
+              </Button>
             </CardBody>
           </Card>
         </Grid>
@@ -243,9 +275,7 @@ export function HelpPage() {
             ],
           },
         ]}
-        bottomLeft={
-          <span>&copy; {new Date().getFullYear()} Kaze. All rights reserved.</span>
-        }
+        bottomLeft={<span>&copy; {new Date().getFullYear()} Kaze. All rights reserved.</span>}
       />
 
       {/* ── Floating Theme Toggle ───────────────────────── */}

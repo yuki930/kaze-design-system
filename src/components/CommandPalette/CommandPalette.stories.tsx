@@ -126,11 +126,7 @@ function CommandPaletteStory() {
       <Button variant="outline" onClick={() => setOpen(true)}>
         コマンドパレットを開く
       </Button>
-      <CommandPalette
-        open={open}
-        onOpenChange={setOpen}
-        commands={sampleCommands}
-      />
+      <CommandPalette open={open} onOpenChange={setOpen} commands={sampleCommands} />
     </>
   );
 }

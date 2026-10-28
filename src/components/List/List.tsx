@@ -41,34 +41,16 @@ export interface ListItemProps extends Omit<HTMLAttributes<HTMLLIElement>, "titl
 }
 
 export const ListItem = forwardRef<HTMLLIElement, ListItemProps>(
-  (
-    {
-      leading,
-      trailing,
-      title,
-      description,
-      interactive,
-      className,
-      children,
-      ...rest
-    },
-    ref,
-  ) => (
+  ({ leading, trailing, title, description, interactive, className, children, ...rest }, ref) => (
     <li
       ref={ref}
-      className={cn(
-        "list-item",
-        interactive && "list-item--interactive",
-        className,
-      )}
+      className={cn("list-item", interactive && "list-item--interactive", className)}
       {...rest}
     >
       {leading && <span className="list-item__leading">{leading}</span>}
       <span className="list-item__content">
         {title && <span className="list-item__title">{title}</span>}
-        {description && (
-          <span className="list-item__description">{description}</span>
-        )}
+        {description && <span className="list-item__description">{description}</span>}
         {children}
       </span>
       {trailing && <span className="list-item__trailing">{trailing}</span>}

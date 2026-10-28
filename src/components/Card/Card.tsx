@@ -65,19 +65,17 @@ CardTitle.displayName = "CardTitle";
 
 /* ── CardDescription ───────────────────────────────────────── */
 
-export interface CardDescriptionProps
-  extends HTMLAttributes<HTMLParagraphElement> {}
+export interface CardDescriptionProps extends HTMLAttributes<HTMLParagraphElement> {}
 
-export const CardDescription = forwardRef<
-  HTMLParagraphElement,
-  CardDescriptionProps
->(({ className, children, ...rest }, ref) => {
-  return (
-    <p ref={ref} className={cn("card__description", className)} {...rest}>
-      {children}
-    </p>
-  );
-});
+export const CardDescription = forwardRef<HTMLParagraphElement, CardDescriptionProps>(
+  ({ className, children, ...rest }, ref) => {
+    return (
+      <p ref={ref} className={cn("card__description", className)} {...rest}>
+        {children}
+      </p>
+    );
+  },
+);
 
 CardDescription.displayName = "CardDescription";
 

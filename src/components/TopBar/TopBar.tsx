@@ -9,11 +9,7 @@ export interface TopBarProps extends HTMLAttributes<HTMLElement> {
 export const TopBar = forwardRef<HTMLElement, TopBarProps>(
   ({ children, actions, className, ...rest }, ref) => {
     return (
-      <header
-        ref={ref}
-        className={cn("top-bar", className)}
-        {...rest}
-      >
+      <header ref={ref} className={cn("top-bar", className)} {...rest}>
         <div>{children}</div>
         {actions && <div className="top-bar__actions">{actions}</div>}
       </header>

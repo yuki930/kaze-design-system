@@ -87,10 +87,30 @@ type ChartTab = "売上" | "注文数" | "利益率";
 /* ── Data ──────────────────────────────────────────────────── */
 
 const kpis: KpiData[] = [
-  { label: "本日の売上", value: "¥1,284,500", change: { value: "+18.2%", trend: "positive" }, sparkData: [45, 52, 38, 65, 72, 58, 85] },
-  { label: "注文件数", value: "142件", change: { value: "+12件", trend: "positive" }, sparkData: [20, 25, 18, 30, 28, 35, 42] },
-  { label: "平均注文額", value: "¥9,045", change: { value: "-¥320", trend: "negative" }, sparkData: [95, 88, 92, 85, 90, 87, 90] },
-  { label: "カート放棄率", value: "24.8%", change: { value: "-3.2%", trend: "positive" }, sparkData: [32, 30, 28, 27, 26, 25, 25] },
+  {
+    label: "本日の売上",
+    value: "¥1,284,500",
+    change: { value: "+18.2%", trend: "positive" },
+    sparkData: [45, 52, 38, 65, 72, 58, 85],
+  },
+  {
+    label: "注文件数",
+    value: "142件",
+    change: { value: "+12件", trend: "positive" },
+    sparkData: [20, 25, 18, 30, 28, 35, 42],
+  },
+  {
+    label: "平均注文額",
+    value: "¥9,045",
+    change: { value: "-¥320", trend: "negative" },
+    sparkData: [95, 88, 92, 85, 90, 87, 90],
+  },
+  {
+    label: "カート放棄率",
+    value: "24.8%",
+    change: { value: "-3.2%", trend: "positive" },
+    sparkData: [32, 30, 28, 27, 26, 25, 25],
+  },
 ];
 
 const categoryRevenue: BarChartItem[] = [
@@ -110,20 +130,109 @@ const orderStatusData: DonutChartSegment[] = [
 ];
 
 const recentOrders: Order[] = [
-  { orderId: "ORD-20250220-001", customer: "相楽 実咲", customerInitials: "SM", items: "ワイヤレスイヤホン 他2点", total: "¥18,500", status: "発送準備中", date: "14:25", payment: "クレジットカード" },
-  { orderId: "ORD-20250220-002", customer: "堀内 昌平", customerInitials: "HS", items: "オーガニックコットンTシャツ", total: "¥4,980", status: "処理中", date: "13:58", payment: "PayPay" },
-  { orderId: "ORD-20250220-003", customer: "宮田 千夏", customerInitials: "MC", items: "プロテインパウダー 3kg", total: "¥8,900", status: "配送済み", date: "12:30", payment: "クレジットカード" },
-  { orderId: "ORD-20250220-004", customer: "呉羽 直樹", customerInitials: "KN", items: "スマートウォッチ Pro", total: "¥34,800", status: "配送済み", date: "11:45", payment: "銀行振込" },
-  { orderId: "ORD-20250220-005", customer: "桐生 あかね", customerInitials: "KA", items: "ランニングシューズ 26.5cm", total: "¥12,800", status: "キャンセル", date: "10:12", payment: "代引き" },
-  { orderId: "ORD-20250219-048", customer: "野々村 圭", customerInitials: "NK", items: "ヨガマット + ブロックセット", total: "¥6,480", status: "配送済み", date: "昨日", payment: "PayPay" },
+  {
+    orderId: "ORD-20250220-001",
+    customer: "相楽 実咲",
+    customerInitials: "SM",
+    items: "ワイヤレスイヤホン 他2点",
+    total: "¥18,500",
+    status: "発送準備中",
+    date: "14:25",
+    payment: "クレジットカード",
+  },
+  {
+    orderId: "ORD-20250220-002",
+    customer: "堀内 昌平",
+    customerInitials: "HS",
+    items: "オーガニックコットンTシャツ",
+    total: "¥4,980",
+    status: "処理中",
+    date: "13:58",
+    payment: "PayPay",
+  },
+  {
+    orderId: "ORD-20250220-003",
+    customer: "宮田 千夏",
+    customerInitials: "MC",
+    items: "プロテインパウダー 3kg",
+    total: "¥8,900",
+    status: "配送済み",
+    date: "12:30",
+    payment: "クレジットカード",
+  },
+  {
+    orderId: "ORD-20250220-004",
+    customer: "呉羽 直樹",
+    customerInitials: "KN",
+    items: "スマートウォッチ Pro",
+    total: "¥34,800",
+    status: "配送済み",
+    date: "11:45",
+    payment: "銀行振込",
+  },
+  {
+    orderId: "ORD-20250220-005",
+    customer: "桐生 あかね",
+    customerInitials: "KA",
+    items: "ランニングシューズ 26.5cm",
+    total: "¥12,800",
+    status: "キャンセル",
+    date: "10:12",
+    payment: "代引き",
+  },
+  {
+    orderId: "ORD-20250219-048",
+    customer: "野々村 圭",
+    customerInitials: "NK",
+    items: "ヨガマット + ブロックセット",
+    total: "¥6,480",
+    status: "配送済み",
+    date: "昨日",
+    payment: "PayPay",
+  },
 ];
 
 const topProducts: TopProduct[] = [
-  { rank: 1, name: "ワイヤレスイヤホン Pro X", category: "家電", sold: 284, revenue: "¥2,840,000", stockPercent: 45 },
-  { rank: 2, name: "オーガニックコットンTシャツ", category: "アパレル", sold: 198, revenue: "¥985,020", stockPercent: 12 },
-  { rank: 3, name: "プロテインパウダー 3kg", category: "食品", sold: 156, revenue: "¥1,388,400", stockPercent: 68 },
-  { rank: 4, name: "スマートウォッチ Pro", category: "家電", sold: 89, revenue: "¥3,097,200", stockPercent: 31 },
-  { rank: 5, name: "ナチュラルファンデーション", category: "コスメ", sold: 167, revenue: "¥585,900", stockPercent: 8 },
+  {
+    rank: 1,
+    name: "ワイヤレスイヤホン Pro X",
+    category: "家電",
+    sold: 284,
+    revenue: "¥2,840,000",
+    stockPercent: 45,
+  },
+  {
+    rank: 2,
+    name: "オーガニックコットンTシャツ",
+    category: "アパレル",
+    sold: 198,
+    revenue: "¥985,020",
+    stockPercent: 12,
+  },
+  {
+    rank: 3,
+    name: "プロテインパウダー 3kg",
+    category: "食品",
+    sold: 156,
+    revenue: "¥1,388,400",
+    stockPercent: 68,
+  },
+  {
+    rank: 4,
+    name: "スマートウォッチ Pro",
+    category: "家電",
+    sold: 89,
+    revenue: "¥3,097,200",
+    stockPercent: 31,
+  },
+  {
+    rank: 5,
+    name: "ナチュラルファンデーション",
+    category: "コスメ",
+    sold: 167,
+    revenue: "¥585,900",
+    stockPercent: 8,
+  },
 ];
 
 const chartTabs: ChartTab[] = ["売上", "注文数", "利益率"];
@@ -132,10 +241,14 @@ const chartTabs: ChartTab[] = ["売上", "注文数", "利益率"];
 
 function orderStatusVariant(status: Order["status"]) {
   switch (status) {
-    case "配送済み": return "positive" as const;
-    case "発送準備中": return "info" as const;
-    case "処理中": return "warning" as const;
-    case "キャンセル": return "negative" as const;
+    case "配送済み":
+      return "positive" as const;
+    case "発送準備中":
+      return "info" as const;
+    case "処理中":
+      return "warning" as const;
+    case "キャンセル":
+      return "negative" as const;
   }
 }
 
@@ -161,8 +274,17 @@ export function ECDashboard() {
         <div className={layoutStyles.sidebarFooter}>
           <Avatar size="sm" fallback="SK" />
           <div className={layoutStyles.sidebarFooterInfo}>
-            <Text as="span" size="sm" weight="medium" className={styles.sidebarFooterTruncate}>志摩 このみ</Text>
-            <Text as="span" variant="caption" color="subtle" className={styles.sidebarFooterTruncate}>konomi.shima@norn.co.jp</Text>
+            <Text as="span" size="sm" weight="medium" className={styles.sidebarFooterTruncate}>
+              志摩 このみ
+            </Text>
+            <Text
+              as="span"
+              variant="caption"
+              color="subtle"
+              className={styles.sidebarFooterTruncate}
+            >
+              konomi.shima@norn.co.jp
+            </Text>
           </div>
         </div>
       }
@@ -210,16 +332,18 @@ export function ECDashboard() {
       </div>
 
       {/* 4-column KPI Cards with Sparklines */}
-      <Grid columns={4} columnsMd={2} columnsSm={1} gap="var(--space-4)" style={{ marginBottom: "var(--space-6)" }}>
+      <Grid
+        columns={4}
+        columnsMd={2}
+        columnsSm={1}
+        gap="var(--space-4)"
+        style={{ marginBottom: "var(--space-6)" }}
+      >
         {kpis.map((kpi) => (
           <Card key={kpi.label} variant="compact">
             <CardBody>
               <div className={styles.kpiCardInner}>
-                <Metric
-                  label={kpi.label}
-                  value={kpi.value}
-                  change={kpi.change}
-                />
+                <Metric label={kpi.label} value={kpi.value} change={kpi.change} />
                 <Sparkline data={kpi.sparkData} width={80} height={32} />
               </div>
             </CardBody>
@@ -236,11 +360,7 @@ export function ECDashboard() {
               <CardTitle>カテゴリ別売上</CardTitle>
               <Tabs variant="pills">
                 {chartTabs.map((tab) => (
-                  <Tab
-                    key={tab}
-                    active={activeTab === tab}
-                    onClick={() => setActiveTab(tab)}
-                  >
+                  <Tab key={tab} active={activeTab === tab} onClick={() => setActiveTab(tab)}>
                     {tab}
                   </Tab>
                 ))}
@@ -281,7 +401,9 @@ export function ECDashboard() {
             <CardTitle>最近の注文</CardTitle>
             <Badge>本日142件</Badge>
             <div className={styles.ordersHeaderActions}>
-              <Button variant="ghost" size="sm">すべて表示</Button>
+              <Button variant="ghost" size="sm">
+                すべて表示
+              </Button>
             </div>
           </div>
         </CardHeader>
@@ -312,29 +434,21 @@ export function ECDashboard() {
                       </div>
                     </TableCell>
                     <TableCell>{order.items}</TableCell>
-                    <TableCell className={styles.tabularNums}>
-                      {order.total}
-                    </TableCell>
+                    <TableCell className={styles.tabularNums}>{order.total}</TableCell>
                     <TableCell>{order.payment}</TableCell>
                     <TableCell>
                       <Badge variant={orderStatusVariant(order.status)} dot>
                         {order.status}
                       </Badge>
                     </TableCell>
-                    <TableCell className={styles.tabularNums}>
-                      {order.date}
-                    </TableCell>
+                    <TableCell className={styles.tabularNums}>{order.date}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>
             </Table>
           </div>
           <div className={styles.paginationWrapper}>
-            <Pagination
-              currentPage={currentPage}
-              totalPages={12}
-              onPageChange={setCurrentPage}
-            />
+            <Pagination currentPage={currentPage} totalPages={12} onPageChange={setCurrentPage} />
           </div>
         </CardBody>
       </Card>
@@ -354,9 +468,7 @@ export function ECDashboard() {
               {topProducts.map((product) => (
                 <ListItem
                   key={product.rank}
-                  leading={
-                    <span className={styles.rankBadge}>{product.rank}</span>
-                  }
+                  leading={<span className={styles.rankBadge}>{product.rank}</span>}
                   title={product.name}
                   description={`${product.category} · ${product.sold}個販売 · ${product.revenue}`}
                   trailing={
@@ -367,7 +479,9 @@ export function ECDashboard() {
                         size="sm"
                         color={stockColor(product.stockPercent)}
                       />
-                      <Text as="span" variant="caption" color="subtle">在庫</Text>
+                      <Text as="span" variant="caption" color="subtle">
+                        在庫
+                      </Text>
                     </div>
                   }
                 />
@@ -393,7 +507,9 @@ export function ECDashboard() {
           </CardBody>
           <CardFooter>
             <div className={styles.summaryFooter}>
-              <Button variant="secondary" size="sm">詳細レポートを表示</Button>
+              <Button variant="secondary" size="sm">
+                詳細レポートを表示
+              </Button>
             </div>
           </CardFooter>
         </Card>

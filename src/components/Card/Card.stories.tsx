@@ -1,12 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/nextjs";
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardBody,
-  CardFooter,
-} from "./Card";
+import { Card, CardHeader, CardTitle, CardDescription, CardBody, CardFooter } from "./Card";
 import { Metric } from "../Metric/Metric";
 
 const meta = {
@@ -69,11 +62,7 @@ export const WithMetric: Story = {
         <CardDescription>今月のパフォーマンス</CardDescription>
       </CardHeader>
       <CardBody>
-        <Metric
-          label="評価損益"
-          value="+¥847,320"
-          change={{ value: "+3.2%", trend: "positive" }}
-        />
+        <Metric label="評価損益" value="+¥847,320" change={{ value: "+3.2%", trend: "positive" }} />
       </CardBody>
     </Card>
   ),

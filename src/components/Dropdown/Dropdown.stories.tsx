@@ -41,12 +41,8 @@ export const WithDisabledItem: Story = {
         <Button variant="outline">操作</Button>
       </DropdownTrigger>
       <DropdownMenu>
-        <DropdownItem onSelect={() => console.log("コピー")}>
-          コピー
-        </DropdownItem>
-        <DropdownItem onSelect={() => console.log("貼り付け")}>
-          貼り付け
-        </DropdownItem>
+        <DropdownItem onSelect={() => console.log("コピー")}>コピー</DropdownItem>
+        <DropdownItem onSelect={() => console.log("貼り付け")}>貼り付け</DropdownItem>
         <DropdownItem disabled>切り取り（無効）</DropdownItem>
       </DropdownMenu>
     </Dropdown>
@@ -60,14 +56,10 @@ export const WithSeparator: Story = {
         <Button variant="outline">アカウント</Button>
       </DropdownTrigger>
       <DropdownMenu>
-        <DropdownItem onSelect={() => console.log("プロフィール")}>
-          プロフィール
-        </DropdownItem>
+        <DropdownItem onSelect={() => console.log("プロフィール")}>プロフィール</DropdownItem>
         <DropdownItem onSelect={() => console.log("設定")}>設定</DropdownItem>
         <DropdownSeparator />
-        <DropdownItem onSelect={() => console.log("ログアウト")}>
-          ログアウト
-        </DropdownItem>
+        <DropdownItem onSelect={() => console.log("ログアウト")}>ログアウト</DropdownItem>
       </DropdownMenu>
     </Dropdown>
   ),

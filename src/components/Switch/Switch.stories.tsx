@@ -8,9 +8,7 @@ import { Switch } from "./Switch";
 const meta = {
   title: "Components/Switch",
   component: Switch,
-  args: {
-
-  },
+  args: {},
 } satisfies Meta<typeof Switch>;
 
 export default meta;

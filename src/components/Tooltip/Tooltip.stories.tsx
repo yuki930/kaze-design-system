@@ -28,7 +28,7 @@ export const Top: Story = {
   args: {
     content: "上に表示されるツールチップ",
     side: "top",
-    children: (<Button variant="outline">ホバーしてください</Button>),
+    children: <Button variant="outline">ホバーしてください</Button>,
   },
 };
 
@@ -36,7 +36,7 @@ export const Bottom: Story = {
   args: {
     content: "下に表示されるツールチップ",
     side: "bottom",
-    children: (<Button variant="outline">下</Button>),
+    children: <Button variant="outline">下</Button>,
   },
 };
 
@@ -44,7 +44,7 @@ export const Left: Story = {
   args: {
     content: "左に表示",
     side: "left",
-    children: (<Button variant="outline">左</Button>),
+    children: <Button variant="outline">左</Button>,
   },
 };
 
@@ -52,6 +52,6 @@ export const Right: Story = {
   args: {
     content: "右に表示",
     side: "right",
-    children: (<Button variant="outline">右</Button>),
+    children: <Button variant="outline">右</Button>,
   },
 };

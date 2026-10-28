@@ -14,11 +14,7 @@ export const Navbar = forwardRef<HTMLElement, NavbarProps>(
     return (
       <nav
         ref={ref}
-        className={cn(
-          "navbar",
-          transparent && "navbar--transparent",
-          className,
-        )}
+        className={cn("navbar", transparent && "navbar--transparent", className)}
         {...rest}
       >
         <div className="navbar__left">
@@ -63,11 +59,7 @@ export const NavbarLink = forwardRef<HTMLElement, NavbarLinkProps>(
       <li>
         <Component
           ref={ref}
-          className={cn(
-            "navbar__link",
-            active && "navbar__link--active",
-            className,
-          )}
+          className={cn("navbar__link", active && "navbar__link--active", className)}
           {...rest}
         >
           {children}

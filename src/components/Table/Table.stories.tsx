@@ -1,12 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/nextjs";
-import {
-  Table,
-  TableHeader,
-  TableBody,
-  TableRow,
-  TableHead,
-  TableCell,
-} from "./Table";
+import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "./Table";
 import { Badge } from "../Badge/Badge";
 
 const meta = {
@@ -80,9 +73,9 @@ const signalData = [
 ];
 
 const signalVariant = {
-  "買い": "positive",
-  "売り": "negative",
-  "中立": "warning",
+  買い: "positive",
+  売り: "negative",
+  中立: "warning",
 } as const;
 
 export const WithBadges: Story = {

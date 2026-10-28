@@ -1,14 +1,5 @@
 import { useState, useCallback, useRef, type KeyboardEvent } from "react";
-import {
-  Button,
-  Card,
-  Badge,
-  Input,
-  Checkbox,
-  Tabs,
-  Tab,
-  Text,
-} from "@/components";
+import { Button, Card, Badge, Input, Checkbox, Tabs, Tab, Text } from "@/components";
 import { EmptyState } from "@/components/EmptyState/EmptyState";
 import { Progress } from "@/components/Progress/Progress";
 import {
@@ -104,8 +95,7 @@ export function ShoppingPage() {
 
   const purchasedCount = items.filter((i) => i.purchased).length;
   const remainingCount = items.length - purchasedCount;
-  const progress =
-    items.length > 0 ? Math.round((purchasedCount / items.length) * 100) : 0;
+  const progress = items.length > 0 ? Math.round((purchasedCount / items.length) * 100) : 0;
 
   const filteredItems = items.filter((item) => {
     if (filter === "remaining" && item.purchased) return false;
@@ -140,9 +130,7 @@ export function ShoppingPage() {
   }, [newItemName, newItemQty]);
 
   const toggleItem = useCallback((id: string) => {
-    setItems((prev) =>
-      prev.map((i) => (i.id === id ? { ...i, purchased: !i.purchased } : i)),
-    );
+    setItems((prev) => prev.map((i) => (i.id === id ? { ...i, purchased: !i.purchased } : i)));
   }, []);
 
   const deleteItem = useCallback((id: string) => {
@@ -150,9 +138,7 @@ export function ShoppingPage() {
   }, []);
 
   const setCategory = useCallback((id: string, category: Category) => {
-    setItems((prev) =>
-      prev.map((i) => (i.id === id ? { ...i, category } : i)),
-    );
+    setItems((prev) => prev.map((i) => (i.id === id ? { ...i, category } : i)));
   }, []);
 
   const clearPurchased = useCallback(() => {
@@ -174,17 +160,13 @@ export function ShoppingPage() {
       <header className={styles.header}>
         <div className={styles.headerLeft}>
           <ShoppingCart size={22} />
-          <Text as="span" size="xl" weight="bold">お買い物リスト</Text>
+          <Text as="span" size="xl" weight="bold">
+            お買い物リスト
+          </Text>
         </div>
         <div className={styles.headerRight}>
           <Badge variant="positive">{remainingCount} 品</Badge>
-          <Button
-            variant="ghost"
-            size="sm"
-            iconOnly
-            onClick={toggleTheme}
-            aria-label="テーマ切替"
-          >
+          <Button variant="ghost" size="sm" iconOnly onClick={toggleTheme} aria-label="テーマ切替">
             {resolvedTheme === "light" ? <Moon size={18} /> : <Sun size={18} />}
           </Button>
         </div>
@@ -193,15 +175,21 @@ export function ShoppingPage() {
       {/* ── Budget summary ────────────────────────────────── */}
       <div className={styles.budgetBar}>
         <div className={styles.budgetRow}>
-          <Text as="span" size="xs" color="subtle">予算目安</Text>
+          <Text as="span" size="xs" color="subtle">
+            予算目安
+          </Text>
           <Text as="span" size="lg" weight="bold" className={styles.budgetAmount}>
             ¥{(estimatedTotal + purchasedTotal).toLocaleString()}
           </Text>
         </div>
         <Progress value={progress} size="sm" color="positive" />
         <div className={styles.budgetMeta}>
-          <Text as="span" variant="caption" color="subtle">購入済み ¥{purchasedTotal.toLocaleString()}</Text>
-          <Text as="span" variant="caption" color="subtle">残り ¥{estimatedTotal.toLocaleString()}</Text>
+          <Text as="span" variant="caption" color="subtle">
+            購入済み ¥{purchasedTotal.toLocaleString()}
+          </Text>
+          <Text as="span" variant="caption" color="subtle">
+            残り ¥{estimatedTotal.toLocaleString()}
+          </Text>
         </div>
       </div>
 
@@ -253,11 +241,7 @@ export function ShoppingPage() {
         {filteredItems.length === 0 ? (
           <EmptyState
             icon={<ShoppingBag size={40} />}
-            title={
-              filter === "purchased"
-                ? "購入済みの商品はありません"
-                : "リストは空です"
-            }
+            title={filter === "purchased" ? "購入済みの商品はありません" : "リストは空です"}
             description={
               filter === "purchased"
                 ? "商品を購入するとここに表示されます。"
@@ -287,7 +271,9 @@ export function ShoppingPage() {
                           >
                             {item.name}
                           </Text>
-                          <Text as="span" size="xs" color="muted" className={styles.itemQty}>{item.quantity}</Text>
+                          <Text as="span" size="xs" color="muted" className={styles.itemQty}>
+                            {item.quantity}
+                          </Text>
                         </div>
                         <div className={styles.itemMeta}>
                           <Badge variant={categoryConfig[item.category].variant}>
@@ -319,9 +305,7 @@ export function ShoppingPage() {
                         <DropdownItem onClick={() => setCategory(item.id, "snack")}>
                           🍫 お菓子
                         </DropdownItem>
-                        <DropdownItem onClick={() => deleteItem(item.id)}>
-                          🗑️ 削除
-                        </DropdownItem>
+                        <DropdownItem onClick={() => deleteItem(item.id)}>🗑️ 削除</DropdownItem>
                       </DropdownMenu>
                     </Dropdown>
                   </div>
@@ -333,12 +317,7 @@ export function ShoppingPage() {
 
         {/* ── Clear purchased ─────────────────────────────── */}
         {purchasedCount > 0 && filter !== "remaining" && (
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={clearPurchased}
-            className={styles.clearBtn}
-          >
+          <Button variant="ghost" size="sm" onClick={clearPurchased} className={styles.clearBtn}>
             <Trash2 size={14} /> 購入済みを削除
           </Button>
         )}
@@ -363,9 +342,7 @@ export function ShoppingPage() {
             >
               <IconComp size={20} />
               <span className={bottomBarStyles.bottomTabLabel}>{cfg.label}</span>
-              {count > 0 && (
-                <span className={bottomBarStyles.bottomTabBadge}>{count}</span>
-              )}
+              {count > 0 && <span className={bottomBarStyles.bottomTabBadge}>{count}</span>}
             </button>
           );
         })}

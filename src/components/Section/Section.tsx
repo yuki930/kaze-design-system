@@ -42,15 +42,9 @@ export interface SectionHeaderProps extends HTMLAttributes<HTMLDivElement> {
 export const SectionHeader = forwardRef<HTMLDivElement, SectionHeaderProps>(
   ({ title, description, className, ...rest }, ref) => {
     return (
-      <div
-        ref={ref}
-        className={cn("section-header", className)}
-        {...rest}
-      >
+      <div ref={ref} className={cn("section-header", className)} {...rest}>
         <h2 className="section-header__title">{title}</h2>
-        {description && (
-          <p className="section-header__description">{description}</p>
-        )}
+        {description && <p className="section-header__description">{description}</p>}
       </div>
     );
   },

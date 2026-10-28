@@ -68,11 +68,7 @@ export function ImageLandingPage() {
               onClick={toggleTheme}
               aria-label="テーマ切替"
             >
-              {resolvedTheme === "light" ? (
-                <Moon size={18} />
-              ) : (
-                <Sun size={18} />
-              )}
+              {resolvedTheme === "light" ? <Moon size={18} /> : <Sun size={18} />}
             </Button>
             <Button size="sm">今すぐ購入</Button>
           </div>
@@ -94,7 +90,9 @@ export function ImageLandingPage() {
           hero__subtitle の文字色も styles.heroFixed で明示的に固定する。 */}
       <Hero
         title={"暮らしを、\nデザインする。"}
-        subtitle={"日本の美意識から生まれたプロダクトブランド KAZE。\n機能美と素材の質感にこだわった、上質な日常をお届けします。"}
+        subtitle={
+          "日本の美意識から生まれたプロダクトブランド KAZE。\n機能美と素材の質感にこだわった、上質な日常をお届けします。"
+        }
         bg="linear-gradient(135deg, var(--zinc-950) 0%, var(--zinc-800) 40%, var(--zinc-700) 100%)"
         overlay={0.5}
         className={styles.heroFixed}
@@ -123,11 +121,19 @@ export function ImageLandingPage() {
       </Hero>
 
       {/* ── Feature Row 1 (Image Left, Text Right) ──────────── */}
-      <SplitSection
-        mediaBg="linear-gradient(135deg, var(--zinc-200) 0%, var(--zinc-300) 50%, var(--zinc-400) 100%)"
-      >
-        <Text variant="overline" as="div">Philosophy</Text>
-        <Text as="div" size="2xl" weight="bold" style={{ letterSpacing: "var(--letter-spacing-tight)", lineHeight: "var(--line-height-tight)" }}>
+      <SplitSection mediaBg="linear-gradient(135deg, var(--zinc-200) 0%, var(--zinc-300) 50%, var(--zinc-400) 100%)">
+        <Text variant="overline" as="div">
+          Philosophy
+        </Text>
+        <Text
+          as="div"
+          size="2xl"
+          weight="bold"
+          style={{
+            letterSpacing: "var(--letter-spacing-tight)",
+            lineHeight: "var(--line-height-tight)",
+          }}
+        >
           素材の声に
           <br />
           耳を傾ける
@@ -156,8 +162,18 @@ export function ImageLandingPage() {
         mediaBg="linear-gradient(135deg, var(--zinc-300) 0%, var(--zinc-400) 50%, var(--zinc-500) 100%)"
         reverse
       >
-        <Text variant="overline" as="div">Craftsmanship</Text>
-        <Text as="div" size="2xl" weight="bold" style={{ letterSpacing: "var(--letter-spacing-tight)", lineHeight: "var(--line-height-tight)" }}>
+        <Text variant="overline" as="div">
+          Craftsmanship
+        </Text>
+        <Text
+          as="div"
+          size="2xl"
+          weight="bold"
+          style={{
+            letterSpacing: "var(--letter-spacing-tight)",
+            lineHeight: "var(--line-height-tight)",
+          }}
+        >
           一つひとつ、
           <br />
           手仕事で仕上げる
@@ -193,10 +209,20 @@ export function ImageLandingPage() {
         }}
       >
         <div style={{ textAlign: "center", padding: "var(--space-8)" }}>
-          <Text as="div" size="2xl" weight="bold" color="inherit" style={{ color: "var(--zinc-50)", margin: "0 0 var(--space-2)" }}>
+          <Text
+            as="div"
+            size="2xl"
+            weight="bold"
+            color="inherit"
+            style={{ color: "var(--zinc-50)", margin: "0 0 var(--space-2)" }}
+          >
             2026 Spring Collection
           </Text>
-          <Text as="div" color="inherit" style={{ color: "color-mix(in srgb, var(--zinc-50) 80%, transparent)", margin: 0 }}>
+          <Text
+            as="div"
+            color="inherit"
+            style={{ color: "color-mix(in srgb, var(--zinc-50) 80%, transparent)", margin: 0 }}
+          >
             春の新作コレクション、まもなく公開
           </Text>
         </div>
@@ -225,7 +251,9 @@ export function ImageLandingPage() {
                 <Text as="div" weight="semibold" style={{ marginBottom: "var(--space-1)" }}>
                   {product.name}
                 </Text>
-                <Text as="div" variant="caption">{product.price}</Text>
+                <Text as="div" variant="caption">
+                  {product.price}
+                </Text>
               </CardBody>
             </Card>
           ))}
@@ -268,7 +296,9 @@ export function ImageLandingPage() {
           description="オンラインストアで全コレクションをご覧いただけます。送料無料・30日間返品保証。"
         >
           <Button size="lg">ストアへ行く</Button>
-          <Button size="lg" variant="outline">カタログを見る</Button>
+          <Button size="lg" variant="outline">
+            カタログを見る
+          </Button>
         </CTABanner>
       </Section>
 
@@ -305,15 +335,17 @@ export function ImageLandingPage() {
             ],
           },
         ]}
-        bottomLeft={
-          <span>
-            &copy; {new Date().getFullYear()} KAZE. All rights reserved.
-          </span>
-        }
+        bottomLeft={<span>&copy; {new Date().getFullYear()} KAZE. All rights reserved.</span>}
       />
 
       {/* Floating Theme Toggle */}
-      <FAB label="テーマ切替" variant="secondary" size="sm" onClick={toggleTheme} aria-label="テーマ切替">
+      <FAB
+        label="テーマ切替"
+        variant="secondary"
+        size="sm"
+        onClick={toggleTheme}
+        aria-label="テーマ切替"
+      >
         {resolvedTheme === "light" ? <Moon size={18} /> : <Sun size={18} />}
       </FAB>
     </div>

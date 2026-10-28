@@ -14,11 +14,7 @@ export interface PaginationProps extends HTMLAttributes<HTMLElement> {
   nextLabel?: string;
 }
 
-function getPages(
-  current: number,
-  total: number,
-  siblings: number,
-): (number | "...")[] {
+function getPages(current: number, total: number, siblings: number): (number | "...")[] {
   const range: (number | "...")[] = [];
   const left = Math.max(2, current - siblings);
   const right = Math.min(total - 1, current + siblings);
@@ -48,13 +44,9 @@ export const Pagination = forwardRef<HTMLElement, PaginationProps>(
   ) => {
     const pages = getPages(currentPage, totalPages, siblingCount);
     return (
-      <nav
-        ref={ref}
-        aria-label={label}
-        className={cn("pagination", className)}
-        {...rest}
-      >
+      <nav ref={ref} aria-label={label} className={cn("pagination", className)} {...rest}>
         <button
+          type="button"
           className="pagination__btn"
           disabled={currentPage <= 1}
           onClick={() => onPageChange?.(currentPage - 1)}
@@ -69,11 +61,9 @@ export const Pagination = forwardRef<HTMLElement, PaginationProps>(
             </span>
           ) : (
             <button
+              type="button"
               key={page}
-              className={cn(
-                "pagination__btn",
-                page === currentPage && "pagination__btn--active",
-              )}
+              className={cn("pagination__btn", page === currentPage && "pagination__btn--active")}
               onClick={() => onPageChange?.(page)}
               aria-current={page === currentPage ? "page" : undefined}
             >
@@ -82,6 +72,7 @@ export const Pagination = forwardRef<HTMLElement, PaginationProps>(
           ),
         )}
         <button
+          type="button"
           className="pagination__btn"
           disabled={currentPage >= totalPages}
           onClick={() => onPageChange?.(currentPage + 1)}

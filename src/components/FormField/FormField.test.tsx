@@ -67,11 +67,7 @@ describe("FormField", () => {
 
   it("sets aria-describedby linking to error and description", () => {
     render(
-      <FormField
-        label="メール"
-        description="ヘルプテキスト"
-        error="エラーです"
-      >
+      <FormField label="メール" description="ヘルプテキスト" error="エラーです">
         <Input />
       </FormField>,
     );

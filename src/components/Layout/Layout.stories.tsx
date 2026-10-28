@@ -13,9 +13,7 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     sidebar: (
-      <div style={{ padding: 16, color: "var(--color-fg-secondary)" }}>
-        Sidebar placeholder
-      </div>
+      <div style={{ padding: 16, color: "var(--color-fg-secondary)" }}>Sidebar placeholder</div>
     ),
     children: (
       <div style={{ padding: 24 }}>

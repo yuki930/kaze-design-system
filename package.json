@@ -80,7 +80,10 @@
     "build:lib": "rm -rf dist && vite build --config vite.config.lib.ts && tsc -p tsconfig.build.json",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "lint": "biome lint .",
+    "format": "biome format .",
+    "format:fix": "biome check --write ."
   },
   "peerDependencies": {
     "lucide-react": "^0.575.0",
@@ -93,6 +96,7 @@
     }
   },
   "devDependencies": {
+    "@biomejs/biome": "2.6.3",
     "@chromatic-com/storybook": "^5.0.1",
     "@storybook/addon-a11y": "^10.2.10",
     "@storybook/addon-docs": "^10.2.10",

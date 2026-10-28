@@ -46,7 +46,11 @@ const categories: Category[] = [
     components: [
       { name: "Card", path: "card", description: "カードコンポーネント" },
       { name: "Badge", path: "badge", description: "バッジ" },
-      { name: "StatusBadge", path: "status-badge", description: "データ状態バッジ（live/stale/missing）" },
+      {
+        name: "StatusBadge",
+        path: "status-badge",
+        description: "データ状態バッジ（live/stale/missing）",
+      },
       { name: "Table", path: "table", description: "テーブル" },
       { name: "Metric", path: "metric", description: "メトリクス表示" },
       { name: "Avatar", path: "avatar", description: "アバター" },
@@ -95,7 +99,11 @@ const categories: Category[] = [
     components: [
       { name: "Dialog", path: "dialog", description: "ダイアログ" },
       { name: "Tooltip", path: "tooltip", description: "ツールチップ" },
-      { name: "HelpButton", path: "help-button", description: "ヘルプポップオーバー（クリック起動）" },
+      {
+        name: "HelpButton",
+        path: "help-button",
+        description: "ヘルプポップオーバー（クリック起動）",
+      },
       { name: "Dropdown", path: "dropdown", description: "ドロップダウンメニュー" },
       { name: "CommandPalette", path: "command-palette", description: "コマンドパレット" },
     ],
@@ -255,10 +263,7 @@ export function ComponentsOverview() {
   const marketingCategories = categories.filter((c) => c.layer === "marketing");
   const marketingComponents = marketingCategories.flatMap((c) => c.components);
 
-  const applicationCount = applicationCategories.reduce(
-    (sum, c) => sum + c.components.length,
-    0,
-  );
+  const applicationCount = applicationCategories.reduce((sum, c) => sum + c.components.length, 0);
   const marketingCount = marketingComponents.length;
   const totalCount = applicationCount + marketingCount;
 
@@ -266,8 +271,10 @@ export function ComponentsOverview() {
     <div>
       <h1 className={styles.pageTitle}>コンポーネント一覧</h1>
       <p className={styles.pageDescription}>
-        Kaze Design System は Foundation（デザイントークンとユーティリティ）を土台に、Application UI（
-        {applicationCount}）と Marketing（{marketingCount}）の2つのカタログで全{totalCount}個のコンポーネントを提供します。
+        Kaze Design System は Foundation（デザイントークンとユーティリティ）を土台に、Application
+        UI（
+        {applicationCount}）と Marketing（{marketingCount}）の2つのカタログで全{totalCount}
+        個のコンポーネントを提供します。
         各コンポーネントをクリックすると、詳細なドキュメントとプレビューを確認できます。
       </p>
 
@@ -275,7 +282,8 @@ export function ComponentsOverview() {
       <section style={{ marginBottom: "var(--space-12)" }}>
         <h2 className={styles.sectionTitle}>Foundation</h2>
         <p style={layerDescriptionStyle}>
-          Application UI と Marketing の両カタログが共有する土台です。色、余白、タイポグラフィはすべてここから継承されます。
+          Application UI と Marketing
+          の両カタログが共有する土台です。色、余白、タイポグラフィはすべてここから継承されます。
         </p>
         <div style={gridStyle}>
           {foundationLinks.map((link) => (
@@ -320,7 +328,8 @@ export function ComponentsOverview() {
       <section>
         <LayerHeading count={marketingCount}>Marketing</LayerHeading>
         <p style={layerDescriptionStyle}>
-          ランディングページやプロダクトサイトを組み立てるための、正準の{marketingCount}コンポーネントです。
+          ランディングページやプロダクトサイトを組み立てるための、正準の{marketingCount}
+          コンポーネントです。
         </p>
         <div style={gridStyle}>
           {marketingComponents.map((component) => (

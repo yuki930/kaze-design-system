@@ -22,8 +22,7 @@ import { Heart, Search, Bookmark, TrendingUp } from "lucide-react";
 /* ── Data ──────────────────────────────────────────────────── */
 
 const featuredArticle = {
-  image:
-    "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1200&h=600&fit=crop",
+  image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1200&h=600&fit=crop",
   category: "テクノロジー",
   title: "2026年のフロントエンド開発：React Server Componentsがもたらす変革",
   excerpt:
@@ -37,8 +36,7 @@ const featuredArticle = {
 
 const articles = [
   {
-    image:
-      "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=600&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=600&h=400&fit=crop",
     category: "デザイン",
     categoryVariant: "info" as const,
     title: "デザインシステムを小さく始める方法",
@@ -50,8 +48,7 @@ const articles = [
     likes: 198,
   },
   {
-    image:
-      "https://images.unsplash.com/photo-1550439062-609e1531270e?w=600&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1550439062-609e1531270e?w=600&h=400&fit=crop",
     category: "テクノロジー",
     categoryVariant: "positive" as const,
     title: "TypeScript 5.8の新機能を徹底解説",
@@ -63,8 +60,7 @@ const articles = [
     likes: 256,
   },
   {
-    image:
-      "https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=600&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=600&h=400&fit=crop",
     category: "AI",
     categoryVariant: "warning" as const,
     title: "AIコーディングアシスタントを最大限活用するプロンプト術",
@@ -76,8 +72,7 @@ const articles = [
     likes: 421,
   },
   {
-    image:
-      "https://images.unsplash.com/photo-1542831371-29b0f74f9713?w=600&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1542831371-29b0f74f9713?w=600&h=400&fit=crop",
     category: "インフラ",
     categoryVariant: "negative" as const,
     title: "エッジワーカーで実現するエッジコンピューティング入門",
@@ -89,8 +84,7 @@ const articles = [
     likes: 167,
   },
   {
-    image:
-      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop",
     category: "キャリア",
     categoryVariant: "info" as const,
     title: "エンジニアからプロダクトマネージャーへの転身記",
@@ -102,8 +96,7 @@ const articles = [
     likes: 189,
   },
   {
-    image:
-      "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=600&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=600&h=400&fit=crop",
     category: "デザイン",
     categoryVariant: "info" as const,
     title: "CSSカスタムプロパティでダークモードを完全攻略する",
@@ -523,7 +516,10 @@ export function BlogPage() {
       </div>
 
       {/* ── Main Content ────────────────────────────────────── */}
-      <div className="blog-layout" style={{ maxWidth: "80rem", margin: "0 auto", padding: "0 var(--space-4) var(--space-12)" }}>
+      <div
+        className="blog-layout"
+        style={{ maxWidth: "80rem", margin: "0 auto", padding: "0 var(--space-4) var(--space-12)" }}
+      >
         <main style={styles.mainColumn}>
           {/* Featured Article */}
           <Card variant="interactive" style={styles.featuredCard}>
@@ -565,21 +561,11 @@ export function BlogPage() {
           {/* Article Grid */}
           <div style={styles.articleGrid}>
             {articles.map((article) => (
-              <Card
-                key={article.title}
-                variant="interactive"
-                style={styles.articleCard}
-              >
+              <Card key={article.title} variant="interactive" style={styles.articleCard}>
                 <div style={styles.articleImageWrapper}>
-                  <img
-                    src={article.image}
-                    alt={article.title}
-                    style={styles.articleImage}
-                  />
+                  <img src={article.image} alt={article.title} style={styles.articleImage} />
                   <div style={styles.articleBadge}>
-                    <Badge variant={article.categoryVariant}>
-                      {article.category}
-                    </Badge>
+                    <Badge variant={article.categoryVariant}>{article.category}</Badge>
                   </div>
                 </div>
                 <div style={styles.articleBody}>
@@ -588,9 +574,7 @@ export function BlogPage() {
                   <div style={styles.articleFooter}>
                     <div style={styles.articleAuthor}>
                       <Avatar fallback={article.authorFallback} size="xs" />
-                      <span style={styles.articleAuthorName}>
-                        {article.author}
-                      </span>
+                      <span style={styles.articleAuthorName}>{article.author}</span>
                       <span style={styles.metaDot} />
                       <span>{article.date}</span>
                     </div>
@@ -633,9 +617,7 @@ export function BlogPage() {
                     ...(index === 0 ? { paddingTop: 0 } : {}),
                   }}
                 >
-                  <span style={styles.trendingRank}>
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
+                  <span style={styles.trendingRank}>{String(index + 1).padStart(2, "0")}</span>
                   <div>
                     <p style={styles.trendingTitle}>{item.title}</p>
                     <p style={styles.trendingMeta}>
@@ -691,9 +673,7 @@ export function BlogPage() {
                     <Avatar fallback={author.fallback} size="sm" />
                     <div style={styles.authorInfo}>
                       <p style={styles.authorName}>{author.name}</p>
-                      <p style={styles.authorArticles}>
-                        {author.articles}件の記事
-                      </p>
+                      <p style={styles.authorArticles}>{author.articles}件の記事</p>
                     </div>
                     <Button variant="outline" size="sm">
                       フォロー
@@ -732,11 +712,7 @@ export function BlogPage() {
               <CardDescription>
                 気になる記事をブックマークして、あとでまとめて読みましょう。
               </CardDescription>
-              <Button
-                variant="outline"
-                size="sm"
-                style={{ marginTop: "var(--space-4)" }}
-              >
+              <Button variant="outline" size="sm" style={{ marginTop: "var(--space-4)" }}>
                 無料で始める
               </Button>
             </CardBody>

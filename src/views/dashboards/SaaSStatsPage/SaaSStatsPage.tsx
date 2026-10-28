@@ -15,7 +15,12 @@ import styles from "./SaaSStatsPage.module.css";
 
 type ComponentLayer = "application-ui" | "marketing";
 
-const componentCategoryData: { label: string; value: number; color: string; layer: ComponentLayer }[] = [
+const componentCategoryData: {
+  label: string;
+  value: number;
+  color: string;
+  layer: ComponentLayer;
+}[] = [
   { label: "フォーム", value: 11, color: "var(--chart-1)", layer: "application-ui" },
   { label: "データ表示", value: 9, color: "var(--chart-3)", layer: "application-ui" },
   { label: "レイアウト", value: 8, color: "var(--chart-4)", layer: "application-ui" },
@@ -70,8 +75,8 @@ export function SaaSStatsPage() {
             Kaze Design System
           </h2>
           <p className={styles.statsSubtitle}>
-            {COMPONENT_TOTAL}個のコンポーネントと{SAMPLE_PAGE_TOTAL}件のサンプルページを、light / dark
-            2テーマ・gzip {BUNDLE_TOTAL_KB.toFixed(1)}KB の軽量な CSS で提供しています。
+            {COMPONENT_TOTAL}個のコンポーネントと{SAMPLE_PAGE_TOTAL}件のサンプルページを、light /
+            dark 2テーマ・gzip {BUNDLE_TOTAL_KB.toFixed(1)}KB の軽量な CSS で提供しています。
           </p>
 
           {/* ── Cards Grid ────────────────────────────────── */}
@@ -86,7 +91,8 @@ export function SaaSStatsPage() {
                   </div>
                   <div className={styles.cardNumber}>{COMPONENT_TOTAL}</div>
                   <Text size="sm" color="muted">
-                    Application UI {APPLICATION_UI_TOTAL} + Marketing {MARKETING_TOTAL} の2カタログ。
+                    Application UI {APPLICATION_UI_TOTAL} + Marketing {MARKETING_TOTAL}{" "}
+                    の2カタログ。
                     <br />
                     内訳は /docs/components を参照。
                   </Text>
@@ -163,10 +169,7 @@ export function SaaSStatsPage() {
                   <div className={styles.miniLegend}>
                     {bundleData.map((d) => (
                       <div key={d.label} className={styles.miniLegendItem}>
-                        <span
-                          className={styles.miniLegendDot}
-                          style={{ background: d.color }}
-                        />
+                        <span className={styles.miniLegendDot} style={{ background: d.color }} />
                         <span>
                           {d.label} {d.value}KB
                         </span>

@@ -8,9 +8,7 @@ import { Grid } from "./Grid";
 const meta = {
   title: "Components/Grid",
   component: Grid,
-  args: {
-
-  },
+  args: {},
 } satisfies Meta<typeof Grid>;
 
 export default meta;

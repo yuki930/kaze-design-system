@@ -22,11 +22,7 @@ export const metadata: Metadata = {
   description: "風のように軽やかな、日本語最適化デザインシステム",
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html
       lang="ja"

@@ -3,11 +3,7 @@ import { cn } from "@/lib/utils";
 
 export type FABVariant = "primary" | "secondary";
 export type FABSize = "sm" | "md" | "lg";
-export type FABPosition =
-  | "bottom-right"
-  | "bottom-left"
-  | "top-right"
-  | "top-left";
+export type FABPosition = "bottom-right" | "bottom-left" | "top-right" | "top-left";
 
 export interface FABProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   /** Accessible label for the button (required for icon-only FABs) */

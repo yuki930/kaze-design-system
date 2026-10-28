@@ -161,10 +161,7 @@ export const Disclosure = forwardRef<HTMLDivElement, DisclosureProps>(
         >
           {iconPosition === "left" && (
             <span
-              className={cn(
-                "disclosure__icon",
-                isBuiltInIcon && "disclosure__icon--rotate",
-              )}
+              className={cn("disclosure__icon", isBuiltInIcon && "disclosure__icon--rotate")}
               aria-hidden="true"
             >
               {markerNode}

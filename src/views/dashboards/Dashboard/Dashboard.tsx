@@ -292,8 +292,12 @@ export function Dashboard() {
         <div className={layoutStyles.sidebarFooter}>
           <Avatar size="sm" fallback="FA" />
           <div className={layoutStyles.sidebarFooterInfo}>
-            <Text as="span" size="sm" weight="medium" style={truncateStyle}>藤枝 蒼</Text>
-            <Text as="span" size="xs" color="subtle" style={truncateStyle}>ao.fujieda@norn.co.jp</Text>
+            <Text as="span" size="sm" weight="medium" style={truncateStyle}>
+              藤枝 蒼
+            </Text>
+            <Text as="span" size="xs" color="subtle" style={truncateStyle}>
+              ao.fujieda@norn.co.jp
+            </Text>
           </div>
         </div>
       }
@@ -342,7 +346,12 @@ export function Dashboard() {
       </section>
 
       {/* Summary Metric Cards */}
-      <Grid columns={3} columnsSm={1} gap="var(--space-4)" style={{ marginBottom: "var(--space-6)" }}>
+      <Grid
+        columns={3}
+        columnsSm={1}
+        gap="var(--space-4)"
+        style={{ marginBottom: "var(--space-6)" }}
+      >
         <Card variant="compact">
           <CardBody>
             <Metric
@@ -388,11 +397,7 @@ export function Dashboard() {
             <div className={styles.chartArea}>
               <div className={styles.chartLine} />
               <div className={styles.chartLinePath}>
-                <svg
-                  viewBox="0 0 600 240"
-                  preserveAspectRatio="none"
-                  fill="none"
-                >
+                <svg viewBox="0 0 600 240" preserveAspectRatio="none" fill="none">
                   <polyline
                     points="0,180 60,160 120,140 180,130 240,150 300,100 360,80 420,90 480,60 540,45 600,30"
                     stroke="var(--color-positive)"
@@ -415,15 +420,15 @@ export function Dashboard() {
               {sectors.map((sector) => (
                 <div key={sector.name} className={styles.sectorItem}>
                   <span className={styles.sectorLabel}>
-                    <span
-                      className={cn(
-                        styles.sectorDot,
-                        styles[`sectorDot${sector.color}`],
-                      )}
-                    />
+                    <span className={cn(styles.sectorDot, styles[`sectorDot${sector.color}`])} />
                     {sector.name}
                   </span>
-                  <Text as="span" weight="medium" color="muted" style={{ fontVariantNumeric: "tabular-nums" }}>
+                  <Text
+                    as="span"
+                    weight="medium"
+                    color="muted"
+                    style={{ fontVariantNumeric: "tabular-nums" }}
+                  >
                     {sector.percent}%
                   </Text>
                 </div>
@@ -445,56 +450,48 @@ export function Dashboard() {
         </CardHeader>
         <CardBody>
           <div className={layoutStyles.tableWrapper}>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>銘柄名</TableHead>
-                <TableHead>保有数量</TableHead>
-                <TableHead>平均取得単価</TableHead>
-                <TableHead>現在値</TableHead>
-                <TableHead>評価損益</TableHead>
-                <TableHead>シグナル</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {holdings.map((stock) => (
-                <TableRow key={stock.code}>
-                  <TableCell>
-                    <div>
-                      <span>{stock.name}</span>{" "}
-                      <span className={styles.tabularNums}>
-                        {stock.code}
-                      </span>
-                    </div>
-                  </TableCell>
-                  <TableCell className={styles.tabularNums}>
-                    {stock.quantity.toLocaleString()}
-                  </TableCell>
-                  <TableCell className={styles.tabularNums}>
-                    {stock.avgCost}
-                  </TableCell>
-                  <TableCell className={styles.tabularNums}>
-                    {stock.currentPrice}
-                  </TableCell>
-                  <TableCell
-                    className={cn(
-                      styles.tabularNums,
-                      stock.profitPositive
-                        ? styles.profitPositive
-                        : styles.profitNegative,
-                    )}
-                  >
-                    {stock.profitLoss}
-                  </TableCell>
-                  <TableCell>
-                    <Badge variant={signalVariant(stock.signal)} dot>
-                      {stock.signal}
-                    </Badge>
-                  </TableCell>
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>銘柄名</TableHead>
+                  <TableHead>保有数量</TableHead>
+                  <TableHead>平均取得単価</TableHead>
+                  <TableHead>現在値</TableHead>
+                  <TableHead>評価損益</TableHead>
+                  <TableHead>シグナル</TableHead>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+              </TableHeader>
+              <TableBody>
+                {holdings.map((stock) => (
+                  <TableRow key={stock.code}>
+                    <TableCell>
+                      <div>
+                        <span>{stock.name}</span>{" "}
+                        <span className={styles.tabularNums}>{stock.code}</span>
+                      </div>
+                    </TableCell>
+                    <TableCell className={styles.tabularNums}>
+                      {stock.quantity.toLocaleString()}
+                    </TableCell>
+                    <TableCell className={styles.tabularNums}>{stock.avgCost}</TableCell>
+                    <TableCell className={styles.tabularNums}>{stock.currentPrice}</TableCell>
+                    <TableCell
+                      className={cn(
+                        styles.tabularNums,
+                        stock.profitPositive ? styles.profitPositive : styles.profitNegative,
+                      )}
+                    >
+                      {stock.profitLoss}
+                    </TableCell>
+                    <TableCell>
+                      <Badge variant={signalVariant(stock.signal)} dot>
+                        {stock.signal}
+                      </Badge>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
           </div>
         </CardBody>
       </Card>

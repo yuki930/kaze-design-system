@@ -53,6 +53,7 @@ export const Dialog = forwardRef<HTMLDivElement, DialogProps>(
     );
 
     // Sync visibility with open prop — play close animation before unmounting
+    // biome-ignore lint/correctness/useExhaustiveDependencies: only react to `open`; `visible` is read to decide whether to animate out
     useEffect(() => {
       if (open) {
         setVisible(true);
@@ -65,7 +66,7 @@ export const Dialog = forwardRef<HTMLDivElement, DialogProps>(
         }, CLOSE_ANIMATION_MS);
         return () => clearTimeout(timer);
       }
-    }, [open]); // eslint-disable-line react-hooks/exhaustive-deps
+    }, [open]);
 
     // ── Scroll lock: ref-counting pattern (C6) ──
     useEffect(() => {
@@ -117,9 +118,7 @@ export const Dialog = forwardRef<HTMLDivElement, DialogProps>(
           className={cn("dialog", className)}
           {...rest}
         >
-          <DialogTitleIdContext.Provider value={titleId}>
-            {children}
-          </DialogTitleIdContext.Provider>
+          <DialogTitleIdContext.Provider value={titleId}>{children}</DialogTitleIdContext.Provider>
         </div>
       </div>,
       document.body,
@@ -151,19 +150,13 @@ DialogHeader.displayName = "DialogHeader";
 
 /* ── DialogTitle ───────────────────────────────────────────── */
 
-export interface DialogTitleProps
-  extends HTMLAttributes<HTMLHeadingElement> {}
+export interface DialogTitleProps extends HTMLAttributes<HTMLHeadingElement> {}
 
 export const DialogTitle = forwardRef<HTMLHeadingElement, DialogTitleProps>(
   ({ className, children, id, ...rest }, ref) => {
     const contextId = useContext(DialogTitleIdContext);
     return (
-      <h2
-        ref={ref}
-        id={id ?? contextId}
-        className={cn("dialog__title", className)}
-        {...rest}
-      >
+      <h2 ref={ref} id={id ?? contextId} className={cn("dialog__title", className)} {...rest}>
         {children}
       </h2>
     );

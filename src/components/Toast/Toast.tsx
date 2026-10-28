@@ -14,12 +14,7 @@ import { cn } from "@/lib/utils";
 
 /* ── Types ─────────────────────────────────────────────────── */
 
-export type ToastVariant =
-  | "default"
-  | "positive"
-  | "negative"
-  | "warning"
-  | "info";
+export type ToastVariant = "default" | "positive" | "negative" | "warning" | "info";
 
 export interface ToastData {
   id: string;
@@ -94,16 +89,10 @@ function ToastItem(props: ToastItemProps) {
   }, [data.duration, dismiss]);
 
   const variantClass =
-    data.variant && data.variant !== "default"
-      ? `toast--${data.variant}`
-      : undefined;
+    data.variant && data.variant !== "default" ? `toast--${data.variant}` : undefined;
 
   return (
-    <div
-      className={cn("toast", variantClass)}
-      role="status"
-      data-removing={removing || undefined}
-    >
+    <div className={cn("toast", variantClass)} role="status" data-removing={removing || undefined}>
       {data.variant && data.variant !== "default" && (
         <span className="toast__icon" aria-hidden="true">
           {data.variant === "positive" && (
@@ -176,16 +165,9 @@ function ToastItem(props: ToastItemProps) {
       )}
       <div className="toast__content">
         <div className="toast__title">{data.title}</div>
-        {data.description && (
-          <div className="toast__description">{data.description}</div>
-        )}
+        {data.description && <div className="toast__description">{data.description}</div>}
       </div>
-      <button
-        type="button"
-        className="toast__close"
-        onClick={dismiss}
-        aria-label={closeLabel}
-      >
+      <button type="button" className="toast__close" onClick={dismiss} aria-label={closeLabel}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="14"
@@ -207,7 +189,11 @@ function ToastItem(props: ToastItemProps) {
 
 /* ── ToastProvider ─────────────────────────────────────────── */
 
-export function ToastProvider({ children, closeLabel = "閉じる", containerLabel = "通知" }: ToastProviderProps) {
+export function ToastProvider({
+  children,
+  closeLabel = "閉じる",
+  containerLabel = "通知",
+}: ToastProviderProps) {
   const [toasts, setToasts] = useState<ToastData[]>([]);
   const counterRef = useRef(0);
 

@@ -37,7 +37,7 @@ export interface DropdownItemProps extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode;
 }
 
-export interface DropdownSeparatorProps {}
+export type DropdownSeparatorProps = Record<string, never>;
 
 /* ── Context ───────────────────────────────────────────────── */
 
@@ -55,9 +55,7 @@ const DropdownContext = createContext<DropdownContextValue | null>(null);
 function useDropdownContext(): DropdownContextValue {
   const context = useContext(DropdownContext);
   if (!context) {
-    throw new Error(
-      "Dropdown compound components must be used within a <Dropdown>",
-    );
+    throw new Error("Dropdown compound components must be used within a <Dropdown>");
   }
   return context;
 }
@@ -158,14 +156,8 @@ DropdownTrigger.displayName = "DropdownTrigger";
 
 export const DropdownMenu = forwardRef<HTMLDivElement, DropdownMenuProps>(
   ({ children, className, ...rest }, ref) => {
-    const {
-      open,
-      setOpen,
-      triggerRef,
-      highlightedIndex,
-      setHighlightedIndex,
-      resetItems,
-    } = useDropdownContext();
+    const { open, setOpen, triggerRef, highlightedIndex, setHighlightedIndex, resetItems } =
+      useDropdownContext();
     const menuRef = useRef<HTMLDivElement | null>(null);
     const [position, setPosition] = useState<{ top: number; left: number }>({
       top: 0,
@@ -212,8 +204,7 @@ export const DropdownMenu = forwardRef<HTMLDivElement, DropdownMenuProps>(
         }
       };
       document.addEventListener("mousedown", handleClickOutside);
-      return () =>
-        document.removeEventListener("mousedown", handleClickOutside);
+      return () => document.removeEventListener("mousedown", handleClickOutside);
     }, [open, setOpen, triggerRef]);
 
     // Keyboard navigation
@@ -229,15 +220,13 @@ export const DropdownMenu = forwardRef<HTMLDivElement, DropdownMenuProps>(
         switch (e.key) {
           case "ArrowDown": {
             e.preventDefault();
-            const next =
-              highlightedIndex < count - 1 ? highlightedIndex + 1 : 0;
+            const next = highlightedIndex < count - 1 ? highlightedIndex + 1 : 0;
             setHighlightedIndex(next);
             break;
           }
           case "ArrowUp": {
             e.preventDefault();
-            const prev =
-              highlightedIndex > 0 ? highlightedIndex - 1 : count - 1;
+            const prev = highlightedIndex > 0 ? highlightedIndex - 1 : count - 1;
             setHighlightedIndex(prev);
             break;
           }

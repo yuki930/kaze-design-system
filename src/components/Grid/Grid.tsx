@@ -4,15 +4,7 @@ import { space } from "../../tokens/tokens";
 
 export type GridColumns = 1 | 2 | 3 | 4 | 5 | 6;
 type SpaceToken = keyof typeof space;
-export type GridGap =
-  | "xs"
-  | "sm"
-  | "md"
-  | "lg"
-  | "xl"
-  | SpaceToken
-  | number
-  | (string & {});
+export type GridGap = "xs" | "sm" | "md" | "lg" | "xl" | SpaceToken | number | (string & {});
 
 const GAP_MAP: Record<string, string> = {
   xs: "0.25rem",
@@ -69,14 +61,7 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
       ...(resolvedGapSm != null ? { "--grid-gap-sm": resolvedGapSm } : {}),
     } as CSSProperties;
 
-    return (
-      <div
-        ref={ref}
-        className={cn("grid", className)}
-        style={vars}
-        {...rest}
-      />
-    );
+    return <div ref={ref} className={cn("grid", className)} style={vars} {...rest} />;
   },
 );
 

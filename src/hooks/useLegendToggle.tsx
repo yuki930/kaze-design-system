@@ -52,10 +52,7 @@ export function useLegendToggle(): UseLegendToggleResult {
     });
   }, []);
 
-  const isHidden = useCallback(
-    (dataKey: string) => hiddenSeries.has(dataKey),
-    [hiddenSeries],
-  );
+  const isHidden = useCallback((dataKey: string) => hiddenSeries.has(dataKey), [hiddenSeries]);
 
   const reset = useCallback(() => setHiddenSeries(new Set()), []);
 
@@ -70,17 +67,13 @@ export function useLegendToggle(): UseLegendToggleResult {
         if (dataKey != null) toggle(String(dataKey));
       },
       formatter: (value: string, entry: unknown) => {
-        const e = entry as
-          | { dataKey?: string | number; color?: string }
-          | null;
+        const e = entry as { dataKey?: string | number; color?: string } | null;
         const key = e?.dataKey != null ? String(e.dataKey) : "";
         const hidden = hiddenSeries.has(key);
         return (
           <span
             style={{
-              color: hidden
-                ? "var(--color-fg-tertiary, #a1a1aa)"
-                : e?.color,
+              color: hidden ? "var(--color-fg-tertiary, #a1a1aa)" : e?.color,
               transition: "color 0.15s ease",
             }}
           >

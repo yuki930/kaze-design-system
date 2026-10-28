@@ -36,15 +36,7 @@ import { Logo } from "@/components/Logo";
 import { useTheme } from "@/hooks";
 import styles from "./AnalyticsDashboard.module.css";
 import layoutStyles from "../dashboardLayout.module.css";
-import {
-  LayoutDashboard,
-  Activity,
-  TrendingUp,
-  FileText,
-  Target,
-  Moon,
-  Sun,
-} from "lucide-react";
+import { LayoutDashboard, Activity, TrendingUp, FileText, Target, Moon, Sun } from "lucide-react";
 
 const truncateStyle = {
   whiteSpace: "nowrap" as const,
@@ -90,17 +82,58 @@ const deviceData: DonutChartSegment[] = [
 ];
 
 const trafficSources: TrafficSource[] = [
-  { rank: 1, source: "google / organic", sessions: "98,420", convRate: "3.8%", revenue: "¥4,280,000", trend: [20, 25, 22, 28, 35, 32, 38] },
-  { rank: 2, source: "direct / (none)", sessions: "68,200", convRate: "2.9%", revenue: "¥2,150,000", trend: [30, 28, 32, 29, 31, 30, 33] },
-  { rank: 3, source: "twitter.com / referral", sessions: "22,450", convRate: "1.2%", revenue: "¥580,000", trend: [10, 15, 22, 18, 25, 30, 28] },
-  { rank: 4, source: "facebook.com / social", sessions: "18,300", convRate: "2.1%", revenue: "¥890,000", trend: [15, 12, 18, 20, 16, 19, 22] },
-  { rank: 5, source: "newsletter / email", sessions: "16,992", convRate: "5.2%", revenue: "¥1,920,000", trend: [8, 10, 12, 15, 14, 18, 20] },
+  {
+    rank: 1,
+    source: "google / organic",
+    sessions: "98,420",
+    convRate: "3.8%",
+    revenue: "¥4,280,000",
+    trend: [20, 25, 22, 28, 35, 32, 38],
+  },
+  {
+    rank: 2,
+    source: "direct / (none)",
+    sessions: "68,200",
+    convRate: "2.9%",
+    revenue: "¥2,150,000",
+    trend: [30, 28, 32, 29, 31, 30, 33],
+  },
+  {
+    rank: 3,
+    source: "twitter.com / referral",
+    sessions: "22,450",
+    convRate: "1.2%",
+    revenue: "¥580,000",
+    trend: [10, 15, 22, 18, 25, 30, 28],
+  },
+  {
+    rank: 4,
+    source: "facebook.com / social",
+    sessions: "18,300",
+    convRate: "2.1%",
+    revenue: "¥890,000",
+    trend: [15, 12, 18, 20, 16, 19, 22],
+  },
+  {
+    rank: 5,
+    source: "newsletter / email",
+    sessions: "16,992",
+    convRate: "5.2%",
+    revenue: "¥1,920,000",
+    trend: [8, 10, 12, 15, 14, 18, 20],
+  },
 ];
 
 const popularPages: PopularPage[] = [
   { rank: 1, path: "/", title: "トップページ", views: "142,800", share: 100 },
   { rank: 2, path: "/products/summer-sale", title: "サマーセール特集", views: "89,200", share: 62 },
-  { rank: 3, path: "/blog/seo-guide-2025", title: "SEO完全ガイド 2025年版", views: "45,600", share: 32 },
+  {
+    rank: 3,
+    path: "/blog/seo-guide-2025",
+    title: "SEO完全ガイド 2025年版",
+    views: "45,600",
+    share: 32,
+  },
   { rank: 4, path: "/pricing", title: "料金プラン", views: "38,400", share: 27 },
   { rank: 5, path: "/contact", title: "お問い合わせ", views: "22,100", share: 15 },
 ];
@@ -122,8 +155,12 @@ export function AnalyticsDashboard() {
         <div className={layoutStyles.sidebarFooter}>
           <Avatar size="sm" fallback="MC" />
           <div className={layoutStyles.sidebarFooterInfo}>
-            <Text as="span" size="sm" weight="medium" style={truncateStyle}>宮田 千夏</Text>
-            <Text as="span" size="xs" color="subtle" style={truncateStyle}>chinatsu.miyata@norn.co.jp</Text>
+            <Text as="span" size="sm" weight="medium" style={truncateStyle}>
+              宮田 千夏
+            </Text>
+            <Text as="span" size="xs" color="subtle" style={truncateStyle}>
+              chinatsu.miyata@norn.co.jp
+            </Text>
           </div>
         </div>
       }
@@ -173,7 +210,13 @@ export function AnalyticsDashboard() {
       </section>
 
       {/* 4-column KPI Cards */}
-      <Grid columns={4} columnsMd={2} columnsSm={1} gap="var(--space-4)" style={{ marginBottom: "var(--space-6)" }}>
+      <Grid
+        columns={4}
+        columnsMd={2}
+        columnsSm={1}
+        gap="var(--space-4)"
+        style={{ marginBottom: "var(--space-6)" }}
+      >
         <Card variant="compact">
           <CardBody>
             <Metric
@@ -185,11 +228,7 @@ export function AnalyticsDashboard() {
         </Card>
         <Card variant="compact">
           <CardBody>
-            <Metric
-              label="直帰率"
-              value="34.2%"
-              change={{ value: "-2.1%", trend: "positive" }}
-            />
+            <Metric label="直帰率" value="34.2%" change={{ value: "-2.1%", trend: "positive" }} />
           </CardBody>
         </Card>
         <Card variant="compact">
@@ -287,15 +326,9 @@ export function AnalyticsDashboard() {
                       <span className={styles.rankBadge}>{source.rank}</span>
                     </TableCell>
                     <TableCell>{source.source}</TableCell>
-                    <TableCell className={styles.tabularNums}>
-                      {source.sessions}
-                    </TableCell>
-                    <TableCell className={styles.tabularNums}>
-                      {source.convRate}
-                    </TableCell>
-                    <TableCell className={styles.tabularNums}>
-                      {source.revenue}
-                    </TableCell>
+                    <TableCell className={styles.tabularNums}>{source.sessions}</TableCell>
+                    <TableCell className={styles.tabularNums}>{source.convRate}</TableCell>
+                    <TableCell className={styles.tabularNums}>{source.revenue}</TableCell>
                     <TableCell>
                       <Sparkline data={source.trend} width={80} height={24} />
                     </TableCell>
@@ -317,20 +350,13 @@ export function AnalyticsDashboard() {
             {popularPages.map((page) => (
               <ListItem
                 key={page.rank}
-                leading={
-                  <span className={styles.rankBadge}>{page.rank}</span>
-                }
+                leading={<span className={styles.rankBadge}>{page.rank}</span>}
                 title={page.title}
                 description={`${page.path} · ${page.views} PV`}
                 trailing={
                   <div className={styles.pageTrailing}>
                     <div className={styles.progressWrap}>
-                      <Progress
-                        value={page.share}
-                        max={100}
-                        size="sm"
-                        color="info"
-                      />
+                      <Progress value={page.share} max={100} size="sm" color="info" />
                     </div>
                   </div>
                 }
