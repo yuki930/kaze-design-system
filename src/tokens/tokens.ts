@@ -87,5 +87,19 @@ export const radius = {
   full: "var(--radius-full)",
 } as const;
 
+/** Switched by `data-density="compact"` on an ancestor. */
+export const density = {
+  controlHeight: "var(--density-control-height)",
+  rowPy: "var(--density-row-py)",
+  rowPx: "var(--density-row-px)",
+  fontSizeUi: "var(--density-font-size-ui)",
+  lineHeightUi: "var(--density-line-height-ui)",
+  navPy: "var(--density-nav-py)",
+  navGap: "var(--density-nav-gap)",
+  dropdownPy: "var(--density-dropdown-py)",
+  tabPy: "var(--density-tab-py)",
+} as const;
+
 export type Theme = "light" | "dark";
 export type Palette = "warm" | "cool";
+export type Density = "default" | "compact";
