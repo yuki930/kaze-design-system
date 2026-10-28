@@ -2,7 +2,7 @@ name: Publish Recovery
 
 # One-off manual recovery: publish an already-tagged release to npm when the
 # normal publish.yml run failed AFTER the version bump + tag were pushed
-# (e.g. an expired NPM_TOKEN). Does NOT bump or tag anything — it publishes
+# (e.g. an npm auth failure). Does NOT bump or tag anything — it publishes
 # exactly what the given tag contains.
 on:
   workflow_dispatch:
@@ -16,6 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
+      id-token: write   # npm Trusted Publishing (OIDC)
     steps:
       - uses: actions/checkout@v4
         with:
@@ -25,6 +26,9 @@ jobs:
         with:
           node-version: 22
           registry-url: https://registry.npmjs.org
+
+      # Trusted Publishing needs npm >= 11.5.1 (Node 22 ships npm 10).
+      - run: npm install -g npm@11
 
       - name: Verify tag matches package.json version
         env:
@@ -45,6 +49,6 @@ jobs:
         run: npm run build:lib
 
       - name: Publish to NPM
+        # Authenticates via OIDC (npm Trusted Publisher), no NPM_TOKEN needed.
+        # Provenance is attached automatically.
         run: npm publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
