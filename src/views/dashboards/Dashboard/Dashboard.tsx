@@ -57,8 +57,8 @@ type PerformancePeriod = "1W" | "1M" | "3M" | "1Y" | "ALL";
 
 const holdings: Holding[] = [
   {
-    name: "トヨタ自動車",
-    code: "7203",
+    name: "潮見電機",
+    code: "KZ01",
     quantity: 100,
     avgCost: "¥2,800",
     currentPrice: "¥2,845.5",
@@ -67,8 +67,8 @@ const holdings: Holding[] = [
     signal: "買い",
   },
   {
-    name: "ソニーグループ",
-    code: "6758",
+    name: "北斗精工",
+    code: "KZ02",
     quantity: 50,
     avgCost: "¥13,200",
     currentPrice: "¥13,850",
@@ -77,8 +77,8 @@ const holdings: Holding[] = [
     signal: "買い",
   },
   {
-    name: "ソフトバンクG",
-    code: "9984",
+    name: "雲雀ホールディングス",
+    code: "KZ03",
     quantity: 200,
     avgCost: "¥6,850",
     currentPrice: "¥6,420",
@@ -87,8 +87,8 @@ const holdings: Holding[] = [
     signal: "売り",
   },
   {
-    name: "キーエンス",
-    code: "6861",
+    name: "燕重工",
+    code: "KZ04",
     quantity: 10,
     avgCost: "¥62,500",
     currentPrice: "¥65,800",
@@ -97,8 +97,8 @@ const holdings: Holding[] = [
     signal: "保持",
   },
   {
-    name: "NTT",
-    code: "9432",
+    name: "霞浦通信",
+    code: "KZ05",
     quantity: 300,
     avgCost: "¥172",
     currentPrice: "¥178.5",
@@ -107,8 +107,8 @@ const holdings: Holding[] = [
     signal: "買い",
   },
   {
-    name: "三菱UFJ FG",
-    code: "8306",
+    name: "みなもフィナンシャル",
+    code: "KZ06",
     quantity: 400,
     avgCost: "¥1,280",
     currentPrice: "¥1,325",
@@ -342,7 +342,7 @@ export function Dashboard() {
       </section>
 
       {/* Summary Metric Cards */}
-      <Grid columns={3} columnsSm={1} gap="var(--spacing-4, 1rem)" style={{ marginBottom: "var(--spacing-6, 1.5rem)" }}>
+      <Grid columns={3} columnsSm={1} gap="var(--space-4)" style={{ marginBottom: "var(--space-6)" }}>
         <Card variant="compact">
           <CardBody>
             <Metric
@@ -395,7 +395,7 @@ export function Dashboard() {
                 >
                   <polyline
                     points="0,180 60,160 120,140 180,130 240,150 300,100 360,80 420,90 480,60 540,45 600,30"
-                    stroke="var(--color-success, #10b981)"
+                    stroke="var(--color-positive)"
                     strokeWidth="2"
                     fill="none"
                   />

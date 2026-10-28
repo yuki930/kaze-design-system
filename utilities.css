@@ -404,6 +404,11 @@
 [data-theme="dark"] .theme-photo {
   filter: brightness(0.8) contrast(1.1);
 }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .theme-photo {
+    filter: brightness(0.8) contrast(1.1);
+  }
+}
 
 /* ============================================================
    Responsive Utilities

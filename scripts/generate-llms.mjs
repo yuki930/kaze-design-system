@@ -429,7 +429,7 @@ function main() {
   shortLines.push(`> ${pkg.description}`);
   shortLines.push("");
   shortLines.push(
-    `kaze-design-system is a React 19 + TypeScript design system with ${totalComponents} components. It is built around a warm neutral gray palette, optimized for Japanese typography (PALT enabled globally), uses CSS custom properties for theming (light/dark via \`data-theme\` attribute), and ships as ESM with peer dependencies on react, react-dom, and lucide-react.`,
+    `kaze-design-system is a React 18/19 + TypeScript design system with ${totalComponents} components in two layers: Application UI (dashboards, business apps) and Marketing (landing pages, importable from \`${pkg.name}/marketing\`). It is built around a warm neutral gray palette, optimized for Japanese typography (PALT enabled globally), uses CSS custom properties for theming (light/dark via \`data-theme\`, cool palette via \`data-palette="cool"\`, compact density via \`data-density="compact"\`), and ships as ESM with peer dependencies on react and react-dom (lucide-react optional).`,
   );
   shortLines.push("");
   shortLines.push("## Installation");
@@ -441,6 +441,7 @@ function main() {
   shortLines.push("```tsx");
   shortLines.push(`import "${pkg.name}/css/all";`);
   shortLines.push(`import { Button, Card, Badge } from "${pkg.name}";`);
+  shortLines.push(`import { Hero, PricingGrid } from "${pkg.name}/marketing";`);
   shortLines.push("```");
   shortLines.push("");
   shortLines.push("## Full API reference");
@@ -472,13 +473,13 @@ function main() {
   shortLines.push("## Hooks");
   shortLines.push("");
   shortLines.push(
-    "- `useTheme` — theme context (light/dark toggle), exported from `kaze-design-system`",
+    "- `useTheme`: theme context (light/dark toggle), exported from `kaze-design-system`",
   );
   shortLines.push(
-    "- `useFocusTrap` — focus-trap helper for modal/dialog components",
+    "- `useFocusTrap`: focus-trap helper for modal/dialog components, exported from `kaze-design-system/hooks`",
   );
   shortLines.push(
-    "- `useLegendToggle` — Recharts `<Legend>` show/hide series toggle, exported from `kaze-design-system/hooks`",
+    "- `useLegendToggle`: Recharts `<Legend>` show/hide series toggle, exported from `kaze-design-system/hooks`",
   );
   shortLines.push("");
 
@@ -486,7 +487,7 @@ function main() {
 
   // --- llms-full.txt (full reference) -----------------------------------
   const fullLines = [];
-  fullLines.push(`# ${pkg.name} — Full API Reference`);
+  fullLines.push(`# ${pkg.name}: Full API Reference`);
   fullLines.push("");
   fullLines.push(`> ${pkg.description}`);
   fullLines.push("");
@@ -501,7 +502,7 @@ function main() {
   fullLines.push("```");
   fullLines.push("");
   fullLines.push(
-    "Peer dependencies: `react@^19`, `react-dom@^19`, `lucide-react`.",
+    "Peer dependencies: `react@^18 || ^19`, `react-dom@^18 || ^19`. `lucide-react` is optional (only needed to pass lucide icons to `Icon` or in examples).",
   );
   fullLines.push("");
   fullLines.push("Import CSS once at the app root:");
@@ -536,6 +537,31 @@ function main() {
   fullLines.push("  );");
   fullLines.push("}");
   fullLines.push("```");
+  fullLines.push("");
+  fullLines.push(
+    "Add `data-palette=\"cool\"` to switch from the warm zinc palette to cool slate (works with both light and dark).",
+  );
+  fullLines.push("");
+  fullLines.push("## Density");
+  fullLines.push("");
+  fullLines.push(
+    "Add `data-density=\"compact\"` to an ancestor (`<html>` or a panel) to tighten controls, table/list rows, tabs, dropdowns and sidebar items. Independent of theme and palette. Tokens: `--density-control-height`, `--density-row-py`, `--density-row-px`, `--density-font-size-ui`, `--density-line-height-ui`, `--density-nav-py`, `--density-nav-gap`, `--density-dropdown-py`, `--density-tab-py`.",
+  );
+  fullLines.push("");
+  fullLines.push("```html");
+  fullLines.push('<html data-theme="dark" data-density="compact">');
+  fullLines.push("```");
+  fullLines.push("");
+  fullLines.push("## Layers and entry points");
+  fullLines.push("");
+  fullLines.push(
+    `- Application UI: dashboards and business apps. Import from \`${pkg.name}\`.`,
+  );
+  fullLines.push(
+    `- Marketing: the 11 landing-page components (Navbar, Hero, Section, SplitSection, FeatureGrid, Stats, Pricing, Testimonial, FAQ, CTABanner, LPFooter). Import from \`${pkg.name}/marketing\` (also re-exported from the root).`,
+  );
+  fullLines.push(`- Hooks: \`${pkg.name}/hooks\` (useFocusTrap, useLegendToggle; useTheme is also exported from the root).`);
+  fullLines.push(`- JS tokens: \`${pkg.name}/tokens\`.`);
   fullLines.push("");
   fullLines.push("## Components");
   fullLines.push("");
@@ -596,6 +622,10 @@ function main() {
     "Traps focus within a container for modal/dialog-like overlays.",
   );
   fullLines.push("");
+  fullLines.push("```tsx");
+  fullLines.push(`import { useFocusTrap } from "${pkg.name}/hooks";`);
+  fullLines.push("```");
+  fullLines.push("");
   fullLines.push("#### useLegendToggle");
   fullLines.push("");
   fullLines.push(
@@ -603,6 +633,7 @@ function main() {
   );
   fullLines.push("");
   fullLines.push("```tsx");
+  fullLines.push(`import { BarChart, Bar, Legend } from "recharts";`);
   fullLines.push(`import { useLegendToggle } from "${pkg.name}/hooks";`);
   fullLines.push("");
   fullLines.push("const { isHidden, legendProps, reset } = useLegendToggle();");

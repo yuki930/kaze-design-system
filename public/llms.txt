@@ -1,8 +1,8 @@
 # kaze-design-system
 
-> Minimal React design system for dashboards and Japanese UI — quiet neutral grays, 63 components, light/dark themes, typography tuned for CJK text
+> Minimal React design system for dashboards, landing pages and Japanese UI: warm neutral grays, 63 components, light/dark themes, typography tuned for CJK text
 
-kaze-design-system is a React 19 + TypeScript design system with 63 components. It is built around a warm neutral gray palette, optimized for Japanese typography (PALT enabled globally), uses CSS custom properties for theming (light/dark via `data-theme` attribute), and ships as ESM with peer dependencies on react, react-dom, and lucide-react.
+kaze-design-system is a React 18/19 + TypeScript design system with 63 components in two layers: Application UI (dashboards, business apps) and Marketing (landing pages, importable from `kaze-design-system/marketing`). It is built around a warm neutral gray palette, optimized for Japanese typography (PALT enabled globally), uses CSS custom properties for theming (light/dark via `data-theme`, cool palette via `data-palette="cool"`, compact density via `data-density="compact"`), and ships as ESM with peer dependencies on react and react-dom (lucide-react optional).
 
 ## Installation
 
@@ -13,6 +13,7 @@ npm install kaze-design-system
 ```tsx
 import "kaze-design-system/css/all";
 import { Button, Card, Badge } from "kaze-design-system";
+import { Hero, PricingGrid } from "kaze-design-system/marketing";
 ```
 
 ## Full API reference
@@ -114,6 +115,6 @@ import { Button, Card, Badge } from "kaze-design-system";
 
 ## Hooks
 
-- `useTheme` — theme context (light/dark toggle), exported from `kaze-design-system`
-- `useFocusTrap` — focus-trap helper for modal/dialog components
-- `useLegendToggle` — Recharts `<Legend>` show/hide series toggle, exported from `kaze-design-system/hooks`
+- `useTheme`: theme context (light/dark toggle), exported from `kaze-design-system`
+- `useFocusTrap`: focus-trap helper for modal/dialog components, exported from `kaze-design-system/hooks`
+- `useLegendToggle`: Recharts `<Legend>` show/hide series toggle, exported from `kaze-design-system/hooks`

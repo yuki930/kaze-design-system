@@ -11,7 +11,7 @@ export type BadgeVariant =
 export interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
   variant?: BadgeVariant;
   dot?: boolean;
-  /** Solid (inverted) style — filled background with white text */
+  /** Solid (inverted) style: filled background with white text */
   solid?: boolean;
   /** When true, adds role="status" for live-region announcements */
   live?: boolean;

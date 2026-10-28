@@ -12,8 +12,6 @@ on:
       - 'src/lib/**'
       - 'src/utils/**'
       - 'src/tokens/**'
-      - 'src/index.ts'
-      - 'src/hooks.ts'
       - 'tokens.css'
       - 'reset.css'
       - 'components.css'
@@ -21,6 +19,9 @@ on:
       - 'kaze.css'
       - 'vite.config.lib.ts'
       - 'tsconfig.build.json'
+      # exports / files / peerDependencies / sideEffects ship too. The
+      # release bot's own package.json bump is excluded by the `if:` guard.
+      - 'package.json'
       # Test/story files never ship in dist (only dist + root CSS are in
       # the package's `files` field), so they must not trigger a
       # release even though they live under src/components.
@@ -30,6 +31,11 @@ on:
       - '!src/hooks/**/*.stories.tsx'
       - '!src/hooks/**/*.test.tsx'
       - '!src/hooks/**/*.test.ts'
+
+# Two quick pushes to main must not compute the same version in parallel.
+concurrency:
+  group: publish
+  cancel-in-progress: false
 
 jobs:
   publish:
@@ -54,9 +60,12 @@ jobs:
 
       - name: Type check
         run: npm run typecheck
-        # `npm run test` is intentionally not gated here — the Storybook
-        # browser test suite depends on a Playwright runtime that has been
-        # unreliable in CI. Revisit once those tests are stable.
+
+      - name: Unit tests
+        run: npm run test
+        # `npm run test` runs the jsdom unit project only. The Storybook
+        # browser suite (`npm run test:storybook`) depends on a Playwright
+        # runtime that has been unreliable in CI, so it is not gated here.
 
       - name: Determine semver bump from conventional commits
         id: bump
@@ -75,7 +84,7 @@ jobs:
           COMMITS=$(git log $RANGE --pretty=format:'%s%n%b%n---' 2>/dev/null || git log --pretty=format:'%s%n%b%n---')
 
           BUMP="patch"
-          if echo "$COMMITS" | grep -qE '^(BREAKING CHANGE:|feat!:|fix!:|refactor!:)'; then
+          if echo "$COMMITS" | grep -qE '^([a-z]+(\([^)]+\))?!:|BREAKING[ -]CHANGE:)'; then
             BUMP="major"
           elif echo "$COMMITS" | grep -qE '^feat(\([^)]+\))?:'; then
             BUMP="minor"
@@ -84,7 +93,6 @@ jobs:
           echo "Selected bump: $BUMP"
 
       - name: Generate CHANGELOG entry
-        id: changelog
         run: |
           LAST_TAG=$(git tag --list 'v*' --sort=-v:refname | head -n 1)
           if [ -z "$LAST_TAG" ]; then
@@ -98,8 +106,9 @@ jobs:
           FIXES=$(git log $RANGE --pretty=format:'- %s' --grep='^fix' || true)
           OTHER=$(git log $RANGE --pretty=format:'- %s' --grep='^\(perf\|refactor\|docs\|chore\|build\|ci\)' || true)
 
+          # Written to a file (not a step output) so commit subjects are never
+          # interpolated into a shell script via ${{ }}.
           {
-            echo 'entry<<EOF'
             if [ -n "$FEATURES" ]; then
               echo '### Features'
               echo
@@ -118,14 +127,13 @@ jobs:
               echo "$OTHER"
               echo
             fi
-            echo 'EOF'
-          } >> "$GITHUB_OUTPUT"
+          } > "$RUNNER_TEMP/changelog-entry.md"
 
-      - name: Bump version and update CHANGELOG
+      # Order matters: bump locally -> build -> publish -> commit/tag/push.
+      # If build or publish fails, nothing has been pushed, so there is no
+      # "tagged but unpublished" release left behind.
+      - name: Bump version and update CHANGELOG (local only)
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-
           npm version ${{ steps.bump.outputs.bump }} --no-git-tag-version
           VERSION=$(node -p "require('./package.json').version")
           DATE=$(date +%Y-%m-%d)
@@ -147,15 +155,13 @@ jobs:
           {
             printf '%s\n' "$HEADER"
             printf '## [%s] - %s\n\n' "$VERSION" "$DATE"
-            printf '%s' "${{ steps.changelog.outputs.entry }}"
+            cat "$RUNNER_TEMP/changelog-entry.md"
             printf '\n'
             printf '%s\n' "$REST"
           } > CHANGELOG.md
 
-          git add package.json package-lock.json CHANGELOG.md
-          git commit -m "release: v${VERSION} [skip ci]"
-          git tag "v${VERSION}"
-          git push origin main --tags
+          # llms.txt / llms-full.txt embed the package version.
+          npm run docs:llms
 
       - name: Build library
         run: npm run build:lib
@@ -164,3 +170,13 @@ jobs:
         run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Commit, tag and push release
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          VERSION=$(node -p "require('./package.json').version")
+          git add package.json package-lock.json CHANGELOG.md public/llms.txt public/llms-full.txt
+          git commit -m "release: v${VERSION} [skip ci]"
+          git tag "v${VERSION}"
+          git push origin main --tags

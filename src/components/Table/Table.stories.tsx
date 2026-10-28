@@ -18,11 +18,11 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const stockData = [
-  { name: "トヨタ自動車", price: "¥2,845", change: "+1.2%" },
-  { name: "ソニーグループ", price: "¥13,200", change: "-0.8%" },
-  { name: "任天堂", price: "¥8,150", change: "+2.5%" },
-  { name: "キーエンス", price: "¥62,300", change: "+0.3%" },
-  { name: "ファーストリテイリング", price: "¥41,500", change: "-1.1%" },
+  { name: "潮見電機", price: "¥2,845", change: "+1.2%" },
+  { name: "北斗精工", price: "¥13,200", change: "-0.8%" },
+  { name: "あかつき遊技", price: "¥8,150", change: "+2.5%" },
+  { name: "燕重工", price: "¥62,300", change: "+0.3%" },
+  { name: "若葉アパレル", price: "¥41,500", change: "-1.1%" },
 ];
 
 export const Default: Story = {
@@ -72,11 +72,11 @@ export const Compact: Story = {
 };
 
 const signalData = [
-  { name: "トヨタ自動車", price: "¥2,845", signal: "買い" as const },
-  { name: "ソニーグループ", price: "¥13,200", signal: "売り" as const },
-  { name: "任天堂", price: "¥8,150", signal: "買い" as const },
-  { name: "キーエンス", price: "¥62,300", signal: "中立" as const },
-  { name: "ファーストリテイリング", price: "¥41,500", signal: "売り" as const },
+  { name: "潮見電機", price: "¥2,845", signal: "買い" as const },
+  { name: "北斗精工", price: "¥13,200", signal: "売り" as const },
+  { name: "あかつき遊技", price: "¥8,150", signal: "買い" as const },
+  { name: "燕重工", price: "¥62,300", signal: "中立" as const },
+  { name: "若葉アパレル", price: "¥41,500", signal: "売り" as const },
 ];
 
 const signalVariant = {

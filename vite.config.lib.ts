@@ -1,23 +1,26 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import { preserveDirectives } from "rollup-plugin-preserve-directives";
-import { resolve } from "path";
+import { dirname, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
+
+const root = dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
   plugins: [react()],
   publicDir: false,
   resolve: {
     alias: {
-      "@": resolve(__dirname, "src"),
+      "@": resolve(root, "src"),
     },
   },
   build: {
     lib: {
       entry: {
-        index: resolve(__dirname, "src/components/index.ts"),
-        marketing: resolve(__dirname, "src/components/marketing.ts"),
-        hooks: resolve(__dirname, "src/hooks/index.ts"),
-        tokens: resolve(__dirname, "src/tokens/tokens.ts"),
+        index: resolve(root, "src/components/index.ts"),
+        marketing: resolve(root, "src/components/marketing.ts"),
+        hooks: resolve(root, "src/hooks/index.ts"),
+        tokens: resolve(root, "src/tokens/tokens.ts"),
       },
       formats: ["es"],
     },

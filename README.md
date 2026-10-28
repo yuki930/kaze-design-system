@@ -9,7 +9,7 @@
 - **日本語組版に最適化**: PALT グローバル適用、和欧混植、括弧ツメ、適切な line-height
 - **ライト / ダーク両対応**: `data-theme` 属性で切替、`prefers-color-scheme` 連動
 - **素の CSS + カスケードレイヤー**: `@layer tokens, reset, components, utilities` でカスケード管理、Tailwind/CSS-in-JS 不要
-- **ESM only + Tree-shakeable**: React 19 + TypeScript、peer deps は `react`, `react-dom`, `lucide-react` のみ
+- **ESM only + Tree-shakeable**: React 18 / 19 + TypeScript、peer deps は `react`, `react-dom`（`lucide-react` は任意）のみ
 - **AI フレンドリー**: [`/llms.txt`](https://kaze-design-system.vercel.app/llms.txt) で全コンポーネント API を 1 ファイル配信
 
 ## Links
@@ -65,7 +65,7 @@ AI コーディングアシスタントは以下のファイルからライブ�
 npm install kaze-design-system
 ```
 
-Peer dependencies: `react@^19`, `react-dom@^19`, `lucide-react`
+Peer dependencies: `react@^18 || ^19`, `react-dom@^18 || ^19`。`lucide-react` は任意（`Icon` に lucide のアイコンを渡す場合やサンプルコードで使用。コンポーネント本体は lucide なしで動きます）
 
 ## CSS の読み込み
 
@@ -159,8 +159,8 @@ import { Hero, PricingGrid, CTABanner } from "kaze-design-system/marketing";
 ## Hooks
 
 ```tsx
-import { ThemeProvider, useTheme, useFocusTrap } from "kaze-design-system";
-import { useLegendToggle } from "kaze-design-system/hooks";
+import { ThemeProvider, useTheme } from "kaze-design-system";
+import { useFocusTrap, useLegendToggle } from "kaze-design-system/hooks";
 ```
 
 - `useTheme`: ライト/ダークの切り替え
@@ -193,11 +193,32 @@ CSS カスタムプロパティベース:
 - タイポグラフィ: `--font-size-*`, `--font-weight-*`
 - ボーダー: `--radius-*`
 - シャドウ: `--shadow-*`
+- 密度: `--density-*`（コントロール高さ・行パディング・UI フォントサイズ。下記「密度」参照）
+
+JS から値を参照したい場合は `kaze-design-system/tokens` から import できます。
+
+```ts
+import { space } from "kaze-design-system/tokens";
+```
 
 ## テーマ（ライト / ダーク）
 
 `data-theme="light"` / `data-theme="dark"` で切り替え。
 `ThemeProvider` で自動管理。`prefers-color-scheme` による OS 設定連動にも対応。
+
+`data-palette="cool"` を付けると warm zinc から cool slate のパレットに切り替わります（ライト / ダークどちらとも併用可）。
+
+## 密度（Density）
+
+`data-density="compact"` を祖先要素（`<html>` やパネル単位）に付けると、Input / Select / Table / List / Tabs / Dropdown / Sidebar などが詰まった表示になります。テーマ・パレットとは独立に組み合わせられます。
+
+```html
+<html data-theme="dark" data-density="compact">
+```
+
+## CSS のレイヤーについて
+
+`css/all`（`kaze.css`）は `@layer tokens, reset, components, utilities` でラップされています。`css/components` などを個別に読み込むとレイヤーは付きません。また、レイヤー外のスタイル（CSS Modules など）は常にレイヤー内のスタイルより優先されます。
 
 ## 開発
 
@@ -208,11 +229,13 @@ npm run build:lib     # ライブラリビルド（dist/ に出力）
 npm run docs:llms     # llms.txt / llms-full.txt を再生成
 npm run storybook     # Storybook 起動
 npm run typecheck     # TypeScript 型チェック
+npm run test          # ユニットテスト（jsdom）
+npm run test:storybook # Storybook ブラウザテスト（Playwright）
 ```
 
 ### リリース
 
-main への push 時に GitHub Actions が自動で `npm version patch` → build → `npm publish` を実行します。ライブラリ本体（`src/components/**`, `src/hooks/**`, CSS ファイル等）への変更がある場合のみトリガーされます。
+main への push 時に GitHub Actions が Conventional Commits からバージョン（patch / minor / major）を判定し、build → `npm publish` → release コミットとタグの push を実行します。ライブラリ本体（`src/components/**`, `src/hooks/**`, CSS ファイル、`package.json` 等）への変更がある場合のみトリガーされます。詳しくは [CONTRIBUTING.md](./CONTRIBUTING.md) を参照してください。
 
 ## コントリビュート
 

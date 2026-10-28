@@ -87,15 +87,15 @@ interface SemanticColor {
 
 const bgColors: SemanticColor[] = [
   { name: "bg", variable: "--color-bg", light: "#ffffff", dark: "zinc-950" },
-  { name: "bg-secondary", variable: "--color-bg-secondary", light: "zinc-50", dark: "#111113" },
-  { name: "bg-tertiary", variable: "--color-bg-tertiary", light: "zinc-100", dark: "zinc-900" },
+  { name: "bg-secondary", variable: "--color-bg-secondary", light: "zinc-50", dark: "zinc-900" },
+  { name: "bg-tertiary", variable: "--color-bg-tertiary", light: "zinc-100", dark: "zinc-800" },
   { name: "bg-inverse", variable: "--color-bg-inverse", light: "zinc-950", dark: "#ffffff" },
 ];
 
 const fgColors: SemanticColor[] = [
   { name: "fg", variable: "--color-fg", light: "zinc-950", dark: "zinc-50" },
   { name: "fg-secondary", variable: "--color-fg-secondary", light: "zinc-500", dark: "zinc-400" },
-  { name: "fg-tertiary", variable: "--color-fg-tertiary", light: "zinc-400", dark: "zinc-500" },
+  { name: "fg-tertiary", variable: "--color-fg-tertiary", light: "zinc-400", dark: "zinc-400" },
   { name: "fg-inverse", variable: "--color-fg-inverse", light: "#ffffff", dark: "zinc-950" },
   { name: "fg-muted", variable: "--color-fg-muted", light: "zinc-600", dark: "zinc-400" },
 ];
@@ -103,7 +103,7 @@ const fgColors: SemanticColor[] = [
 const borderColors: SemanticColor[] = [
   { name: "border", variable: "--color-border", light: "zinc-200", dark: "zinc-800" },
   { name: "border-strong", variable: "--color-border-strong", light: "zinc-300", dark: "zinc-700" },
-  { name: "border-subtle", variable: "--color-border-subtle", light: "zinc-100", dark: "zinc-800" },
+  { name: "border-subtle", variable: "--color-border-subtle", light: "zinc-100", dark: "zinc-900" },
 ];
 
 const surfaceColors: SemanticColor[] = [
@@ -318,7 +318,7 @@ export function ColorsPage() {
 .hero-bg   { background: var(--blue-500); }
 .highlight { color: var(--amber-400); }
 .soft-bg   { background: var(--violet-50); }
-.gradient  { background: linear-gradient(135deg, var(--pink-400), var(--violet-500)); }`}
+.gradient  { background: linear-gradient(135deg, var(--violet-50), var(--violet-200)); }`}
       </div>
 
       {/* ── Zinc Scale ─────────────────────────────────────── */}

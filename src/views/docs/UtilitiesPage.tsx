@@ -58,7 +58,7 @@ export function UtilitiesPage() {
             className="flex"
             style={{
               padding: "8px 16px",
-              background: "var(--kaze-color-bg-subtle, #f0f0f0)",
+              background: "var(--color-bg-secondary)",
               borderRadius: "4px",
             }}
           >
@@ -68,7 +68,7 @@ export function UtilitiesPage() {
             className="inline-flex"
             style={{
               padding: "8px 16px",
-              background: "var(--kaze-color-bg-subtle, #f0f0f0)",
+              background: "var(--color-bg-secondary)",
               borderRadius: "4px",
             }}
           >
@@ -78,7 +78,7 @@ export function UtilitiesPage() {
             className="grid"
             style={{
               padding: "8px 16px",
-              background: "var(--kaze-color-bg-subtle, #f0f0f0)",
+              background: "var(--color-bg-secondary)",
               borderRadius: "4px",
             }}
           >
@@ -88,7 +88,7 @@ export function UtilitiesPage() {
             className="block"
             style={{
               padding: "8px 16px",
-              background: "var(--kaze-color-bg-subtle, #f0f0f0)",
+              background: "var(--color-bg-secondary)",
               borderRadius: "4px",
             }}
           >
@@ -98,7 +98,7 @@ export function UtilitiesPage() {
             className="inline-block"
             style={{
               padding: "8px 16px",
-              background: "var(--kaze-color-bg-subtle, #f0f0f0)",
+              background: "var(--color-bg-secondary)",
               borderRadius: "4px",
             }}
           >
@@ -141,17 +141,17 @@ export function UtilitiesPage() {
           .flex .flex-row
         </p>
         <div style={{ display: "flex", flexDirection: "row", gap: "8px", marginBottom: "16px" }}>
-          <div style={{ padding: "8px 16px", background: "var(--kaze-color-primary-subtle, #e0e7ff)", borderRadius: "4px" }}>1</div>
-          <div style={{ padding: "8px 16px", background: "var(--kaze-color-primary-subtle, #e0e7ff)", borderRadius: "4px" }}>2</div>
-          <div style={{ padding: "8px 16px", background: "var(--kaze-color-primary-subtle, #e0e7ff)", borderRadius: "4px" }}>3</div>
+          <div style={{ padding: "8px 16px", background: "var(--color-bg-tertiary)", borderRadius: "4px" }}>1</div>
+          <div style={{ padding: "8px 16px", background: "var(--color-bg-tertiary)", borderRadius: "4px" }}>2</div>
+          <div style={{ padding: "8px 16px", background: "var(--color-bg-tertiary)", borderRadius: "4px" }}>3</div>
         </div>
         <p style={{ marginBottom: "8px", fontSize: "14px", fontWeight: 500 }}>
           .flex .flex-col
         </p>
         <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-          <div style={{ padding: "8px 16px", background: "var(--kaze-color-primary-subtle, #e0e7ff)", borderRadius: "4px" }}>1</div>
-          <div style={{ padding: "8px 16px", background: "var(--kaze-color-primary-subtle, #e0e7ff)", borderRadius: "4px" }}>2</div>
-          <div style={{ padding: "8px 16px", background: "var(--kaze-color-primary-subtle, #e0e7ff)", borderRadius: "4px" }}>3</div>
+          <div style={{ padding: "8px 16px", background: "var(--color-bg-tertiary)", borderRadius: "4px" }}>1</div>
+          <div style={{ padding: "8px 16px", background: "var(--color-bg-tertiary)", borderRadius: "4px" }}>2</div>
+          <div style={{ padding: "8px 16px", background: "var(--color-bg-tertiary)", borderRadius: "4px" }}>3</div>
         </div>
       </div>
 
@@ -211,16 +211,16 @@ export function UtilitiesPage() {
             alignItems: "center",
             gap: "8px",
             minHeight: "80px",
-            background: "var(--kaze-color-bg-subtle, #f0f0f0)",
+            background: "var(--color-bg-secondary)",
             padding: "8px",
             borderRadius: "4px",
           }}
         >
-          <div style={{ padding: "4px 12px", background: "var(--kaze-color-primary-subtle, #e0e7ff)", borderRadius: "4px", height: "30px" }}>小</div>
-          <div style={{ padding: "4px 12px", background: "var(--kaze-color-primary-subtle, #e0e7ff)", borderRadius: "4px", height: "60px" }}>大</div>
-          <div style={{ padding: "4px 12px", background: "var(--kaze-color-primary-subtle, #e0e7ff)", borderRadius: "4px", height: "40px" }}>中</div>
+          <div style={{ padding: "4px 12px", background: "var(--color-bg-tertiary)", borderRadius: "4px", height: "30px" }}>小</div>
+          <div style={{ padding: "4px 12px", background: "var(--color-bg-tertiary)", borderRadius: "4px", height: "60px" }}>大</div>
+          <div style={{ padding: "4px 12px", background: "var(--color-bg-tertiary)", borderRadius: "4px", height: "40px" }}>中</div>
         </div>
-        <p style={{ marginTop: "4px", fontSize: "12px", color: "var(--kaze-color-text-muted, #888)" }}>
+        <p style={{ marginTop: "4px", fontSize: "12px", color: "var(--color-fg-tertiary)" }}>
           コンテナに .flex .items-center を適用
         </p>
       </div>
@@ -266,13 +266,13 @@ export function UtilitiesPage() {
             display: "flex",
             justifyContent: "space-between",
             padding: "8px",
-            background: "var(--kaze-color-bg-subtle, #f0f0f0)",
+            background: "var(--color-bg-secondary)",
             borderRadius: "4px",
           }}
         >
-          <div style={{ padding: "8px 16px", background: "var(--kaze-color-primary-subtle, #e0e7ff)", borderRadius: "4px" }}>A</div>
-          <div style={{ padding: "8px 16px", background: "var(--kaze-color-primary-subtle, #e0e7ff)", borderRadius: "4px" }}>B</div>
-          <div style={{ padding: "8px 16px", background: "var(--kaze-color-primary-subtle, #e0e7ff)", borderRadius: "4px" }}>C</div>
+          <div style={{ padding: "8px 16px", background: "var(--color-bg-tertiary)", borderRadius: "4px" }}>A</div>
+          <div style={{ padding: "8px 16px", background: "var(--color-bg-tertiary)", borderRadius: "4px" }}>B</div>
+          <div style={{ padding: "8px 16px", background: "var(--color-bg-tertiary)", borderRadius: "4px" }}>C</div>
         </div>
       </div>
 
@@ -303,9 +303,9 @@ export function UtilitiesPage() {
           .flex .gap-4（16px のギャップ）
         </p>
         <div style={{ display: "flex", gap: "16px" }}>
-          <div style={{ padding: "8px 16px", background: "var(--kaze-color-primary-subtle, #e0e7ff)", borderRadius: "4px" }}>Item</div>
-          <div style={{ padding: "8px 16px", background: "var(--kaze-color-primary-subtle, #e0e7ff)", borderRadius: "4px" }}>Item</div>
-          <div style={{ padding: "8px 16px", background: "var(--kaze-color-primary-subtle, #e0e7ff)", borderRadius: "4px" }}>Item</div>
+          <div style={{ padding: "8px 16px", background: "var(--color-bg-tertiary)", borderRadius: "4px" }}>Item</div>
+          <div style={{ padding: "8px 16px", background: "var(--color-bg-tertiary)", borderRadius: "4px" }}>Item</div>
+          <div style={{ padding: "8px 16px", background: "var(--color-bg-tertiary)", borderRadius: "4px" }}>Item</div>
         </div>
       </div>
 
@@ -361,7 +361,7 @@ export function UtilitiesPage() {
               key={n}
               style={{
                 padding: "16px",
-                background: "var(--kaze-color-primary-subtle, #e0e7ff)",
+                background: "var(--color-bg-tertiary)",
                 borderRadius: "4px",
                 textAlign: "center",
               }}
@@ -410,11 +410,11 @@ export function UtilitiesPage() {
       <div className={styles.preview}>
         <div style={{ display: "flex", gap: "16px", alignItems: "flex-start", flexWrap: "wrap" }}>
           {[2, 4, 6, 8].map((n) => (
-            <div key={n} style={{ background: "var(--kaze-color-bg-subtle, #f0f0f0)", borderRadius: "4px" }}>
+            <div key={n} style={{ background: "var(--color-bg-secondary)", borderRadius: "4px" }}>
               <div
                 style={{
                   padding: `${n * 4}px`,
-                  background: "var(--kaze-color-primary-subtle, #e0e7ff)",
+                  background: "var(--color-bg-tertiary)",
                   borderRadius: "4px",
                   fontSize: "12px",
                 }}
@@ -458,7 +458,7 @@ export function UtilitiesPage() {
             marginLeft: "auto",
             marginRight: "auto",
             padding: "12px",
-            background: "var(--kaze-color-primary-subtle, #e0e7ff)",
+            background: "var(--color-bg-tertiary)",
             borderRadius: "4px",
             textAlign: "center",
           }}
@@ -596,13 +596,13 @@ export function UtilitiesPage() {
       </table>
       <div className={styles.preview}>
         <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-          <div style={{ textAlign: "left", padding: "8px", background: "var(--kaze-color-bg-subtle, #f0f0f0)", borderRadius: "4px" }}>
+          <div style={{ textAlign: "left", padding: "8px", background: "var(--color-bg-secondary)", borderRadius: "4px" }}>
             .text-left
           </div>
-          <div style={{ textAlign: "center", padding: "8px", background: "var(--kaze-color-bg-subtle, #f0f0f0)", borderRadius: "4px" }}>
+          <div style={{ textAlign: "center", padding: "8px", background: "var(--color-bg-secondary)", borderRadius: "4px" }}>
             .text-center
           </div>
-          <div style={{ textAlign: "right", padding: "8px", background: "var(--kaze-color-bg-subtle, #f0f0f0)", borderRadius: "4px" }}>
+          <div style={{ textAlign: "right", padding: "8px", background: "var(--color-bg-secondary)", borderRadius: "4px" }}>
             .text-right
           </div>
         </div>
@@ -676,13 +676,13 @@ export function UtilitiesPage() {
             textOverflow: "ellipsis",
             whiteSpace: "nowrap",
             padding: "8px",
-            background: "var(--kaze-color-bg-subtle, #f0f0f0)",
+            background: "var(--color-bg-secondary)",
             borderRadius: "4px",
           }}
         >
           この文章はコンテナの幅を超えると省略記号で省略されます...
         </div>
-        <p style={{ marginTop: "4px", fontSize: "12px", color: "var(--kaze-color-text-muted, #888)" }}>
+        <p style={{ marginTop: "4px", fontSize: "12px", color: "var(--color-fg-tertiary)" }}>
           max-width を設定したコンテナに .truncate を適用
         </p>
       </div>
@@ -744,7 +744,7 @@ export function UtilitiesPage() {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                background: "var(--kaze-color-primary-subtle, #e0e7ff)",
+                background: "var(--color-bg-tertiary)",
                 borderRadius: radius,
                 fontSize: "11px",
                 textAlign: "center",
@@ -782,13 +782,13 @@ export function UtilitiesPage() {
       </table>
       <div className={styles.preview}>
         <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-          <div style={{ padding: "12px", border: "1px solid var(--kaze-color-border, #d0d0d0)", borderRadius: "4px" }}>
+          <div style={{ padding: "12px", border: "1px solid var(--color-border)", borderRadius: "4px" }}>
             .border
           </div>
-          <div style={{ padding: "12px", borderTop: "1px solid var(--kaze-color-border, #d0d0d0)" }}>
+          <div style={{ padding: "12px", borderTop: "1px solid var(--color-border)" }}>
             .border-t
           </div>
-          <div style={{ padding: "12px", borderBottom: "1px solid var(--kaze-color-border, #d0d0d0)" }}>
+          <div style={{ padding: "12px", borderBottom: "1px solid var(--color-border)" }}>
             .border-b
           </div>
         </div>
@@ -849,7 +849,7 @@ export function UtilitiesPage() {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                background: "var(--kaze-color-bg-default, #fff)",
+                background: "var(--color-bg)",
                 borderRadius: "8px",
                 boxShadow: shadow,
                 fontSize: "12px",
@@ -923,7 +923,7 @@ export function UtilitiesPage() {
               style={{
                 width,
                 padding: "8px 12px",
-                background: "var(--kaze-color-primary-subtle, #e0e7ff)",
+                background: "var(--color-bg-tertiary)",
                 borderRadius: "4px",
                 fontSize: "12px",
               }}

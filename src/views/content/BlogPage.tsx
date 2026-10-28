@@ -83,8 +83,8 @@ const articles = [
     title: "エッジワーカーで実現するエッジコンピューティング入門",
     excerpt:
       "サーバーレスの次のステップとして注目されるエッジコンピューティング。エッジワーカーを使った実装パターンをゼロから解説します。",
-    author: "中村 美咲",
-    authorFallback: "NM",
+    author: "宮田 千夏",
+    authorFallback: "MC",
     date: "2026年2月10日",
     likes: 167,
   },
@@ -96,8 +96,8 @@ const articles = [
     title: "エンジニアからプロダクトマネージャーへの転身記",
     excerpt:
       "5年間のフロントエンド開発経験を経てPMに転身した筆者が、技術バックグラウンドを活かしたプロダクトマネジメントの実践を語ります。",
-    author: "高橋 健太",
-    authorFallback: "TK",
+    author: "呉羽 直樹",
+    authorFallback: "KN",
     date: "2026年2月8日",
     likes: 189,
   },
@@ -136,7 +136,7 @@ const popularAuthors = [
   { name: "相楽 実咲", fallback: "SM", articles: 38 },
   { name: "堀内 昌平", fallback: "HS", articles: 35 },
   { name: "早瀬 遼平", fallback: "HR", articles: 29 },
-  { name: "中村 美咲", fallback: "NM", articles: 24 },
+  { name: "宮田 千夏", fallback: "MC", articles: 24 },
 ];
 
 /* ── Styles ─────────────────────────────────────────────────── */
@@ -446,12 +446,12 @@ const styles = {
 const trendingArticles = [
   {
     title: "Bunが実現する高速なJavaScriptランタイムの未来",
-    author: "山本 隆",
+    author: "野々村 圭",
     likes: 534,
   },
   {
     title: "WebAssemblyでブラウザゲーム開発を始めよう",
-    author: "石田 亮",
+    author: "志摩 このみ",
     likes: 412,
   },
   {
@@ -708,7 +708,7 @@ export function BlogPage() {
           <Card
             style={{
               ...styles.sidebarSection,
-              background: "var(--color-bg-muted, var(--color-bg-secondary))",
+              background: "var(--color-bg-secondary)",
               textAlign: "center" as const,
             }}
           >

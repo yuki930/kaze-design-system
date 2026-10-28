@@ -102,21 +102,21 @@ const tasks: Task[] = [
   { id: "KZ-139", title: "ダークモードのカラートークン調整", assignee: "綿貫 玲奈", assigneeInitials: "WR", priority: "高", dueDate: "2月22日", status: "レビュー待ち" },
   { id: "KZ-145", title: "Tableコンポーネントのソート機能", assignee: "大迫 航", assigneeInitials: "OK", priority: "中", dueDate: "3月1日", status: "未着手" },
   { id: "KZ-138", title: "Storybook v8へのマイグレーション", assignee: "三隅 拓海", assigneeInitials: "MT", priority: "中", dueDate: "3月5日", status: "進行中" },
-  { id: "KZ-150", title: "CI/CDパイプラインの最適化", assignee: "田村 裕子", assigneeInitials: "YT", priority: "低", dueDate: "3月10日", status: "未着手" },
+  { id: "KZ-150", title: "CI/CDパイプラインの最適化", assignee: "藤枝 蒼", assigneeInitials: "FA", priority: "低", dueDate: "3月10日", status: "未着手" },
 ];
 
 const teamMembers: TeamMember[] = [
   { name: "三隅 拓海", initials: "MT", role: "リードエンジニア", activeTasks: 5, maxTasks: 6, completedThisWeek: 8 },
   { name: "綿貫 玲奈", initials: "WR", role: "デザイナー", activeTasks: 3, maxTasks: 5, completedThisWeek: 5 },
   { name: "大迫 航", initials: "OK", role: "フロントエンド", activeTasks: 4, maxTasks: 6, completedThisWeek: 3 },
-  { name: "田村 裕子", initials: "YT", role: "バックエンド", activeTasks: 2, maxTasks: 5, completedThisWeek: 6 },
+  { name: "藤枝 蒼", initials: "FA", role: "バックエンド", activeTasks: 2, maxTasks: 5, completedThisWeek: 6 },
 ];
 
 const activities = [
   { time: "14:32", title: "三隅 拓海がKZ-142を進行中に変更", status: "info" as const },
   { time: "13:15", title: "綿貫 玲奈がKZ-139のレビューを依頼", status: "warning" as const },
   { time: "11:48", title: "大迫 航がKZ-136を完了", status: "positive" as const },
-  { time: "10:20", title: "田村 裕子がKZ-150を作成", status: "default" as const },
+  { time: "10:20", title: "藤枝 蒼がKZ-150を作成", status: "default" as const },
   { time: "09:05", title: "三隅 拓海がKZ-138にコメントを追加", status: "info" as const },
 ];
 

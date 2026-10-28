@@ -1,15 +1,18 @@
-import { forwardRef, type HTMLAttributes } from "react";
+import { forwardRef, type ComponentType, type HTMLAttributes } from "react";
 import { cn } from "@/lib/utils";
-import type { LucideIcon } from "lucide-react";
 
 export type IconSize = "xs" | "sm" | "md" | "lg" | "xl";
 
+/** Any icon component accepting `size` / `strokeWidth` (e.g. a lucide-react icon).
+ *  Typed structurally so the published types don't require lucide-react. */
+export type IconComponent = ComponentType<{ size?: number | string; strokeWidth?: number | string }>;
+
 export interface IconProps extends HTMLAttributes<HTMLSpanElement> {
-  /** A lucide-react icon component */
-  icon: LucideIcon;
+  /** An icon component such as a lucide-react icon */
+  icon: IconComponent;
   /** Size of the icon */
   size?: IconSize;
-  /** Accessible label — if omitted, the icon is decorative (aria-hidden) */
+  /** Accessible label. If omitted, the icon is decorative (aria-hidden) */
   label?: string;
 }
 

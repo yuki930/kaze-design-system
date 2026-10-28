@@ -480,8 +480,10 @@
 /* ── Dark Theme Fallback (JS-disabled) ────────────────────── */
 /* When JS is unavailable, respect OS dark mode preference.
    If JS sets data-theme="light", this will NOT apply (thanks to :not()).
-   If JS sets data-theme="dark", the [data-theme="dark"] block above
-   takes precedence due to higher specificity. */
+   If JS sets data-theme="dark", this block applies too (same values as
+   [data-theme="dark"]; :root:not(...) is the higher specificity).
+   The cool palette needs its own fallback below, otherwise this block
+   (0,2,0, later in source) overrides [data-palette="cool"][data-theme="dark"]. */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --color-bg:            var(--zinc-950);
@@ -547,5 +549,39 @@
     --shadow-xl:   0 16px 48px rgba(0, 0, 0, 0.5);
 
     --ring-color:  rgba(168, 162, 158, 0.3);
+  }
+}
+
+/* Cool palette × OS dark fallback (specificity 0,3,0 beats the zinc fallback) */
+@media (prefers-color-scheme: dark) {
+  :root[data-palette="cool"]:not([data-theme="light"]) {
+    --color-bg:            var(--slate-950);
+    --color-bg-secondary:  var(--slate-900);
+    --color-bg-tertiary:   var(--slate-800);
+    --color-bg-inverse:    #ffffff;
+
+    --color-fg:            var(--slate-50);
+    --color-fg-secondary:  var(--slate-400);
+    --color-fg-tertiary:   var(--slate-400);
+    --color-fg-inverse:    var(--slate-950);
+    --color-fg-muted:      var(--slate-400);
+
+    --color-border:        var(--slate-800);
+    --color-border-strong: var(--slate-700);
+    --color-border-subtle: var(--slate-900);
+
+    --color-surface:       var(--slate-900);
+    --color-surface-hover: var(--slate-800);
+    --color-surface-active: var(--slate-700);
+
+    --color-primary:       #ffffff;
+    --color-primary-fg:    var(--slate-950);
+    --color-primary-hover: var(--slate-200);
+
+    --color-secondary:     var(--slate-800);
+    --color-secondary-fg:  var(--slate-100);
+    --color-secondary-hover: var(--slate-700);
+
+    --ring-color:  rgba(204, 202, 216, 0.3);
   }
 }
