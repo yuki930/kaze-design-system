@@ -12,6 +12,19 @@ Commit prefix determines the next version bump on release:
 - `feat!:`, `fix!:`, `refactor!:` or a commit body containing `BREAKING CHANGE:` → **major** bump
 
 CHANGELOG entries and version bumps are generated automatically by `.github/workflows/publish.yml` on every push to `main` that touches library source files.
+## [0.6.0] - 2026-10-28
+
+### Bug Fixes
+
+- fix: セルフ点検で見つかった不具合・CI・ドキュメント・コンテンツの修正 (#32)
+
+### Other
+
+- ci: publish to npm via Trusted Publishing (OIDC) instead of NPM_TOKEN (#34)
+- ci: fix invalid publish workflow and allow manual releases (#33)
+- ci: add manual publish recovery workflow for tagged releases
+
+
 ## [0.5.0] - 2026-07-17
 
 ### Features
