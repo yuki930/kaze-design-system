@@ -1,8 +1,8 @@
 # kaze-design-system
 
-> Minimal React design system for dashboards, landing pages and Japanese UI: warm neutral grays, 63 components, light/dark themes, typography tuned for CJK text
+> Minimal React design system for dashboards, landing pages and Japanese UI: warm neutral grays, 69 components, SVG charts with zero dependencies, light/dark themes, typography tuned for CJK text
 
-kaze-design-system is a React 18/19 + TypeScript design system with 63 components in two layers: Application UI (dashboards, business apps) and Marketing (landing pages, importable from `kaze-design-system/marketing`). It is built around a warm neutral gray palette, optimized for Japanese typography (PALT enabled globally), uses CSS custom properties for theming (light/dark via `data-theme`, cool palette via `data-palette="cool"`, compact density via `data-density="compact"`), and ships as ESM with peer dependencies on react and react-dom (lucide-react optional).
+kaze-design-system is a React 18/19 + TypeScript design system with 69 components in two layers: Application UI (dashboards, business apps) and Marketing (landing pages, importable from `kaze-design-system/marketing`). It is built around a warm neutral gray palette, optimized for Japanese typography (PALT enabled globally), uses CSS custom properties for theming (light/dark via `data-theme`, cool palette via `data-palette="cool"`, compact density via `data-density="compact"`), and ships as ESM with peer dependencies on react and react-dom (lucide-react optional).
 
 ## Installation
 
@@ -36,6 +36,7 @@ import { Hero, PricingGrid } from "kaze-design-system/marketing";
 - [Switch](https://kaze-design-system.vercel.app/docs/components/switch): オン・オフを切り替えるトグルスイッチコンポーネント。ラベル付きで使用可能。
 - [FormField](https://kaze-design-system.vercel.app/docs/components/form-field): フォームフィールド
 - [FilterPill](https://kaze-design-system.vercel.app/docs/components/filter-pill): フィルター用ピル型トグルボタン
+- [SegmentedControl](https://kaze-design-system.vercel.app/docs/components/segmented-control): 単一選択のセグメント切り替え。期間（1W / 1M / 3M / 1Y）や表示モードの切り替えに。
 
 ### データ表示
 
@@ -54,6 +55,11 @@ import { Hero, PricingGrid } from "kaze-design-system/marketing";
 - [BarChart](https://kaze-design-system.vercel.app/docs/components/bar-chart): 水平棒グラフコンポーネント。データの比較を直感的に表示。
 - [DonutChart](https://kaze-design-system.vercel.app/docs/components/donut-chart): SVGベースのドーナツチャート。凡例とセンターラベル付き。
 - [Sparkline](https://kaze-design-system.vercel.app/docs/components/sparkline): インラインのミニ折れ線グラフ。テーブルやメトリクスの横に配置。
+- [LineChart](https://kaze-design-system.vercel.app/docs/components/line-chart): 時系列データの折れ線 / 面グラフ。複数系列、凡例での表示切替、ホバーとキーボードのツールチップに対応。SVG 手書きで依存ゼロ。
+- [ColumnChart](https://kaze-design-system.vercel.app/docs/components/column-chart): 縦棒グラフコンポーネント。複数系列をグループ表示・積み上げ表示で比較できる。カテゴリや期間の比較向け。
+- [Heatmap](https://kaze-design-system.vercel.app/docs/components/heatmap): 2次元の密度を単一色相の濃淡で見せるヒートマップ。曜日×時間帯などの行×列（matrix）と、日別カレンダー（calendar）に対応。
+- [CategoryBar](https://kaze-design-system.vercel.app/docs/components/category-bar): 構成比を1本の帯で見せるコンポーネント。予算消化やストレージ使用量の内訳、NPS の分布に。
+- [ChartLegend](https://kaze-design-system.vercel.app/docs/components/chart-legend): チャート共通の凡例。onToggle を渡すと系列の表示 / 非表示を切り替えるボタンになる。LineChart / ColumnChart の内部でも使用。
 
 ### フィードバック
 

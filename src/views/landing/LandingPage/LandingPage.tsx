@@ -83,7 +83,7 @@ const testimonials = [
 /* ── Stats data ───────────────────────────────────────────── */
 
 const stats = [
-  { value: "63", label: "コンポーネント" },
+  { value: "69", label: "コンポーネント" },
   { value: "0", label: "依存関係" },
   { value: "100%", label: "TypeScript" },
   { value: "23KB", label: "CSS gzip 合計" },

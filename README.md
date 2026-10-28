@@ -3,9 +3,9 @@
 [![npm version](https://img.shields.io/npm/v/kaze-design-system)](https://www.npmjs.com/package/kaze-design-system)
 [![GitHub](https://img.shields.io/github/license/yuki930/kaze-design-system)](https://github.com/yuki930/kaze-design-system/blob/main/LICENSE)
 
-**Kaze (風)** は、管理画面・ダッシュボード・金融系アプリのための React デザインシステムです。**白と温かみのあるグレーを基調にした静かな配色**と、日本語組版への丁寧な最適化（PALT・和欧混植・読みやすい行間）、そしてコピペで完結する 63 のコンポーネントを 1 パッケージにまとめています。派手な色や装飾ではなく「読みやすさ」「情報密度」「長時間見続けても疲れないこと」を設計の中心に置いています。
+**Kaze (風)** は、管理画面・ダッシュボード・金融系アプリのための React デザインシステムです。**白と温かみのあるグレーを基調にした静かな配色**と、日本語組版への丁寧な最適化（PALT・和欧混植・読みやすい行間）、そしてコピペで完結する 69 のコンポーネントを 1 パッケージにまとめています。派手な色や装飾ではなく「読みやすさ」「情報密度」「長時間見続けても疲れないこと」を設計の中心に置いています。
 
-- **63 コンポーネント**: フォーム、テーブル、チャート、ダッシュボード UI、ランディングページ、マーケティングパーツまで
+- **69 コンポーネント**: フォーム、テーブル、依存ゼロの SVG チャート（折れ線・縦棒・ヒートマップ等）、ダッシュボード UI、ランディングページ、マーケティングパーツまで
 - **日本語組版に最適化**: PALT グローバル適用、和欧混植、括弧ツメ、適切な line-height
 - **ライト / ダーク両対応**: `data-theme` 属性で切替、`prefers-color-scheme` 連動
 - **素の CSS + カスケードレイヤー**: `@layer tokens, reset, components, utilities` でカスケード管理、Tailwind/CSS-in-JS 不要
@@ -57,7 +57,7 @@ AI コーディングアシスタントは以下のファイルからライブ�
 - **Short index**: https://kaze-design-system.vercel.app/llms.txt
 - **Full API reference**: https://kaze-design-system.vercel.app/llms-full.txt
 
-`llms-full.txt` には 63 コンポーネントの `Props` / `Usage` / カテゴリが機械可読形式で含まれており、Storybook を参照しなくても正確なコード提案が可能です。[llmstxt.org](https://llmstxt.org) 準拠。
+`llms-full.txt` には 69 コンポーネントの `Props` / `Usage` / カテゴリが機械可読形式で含まれており、Storybook を参照しなくても正確なコード提案が可能です。[llmstxt.org](https://llmstxt.org) 準拠。
 
 ## インストール
 
@@ -122,7 +122,7 @@ function App() {
 kaze は1パッケージ・3レイヤーで構成されています。
 
 - **Foundation**: デザイントークン（カラー・タイポグラフィ・スペーシング）と CSS。両レイヤー共通の土台
-- **Application UI**: 管理画面・アプリ向けの52コンポーネント。`kaze-design-system` から import
+- **Application UI**: 管理画面・アプリ向けの58コンポーネント。`kaze-design-system` から import
 - **Marketing**: LP・キャンペーンページ向けの11コンポーネント。`kaze-design-system/marketing` から import
 
 ```tsx
@@ -133,15 +133,15 @@ import { Table, Sidebar, CommandPalette } from "kaze-design-system";
 import { Hero, PricingGrid, CTABanner } from "kaze-design-system/marketing";
 ```
 
-## コンポーネント一覧（63 コンポーネント）
+## コンポーネント一覧（69 コンポーネント）
 
-### Application UI（52）
+### Application UI（58）
 
 | カテゴリ | コンポーネント |
 |---|---|
-| **フォーム** | Button, FAB, Input, NumberField, Select, Checkbox, Radio, Textarea, Switch, FormField, FilterPill |
+| **フォーム** | Button, FAB, Input, NumberField, Select, Checkbox, Radio, Textarea, Switch, FormField, FilterPill, SegmentedControl |
 | **データ表示** | Card, Badge, StatusBadge, Table, Metric, Avatar, BarList, Tracker, Watermark |
-| **チャート** | BarChart, DonutChart, Sparkline |
+| **チャート** | BarChart, DonutChart, Sparkline, LineChart, ColumnChart, Heatmap, CategoryBar, ChartLegend |
 | **フィードバック** | Alert, Progress, Meter, Skeleton, EmptyState, Toast |
 | **ナビゲーション** | Tabs, Sidebar, TopBar, Breadcrumb, Pagination, Stepper, Disclosure |
 | **オーバーレイ** | Dialog, Tooltip, HelpButton, Dropdown, CommandPalette |
@@ -156,6 +156,51 @@ import { Hero, PricingGrid, CTABanner } from "kaze-design-system/marketing";
 
 詳細は [kaze-design-system.vercel.app/docs/components](https://kaze-design-system.vercel.app/docs/components) を参照してください。
 
+## チャート
+
+チャートはすべて SVG の手書き実装で、追加の依存はありません（recharts 等は不要）。色は `--chart-*` トークンを使うので、ダークモードとパレット切り替えに自動で追従します。
+
+| コンポーネント | 用途 |
+|---|---|
+| `LineChart` | 時系列の折れ線 / 面グラフ。複数系列、欠損値、ホバーとキーボードのツールチップ |
+| `ColumnChart` | 縦棒グラフ。グループ / 積み上げ、負の値 |
+| `BarChart` | 横棒のランキング |
+| `DonutChart` | 構成比のドーナツ |
+| `CategoryBar` | 構成比を 1 本の帯で。目標線マーカー付き |
+| `Heatmap` | 曜日×時間などの行列、日別カレンダー |
+| `Sparkline` | 表やカードに埋め込む小さな推移 |
+| `ChartLegend` | 系列の表示 / 非表示を切り替える凡例 |
+| `SegmentedControl` | 期間（1W / 1M / 1Y）や表示の切り替え |
+
+```tsx
+import { LineChart, SegmentedControl } from "kaze-design-system";
+
+<SegmentedControl
+  aria-label="期間"
+  options={[
+    { value: "1m", label: "1M" },
+    { value: "3m", label: "3M" },
+    { value: "1y", label: "1Y" },
+  ]}
+  defaultValue="3m"
+/>
+<LineChart
+  aria-label="月別の売上と利用者数"
+  index="month"
+  data={[
+    { month: "4月", sales: 320, users: 210 },
+    { month: "5月", sales: 340, users: 230 },
+    { month: "6月", sales: 310, users: 245 },
+  ]}
+  series={[
+    { key: "sales", label: "売上（万円）" },
+    { key: "users", label: "利用者数（人）" },
+  ]}
+  curve="monotone"
+  area
+/>
+```
+
 ## Hooks
 
 ```tsx
@@ -169,7 +214,7 @@ import { useFocusTrap, useLegendToggle } from "kaze-design-system/hooks";
 
 ## バンドルサイズ
 
-63 コンポーネント全部込みで **JS 38 kB gzip + CSS 23 kB gzip ≒ 61 kB gz**。ただし、個別 import すれば使った分だけが bundle に入ります。
+63 コンポーネント時点の計測で **JS 38 kB gzip + CSS 23 kB gzip ≒ 61 kB gz**。ただし、個別 import すれば使った分だけが bundle に入ります。
 
 | 区分 | 生サイズ | gzip |
 |---|---:|---:|

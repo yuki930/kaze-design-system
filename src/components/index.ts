@@ -51,6 +51,9 @@ export type {
 export { FilterPill } from "./FilterPill";
 export type { FilterPillProps } from "./FilterPill";
 
+export { SegmentedControl } from "./SegmentedControl";
+export type { SegmentedControlProps, SegmentedControlOption } from "./SegmentedControl";
+
 export { Input } from "./Input";
 export type { InputProps } from "./Input";
 
@@ -206,6 +209,21 @@ export type { DonutChartProps, DonutChartSegment } from "./DonutChart";
 
 export { Sparkline } from "./Sparkline";
 export type { SparklineProps } from "./Sparkline";
+
+export { LineChart } from "./LineChart";
+export type { LineChartProps, LineChartSeries, LineChartDatum } from "./LineChart";
+
+export { ColumnChart } from "./ColumnChart";
+export type { ColumnChartProps, ColumnChartSeries } from "./ColumnChart";
+
+export { Heatmap } from "./Heatmap";
+export type { HeatmapProps, HeatmapCell, HeatmapDatum } from "./Heatmap";
+
+export { CategoryBar } from "./CategoryBar";
+export type { CategoryBarProps, CategoryBarItem, CategoryBarMarker } from "./CategoryBar";
+
+export { ChartLegend } from "./ChartLegend";
+export type { ChartLegendProps, ChartLegendItem } from "./ChartLegend";
 
 /* ── Feedback & UI ─────────────────────────────────────────── */
 

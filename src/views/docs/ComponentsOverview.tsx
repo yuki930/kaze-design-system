@@ -38,6 +38,11 @@ const categories: Category[] = [
       { name: "Switch", path: "switch", description: "トグルスイッチ" },
       { name: "FormField", path: "form-field", description: "フォームフィールド" },
       { name: "FilterPill", path: "filter-pill", description: "フィルター用ピルトグル" },
+      {
+        name: "SegmentedControl",
+        path: "segmented-control",
+        description: "期間・表示の単一選択切り替え",
+      },
     ],
   },
   {
@@ -66,6 +71,19 @@ const categories: Category[] = [
       { name: "BarChart", path: "bar-chart", description: "棒グラフ" },
       { name: "DonutChart", path: "donut-chart", description: "ドーナツチャート" },
       { name: "Sparkline", path: "sparkline", description: "スパークライン" },
+      {
+        name: "LineChart",
+        path: "line-chart",
+        description: "折れ線・面グラフ（時系列、複数系列）",
+      },
+      {
+        name: "ColumnChart",
+        path: "column-chart",
+        description: "縦棒グラフ（グループ・積み上げ）",
+      },
+      { name: "Heatmap", path: "heatmap", description: "ヒートマップ（行列・カレンダー）" },
+      { name: "CategoryBar", path: "category-bar", description: "構成比バー" },
+      { name: "ChartLegend", path: "chart-legend", description: "チャート凡例（系列トグル）" },
     ],
   },
   {
