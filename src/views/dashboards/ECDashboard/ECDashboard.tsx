@@ -110,12 +110,12 @@ const orderStatusData: DonutChartSegment[] = [
 ];
 
 const recentOrders: Order[] = [
-  { orderId: "ORD-20250220-001", customer: "高橋 大輔", customerInitials: "DT", items: "ワイヤレスイヤホン 他2点", total: "¥18,500", status: "発送準備中", date: "14:25", payment: "クレジットカード" },
-  { orderId: "ORD-20250220-002", customer: "小林 さくら", customerInitials: "SK", items: "オーガニックコットンTシャツ", total: "¥4,980", status: "処理中", date: "13:58", payment: "PayPay" },
-  { orderId: "ORD-20250220-003", customer: "渡辺 拓也", customerInitials: "TW", items: "プロテインパウダー 3kg", total: "¥8,900", status: "配送済み", date: "12:30", payment: "クレジットカード" },
-  { orderId: "ORD-20250220-004", customer: "伊藤 美月", customerInitials: "MI", items: "スマートウォッチ Pro", total: "¥34,800", status: "配送済み", date: "11:45", payment: "銀行振込" },
-  { orderId: "ORD-20250220-005", customer: "木村 翔", customerInitials: "SK", items: "ランニングシューズ 26.5cm", total: "¥12,800", status: "キャンセル", date: "10:12", payment: "代引き" },
-  { orderId: "ORD-20250219-048", customer: "松本 里奈", customerInitials: "RM", items: "ヨガマット + ブロックセット", total: "¥6,480", status: "配送済み", date: "昨日", payment: "PayPay" },
+  { orderId: "ORD-20250220-001", customer: "相楽 実咲", customerInitials: "SM", items: "ワイヤレスイヤホン 他2点", total: "¥18,500", status: "発送準備中", date: "14:25", payment: "クレジットカード" },
+  { orderId: "ORD-20250220-002", customer: "堀内 昌平", customerInitials: "HS", items: "オーガニックコットンTシャツ", total: "¥4,980", status: "処理中", date: "13:58", payment: "PayPay" },
+  { orderId: "ORD-20250220-003", customer: "宮田 千夏", customerInitials: "MC", items: "プロテインパウダー 3kg", total: "¥8,900", status: "配送済み", date: "12:30", payment: "クレジットカード" },
+  { orderId: "ORD-20250220-004", customer: "呉羽 直樹", customerInitials: "KN", items: "スマートウォッチ Pro", total: "¥34,800", status: "配送済み", date: "11:45", payment: "銀行振込" },
+  { orderId: "ORD-20250220-005", customer: "桐生 あかね", customerInitials: "KA", items: "ランニングシューズ 26.5cm", total: "¥12,800", status: "キャンセル", date: "10:12", payment: "代引き" },
+  { orderId: "ORD-20250219-048", customer: "野々村 圭", customerInitials: "NK", items: "ヨガマット + ブロックセット", total: "¥6,480", status: "配送済み", date: "昨日", payment: "PayPay" },
 ];
 
 const topProducts: TopProduct[] = [

@@ -242,7 +242,7 @@ function generateStoryFile(componentName, folderName, args) {
 import { ${componentName} } from "./${folderName}";
 
 /**
- * Auto-generated minimal story — replace or extend to document variants.
+ * Auto-generated minimal story. Replace or extend to document variants.
  * See scripts/generate-stories.mjs.
  */
 const meta = {
@@ -289,7 +289,7 @@ function main() {
     }
 
     if (SKIP_FOLDERS.has(folder)) {
-      skipped.push({ folder, reason: "compound/complex — manual stories needed" });
+      skipped.push({ folder, reason: "compound/complex: manual stories needed" });
       continue;
     }
 

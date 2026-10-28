@@ -87,7 +87,7 @@ export function LoginPage() {
             <FormField label="メールアドレス" required>
               <Input
                 type="email"
-                placeholder="you@example.com"
+                placeholder="name@norn.co.jp"
                 autoComplete="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}

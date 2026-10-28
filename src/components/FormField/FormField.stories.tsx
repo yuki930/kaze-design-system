@@ -34,7 +34,7 @@ export const WithDescription: Story = {
   },
   render: (args) => (
     <FormField {...args}>
-      <Input type="email" placeholder="example@email.com" />
+      <Input type="email" placeholder="shohei.horiuchi@norn.co.jp" />
     </FormField>
   ),
 };
@@ -58,7 +58,7 @@ export const Required: Story = {
   },
   render: (args) => (
     <FormField {...args}>
-      <Input placeholder="株式会社サンプル" />
+      <Input placeholder="ノルン株式会社" />
     </FormField>
   ),
 };

@@ -1404,7 +1404,7 @@ import { Icon } from "kaze-design-system";
     description: "画像＋テキストの左右分割レイアウト。LP の交互セクションに最適。",
     preview: (
       <div style={{ border: "1px solid var(--color-border)", borderRadius: "var(--radius-lg)", overflow: "hidden" }}>
-        <SplitSection mediaBg="linear-gradient(135deg, #e7e4df 0%, #d6d2cc 50%, #a8a29e 100%)">
+        <SplitSection mediaBg="linear-gradient(135deg, var(--zinc-200) 0%, var(--zinc-300) 50%, var(--zinc-400) 100%)">
           <p style={{ fontSize: "var(--font-size-xs)", textTransform: "uppercase", letterSpacing: "0.1em", fontWeight: 600, color: "var(--color-fg-muted)", margin: 0 }}>機能紹介</p>
           <p style={{ fontSize: "var(--font-size-xl)", fontWeight: 700, margin: 0, lineHeight: "var(--line-height-tight)" }}>左右分割<br />レイアウト</p>
           <p style={{ color: "var(--color-fg-muted)", margin: 0 }}>mediaBg でグラデーションや画像を指定。reverse で左右反転。</p>
@@ -1417,7 +1417,7 @@ import { Icon } from "kaze-design-system";
       { name: "reverse", type: "boolean", default: "false", description: "テキスト左・画像右に反転" },
       { name: "children", type: "React.ReactNode", description: "テキストエリアの内容" },
     ],
-    usage: `<SplitSection mediaBg="linear-gradient(135deg, #e7e4df, #a8a29e)">
+    usage: `<SplitSection mediaBg="linear-gradient(135deg, var(--zinc-200), var(--zinc-400))">
   <Text variant="overline">Philosophy</Text>
   <Text size="2xl" weight="bold">見出しテキスト</Text>
   <Text variant="lead">説明テキスト</Text>

@@ -19,7 +19,7 @@ export const WithLabel: Story = {
   render: (args) => (
     <div>
       <label className="label">メールアドレス</label>
-      <Input {...args} placeholder="example@email.com" type="email" />
+      <Input {...args} placeholder="misaki.sagara@norn.co.jp" type="email" />
     </div>
   ),
 };

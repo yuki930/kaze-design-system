@@ -1,17 +1,17 @@
 import styles from "./docs.module.css";
 
 const zincColors = [
-  { name: "zinc-50", value: "#fafafa" },
-  { name: "zinc-100", value: "#f4f4f5" },
-  { name: "zinc-200", value: "#e4e4e7" },
-  { name: "zinc-300", value: "#d4d4d8" },
-  { name: "zinc-400", value: "#a1a1aa" },
-  { name: "zinc-500", value: "#71717a" },
-  { name: "zinc-600", value: "#52525b" },
-  { name: "zinc-700", value: "#3f3f46" },
-  { name: "zinc-800", value: "#27272a" },
-  { name: "zinc-900", value: "#18181b" },
-  { name: "zinc-950", value: "#09090b" },
+  { name: "zinc-50", value: "#faf9f7" },
+  { name: "zinc-100", value: "#f5f3f0" },
+  { name: "zinc-200", value: "#e7e4df" },
+  { name: "zinc-300", value: "#d6d2cc" },
+  { name: "zinc-400", value: "#a8a29e" },
+  { name: "zinc-500", value: "#78716c" },
+  { name: "zinc-600", value: "#57534e" },
+  { name: "zinc-700", value: "#44403c" },
+  { name: "zinc-800", value: "#292524" },
+  { name: "zinc-900", value: "#1c1917" },
+  { name: "zinc-950", value: "#0c0a09" },
 ];
 
 const statusColors = [
