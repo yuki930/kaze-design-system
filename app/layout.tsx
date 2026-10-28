@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Noto_Sans_JP, Montserrat } from "next/font/google";
 import { ThemeProvider } from "@/hooks";
+import { SourceLink } from "@/views/site/SourceLink";
 import "./globals.css";
 
 const notoSansJP = Noto_Sans_JP({
@@ -31,7 +32,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       className={`${notoSansJP.variable} ${montserrat.variable}`}
     >
       <body>
-        <ThemeProvider defaultTheme="light">{children}</ThemeProvider>
+        <ThemeProvider defaultTheme="light">
+          {children}
+          <SourceLink />
+        </ThemeProvider>
       </body>
     </html>
   );

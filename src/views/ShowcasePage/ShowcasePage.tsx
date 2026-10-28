@@ -62,6 +62,7 @@ import {
   Newspaper,
 } from "lucide-react";
 import styles from "./ShowcasePage.module.css";
+import { NPM_URL, REPO_URL, repoFileUrl } from "@/views/site/repo";
 
 /* ── Data ──────────────────────────────────────────────────────── */
 
@@ -381,7 +382,13 @@ export function ShowcasePage() {
             >
               {resolvedTheme === "light" ? <Moon size={18} /> : <Zap size={18} />}
             </Button>
-            <a href="#" className={styles.iconLink} aria-label="リポジトリ">
+            <a
+              href={REPO_URL}
+              target="_blank"
+              rel="noreferrer"
+              className={styles.iconLink}
+              aria-label="GitHub リポジトリ"
+            >
               <Button variant="ghost" size="sm" iconOnly aria-label="リポジトリ">
                 <Github size={18} />
               </Button>
@@ -397,7 +404,7 @@ export function ShowcasePage() {
             サンプル集
           </NavbarLink>
           <NavbarLink href="/docs">ドキュメント</NavbarLink>
-          <NavbarLink href="#" target="_blank">
+          <NavbarLink href={REPO_URL} target="_blank" rel="noreferrer">
             GitHub
           </NavbarLink>
         </NavbarLinks>
@@ -405,7 +412,7 @@ export function ShowcasePage() {
 
       {/* ── 2. Hero ────────────────────────────────────────────── */}
       <Hero
-        badge="v0.1 リリース"
+        badge={`v${process.env.NEXT_PUBLIC_KAZE_VERSION} リリース`}
         title="Kaze Design System"
         subtitle="風のように軽やかな、日本語に最適化されたデザインシステム。CSS-in-JS ランタイム不要の軽量設計で、React や Next.js にすぐ組み込めます。"
         className={styles.heroSection}
@@ -413,7 +420,7 @@ export function ShowcasePage() {
         <a href="/docs">
           <Button size="lg">ドキュメントを見る</Button>
         </a>
-        <a href="#">
+        <a href={REPO_URL} target="_blank" rel="noreferrer">
           <Button size="lg" variant="outline">
             <span className={styles.ctaGroup}>
               <Github size={16} />
@@ -691,7 +698,7 @@ export function ShowcasePage() {
           <a href="/docs">
             <Button size="lg">無料ではじめる</Button>
           </a>
-          <a href="#">
+          <a href={REPO_URL} target="_blank" rel="noreferrer">
             <Button size="lg" variant="outline">
               GitHubで見る
             </Button>
@@ -717,18 +724,17 @@ export function ShowcasePage() {
             title: "リソース",
             links: [
               { label: "ドキュメント", href: "/docs" },
-              { label: "はじめに", href: "/docs/getting-started" },
-              { label: "サンプル集", href: "/showcase" },
-              { label: "GitHub", href: "#" },
+              { label: "サンプル集", href: "/" },
+              { label: "GitHub", href: REPO_URL },
+              { label: "npm", href: NPM_URL },
             ],
           },
           {
             title: "コミュニティ",
             links: [
-              { label: "コミュニティフォーラム", href: "#" },
-              { label: "コントリビュート", href: "#" },
-              { label: "ライセンス", href: "#" },
-              { label: "行動規範", href: "#" },
+              { label: "Issues", href: `${REPO_URL}/issues` },
+              { label: "コントリビュート", href: repoFileUrl("CONTRIBUTING.md") },
+              { label: "ライセンス", href: repoFileUrl("LICENSE") },
             ],
           },
         ]}

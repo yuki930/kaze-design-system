@@ -228,7 +228,7 @@ export function PricingPage() {
               { label: "ドキュメント", href: "#" },
               { label: "はじめに", href: "#" },
               { label: "ブログ", href: "#" },
-              { label: "GitHub", href: "#" },
+              { label: "GitHub", href: "https://github.com/yuki930/kaze-design-system" },
             ],
           },
           {
