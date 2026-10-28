@@ -21,20 +21,20 @@ const componentCategoryData: {
   color: string;
   layer: ComponentLayer;
 }[] = [
-  { label: "フォーム", value: 11, color: "var(--chart-1)", layer: "application-ui" },
+  { label: "フォーム", value: 12, color: "var(--chart-1)", layer: "application-ui" },
   { label: "データ表示", value: 9, color: "var(--chart-3)", layer: "application-ui" },
+  { label: "チャート", value: 8, color: "var(--chart-8)", layer: "application-ui" },
   { label: "レイアウト", value: 8, color: "var(--chart-4)", layer: "application-ui" },
   { label: "ナビゲーション", value: 7, color: "var(--chart-5)", layer: "application-ui" },
   { label: "フィードバック", value: 6, color: "var(--chart-6)", layer: "application-ui" },
   { label: "オーバーレイ", value: 5, color: "var(--chart-7)", layer: "application-ui" },
-  { label: "チャート", value: 3, color: "var(--chart-8)", layer: "application-ui" },
   { label: "リスト", value: 3, color: "var(--chart-9)", layer: "application-ui" },
   { label: "マーケティング", value: 11, color: "var(--chart-2)", layer: "marketing" },
 ];
-const COMPONENT_TOTAL = componentCategoryData.reduce((s, c) => s + c.value, 0); // 63
+const COMPONENT_TOTAL = componentCategoryData.reduce((s, c) => s + c.value, 0); // 69
 const applicationUiCategoryData = componentCategoryData.filter((d) => d.layer === "application-ui");
 const marketingCategoryData = componentCategoryData.filter((d) => d.layer === "marketing");
-const APPLICATION_UI_TOTAL = applicationUiCategoryData.reduce((s, c) => s + c.value, 0); // 52
+const APPLICATION_UI_TOTAL = applicationUiCategoryData.reduce((s, c) => s + c.value, 0); // 58
 const MARKETING_TOTAL = marketingCategoryData.reduce((s, c) => s + c.value, 0); // 11
 
 // npm run build:lib 後、gzip 圧縮した各 CSS ファイルの実測サイズ（kB）

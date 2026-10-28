@@ -1,6 +1,6 @@
 # kaze-design-system: Full API Reference
 
-> Minimal React design system for dashboards, landing pages and Japanese UI: warm neutral grays, 63 components, light/dark themes, typography tuned for CJK text
+> Minimal React design system for dashboards, landing pages and Japanese UI: warm neutral grays, 69 components, SVG charts with zero dependencies, light/dark themes, typography tuned for CJK text
 
 Version: 0.6.1
 Site: https://kaze-design-system.vercel.app
@@ -379,6 +379,47 @@ Docs: https://kaze-design-system.vercel.app/docs/components/filter-pill
 <FilterPill>マーケティング</FilterPill>
 ```
 
+#### SegmentedControl
+
+単一選択のセグメント切り替え。期間（1W / 1M / 3M / 1Y）や表示モードの切り替えに。
+
+Docs: https://kaze-design-system.vercel.app/docs/components/segmented-control
+
+**Props**
+
+- `options`: `SegmentedControlOption[]`
+  - { value, label, disabled? } の配列
+- `value?`: `string`
+  - Controlled value
+- `defaultValue?`: `string`
+  - Initial value when uncontrolled
+- `onValueChange?`: `(value: string) => void`
+  - 選択変更時のコールバック
+- `size?`: `"sm" | "md"`
+  - Default: `"md"`
+  - サイズ
+- `fullWidth?`: `boolean`
+  - Default: `false`
+  - Stretch to the container width with equal-width segments
+- `name?`: `string`
+  - Group name, emitted on a hidden input for native form submission
+- `aria-label`: `string`
+  - 必須。radiogroup のラベル
+
+**Usage**
+
+```tsx
+<SegmentedControl
+  aria-label="期間"
+  value={period}
+  onValueChange={setPeriod}
+  options={[
+    { value: "1w", label: "1W" },
+    { value: "1m", label: "1M" },
+  ]}
+/>
+```
+
 ### データ表示
 
 #### Card
@@ -747,6 +788,272 @@ Docs: https://kaze-design-system.vercel.app/docs/components/sparkline
   data={[10, 15, 12, 20, 18, 25]}
   color="var(--chart-emerald)"
   showArea
+/>
+```
+
+#### LineChart
+
+時系列データの折れ線 / 面グラフ。複数系列、凡例での表示切替、ホバーとキーボードのツールチップに対応。SVG 手書きで依存ゼロ。
+
+Docs: https://kaze-design-system.vercel.app/docs/components/line-chart
+
+**Props**
+
+- `data`: `LineChartDatum[]`
+  - One row per x point. Missing values (null / undefined) break the line.
+- `index`: `string`
+  - Key of the x axis label in each row (e.g. "month")
+- `series`: `LineChartSeries[]`
+  - { key, label, color? } の配列。color 省略時は CHART_COLORS を順に使用
+- `height?`: `number`
+  - Chart height in px (default: 240)
+- `area?`: `boolean`
+  - Fill the area under each line with a flat low-opacity color
+- `curve?`: `"linear" | "monotone"`
+  - "monotone" is a monotone cubic interpolation that never overshoots (default: "linear")
+- `showGrid?`: `boolean`
+  - Show horizontal grid lines (default: true)
+- `showXAxis?`: `boolean`
+  - Show x axis labels (default: true)
+- `showYAxis?`: `boolean`
+  - Show y axis labels (default: true)
+- `showLegend?`: `boolean`
+  - Show the toggleable legend (default: true)
+- `showDots?`: `boolean`
+  - Always show point markers. The hovered point is shown regardless (default: false)
+- `yAxisWidth?`: `number`
+  - Width reserved for y axis labels in px (default: 48)
+- `formatValue?`: `(value: number) => string`
+  - Format values for y axis and tooltip
+- `aria-label`: `string`
+  - Accessible description of the chart (required)
+- `showGrid / showXAxis / showYAxis / showLegend?`: `boolean`
+  - 各要素の表示切替（既定: true）
+
+**Usage**
+
+```tsx
+<LineChart
+  aria-label="月別の売上と利用者数"
+  index="month"
+  data={[
+    { month: "4月", sales: 320, users: 210 },
+    { month: "5月", sales: 340, users: 230 },
+  ]}
+  series={[
+    { key: "sales", label: "売上（万円）" },
+    { key: "users", label: "利用者数（人）" },
+  ]}
+  curve="monotone"
+  area
+/>
+```
+
+#### ColumnChart
+
+縦棒グラフコンポーネント。複数系列をグループ表示・積み上げ表示で比較できる。カテゴリや期間の比較向け。
+
+Docs: https://kaze-design-system.vercel.app/docs/components/column-chart
+
+**Props**
+
+- `data`: `Record<string, string | number>[]`
+  - Rows of data. Each row holds a category label under `index` and one number per series key
+- `index`: `string`
+  - Field holding the category label (x axis)
+- `series`: `ColumnChartSeries[]`
+  - { key, label, color? } の配列。color 省略時は共通パレット
+- `layout?`: `"grouped" | "stacked"`
+  - Default: `"grouped"`
+  - "grouped" places series side by side, "stacked" stacks them (positive and negative separately)
+- `height?`: `number`
+  - Default: `240`
+  - Chart height in px (legend excluded)
+- `showGrid?`: `boolean`
+  - Default: `true`
+  - グリッド線の表示
+- `showXAxis?`: `boolean`
+  - Default: `true`
+  - x 軸ラベルの表示（多いときは間引く）
+- `showYAxis?`: `boolean`
+  - Default: `true`
+  - y 軸ラベルの表示
+- `showLegend?`: `boolean`
+  - Default: `true`
+  - 凡例の表示。クリックで系列の表示 / 非表示
+- `yAxisWidth?`: `number`
+  - Default: `48`
+  - Width in px reserved for y axis labels
+- `formatValue?`: `(value: number) => string`
+  - Formats axis labels and tooltip values
+- `barRadius?`: `number`
+  - Default: `2`
+  - Corner radius of the bar end that faces away from the baseline
+- `aria-label`: `string`
+  - Accessible label for the chart (required for accessibility)
+
+**Usage**
+
+```tsx
+<ColumnChart
+  aria-label="チャネル別の月次売上"
+  index="month"
+  layout="stacked"
+  data={[
+    { month: "4月", web: 420, app: 310 },
+    { month: "5月", web: 380, app: 340 },
+  ]}
+  series={[
+    { key: "web", label: "Web" },
+    { key: "app", label: "アプリ" },
+  ]}
+/>
+```
+
+#### Heatmap
+
+2次元の密度を単一色相の濃淡で見せるヒートマップ。曜日×時間帯などの行×列（matrix）と、日別カレンダー（calendar）に対応。
+
+Docs: https://kaze-design-system.vercel.app/docs/components/heatmap
+
+**Props**
+
+- `variant?`: `"matrix" | "calendar"`
+  - Default: `"matrix"`
+  - `matrix`: arbitrary rows x columns / `calendar`: one cell per day, a week per column
+- `rows?`: `string[]`
+  - matrix: row labels (top to bottom)
+- `columns?`: `string[]`
+  - matrix: column labels (left to right)
+- `values?`: `(number | null)[][]`
+  - matrix: `values[row][column]`. `null` renders an empty cell with no data
+- `data?`: `HeatmapDatum[]`
+  - calendar: daily values. Duplicate dates are summed
+- `startDate?`: `string`
+  - calendar: first day (`YYYY-MM-DD`). Defaults to the earliest date in `data`
+- `endDate?`: `string`
+  - calendar: last day (`YYYY-MM-DD`). Defaults to the latest date in `data`
+- `weekStartsOn?`: `0 | 1`
+  - Default: `1`
+  - calendar: first weekday of a week row. 0 = Sunday, 1 = Monday (default)
+- `color?`: `string`
+  - Default: `"var(--chart-1)"`
+  - Base color of the scale (any CSS color). Default `var(--chart-1)`
+- `levels?`: `number`
+  - Default: `5`
+  - Number of non-empty steps (default 5)
+- `max?`: `number`
+  - Value that maps to the darkest step. Defaults to the data maximum
+- `cellSize?`: `number`
+  - Default: `16`
+  - Cell edge length in px (default 16)
+- `gap?`: `number`
+  - Default: `3`
+  - Gap between cells in px (default 3)
+- `showLegend?`: `boolean`
+  - Default: `true`
+  - Show the "少 ... 多" legend (default true)
+- `formatValue?`: `(value: number) => string`
+  - ツールチップの値のフォーマット関数
+- `formatTooltip?`: `(cell: HeatmapCell) => string`
+  - Replace the tooltip text. When omitted a title and value row are shown
+- `aria-label`: `string`
+  - Accessible label for the chart (required for accessibility)
+- `startDate / endDate?`: `string`
+  - calendar: 表示範囲（省略時はデータの範囲）
+
+**Usage**
+
+```tsx
+<Heatmap
+  aria-label="曜日と時間帯別のアクセス数"
+  rows={["月", "火", "水"]}
+  columns={["9", "10", "11"]}
+  values={[
+    [12, 30, 48],
+    [8, 25, 44],
+    [10, 28, 50],
+  ]}
+/>
+
+<Heatmap
+  variant="calendar"
+  aria-label="直近 6 か月のアクティビティ"
+  data={[{ date: "2026-10-01", value: 5 }]}
+  startDate="2026-05-01"
+  endDate="2026-10-29"
+/>
+```
+
+#### CategoryBar
+
+構成比を1本の帯で見せるコンポーネント。予算消化やストレージ使用量の内訳、NPS の分布に。
+
+Docs: https://kaze-design-system.vercel.app/docs/components/category-bar
+
+**Props**
+
+- `data`: `CategoryBarItem[]`
+  - Segments, drawn in order. Non-positive values are ignored
+- `marker?`: `CategoryBarMarker`
+  - Marker such as a target line, positioned against the total
+- `showLabels?`: `boolean`
+  - Default: `true`
+  - Show the legend (label + value / %) below the bar
+- `showPercent?`: `boolean`
+  - Default: `false`
+  - Include the percentage in the legend
+- `height?`: `number`
+  - Default: `8`
+  - Bar thickness in px
+- `formatValue?`: `(value: number) => string`
+  - Value formatter for legend, title and screen reader text
+- `aria-label`: `string`
+  - 必須。内訳は非表示テキストで読み上げられる
+
+**Usage**
+
+```tsx
+<CategoryBar
+  aria-label="ストレージ使用量の内訳"
+  showPercent
+  data={[
+    { label: "ドキュメント", value: 42 },
+    { label: "画像", value: 28 },
+  ]}
+  formatValue={(v) => `${v} GB`}
+/>
+```
+
+#### ChartLegend
+
+チャート共通の凡例。onToggle を渡すと系列の表示 / 非表示を切り替えるボタンになる。LineChart / ColumnChart の内部でも使用。
+
+Docs: https://kaze-design-system.vercel.app/docs/components/chart-legend
+
+**Props**
+
+- `items`: `ChartLegendItem[]`
+  - { key, label, color } の配列
+- `hidden?`: `readonly string[]`
+  - Keys of series that are currently hidden (rendered dimmed)
+- `onToggle?`: `(key: string) => void`
+  - When provided, items become toggle buttons (aria-pressed)
+
+**Usage**
+
+```tsx
+const [hidden, setHidden] = useState<string[]>([]);
+
+<ChartLegend
+  items={[
+    { key: "web", label: "Web", color: "var(--chart-1)" },
+    { key: "ios", label: "iOS", color: "var(--chart-2)" },
+  ]}
+  hidden={hidden}
+  onToggle={(key) =>
+    setHidden((prev) => (prev.includes(key) ? prev.filter((k) => k !== key) : [...prev, key]))
+  }
 />
 ```
 

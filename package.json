@@ -12,7 +12,7 @@
   "bugs": {
     "url": "https://github.com/yuki930/kaze-design-system/issues"
   },
-  "description": "Minimal React design system for dashboards, landing pages and Japanese UI: warm neutral grays, 63 components, light/dark themes, typography tuned for CJK text",
+  "description": "Minimal React design system for dashboards, landing pages and Japanese UI: warm neutral grays, 69 components, SVG charts with zero dependencies, light/dark themes, typography tuned for CJK text",
   "keywords": [
     "design-system",
     "react",

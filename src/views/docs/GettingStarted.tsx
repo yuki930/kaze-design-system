@@ -125,7 +125,7 @@ function App() {
       {/* Available Components */}
       <h2 className={styles.sectionTitle}>収録コンポーネント</h2>
       <p>
-        Kaze には 9 カテゴリ・63 個のプロダクション対応コンポーネントが含まれています。 詳細は{" "}
+        Kaze には 9 カテゴリ・69 個のプロダクション対応コンポーネントが含まれています。 詳細は{" "}
         <a href="/docs/components" style={{ color: "var(--color-info-fg)" }}>
           コンポーネント一覧
         </a>

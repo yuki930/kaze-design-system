@@ -25,6 +25,12 @@ import {
   Divider,
   Search as SearchComponent,
   Logo,
+  LineChart,
+  ColumnChart,
+  Heatmap,
+  CategoryBar,
+  ChartLegend,
+  SegmentedControl,
 } from "@/components";
 import { Tooltip } from "@/components/Tooltip/Tooltip";
 import { Icon } from "@/components/Icon/Icon";
@@ -108,6 +114,14 @@ interface ComponentDoc {
   props: PropDoc[];
   usage: string;
 }
+
+/** Deterministic daily values for the Heatmap calendar preview (no Math.random: stable SSR). */
+const heatmapCalendarDemo = Array.from({ length: 182 }, (_, i) => {
+  const d = new Date(Date.UTC(2026, 4, 1 + i));
+  const weekday = d.getUTCDay();
+  const base = weekday === 0 || weekday === 6 ? 1 : 6;
+  return { date: d.toISOString().slice(0, 10), value: ((i * 37) % 11) + base - (i % 5) };
+}).filter((d) => d.value > 0);
 
 const componentDocs: Record<string, ComponentDoc> = {
   button: {
@@ -2291,6 +2305,387 @@ import { Icon } from "kaze-design-system";
 />`,
   },
 
+  "line-chart": {
+    title: "LineChart",
+    description:
+      "時系列データの折れ線 / 面グラフ。複数系列、凡例での表示切替、ホバーとキーボードのツールチップに対応。SVG 手書きで依存ゼロ。",
+    preview: (
+      <LineChart
+        aria-label="月別の売上と利用者数"
+        index="month"
+        data={[
+          { month: "4月", sales: 320, users: 210 },
+          { month: "5月", sales: 340, users: 230 },
+          { month: "6月", sales: 310, users: 245 },
+          { month: "7月", sales: 390, users: 260 },
+          { month: "8月", sales: 420, users: 300 },
+          { month: "9月", sales: 460, users: 310 },
+          { month: "10月", sales: 450, users: 340 },
+          { month: "11月", sales: 510, users: 360 },
+        ]}
+        series={[
+          { key: "sales", label: "売上（万円）" },
+          { key: "users", label: "利用者数（人）" },
+        ]}
+        curve="monotone"
+        area
+      />
+    ),
+    props: [
+      {
+        name: "data",
+        type: "Record<string, string | number | null>[]",
+        description: "1 行が 1 つの x 点。null / undefined は線を途切れさせる",
+      },
+      { name: "index", type: "string", description: 'x 軸ラベルに使うキー（例: "month"）' },
+      {
+        name: "series",
+        type: "LineChartSeries[]",
+        description: "{ key, label, color? } の配列。color 省略時は CHART_COLORS を順に使用",
+      },
+      { name: "height", type: "number", description: "高さ（px）。幅は親要素に追従（既定: 240）" },
+      {
+        name: "area",
+        type: "boolean",
+        description: "線の下を単色の低不透明度で塗る（既定: false）",
+      },
+      {
+        name: "curve",
+        type: '"linear" | "monotone"',
+        description: "monotone は行き過ぎない単調な 3 次補間（既定: linear）",
+      },
+      {
+        name: "showGrid / showXAxis / showYAxis / showLegend",
+        type: "boolean",
+        description: "各要素の表示切替（既定: true）",
+      },
+      {
+        name: "showDots",
+        type: "boolean",
+        description: "常に点を表示。ホバー中の点は常に表示（既定: false）",
+      },
+      { name: "yAxisWidth", type: "number", description: "y 軸ラベルの幅（既定: 48）" },
+      {
+        name: "formatValue",
+        type: "(value: number) => string",
+        description: "y 軸とツールチップの値フォーマット",
+      },
+      { name: "aria-label", type: "string", description: "グラフの説明（必須）" },
+    ],
+    usage: `<LineChart
+  aria-label="月別の売上と利用者数"
+  index="month"
+  data={[
+    { month: "4月", sales: 320, users: 210 },
+    { month: "5月", sales: 340, users: 230 },
+  ]}
+  series={[
+    { key: "sales", label: "売上（万円）" },
+    { key: "users", label: "利用者数（人）" },
+  ]}
+  curve="monotone"
+  area
+/>`,
+  },
+
+  "column-chart": {
+    title: "ColumnChart",
+    description:
+      "縦棒グラフコンポーネント。複数系列をグループ表示・積み上げ表示で比較できる。カテゴリや期間の比較向け。",
+    preview: (
+      <ColumnChart
+        aria-label="チャネル別の月次売上"
+        index="month"
+        layout="stacked"
+        data={[
+          { month: "4月", web: 420, app: 310, store: 180 },
+          { month: "5月", web: 380, app: 340, store: 210 },
+          { month: "6月", web: 520, app: 390, store: 240 },
+          { month: "7月", web: 610, app: 420, store: 230 },
+          { month: "8月", web: 570, app: 480, store: 260 },
+          { month: "9月", web: 690, app: 510, store: 290 },
+        ]}
+        series={[
+          { key: "web", label: "Web" },
+          { key: "app", label: "アプリ" },
+          { key: "store", label: "店舗" },
+        ]}
+        formatValue={(v) => `${v}万円`}
+        yAxisWidth={64}
+      />
+    ),
+    props: [
+      {
+        name: "data",
+        type: "Record<string, string | number>[]",
+        description: "カテゴリ名と系列ごとの値を持つ行の配列",
+      },
+      { name: "index", type: "string", description: "カテゴリ名（x 軸）を持つフィールド名" },
+      {
+        name: "series",
+        type: "ColumnChartSeries[]",
+        description: "{ key, label, color? } の配列。color 省略時は共通パレット",
+      },
+      {
+        name: "layout",
+        type: '"grouped" | "stacked"',
+        default: '"grouped"',
+        description: "横に並べる / 積み上げる。積み上げは正負を別々に積む",
+      },
+      {
+        name: "height",
+        type: "number",
+        default: "240",
+        description: "グラフの高さ（px）。幅は親要素に追従",
+      },
+      { name: "showGrid", type: "boolean", default: "true", description: "グリッド線の表示" },
+      {
+        name: "showXAxis",
+        type: "boolean",
+        default: "true",
+        description: "x 軸ラベルの表示（多いときは間引く）",
+      },
+      { name: "showYAxis", type: "boolean", default: "true", description: "y 軸ラベルの表示" },
+      {
+        name: "showLegend",
+        type: "boolean",
+        default: "true",
+        description: "凡例の表示。クリックで系列の表示 / 非表示",
+      },
+      { name: "yAxisWidth", type: "number", default: "48", description: "y 軸ラベルの幅（px）" },
+      {
+        name: "formatValue",
+        type: "(value: number) => string",
+        description: "軸とツールチップの値フォーマット",
+      },
+      { name: "barRadius", type: "number", default: "2", description: "棒の先端の角丸（px）" },
+      {
+        name: "aria-label",
+        type: "string",
+        description: "グラフの説明（アクセシビリティ用、必須）",
+      },
+    ],
+    usage: `<ColumnChart
+  aria-label="チャネル別の月次売上"
+  index="month"
+  layout="stacked"
+  data={[
+    { month: "4月", web: 420, app: 310 },
+    { month: "5月", web: 380, app: 340 },
+  ]}
+  series={[
+    { key: "web", label: "Web" },
+    { key: "app", label: "アプリ" },
+  ]}
+/>`,
+  },
+
+  heatmap: {
+    title: "Heatmap",
+    description:
+      "2次元の密度を単一色相の濃淡で見せるヒートマップ。曜日×時間帯などの行×列（matrix）と、日別カレンダー（calendar）に対応。",
+    preview: (
+      <div style={{ display: "grid", gap: "var(--space-6)" }}>
+        <Heatmap
+          aria-label="曜日と時間帯別のアクセス数"
+          rows={["月", "火", "水", "木", "金"]}
+          columns={["9", "10", "11", "12", "13", "14", "15", "16", "17"]}
+          values={[
+            [12, 30, 48, 20, 15, 52, 60, 41, 18],
+            [8, 25, 44, 22, 18, 49, 58, 39, 14],
+            [10, 28, 50, 19, 16, 55, 62, 44, 20],
+            [9, 26, 46, 21, 17, 51, 57, 40, 16],
+            [14, 32, 40, 24, 12, 38, 45, 30, 10],
+          ]}
+        />
+        <Heatmap
+          variant="calendar"
+          aria-label="直近 6 か月のアクティビティ"
+          startDate="2026-05-01"
+          endDate="2026-10-29"
+          data={heatmapCalendarDemo}
+        />
+      </div>
+    ),
+    props: [
+      {
+        name: "variant",
+        type: '"matrix" | "calendar"',
+        default: '"matrix"',
+        description: "行×列か、日別カレンダーか",
+      },
+      { name: "rows", type: "string[]", description: "matrix: 行ラベル" },
+      { name: "columns", type: "string[]", description: "matrix: 列ラベル" },
+      {
+        name: "values",
+        type: "(number | null)[][]",
+        description: "matrix: values[行][列]。null はデータなし",
+      },
+      {
+        name: "data",
+        type: "{ date: string; value: number }[]",
+        description: "calendar: 日別の値（date は YYYY-MM-DD。同日は合計）",
+      },
+      {
+        name: "startDate / endDate",
+        type: "string",
+        description: "calendar: 表示範囲（省略時はデータの範囲）",
+      },
+      {
+        name: "weekStartsOn",
+        type: "0 | 1",
+        default: "1",
+        description: "calendar: 週の開始曜日（0 = 日曜, 1 = 月曜）",
+      },
+      {
+        name: "color",
+        type: "string",
+        default: '"var(--chart-1)"',
+        description: "濃淡のベース色",
+      },
+      { name: "levels", type: "number", default: "5", description: "濃淡の段階数" },
+      { name: "max", type: "number", description: "最も濃くなる値（省略時はデータの最大値）" },
+      { name: "cellSize", type: "number", default: "16", description: "セルの一辺（px）" },
+      { name: "gap", type: "number", default: "3", description: "セル間の余白（px）" },
+      { name: "showLegend", type: "boolean", default: "true", description: "「少 … 多」の凡例" },
+      {
+        name: "formatValue",
+        type: "(value: number) => string",
+        description: "ツールチップの値のフォーマット関数",
+      },
+      {
+        name: "formatTooltip",
+        type: "(cell: HeatmapCell) => string",
+        description: "ツールチップ全文の差し替え",
+      },
+      {
+        name: "aria-label",
+        type: "string",
+        description: "アクセシビリティ用ラベル（必須）",
+      },
+    ],
+    usage: `<Heatmap
+  aria-label="曜日と時間帯別のアクセス数"
+  rows={["月", "火", "水"]}
+  columns={["9", "10", "11"]}
+  values={[
+    [12, 30, 48],
+    [8, 25, 44],
+    [10, 28, 50],
+  ]}
+/>
+
+<Heatmap
+  variant="calendar"
+  aria-label="直近 6 か月のアクティビティ"
+  data={[{ date: "2026-10-01", value: 5 }]}
+  startDate="2026-05-01"
+  endDate="2026-10-29"
+/>`,
+  },
+
+  "category-bar": {
+    title: "CategoryBar",
+    description:
+      "構成比を1本の帯で見せるコンポーネント。予算消化やストレージ使用量の内訳、NPS の分布に。",
+    preview: (
+      <CategoryBar
+        aria-label="ストレージ使用量の内訳"
+        showPercent
+        data={[
+          { label: "ドキュメント", value: 42 },
+          { label: "画像", value: 28 },
+          { label: "動画", value: 18 },
+          { label: "その他", value: 12 },
+        ]}
+        marker={{ value: 80, label: "警告ライン" }}
+        formatValue={(v) => `${v} GB`}
+      />
+    ),
+    props: [
+      {
+        name: "data",
+        type: "CategoryBarItem[]",
+        description: "{ label, value, color? } の配列。color 省略時は --chart-* を順に使用",
+      },
+      {
+        name: "marker",
+        type: "{ value: number; label?: string }",
+        description: "目標線など。合計に対する位置に表示",
+      },
+      {
+        name: "showLabels",
+        type: "boolean",
+        default: "true",
+        description: "下に凡例（ラベル + 値）を表示するか",
+      },
+      {
+        name: "showPercent",
+        type: "boolean",
+        default: "false",
+        description: "凡例に % を表示するか",
+      },
+      { name: "height", type: "number", default: "8", description: "帯の太さ（px）" },
+      {
+        name: "formatValue",
+        type: "(value: number) => string",
+        description: "値のフォーマット関数",
+      },
+      {
+        name: "aria-label",
+        type: "string",
+        description: "必須。内訳は非表示テキストで読み上げられる",
+      },
+    ],
+    usage: `<CategoryBar
+  aria-label="ストレージ使用量の内訳"
+  showPercent
+  data={[
+    { label: "ドキュメント", value: 42 },
+    { label: "画像", value: 28 },
+  ]}
+  formatValue={(v) => \`\${v} GB\`}
+/>`,
+  },
+
+  "chart-legend": {
+    title: "ChartLegend",
+    description:
+      "チャート共通の凡例。onToggle を渡すと系列の表示 / 非表示を切り替えるボタンになる。LineChart / ColumnChart の内部でも使用。",
+    preview: (
+      <ChartLegend
+        items={[
+          { key: "web", label: "Web", color: "var(--chart-1)" },
+          { key: "ios", label: "iOS", color: "var(--chart-2)" },
+          { key: "android", label: "Android", color: "var(--chart-3)" },
+        ]}
+        hidden={["android"]}
+        onToggle={() => {}}
+      />
+    ),
+    props: [
+      { name: "items", type: "ChartLegendItem[]", description: "{ key, label, color } の配列" },
+      { name: "hidden", type: "string[]", description: "非表示中の系列 key（薄く表示）" },
+      {
+        name: "onToggle",
+        type: "(key: string) => void",
+        description: "指定すると各項目が aria-pressed 付きのトグルボタンになる",
+      },
+    ],
+    usage: `const [hidden, setHidden] = useState<string[]>([]);
+
+<ChartLegend
+  items={[
+    { key: "web", label: "Web", color: "var(--chart-1)" },
+    { key: "ios", label: "iOS", color: "var(--chart-2)" },
+  ]}
+  hidden={hidden}
+  onToggle={(key) =>
+    setHidden((prev) => (prev.includes(key) ? prev.filter((k) => k !== key) : [...prev, key]))
+  }
+/>`,
+  },
+
   "donut-chart": {
     title: "DonutChart",
     description: "SVGベースのドーナツチャート。凡例とセンターラベル付き。",
@@ -3046,6 +3441,56 @@ import { Icon } from "kaze-design-system";
   value={15000}
   currency="JPY"
   onChange={(v) => setValue(v)}
+/>`,
+  },
+
+  "segmented-control": {
+    title: "SegmentedControl",
+    description:
+      "単一選択のセグメント切り替え。期間（1W / 1M / 3M / 1Y）や表示モードの切り替えに。",
+    preview: (
+      <SegmentedControl
+        aria-label="期間"
+        defaultValue="1m"
+        options={[
+          { value: "1w", label: "1W" },
+          { value: "1m", label: "1M" },
+          { value: "3m", label: "3M" },
+          { value: "1y", label: "1Y" },
+        ]}
+      />
+    ),
+    props: [
+      {
+        name: "options",
+        type: "SegmentedControlOption[]",
+        description: "{ value, label, disabled? } の配列",
+      },
+      { name: "value", type: "string", description: "選択値（controlled）" },
+      { name: "defaultValue", type: "string", description: "初期値（uncontrolled）" },
+      {
+        name: "onValueChange",
+        type: "(value: string) => void",
+        description: "選択変更時のコールバック",
+      },
+      { name: "size", type: '"sm" | "md"', default: '"md"', description: "サイズ" },
+      {
+        name: "fullWidth",
+        type: "boolean",
+        default: "false",
+        description: "幅いっぱいに等分して広げる",
+      },
+      { name: "name", type: "string", description: "指定すると hidden input でフォーム送信できる" },
+      { name: "aria-label", type: "string", description: "必須。radiogroup のラベル" },
+    ],
+    usage: `<SegmentedControl
+  aria-label="期間"
+  value={period}
+  onValueChange={setPeriod}
+  options={[
+    { value: "1w", label: "1W" },
+    { value: "1m", label: "1M" },
+  ]}
 />`,
   },
 
