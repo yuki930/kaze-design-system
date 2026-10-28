@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useTheme } from "@/hooks";
 import { Logo } from "@/components/Logo";
 import styles from "@/views/docs/docs.module.css";
+import { NPM_URL, REPO_URL } from "@/views/site/repo";
 
 const navSections = [
   {
@@ -143,6 +144,14 @@ export default function DocsLayoutWrapper({ children }: { children: React.ReactN
           <Link href="/" className={styles.navLink}>
             サンプル集
           </Link>
+          <div className={styles.externalLinks}>
+            <a href={REPO_URL} target="_blank" rel="noreferrer" className={styles.externalLink}>
+              GitHub
+            </a>
+            <a href={NPM_URL} target="_blank" rel="noreferrer" className={styles.externalLink}>
+              npm
+            </a>
+          </div>
         </div>
       </aside>
 

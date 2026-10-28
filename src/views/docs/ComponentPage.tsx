@@ -1,4 +1,5 @@
 import styles from "./docs.module.css";
+import { repoTreeUrl } from "@/views/site/repo";
 import {
   Button,
   Input,
@@ -1847,7 +1848,7 @@ import { Icon } from "kaze-design-system";
               title: "リソース",
               links: [
                 { label: "ドキュメント", href: "#" },
-                { label: "GitHub", href: "#" },
+                { label: "GitHub", href: "https://github.com/yuki930/kaze-design-system" },
               ],
             },
           ]}
@@ -3084,6 +3085,12 @@ import { Icon } from "kaze-design-system";
   },
 };
 
+/** "Layout (AppLayout)" -> "Layout", "BarChart" -> "BarChart" */
+function componentFolder(title: string): string {
+  const head = title.split(/[\s(]/)[0] ?? title;
+  return head === "AppLayout" ? "Layout" : head;
+}
+
 export function ComponentPage({ name }: { name?: string } = {}) {
   const doc = name ? componentDocs[name] : undefined;
 
@@ -3103,6 +3110,15 @@ export function ComponentPage({ name }: { name?: string } = {}) {
     <div>
       <h1 className={styles.pageTitle}>{doc.title}</h1>
       <p className={styles.pageDescription}>{doc.description}</p>
+      <p className={styles.sourceLink}>
+        <a
+          href={repoTreeUrl(`src/components/${componentFolder(doc.title)}`)}
+          target="_blank"
+          rel="noreferrer"
+        >
+          GitHub でソースを見る
+        </a>
+      </p>
 
       <h2 className={styles.sectionTitle}>プレビュー</h2>
       {doc.preview}
