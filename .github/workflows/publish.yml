@@ -31,6 +31,15 @@ on:
       - '!src/hooks/**/*.stories.tsx'
       - '!src/hooks/**/*.test.tsx'
       - '!src/hooks/**/*.test.ts'
+  # Manual release, e.g. when a merge only touched files outside `paths`
+  # or a squash merge lost the commit type that should decide the bump.
+  workflow_dispatch:
+    inputs:
+      bump:
+        description: "auto = decide from commit messages"
+        type: choice
+        options: [auto, patch, minor, major]
+        default: auto
 
 # Two quick pushes to main must not compute the same version in parallel.
 concurrency:
@@ -42,7 +51,7 @@ jobs:
     runs-on: ubuntu-latest
     # Skip runs created by the release bot itself (defense in depth —
     # GITHUB_TOKEN pushes should not re-trigger workflows, but we guard anyway).
-    if: "!startsWith(github.event.head_commit.message, 'release:')"
+    if: github.event_name == 'workflow_dispatch' || !startsWith(github.event.head_commit.message, 'release:')
     permissions:
       contents: write
     steps:
@@ -69,6 +78,8 @@ jobs:
 
       - name: Determine semver bump from conventional commits
         id: bump
+        env:
+          BUMP_OVERRIDE: ${{ inputs.bump }}
         run: |
           # Find the last release tag (format: vX.Y.Z). If none, fall back
           # to the repo's initial commit.
@@ -89,6 +100,9 @@ jobs:
           elif echo "$COMMITS" | grep -qE '^feat(\([^)]+\))?:'; then
             BUMP="minor"
           fi
+          if [ -n "$BUMP_OVERRIDE" ] && [ "$BUMP_OVERRIDE" != "auto" ]; then
+            BUMP="$BUMP_OVERRIDE"
+          fi
           echo "bump=$BUMP" >> "$GITHUB_OUTPUT"
           echo "Selected bump: $BUMP"
 
@@ -107,7 +121,7 @@ jobs:
           OTHER=$(git log $RANGE --pretty=format:'- %s' --grep='^\(perf\|refactor\|docs\|chore\|build\|ci\)' || true)
 
           # Written to a file (not a step output) so commit subjects are never
-          # interpolated into a shell script via ${{ }}.
+          # interpolated into a shell script through an Actions expression.
           {
             if [ -n "$FEATURES" ]; then
               echo '### Features'
