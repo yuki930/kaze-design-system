@@ -7,9 +7,9 @@ export interface HeroProps extends HTMLAttributes<HTMLElement> {
   badge?: string;
   title: string;
   subtitle?: string;
-  /** Background color — any CSS value, e.g. "var(--blue-500)" */
+  /** Background color: any CSS value, e.g. "var(--blue-500)" */
   bg?: string;
-  /** Background image — URL or CSS gradient, e.g. "url(...)" or "linear-gradient(...)" */
+  /** Background image: URL or CSS gradient, e.g. "url(...)" or "linear-gradient(...)" */
   bgImage?: string;
   /** Dark overlay opacity (0–1). true = 0.5. Useful for readability on images. */
   overlay?: boolean | number;

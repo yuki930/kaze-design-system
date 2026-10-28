@@ -128,7 +128,7 @@ Tabs.displayName = "Tabs";
 export interface TabProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   active?: boolean;
   id?: string;
-  /** Tab の value — aria-controls / id の自動生成に使用 */
+  /** Tab の value。aria-controls / id の自動生成に使用 */
   value?: string;
 }
 

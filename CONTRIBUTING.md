@@ -50,7 +50,7 @@ npm install
 | `refactor:` | リファクタ（API 不変） | patch |
 | `docs:` | ドキュメント変更のみ | patch（※ 本体変更なしなら publish されない） |
 | `chore:` / `build:` / `ci:` | その他のメンテナンス | patch |
-| `feat!:` または本文に `BREAKING CHANGE:` | 破壊的変更 | **major** |
+| `feat!:` / `feat(scope)!:` など `!` 付き、または本文に `BREAKING CHANGE:` | 破壊的変更 | **major** |
 
 複数の変更を含む場合、**一番重い prefix** を使ってください（例: 新コンポーネント + バグ修正 → `feat:`）。
 
@@ -63,17 +63,17 @@ npm install
 新しいコンポーネントを追加する際は、以下をすべて満たすようにしてください:
 
 - [ ] **実装**: `src/components/<Name>/<Name>.tsx` + `index.ts`
-- [ ] **export 登録**: `src/components/index.ts` に追加
+- [ ] **export 登録**: `src/components/index.ts` に追加（Marketing レイヤーのコンポーネントは `src/components/marketing.ts` にも追加）
 - [ ] **CSS**: `components.css` に BEM 記法で追記（`.component`, `.component__element`, `.component--modifier`）
 - [ ] **デザイントークン使用**: ハードコードしたカラー/スペースではなく `var(--color-*)` / `var(--space-*)` / `var(--radius-*)` 等を使用
-- [ ] **Client/Server**: Portal / フォーム / 状態あり → `"use client"` 必須、静的な要素のみ → Server Component 可
+- [ ] **Client/Server**: Portal / state・effect・ref 操作あり → `"use client"` 必須。barrel（`index.ts` / `marketing.ts`）が `"use client"` 境界なので、`useId` だけ使う要素などは個別ファイルに付けなくてよい
 - [ ] **ドキュメントサイト**:
   - `src/views/docs/ComponentsOverview.tsx` のカテゴリに追加
   - `src/views/docs/ComponentPage.tsx` の `componentDocs` にエントリ追加（preview / props / usage）
 - [ ] **Storybook story**: `<Name>.stories.tsx` を作成（`npm run docs:stories` で雛形自動生成、compound なら手書き）
 - [ ] **llms.txt 再生成**: `npm run docs:llms`
 - [ ] **型チェック**: `npm run typecheck` が通る
-- [ ] **テスト**: `npm test` が通る
+- [ ] **テスト**: `npm test`（ユニット）と `npm run test:storybook` が通る
 
 ---
 
@@ -84,9 +84,9 @@ npm install
 - 新規コンポーネントは最低限 1 つの story を追加すること（自動で browser test の対象になる）
 
 ```bash
-npm test                    # 全テスト実行
-npm test -- --project unit  # ユニットテストのみ
-npm test -- --project storybook  # Storybook ブラウザテストのみ
+npm test                 # ユニットテストのみ（CI / publish で実行）
+npm run test:storybook   # Storybook ブラウザテストのみ
+npm run test:all         # 全テスト実行
 ```
 
 ---
@@ -107,16 +107,20 @@ npm run size
 
 **リリースは自動化されています。** `main` への push で GitHub Actions (`publish.yml`) が:
 
-1. Conventional Commit prefix から semver bump を判定
-2. `CHANGELOG.md` に新エントリを追記
-3. `npm version <bump>` でバージョン更新
-4. `release: vX.Y.Z [skip ci]` コミット + タグを作成
-5. `npm run build:lib` でビルド
-6. `npm publish` で npm に公開
+1. 型チェックとユニットテストを実行
+2. Conventional Commit prefix から semver bump を判定
+3. `npm version <bump>` でバージョン更新、`CHANGELOG.md` に新エントリを追記、`llms.txt` を再生成（この時点ではまだ push しない）
+4. `npm run build:lib` でビルド
+5. `npm publish` で npm に公開
+6. 公開に成功したら `release: vX.Y.Z [skip ci]` コミット + タグを push
+
+ビルドや公開に失敗した場合は何も push されないので、原因を直して再度 push すれば同じバージョンでやり直せます。タグだけ先に作られてしまった過去のリリースは `publish-recover.yml` を手動実行して公開します。
+
+PR では `ci.yml` が型チェック・ユニットテスト・ライブラリビルド・公開型の `@/` エイリアス混入チェック・`npm pack --dry-run` を実行します。
 
 **手動で `npm version` / `npm publish` / `git tag` を実行しないでください。** Action と競合します。
 
-`src/components/**`, `src/hooks/**`, ルート CSS ファイル等の **ライブラリ本体** への変更があった場合のみトリガーされます。README やドキュメント、scripts の変更では publish されません。
+`src/components/**`, `src/hooks/**`, ルート CSS ファイル、`package.json` 等の **ライブラリ本体** への変更があった場合のみトリガーされます。README やドキュメント、scripts の変更では publish されません。
 
 ---
 
@@ -124,6 +128,8 @@ npm run size
 
 - **TypeScript strict モード** (strict + noUncheckedIndexedAccess) を維持すること
 - **forwardRef** を使って ref を適切に転送
+- **公開型に `@/` エイリアスを使わない**: tsc は paths を書き換えないため、export される型が参照するモジュールは相対パスで import する（CI でチェック）
+- **`lucide-react` をコンポーネント本体で import しない**: optional peer なので、アイコンは inline SVG にするか `Icon` に外から渡す
 - **JSDoc** を Props interface に追加すると、自動生成される docs / llms.txt / Storybook の argTypes に反映されます
 - **CSS-in-JS / Tailwind は使わない**: 素の CSS + カスタムプロパティで統一
 - **アクセシビリティ**: role / aria 属性を適切に設定、キーボード操作対応

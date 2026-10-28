@@ -25,6 +25,11 @@ npm run build         # Next.js 本番ビルド
 npm run build:lib     # ライブラリビルド (dist/ に出力、vite.config.lib.ts 使用)
 npm run storybook     # Storybook 起動 (port 6006)
 npm run typecheck     # TypeScript 型チェック
+npm run test          # ユニットテスト（jsdom。CI / publish で実行）
+npm run test:storybook # Storybook ブラウザテスト（Playwright Chromium。sandbox 内では起動できない）
+npm run docs:llms     # llms.txt / llms-full.txt を再生成
+npm run docs:stories  # 未作成の story 雛形を生成
+npm run size          # バンドルサイズ計測
 ```
 
 ## ディレクトリ構成
@@ -32,8 +37,10 @@ npm run typecheck     # TypeScript 型チェック
 app/                    # Next.js App Router ページ
 src/
   components/           # UIコンポーネント（各コンポーネントは独立フォルダ）
-    index.ts            # barrel export（"use client" 付き）
-  hooks/                # useTheme, useFocusTrap（"use client" 付き）
+    index.ts            # barrel export（"use client" 付き。Marketing も再 export）
+    marketing.ts        # kaze-design-system/marketing のエントリ（Marketing 11個）
+  hooks/                # useTheme, useFocusTrap, useLegendToggle（"use client" 付き）
+  tokens/               # JS トークン（kaze-design-system/tokens）
   views/                # ページ実装（dashboards/, landing/, apps/, docs/ 等）
   lib/                  # ユーティリティ、型定義
 tokens.css              # デザイントークン（CSS カスタムプロパティ）
@@ -42,7 +49,7 @@ components.css          # コンポーネント CSS
 utilities.css           # ユーティリティ CSS
 kaze.css                # 上記4つの @layer 付きまとめエントリ
 vite.config.lib.ts      # ライブラリビルド専用 Vite 設定
-vitest.config.ts        # テスト設定（Storybook ブラウザテスト）
+vitest.config.ts        # テスト設定（unit: jsdom / storybook: ブラウザの2プロジェクト）
 tsconfig.build.json     # ライブラリビルド用 TypeScript 設定
 ```
 
@@ -60,20 +67,25 @@ tsconfig.build.json     # ライブラリビルド用 TypeScript 設定
 - **PALT**: `font-feature-settings: "palt" 1` は `tokens.css` の `:root` でグローバル適用
 - **ダークモード**: `[data-theme="dark"]` セレクタ + `@media (prefers-color-scheme: dark)` フォールバック
   - フォールバックは `:root:not([data-theme="light"])` パターン
+  - `[data-theme="dark"]` だけのルールを書いたら、同じ内容を `@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) ... }` にも書く
+  - `data-palette="cool"` のダークは `:root[data-palette="cool"]:not([data-theme="light"])` のフォールバックを別に持つ（zinc のフォールバックと詳細度が同じで負けるため）
+- **密度**: `data-density="compact"` で `--density-*` を切り替える。コントロール高さ・行パディング・UI フォントサイズは固定値ではなく density トークンを使う
 - **カスケードレイヤー**: `@layer tokens, reset, components, utilities;`（kaze.css と globals.css で宣言）
+- **未定義トークン禁止**: `var(--x, fallback)` のフォールバックに頼らず、tokens.css に存在するトークンだけを参照する
 
 ## コンポーネント設計
-- Portal 系（Dialog, Toast, Dropdown, Tooltip, CommandPalette）は `"use client"` 必須
-- フォーム系（Input, Select, Checkbox 等）も `"use client"` 必須
-- 静的コンポーネント（Card, Badge, Avatar, Heading 等）は Server Component 可能
-- barrel export (`components/index.ts`, `hooks/index.ts`) は `"use client"` 付き
+- barrel export（`components/index.ts`, `components/marketing.ts`, `hooks/index.ts`）は `"use client"` 付きで、ここがクライアント境界
+- Portal 系（Dialog, Toast, Dropdown, Tooltip, CommandPalette）や state / effect を持つものは個別ファイルにも `"use client"` を付ける
+- `useId` だけを使うフォーム要素（Input, Checkbox 等）や静的コンポーネント（Card, Badge 等）は個別ファイルに付けなくてよい
+- `lucide-react` は optional peer なので、コンポーネント本体で import しない（アイコンは inline SVG か、`Icon` に外から渡す）
+- 公開型が参照するモジュールは相対パスで import する（`@/` は `.d.ts` に残り利用者側で解決できない。CI でチェック）
 
 ## レイヤー構成（Foundation / Application UI / Marketing）
 Kaze は「1パッケージ・3レイヤー」構成。上位レイヤーは下位レイヤーのトークンだけを参照し、逆方向の参照はしない。
 
 - **Foundation**: `tokens.css` / `utilities.css` など、両カタログが共有する土台。単独のコンポーネントは持たず、`/docs/tokens`・`/docs/colors`・`/docs/utilities` として提示する。
 - **Application UI**: 業務アプリ・ダッシュボードの画面を組む52コンポーネント。フォーム/データ表示/チャート/フィードバック/ナビゲーション/オーバーレイ/レイアウト/リストの8カテゴリ。
-- **Marketing**: LP・プロダクトサイトを組む正準11コンポーネント。Navbar, Hero, Section, SplitSection, FeatureGrid, Stats, Pricing, Testimonial, FAQ, CTABanner, LPFooter。この11個以外を追加する場合は Issue で合意を取ってから増やす（勝手に一点ものを足さない）。
+- **Marketing**: LP・プロダクトサイトを組む正準11コンポーネント。Navbar, Hero, Section, SplitSection, FeatureGrid, Stats, Pricing, Testimonial, FAQ, CTABanner, LPFooter。この11個以外を追加する場合は Issue で合意を取ってから増やす（勝手に一点ものを足さない）。追加・削除したときは `src/components/marketing.ts` の export も合わせる。
 - コンポーネント総数は 63（52 + 11）。`src/views/docs/ComponentsOverview.tsx` の `categories` 配列がこの2カタログ + Foundation 導線の唯一のソース。`scripts/generate-llms.mjs` がこの配列を TypeScript Compiler API で解析して `llms.txt` / `llms-full.txt` を生成するため、カテゴリ構造を変える際は両方を追従修正し `npm run docs:llms` で63個出力されることを確認する。
 
 ### Marketing コンポーネントのデモ制約
@@ -87,7 +99,7 @@ Marketing はランディングページの世界観を見せる場なので、A
 
 ## コンテンツのルール
 - **実在企業名**: UIラベル（フッター、ナビ、CTA）では GitHub, Twitter, Instagram 等のサービス名 OK
-- **人名**: テスティモニアル、ダミーデータ、記事の著者、SettingsPage 等の個人情報には以下のプールから文脈ごとに割り当てる。同じ名前を複数ページで使い回さない
+- **人名**: テスティモニアル、ダミーデータ、記事の著者、SettingsPage 等の個人情報には以下のプールから文脈ごとに割り当てる。同じページ内で別人に同じ名前を使わない（ページをまたいだ再利用は可）
   - 相楽 実咲 / 堀内 昌平 / 宮田 千夏 / 呉羽 直樹 / 桐生 あかね / 野々村 圭 / 早瀬 遼平 / 志摩 このみ / 三隅 拓海 / 綿貫 玲奈 / 大迫 航 / 藤枝 蒼
 - **メールアドレス**: 架空の自社ドメイン `@norn.co.jp` に統一する（例: misaki.sagara@norn.co.jp）。docs のコード例に限り `example.com` を使ってよい
 - **社名**: テスティモニアル、ダミーデータ（BarList 等）、求人情報などには以下のプールか、生成規則を散らした新造社名（地名・語呂・カタカナ一語など）を使用

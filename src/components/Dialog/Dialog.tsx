@@ -26,7 +26,7 @@ const CLOSE_ANIMATION_MS = 200;
 export interface DialogProps extends HTMLAttributes<HTMLDivElement> {
   open: boolean;
   onClose: () => void;
-  /** @deprecated useFocusTrap handles focus restoration automatically. Kept for backward compat — ignored. */
+  /** @deprecated useFocusTrap handles focus restoration automatically. Kept for backward compat: ignored. */
   returnFocusRef?: RefObject<HTMLElement | null>;
 }
 

@@ -37,7 +37,7 @@ export interface NumberFieldProps
   error?: boolean;
   /** Error message */
   errorMessage?: string;
-  /** Prefix text (e.g. "¥") — auto-set by currency */
+  /** Prefix text (e.g. "¥"): auto-set by currency */
   prefix?: string;
   /** Suffix text (e.g. "%", "件") */
   suffix?: string;

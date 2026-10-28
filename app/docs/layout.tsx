@@ -109,7 +109,7 @@ export default function DocsLayoutWrapper({
       <aside className={styles.sidebar}>
         <div className={styles.sidebarHeader}>
           <Logo />
-          <span className={styles.version}>v0.1.0</span>
+          <span className={styles.version}>v{process.env.NEXT_PUBLIC_KAZE_VERSION}</span>
         </div>
 
         <nav className={styles.nav}>
