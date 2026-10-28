@@ -129,7 +129,7 @@ function parseComponentDocs() {
               const fn = ts.isIdentifier(f.name)
                 ? f.name.text
                 : f.name.getText().replace(/['"]/g, "");
-              if (propDoc.hasOwnProperty(fn)) {
+              if (Object.hasOwn(propDoc, fn)) {
                 propDoc[fn] = extractStringLike(f.initializer);
               }
             }
@@ -189,7 +189,7 @@ function parseCategories() {
             const fn = ts.isIdentifier(f.name)
               ? f.name.text
               : f.name.getText().replace(/['"]/g, "");
-            if (comp.hasOwnProperty(fn)) {
+            if (Object.hasOwn(comp, fn)) {
               comp[fn] = extractStringLike(f.initializer);
             }
           }
@@ -246,10 +246,7 @@ function extractPropsFromFile(filePath, interfaceName) {
   const typeAliases = new Map(); // name → inlined type text
 
   walk(sf, (node) => {
-    if (
-      ts.isInterfaceDeclaration(node) &&
-      node.name.text === interfaceName
-    ) {
+    if (ts.isInterfaceDeclaration(node) && node.name.text === interfaceName) {
       target = node;
     }
     if (ts.isTypeAliasDeclaration(node)) {
@@ -260,7 +257,10 @@ function extractPropsFromFile(filePath, interfaceName) {
   if (!target) return null;
 
   const normalizeType = (text) =>
-    text.replace(/\s+/g, " ").replace(/^\|\s*/, "").trim();
+    text
+      .replace(/\s+/g, " ")
+      .replace(/^\|\s*/, "")
+      .trim();
 
   const resolveType = (typeText) => {
     // Inline simple named type aliases defined in the same file.
@@ -292,10 +292,7 @@ function extractPropsFromFile(filePath, interfaceName) {
         if (doc.tags) {
           for (const tag of doc.tags) {
             const tagName = tag.tagName?.text;
-            if (
-              (tagName === "default" || tagName === "defaultValue") &&
-              tag.comment
-            ) {
+            if ((tagName === "default" || tagName === "defaultValue") && tag.comment) {
               defaultValue = jsDocCommentToString(tag.comment);
             }
           }
@@ -362,9 +359,7 @@ function mergeProps(extracted, handWritten) {
   if (!extracted) return handWritten || [];
 
   const merged = [];
-  const handByName = new Map(
-    (handWritten || []).map((p) => [p.name, p]),
-  );
+  const handByName = new Map((handWritten || []).map((p) => [p.name, p]));
 
   for (const ex of extracted) {
     const hw = handByName.get(ex.name);
@@ -417,10 +412,7 @@ function main() {
   }
 
   const docBySlug = new Map(docs.map((d) => [d.slug, d]));
-  const totalComponents = categories.reduce(
-    (sum, c) => sum + c.components.length,
-    0,
-  );
+  const totalComponents = categories.reduce((sum, c) => sum + c.components.length, 0);
 
   // --- llms.txt (short index) -------------------------------------------
   const shortLines = [];
@@ -463,9 +455,7 @@ function main() {
       const slug = comp.path;
       const doc = docBySlug.get(slug);
       const desc = doc?.description || comp.description;
-      shortLines.push(
-        `- [${comp.name}](${SITE_URL}/docs/components/${slug}): ${desc}`,
-      );
+      shortLines.push(`- [${comp.name}](${SITE_URL}/docs/components/${slug}): ${desc}`);
     }
     shortLines.push("");
   }
@@ -508,9 +498,7 @@ function main() {
   fullLines.push("Import CSS once at the app root:");
   fullLines.push("");
   fullLines.push("```tsx");
-  fullLines.push(
-    `// Option A: all layers (tokens, reset, components, utilities)`,
-  );
+  fullLines.push(`// Option A: all layers (tokens, reset, components, utilities)`);
   fullLines.push(`import "${pkg.name}/css/all";`);
   fullLines.push("");
   fullLines.push(`// Option B: pick individual layers`);
@@ -531,7 +519,7 @@ function main() {
   fullLines.push("");
   fullLines.push("function App() {");
   fullLines.push("  return (");
-  fullLines.push("    <ThemeProvider defaultTheme=\"system\">");
+  fullLines.push('    <ThemeProvider defaultTheme="system">');
   fullLines.push("      <YourApp />");
   fullLines.push("    </ThemeProvider>");
   fullLines.push("  );");
@@ -539,13 +527,13 @@ function main() {
   fullLines.push("```");
   fullLines.push("");
   fullLines.push(
-    "Add `data-palette=\"cool\"` to switch from the warm zinc palette to cool slate (works with both light and dark).",
+    'Add `data-palette="cool"` to switch from the warm zinc palette to cool slate (works with both light and dark).',
   );
   fullLines.push("");
   fullLines.push("## Density");
   fullLines.push("");
   fullLines.push(
-    "Add `data-density=\"compact\"` to an ancestor (`<html>` or a panel) to tighten controls, table/list rows, tabs, dropdowns and sidebar items. Independent of theme and palette. Tokens: `--density-control-height`, `--density-row-py`, `--density-row-px`, `--density-font-size-ui`, `--density-line-height-ui`, `--density-nav-py`, `--density-nav-gap`, `--density-dropdown-py`, `--density-tab-py`.",
+    'Add `data-density="compact"` to an ancestor (`<html>` or a panel) to tighten controls, table/list rows, tabs, dropdowns and sidebar items. Independent of theme and palette. Tokens: `--density-control-height`, `--density-row-py`, `--density-row-px`, `--density-font-size-ui`, `--density-line-height-ui`, `--density-nav-py`, `--density-nav-gap`, `--density-dropdown-py`, `--density-tab-py`.',
   );
   fullLines.push("");
   fullLines.push("```html");
@@ -554,13 +542,13 @@ function main() {
   fullLines.push("");
   fullLines.push("## Layers and entry points");
   fullLines.push("");
-  fullLines.push(
-    `- Application UI: dashboards and business apps. Import from \`${pkg.name}\`.`,
-  );
+  fullLines.push(`- Application UI: dashboards and business apps. Import from \`${pkg.name}\`.`);
   fullLines.push(
     `- Marketing: the 11 landing-page components (Navbar, Hero, Section, SplitSection, FeatureGrid, Stats, Pricing, Testimonial, FAQ, CTABanner, LPFooter). Import from \`${pkg.name}/marketing\` (also re-exported from the root).`,
   );
-  fullLines.push(`- Hooks: \`${pkg.name}/hooks\` (useFocusTrap, useLegendToggle; useTheme is also exported from the root).`);
+  fullLines.push(
+    `- Hooks: \`${pkg.name}/hooks\` (useFocusTrap, useLegendToggle; useTheme is also exported from the root).`,
+  );
   fullLines.push(`- JS tokens: \`${pkg.name}/tokens\`.`);
   fullLines.push("");
   fullLines.push("## Components");
@@ -607,9 +595,7 @@ function main() {
   fullLines.push("");
   fullLines.push("#### useTheme");
   fullLines.push("");
-  fullLines.push(
-    "Returns the current theme and a setter. Must be used inside `<ThemeProvider>`.",
-  );
+  fullLines.push("Returns the current theme and a setter. Must be used inside `<ThemeProvider>`.");
   fullLines.push("");
   fullLines.push("```tsx");
   fullLines.push(`import { useTheme } from "${pkg.name}";`);
@@ -618,9 +604,7 @@ function main() {
   fullLines.push("");
   fullLines.push("#### useFocusTrap");
   fullLines.push("");
-  fullLines.push(
-    "Traps focus within a container for modal/dialog-like overlays.",
-  );
+  fullLines.push("Traps focus within a container for modal/dialog-like overlays.");
   fullLines.push("");
   fullLines.push("```tsx");
   fullLines.push(`import { useFocusTrap } from "${pkg.name}/hooks";`);
@@ -640,17 +624,15 @@ function main() {
   fullLines.push("");
   fullLines.push("<BarChart data={data}>");
   fullLines.push("  <Legend {...legendProps} />");
-  fullLines.push("  <Bar dataKey=\"revenue\" hide={isHidden(\"revenue\")} />");
-  fullLines.push("  <Bar dataKey=\"cost\" hide={isHidden(\"cost\")} />");
+  fullLines.push('  <Bar dataKey="revenue" hide={isHidden("revenue")} />');
+  fullLines.push('  <Bar dataKey="cost" hide={isHidden("cost")} />');
   fullLines.push("</BarChart>");
   fullLines.push("```");
   fullLines.push("");
 
   fs.writeFileSync(OUT_FULL, fullLines.join("\n"));
 
-  console.log(
-    `[llms] wrote ${path.relative(root, OUT_SHORT)} (${shortLines.length} lines)`,
-  );
+  console.log(`[llms] wrote ${path.relative(root, OUT_SHORT)} (${shortLines.length} lines)`);
   console.log(
     `[llms] wrote ${path.relative(root, OUT_FULL)} (${fullLines.length} lines, ${docs.length} component docs from ${totalComponents} catalog entries)`,
   );

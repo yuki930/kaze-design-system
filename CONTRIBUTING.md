@@ -72,6 +72,7 @@ npm install
   - `src/views/docs/ComponentPage.tsx` の `componentDocs` にエントリ追加（preview / props / usage）
 - [ ] **Storybook story**: `<Name>.stories.tsx` を作成（`npm run docs:stories` で雛形自動生成、compound なら手書き）
 - [ ] **llms.txt 再生成**: `npm run docs:llms`
+- [ ] **フォーマット / lint**: `npm run format:fix` を実行し、`npm run lint` が通る
 - [ ] **型チェック**: `npm run typecheck` が通る
 - [ ] **テスト**: `npm test`（ユニット）と `npm run test:storybook` が通る
 

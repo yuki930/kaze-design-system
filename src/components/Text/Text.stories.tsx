@@ -8,9 +8,7 @@ import { Text } from "./Text";
 const meta = {
   title: "Components/Text",
   component: Text,
-  args: {
-
-  },
+  args: {},
 } satisfies Meta<typeof Text>;
 
 export default meta;

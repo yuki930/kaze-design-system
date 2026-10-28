@@ -239,15 +239,69 @@ interface ComponentCategory {
    単一アクセントで強調し、残りはニュートラルトーンに統一する。
    内訳は docs の ComponentsOverview の分類（計63）と一致させる。 */
 const componentCategories: ComponentCategory[] = [
-  { name: "フォーム", count: 11, icon: <FormInput size={18} />, color: "var(--color-fg-tertiary)", layer: "application-ui" },
-  { name: "データ表示", count: 9, icon: <Table2 size={18} />, color: "var(--color-accent-a)", layer: "application-ui" },
-  { name: "チャート", count: 3, icon: <BarChart3 size={18} />, color: "var(--color-accent-a)", layer: "application-ui" },
-  { name: "フィードバック", count: 6, icon: <MessageSquare size={18} />, color: "var(--color-fg-tertiary)", layer: "application-ui" },
-  { name: "ナビゲーション", count: 7, icon: <Compass size={18} />, color: "var(--color-fg-tertiary)", layer: "application-ui" },
-  { name: "オーバーレイ", count: 5, icon: <Layers size={18} />, color: "var(--color-fg-tertiary)", layer: "application-ui" },
-  { name: "レイアウト", count: 8, icon: <LayoutGrid size={18} />, color: "var(--color-fg-tertiary)", layer: "application-ui" },
-  { name: "リスト", count: 3, icon: <ClipboardList size={18} />, color: "var(--color-fg-tertiary)", layer: "application-ui" },
-  { name: "マーケティング", count: 11, icon: <Megaphone size={18} />, color: "var(--color-fg-tertiary)", layer: "marketing" },
+  {
+    name: "フォーム",
+    count: 11,
+    icon: <FormInput size={18} />,
+    color: "var(--color-fg-tertiary)",
+    layer: "application-ui",
+  },
+  {
+    name: "データ表示",
+    count: 9,
+    icon: <Table2 size={18} />,
+    color: "var(--color-accent-a)",
+    layer: "application-ui",
+  },
+  {
+    name: "チャート",
+    count: 3,
+    icon: <BarChart3 size={18} />,
+    color: "var(--color-accent-a)",
+    layer: "application-ui",
+  },
+  {
+    name: "フィードバック",
+    count: 6,
+    icon: <MessageSquare size={18} />,
+    color: "var(--color-fg-tertiary)",
+    layer: "application-ui",
+  },
+  {
+    name: "ナビゲーション",
+    count: 7,
+    icon: <Compass size={18} />,
+    color: "var(--color-fg-tertiary)",
+    layer: "application-ui",
+  },
+  {
+    name: "オーバーレイ",
+    count: 5,
+    icon: <Layers size={18} />,
+    color: "var(--color-fg-tertiary)",
+    layer: "application-ui",
+  },
+  {
+    name: "レイアウト",
+    count: 8,
+    icon: <LayoutGrid size={18} />,
+    color: "var(--color-fg-tertiary)",
+    layer: "application-ui",
+  },
+  {
+    name: "リスト",
+    count: 3,
+    icon: <ClipboardList size={18} />,
+    color: "var(--color-fg-tertiary)",
+    layer: "application-ui",
+  },
+  {
+    name: "マーケティング",
+    count: 11,
+    icon: <Megaphone size={18} />,
+    color: "var(--color-fg-tertiary)",
+    layer: "marketing",
+  },
 ];
 
 const applicationUiCategories = componentCategories.filter((c) => c.layer === "application-ui");
@@ -281,7 +335,9 @@ function ComponentCategoryCard({
             {category.icon}
           </div>
           <div>
-            <Text as="div" size="sm" weight="medium">{category.name}</Text>
+            <Text as="div" size="sm" weight="medium">
+              {category.name}
+            </Text>
             <Text as="div" size="xs" color="subtle">
               {category.count} コンポーネント
             </Text>
@@ -325,11 +381,7 @@ export function ShowcasePage() {
             >
               {resolvedTheme === "light" ? <Moon size={18} /> : <Zap size={18} />}
             </Button>
-            <a
-              href="#"
-              className={styles.iconLink}
-              aria-label="リポジトリ"
-            >
+            <a href="#" className={styles.iconLink} aria-label="リポジトリ">
               <Button variant="ghost" size="sm" iconOnly aria-label="リポジトリ">
                 <Github size={18} />
               </Button>
@@ -423,7 +475,9 @@ export function ShowcasePage() {
               <div className={styles.barChart}>
                 <div className={styles.barLabels}>
                   {["SaaS", "LP", "App", "Mail", "他"].map((l) => (
-                    <span key={l} className={styles.barLabel}>{l}</span>
+                    <span key={l} className={styles.barLabel}>
+                      {l}
+                    </span>
                   ))}
                 </div>
                 <div className={styles.bars}>
@@ -455,7 +509,20 @@ export function ShowcasePage() {
               </div>
               <div className={styles.statsCardChart}>
                 <div className={styles.palettePreview}>
-                  {["red", "orange", "amber", "yellow", "lime", "green", "emerald", "teal", "cyan", "blue", "violet", "pink"].map((hue) => (
+                  {[
+                    "red",
+                    "orange",
+                    "amber",
+                    "yellow",
+                    "lime",
+                    "green",
+                    "emerald",
+                    "teal",
+                    "cyan",
+                    "blue",
+                    "violet",
+                    "pink",
+                  ].map((hue) => (
                     <div
                       key={hue}
                       className={styles.palettePreviewSwatch}
@@ -466,11 +533,17 @@ export function ShowcasePage() {
                 </div>
                 <div className={styles.miniLegend}>
                   <div className={styles.miniLegendItem}>
-                    <span className={styles.miniLegendDot} style={{ background: "var(--chart-blue)" }} />
+                    <span
+                      className={styles.miniLegendDot}
+                      style={{ background: "var(--chart-blue)" }}
+                    />
                     <span>12色相 × 10階調</span>
                   </div>
                   <div className={styles.miniLegendItem}>
-                    <span className={styles.miniLegendDot} style={{ background: "var(--color-fg-tertiary)" }} />
+                    <span
+                      className={styles.miniLegendDot}
+                      style={{ background: "var(--color-fg-tertiary)" }}
+                    />
                     <span>ニュートラル 11段階</span>
                   </div>
                 </div>
@@ -576,18 +649,12 @@ export function ShowcasePage() {
 
           <div className={styles.sampleGrid}>
             {visiblePages.map((page) => (
-              <a
-                key={page.href}
-                href={page.href}
-                className={styles.sampleLink}
-              >
+              <a key={page.href} href={page.href} className={styles.sampleLink}>
                 <Card variant="interactive" className={styles.sampleCard}>
                   <CardHeader>
                     <div className={styles.sampleCardHeader}>
                       <div className={styles.sampleEmoji}>{page.icon}</div>
-                      <Badge variant="default">
-                        {page.category}
-                      </Badge>
+                      <Badge variant="default">{page.category}</Badge>
                     </div>
                   </CardHeader>
                   <CardBody>
@@ -607,11 +674,7 @@ export function ShowcasePage() {
 
           {!showAll && samplePages.length > INITIAL_SHOW && (
             <div className={styles.showMoreWrap}>
-              <Button
-                variant="outline"
-                size="lg"
-                onClick={() => setShowAll(true)}
-              >
+              <Button variant="outline" size="lg" onClick={() => setShowAll(true)}>
                 すべてのサンプルを見る（{samplePages.length}件）
               </Button>
             </div>
@@ -669,11 +732,7 @@ export function ShowcasePage() {
             ],
           },
         ]}
-        bottomLeft={
-          <span>
-            &copy; {new Date().getFullYear()} Kaze Design System
-          </span>
-        }
+        bottomLeft={<span>&copy; {new Date().getFullYear()} Kaze Design System</span>}
       />
 
       {/* ── Floating Theme Toggle ──────────────────────────────── */}

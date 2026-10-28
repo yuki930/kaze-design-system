@@ -47,7 +47,10 @@ export interface NumberFieldProps
   incrementLabel?: string;
 }
 
-const currencyConfig: Record<NumberFieldCurrency, { locale: string; symbol: string; decimals: number }> = {
+const currencyConfig: Record<
+  NumberFieldCurrency,
+  { locale: string; symbol: string; decimals: number }
+> = {
   JPY: { locale: "ja-JP", symbol: "¥", decimals: 0 },
   USD: { locale: "en-US", symbol: "$", decimals: 2 },
   EUR: { locale: "de-DE", symbol: "€", decimals: 2 },
@@ -56,11 +59,7 @@ const currencyConfig: Record<NumberFieldCurrency, { locale: string; symbol: stri
   KRW: { locale: "ko-KR", symbol: "₩", decimals: 0 },
 };
 
-function formatNumber(
-  value: number,
-  locale: string,
-  currency?: NumberFieldCurrency,
-): string {
+function formatNumber(value: number, locale: string, currency?: NumberFieldCurrency): string {
   if (currency) {
     const cfg = currencyConfig[currency];
     return new Intl.NumberFormat(cfg.locale, {
@@ -75,7 +74,7 @@ function parseLocaleNumber(str: string): number | null {
   // Remove all non-numeric characters except minus and decimal separators
   const cleaned = str.replace(/[^\d.\-,]/g, "").replace(/,/g, "");
   const num = Number(cleaned);
-  return isNaN(num) ? null : num;
+  return Number.isNaN(num) ? null : num;
 }
 
 export const NumberField = forwardRef<HTMLInputElement, NumberFieldProps>(
@@ -174,15 +173,15 @@ export const NumberField = forwardRef<HTMLInputElement, NumberFieldProps>(
     // Sync ref
     useEffect(() => {
       if (typeof ref === "function") ref(innerRef.current);
-      else if (ref) (ref as React.MutableRefObject<HTMLInputElement | null>).current = innerRef.current;
+      else if (ref)
+        (ref as React.MutableRefObject<HTMLInputElement | null>).current = innerRef.current;
     });
 
-    const displayValue =
-      editing
-        ? editValue
-        : value != null
-          ? formatNumber(value, locale, currency)
-          : "";
+    const displayValue = editing
+      ? editValue
+      : value != null
+        ? formatNumber(value, locale, currency)
+        : "";
 
     return (
       <div className={cn("number-field", error && "number-field--error", className)}>
@@ -201,7 +200,14 @@ export const NumberField = forwardRef<HTMLInputElement, NumberFieldProps>(
               tabIndex={-1}
               aria-label={decrementLabel}
             >
-              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="2">
+              <svg
+                width="12"
+                height="12"
+                viewBox="0 0 12 12"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+              >
                 <line x1="2" y1="6" x2="10" y2="6" />
               </svg>
             </button>
@@ -233,7 +239,14 @@ export const NumberField = forwardRef<HTMLInputElement, NumberFieldProps>(
               tabIndex={-1}
               aria-label={incrementLabel}
             >
-              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="2">
+              <svg
+                width="12"
+                height="12"
+                viewBox="0 0 12 12"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+              >
                 <line x1="6" y1="2" x2="6" y2="10" />
                 <line x1="2" y1="6" x2="10" y2="6" />
               </svg>

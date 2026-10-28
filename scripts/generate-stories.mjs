@@ -108,10 +108,7 @@ function extractRequiredProps(filePath, interfaceName) {
   const typeAliases = new Map();
 
   walk(sf, (node) => {
-    if (
-      ts.isInterfaceDeclaration(node) &&
-      node.name.text === interfaceName
-    ) {
+    if (ts.isInterfaceDeclaration(node) && node.name.text === interfaceName) {
       target = node;
     }
     if (ts.isTypeAliasDeclaration(node)) {

@@ -156,8 +156,7 @@ export function TodoPage() {
 
   const completedCount = todos.filter((t) => t.completed).length;
   const activeCount = todos.length - completedCount;
-  const progress =
-    todos.length > 0 ? Math.round((completedCount / todos.length) * 100) : 0;
+  const progress = todos.length > 0 ? Math.round((completedCount / todos.length) * 100) : 0;
 
   const filteredTodos = todos.filter((todo) => {
     if (filter === "active" && todo.completed) return false;
@@ -192,9 +191,7 @@ export function TodoPage() {
   }, [newTodoText]);
 
   const toggleTodo = useCallback((id: string) => {
-    setTodos((prev) =>
-      prev.map((t) => (t.id === id ? { ...t, completed: !t.completed } : t)),
-    );
+    setTodos((prev) => prev.map((t) => (t.id === id ? { ...t, completed: !t.completed } : t)));
   }, []);
 
   const deleteTodo = useCallback((id: string) => {
@@ -202,9 +199,7 @@ export function TodoPage() {
   }, []);
 
   const setPriority = useCallback((id: string, priority: Priority) => {
-    setTodos((prev) =>
-      prev.map((t) => (t.id === id ? { ...t, priority } : t)),
-    );
+    setTodos((prev) => prev.map((t) => (t.id === id ? { ...t, priority } : t)));
   }, []);
 
   const clearCompleted = useCallback(() => {
@@ -226,22 +221,14 @@ export function TodoPage() {
       <header className={styles.header}>
         <div className={styles.headerLeft}>
           <CheckSquare size={22} />
-          <Text as="span" size="xl" weight="bold">{tabConfig[activeTab].label}</Text>
+          <Text as="span" size="xl" weight="bold">
+            {tabConfig[activeTab].label}
+          </Text>
         </div>
         <div className={styles.headerRight}>
           <Badge variant="info">{activeCount} 件</Badge>
-          <Button
-            variant="ghost"
-            size="sm"
-            iconOnly
-            onClick={toggleTheme}
-            aria-label="テーマ切替"
-          >
-            {resolvedTheme === "light" ? (
-              <Moon size={18} />
-            ) : (
-              <Sun size={18} />
-            )}
+          <Button variant="ghost" size="sm" iconOnly onClick={toggleTheme} aria-label="テーマ切替">
+            {resolvedTheme === "light" ? <Moon size={18} /> : <Sun size={18} />}
           </Button>
         </div>
       </header>
@@ -279,22 +266,13 @@ export function TodoPage() {
         {/* ── Filter tabs ──────────────────────────────────── */}
         <div className={styles.filterRow}>
           <Tabs>
-            <Tab
-              active={filter === "all"}
-              onClick={() => setFilter("all")}
-            >
+            <Tab active={filter === "all"} onClick={() => setFilter("all")}>
               すべて
             </Tab>
-            <Tab
-              active={filter === "active"}
-              onClick={() => setFilter("active")}
-            >
+            <Tab active={filter === "active"} onClick={() => setFilter("active")}>
               未完了
             </Tab>
-            <Tab
-              active={filter === "completed"}
-              onClick={() => setFilter("completed")}
-            >
+            <Tab active={filter === "completed"} onClick={() => setFilter("completed")}>
               完了済み
             </Tab>
           </Tabs>
@@ -304,11 +282,7 @@ export function TodoPage() {
         {filteredTodos.length === 0 ? (
           <EmptyState
             icon={<ClipboardList size={40} />}
-            title={
-              filter === "completed"
-                ? "完了したタスクはありません"
-                : "タスクはありません"
-            }
+            title={filter === "completed" ? "完了したタスクはありません" : "タスクはありません"}
             description={
               filter === "completed"
                 ? "タスクを完了するとここに表示されます。"
@@ -338,15 +312,10 @@ export function TodoPage() {
                           {todo.text}
                         </Text>
                         <div className={styles.todoMeta}>
-                          {todo.tag && (
-                            <Badge variant="default">{todo.tag}</Badge>
-                          )}
+                          {todo.tag && <Badge variant="default">{todo.tag}</Badge>}
                           {todo.priority !== "none" && (
-                            <Badge
-                              variant={priorityConfig[todo.priority].variant}
-                            >
-                              <Flag size={10} />{" "}
-                              {priorityConfig[todo.priority].label}
+                            <Badge variant={priorityConfig[todo.priority].variant}>
+                              <Flag size={10} /> {priorityConfig[todo.priority].label}
                             </Badge>
                           )}
                         </div>
@@ -360,24 +329,16 @@ export function TodoPage() {
                         </Button>
                       </DropdownTrigger>
                       <DropdownMenu>
-                        <DropdownItem
-                          onClick={() => setPriority(todo.id, "high")}
-                        >
+                        <DropdownItem onClick={() => setPriority(todo.id, "high")}>
                           🔴 優先度: 高
                         </DropdownItem>
-                        <DropdownItem
-                          onClick={() => setPriority(todo.id, "medium")}
-                        >
+                        <DropdownItem onClick={() => setPriority(todo.id, "medium")}>
                           🟡 優先度: 中
                         </DropdownItem>
-                        <DropdownItem
-                          onClick={() => setPriority(todo.id, "low")}
-                        >
+                        <DropdownItem onClick={() => setPriority(todo.id, "low")}>
                           🔵 優先度: 低
                         </DropdownItem>
-                        <DropdownItem onClick={() => deleteTodo(todo.id)}>
-                          🗑️ 削除
-                        </DropdownItem>
+                        <DropdownItem onClick={() => deleteTodo(todo.id)}>🗑️ 削除</DropdownItem>
                       </DropdownMenu>
                     </Dropdown>
 
@@ -391,12 +352,7 @@ export function TodoPage() {
 
         {/* ── Clear completed ─────────────────────────────── */}
         {completedCount > 0 && filter !== "active" && (
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={clearCompleted}
-            className={styles.clearBtn}
-          >
+          <Button variant="ghost" size="sm" onClick={clearCompleted} className={styles.clearBtn}>
             <Trash2 size={14} /> 完了済みを削除
           </Button>
         )}

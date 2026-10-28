@@ -1,14 +1,6 @@
 "use client";
 
-import {
-  useState,
-  useRef,
-  useEffect,
-  useCallback,
-  useId,
-  forwardRef,
-  type ReactNode,
-} from "react";
+import { useState, useRef, useEffect, useCallback, useId, forwardRef, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { cn } from "@/lib/utils";
 
@@ -33,11 +25,7 @@ export interface HelpButtonProps {
 
 const GAP = 8;
 
-function computePosition(
-  trigger: DOMRect,
-  pop: DOMRect,
-  side: HelpButtonPosition,
-) {
+function computePosition(trigger: DOMRect, pop: DOMRect, side: HelpButtonPosition) {
   const sy = window.scrollY;
   const sx = window.scrollX;
   switch (side) {
@@ -66,15 +54,7 @@ function computePosition(
 
 export const HelpButton = forwardRef<HTMLButtonElement, HelpButtonProps>(
   (
-    {
-      title,
-      children,
-      position = "bottom",
-      size = "md",
-      icon,
-      ariaLabel = "ヘルプ",
-      className,
-    },
+    { title, children, position = "bottom", size = "md", icon, ariaLabel = "ヘルプ", className },
     ref,
   ) => {
     const [open, setOpen] = useState(false);
@@ -99,10 +79,7 @@ export const HelpButton = forwardRef<HTMLButtonElement, HelpButtonProps>(
 
       const onClickOutside = (e: MouseEvent) => {
         const target = e.target as Node;
-        if (
-          popRef.current?.contains(target) ||
-          triggerRef.current?.contains(target)
-        ) {
+        if (popRef.current?.contains(target) || triggerRef.current?.contains(target)) {
           return;
         }
         setOpen(false);

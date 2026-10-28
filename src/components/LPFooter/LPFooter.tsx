@@ -19,28 +19,14 @@ export interface LPFooterProps extends HTMLAttributes<HTMLElement> {
 }
 
 export const LPFooter = forwardRef<HTMLElement, LPFooterProps>(
-  (
-    {
-      logo,
-      description,
-      columns,
-      bottomLeft,
-      bottomRight,
-      className,
-      children,
-      ...rest
-    },
-    ref,
-  ) => {
+  ({ logo, description, columns, bottomLeft, bottomRight, className, children, ...rest }, ref) => {
     return (
       <footer ref={ref} className={cn("lp-footer", className)} {...rest}>
         <div className="lp-footer__inner">
           <div className="lp-footer__grid">
             <div className="lp-footer__brand">
               {logo}
-              {description && (
-                <p className="lp-footer__brand-description">{description}</p>
-              )}
+              {description && <p className="lp-footer__brand-description">{description}</p>}
             </div>
             <div className="lp-footer__nav">
               {columns.map((col) => (

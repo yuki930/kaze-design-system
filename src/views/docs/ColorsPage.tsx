@@ -12,51 +12,183 @@ interface PaletteHue {
 const palette: PaletteHue[] = [
   {
     name: "red",
-    values: { 50: "#fef2f2", 100: "#fee2e2", 200: "#fecaca", 300: "#fca5a5", 400: "#f87171", 500: "#ef4444", 600: "#dc2626", 700: "#b91c1c", 800: "#991b1b", 900: "#7f1d1d" },
+    values: {
+      50: "#fef2f2",
+      100: "#fee2e2",
+      200: "#fecaca",
+      300: "#fca5a5",
+      400: "#f87171",
+      500: "#ef4444",
+      600: "#dc2626",
+      700: "#b91c1c",
+      800: "#991b1b",
+      900: "#7f1d1d",
+    },
   },
   {
     name: "orange",
-    values: { 50: "#fff7ed", 100: "#ffedd5", 200: "#fed7aa", 300: "#fdba74", 400: "#fb923c", 500: "#f97316", 600: "#ea580c", 700: "#c2410c", 800: "#9a3412", 900: "#7c2d12" },
+    values: {
+      50: "#fff7ed",
+      100: "#ffedd5",
+      200: "#fed7aa",
+      300: "#fdba74",
+      400: "#fb923c",
+      500: "#f97316",
+      600: "#ea580c",
+      700: "#c2410c",
+      800: "#9a3412",
+      900: "#7c2d12",
+    },
   },
   {
     name: "amber",
-    values: { 50: "#fffbeb", 100: "#fef3c7", 200: "#fde68a", 300: "#fcd34d", 400: "#fbbf24", 500: "#f59e0b", 600: "#d97706", 700: "#b45309", 800: "#92400e", 900: "#78350f" },
+    values: {
+      50: "#fffbeb",
+      100: "#fef3c7",
+      200: "#fde68a",
+      300: "#fcd34d",
+      400: "#fbbf24",
+      500: "#f59e0b",
+      600: "#d97706",
+      700: "#b45309",
+      800: "#92400e",
+      900: "#78350f",
+    },
   },
   {
     name: "yellow",
-    values: { 50: "#fefce8", 100: "#fef9c3", 200: "#fef08a", 300: "#fde047", 400: "#facc15", 500: "#eab308", 600: "#ca8a04", 700: "#a16207", 800: "#854d0e", 900: "#713f12" },
+    values: {
+      50: "#fefce8",
+      100: "#fef9c3",
+      200: "#fef08a",
+      300: "#fde047",
+      400: "#facc15",
+      500: "#eab308",
+      600: "#ca8a04",
+      700: "#a16207",
+      800: "#854d0e",
+      900: "#713f12",
+    },
   },
   {
     name: "lime",
-    values: { 50: "#f7fee7", 100: "#ecfccb", 200: "#d9f99d", 300: "#bef264", 400: "#a3e635", 500: "#84cc16", 600: "#65a30d", 700: "#4d7c0f", 800: "#3f6212", 900: "#365314" },
+    values: {
+      50: "#f7fee7",
+      100: "#ecfccb",
+      200: "#d9f99d",
+      300: "#bef264",
+      400: "#a3e635",
+      500: "#84cc16",
+      600: "#65a30d",
+      700: "#4d7c0f",
+      800: "#3f6212",
+      900: "#365314",
+    },
   },
   {
     name: "green",
-    values: { 50: "#f0fdf4", 100: "#dcfce7", 200: "#bbf7d0", 300: "#86efac", 400: "#4ade80", 500: "#22c55e", 600: "#16a34a", 700: "#15803d", 800: "#166534", 900: "#14532d" },
+    values: {
+      50: "#f0fdf4",
+      100: "#dcfce7",
+      200: "#bbf7d0",
+      300: "#86efac",
+      400: "#4ade80",
+      500: "#22c55e",
+      600: "#16a34a",
+      700: "#15803d",
+      800: "#166534",
+      900: "#14532d",
+    },
   },
   {
     name: "emerald",
-    values: { 50: "#ecfdf5", 100: "#d1fae5", 200: "#a7f3d0", 300: "#6ee7b7", 400: "#34d399", 500: "#10b981", 600: "#059669", 700: "#047857", 800: "#065f46", 900: "#064e3b" },
+    values: {
+      50: "#ecfdf5",
+      100: "#d1fae5",
+      200: "#a7f3d0",
+      300: "#6ee7b7",
+      400: "#34d399",
+      500: "#10b981",
+      600: "#059669",
+      700: "#047857",
+      800: "#065f46",
+      900: "#064e3b",
+    },
   },
   {
     name: "teal",
-    values: { 50: "#f0fdfa", 100: "#ccfbf1", 200: "#99f6e4", 300: "#5eead4", 400: "#2dd4bf", 500: "#14b8a6", 600: "#0d9488", 700: "#0f766e", 800: "#115e59", 900: "#134e4a" },
+    values: {
+      50: "#f0fdfa",
+      100: "#ccfbf1",
+      200: "#99f6e4",
+      300: "#5eead4",
+      400: "#2dd4bf",
+      500: "#14b8a6",
+      600: "#0d9488",
+      700: "#0f766e",
+      800: "#115e59",
+      900: "#134e4a",
+    },
   },
   {
     name: "cyan",
-    values: { 50: "#ecfeff", 100: "#cffafe", 200: "#a5f3fc", 300: "#67e8f9", 400: "#22d3ee", 500: "#06b6d4", 600: "#0891b2", 700: "#0e7490", 800: "#155e75", 900: "#164e63" },
+    values: {
+      50: "#ecfeff",
+      100: "#cffafe",
+      200: "#a5f3fc",
+      300: "#67e8f9",
+      400: "#22d3ee",
+      500: "#06b6d4",
+      600: "#0891b2",
+      700: "#0e7490",
+      800: "#155e75",
+      900: "#164e63",
+    },
   },
   {
     name: "blue",
-    values: { 50: "#eff6ff", 100: "#dbeafe", 200: "#bfdbfe", 300: "#93c5fd", 400: "#60a5fa", 500: "#3b82f6", 600: "#2563eb", 700: "#1d4ed8", 800: "#1e40af", 900: "#1e3a8a" },
+    values: {
+      50: "#eff6ff",
+      100: "#dbeafe",
+      200: "#bfdbfe",
+      300: "#93c5fd",
+      400: "#60a5fa",
+      500: "#3b82f6",
+      600: "#2563eb",
+      700: "#1d4ed8",
+      800: "#1e40af",
+      900: "#1e3a8a",
+    },
   },
   {
     name: "violet",
-    values: { 50: "#f5f3ff", 100: "#ede9fe", 200: "#ddd6fe", 300: "#c4b5fd", 400: "#a78bfa", 500: "#8b5cf6", 600: "#7c3aed", 700: "#6d28d9", 800: "#5b21b6", 900: "#4c1d95" },
+    values: {
+      50: "#f5f3ff",
+      100: "#ede9fe",
+      200: "#ddd6fe",
+      300: "#c4b5fd",
+      400: "#a78bfa",
+      500: "#8b5cf6",
+      600: "#7c3aed",
+      700: "#6d28d9",
+      800: "#5b21b6",
+      900: "#4c1d95",
+    },
   },
   {
     name: "pink",
-    values: { 50: "#fdf2f8", 100: "#fce7f3", 200: "#fbcfe8", 300: "#f9a8d4", 400: "#f472b6", 500: "#ec4899", 600: "#db2777", 700: "#be185d", 800: "#9d174d", 900: "#831843" },
+    values: {
+      50: "#fdf2f8",
+      100: "#fce7f3",
+      200: "#fbcfe8",
+      300: "#f9a8d4",
+      400: "#f472b6",
+      500: "#ec4899",
+      600: "#db2777",
+      700: "#be185d",
+      800: "#9d174d",
+      900: "#831843",
+    },
   },
 ];
 
@@ -109,7 +241,12 @@ const borderColors: SemanticColor[] = [
 const surfaceColors: SemanticColor[] = [
   { name: "surface", variable: "--color-surface", light: "#ffffff", dark: "zinc-900" },
   { name: "surface-hover", variable: "--color-surface-hover", light: "zinc-50", dark: "zinc-800" },
-  { name: "surface-active", variable: "--color-surface-active", light: "zinc-100", dark: "zinc-700" },
+  {
+    name: "surface-active",
+    variable: "--color-surface-active",
+    light: "zinc-100",
+    dark: "zinc-700",
+  },
 ];
 
 const primaryColors: SemanticColor[] = [
@@ -121,12 +258,21 @@ const primaryColors: SemanticColor[] = [
 const secondaryColors: SemanticColor[] = [
   { name: "secondary", variable: "--color-secondary", light: "zinc-100", dark: "zinc-800" },
   { name: "secondary-fg", variable: "--color-secondary-fg", light: "zinc-900", dark: "zinc-100" },
-  { name: "secondary-hover", variable: "--color-secondary-hover", light: "zinc-200", dark: "zinc-700" },
+  {
+    name: "secondary-hover",
+    variable: "--color-secondary-hover",
+    light: "zinc-200",
+    dark: "zinc-700",
+  },
 ];
 
 /* ── Status colors ───────────────────────────────────────── */
 
-const statusGroups: { title: string; source: string; colors: { name: string; variable: string; ref: string }[] }[] = [
+const statusGroups: {
+  title: string;
+  source: string;
+  colors: { name: string; variable: string; ref: string }[];
+}[] = [
   {
     title: "ポジティブ（成功）",
     source: "emerald",
@@ -218,20 +364,30 @@ function SemanticSection({
   return (
     <>
       <h3 className={styles.subsectionTitle}>{title}</h3>
-      <p style={{ fontSize: "var(--font-size-sm)", color: "var(--color-fg-secondary)", marginBottom: "var(--space-4)" }}>
+      <p
+        style={{
+          fontSize: "var(--font-size-sm)",
+          color: "var(--color-fg-secondary)",
+          marginBottom: "var(--space-4)",
+        }}
+      >
         {description}
       </p>
       <div className={styles.tokenGrid}>
         {colors.map((c) => (
           <div key={c.variable} className={styles.tokenCard}>
-            <div
-              className={styles.tokenSwatch}
-              style={{ background: `var(${c.variable})` }}
-            />
+            <div className={styles.tokenSwatch} style={{ background: `var(${c.variable})` }} />
             <div className={styles.tokenInfo}>
               <div className={styles.tokenName}>{c.name}</div>
               <div className={styles.tokenValue}>{c.variable}</div>
-              <div style={{ fontSize: "var(--font-size-2xs)", color: "var(--color-fg-tertiary)", fontFamily: "var(--font-mono)", marginTop: "2px" }}>
+              <div
+                style={{
+                  fontSize: "var(--font-size-2xs)",
+                  color: "var(--color-fg-tertiary)",
+                  fontFamily: "var(--font-mono)",
+                  marginTop: "2px",
+                }}
+              >
                 ライト: {c.light} / ダーク: {c.dark}
               </div>
             </div>
@@ -255,9 +411,15 @@ export function ColorsPage() {
 
       {/* ── Palette ────────────────────────────────────────── */}
       <h2 className={styles.sectionTitle}>カラーパレット（12色×10階調）</h2>
-      <p style={{ fontSize: "var(--font-size-sm)", color: "var(--color-fg-secondary)", marginBottom: "var(--space-4)" }}>
-        チャート、イラスト、装飾背景、ステータスカラーの基盤となるプリミティブパレット。
-        各色 50〜900 の10段階。ホバーで shade 番号を表示します。
+      <p
+        style={{
+          fontSize: "var(--font-size-sm)",
+          color: "var(--color-fg-secondary)",
+          marginBottom: "var(--space-4)",
+        }}
+      >
+        チャート、イラスト、装飾背景、ステータスカラーの基盤となるプリミティブパレット。 各色
+        50〜900 の10段階。ホバーで shade 番号を表示します。
       </p>
 
       {/* Shade header */}
@@ -265,7 +427,9 @@ export function ColorsPage() {
         <span className={styles.paletteHueName} />
         <div className={styles.paletteShadeLabels}>
           {shades.map((s) => (
-            <span key={s} className={styles.paletteShadeLabel}>{s}</span>
+            <span key={s} className={styles.paletteShadeLabel}>
+              {s}
+            </span>
           ))}
         </div>
       </div>
@@ -314,7 +478,7 @@ export function ColorsPage() {
       ))}
 
       <div className={styles.codeBlock} style={{ marginTop: "var(--space-6)" }}>
-{`/* パレットの使い方 */
+        {`/* パレットの使い方 */
 .hero-bg   { background: var(--blue-500); }
 .highlight { color: var(--amber-400); }
 .soft-bg   { background: var(--violet-50); }
@@ -323,7 +487,13 @@ export function ColorsPage() {
 
       {/* ── Zinc Scale ─────────────────────────────────────── */}
       <h2 className={styles.sectionTitle}>ニュートラルスケール（zinc-*）</h2>
-      <p style={{ fontSize: "var(--font-size-sm)", color: "var(--color-fg-secondary)", marginBottom: "var(--space-4)" }}>
+      <p
+        style={{
+          fontSize: "var(--font-size-sm)",
+          color: "var(--color-fg-secondary)",
+          marginBottom: "var(--space-4)",
+        }}
+      >
         Sand-tinted な暖かいグレースケール。セマンティックカラー（bg / fg / border 等）の基盤です。
         11段階（50〜950）。
       </p>
@@ -341,20 +511,56 @@ export function ColorsPage() {
 
       {/* ── Semantic Colors ────────────────────────────────── */}
       <h2 className={styles.sectionTitle}>セマンティックカラー</h2>
-      <p style={{ fontSize: "var(--font-size-sm)", color: "var(--color-fg-secondary)", marginBottom: "var(--space-4)" }}>
+      <p
+        style={{
+          fontSize: "var(--font-size-sm)",
+          color: "var(--color-fg-secondary)",
+          marginBottom: "var(--space-4)",
+        }}
+      >
         用途に基づいたカラートークン。ライト / ダークテーマで自動的に値が切り替わります。
       </p>
 
-      <SemanticSection title="背景色" description="ページやカード、パネルの背景色。" colors={bgColors} />
-      <SemanticSection title="前景色（テキスト）" description="テキストやアイコンの色。プライマリ、セカンダリ、ミュートの3段階。" colors={fgColors} />
-      <SemanticSection title="ボーダー" description="ボーダーやディバイダーの色。" colors={borderColors} />
-      <SemanticSection title="サーフェス" description="カードやドロップダウンなど、浮遊する要素の背景色とホバー・アクティブ状態。" colors={surfaceColors} />
-      <SemanticSection title="プライマリ" description="主要アクション（ボタン、リンク）の色。ライトモードは黒、ダークモードは白。" colors={primaryColors} />
-      <SemanticSection title="セカンダリ" description="副次的アクションの色。" colors={secondaryColors} />
+      <SemanticSection
+        title="背景色"
+        description="ページやカード、パネルの背景色。"
+        colors={bgColors}
+      />
+      <SemanticSection
+        title="前景色（テキスト）"
+        description="テキストやアイコンの色。プライマリ、セカンダリ、ミュートの3段階。"
+        colors={fgColors}
+      />
+      <SemanticSection
+        title="ボーダー"
+        description="ボーダーやディバイダーの色。"
+        colors={borderColors}
+      />
+      <SemanticSection
+        title="サーフェス"
+        description="カードやドロップダウンなど、浮遊する要素の背景色とホバー・アクティブ状態。"
+        colors={surfaceColors}
+      />
+      <SemanticSection
+        title="プライマリ"
+        description="主要アクション（ボタン、リンク）の色。ライトモードは黒、ダークモードは白。"
+        colors={primaryColors}
+      />
+      <SemanticSection
+        title="セカンダリ"
+        description="副次的アクションの色。"
+        colors={secondaryColors}
+      />
 
       {/* ── Status Colors ──────────────────────────────────── */}
       <h2 className={styles.sectionTitle}>ステータスカラー</h2>
-      <p style={{ fontSize: "var(--font-size-sm)", color: "var(--color-fg-secondary)", marginBottom: "var(--space-4)" }}>
+      <p
+        style={{
+          fontSize: "var(--font-size-sm)",
+          color: "var(--color-fg-secondary)",
+          marginBottom: "var(--space-4)",
+        }}
+      >
         成功・エラー・警告・情報を表すカラー。パレットから参照しています。
       </p>
 
@@ -362,7 +568,14 @@ export function ColorsPage() {
         <div key={group.title}>
           <h3 className={styles.subsectionTitle}>
             {group.title}
-            <span style={{ fontSize: "var(--font-size-2xs)", color: "var(--color-fg-tertiary)", fontWeight: "var(--font-weight-normal)", marginLeft: "var(--space-2)" }}>
+            <span
+              style={{
+                fontSize: "var(--font-size-2xs)",
+                color: "var(--color-fg-tertiary)",
+                fontWeight: "var(--font-weight-normal)",
+                marginLeft: "var(--space-2)",
+              }}
+            >
               ← {group.source}
             </span>
           </h3>
@@ -385,7 +598,13 @@ export function ColorsPage() {
       <h2 className={styles.sectionTitle}>チャートカラー</h2>
 
       <h3 className={styles.subsectionTitle}>名前付きカラー</h3>
-      <p style={{ fontSize: "var(--font-size-sm)", color: "var(--color-fg-secondary)", marginBottom: "var(--space-4)" }}>
+      <p
+        style={{
+          fontSize: "var(--font-size-sm)",
+          color: "var(--color-fg-secondary)",
+          marginBottom: "var(--space-4)",
+        }}
+      >
         BarChart / DonutChart / Sparkline で使用。パレットの 500 を参照。
       </p>
       <div className={styles.tokenGrid}>
@@ -401,7 +620,16 @@ export function ColorsPage() {
       </div>
 
       <h3 className={styles.subsectionTitle}>Categorical（12色）</h3>
-      <div style={{ display: "flex", gap: "2px", borderRadius: "var(--radius-md)", overflow: "hidden", height: "48px", marginBottom: "var(--space-6)" }}>
+      <div
+        style={{
+          display: "flex",
+          gap: "2px",
+          borderRadius: "var(--radius-md)",
+          overflow: "hidden",
+          height: "48px",
+          marginBottom: "var(--space-6)",
+        }}
+      >
         {chartCategorical.map((c) => (
           <div
             key={c.name}
@@ -441,7 +669,7 @@ export function ColorsPage() {
       {/* ── Token hierarchy ────────────────────────────────── */}
       <h2 className={styles.sectionTitle}>トークン階層</h2>
       <div className={styles.codeBlock}>
-{`┌─────────────────────────────────────────────┐
+        {`┌─────────────────────────────────────────────┐
 │  Semantic Tokens (テーマ対応)                │
 │  --color-bg, --color-fg, --color-positive... │
 │  → ライト / ダークで自動切替                │

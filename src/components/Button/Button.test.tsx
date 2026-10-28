@@ -7,9 +7,7 @@ import { Button } from "./Button";
 describe("Button", () => {
   it("renders with correct text", () => {
     render(<Button>クリック</Button>);
-    expect(
-      screen.getByRole("button", { name: "クリック" }),
-    ).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "クリック" })).toBeInTheDocument();
   });
 
   it("applies primary variant class by default", () => {

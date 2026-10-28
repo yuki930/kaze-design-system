@@ -85,11 +85,23 @@ const densityTokens = [
   { name: "--density-control-height", normal: "2.25rem", compact: "2rem" },
   { name: "--density-row-py", normal: "var(--space-3) / 12px", compact: "var(--space-2) / 8px" },
   { name: "--density-row-px", normal: "var(--space-4) / 16px", compact: "var(--space-3) / 12px" },
-  { name: "--density-font-size-ui", normal: "var(--font-size-sm) / 14px", compact: "var(--font-size-xs) / 13px" },
-  { name: "--density-line-height-ui", normal: "var(--line-height-normal) / 1.5", compact: "var(--line-height-snug) / 1.375" },
+  {
+    name: "--density-font-size-ui",
+    normal: "var(--font-size-sm) / 14px",
+    compact: "var(--font-size-xs) / 13px",
+  },
+  {
+    name: "--density-line-height-ui",
+    normal: "var(--line-height-normal) / 1.5",
+    compact: "var(--line-height-snug) / 1.375",
+  },
   { name: "--density-nav-py", normal: "var(--space-2) / 8px", compact: "var(--space-1-5) / 6px" },
   { name: "--density-nav-gap", normal: "var(--space-2-5) / 10px", compact: "var(--space-2) / 8px" },
-  { name: "--density-dropdown-py", normal: "var(--space-1-5) / 6px", compact: "var(--space-1) / 4px" },
+  {
+    name: "--density-dropdown-py",
+    normal: "var(--space-1-5) / 6px",
+    compact: "var(--space-1) / 4px",
+  },
   { name: "--density-tab-py", normal: "var(--space-2) / 8px", compact: "var(--space-1-5) / 6px" },
 ];
 
@@ -107,10 +119,7 @@ export function TokensPage() {
       <div className={styles.tokenGrid}>
         {zincColors.map((color) => (
           <div key={color.name} className={styles.tokenCard}>
-            <div
-              className={styles.tokenSwatch}
-              style={{ background: `var(--${color.name})` }}
-            />
+            <div className={styles.tokenSwatch} style={{ background: `var(--${color.name})` }} />
             <div className={styles.tokenInfo}>
               <div className={styles.tokenName}>{color.name}</div>
               <div className={styles.tokenValue}>{color.value}</div>
@@ -124,10 +133,7 @@ export function TokensPage() {
       <div className={styles.tokenGrid}>
         {statusColors.map((color) => (
           <div key={color.name} className={styles.tokenCard}>
-            <div
-              className={styles.tokenSwatch}
-              style={{ background: color.value }}
-            />
+            <div className={styles.tokenSwatch} style={{ background: color.value }} />
             <div className={styles.tokenInfo}>
               <div className={styles.tokenName}>{color.name}</div>
               <div className={styles.tokenValue}>{color.value}</div>
@@ -171,16 +177,10 @@ export function TokensPage() {
               marginBottom: "12px",
             }}
           >
-            <span
-              className={styles.tokenName}
-              style={{ minWidth: "80px", flexShrink: 0 }}
-            >
-              {fs.name}{" "}
-              <span className={styles.tokenValue}>({fs.value})</span>
+            <span className={styles.tokenName} style={{ minWidth: "80px", flexShrink: 0 }}>
+              {fs.name} <span className={styles.tokenValue}>({fs.value})</span>
             </span>
-            <span style={{ fontSize: fs.value, lineHeight: 1.4 }}>
-              風のように軽やかな
-            </span>
+            <span style={{ fontSize: fs.value, lineHeight: 1.4 }}>風のように軽やかな</span>
           </div>
         ))}
       </div>
@@ -193,10 +193,7 @@ export function TokensPage() {
             <span className={styles.spacingLabel}>
               {space.name} ({space.size}px)
             </span>
-            <div
-              className={styles.spacingBar}
-              style={{ width: `${space.size}px` }}
-            />
+            <div className={styles.spacingBar} style={{ width: `${space.size}px` }} />
           </div>
         ))}
       </div>
@@ -269,8 +266,8 @@ export function TokensPage() {
         <code className={styles.inlineCode}>data-density=&quot;compact&quot;</code>{" "}
         をルート、または任意のコンテナに付与すると、コントロール高・行パディング・UI
         フォントサイズ・行間が一段階詰まります。カスタムプロパティは子孫要素に継承されるため、
-        どの階層に付けても効きます。<code className={styles.inlineCode}>data-theme</code>{" "}
-        （ライト / ダーク）とは独立した軸なので、自由に組み合わせられます。
+        どの階層に付けても効きます。<code className={styles.inlineCode}>data-theme</code> （ライト /
+        ダーク）とは独立した軸なので、自由に組み合わせられます。
       </p>
 
       <div

@@ -25,6 +25,8 @@ npm run build         # Next.js 本番ビルド
 npm run build:lib     # ライブラリビルド (dist/ に出力、vite.config.lib.ts 使用)
 npm run storybook     # Storybook 起動 (port 6006)
 npm run typecheck     # TypeScript 型チェック
+npm run format:fix    # biome でフォーマット + 安全な lint 自動修正（push 前に必ず実行）
+npm run lint          # biome lint（a11y の一部はまだ warn。新規コードでは警告も出さない）
 npm run test          # ユニットテスト（jsdom。CI / publish で実行）
 npm run test:storybook # Storybook ブラウザテスト（Playwright Chromium。sandbox 内では起動できない）
 npm run docs:llms     # llms.txt / llms-full.txt を再生成

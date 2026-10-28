@@ -72,10 +72,7 @@ export function SettingsPage() {
       >
         {/* Breadcrumb */}
         <Breadcrumb
-          items={[
-            { label: "ホーム", href: "#" },
-            { label: "設定" },
-          ]}
+          items={[{ label: "ホーム", href: "#" }, { label: "設定" }]}
           style={{ marginBottom: "var(--space-6)" }}
         />
 
@@ -114,9 +111,7 @@ export function SettingsPage() {
                 編集
               </Button>
             </div>
-            <CardDescription>
-              公開プロフィール情報を管理します
-            </CardDescription>
+            <CardDescription>公開プロフィール情報を管理します</CardDescription>
           </CardHeader>
           <CardBody>
             <div className="settings-profile">
@@ -125,29 +120,16 @@ export function SettingsPage() {
                 fallback="HR"
                 size="lg"
               />
-              <DescriptionList
-                horizontal
-                bordered
-                style={{ flex: 1 }}
-              >
-                <DescriptionItem term="表示名">
-                  早瀬 遼平
-                </DescriptionItem>
-                <DescriptionItem term="メールアドレス">
-                  ryohei.hayase@norn.co.jp
-                </DescriptionItem>
-                <DescriptionItem term="ユーザーID">
-                  @r-hayase
-                </DescriptionItem>
+              <DescriptionList horizontal bordered style={{ flex: 1 }}>
+                <DescriptionItem term="表示名">早瀬 遼平</DescriptionItem>
+                <DescriptionItem term="メールアドレス">ryohei.hayase@norn.co.jp</DescriptionItem>
+                <DescriptionItem term="ユーザーID">@r-hayase</DescriptionItem>
                 <DescriptionItem term="自己紹介">
-                  フロントエンドエンジニア。デザインシステムとアクセシビリティに情熱を持っています。TypeScript / React / CSS が得意です。
+                  フロントエンドエンジニア。デザインシステムとアクセシビリティに情熱を持っています。TypeScript
+                  / React / CSS が得意です。
                 </DescriptionItem>
-                <DescriptionItem term="所在地">
-                  東京都千代田区
-                </DescriptionItem>
-                <DescriptionItem term="参加日">
-                  2024年4月12日
-                </DescriptionItem>
+                <DescriptionItem term="所在地">東京都千代田区</DescriptionItem>
+                <DescriptionItem term="参加日">2024年4月12日</DescriptionItem>
               </DescriptionList>
             </div>
           </CardBody>
@@ -160,9 +142,7 @@ export function SettingsPage() {
               <Bell size={18} style={{ color: "var(--color-fg-secondary)" }} />
               <CardTitle>通知設定</CardTitle>
             </div>
-            <CardDescription>
-              受信する通知の種類を選択します
-            </CardDescription>
+            <CardDescription>受信する通知の種類を選択します</CardDescription>
           </CardHeader>
           <CardBody>
             <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-5)" }}>
@@ -192,7 +172,13 @@ export function SettingsPage() {
                     <p style={{ margin: 0, fontWeight: 500, color: "var(--color-fg)" }}>
                       メール通知
                     </p>
-                    <p style={{ margin: 0, fontSize: "var(--font-size-sm)", color: "var(--color-fg-secondary)" }}>
+                    <p
+                      style={{
+                        margin: 0,
+                        fontSize: "var(--font-size-sm)",
+                        color: "var(--color-fg-secondary)",
+                      }}
+                    >
                       プロジェクトの更新やコメントをメールで受信
                     </p>
                   </div>
@@ -228,7 +214,13 @@ export function SettingsPage() {
                     <p style={{ margin: 0, fontWeight: 500, color: "var(--color-fg)" }}>
                       プッシュ通知
                     </p>
-                    <p style={{ margin: 0, fontSize: "var(--font-size-sm)", color: "var(--color-fg-secondary)" }}>
+                    <p
+                      style={{
+                        margin: 0,
+                        fontSize: "var(--font-size-sm)",
+                        color: "var(--color-fg-secondary)",
+                      }}
+                    >
                       ブラウザのプッシュ通知をリアルタイムで受信
                     </p>
                   </div>
@@ -264,7 +256,13 @@ export function SettingsPage() {
                     <p style={{ margin: 0, fontWeight: 500, color: "var(--color-fg)" }}>
                       マーケティング通知
                     </p>
-                    <p style={{ margin: 0, fontSize: "var(--font-size-sm)", color: "var(--color-fg-secondary)" }}>
+                    <p
+                      style={{
+                        margin: 0,
+                        fontSize: "var(--font-size-sm)",
+                        color: "var(--color-fg-secondary)",
+                      }}
+                    >
                       新機能やキャンペーン情報をメールで受信
                     </p>
                   </div>
@@ -282,15 +280,11 @@ export function SettingsPage() {
               <CreditCard size={18} style={{ color: "var(--color-fg-secondary)" }} />
               <CardTitle>プランと利用状況</CardTitle>
             </div>
-            <CardDescription>
-              現在のサブスクリプションとリソース使用状況
-            </CardDescription>
+            <CardDescription>現在のサブスクリプションとリソース使用状況</CardDescription>
           </CardHeader>
           <CardBody>
             {/* Current Plan */}
-            <div
-              className="settings-plan-row"
-            >
+            <div className="settings-plan-row">
               <div style={{ display: "flex", alignItems: "center", gap: "var(--space-3)" }}>
                 <span
                   style={{
@@ -308,13 +302,26 @@ export function SettingsPage() {
                   <Crown size={18} />
                 </span>
                 <div>
-                  <div style={{ display: "flex", alignItems: "center", gap: "var(--space-2)", flexWrap: "wrap" }}>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "var(--space-2)",
+                      flexWrap: "wrap",
+                    }}
+                  >
                     <p style={{ margin: 0, fontWeight: 600, color: "var(--color-fg)" }}>
                       プロプラン
                     </p>
                     <Badge variant="info">現在のプラン</Badge>
                   </div>
-                  <p style={{ margin: 0, fontSize: "var(--font-size-sm)", color: "var(--color-fg-secondary)" }}>
+                  <p
+                    style={{
+                      margin: 0,
+                      fontSize: "var(--font-size-sm)",
+                      color: "var(--color-fg-secondary)",
+                    }}
+                  >
                     月額 ¥1,980 / 次回請求日: 2026年3月12日
                   </p>
                 </div>
@@ -354,7 +361,9 @@ export function SettingsPage() {
                     <HardDrive size={14} />
                     ストレージ
                   </span>
-                  <span style={{ fontSize: "var(--font-size-sm)", color: "var(--color-fg-secondary)" }}>
+                  <span
+                    style={{ fontSize: "var(--font-size-sm)", color: "var(--color-fg-secondary)" }}
+                  >
                     7.2 GB / 10 GB
                   </span>
                 </div>
@@ -382,7 +391,9 @@ export function SettingsPage() {
                     <Users size={14} />
                     チームメンバー
                   </span>
-                  <span style={{ fontSize: "var(--font-size-sm)", color: "var(--color-fg-secondary)" }}>
+                  <span
+                    style={{ fontSize: "var(--font-size-sm)", color: "var(--color-fg-secondary)" }}
+                  >
                     8 / 15 人
                   </span>
                 </div>
@@ -410,7 +421,9 @@ export function SettingsPage() {
                     <Zap size={14} />
                     API リクエスト (今月)
                   </span>
-                  <span style={{ fontSize: "var(--font-size-sm)", color: "var(--color-fg-secondary)" }}>
+                  <span
+                    style={{ fontSize: "var(--font-size-sm)", color: "var(--color-fg-secondary)" }}
+                  >
                     45,230 / 50,000
                   </span>
                 </div>
@@ -427,9 +440,7 @@ export function SettingsPage() {
               <Shield size={18} style={{ color: "var(--color-fg-secondary)" }} />
               <CardTitle>セキュリティ</CardTitle>
             </div>
-            <CardDescription>
-              アカウントのセキュリティ設定を管理します
-            </CardDescription>
+            <CardDescription>アカウントのセキュリティ設定を管理します</CardDescription>
           </CardHeader>
           <CardBody>
             <DescriptionList horizontal bordered>
@@ -445,7 +456,9 @@ export function SettingsPage() {
               </DescriptionItem>
               <DescriptionItem term="二要素認証">
                 <div style={{ display: "flex", alignItems: "center", gap: "var(--space-3)" }}>
-                  <Badge variant="positive" dot>有効</Badge>
+                  <Badge variant="positive" dot>
+                    有効
+                  </Badge>
                   <Button variant="outline" size="sm">
                     設定
                   </Button>
@@ -453,9 +466,7 @@ export function SettingsPage() {
               </DescriptionItem>
               <DescriptionItem term="アクティブセッション">
                 <div style={{ display: "flex", alignItems: "center", gap: "var(--space-3)" }}>
-                  <span style={{ color: "var(--color-fg-secondary)" }}>
-                    3 デバイス
-                  </span>
+                  <span style={{ color: "var(--color-fg-secondary)" }}>3 デバイス</span>
                   <Button variant="outline" size="sm">
                     管理
                   </Button>
@@ -475,18 +486,14 @@ export function SettingsPage() {
           <CardHeader>
             <div style={{ display: "flex", alignItems: "center", gap: "var(--space-2)" }}>
               <Trash2 size={18} style={{ color: "var(--color-negative)" }} />
-              <CardTitle style={{ color: "var(--color-negative)" }}>
-                危険エリア
-              </CardTitle>
+              <CardTitle style={{ color: "var(--color-negative)" }}>危険エリア</CardTitle>
             </div>
             <CardDescription>
               この操作は取り消すことができません。十分にご注意ください。
             </CardDescription>
           </CardHeader>
           <CardBody>
-            <div
-              className="settings-danger-row"
-            >
+            <div className="settings-danger-row">
               <div style={{ minWidth: 0 }}>
                 <p style={{ margin: 0, fontWeight: 500, color: "var(--color-fg)" }}>
                   アカウントを削除
@@ -501,11 +508,7 @@ export function SettingsPage() {
                   すべてのデータ、プロジェクト、設定が完全に削除されます。この操作は元に戻せません。
                 </p>
               </div>
-              <Button
-                variant="destructive"
-                size="sm"
-                style={{ flexShrink: 0 }}
-              >
+              <Button variant="destructive" size="sm" style={{ flexShrink: 0 }}>
                 <Trash2 size={14} />
                 アカウント削除
               </Button>

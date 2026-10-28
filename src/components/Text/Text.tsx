@@ -27,17 +27,7 @@ export interface TextProps extends HTMLAttributes<HTMLElement> {
 
 export const Text = forwardRef<HTMLElement, TextProps>(
   (
-    {
-      variant = "body",
-      size,
-      weight,
-      color,
-      align,
-      as = "p",
-      className,
-      children,
-      ...rest
-    },
+    { variant = "body", size, weight, color, align, as = "p", className, children, ...rest },
     ref,
   ) => {
     return createElement(

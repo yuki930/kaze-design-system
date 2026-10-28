@@ -15,26 +15,14 @@ describe("Metric", () => {
   });
 
   it("shows change with positive styling", () => {
-    render(
-      <Metric
-        label="売上"
-        value="1,000"
-        change={{ value: "+12%", trend: "positive" }}
-      />,
-    );
+    render(<Metric label="売上" value="1,000" change={{ value: "+12%", trend: "positive" }} />);
     const change = screen.getByText("+12%");
     expect(change).toBeInTheDocument();
     expect(change).toHaveClass("metric__change", "metric__change--positive");
   });
 
   it("shows change with negative styling", () => {
-    render(
-      <Metric
-        label="売上"
-        value="800"
-        change={{ value: "-5%", trend: "negative" }}
-      />,
-    );
+    render(<Metric label="売上" value="800" change={{ value: "-5%", trend: "negative" }} />);
     const change = screen.getByText("-5%");
     expect(change).toBeInTheDocument();
     expect(change).toHaveClass("metric__change", "metric__change--negative");

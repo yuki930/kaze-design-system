@@ -82,14 +82,12 @@ function main() {
   if (chunks.length) {
     const totalRaw = sum(chunks.map((c) => c.raw));
     const totalGz = sum(chunks.map((c) => c.gzip));
-    console.log(
-      row(`TOTAL (${chunks.length} components)`, { raw: totalRaw, gzip: totalGz }),
-    );
-    console.log(row("largest: " + chunks[0].name, chunks[0]));
+    console.log(row(`TOTAL (${chunks.length} components)`, { raw: totalRaw, gzip: totalGz }));
+    console.log(row(`largest: ${chunks[0].name}`, chunks[0]));
     const median = chunks[Math.floor(chunks.length / 2)];
-    console.log(row("median:  " + median.name, median));
+    console.log(row(`median:  ${median.name}`, median));
     const smallest = chunks[chunks.length - 1];
-    console.log(row("smallest: " + smallest.name, smallest));
+    console.log(row(`smallest: ${smallest.name}`, smallest));
   }
 
   console.log();

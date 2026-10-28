@@ -1,4 +1,9 @@
-import { forwardRef, type HTMLAttributes, type TdHTMLAttributes, type ThHTMLAttributes } from "react";
+import {
+  forwardRef,
+  type HTMLAttributes,
+  type TdHTMLAttributes,
+  type ThHTMLAttributes,
+} from "react";
 import { cn } from "@/lib/utils";
 
 /* ── Table ─────────────────────────────────────────────────── */
@@ -28,26 +33,23 @@ Table.displayName = "Table";
 
 /* ── TableHeader ───────────────────────────────────────────── */
 
-export interface TableHeaderProps
-  extends HTMLAttributes<HTMLTableSectionElement> {}
+export interface TableHeaderProps extends HTMLAttributes<HTMLTableSectionElement> {}
 
-export const TableHeader = forwardRef<
-  HTMLTableSectionElement,
-  TableHeaderProps
->(({ className, children, ...rest }, ref) => {
-  return (
-    <thead ref={ref} className={className} {...rest}>
-      {children}
-    </thead>
-  );
-});
+export const TableHeader = forwardRef<HTMLTableSectionElement, TableHeaderProps>(
+  ({ className, children, ...rest }, ref) => {
+    return (
+      <thead ref={ref} className={className} {...rest}>
+        {children}
+      </thead>
+    );
+  },
+);
 
 TableHeader.displayName = "TableHeader";
 
 /* ── TableBody ─────────────────────────────────────────────── */
 
-export interface TableBodyProps
-  extends HTMLAttributes<HTMLTableSectionElement> {}
+export interface TableBodyProps extends HTMLAttributes<HTMLTableSectionElement> {}
 
 export const TableBody = forwardRef<HTMLTableSectionElement, TableBodyProps>(
   ({ className, children, ...rest }, ref) => {

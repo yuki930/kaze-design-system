@@ -2,7 +2,17 @@ import { forwardRef, type HTMLAttributes } from "react";
 import { cn } from "@/lib/utils";
 
 const CheckIcon = () => (
-  <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+  <svg
+    aria-hidden="true"
+    width="14"
+    height="14"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="3"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
     <polyline points="20 6 9 17 4 12" />
   </svg>
 );
@@ -24,12 +34,7 @@ export const Stepper = forwardRef<HTMLDivElement, StepperProps>(
         const isActive = i === currentStep;
         return (
           <div key={i} style={{ display: "contents" }}>
-            <div
-              className={cn(
-                "stepper__step",
-                isActive && "stepper__step--active",
-              )}
-            >
+            <div className={cn("stepper__step", isActive && "stepper__step--active")}>
               <span
                 className={cn(
                   "stepper__circle",
@@ -43,10 +48,7 @@ export const Stepper = forwardRef<HTMLDivElement, StepperProps>(
             </div>
             {i < steps.length - 1 && (
               <span
-                className={cn(
-                  "stepper__connector",
-                  isCompleted && "stepper__connector--completed",
-                )}
+                className={cn("stepper__connector", isCompleted && "stepper__connector--completed")}
               />
             )}
           </div>

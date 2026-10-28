@@ -68,11 +68,7 @@ export const WithCharacterCounter: Story = {
     const Component = () => {
       const [value, setValue] = useState("");
       return (
-        <FormField
-          label="お問い合わせ内容"
-          maxLength={200}
-          currentLength={value.length}
-        >
+        <FormField label="お問い合わせ内容" maxLength={200} currentLength={value.length}>
           <Textarea
             placeholder="お問い合わせ内容をご記入ください"
             rows={4}

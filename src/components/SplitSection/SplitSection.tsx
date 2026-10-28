@@ -12,9 +12,7 @@ export interface SplitSectionProps extends HTMLAttributes<HTMLElement> {
 
 export const SplitSection = forwardRef<HTMLElement, SplitSectionProps>(
   ({ media, mediaBg, reverse, className, children, ...rest }, ref) => {
-    const mediaStyle: CSSProperties | undefined = mediaBg
-      ? { background: mediaBg }
-      : undefined;
+    const mediaStyle: CSSProperties | undefined = mediaBg ? { background: mediaBg } : undefined;
 
     const mediaSlot = (
       <div className="split-section__media" style={mediaStyle}>
@@ -27,11 +25,7 @@ export const SplitSection = forwardRef<HTMLElement, SplitSectionProps>(
     return (
       <section
         ref={ref}
-        className={cn(
-          "split-section",
-          reverse && "split-section--reverse",
-          className,
-        )}
+        className={cn("split-section", reverse && "split-section--reverse", className)}
         {...rest}
       >
         {mediaSlot}

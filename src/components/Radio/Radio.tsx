@@ -3,8 +3,7 @@ import { cn } from "@/lib/utils";
 
 /* ── Radio ────────────────────────────────────────────────── */
 
-export interface RadioProps
-  extends Omit<InputHTMLAttributes<HTMLInputElement>, "type"> {
+export interface RadioProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "type"> {
   label?: string;
   error?: boolean;
 }
@@ -43,34 +42,17 @@ export interface RadioGroupProps extends HTMLAttributes<HTMLFieldSetElement> {
 }
 
 export const RadioGroup = forwardRef<HTMLFieldSetElement, RadioGroupProps>(
-  (
-    {
-      label,
-      orientation = "vertical",
-      error,
-      errorMessage,
-      className,
-      children,
-      ...rest
-    },
-    ref,
-  ) => {
+  ({ label, orientation = "vertical", error, errorMessage, className, children, ...rest }, ref) => {
     return (
       <fieldset
         ref={ref}
-        className={cn(
-          "radio-group",
-          `radio-group--${orientation}`,
-          className,
-        )}
+        className={cn("radio-group", `radio-group--${orientation}`, className)}
         aria-invalid={error || undefined}
         {...rest}
       >
         {label && <legend className="radio-group__legend">{label}</legend>}
         {children}
-        {error && errorMessage && (
-          <p className="radio-group__error">{errorMessage}</p>
-        )}
+        {error && errorMessage && <p className="radio-group__error">{errorMessage}</p>}
       </fieldset>
     );
   },

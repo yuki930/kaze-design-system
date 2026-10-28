@@ -1,12 +1,4 @@
-import {
-  Navbar,
-  NavbarLinks,
-  NavbarLink,
-  Avatar,
-  Badge,
-  Button,
-  Logo,
-} from "@/components";
+import { Navbar, NavbarLinks, NavbarLink, Avatar, Badge, Button, Logo } from "@/components";
 import { Heart, MessageCircle, Share2, Bookmark } from "lucide-react";
 
 export function ArticlePage() {
@@ -46,9 +38,7 @@ export function ArticlePage() {
         {/* Header */}
         <header className="article__header">
           <span className="article__category">デザインシステム</span>
-          <h1 className="article__title">
-            なぜ小さなチームほどデザインシステムが必要なのか
-          </h1>
+          <h1 className="article__title">なぜ小さなチームほどデザインシステムが必要なのか</h1>
           <div className="article__meta">
             <div className="article__meta-author">
               <Avatar fallback="YH" size="sm" />
@@ -94,12 +84,14 @@ export function ArticlePage() {
             デザイントークンとして定義しておけば、毎回悩む必要がなくなります。
           </p>
 
-          <pre><code>{`:root {
+          <pre>
+            <code>{`:root {
   --color-fg: #09090b;
   --color-fg-secondary: #71717a;
   --radius-md: 0.5rem;
   --space-4: 1rem;
-}`}</code></pre>
+}`}</code>
+          </pre>
 
           <h3>2. オンボーディングが劇的に速くなる</h3>
 
@@ -176,7 +168,14 @@ export function ArticlePage() {
         </div>
 
         {/* Tags */}
-        <div style={{ display: "flex", gap: "var(--space-2)", margin: "var(--space-8) 0 0", flexWrap: "wrap" }}>
+        <div
+          style={{
+            display: "flex",
+            gap: "var(--space-2)",
+            margin: "var(--space-8) 0 0",
+            flexWrap: "wrap",
+          }}
+        >
           <Badge>デザインシステム</Badge>
           <Badge>フロントエンド</Badge>
           <Badge>CSS</Badge>
@@ -187,20 +186,20 @@ export function ArticlePage() {
         {/* Actions */}
         <div className="article__actions">
           <div className="article__actions-left">
-            <button className="article__action-btn article__action-btn--active">
+            <button type="button" className="article__action-btn article__action-btn--active">
               <Heart size={16} />
               <span>128</span>
             </button>
-            <button className="article__action-btn">
+            <button type="button" className="article__action-btn">
               <MessageCircle size={16} />
               <span>24</span>
             </button>
           </div>
           <div className="article__actions-right">
-            <button className="article__action-btn">
+            <button type="button" className="article__action-btn">
               <Bookmark size={16} />
             </button>
-            <button className="article__action-btn">
+            <button type="button" className="article__action-btn">
               <Share2 size={16} />
             </button>
           </div>
@@ -213,8 +212,7 @@ export function ArticlePage() {
             <h3 className="article__author-card-name">原山 悠</h3>
             <p className="article__author-card-bio">
               フロントエンドエンジニア / デザインシステムを作るのが好き。
-              日々の開発で「あったらいいな」を形にしています。
-              TypeScript、React、CSSが得意。
+              日々の開発で「あったらいいな」を形にしています。 TypeScript、React、CSSが得意。
             </p>
             <Button variant="outline" size="sm">
               フォロー
@@ -229,19 +227,22 @@ export function ArticlePage() {
             {[
               {
                 title: "CSSカスタムプロパティで作るダークモード",
-                image: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=400&h=250&fit=crop",
+                image:
+                  "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=400&h=250&fit=crop",
                 author: "呉羽 直樹",
                 date: "2026年2月12日",
               },
               {
                 title: "アクセシビリティを最初から考える設計",
-                image: "https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?w=400&h=250&fit=crop",
+                image:
+                  "https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?w=400&h=250&fit=crop",
                 author: "志摩 このみ",
                 date: "2026年2月10日",
               },
               {
                 title: "Reactコンポーネントの命名規則ベストプラクティス",
-                image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400&h=250&fit=crop",
+                image:
+                  "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400&h=250&fit=crop",
                 author: "野々村 圭",
                 date: "2026年2月8日",
               },

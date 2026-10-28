@@ -18,18 +18,9 @@ export const Metric = forwardRef<HTMLDivElement, MetricProps>(
     return (
       <div ref={ref} className={cn("metric", className)} {...rest}>
         <span className="metric__label">{label}</span>
-        <span
-          className={cn("metric__value", large && "metric__value--lg")}
-        >
-          {value}
-        </span>
+        <span className={cn("metric__value", large && "metric__value--lg")}>{value}</span>
         {change && (
-          <span
-            className={cn(
-              "metric__change",
-              `metric__change--${change.trend}`,
-            )}
-          >
+          <span className={cn("metric__change", `metric__change--${change.trend}`)}>
             {change.value}
           </span>
         )}

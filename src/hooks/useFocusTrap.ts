@@ -17,10 +17,7 @@ const FOCUSABLE_SELECTOR = [
  * - On Shift+Tab at the first focusable element, focus wraps to the last.
  * - Auto-focuses the first focusable element when activated.
  */
-export function useFocusTrap(
-  containerRef: RefObject<HTMLElement | null>,
-  active: boolean,
-): void {
+export function useFocusTrap(containerRef: RefObject<HTMLElement | null>, active: boolean): void {
   // Store the element that had focus before the trap was activated
   const previousFocusRef = useRef<HTMLElement | null>(null);
 

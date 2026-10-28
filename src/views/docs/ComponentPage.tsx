@@ -93,7 +93,6 @@ import {
   Plus,
 } from "lucide-react";
 
-
 interface PropDoc {
   name: string;
   type: string;
@@ -128,14 +127,20 @@ const componentDocs: Record<string, ComponentDoc> = {
           </div>
         </div>
         <div>
-          <p style={{ fontSize: "0.875rem", fontWeight: 600, marginBottom: "0.5rem" }}>
-            サイズ
-          </p>
+          <p style={{ fontSize: "0.875rem", fontWeight: 600, marginBottom: "0.5rem" }}>サイズ</p>
           <div className={styles.preview} style={{ alignItems: "center" }}>
-            <Button variant="primary" size="xs">XS</Button>
-            <Button variant="primary" size="sm">Small</Button>
-            <Button variant="primary" size="md">Medium</Button>
-            <Button variant="primary" size="lg">Large</Button>
+            <Button variant="primary" size="xs">
+              XS
+            </Button>
+            <Button variant="primary" size="sm">
+              Small
+            </Button>
+            <Button variant="primary" size="md">
+              Medium
+            </Button>
+            <Button variant="primary" size="lg">
+              Large
+            </Button>
           </div>
         </div>
       </div>
@@ -304,7 +309,9 @@ const componentDocs: Record<string, ComponentDoc> = {
     preview: (
       <div className={styles.previewColumn} style={{ gap: "1.5rem", maxWidth: "400px" }}>
         <div>
-          <p style={{ fontSize: "0.875rem", fontWeight: 600, marginBottom: "0.5rem" }}>デフォルト</p>
+          <p style={{ fontSize: "0.875rem", fontWeight: 600, marginBottom: "0.5rem" }}>
+            デフォルト
+          </p>
           <Card>
             <CardHeader>
               <CardTitle>カードタイトル</CardTitle>
@@ -330,7 +337,9 @@ const componentDocs: Record<string, ComponentDoc> = {
           </Card>
         </div>
         <div>
-          <p style={{ fontSize: "0.875rem", fontWeight: 600, marginBottom: "0.5rem" }}>Interactive</p>
+          <p style={{ fontSize: "0.875rem", fontWeight: 600, marginBottom: "0.5rem" }}>
+            Interactive
+          </p>
           <Card variant="interactive">
             <CardBody>
               <p style={{ margin: 0, color: "var(--color-fg-secondary)" }}>
@@ -402,14 +411,24 @@ const componentDocs: Record<string, ComponentDoc> = {
         </div>
         <div className={styles.preview}>
           <Badge dot>ドット付き</Badge>
-          <Badge variant="positive" dot>オンライン</Badge>
+          <Badge variant="positive" dot>
+            オンライン
+          </Badge>
         </div>
         <div className={styles.preview}>
           <Badge solid>デフォルト</Badge>
-          <Badge variant="positive" solid>成功</Badge>
-          <Badge variant="negative" solid>エラー</Badge>
-          <Badge variant="warning" solid>警告</Badge>
-          <Badge variant="info" solid>情報</Badge>
+          <Badge variant="positive" solid>
+            成功
+          </Badge>
+          <Badge variant="negative" solid>
+            エラー
+          </Badge>
+          <Badge variant="warning" solid>
+            警告
+          </Badge>
+          <Badge variant="info" solid>
+            情報
+          </Badge>
         </div>
       </div>
     ),
@@ -598,16 +617,8 @@ const componentDocs: Record<string, ComponentDoc> = {
     description: "アバター",
     preview: (
       <div className={styles.preview} style={{ alignItems: "center" }}>
-        <Avatar
-          src="https://i.pravatar.cc/150?img=3"
-          alt="ユーザー"
-          size="sm"
-        />
-        <Avatar
-          src="https://i.pravatar.cc/150?img=5"
-          alt="ユーザー"
-          size="md"
-        />
+        <Avatar src="https://i.pravatar.cc/150?img=3" alt="ユーザー" size="sm" />
+        <Avatar src="https://i.pravatar.cc/150?img=5" alt="ユーザー" size="md" />
         <Avatar fallback="KZ" size="md" />
         <Avatar fallback="TN" size="lg" />
       </div>
@@ -644,16 +655,8 @@ const componentDocs: Record<string, ComponentDoc> = {
     preview: (
       <div className={styles.preview} style={{ gap: "2rem" }}>
         <Metric label="ユーザー数" value="1,234" />
-        <Metric
-          label="売上"
-          value="1,234,567"
-          change={{ value: "+12%", trend: "positive" }}
-        />
-        <Metric
-          label="離脱率"
-          value="3.2%"
-          change={{ value: "-0.5%", trend: "negative" }}
-        />
+        <Metric label="売上" value="1,234,567" change={{ value: "+12%", trend: "positive" }} />
+        <Metric label="離脱率" value="3.2%" change={{ value: "-0.5%", trend: "negative" }} />
         <Metric label="総収益" value="¥12,345,678" large />
       </div>
     ),
@@ -698,8 +701,7 @@ const componentDocs: Record<string, ComponentDoc> = {
           ダイアログはモーダルウィンドウとして表示されるため、ここではプレビューを省略しています。
         </p>
         <p>
-          <code>open</code> プロパティを <code>true</code>{" "}
-          にすることで表示されます。
+          <code>open</code> プロパティを <code>true</code> にすることで表示されます。
         </p>
       </div>
     ),
@@ -776,7 +778,10 @@ const componentDocs: Record<string, ComponentDoc> = {
           <span style={{ display: "inline-flex", alignItems: "center", gap: "0.375rem" }}>
             AI系リファラル数
             <HelpButton title="AI系リファラルの判定ロジック" position="bottom">
-              <p>GA4 の sessionSource に以下のドメインが含まれる場合、AI系リファラルとして集計しています。</p>
+              <p>
+                GA4 の sessionSource
+                に以下のドメインが含まれる場合、AI系リファラルとして集計しています。
+              </p>
               <ul style={{ margin: "0.5rem 0 0 1rem", padding: 0 }}>
                 <li>chatgpt.com</li>
                 <li>perplexity.ai</li>
@@ -904,9 +909,7 @@ const componentDocs: Record<string, ComponentDoc> = {
           color: "var(--color-fg-secondary)",
         }}
       >
-        <p>
-          トースト通知は画面の端に一時的に表示されるため、ここではプレビューを省略しています。
-        </p>
+        <p>トースト通知は画面の端に一時的に表示されるため、ここではプレビューを省略しています。</p>
         <p>
           <code>variant</code> プロパティで通知の種類を指定できます。
         </p>
@@ -995,23 +998,63 @@ const componentDocs: Record<string, ComponentDoc> = {
       <div className={styles.preview} style={{ alignItems: "center", gap: "1.5rem" }}>
         <div style={{ textAlign: "center" }}>
           <Icon icon={SearchIcon} size="xs" />
-          <p style={{ fontSize: "0.75rem", marginTop: "0.25rem", color: "var(--color-fg-secondary)" }}>xs (12px)</p>
+          <p
+            style={{
+              fontSize: "0.75rem",
+              marginTop: "0.25rem",
+              color: "var(--color-fg-secondary)",
+            }}
+          >
+            xs (12px)
+          </p>
         </div>
         <div style={{ textAlign: "center" }}>
           <Icon icon={Settings} size="sm" />
-          <p style={{ fontSize: "0.75rem", marginTop: "0.25rem", color: "var(--color-fg-secondary)" }}>sm (14px)</p>
+          <p
+            style={{
+              fontSize: "0.75rem",
+              marginTop: "0.25rem",
+              color: "var(--color-fg-secondary)",
+            }}
+          >
+            sm (14px)
+          </p>
         </div>
         <div style={{ textAlign: "center" }}>
           <Icon icon={Star} size="md" />
-          <p style={{ fontSize: "0.75rem", marginTop: "0.25rem", color: "var(--color-fg-secondary)" }}>md (16px)</p>
+          <p
+            style={{
+              fontSize: "0.75rem",
+              marginTop: "0.25rem",
+              color: "var(--color-fg-secondary)",
+            }}
+          >
+            md (16px)
+          </p>
         </div>
         <div style={{ textAlign: "center" }}>
           <Icon icon={Heart} size="lg" />
-          <p style={{ fontSize: "0.75rem", marginTop: "0.25rem", color: "var(--color-fg-secondary)" }}>lg (20px)</p>
+          <p
+            style={{
+              fontSize: "0.75rem",
+              marginTop: "0.25rem",
+              color: "var(--color-fg-secondary)",
+            }}
+          >
+            lg (20px)
+          </p>
         </div>
         <div style={{ textAlign: "center" }}>
           <Icon icon={ChevronDown} size="xl" />
-          <p style={{ fontSize: "0.75rem", marginTop: "0.25rem", color: "var(--color-fg-secondary)" }}>xl (24px)</p>
+          <p
+            style={{
+              fontSize: "0.75rem",
+              marginTop: "0.25rem",
+              color: "var(--color-fg-secondary)",
+            }}
+          >
+            xl (24px)
+          </p>
         </div>
       </div>
     ),
@@ -1044,10 +1087,20 @@ import { Icon } from "kaze-design-system";
     title: "Sidebar",
     description: "サイドバーナビゲーション",
     preview: (
-      <div style={{ position: "relative", height: "280px", border: "1px solid var(--color-border)", borderRadius: "var(--radius-lg)", overflow: "hidden" }}>
+      <div
+        style={{
+          position: "relative",
+          height: "280px",
+          border: "1px solid var(--color-border)",
+          borderRadius: "var(--radius-lg)",
+          overflow: "hidden",
+        }}
+      >
         <div style={{ position: "absolute", inset: 0 }}>
           <Sidebar logo={<Logo size="sm" />} style={{ position: "absolute" }}>
-            <NavItem icon={<Home size={18} />} active>ダッシュボード</NavItem>
+            <NavItem icon={<Home size={18} />} active>
+              ダッシュボード
+            </NavItem>
             <NavItem icon={<BarChart3 size={18} />}>分析</NavItem>
             <NavItem icon={<Users size={18} />}>ユーザー</NavItem>
             <NavItem icon={<Settings size={18} />}>設定</NavItem>
@@ -1082,14 +1135,28 @@ import { Icon } from "kaze-design-system";
     title: "TopBar",
     description: "トップバー",
     preview: (
-      <div style={{ border: "1px solid var(--color-border)", borderRadius: "var(--radius-lg)", overflow: "hidden" }}>
-        <TopBar actions={
-          <div style={{ display: "flex", gap: "0.5rem" }}>
-            <Button variant="ghost" size="sm" iconOnly><SearchIcon size={16} /></Button>
-            <Button variant="ghost" size="sm" iconOnly><Settings size={16} /></Button>
-          </div>
-        }>
-          <h2 style={{ fontSize: "var(--font-size-base)", fontWeight: 600, margin: 0 }}>ダッシュボード</h2>
+      <div
+        style={{
+          border: "1px solid var(--color-border)",
+          borderRadius: "var(--radius-lg)",
+          overflow: "hidden",
+        }}
+      >
+        <TopBar
+          actions={
+            <div style={{ display: "flex", gap: "0.5rem" }}>
+              <Button variant="ghost" size="sm" iconOnly>
+                <SearchIcon size={16} />
+              </Button>
+              <Button variant="ghost" size="sm" iconOnly>
+                <Settings size={16} />
+              </Button>
+            </div>
+          }
+        >
+          <h2 style={{ fontSize: "var(--font-size-base)", fontWeight: 600, margin: 0 }}>
+            ダッシュボード
+          </h2>
         </TopBar>
       </div>
     ),
@@ -1164,16 +1231,78 @@ import { Icon } from "kaze-design-system";
     title: "AppLayout",
     description: "アプリレイアウト",
     preview: (
-      <div style={{ border: "1px solid var(--color-border)", borderRadius: "var(--radius-lg)", overflow: "hidden", height: "200px" }}>
+      <div
+        style={{
+          border: "1px solid var(--color-border)",
+          borderRadius: "var(--radius-lg)",
+          overflow: "hidden",
+          height: "200px",
+        }}
+      >
         <div style={{ display: "flex", height: "100%" }}>
-          <div style={{ width: "60px", background: "var(--color-surface)", borderRight: "1px solid var(--color-border)", display: "flex", flexDirection: "column", alignItems: "center", padding: "0.5rem", gap: "0.5rem" }}>
-            <div style={{ width: "32px", height: "32px", background: "var(--color-primary)", borderRadius: "var(--radius-md)", marginBottom: "0.5rem" }} />
-            <div style={{ width: "24px", height: "24px", background: "var(--color-bg-tertiary)", borderRadius: "var(--radius-sm)" }} />
-            <div style={{ width: "24px", height: "24px", background: "var(--color-bg-tertiary)", borderRadius: "var(--radius-sm)" }} />
+          <div
+            style={{
+              width: "60px",
+              background: "var(--color-surface)",
+              borderRight: "1px solid var(--color-border)",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              padding: "0.5rem",
+              gap: "0.5rem",
+            }}
+          >
+            <div
+              style={{
+                width: "32px",
+                height: "32px",
+                background: "var(--color-primary)",
+                borderRadius: "var(--radius-md)",
+                marginBottom: "0.5rem",
+              }}
+            />
+            <div
+              style={{
+                width: "24px",
+                height: "24px",
+                background: "var(--color-bg-tertiary)",
+                borderRadius: "var(--radius-sm)",
+              }}
+            />
+            <div
+              style={{
+                width: "24px",
+                height: "24px",
+                background: "var(--color-bg-tertiary)",
+                borderRadius: "var(--radius-sm)",
+              }}
+            />
           </div>
           <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
-            <div style={{ height: "36px", borderBottom: "1px solid var(--color-border)", display: "flex", alignItems: "center", padding: "0 0.75rem", fontSize: "0.75rem", fontWeight: 600 }}>TopBar</div>
-            <div style={{ flex: 1, padding: "0.75rem", background: "var(--color-bg-secondary)", fontSize: "0.75rem", color: "var(--color-fg-secondary)" }}>コンテンツエリア</div>
+            <div
+              style={{
+                height: "36px",
+                borderBottom: "1px solid var(--color-border)",
+                display: "flex",
+                alignItems: "center",
+                padding: "0 0.75rem",
+                fontSize: "0.75rem",
+                fontWeight: 600,
+              }}
+            >
+              TopBar
+            </div>
+            <div
+              style={{
+                flex: 1,
+                padding: "0.75rem",
+                background: "var(--color-bg-secondary)",
+                fontSize: "0.75rem",
+                color: "var(--color-fg-secondary)",
+              }}
+            >
+              コンテンツエリア
+            </div>
           </div>
         </div>
       </div>
@@ -1209,7 +1338,9 @@ import { Icon } from "kaze-design-system";
     preview: (
       <div className={styles.previewColumn} style={{ gap: "1.5rem" }}>
         <div>
-          <p style={{ fontSize: "0.875rem", fontWeight: 600, marginBottom: "0.5rem" }}>デフォルト</p>
+          <p style={{ fontSize: "0.875rem", fontWeight: 600, marginBottom: "0.5rem" }}>
+            デフォルト
+          </p>
           <Divider />
         </div>
         <div>
@@ -1217,7 +1348,9 @@ import { Icon } from "kaze-design-system";
           <Divider subtle />
         </div>
         <div>
-          <p style={{ fontSize: "0.875rem", fontWeight: 600, marginBottom: "0.5rem" }}>テキスト付き</p>
+          <p style={{ fontSize: "0.875rem", fontWeight: 600, marginBottom: "0.5rem" }}>
+            テキスト付き
+          </p>
           <Divider text="または" />
         </div>
       </div>
@@ -1288,7 +1421,9 @@ import { Icon } from "kaze-design-system";
           </div>
         </div>
         <div>
-          <p style={{ fontSize: "0.875rem", fontWeight: 600, marginBottom: "0.75rem" }}>マークのみ</p>
+          <p style={{ fontSize: "0.875rem", fontWeight: 600, marginBottom: "0.75rem" }}>
+            マークのみ
+          </p>
           <div className={styles.preview} style={{ alignItems: "center", gap: "1.5rem" }}>
             <Logo size="sm" showText={false} />
             <Logo size="md" showText={false} />
@@ -1319,10 +1454,18 @@ import { Icon } from "kaze-design-system";
     title: "Navbar",
     description: "マーケティングサイト用ナビゲーションバー",
     preview: (
-      <div style={{ border: "1px solid var(--color-border)", borderRadius: "var(--radius-lg)", overflow: "hidden" }}>
+      <div
+        style={{
+          border: "1px solid var(--color-border)",
+          borderRadius: "var(--radius-lg)",
+          overflow: "hidden",
+        }}
+      >
         <Navbar logo={<Logo size="sm" />} actions={<Button size="sm">はじめる</Button>}>
           <NavbarLinks>
-            <NavbarLink href="#" active>機能</NavbarLink>
+            <NavbarLink href="#" active>
+              機能
+            </NavbarLink>
             <NavbarLink href="#">料金</NavbarLink>
             <NavbarLink href="#">FAQ</NavbarLink>
           </NavbarLinks>
@@ -1332,9 +1475,18 @@ import { Icon } from "kaze-design-system";
     props: [
       { name: "logo", type: "React.ReactNode", description: "ロゴ要素" },
       { name: "actions", type: "React.ReactNode", description: "右側のアクション要素" },
-      { name: "transparent", type: "boolean", default: "false", description: "透明背景にするかどうか" },
+      {
+        name: "transparent",
+        type: "boolean",
+        default: "false",
+        description: "透明背景にするかどうか",
+      },
       { name: "NavbarLinks", type: "サブコンポーネント", description: "ナビリンクのコンテナ" },
-      { name: "NavbarLink", type: "サブコンポーネント", description: "個々のナビリンク（active prop 対応）" },
+      {
+        name: "NavbarLink",
+        type: "サブコンポーネント",
+        description: "個々のナビリンク（active prop 対応）",
+      },
     ],
     usage: `<Navbar logo={<Logo />} actions={<Button>はじめる</Button>}>
   <NavbarLinks>
@@ -1348,7 +1500,11 @@ import { Icon } from "kaze-design-system";
     title: "Hero",
     description: "ヒーローセクション",
     preview: (
-      <Hero title="美しいUIを、もっと速く" subtitle="最小限のコードで最大限のデザインを。" badge="New">
+      <Hero
+        title="美しいUIを、もっと速く"
+        subtitle="最小限のコードで最大限のデザインを。"
+        badge="New"
+      >
         <Button>はじめる</Button>
         <Button variant="outline">ドキュメント</Button>
       </Hero>
@@ -1358,8 +1514,12 @@ import { Icon } from "kaze-design-system";
       { name: "subtitle", type: "string", description: "サブタイトル" },
       { name: "badge", type: "string", description: "タイトル上のバッジテキスト" },
       { name: "bg", type: "string", description: '背景色。例: "var(--blue-500)"' },
-      { name: "bgImage", type: "string", description: '背景画像 URL または CSS gradient' },
-      { name: "overlay", type: "boolean | number", description: "暗めオーバーレイの不透明度。true = 0.5" },
+      { name: "bgImage", type: "string", description: "背景画像 URL または CSS gradient" },
+      {
+        name: "overlay",
+        type: "boolean | number",
+        description: "暗めオーバーレイの不透明度。true = 0.5",
+      },
       { name: "children", type: "React.ReactNode", description: "CTAボタンなどのアクション要素" },
     ],
     usage: `<Hero title="メインタイトル" subtitle="説明テキスト" badge="New">
@@ -1381,16 +1541,34 @@ import { Icon } from "kaze-design-system";
     title: "Section",
     description: "汎用セクションラッパー",
     preview: (
-      <div style={{ border: "1px solid var(--color-border)", borderRadius: "var(--radius-lg)", overflow: "hidden" }}>
+      <div
+        style={{
+          border: "1px solid var(--color-border)",
+          borderRadius: "var(--radius-lg)",
+          overflow: "hidden",
+        }}
+      >
         <Section size="sm">
           <SectionHeader title="セクションタイトル" description="セクションの説明テキストです。" />
-          <p style={{ textAlign: "center", color: "var(--color-fg-secondary)", margin: 0 }}>コンテンツエリア</p>
+          <p style={{ textAlign: "center", color: "var(--color-fg-secondary)", margin: 0 }}>
+            コンテンツエリア
+          </p>
         </Section>
       </div>
     ),
     props: [
-      { name: "size", type: '"sm" | "md" | "lg"', default: '"md"', description: "上下パディングのサイズ" },
-      { name: "background", type: '"default" | "muted" | "dark"', default: '"default"', description: "背景色バリアント" },
+      {
+        name: "size",
+        type: '"sm" | "md" | "lg"',
+        default: '"md"',
+        description: "上下パディングのサイズ",
+      },
+      {
+        name: "background",
+        type: '"default" | "muted" | "dark"',
+        default: '"default"',
+        description: "背景色バリアント",
+      },
       { name: "children", type: "React.ReactNode", description: "セクションの内容" },
     ],
     usage: `<Section size="md" background="muted">
@@ -1403,18 +1581,57 @@ import { Icon } from "kaze-design-system";
     title: "SplitSection",
     description: "画像＋テキストの左右分割レイアウト。LP の交互セクションに最適。",
     preview: (
-      <div style={{ border: "1px solid var(--color-border)", borderRadius: "var(--radius-lg)", overflow: "hidden" }}>
+      <div
+        style={{
+          border: "1px solid var(--color-border)",
+          borderRadius: "var(--radius-lg)",
+          overflow: "hidden",
+        }}
+      >
         <SplitSection mediaBg="linear-gradient(135deg, var(--zinc-200) 0%, var(--zinc-300) 50%, var(--zinc-400) 100%)">
-          <p style={{ fontSize: "var(--font-size-xs)", textTransform: "uppercase", letterSpacing: "0.1em", fontWeight: 600, color: "var(--color-fg-muted)", margin: 0 }}>機能紹介</p>
-          <p style={{ fontSize: "var(--font-size-xl)", fontWeight: 700, margin: 0, lineHeight: "var(--line-height-tight)" }}>左右分割<br />レイアウト</p>
-          <p style={{ color: "var(--color-fg-muted)", margin: 0 }}>mediaBg でグラデーションや画像を指定。reverse で左右反転。</p>
+          <p
+            style={{
+              fontSize: "var(--font-size-xs)",
+              textTransform: "uppercase",
+              letterSpacing: "0.1em",
+              fontWeight: 600,
+              color: "var(--color-fg-muted)",
+              margin: 0,
+            }}
+          >
+            機能紹介
+          </p>
+          <p
+            style={{
+              fontSize: "var(--font-size-xl)",
+              fontWeight: 700,
+              margin: 0,
+              lineHeight: "var(--line-height-tight)",
+            }}
+          >
+            左右分割
+            <br />
+            レイアウト
+          </p>
+          <p style={{ color: "var(--color-fg-muted)", margin: 0 }}>
+            mediaBg でグラデーションや画像を指定。reverse で左右反転。
+          </p>
         </SplitSection>
       </div>
     ),
     props: [
       { name: "media", type: "React.ReactNode", description: "メディアエリアに表示する要素" },
-      { name: "mediaBg", type: "string", description: "メディアエリアの背景（CSS gradient / color）" },
-      { name: "reverse", type: "boolean", default: "false", description: "テキスト左・画像右に反転" },
+      {
+        name: "mediaBg",
+        type: "string",
+        description: "メディアエリアの背景（CSS gradient / color）",
+      },
+      {
+        name: "reverse",
+        type: "boolean",
+        default: "false",
+        description: "テキスト左・画像右に反転",
+      },
       { name: "children", type: "React.ReactNode", description: "テキストエリアの内容" },
     ],
     usage: `<SplitSection mediaBg="linear-gradient(135deg, var(--zinc-200), var(--zinc-400))">
@@ -1434,14 +1651,24 @@ import { Icon } from "kaze-design-system";
     description: "機能紹介グリッド",
     preview: (
       <FeatureGrid columns={3}>
-        <FeatureCard icon={<Zap size={20} />} title="高速" description="最適化されたCSSで高速な描画" />
-        <FeatureCard icon={<SearchIcon size={20} />} title="検索" description="コマンドパレットで素早く操作" />
-        <FeatureCard icon={<Star size={20} />} title="高品質" description="細部までこだわったデザイン" />
+        <FeatureCard
+          icon={<Zap size={20} />}
+          title="高速"
+          description="最適化されたCSSで高速な描画"
+        />
+        <FeatureCard
+          icon={<SearchIcon size={20} />}
+          title="検索"
+          description="コマンドパレットで素早く操作"
+        />
+        <FeatureCard
+          icon={<Star size={20} />}
+          title="高品質"
+          description="細部までこだわったデザイン"
+        />
       </FeatureGrid>
     ),
-    props: [
-      { name: "columns", type: "2 | 3 | 4", default: "3", description: "カラム数" },
-    ],
+    props: [{ name: "columns", type: "2 | 3 | 4", default: "3", description: "カラム数" }],
     usage: `<FeatureGrid columns={3}>
   <FeatureCard icon={<Zap />} title="高速" description="説明テキスト" />
 </FeatureGrid>`,
@@ -1460,7 +1687,12 @@ import { Icon } from "kaze-design-system";
     props: [
       { name: "value", type: "string", description: "数値（StatItem）" },
       { name: "label", type: "string", description: "ラベル（StatItem）" },
-      { name: "description", type: "string", description: "補足テキスト（StatItem）", default: "なし" },
+      {
+        name: "description",
+        type: "string",
+        description: "補足テキスト（StatItem）",
+        default: "なし",
+      },
     ],
     usage: `<Stats>
   <StatItem value="24+" label="コンポーネント" description="UIライブラリに含まれる総数" />
@@ -1473,10 +1705,25 @@ import { Icon } from "kaze-design-system";
     description: "料金プラン",
     preview: (
       <PricingGrid>
-        <PricingCard name="Free" description="個人利用向け" price="¥0" period="/月" features={["5プロジェクト", "基本コンポーネント"]}>
-          <Button variant="outline" fullWidth>はじめる</Button>
+        <PricingCard
+          name="Free"
+          description="個人利用向け"
+          price="¥0"
+          period="/月"
+          features={["5プロジェクト", "基本コンポーネント"]}
+        >
+          <Button variant="outline" fullWidth>
+            はじめる
+          </Button>
         </PricingCard>
-        <PricingCard name="Pro" price="¥2,980" period="/月" features={["無制限プロジェクト", "全コンポーネント", "優先サポート"]} featured badge="おすすめ">
+        <PricingCard
+          name="Pro"
+          price="¥2,980"
+          period="/月"
+          features={["無制限プロジェクト", "全コンポーネント", "優先サポート"]}
+          featured
+          badge="おすすめ"
+        >
           <Button fullWidth>アップグレード</Button>
         </PricingCard>
       </PricingGrid>
@@ -1501,8 +1748,16 @@ import { Icon } from "kaze-design-system";
     description: "お客様の声",
     preview: (
       <TestimonialGrid>
-        <TestimonialCard quote="Kazeのおかげで開発速度が2倍になりました。" authorName="堀内昌平" authorRole="フロントエンドエンジニア" />
-        <TestimonialCard quote="ミニマルで美しいデザインシステムです。" authorName="志摩このみ" authorRole="デザイナー" />
+        <TestimonialCard
+          quote="Kazeのおかげで開発速度が2倍になりました。"
+          authorName="堀内昌平"
+          authorRole="フロントエンドエンジニア"
+        />
+        <TestimonialCard
+          quote="ミニマルで美しいデザインシステムです。"
+          authorName="志摩このみ"
+          authorRole="デザイナー"
+        />
       </TestimonialGrid>
     ),
     props: [
@@ -1521,14 +1776,24 @@ import { Icon } from "kaze-design-system";
     description: "よくある質問",
     preview: (
       <FAQ>
-        <FAQItem question="Kazeは無料ですか？" answer="はい、MITライセンスで完全無料でご利用いただけます。" />
-        <FAQItem question="TypeScriptに対応していますか？" answer="はい、全コンポーネントがTypeScript Strict Modeで型定義されています。" />
+        <FAQItem
+          question="Kazeは無料ですか？"
+          answer="はい、MITライセンスで完全無料でご利用いただけます。"
+        />
+        <FAQItem
+          question="TypeScriptに対応していますか？"
+          answer="はい、全コンポーネントがTypeScript Strict Modeで型定義されています。"
+        />
       </FAQ>
     ),
     props: [
       { name: "question", type: "string", description: "質問テキスト（FAQItem）" },
       { name: "answer", type: "string", description: "回答テキスト（FAQItem）" },
-      { name: "children", type: "React.ReactNode", description: "回答コンテンツ（FAQItem、answerの代替）" },
+      {
+        name: "children",
+        type: "React.ReactNode",
+        description: "回答コンテンツ（FAQItem、answerの代替）",
+      },
     ],
     usage: `<FAQ>
   <FAQItem question="質問テキスト" answer="回答テキスト" />
@@ -1539,7 +1804,10 @@ import { Icon } from "kaze-design-system";
     title: "CTABanner",
     description: "コール・トゥ・アクション",
     preview: (
-      <CTABanner title="今すぐ始めましょう" description="無料で始められます。クレジットカードは不要です。">
+      <CTABanner
+        title="今すぐ始めましょう"
+        description="無料で始められます。クレジットカードは不要です。"
+      >
         <Button variant="secondary">はじめる</Button>
       </CTABanner>
     ),
@@ -1557,13 +1825,31 @@ import { Icon } from "kaze-design-system";
     title: "LPFooter",
     description: "サイトフッター",
     preview: (
-      <div style={{ border: "1px solid var(--color-border)", borderRadius: "var(--radius-lg)", overflow: "hidden" }}>
+      <div
+        style={{
+          border: "1px solid var(--color-border)",
+          borderRadius: "var(--radius-lg)",
+          overflow: "hidden",
+        }}
+      >
         <LPFooter
           logo={<Logo size="sm" />}
           description="美しいUIを、もっと速く。"
           columns={[
-            { title: "プロダクト", links: [{ label: "機能", href: "#" }, { label: "料金", href: "#" }] },
-            { title: "リソース", links: [{ label: "ドキュメント", href: "#" }, { label: "GitHub", href: "#" }] },
+            {
+              title: "プロダクト",
+              links: [
+                { label: "機能", href: "#" },
+                { label: "料金", href: "#" },
+              ],
+            },
+            {
+              title: "リソース",
+              links: [
+                { label: "ドキュメント", href: "#" },
+                { label: "GitHub", href: "#" },
+              ],
+            },
           ]}
           bottomLeft={<span>© 2026 Kaze</span>}
         />
@@ -1572,7 +1858,11 @@ import { Icon } from "kaze-design-system";
     props: [
       { name: "logo", type: "React.ReactNode", description: "ロゴ要素" },
       { name: "description", type: "string", description: "ブランド説明文" },
-      { name: "columns", type: "FooterColumn[]", description: "フッターリンク列 { title, links: { label, href }[] }" },
+      {
+        name: "columns",
+        type: "FooterColumn[]",
+        description: "フッターリンク列 { title, links: { label, href }[] }",
+      },
       { name: "bottomLeft", type: "React.ReactNode", description: "フッター下部左側" },
       { name: "bottomRight", type: "React.ReactNode", description: "フッター下部右側" },
     ],
@@ -1590,7 +1880,8 @@ import { Icon } from "kaze-design-system";
 
   heading: {
     title: "Heading",
-    description: "セマンティックな見出しコンポーネント。レベル1〜6、説明テキスト、ボーダー付きに対応。",
+    description:
+      "セマンティックな見出しコンポーネント。レベル1〜6、説明テキスト、ボーダー付きに対応。",
     preview: (
       <div className={styles.previewColumn} style={{ gap: "1.5rem" }}>
         <Heading level={1}>大見出し (h1)</Heading>
@@ -1601,12 +1892,23 @@ import { Icon } from "kaze-design-system";
         <Heading level={4}>h4 見出し</Heading>
         <Heading level={5}>h5 見出し</Heading>
         <Heading level={6}>h6 見出し</Heading>
-        <Heading level={2} bordered>ボーダー付き見出し</Heading>
+        <Heading level={2} bordered>
+          ボーダー付き見出し
+        </Heading>
       </div>
     ),
     props: [
-      { name: "level", type: "1 | 2 | 3 | 4 | 5 | 6", default: "2", description: "見出しレベル（サイズとセマンティクス）" },
-      { name: "as", type: '"h1" | "h2" | ... | "h6"', description: "レンダリングするHTML要素を上書き" },
+      {
+        name: "level",
+        type: "1 | 2 | 3 | 4 | 5 | 6",
+        default: "2",
+        description: "見出しレベル（サイズとセマンティクス）",
+      },
+      {
+        name: "as",
+        type: '"h1" | "h2" | ... | "h6"',
+        description: "レンダリングするHTML要素を上書き",
+      },
       { name: "description", type: "React.ReactNode", description: "見出し下の説明テキスト" },
       { name: "bordered", type: "boolean", default: "false", description: "下線ボーダーを表示" },
     ],
@@ -1617,11 +1919,14 @@ import { Icon } from "kaze-design-system";
 
   text: {
     title: "Text",
-    description: "汎用テキストコンポーネント。variant / size / weight / color / align を prop で制御。LP や UI で独自 CSS なしにテキストを扱える。",
+    description:
+      "汎用テキストコンポーネント。variant / size / weight / color / align を prop で制御。LP や UI で独自 CSS なしにテキストを扱える。",
     preview: (
       <div className={styles.previewColumn} style={{ gap: "1rem" }}>
         <Text variant="overline">Overline：カテゴリラベル</Text>
-        <Text variant="lead">Lead：ページやセクションの導入文。大きめのサイズとミュートカラーで読みやすく。</Text>
+        <Text variant="lead">
+          Lead：ページやセクションの導入文。大きめのサイズとミュートカラーで読みやすく。
+        </Text>
         <Text>Body：標準の本文テキストです。デフォルトの variant です。</Text>
         <Text variant="caption">Caption：補足説明やメタ情報に使う小さめテキスト。</Text>
         <Divider />
@@ -1629,16 +1934,41 @@ import { Icon } from "kaze-design-system";
         <Text color="primary">プライマリカラー</Text>
         <Text color="positive">成功カラー</Text>
         <Text color="negative">エラーカラー</Text>
-        <Text align="center" color="muted">中央揃え・ミュートカラー</Text>
+        <Text align="center" color="muted">
+          中央揃え・ミュートカラー
+        </Text>
       </div>
     ),
     props: [
-      { name: "variant", type: '"body" | "lead" | "caption" | "overline"', default: '"body"', description: "テキストの用途別スタイル" },
-      { name: "size", type: '"xs" | "sm" | "base" | "lg" | "xl" | "2xl"', description: "フォントサイズの上書き" },
-      { name: "weight", type: '"normal" | "medium" | "semibold" | "bold"', description: "フォントウェイトの上書き" },
-      { name: "color", type: '"default" | "muted" | "subtle" | "inherit" | "primary" | "positive" | "warning" | "negative"', default: '"default"', description: "テキストカラー" },
+      {
+        name: "variant",
+        type: '"body" | "lead" | "caption" | "overline"',
+        default: '"body"',
+        description: "テキストの用途別スタイル",
+      },
+      {
+        name: "size",
+        type: '"xs" | "sm" | "base" | "lg" | "xl" | "2xl"',
+        description: "フォントサイズの上書き",
+      },
+      {
+        name: "weight",
+        type: '"normal" | "medium" | "semibold" | "bold"',
+        description: "フォントウェイトの上書き",
+      },
+      {
+        name: "color",
+        type: '"default" | "muted" | "subtle" | "inherit" | "primary" | "positive" | "warning" | "negative"',
+        default: '"default"',
+        description: "テキストカラー",
+      },
       { name: "align", type: '"left" | "center" | "right"', description: "テキスト揃え" },
-      { name: "as", type: '"p" | "span" | "div" | "label" | "small" | "strong" | "em"', default: '"p"', description: "レンダリングする HTML 要素" },
+      {
+        name: "as",
+        type: '"p" | "span" | "div" | "label" | "small" | "strong" | "em"',
+        default: '"p"',
+        description: "レンダリングする HTML 要素",
+      },
     ],
     usage: `<Text variant="lead">サービスの説明文がここに入ります。</Text>
 <Text>通常の本文テキスト。</Text>
@@ -1649,7 +1979,8 @@ import { Icon } from "kaze-design-system";
 
   grid: {
     title: "Grid",
-    description: "レスポンシブ対応のグリッドレイアウト。ブレイクポイントごとのカラム数を prop で制御。",
+    description:
+      "レスポンシブ対応のグリッドレイアウト。ブレイクポイントごとのカラム数を prop で制御。",
     preview: (
       <Grid columns={3} columnsMd={2} columnsSm={1} gap="var(--space-4)">
         {[1, 2, 3, 4, 5, 6].map((n) => (
@@ -1670,10 +2001,28 @@ import { Icon } from "kaze-design-system";
       </Grid>
     ),
     props: [
-      { name: "columns", type: "1 | 2 | 3 | 4 | 5 | 6", default: "3", description: "デスクトップ時のカラム数" },
-      { name: "columnsMd", type: "1 | 2 | 3 | 4 | 5 | 6", description: "≤1024px 時のカラム数（省略時は columns を継承）" },
-      { name: "columnsSm", type: "1 | 2 | 3 | 4 | 5 | 6", description: "≤640px 時のカラム数（省略時は columnsMd を継承）" },
-      { name: "gap", type: "number | string", default: "var(--space-6)", description: "アイテム間のギャップ（space トークン/数値/CSS値）" },
+      {
+        name: "columns",
+        type: "1 | 2 | 3 | 4 | 5 | 6",
+        default: "3",
+        description: "デスクトップ時のカラム数",
+      },
+      {
+        name: "columnsMd",
+        type: "1 | 2 | 3 | 4 | 5 | 6",
+        description: "≤1024px 時のカラム数（省略時は columns を継承）",
+      },
+      {
+        name: "columnsSm",
+        type: "1 | 2 | 3 | 4 | 5 | 6",
+        description: "≤640px 時のカラム数（省略時は columnsMd を継承）",
+      },
+      {
+        name: "gap",
+        type: "number | string",
+        default: "var(--space-6)",
+        description: "アイテム間のギャップ（space トークン/数値/CSS値）",
+      },
     ],
     usage: `<Grid columns={3} columnsMd={2} columnsSm={1}>
   <Card>...</Card>
@@ -1694,7 +2043,9 @@ import { Icon } from "kaze-design-system";
     preview: (
       <div className={styles.previewColumn} style={{ gap: "2rem" }}>
         <div>
-          <p style={{ fontSize: "0.875rem", fontWeight: 600, marginBottom: "0.5rem" }}>基本リスト（区切り線あり）</p>
+          <p style={{ fontSize: "0.875rem", fontWeight: 600, marginBottom: "0.5rem" }}>
+            基本リスト（区切り線あり）
+          </p>
           <List divided>
             <ListItem
               leading={<Star size={16} />}
@@ -1716,7 +2067,9 @@ import { Icon } from "kaze-design-system";
           </List>
         </div>
         <div>
-          <p style={{ fontSize: "0.875rem", fontWeight: 600, marginBottom: "0.5rem" }}>インタラクティブ</p>
+          <p style={{ fontSize: "0.875rem", fontWeight: 600, marginBottom: "0.5rem" }}>
+            インタラクティブ
+          </p>
           <List>
             <ListItem interactive title="クリック可能なアイテム" leading={<Home size={16} />} />
             <ListItem interactive title="ホバーで背景が変わります" leading={<Zap size={16} />} />
@@ -1741,13 +2094,35 @@ import { Icon } from "kaze-design-system";
       </div>
     ),
     props: [
-      { name: "divided", type: "boolean", default: "false", description: "アイテム間に区切り線を表示（List）" },
-      { name: "marker", type: '"disc" | "decimal" | "none"', description: "リストマーカーのスタイル（List）" },
+      {
+        name: "divided",
+        type: "boolean",
+        default: "false",
+        description: "アイテム間に区切り線を表示（List）",
+      },
+      {
+        name: "marker",
+        type: '"disc" | "decimal" | "none"',
+        description: "リストマーカーのスタイル（List）",
+      },
       { name: "leading", type: "React.ReactNode", description: "左側のアイコンなど（ListItem）" },
       { name: "title", type: "React.ReactNode", description: "アイテムのタイトル（ListItem）" },
-      { name: "description", type: "React.ReactNode", description: "タイトル下の説明文（ListItem）" },
-      { name: "trailing", type: "React.ReactNode", description: "右側の補足テキストやアイコン（ListItem）" },
-      { name: "interactive", type: "boolean", default: "false", description: "ホバーエフェクトを有効化（ListItem）" },
+      {
+        name: "description",
+        type: "React.ReactNode",
+        description: "タイトル下の説明文（ListItem）",
+      },
+      {
+        name: "trailing",
+        type: "React.ReactNode",
+        description: "右側の補足テキストやアイコン（ListItem）",
+      },
+      {
+        name: "interactive",
+        type: "boolean",
+        default: "false",
+        description: "ホバーエフェクトを有効化（ListItem）",
+      },
     ],
     usage: `{/* アイコン付きリスト */}
 <List divided>
@@ -1801,8 +2176,18 @@ import { Icon } from "kaze-design-system";
       </div>
     ),
     props: [
-      { name: "horizontal", type: "boolean", default: "false", description: "用語と説明を横並びで表示（DescriptionList）" },
-      { name: "bordered", type: "boolean", default: "false", description: "各項目に下線ボーダーを表示（DescriptionList）" },
+      {
+        name: "horizontal",
+        type: "boolean",
+        default: "false",
+        description: "用語と説明を横並びで表示（DescriptionList）",
+      },
+      {
+        name: "bordered",
+        type: "boolean",
+        default: "false",
+        description: "各項目に下線ボーダーを表示（DescriptionList）",
+      },
       { name: "term", type: "React.ReactNode", description: "用語・ラベル（DescriptionItem）" },
       { name: "children", type: "React.ReactNode", description: "説明・値（DescriptionItem）" },
     ],
@@ -1840,17 +2225,23 @@ import { Icon } from "kaze-design-system";
           title="デザイントークン策定"
           description="カラー、タイポグラフィ、スペーシングの定義。"
         />
-        <TimelineItem
-          time="2026年2月1日"
-          title="プロジェクト開始"
-        />
+        <TimelineItem time="2026年2月1日" title="プロジェクト開始" />
       </Timeline>
     ),
     props: [
       { name: "time", type: "string", description: "タイムスタンプ表示（TimelineItem）" },
       { name: "title", type: "React.ReactNode", description: "イベントのタイトル（TimelineItem）" },
-      { name: "description", type: "React.ReactNode", description: "イベントの詳細説明（TimelineItem）" },
-      { name: "status", type: '"default" | "positive" | "negative" | "info" | "warning"', default: '"default"', description: "ドットの色（TimelineItem）" },
+      {
+        name: "description",
+        type: "React.ReactNode",
+        description: "イベントの詳細説明（TimelineItem）",
+      },
+      {
+        name: "status",
+        type: '"default" | "positive" | "negative" | "info" | "warning"',
+        default: '"default"',
+        description: "ドットの色（TimelineItem）",
+      },
     ],
     usage: `<Timeline>
   <TimelineItem
@@ -1883,7 +2274,11 @@ import { Icon } from "kaze-design-system";
     props: [
       { name: "data", type: "BarChartItem[]", description: "{ label, value, color? } の配列" },
       { name: "max", type: "number", description: "最大値（省略時はデータの最大値）" },
-      { name: "formatValue", type: "(value: number) => string", description: "値のフォーマット関数" },
+      {
+        name: "formatValue",
+        type: "(value: number) => string",
+        description: "値のフォーマット関数",
+      },
     ],
     usage: `<BarChart
   aria-label="フレームワーク別人気度"
@@ -1941,7 +2336,13 @@ import { Icon } from "kaze-design-system";
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
           <span style={{ fontSize: "0.875rem" }}>エリア付き</span>
-          <Sparkline data={[5, 15, 10, 25, 20, 30, 22, 35]} color="var(--chart-blue)" showArea width={120} height={32} />
+          <Sparkline
+            data={[5, 15, 10, 25, 20, 30, 22, 35]}
+            color="var(--chart-blue)"
+            showArea
+            width={120}
+            height={32}
+          />
         </div>
       </div>
     ),
@@ -1950,7 +2351,12 @@ import { Icon } from "kaze-design-system";
       { name: "width", type: "number", default: "80", description: "SVGの幅" },
       { name: "height", type: "number", default: "24", description: "SVGの高さ" },
       { name: "color", type: "string", default: "var(--chart-emerald)", description: "線の色" },
-      { name: "showArea", type: "boolean", default: "false", description: "塗りつぶしエリアを表示" },
+      {
+        name: "showArea",
+        type: "boolean",
+        default: "false",
+        description: "塗りつぶしエリアを表示",
+      },
     ],
     usage: `<Sparkline
   data={[10, 15, 12, 20, 18, 25]}
@@ -1963,7 +2369,8 @@ import { Icon } from "kaze-design-system";
 
   alert: {
     title: "Alert",
-    description: "ユーザーに重要な情報を伝えるアラートコンポーネント。情報・成功・警告・エラーの4バリアント。",
+    description:
+      "ユーザーに重要な情報を伝えるアラートコンポーネント。情報・成功・警告・エラーの4バリアント。",
     preview: (
       <div className={styles.previewColumn} style={{ gap: "1rem" }}>
         <Alert variant="info" icon={<Info size={18} />}>
@@ -1984,7 +2391,12 @@ import { Icon } from "kaze-design-system";
       </div>
     ),
     props: [
-      { name: "variant", type: '"info" | "positive" | "warning" | "negative"', default: '"info"', description: "アラートのスタイルバリアント" },
+      {
+        name: "variant",
+        type: '"info" | "positive" | "warning" | "negative"',
+        default: '"info"',
+        description: "アラートのスタイルバリアント",
+      },
       { name: "icon", type: "React.ReactNode", description: "左側に表示するアイコン" },
       { name: "title", type: "string", description: "アラートのタイトル（太字で表示）" },
       { name: "children", type: "React.ReactNode", description: "アラートの内容" },
@@ -2002,7 +2414,8 @@ import { Icon } from "kaze-design-system";
 
   progress: {
     title: "Progress",
-    description: "処理の進捗状況を視覚的に表示するプログレスバーコンポーネント。サイズ・カラー・ラベル対応。",
+    description:
+      "処理の進捗状況を視覚的に表示するプログレスバーコンポーネント。サイズ・カラー・ラベル対応。",
     preview: (
       <div className={styles.previewColumn} style={{ gap: "1.5rem", maxWidth: "400px" }}>
         <div>
@@ -2023,17 +2436,34 @@ import { Icon } from "kaze-design-system";
           </div>
         </div>
         <div>
-          <p style={{ fontSize: "0.875rem", fontWeight: 600, marginBottom: "0.5rem" }}>ラベル付き</p>
+          <p style={{ fontSize: "0.875rem", fontWeight: 600, marginBottom: "0.5rem" }}>
+            ラベル付き
+          </p>
           <Progress value={72} label="アップロード中..." showValue />
         </div>
       </div>
     ),
     props: [
       { name: "value", type: "number", description: "進捗値（0〜100）" },
-      { name: "size", type: '"sm" | "md" | "lg"', default: '"md"', description: "プログレスバーの高さ" },
-      { name: "color", type: '"primary" | "positive" | "warning" | "negative"', default: '"primary"', description: "バーの色" },
+      {
+        name: "size",
+        type: '"sm" | "md" | "lg"',
+        default: '"md"',
+        description: "プログレスバーの高さ",
+      },
+      {
+        name: "color",
+        type: '"primary" | "positive" | "warning" | "negative"',
+        default: '"primary"',
+        description: "バーの色",
+      },
       { name: "label", type: "string", description: "バーの上に表示するラベルテキスト" },
-      { name: "showValue", type: "boolean", default: "false", description: "パーセンテージ値を表示するかどうか" },
+      {
+        name: "showValue",
+        type: "boolean",
+        default: "false",
+        description: "パーセンテージ値を表示するかどうか",
+      },
     ],
     usage: `<Progress value={72} label="アップロード中..." showValue />
 <Progress value={45} color="warning" size="lg" />`,
@@ -2052,9 +2482,23 @@ import { Icon } from "kaze-design-system";
     props: [
       { name: "label", type: "string", description: "スイッチのラベルテキスト" },
       { name: "checked", type: "boolean", description: "制御モード時のオン・オフ状態" },
-      { name: "defaultChecked", type: "boolean", default: "false", description: "非制御モード時の初期状態" },
-      { name: "disabled", type: "boolean", default: "false", description: "無効状態にするかどうか" },
-      { name: "onChange", type: "(checked: boolean) => void", description: "状態変更時のコールバック" },
+      {
+        name: "defaultChecked",
+        type: "boolean",
+        default: "false",
+        description: "非制御モード時の初期状態",
+      },
+      {
+        name: "disabled",
+        type: "boolean",
+        default: "false",
+        description: "無効状態にするかどうか",
+      },
+      {
+        name: "onChange",
+        type: "(checked: boolean) => void",
+        description: "状態変更時のコールバック",
+      },
     ],
     usage: `<Switch label="通知を有効にする" />
 <Switch label="ダークモード" defaultChecked onChange={(v) => console.log(v)} />`,
@@ -2078,7 +2522,9 @@ import { Icon } from "kaze-design-system";
           <Skeleton circle width={48} height={48} />
         </div>
         <div>
-          <p style={{ fontSize: "0.875rem", fontWeight: 600, marginBottom: "0.5rem" }}>カード風レイアウト</p>
+          <p style={{ fontSize: "0.875rem", fontWeight: 600, marginBottom: "0.5rem" }}>
+            カード風レイアウト
+          </p>
           <div style={{ display: "flex", gap: "1rem", alignItems: "flex-start" }}>
             <Skeleton circle width={40} height={40} />
             <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: "0.5rem" }}>
@@ -2093,7 +2539,12 @@ import { Icon } from "kaze-design-system";
     props: [
       { name: "width", type: "string | number", description: "幅（px または %）" },
       { name: "height", type: "string | number", description: "高さ（px）" },
-      { name: "circle", type: "boolean", default: "false", description: "円形にする（border-radius: 50%）" },
+      {
+        name: "circle",
+        type: "boolean",
+        default: "false",
+        description: "円形にする（border-radius: 50%）",
+      },
     ],
     usage: `<Skeleton width="80%" height="1em" />
 <Skeleton circle width={48} height={48} />
@@ -2103,7 +2554,7 @@ import { Icon } from "kaze-design-system";
   "empty-state": {
     title: "EmptyState",
     description:
-      "データが存在しない場合に表示する空状態コンポーネント。sm / md / lg の3サイズに対応し、テーブルセル内の小さな表示からページ全体の大きな表示まで使い分けられます。role=\"status\" が自動付与されます。",
+      'データが存在しない場合に表示する空状態コンポーネント。sm / md / lg の3サイズに対応し、テーブルセル内の小さな表示からページ全体の大きな表示まで使い分けられます。role="status" が自動付与されます。',
     preview: (
       <div className={styles.previewColumn} style={{ gap: "2rem" }}>
         <div>
@@ -2119,11 +2570,7 @@ import { Icon } from "kaze-design-system";
             md（セクション内）
           </p>
           <div style={{ border: "1px dashed var(--color-border)", borderRadius: "8px" }}>
-            <EmptyState
-              size="md"
-              icon={<FileX size={32} />}
-              title="まだ記事がありません"
-            />
+            <EmptyState size="md" icon={<FileX size={32} />} title="まだ記事がありません" />
           </div>
         </div>
         <div>
@@ -2136,7 +2583,11 @@ import { Icon } from "kaze-design-system";
               icon={<FileX size={48} />}
               title="データがありません"
               description="まだデータが登録されていません。新しいアイテムを追加してください。"
-              actions={<Button><Plus size={16} /> 新規作成</Button>}
+              actions={
+                <Button>
+                  <Plus size={16} /> 新規作成
+                </Button>
+              }
             />
           </div>
         </div>
@@ -2180,7 +2631,11 @@ import { Icon } from "kaze-design-system";
       />
     ),
     props: [
-      { name: "items", type: "BreadcrumbItem[]", description: "パンくずアイテムの配列 { label, href? }" },
+      {
+        name: "items",
+        type: "BreadcrumbItem[]",
+        description: "パンくずアイテムの配列 { label, href? }",
+      },
     ],
     usage: `<Breadcrumb
   items={[
@@ -2194,14 +2649,21 @@ import { Icon } from "kaze-design-system";
   pagination: {
     title: "Pagination",
     description: "ページ分割されたコンテンツをナビゲートするページネーションコンポーネント。",
-    preview: (
-      <Pagination currentPage={3} totalPages={10} />
-    ),
+    preview: <Pagination currentPage={3} totalPages={10} />,
     props: [
       { name: "currentPage", type: "number", description: "現在のページ番号" },
       { name: "totalPages", type: "number", description: "総ページ数" },
-      { name: "onPageChange", type: "(page: number) => void", description: "ページ変更時のコールバック" },
-      { name: "siblingCount", type: "number", default: "1", description: "現在のページの前後に表示するページ数" },
+      {
+        name: "onPageChange",
+        type: "(page: number) => void",
+        description: "ページ変更時のコールバック",
+      },
+      {
+        name: "siblingCount",
+        type: "number",
+        default: "1",
+        description: "現在のページの前後に表示するページ数",
+      },
     ],
     usage: `<Pagination
   currentPage={3}
@@ -2212,7 +2674,8 @@ import { Icon } from "kaze-design-system";
 
   stepper: {
     title: "Stepper",
-    description: "複数ステップの進行状況を表示するステッパーコンポーネント。ウィザードやフォームに最適。",
+    description:
+      "複数ステップの進行状況を表示するステッパーコンポーネント。ウィザードやフォームに最適。",
     preview: (
       <Stepper
         currentStep={2}
@@ -2251,21 +2714,14 @@ import { Icon } from "kaze-design-system";
             のいずれかを含む場合に集計されます。
           </p>
         </Disclosure>
-        <Disclosure
-          title="詳細オプション"
-          icon="plus"
-          variant="bordered"
-          defaultOpen
-        >
+        <Disclosure title="詳細オプション" icon="plus" variant="bordered" defaultOpen>
           <p>変数の値は CSS カスタムプロパティとしてエクスポートされます。</p>
-          <p>テーマ切り替え時は自動で上書きされるため、上書きが必要な場合は :root より詳細度の高いセレクタを使ってください。</p>
+          <p>
+            テーマ切り替え時は自動で上書きされるため、上書きが必要な場合は :root
+            より詳細度の高いセレクタを使ってください。
+          </p>
         </Disclosure>
-        <Disclosure
-          title="右側にマーカーを表示"
-          iconPosition="right"
-          variant="ghost"
-          size="sm"
-        >
+        <Disclosure title="右側にマーカーを表示" iconPosition="right" variant="ghost" size="sm">
           <p>サイズ sm + ghost バリアントで、テーブルセル内の補足にも使えます。</p>
         </Disclosure>
       </div>
@@ -2273,9 +2729,18 @@ import { Icon } from "kaze-design-system";
     props: [
       { name: "title", type: "ReactNode", description: "常時表示される見出し" },
       { name: "children", type: "ReactNode", description: "展開時に表示される中身" },
-      { name: "defaultOpen", type: "boolean", default: "false", description: "初期展開状態（uncontrolled）" },
+      {
+        name: "defaultOpen",
+        type: "boolean",
+        default: "false",
+        description: "初期展開状態（uncontrolled）",
+      },
       { name: "open", type: "boolean", description: "展開状態の制御（controlled）" },
-      { name: "onOpenChange", type: "(open: boolean) => void", description: "開閉時に呼ばれるコールバック" },
+      {
+        name: "onOpenChange",
+        type: "(open: boolean) => void",
+        description: "開閉時に呼ばれるコールバック",
+      },
       {
         name: "icon",
         type: '"chevron" | "plus" | ReactNode',
@@ -2298,7 +2763,8 @@ import { Icon } from "kaze-design-system";
         name: "variant",
         type: '"default" | "ghost" | "bordered"',
         default: '"default"',
-        description: "ビジュアル（default: 背景ホバーあり / ghost: 背景なし / bordered: 枠線で囲む）",
+        description:
+          "ビジュアル（default: 背景ホバーあり / ghost: 背景なし / bordered: 枠線で囲む）",
       },
       { name: "disabled", type: "boolean", default: "false", description: "トリガーを無効化" },
     ],
@@ -2346,21 +2812,45 @@ import { Icon } from "kaze-design-system";
     title: "FAB",
     description: "フローティングアクションボタン",
     preview: (
-      <div className={styles.preview} style={{ alignItems: "center", gap: "1.5rem", position: "relative", minHeight: "80px" }}>
+      <div
+        className={styles.preview}
+        style={{ alignItems: "center", gap: "1.5rem", position: "relative", minHeight: "80px" }}
+      >
         <FAB label="追加" position="bottom-right" style={{ position: "relative" }}>
           <Plus size={20} />
         </FAB>
-        <FAB label="新規作成" variant="secondary" extended position="bottom-right" style={{ position: "relative" }}>
+        <FAB
+          label="新規作成"
+          variant="secondary"
+          extended
+          position="bottom-right"
+          style={{ position: "relative" }}
+        >
           <Plus size={20} />
         </FAB>
       </div>
     ),
     props: [
       { name: "label", type: "string", description: "ボタンのアクセシブルラベル（必須）" },
-      { name: "variant", type: '"primary" | "secondary"', default: '"primary"', description: "スタイルバリアント" },
+      {
+        name: "variant",
+        type: '"primary" | "secondary"',
+        default: '"primary"',
+        description: "スタイルバリアント",
+      },
       { name: "size", type: '"sm" | "md" | "lg"', default: '"md"', description: "ボタンのサイズ" },
-      { name: "position", type: '"bottom-right" | "bottom-left" | "top-right" | "top-left"', default: '"bottom-right"', description: "配置位置" },
-      { name: "extended", type: "boolean", default: "false", description: "ラベルテキストを表示するかどうか" },
+      {
+        name: "position",
+        type: '"bottom-right" | "bottom-left" | "top-right" | "top-left"',
+        default: '"bottom-right"',
+        description: "配置位置",
+      },
+      {
+        name: "extended",
+        type: "boolean",
+        default: "false",
+        description: "ラベルテキストを表示するかどうか",
+      },
     ],
     usage: `<FAB label="追加">
   <PlusIcon />
@@ -2373,8 +2863,17 @@ import { Icon } from "kaze-design-system";
     preview: (
       <div style={{ maxWidth: "400px" }}>
         <Watermark text="社外秘">
-          <div style={{ padding: "2rem", background: "var(--color-surface)", border: "1px solid var(--color-border)", borderRadius: "8px" }}>
-            <p>このコンテンツの上に透かしが表示されます。機密文書やプレビュー画面などに使用できます。</p>
+          <div
+            style={{
+              padding: "2rem",
+              background: "var(--color-surface)",
+              border: "1px solid var(--color-border)",
+              borderRadius: "8px",
+            }}
+          >
+            <p>
+              このコンテンツの上に透かしが表示されます。機密文書やプレビュー画面などに使用できます。
+            </p>
           </div>
         </Watermark>
       </div>
@@ -2407,9 +2906,23 @@ import { Icon } from "kaze-design-system";
       { name: "max", type: "number", default: "100", description: "最大値" },
       { name: "label", type: "string", description: "ラベルテキスト" },
       { name: "showValue", type: "boolean", default: "false", description: "値を表示するか" },
-      { name: "color", type: '"default" | "positive" | "negative" | "warning" | "info"', description: "カラーバリアント" },
-      { name: "warningThreshold", type: "number", default: "0.7", description: "警告しきい値（0-1）" },
-      { name: "dangerThreshold", type: "number", default: "0.9", description: "危険しきい値（0-1）" },
+      {
+        name: "color",
+        type: '"default" | "positive" | "negative" | "warning" | "info"',
+        description: "カラーバリアント",
+      },
+      {
+        name: "warningThreshold",
+        type: "number",
+        default: "0.7",
+        description: "警告しきい値（0-1）",
+      },
+      {
+        name: "dangerThreshold",
+        type: "number",
+        default: "0.9",
+        description: "危険しきい値（0-1）",
+      },
     ],
     usage: `<Meter value={75} label="使用率" showValue />`,
   },
@@ -2471,8 +2984,17 @@ import { Icon } from "kaze-design-system";
     ),
     props: [
       { name: "data", type: "BarListItem[]", description: "データ配列（必須）" },
-      { name: "sortOrder", type: '"ascending" | "descending" | "none"', default: '"descending"', description: "ソート順" },
-      { name: "valueFormatter", type: "(value: number) => string", description: "値のフォーマッタ関数" },
+      {
+        name: "sortOrder",
+        type: '"ascending" | "descending" | "none"',
+        default: '"descending"',
+        description: "ソート順",
+      },
+      {
+        name: "valueFormatter",
+        type: "(value: number) => string",
+        description: "値のフォーマッタ関数",
+      },
     ],
     usage: `<BarList
   data={[
@@ -2494,12 +3016,25 @@ import { Icon } from "kaze-design-system";
     ),
     props: [
       { name: "value", type: "number | null", description: "現在の数値" },
-      { name: "onChange", type: "(value: number | null) => void", description: "値変更時のコールバック" },
-      { name: "currency", type: '"JPY" | "USD" | "EUR" | "GBP" | "CNY" | "KRW"', description: "通貨コード" },
+      {
+        name: "onChange",
+        type: "(value: number | null) => void",
+        description: "値変更時のコールバック",
+      },
+      {
+        name: "currency",
+        type: '"JPY" | "USD" | "EUR" | "GBP" | "CNY" | "KRW"',
+        description: "通貨コード",
+      },
       { name: "min", type: "number", description: "最小値" },
       { name: "max", type: "number", description: "最大値" },
       { name: "step", type: "number", default: "1", description: "増減のステップ値" },
-      { name: "showStepper", type: "boolean", default: "true", description: "増減ボタンを表示するか" },
+      {
+        name: "showStepper",
+        type: "boolean",
+        default: "true",
+        description: "増減ボタンを表示するか",
+      },
       { name: "prefix", type: "string", description: "接頭辞テキスト（通貨で自動設定）" },
       { name: "suffix", type: "string", description: "接尾辞テキスト" },
       { name: "label", type: "string", description: "ラベル" },
@@ -2519,15 +3054,29 @@ import { Icon } from "kaze-design-system";
     preview: (
       <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
         <FilterPill active>すべて</FilterPill>
-        <FilterPill color="#3b82f6" dot>テクノロジー</FilterPill>
-        <FilterPill color="#10b981" dot>デザイン</FilterPill>
+        <FilterPill color="#3b82f6" dot>
+          テクノロジー
+        </FilterPill>
+        <FilterPill color="#10b981" dot>
+          デザイン
+        </FilterPill>
         <FilterPill>マーケティング</FilterPill>
       </div>
     ),
     props: [
-      { name: "active", type: "boolean", default: "false", description: "アクティブ（選択中）状態" },
+      {
+        name: "active",
+        type: "boolean",
+        default: "false",
+        description: "アクティブ（選択中）状態",
+      },
       { name: "color", type: "string", description: "アクセントカラー（CSS色値）" },
-      { name: "dot", type: "boolean", default: "false", description: "カラードットインジケータを表示" },
+      {
+        name: "dot",
+        type: "boolean",
+        default: "false",
+        description: "カラードットインジケータを表示",
+      },
     ],
     usage: `<FilterPill active>すべて</FilterPill>
 <FilterPill color="#3b82f6" dot>テクノロジー</FilterPill>
@@ -2536,7 +3085,6 @@ import { Icon } from "kaze-design-system";
 };
 
 export function ComponentPage({ name }: { name?: string } = {}) {
-
   const doc = name ? componentDocs[name] : undefined;
 
   if (!doc) {

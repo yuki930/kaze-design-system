@@ -8,9 +8,7 @@ import { NumberField } from "./NumberField";
 const meta = {
   title: "Components/NumberField",
   component: NumberField,
-  args: {
-
-  },
+  args: {},
 } satisfies Meta<typeof NumberField>;
 
 export default meta;

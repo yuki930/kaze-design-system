@@ -1,12 +1,7 @@
 import { forwardRef, type ReactNode, type HTMLAttributes } from "react";
 import { cn } from "@/lib/utils";
 
-export type AlertVariant =
-  | "default"
-  | "positive"
-  | "negative"
-  | "warning"
-  | "info";
+export type AlertVariant = "default" | "positive" | "negative" | "warning" | "info";
 
 export interface AlertProps extends HTMLAttributes<HTMLDivElement> {
   variant?: AlertVariant;
@@ -17,12 +12,7 @@ export interface AlertProps extends HTMLAttributes<HTMLDivElement> {
 
 export const Alert = forwardRef<HTMLDivElement, AlertProps>(
   ({ variant = "info", icon, title, className, children, ...rest }, ref) => (
-    <div
-      ref={ref}
-      role="alert"
-      className={cn("alert", `alert--${variant}`, className)}
-      {...rest}
-    >
+    <div ref={ref} role="alert" className={cn("alert", `alert--${variant}`, className)} {...rest}>
       {icon && <span className="alert__icon">{icon}</span>}
       <div className="alert__content">
         {title && <p className="alert__title">{title}</p>}

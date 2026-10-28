@@ -117,7 +117,12 @@ export { Divider } from "./Divider";
 export type { DividerProps } from "./Divider";
 
 export { Sidebar, NavItem, SidebarGroupLabel, SidebarDivider } from "./Sidebar";
-export type { SidebarProps, NavItemProps, SidebarGroupLabelProps, SidebarDividerProps } from "./Sidebar";
+export type {
+  SidebarProps,
+  NavItemProps,
+  SidebarGroupLabelProps,
+  SidebarDividerProps,
+} from "./Sidebar";
 
 export { TopBar } from "./TopBar";
 export type { TopBarProps } from "./TopBar";

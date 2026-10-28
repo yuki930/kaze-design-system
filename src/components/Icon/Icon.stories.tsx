@@ -44,10 +44,25 @@ export const Sizes: Story = {
 export const FinancialIcons: Story = {
   render: () => (
     <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-      <Icon icon={TrendingUp} size="lg" label="上昇トレンド" style={{ color: "var(--color-positive)" }} />
-      <Icon icon={TrendingDown} size="lg" label="下降トレンド" style={{ color: "var(--color-negative)" }} />
+      <Icon
+        icon={TrendingUp}
+        size="lg"
+        label="上昇トレンド"
+        style={{ color: "var(--color-positive)" }}
+      />
+      <Icon
+        icon={TrendingDown}
+        size="lg"
+        label="下降トレンド"
+        style={{ color: "var(--color-negative)" }}
+      />
       <Icon icon={ArrowUpRight} size="lg" label="上昇" style={{ color: "var(--color-positive)" }} />
-      <Icon icon={ArrowDownRight} size="lg" label="下降" style={{ color: "var(--color-negative)" }} />
+      <Icon
+        icon={ArrowDownRight}
+        size="lg"
+        label="下降"
+        style={{ color: "var(--color-negative)" }}
+      />
     </div>
   ),
 };

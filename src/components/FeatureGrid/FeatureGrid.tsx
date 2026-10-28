@@ -14,11 +14,7 @@ export const FeatureGrid = forwardRef<HTMLDivElement, FeatureGridProps>(
     return (
       <div
         ref={ref}
-        className={cn(
-          "feature-grid",
-          columns !== 3 && `feature-grid--cols-${columns}`,
-          className,
-        )}
+        className={cn("feature-grid", columns !== 3 && `feature-grid--cols-${columns}`, className)}
         {...rest}
       >
         {children}

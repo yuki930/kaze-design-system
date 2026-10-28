@@ -52,7 +52,13 @@ export const DonutChart = forwardRef<HTMLDivElement, DonutChartProps>(
     });
 
     return (
-      <div ref={ref} role="img" aria-label={ariaLabel} className={cn("donut-chart", className)} {...rest}>
+      <div
+        ref={ref}
+        role="img"
+        aria-label={ariaLabel}
+        className={cn("donut-chart", className)}
+        {...rest}
+      >
         <svg
           className="donut-chart__svg"
           width={size}
@@ -90,10 +96,7 @@ export const DonutChart = forwardRef<HTMLDivElement, DonutChartProps>(
           <div className="donut-chart__legend">
             {segments.map((seg) => (
               <span key={seg.label} className="donut-chart__legend-item">
-                <span
-                  className="donut-chart__legend-dot"
-                  style={{ background: seg.color }}
-                />
+                <span className="donut-chart__legend-dot" style={{ background: seg.color }} />
                 <span className="donut-chart__legend-label">{seg.label}</span>
                 <span className="donut-chart__legend-value">{seg.value}</span>
               </span>

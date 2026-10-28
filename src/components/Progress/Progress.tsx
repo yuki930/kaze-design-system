@@ -1,12 +1,7 @@
 import { forwardRef, type HTMLAttributes } from "react";
 import { cn } from "@/lib/utils";
 
-export type ProgressColor =
-  | "default"
-  | "positive"
-  | "negative"
-  | "warning"
-  | "info";
+export type ProgressColor = "default" | "positive" | "negative" | "warning" | "info";
 
 export type ProgressSize = "sm" | "md" | "lg";
 
@@ -21,16 +16,7 @@ export interface ProgressProps extends HTMLAttributes<HTMLDivElement> {
 
 export const Progress = forwardRef<HTMLDivElement, ProgressProps>(
   (
-    {
-      value,
-      max = 100,
-      label,
-      showValue,
-      color = "default",
-      size = "md",
-      className,
-      ...rest
-    },
+    { value, max = 100, label, showValue, color = "default", size = "md", className, ...rest },
     ref,
   ) => {
     const pct = Math.min(100, Math.max(0, (value / max) * 100));
@@ -39,16 +25,11 @@ export const Progress = forwardRef<HTMLDivElement, ProgressProps>(
         {(label || showValue) && (
           <div className="progress__label-row">
             {label && <span className="progress__label">{label}</span>}
-            {showValue && (
-              <span className="progress__value-text">{Math.round(pct)}%</span>
-            )}
+            {showValue && <span className="progress__value-text">{Math.round(pct)}%</span>}
           </div>
         )}
         <div
-          className={cn(
-            "progress__track",
-            size !== "md" && `progress__track--${size}`,
-          )}
+          className={cn("progress__track", size !== "md" && `progress__track--${size}`)}
           role="progressbar"
           aria-label={label}
           aria-valuenow={value}
@@ -56,10 +37,7 @@ export const Progress = forwardRef<HTMLDivElement, ProgressProps>(
           aria-valuemax={max}
         >
           <div
-            className={cn(
-              "progress__fill",
-              color !== "default" && `progress__fill--${color}`,
-            )}
+            className={cn("progress__fill", color !== "default" && `progress__fill--${color}`)}
             style={{ width: `${pct}%` }}
           />
         </div>

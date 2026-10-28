@@ -1,12 +1,6 @@
 "use client";
 
-import {
-  forwardRef,
-  useState,
-  useCallback,
-  type HTMLAttributes,
-  type ChangeEvent,
-} from "react";
+import { forwardRef, useState, useCallback, type HTMLAttributes, type ChangeEvent } from "react";
 import { cn } from "@/lib/utils";
 
 export interface SearchProps extends Omit<HTMLAttributes<HTMLDivElement>, "onChange"> {
@@ -22,7 +16,19 @@ export interface SearchProps extends Omit<HTMLAttributes<HTMLDivElement>, "onCha
 }
 
 export const Search = forwardRef<HTMLInputElement, SearchProps>(
-  ({ placeholder = "Search...", shortcut, onSearch, value: valueProp, onChange: onChangeProp, "aria-label": ariaLabel, className, ...rest }, ref) => {
+  (
+    {
+      placeholder = "Search...",
+      shortcut,
+      onSearch,
+      value: valueProp,
+      onChange: onChangeProp,
+      "aria-label": ariaLabel,
+      className,
+      ...rest
+    },
+    ref,
+  ) => {
     const [internalValue, setInternalValue] = useState("");
     const isControlled = valueProp !== undefined;
     const currentValue = isControlled ? valueProp : internalValue;

@@ -48,9 +48,7 @@ export const Sparkline = forwardRef<SVGSVGElement, SparklineProps>(
         aria-hidden="true"
         {...rest}
       >
-        {showArea && (
-          <path className="sparkline__area" d={areaPath} fill={color} />
-        )}
+        {showArea && <path className="sparkline__area" d={areaPath} fill={color} />}
         <path className="sparkline__line" d={linePath} stroke={color} />
       </svg>
     );

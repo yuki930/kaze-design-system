@@ -31,35 +31,18 @@ export interface PricingCardProps extends HTMLAttributes<HTMLDivElement> {
 
 export const PricingCard = forwardRef<HTMLDivElement, PricingCardProps>(
   (
-    {
-      name,
-      description,
-      price,
-      period,
-      features,
-      featured,
-      badge,
-      className,
-      children,
-      ...rest
-    },
+    { name, description, price, period, features, featured, badge, className, children, ...rest },
     ref,
   ) => {
     return (
       <div
         ref={ref}
-        className={cn(
-          "pricing-card",
-          featured && "pricing-card--featured",
-          className,
-        )}
+        className={cn("pricing-card", featured && "pricing-card--featured", className)}
         {...rest}
       >
         {badge && <span className="pricing-card__badge">{badge}</span>}
         <h3 className="pricing-card__name">{name}</h3>
-        {description && (
-          <p className="pricing-card__description">{description}</p>
-        )}
+        {description && <p className="pricing-card__description">{description}</p>}
         <div className="pricing-card__price">
           <span className="pricing-card__amount">{price}</span>
           {period && <span className="pricing-card__period">/{period}</span>}

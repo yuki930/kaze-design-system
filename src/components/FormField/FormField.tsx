@@ -27,17 +27,7 @@ export interface FormFieldProps extends HTMLAttributes<HTMLDivElement> {
 
 export const FormField = forwardRef<HTMLDivElement, FormFieldProps>(
   (
-    {
-      label,
-      description,
-      error,
-      required,
-      maxLength,
-      currentLength,
-      children,
-      className,
-      ...rest
-    },
+    { label, description, error, required, maxLength, currentLength, children, className, ...rest },
     ref,
   ) => {
     const generatedId = useId();
@@ -48,25 +38,21 @@ export const FormField = forwardRef<HTMLDivElement, FormFieldProps>(
     const describedBy = [descriptionId, errorId].filter(Boolean).join(" ") || undefined;
 
     // Clone the child element to inject accessibility attributes
-    const control =
-      isValidElement(children)
-        ? cloneElement(children as ReactElement<Record<string, unknown>>, {
-            id: inputId,
-            "aria-invalid": error ? "true" : undefined,
-            "aria-describedby": describedBy,
-            ...(error ? { error: true } : {}),
-          })
-        : children;
+    const control = isValidElement(children)
+      ? cloneElement(children as ReactElement<Record<string, unknown>>, {
+          id: inputId,
+          "aria-invalid": error ? "true" : undefined,
+          "aria-describedby": describedBy,
+          ...(error ? { error: true } : {}),
+        })
+      : children;
 
     return (
       <div ref={ref} className={cn("form-field", className)} {...rest}>
         {label && (
           <label
             htmlFor={inputId}
-            className={cn(
-              "form-field__label",
-              required && "form-field__label--required",
-            )}
+            className={cn("form-field__label", required && "form-field__label--required")}
           >
             {label}
           </label>

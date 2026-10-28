@@ -12,13 +12,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
 
     return (
       <label htmlFor={id} className={cn("checkbox", className)}>
-        <input
-          ref={ref}
-          id={id}
-          type="checkbox"
-          className="checkbox__input"
-          {...rest}
-        />
+        <input ref={ref} id={id} type="checkbox" className="checkbox__input" {...rest} />
         {label && <span>{label}</span>}
       </label>
     );

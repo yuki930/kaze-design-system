@@ -1,25 +1,19 @@
 "use client";
 
-import {
-  forwardRef,
-  useState,
-  type HTMLAttributes,
-} from "react";
+import { forwardRef, useState, type HTMLAttributes } from "react";
 import { cn } from "@/lib/utils";
 
 /* ── FAQ ──────────────────────────────────────────────────── */
 
 export interface FAQProps extends HTMLAttributes<HTMLDivElement> {}
 
-export const FAQ = forwardRef<HTMLDivElement, FAQProps>(
-  ({ className, children, ...rest }, ref) => {
-    return (
-      <div ref={ref} className={cn("faq", className)} {...rest}>
-        {children}
-      </div>
-    );
-  },
-);
+export const FAQ = forwardRef<HTMLDivElement, FAQProps>(({ className, children, ...rest }, ref) => {
+  return (
+    <div ref={ref} className={cn("faq", className)} {...rest}>
+      {children}
+    </div>
+  );
+});
 
 FAQ.displayName = "FAQ";
 
@@ -35,11 +29,7 @@ export const FAQItem = forwardRef<HTMLDivElement, FAQItemProps>(
     const [open, setOpen] = useState(false);
 
     return (
-      <div
-        ref={ref}
-        className={cn("faq__item", open && "faq__item--open", className)}
-        {...rest}
-      >
+      <div ref={ref} className={cn("faq__item", open && "faq__item--open", className)} {...rest}>
         <button
           type="button"
           className="faq__trigger"
@@ -65,9 +55,7 @@ export const FAQItem = forwardRef<HTMLDivElement, FAQItemProps>(
           </svg>
         </button>
         <div className="faq__answer">
-          <div className="faq__answer-inner">
-            {answer ?? children}
-          </div>
+          <div className="faq__answer-inner">{answer ?? children}</div>
         </div>
       </div>
     );

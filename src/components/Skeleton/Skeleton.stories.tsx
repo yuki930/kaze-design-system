@@ -8,9 +8,7 @@ import { Skeleton } from "./Skeleton";
 const meta = {
   title: "Components/Skeleton",
   component: Skeleton,
-  args: {
-
-  },
+  args: {},
 } satisfies Meta<typeof Skeleton>;
 
 export default meta;

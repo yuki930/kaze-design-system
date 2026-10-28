@@ -32,9 +32,7 @@ export const StatItem = forwardRef<HTMLDivElement, StatItemProps>(
       <div ref={ref} className={cn("stat", className)} {...rest}>
         <span className="stat__value">{value}</span>
         <span className="stat__label">{label}</span>
-        {description && (
-          <span className="stat__description">{description}</span>
-        )}
+        {description && <span className="stat__description">{description}</span>}
       </div>
     );
   },

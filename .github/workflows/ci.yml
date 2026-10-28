@@ -24,6 +24,9 @@ jobs:
 
       - run: npm ci
 
+      - name: Lint and format check
+        run: npx biome ci .
+
       - name: Type check
         run: npm run typecheck
 

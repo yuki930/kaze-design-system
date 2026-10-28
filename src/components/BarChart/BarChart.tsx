@@ -22,7 +22,13 @@ export const BarChart = forwardRef<HTMLDivElement, BarChartProps>(
     const fmt = formatValue ?? ((v: number) => String(v));
 
     return (
-      <div ref={ref} role="img" aria-label={ariaLabel} className={cn("bar-chart", className)} {...rest}>
+      <div
+        ref={ref}
+        role="img"
+        aria-label={ariaLabel}
+        className={cn("bar-chart", className)}
+        {...rest}
+      >
         {data.map((item, i) => {
           const pct = maxVal > 0 ? (item.value / maxVal) * 100 : 0;
           const color = item.color ?? CHART_COLORS[i % CHART_COLORS.length];
@@ -30,10 +36,7 @@ export const BarChart = forwardRef<HTMLDivElement, BarChartProps>(
             <div key={item.label} className="bar-chart__item">
               <span className="bar-chart__label">{item.label}</span>
               <span className="bar-chart__track">
-                <span
-                  className="bar-chart__fill"
-                  style={{ width: `${pct}%`, background: color }}
-                />
+                <span className="bar-chart__fill" style={{ width: `${pct}%`, background: color }} />
               </span>
               <span className="bar-chart__value">{fmt(item.value)}</span>
             </div>

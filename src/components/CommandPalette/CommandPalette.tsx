@@ -27,8 +27,7 @@ export interface Command {
   onSelect: () => void;
 }
 
-export interface CommandPaletteProps
-  extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {
+export interface CommandPaletteProps extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   commands: Command[];
@@ -118,9 +117,7 @@ export const CommandPalette = forwardRef<HTMLDivElement, CommandPaletteProps>(
     // Scroll highlighted item into view
     useEffect(() => {
       if (!listRef.current) return;
-      const items = listRef.current.querySelectorAll(
-        "[data-command-item]",
-      );
+      const items = listRef.current.querySelectorAll("[data-command-item]");
       const highlighted = items[highlightedIndex] as HTMLElement | undefined;
       highlighted?.scrollIntoView({ block: "nearest" });
     }, [highlightedIndex]);
@@ -143,16 +140,12 @@ export const CommandPalette = forwardRef<HTMLDivElement, CommandPaletteProps>(
         switch (e.key) {
           case "ArrowDown": {
             e.preventDefault();
-            setHighlightedIndex((prev) =>
-              prev < flatList.length - 1 ? prev + 1 : 0,
-            );
+            setHighlightedIndex((prev) => (prev < flatList.length - 1 ? prev + 1 : 0));
             break;
           }
           case "ArrowUp": {
             e.preventDefault();
-            setHighlightedIndex((prev) =>
-              prev > 0 ? prev - 1 : flatList.length - 1,
-            );
+            setHighlightedIndex((prev) => (prev > 0 ? prev - 1 : flatList.length - 1));
             break;
           }
           case "Enter": {
@@ -213,11 +206,7 @@ export const CommandPalette = forwardRef<HTMLDivElement, CommandPaletteProps>(
             autoComplete="off"
           />
           <div ref={listRef} className="command-palette__list" role="listbox">
-            {flatList.length === 0 && (
-              <div className="command-palette__empty">
-                {emptyMessage}
-              </div>
-            )}
+            {flatList.length === 0 && <div className="command-palette__empty">{emptyMessage}</div>}
             {Array.from(grouped.entries()).map(([group, cmds]) => (
               <div key={group || "__default"}>
                 {group && <div className="command-palette__group">{group}</div>}
@@ -231,8 +220,7 @@ export const CommandPalette = forwardRef<HTMLDivElement, CommandPaletteProps>(
                       aria-selected={index === highlightedIndex}
                       className={cn(
                         "command-palette__item",
-                        index === highlightedIndex &&
-                          "command-palette__item--active",
+                        index === highlightedIndex && "command-palette__item--active",
                       )}
                       onClick={() => handleSelect(cmd)}
                       onMouseEnter={() => setHighlightedIndex(index)}

@@ -1,11 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/nextjs";
-import {
-  Dialog,
-  DialogHeader,
-  DialogTitle,
-  DialogBody,
-  DialogFooter,
-} from "./Dialog";
+import { Dialog, DialogHeader, DialogTitle, DialogBody, DialogFooter } from "./Dialog";
 import { Button } from "../Button/Button";
 
 const meta = {

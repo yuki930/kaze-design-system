@@ -64,10 +64,7 @@ export const Meter = forwardRef<HTMLDivElement, MeterProps>(
           </div>
         )}
         <div
-          className={cn(
-            "meter__track",
-            size !== "md" && `meter__track--${size}`,
-          )}
+          className={cn("meter__track", size !== "md" && `meter__track--${size}`)}
           role="meter"
           aria-valuenow={value}
           aria-valuemin={min}

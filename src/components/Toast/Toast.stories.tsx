@@ -15,10 +15,7 @@ function ToastTrigger({
 }) {
   const { toast } = useToast();
   return (
-    <Button
-      variant="outline"
-      onClick={() => toast({ title, description, variant })}
-    >
+    <Button variant="outline" onClick={() => toast({ title, description, variant })}>
       トーストを表示
     </Button>
   );
@@ -44,10 +41,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   render: () => (
-    <ToastTrigger
-      title="変更が保存されました"
-      description="すべての変更が正常に保存されました。"
-    />
+    <ToastTrigger title="変更が保存されました" description="すべての変更が正常に保存されました。" />
   ),
 };
 
@@ -83,10 +77,6 @@ export const Warning: Story = {
 
 export const Info: Story = {
   render: () => (
-    <ToastTrigger
-      title="お知らせ"
-      description="新しいバージョンが利用可能です。"
-      variant="info"
-    />
+    <ToastTrigger title="お知らせ" description="新しいバージョンが利用可能です。" variant="info" />
   ),
 };

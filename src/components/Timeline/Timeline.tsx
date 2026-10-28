@@ -1,12 +1,7 @@
 import { forwardRef, type ReactNode, type HTMLAttributes } from "react";
 import { cn } from "@/lib/utils";
 
-export type TimelineItemStatus =
-  | "default"
-  | "positive"
-  | "negative"
-  | "info"
-  | "warning";
+export type TimelineItemStatus = "default" | "positive" | "negative" | "info" | "warning";
 
 export interface TimelineProps extends HTMLAttributes<HTMLUListElement> {
   children: ReactNode;
@@ -39,9 +34,7 @@ export const TimelineItem = forwardRef<HTMLLIElement, TimelineItemProps>(
       />
       {time && <span className="timeline-item__time">{time}</span>}
       <span className="timeline-item__title">{title}</span>
-      {description && (
-        <span className="timeline-item__description">{description}</span>
-      )}
+      {description && <span className="timeline-item__description">{description}</span>}
     </li>
   ),
 );

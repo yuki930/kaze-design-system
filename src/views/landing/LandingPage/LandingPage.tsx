@@ -1,13 +1,4 @@
-import {
-  Zap,
-  Palette,
-  Accessibility,
-  Moon,
-  Sun,
-  Sparkles,
-  Rocket,
-  Github,
-} from "lucide-react";
+import { Zap, Palette, Accessibility, Moon, Sun, Sparkles, Rocket, Github } from "lucide-react";
 import {
   Navbar,
   NavbarLinks,
@@ -175,12 +166,7 @@ export function LandingPage() {
         />
         <FeatureGrid columns={2}>
           {features.map((f) => (
-            <FeatureCard
-              key={f.title}
-              icon={f.icon}
-              title={f.title}
-              description={f.description}
-            />
+            <FeatureCard key={f.title} icon={f.icon} title={f.title} description={f.description} />
           ))}
         </FeatureGrid>
       </Section>

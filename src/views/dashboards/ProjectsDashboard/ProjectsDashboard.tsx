@@ -98,18 +98,86 @@ const milestones: StepperStep[] = [
 ];
 
 const tasks: Task[] = [
-  { id: "KZ-142", title: "Buttonコンポーネントのa11y改善", assignee: "三隅 拓海", assigneeInitials: "MT", priority: "高", dueDate: "2月25日", status: "進行中" },
-  { id: "KZ-139", title: "ダークモードのカラートークン調整", assignee: "綿貫 玲奈", assigneeInitials: "WR", priority: "高", dueDate: "2月22日", status: "レビュー待ち" },
-  { id: "KZ-145", title: "Tableコンポーネントのソート機能", assignee: "大迫 航", assigneeInitials: "OK", priority: "中", dueDate: "3月1日", status: "未着手" },
-  { id: "KZ-138", title: "Storybook v8へのマイグレーション", assignee: "三隅 拓海", assigneeInitials: "MT", priority: "中", dueDate: "3月5日", status: "進行中" },
-  { id: "KZ-150", title: "CI/CDパイプラインの最適化", assignee: "藤枝 蒼", assigneeInitials: "FA", priority: "低", dueDate: "3月10日", status: "未着手" },
+  {
+    id: "KZ-142",
+    title: "Buttonコンポーネントのa11y改善",
+    assignee: "三隅 拓海",
+    assigneeInitials: "MT",
+    priority: "高",
+    dueDate: "2月25日",
+    status: "進行中",
+  },
+  {
+    id: "KZ-139",
+    title: "ダークモードのカラートークン調整",
+    assignee: "綿貫 玲奈",
+    assigneeInitials: "WR",
+    priority: "高",
+    dueDate: "2月22日",
+    status: "レビュー待ち",
+  },
+  {
+    id: "KZ-145",
+    title: "Tableコンポーネントのソート機能",
+    assignee: "大迫 航",
+    assigneeInitials: "OK",
+    priority: "中",
+    dueDate: "3月1日",
+    status: "未着手",
+  },
+  {
+    id: "KZ-138",
+    title: "Storybook v8へのマイグレーション",
+    assignee: "三隅 拓海",
+    assigneeInitials: "MT",
+    priority: "中",
+    dueDate: "3月5日",
+    status: "進行中",
+  },
+  {
+    id: "KZ-150",
+    title: "CI/CDパイプラインの最適化",
+    assignee: "藤枝 蒼",
+    assigneeInitials: "FA",
+    priority: "低",
+    dueDate: "3月10日",
+    status: "未着手",
+  },
 ];
 
 const teamMembers: TeamMember[] = [
-  { name: "三隅 拓海", initials: "MT", role: "リードエンジニア", activeTasks: 5, maxTasks: 6, completedThisWeek: 8 },
-  { name: "綿貫 玲奈", initials: "WR", role: "デザイナー", activeTasks: 3, maxTasks: 5, completedThisWeek: 5 },
-  { name: "大迫 航", initials: "OK", role: "フロントエンド", activeTasks: 4, maxTasks: 6, completedThisWeek: 3 },
-  { name: "藤枝 蒼", initials: "FA", role: "バックエンド", activeTasks: 2, maxTasks: 5, completedThisWeek: 6 },
+  {
+    name: "三隅 拓海",
+    initials: "MT",
+    role: "リードエンジニア",
+    activeTasks: 5,
+    maxTasks: 6,
+    completedThisWeek: 8,
+  },
+  {
+    name: "綿貫 玲奈",
+    initials: "WR",
+    role: "デザイナー",
+    activeTasks: 3,
+    maxTasks: 5,
+    completedThisWeek: 5,
+  },
+  {
+    name: "大迫 航",
+    initials: "OK",
+    role: "フロントエンド",
+    activeTasks: 4,
+    maxTasks: 6,
+    completedThisWeek: 3,
+  },
+  {
+    name: "藤枝 蒼",
+    initials: "FA",
+    role: "バックエンド",
+    activeTasks: 2,
+    maxTasks: 5,
+    completedThisWeek: 6,
+  },
 ];
 
 const activities = [
@@ -121,10 +189,42 @@ const activities = [
 ];
 
 const deadlines: Deadline[] = [
-  { task: "KZ-139: ダークモードカラー調整", project: "Design System v2", assignee: "綿貫 玲奈", assigneeInitials: "WR", dueDate: "2月22日", daysLeft: 2, priority: "高" },
-  { task: "KZ-142: Button a11y改善", project: "Design System v2", assignee: "三隅 拓海", assigneeInitials: "MT", dueDate: "2月25日", daysLeft: 5, priority: "高" },
-  { task: "KZ-145: Tableソート機能", project: "Design System v2", assignee: "大迫 航", assigneeInitials: "OK", dueDate: "3月1日", daysLeft: 9, priority: "中" },
-  { task: "KZ-138: Storybook移行", project: "Design System v2", assignee: "三隅 拓海", assigneeInitials: "MT", dueDate: "3月5日", daysLeft: 13, priority: "中" },
+  {
+    task: "KZ-139: ダークモードカラー調整",
+    project: "Design System v2",
+    assignee: "綿貫 玲奈",
+    assigneeInitials: "WR",
+    dueDate: "2月22日",
+    daysLeft: 2,
+    priority: "高",
+  },
+  {
+    task: "KZ-142: Button a11y改善",
+    project: "Design System v2",
+    assignee: "三隅 拓海",
+    assigneeInitials: "MT",
+    dueDate: "2月25日",
+    daysLeft: 5,
+    priority: "高",
+  },
+  {
+    task: "KZ-145: Tableソート機能",
+    project: "Design System v2",
+    assignee: "大迫 航",
+    assigneeInitials: "OK",
+    dueDate: "3月1日",
+    daysLeft: 9,
+    priority: "中",
+  },
+  {
+    task: "KZ-138: Storybook移行",
+    project: "Design System v2",
+    assignee: "三隅 拓海",
+    assigneeInitials: "MT",
+    dueDate: "3月5日",
+    daysLeft: 13,
+    priority: "中",
+  },
 ];
 
 const taskTabs: TaskTab[] = ["すべて", "マイタスク", "チーム"];
@@ -133,17 +233,23 @@ const taskTabs: TaskTab[] = ["すべて", "マイタスク", "チーム"];
 
 function priorityVariant(priority: Task["priority"]) {
   switch (priority) {
-    case "高": return "negative" as const;
-    case "中": return "warning" as const;
-    case "低": return "default" as const;
+    case "高":
+      return "negative" as const;
+    case "中":
+      return "warning" as const;
+    case "低":
+      return "default" as const;
   }
 }
 
 function statusVariant(status: Task["status"]) {
   switch (status) {
-    case "未着手": return "default" as const;
-    case "進行中": return "info" as const;
-    case "レビュー待ち": return "warning" as const;
+    case "未着手":
+      return "default" as const;
+    case "進行中":
+      return "info" as const;
+    case "レビュー待ち":
+      return "warning" as const;
   }
 }
 
@@ -175,8 +281,12 @@ export function ProjectsDashboard() {
         <div className={layoutStyles.sidebarFooter}>
           <Avatar size="sm" fallback="MT" />
           <div className={layoutStyles.sidebarFooterInfo}>
-            <Text as="span" size="sm" weight="medium" style={truncateStyle}>三隅 拓海</Text>
-            <Text as="span" size="xs" color="subtle" style={truncateStyle}>takumi.misumi@norn.co.jp</Text>
+            <Text as="span" size="sm" weight="medium" style={truncateStyle}>
+              三隅 拓海
+            </Text>
+            <Text as="span" size="xs" color="subtle" style={truncateStyle}>
+              takumi.misumi@norn.co.jp
+            </Text>
           </div>
         </div>
       }
@@ -219,7 +329,9 @@ export function ProjectsDashboard() {
         <CardHeader>
           <div className={styles.projectHeaderTitle}>
             <CardTitle>Kaze Design System v2.0</CardTitle>
-            <Badge variant="info" dot>進行中</Badge>
+            <Badge variant="info" dot>
+              進行中
+            </Badge>
           </div>
         </CardHeader>
         <CardBody>
@@ -231,7 +343,13 @@ export function ProjectsDashboard() {
       </Card>
 
       {/* 4-column Task Metrics */}
-      <Grid columns={4} columnsMd={2} columnsSm={1} gap="var(--space-4)" style={{ marginBottom: "var(--space-6)" }}>
+      <Grid
+        columns={4}
+        columnsMd={2}
+        columnsSm={1}
+        gap="var(--space-4)"
+        style={{ marginBottom: "var(--space-6)" }}
+      >
         <Card variant="compact">
           <CardBody>
             <Metric label="未着手" value="12" />
@@ -249,17 +367,18 @@ export function ProjectsDashboard() {
         </Card>
         <Card variant="compact">
           <CardBody>
-            <Metric
-              label="完了（今週）"
-              value="23"
-              change={{ value: "+15%", trend: "positive" }}
-            />
+            <Metric label="完了（今週）" value="23" change={{ value: "+15%", trend: "positive" }} />
           </CardBody>
         </Card>
       </Grid>
 
       {/* Two-column: Tasks + Team Workload */}
-      <Grid columns={2} columnsMd={1} gap="var(--space-4)" style={{ marginBottom: "var(--space-6)" }}>
+      <Grid
+        columns={2}
+        columnsMd={1}
+        gap="var(--space-4)"
+        style={{ marginBottom: "var(--space-6)" }}
+      >
         {/* Task List */}
         <Card>
           <CardHeader>
@@ -267,11 +386,7 @@ export function ProjectsDashboard() {
               <CardTitle>タスク状況</CardTitle>
               <Tabs variant="pills">
                 {taskTabs.map((tab) => (
-                  <Tab
-                    key={tab}
-                    active={activeTab === tab}
-                    onClick={() => setActiveTab(tab)}
-                  >
+                  <Tab key={tab} active={activeTab === tab} onClick={() => setActiveTab(tab)}>
                     {tab}
                   </Tab>
                 ))}
@@ -287,9 +402,7 @@ export function ProjectsDashboard() {
                   title={
                     <>
                       {task.title}{" "}
-                      <Badge variant={priorityVariant(task.priority)}>
-                        {task.priority}
-                      </Badge>
+                      <Badge variant={priorityVariant(task.priority)}>{task.priority}</Badge>
                     </>
                   }
                   description={`${task.id} · ${task.assignee} · 期限: ${task.dueDate}`}
@@ -314,8 +427,12 @@ export function ProjectsDashboard() {
               <div key={member.initials} className={styles.memberRow}>
                 <Avatar size="sm" fallback={member.initials} />
                 <div className={styles.memberInfo}>
-                  <Text as="span" size="sm" weight="medium">{member.name}</Text>
-                  <Text as="span" size="xs" color="subtle">{member.role}</Text>
+                  <Text as="span" size="sm" weight="medium">
+                    {member.name}
+                  </Text>
+                  <Text as="span" size="xs" color="subtle">
+                    {member.role}
+                  </Text>
                 </div>
                 <div className={styles.memberProgress}>
                   <Progress

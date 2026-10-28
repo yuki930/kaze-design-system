@@ -1,12 +1,7 @@
 import { forwardRef, type ButtonHTMLAttributes } from "react";
 import { cn } from "@/lib/utils";
 
-export type ButtonVariant =
-  | "primary"
-  | "secondary"
-  | "outline"
-  | "ghost"
-  | "destructive";
+export type ButtonVariant = "primary" | "secondary" | "outline" | "ghost" | "destructive";
 
 export type ButtonSize = "xs" | "sm" | "md" | "lg";
 

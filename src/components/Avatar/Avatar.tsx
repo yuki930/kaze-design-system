@@ -22,11 +22,7 @@ export const Avatar = forwardRef<HTMLSpanElement, AvatarProps>(
         className={cn("avatar", `avatar--${size}`, className)}
         {...rest}
       >
-        {src ? (
-          <img src={src} alt={alt ?? ""} />
-        ) : (
-          <span aria-hidden="true">{fallback}</span>
-        )}
+        {src ? <img src={src} alt={alt ?? ""} /> : <span aria-hidden="true">{fallback}</span>}
       </span>
     );
   },

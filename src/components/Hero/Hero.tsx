@@ -16,13 +16,9 @@ export interface HeroProps extends HTMLAttributes<HTMLElement> {
 }
 
 export const Hero = forwardRef<HTMLElement, HeroProps>(
-  (
-    { badge, title, subtitle, bg, bgImage, overlay, className, children, style, ...rest },
-    ref,
-  ) => {
+  ({ badge, title, subtitle, bg, bgImage, overlay, className, children, style, ...rest }, ref) => {
     const hasBg = !!(bg || bgImage);
-    const overlayOpacity =
-      overlay === true ? 0.5 : typeof overlay === "number" ? overlay : 0;
+    const overlayOpacity = overlay === true ? 0.5 : typeof overlay === "number" ? overlay : 0;
 
     const sectionStyle: CSSProperties = {
       ...style,

@@ -227,7 +227,10 @@ const initialJobs: Job[] = [
 
 /* ── Helpers ───────────────────────────────────────────────── */
 
-const jobTypeConfig: Record<JobType, { label: string; variant: "info" | "positive" | "warning" | "default" }> = {
+const jobTypeConfig: Record<
+  JobType,
+  { label: string; variant: "info" | "positive" | "warning" | "default" }
+> = {
   fulltime: { label: "正社員", variant: "info" },
   contract: { label: "契約社員", variant: "warning" },
   parttime: { label: "パート", variant: "default" },
@@ -308,7 +311,8 @@ function JobSearchInner() {
       if (jobTypeFilter.length > 0 && !jobTypeFilter.includes(job.jobType)) return false;
       if (query.trim()) {
         const q = query.toLowerCase();
-        const searchable = `${job.title} ${job.company} ${job.location} ${job.tags.join(" ")}`.toLowerCase();
+        const searchable =
+          `${job.title} ${job.company} ${job.location} ${job.tags.join(" ")}`.toLowerCase();
         if (!searchable.includes(q)) return false;
       }
       return true;
@@ -358,9 +362,7 @@ function JobSearchInner() {
   );
 
   const toggleJobTypeFilter = useCallback((jt: JobType) => {
-    setJobTypeFilter((prev) =>
-      prev.includes(jt) ? prev.filter((k) => k !== jt) : [...prev, jt],
-    );
+    setJobTypeFilter((prev) => (prev.includes(jt) ? prev.filter((k) => k !== jt) : [...prev, jt]));
   }, []);
 
   const applyFilter = useCallback(() => {
@@ -382,17 +384,13 @@ function JobSearchInner() {
       <header className={styles.header}>
         <div className={styles.headerLeft}>
           <Briefcase size={22} />
-          <Text as="span" size="xl" weight="bold">求人検索</Text>
+          <Text as="span" size="xl" weight="bold">
+            求人検索
+          </Text>
         </div>
         <div className={styles.headerRight}>
           <Badge variant="info">{filteredJobs.length} 件</Badge>
-          <Button
-            variant="ghost"
-            size="sm"
-            iconOnly
-            onClick={toggleTheme}
-            aria-label="テーマ切替"
-          >
+          <Button variant="ghost" size="sm" iconOnly onClick={toggleTheme} aria-label="テーマ切替">
             {resolvedTheme === "light" ? <Moon size={18} /> : <Sun size={18} />}
           </Button>
         </div>
@@ -419,11 +417,9 @@ function JobSearchInner() {
           </DropdownTrigger>
           <DropdownMenu>
             {(Object.keys(sortLabels) as SortKey[]).map((key) => (
-              <DropdownItem
-                key={key}
-                onSelect={() => setSortKey(key)}
-              >
-                {sortLabels[key]}{sortKey === key ? " ✓" : ""}
+              <DropdownItem key={key} onSelect={() => setSortKey(key)}>
+                {sortLabels[key]}
+                {sortKey === key ? " ✓" : ""}
               </DropdownItem>
             ))}
           </DropdownMenu>
@@ -458,7 +454,10 @@ function JobSearchInner() {
           <Tab active={categoryFilter === "pm"} onClick={() => setCategoryFilter("pm")}>
             PM
           </Tab>
-          <Tab active={categoryFilter === "marketing"} onClick={() => setCategoryFilter("marketing")}>
+          <Tab
+            active={categoryFilter === "marketing"}
+            onClick={() => setCategoryFilter("marketing")}
+          >
             営業・マーケ
           </Tab>
         </Tabs>
@@ -469,7 +468,9 @@ function JobSearchInner() {
         {loading ? (
           <ul className={styles.jobList}>
             {[1, 2, 3, 4].map((i) => (
-              <li key={i}><JobCardSkeleton /></li>
+              <li key={i}>
+                <JobCardSkeleton />
+              </li>
             ))}
           </ul>
         ) : filteredJobs.length === 0 ? (
@@ -487,11 +488,10 @@ function JobSearchInner() {
                     {/* top row: company + save */}
                     <div className={styles.jobTopRow}>
                       <div className={styles.companyRow}>
-                        <Avatar
-                          size="xs"
-                          fallback={getCompanyInitial(job.company)}
-                        />
-                        <Text as="span" size="xs" color="muted" className={styles.companyName}>{job.company}</Text>
+                        <Avatar size="xs" fallback={getCompanyInitial(job.company)} />
+                        <Text as="span" size="xs" color="muted" className={styles.companyName}>
+                          {job.company}
+                        </Text>
                       </div>
                       <button
                         type="button"
@@ -505,7 +505,9 @@ function JobSearchInner() {
 
                     {/* title */}
                     <div className={styles.jobTitle}>
-                      <Text as="span" weight="semibold">{job.title}</Text>
+                      <Text as="span" weight="semibold">
+                        {job.title}
+                      </Text>
                       {job.isNew && (
                         <Badge variant="negative" className={styles.newBadge}>
                           NEW
@@ -516,7 +518,9 @@ function JobSearchInner() {
                     {/* salary (独立行で強調) */}
                     <div className={styles.salaryRow}>
                       <Banknote size={15} />
-                      <Text as="span" size="sm" weight="semibold" color="primary">{job.salary}</Text>
+                      <Text as="span" size="sm" weight="semibold" color="primary">
+                        {job.salary}
+                      </Text>
                     </div>
 
                     {/* meta row */}
@@ -527,9 +531,7 @@ function JobSearchInner() {
                       </Text>
                       <Text as="span" size="xs" color="subtle" className={styles.metaItem}>
                         <Clock size={13} />
-                        {job.postedDaysAgo === 1
-                          ? "昨日"
-                          : `${job.postedDaysAgo}日前`}
+                        {job.postedDaysAgo === 1 ? "昨日" : `${job.postedDaysAgo}日前`}
                       </Text>
                     </div>
 
@@ -574,8 +576,7 @@ function JobSearchInner() {
           const cfg = tabConfig[key];
           const IconComp = cfg.icon;
           const isActive = activeTab === key;
-          const badge =
-            key === "saved" ? savedCount : key === "applied" ? appliedCount : 0;
+          const badge = key === "saved" ? savedCount : key === "applied" ? appliedCount : 0;
           return (
             <button
               key={key}
@@ -585,28 +586,24 @@ function JobSearchInner() {
             >
               <IconComp size={20} />
               <span className={bottomBarStyles.bottomTabLabel}>{cfg.label}</span>
-              {badge > 0 && (
-                <span className={bottomBarStyles.bottomTabBadge}>{badge}</span>
-              )}
+              {badge > 0 && <span className={bottomBarStyles.bottomTabBadge}>{badge}</span>}
             </button>
           );
         })}
       </nav>
 
       {/* ── Filter Dialog ──────────────────────────────────── */}
-      <Dialog
-        open={filterOpen}
-        onClose={() => setFilterOpen(false)}
-        returnFocusRef={filterBtnRef}
-      >
+      <Dialog open={filterOpen} onClose={() => setFilterOpen(false)} returnFocusRef={filterBtnRef}>
         <DialogHeader>
           <DialogTitle>絞り込み</DialogTitle>
         </DialogHeader>
         <DialogBody>
           <div className={styles.filterSection}>
-            <Text as="span" size="sm" weight="semibold">勤務形態</Text>
+            <Text as="span" size="sm" weight="semibold">
+              勤務形態
+            </Text>
             <div className={styles.filterOptions}>
-              {(Object.entries(jobTypeConfig) as [JobType, typeof jobTypeConfig[JobType]][]).map(
+              {(Object.entries(jobTypeConfig) as [JobType, (typeof jobTypeConfig)[JobType]][]).map(
                 ([key, config]) => (
                   <Checkbox
                     key={key}
@@ -623,9 +620,7 @@ function JobSearchInner() {
           <Button variant="ghost" onClick={resetFilter}>
             リセット
           </Button>
-          <Button onClick={applyFilter}>
-            適用する
-          </Button>
+          <Button onClick={applyFilter}>適用する</Button>
         </DialogFooter>
       </Dialog>
     </div>

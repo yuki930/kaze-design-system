@@ -26,16 +26,7 @@ export interface BarListProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 export const BarList = forwardRef<HTMLDivElement, BarListProps>(
-  (
-    {
-      data,
-      sortOrder = "descending",
-      valueFormatter,
-      className,
-      ...rest
-    },
-    ref,
-  ) => {
+  ({ data, sortOrder = "descending", valueFormatter, className, ...rest }, ref) => {
     const sorted =
       sortOrder === "none"
         ? data
@@ -71,11 +62,7 @@ export const BarList = forwardRef<HTMLDivElement, BarListProps>(
           const LinkComponent = item.as ?? "a";
 
           return item.href ? (
-            <LinkComponent
-              key={i}
-              href={item.href}
-              className="barlist__row barlist__row--link"
-            >
+            <LinkComponent key={i} href={item.href} className="barlist__row barlist__row--link">
               {content}
             </LinkComponent>
           ) : (

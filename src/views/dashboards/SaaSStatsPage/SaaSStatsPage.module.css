@@ -17,10 +17,6 @@
   justify-content: center;
 }
 
-[data-theme="dark"] .statsSection {
-  background: var(--color-primary);
-}
-
 .statsInner {
   max-width: 960px;
   width: 100%;

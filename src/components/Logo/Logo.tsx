@@ -49,12 +49,7 @@ export const Logo = forwardRef<HTMLDivElement, LogoProps>(
 
     return (
       <div ref={ref} className={cn("logo", className)} {...rest}>
-        <div
-          className={cn(
-            "logo__mark",
-            `logo__mark--${size}`,
-          )}
-        >
+        <div className={cn("logo__mark", `logo__mark--${size}`)}>
           <WindMark size={iconSize} />
         </div>
         {showText && (

@@ -184,11 +184,7 @@ export function GalleryPage() {
               onClick={toggleTheme}
               aria-label="テーマ切替"
             >
-              {resolvedTheme === "light" ? (
-                <Moon size={18} />
-              ) : (
-                <Sun size={18} />
-              )}
+              {resolvedTheme === "light" ? <Moon size={18} /> : <Sun size={18} />}
             </Button>
             <a href="/docs">
               <Button size="sm">ドキュメント</Button>
@@ -215,11 +211,7 @@ export function GalleryPage() {
       <div className={styles.filterBar}>
         <Tabs variant="pills">
           {categories.map((cat) => (
-            <Tab
-              key={cat}
-              active={activeCategory === cat}
-              onClick={() => setActiveCategory(cat)}
-            >
+            <Tab key={cat} active={activeCategory === cat} onClick={() => setActiveCategory(cat)}>
               {cat}
             </Tab>
           ))}
@@ -249,8 +241,12 @@ export function GalleryPage() {
                 <CardBody>
                   <div className={styles.galleryMeta}>
                     <div>
-                      <Text as="div" size="sm" weight="semibold">{item.title}</Text>
-                      <Text as="div" variant="caption">撮影: {item.author}</Text>
+                      <Text as="div" size="sm" weight="semibold">
+                        {item.title}
+                      </Text>
+                      <Text as="div" variant="caption">
+                        撮影: {item.author}
+                      </Text>
                     </div>
                     <Badge variant="default">{item.category}</Badge>
                   </div>
@@ -302,9 +298,7 @@ export function GalleryPage() {
           },
         ]}
         bottomLeft={
-          <span>
-            &copy; {new Date().getFullYear()} Kaze Design System. All rights reserved.
-          </span>
+          <span>&copy; {new Date().getFullYear()} Kaze Design System. All rights reserved.</span>
         }
       />
 

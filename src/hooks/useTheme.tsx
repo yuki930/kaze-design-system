@@ -29,9 +29,7 @@ const ThemeContext = createContext<ThemeContextValue | undefined>(undefined);
 
 function getSystemTheme(): "light" | "dark" {
   if (typeof window === "undefined") return "light";
-  return window.matchMedia("(prefers-color-scheme: dark)").matches
-    ? "dark"
-    : "light";
+  return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
 }
 
 function getStoredTheme(): Theme {
@@ -69,10 +67,7 @@ export interface ThemeProviderProps {
   defaultTheme?: Theme;
 }
 
-export function ThemeProvider({
-  children,
-  defaultTheme,
-}: ThemeProviderProps) {
+export function ThemeProvider({ children, defaultTheme }: ThemeProviderProps) {
   const [theme, setThemeState] = useState<Theme>(defaultTheme ?? "light");
   const [palette, setPaletteState] = useState<Palette>("warm");
 
@@ -111,6 +106,7 @@ export function ThemeProvider({
   }, []);
 
   // Read stored theme & palette from localStorage on mount (client-side only)
+  // biome-ignore lint/correctness/useExhaustiveDependencies: mount-only effect
   useEffect(() => {
     const stored = getStoredTheme();
     if (stored !== (defaultTheme ?? "light")) {
@@ -121,7 +117,7 @@ export function ThemeProvider({
     const storedPalette = getStoredPalette();
     setPaletteState(storedPalette);
     applyPalette(storedPalette);
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, []);
 
   // Apply theme when theme changes (after initial mount)
   useEffect(() => {
@@ -146,9 +142,7 @@ export function ThemeProvider({
     [theme, resolvedTheme, setTheme, toggleTheme, palette, setPalette],
   );
 
-  return (
-    <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
-  );
+  return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
 }
 
 export function useTheme(): ThemeContextValue {
