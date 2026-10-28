@@ -12,7 +12,7 @@
   "bugs": {
     "url": "https://github.com/yuki930/kaze-design-system/issues"
   },
-  "description": "Minimal React design system for dashboards and Japanese UI — quiet neutral grays, 63 components, light/dark themes, typography tuned for CJK text",
+  "description": "Minimal React design system for dashboards, landing pages and Japanese UI: warm neutral grays, 63 components, light/dark themes, typography tuned for CJK text",
   "keywords": [
     "design-system",
     "react",
@@ -44,6 +44,7 @@
       "types": "./dist/types/tokens/tokens.d.ts",
       "import": "./dist/tokens.js"
     },
+    "./package.json": "./package.json",
     "./css/tokens": "./tokens.css",
     "./css/reset": "./reset.css",
     "./css/components": "./components.css",
@@ -58,6 +59,9 @@
     "utilities.css",
     "kaze.css"
   ],
+  "engines": {
+    "node": ">=18"
+  },
   "sideEffects": [
     "*.css"
   ],
@@ -68,7 +72,9 @@
     "docs:llms": "node scripts/generate-llms.mjs",
     "docs:stories": "node scripts/generate-stories.mjs",
     "size": "npm run build:lib && node scripts/measure-size.mjs",
-    "test": "vitest run",
+    "test": "vitest run --project unit",
+    "test:storybook": "vitest run --project storybook",
+    "test:all": "vitest run",
     "test:watch": "vitest",
     "start": "next start",
     "build:lib": "rm -rf dist && vite build --config vite.config.lib.ts && tsc -p tsconfig.build.json",
