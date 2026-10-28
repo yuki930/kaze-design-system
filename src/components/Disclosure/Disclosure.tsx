@@ -9,7 +9,6 @@ import {
   type KeyboardEvent,
   type ReactNode,
 } from "react";
-import { ChevronRight, Plus } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export type DisclosureIcon = "chevron" | "plus" | ReactNode;
@@ -50,12 +49,36 @@ export interface DisclosureProps {
   disabled?: boolean;
 }
 
+/* Inline SVGs (same paths as lucide's ChevronRight / Plus) so the component
+   works without the optional lucide-react peer dependency. */
+const iconSvgProps = {
+  width: 16,
+  height: 16,
+  viewBox: "0 0 24 24",
+  fill: "none",
+  stroke: "currentColor",
+  strokeWidth: 2,
+  strokeLinecap: "round",
+  strokeLinejoin: "round",
+  className: "disclosure__icon-svg",
+  "aria-hidden": true,
+} as const;
+
 function renderIcon(icon: DisclosureIcon) {
   if (icon === "chevron" || icon == null) {
-    return <ChevronRight size={16} className="disclosure__icon-svg" />;
+    return (
+      <svg {...iconSvgProps}>
+        <path d="m9 18 6-6-6-6" />
+      </svg>
+    );
   }
   if (icon === "plus") {
-    return <Plus size={16} className="disclosure__icon-svg" />;
+    return (
+      <svg {...iconSvgProps}>
+        <path d="M5 12h14" />
+        <path d="M12 5v14" />
+      </svg>
+    );
   }
   return icon;
 }

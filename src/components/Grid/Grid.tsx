@@ -1,6 +1,6 @@
 import { forwardRef, type CSSProperties, type HTMLAttributes } from "react";
 import { cn } from "@/lib/utils";
-import { space } from "@/tokens/tokens";
+import { space } from "../../tokens/tokens";
 
 export type GridColumns = 1 | 2 | 3 | 4 | 5 | 6;
 type SpaceToken = keyof typeof space;
@@ -29,11 +29,11 @@ export interface GridProps extends HTMLAttributes<HTMLDivElement> {
   columnsMd?: GridColumns;
   /** Column count at ≤640px */
   columnsSm?: GridColumns;
-  /** Gap between items — semantic token ("sm", "md", etc.), space token (e.g. 4), or any CSS value */
+  /** Gap between items: semantic token ("sm", "md", etc.), space token (e.g. 4), or any CSS value */
   gap?: GridGap;
-  /** Gap at ≤1024px — falls back to gap */
+  /** Gap at ≤1024px: falls back to gap */
   gapMd?: GridGap;
-  /** Gap at ≤640px — falls back to gapMd, then gap */
+  /** Gap at ≤640px: falls back to gapMd, then gap */
   gapSm?: GridGap;
 }
 

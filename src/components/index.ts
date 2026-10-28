@@ -158,7 +158,7 @@ export { CommandPalette } from "./CommandPalette";
 export type { CommandPaletteProps, Command } from "./CommandPalette";
 
 export { Icon } from "./Icon";
-export type { IconProps, IconSize } from "./Icon";
+export type { IconComponent, IconProps, IconSize } from "./Icon";
 
 /* ── Typography ────────────────────────────────────────────── */
 
