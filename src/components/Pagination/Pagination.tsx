@@ -12,6 +12,8 @@ export interface PaginationProps extends HTMLAttributes<HTMLElement> {
   prevLabel?: string;
   /** Accessible label for the next button (default: "次のページ") */
   nextLabel?: string;
+  /** Accessible label for each page button (default: `${page}ページ目`) */
+  pageLabel?: (page: number) => string;
 }
 
 type PageItem = number | "ellipsis-start" | "ellipsis-end";
@@ -29,6 +31,8 @@ function getPages(current: number, total: number, siblings: number): PageItem[] 
   return range;
 }
 
+const defaultPageLabel = (page: number) => `${page}ページ目`;
+
 export const Pagination = forwardRef<HTMLElement, PaginationProps>(
   (
     {
@@ -39,6 +43,7 @@ export const Pagination = forwardRef<HTMLElement, PaginationProps>(
       label = "ページネーション",
       prevLabel = "前のページ",
       nextLabel = "次のページ",
+      pageLabel = defaultPageLabel,
       className,
       ...rest
     },
@@ -58,7 +63,7 @@ export const Pagination = forwardRef<HTMLElement, PaginationProps>(
         </button>
         {pages.map((page) =>
           typeof page === "string" ? (
-            <span key={page} className="pagination__ellipsis">
+            <span key={page} className="pagination__ellipsis" aria-hidden="true">
               …
             </span>
           ) : (
@@ -67,6 +72,7 @@ export const Pagination = forwardRef<HTMLElement, PaginationProps>(
               key={page}
               className={cn("pagination__btn", page === currentPage && "pagination__btn--active")}
               onClick={() => onPageChange?.(page)}
+              aria-label={pageLabel(page)}
               aria-current={page === currentPage ? "page" : undefined}
             >
               {page}

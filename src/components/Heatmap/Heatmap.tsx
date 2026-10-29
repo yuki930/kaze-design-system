@@ -1,8 +1,16 @@
 "use client";
 
-import { forwardRef, useRef, useState, type CSSProperties, type HTMLAttributes } from "react";
+import {
+  forwardRef,
+  useId,
+  useRef,
+  useState,
+  type CSSProperties,
+  type HTMLAttributes,
+} from "react";
 import { cn } from "@/lib/utils";
 import { defaultFormat } from "../../lib/chartScale";
+import { joinIds } from "../_internal/aria";
 
 export interface HeatmapDatum {
   /** Local calendar date as `YYYY-MM-DD` (no time zone conversion is applied) */
@@ -119,6 +127,7 @@ export const Heatmap = forwardRef<HTMLDivElement, HeatmapProps>(
       formatValue = defaultFormat,
       formatTooltip,
       "aria-label": ariaLabel,
+      "aria-describedby": ariaDescribedBy,
       className,
       style,
       ...rest
@@ -127,6 +136,7 @@ export const Heatmap = forwardRef<HTMLDivElement, HeatmapProps>(
   ) => {
     const rootRef = useRef<HTMLDivElement | null>(null);
     const [tip, setTip] = useState<TooltipState | null>(null);
+    const summaryId = `${useId()}-summary`;
     const stepCount = Math.max(1, Math.floor(levels));
 
     const cells: PlacedCell[] = [];
@@ -192,6 +202,17 @@ export const Heatmap = forwardRef<HTMLDivElement, HeatmapProps>(
     }
     const scaleMax = maxValue;
 
+    // Screen reader summary (exposed via aria-describedby): where the peak is and how high.
+    const peak = cells.reduce<PlacedCell | null>(
+      (acc, c) =>
+        c.value !== null && c.value > 0 && (!acc || c.value > (acc.value ?? 0)) ? c : acc,
+      null,
+    );
+    const summary =
+      peak && peak.value !== null
+        ? `最大値 ${formatValue(peak.value)}（${peak.date ?? `${peak.row} ${peak.column}`}）`
+        : "データなし";
+
     const show = (cell: PlacedCell, el: HTMLElement) => {
       const root = rootRef.current;
       if (!root) return;
@@ -245,10 +266,15 @@ export const Heatmap = forwardRef<HTMLDivElement, HeatmapProps>(
         }}
         role="img"
         aria-label={ariaLabel}
+        aria-describedby={joinIds(ariaDescribedBy, summaryId)}
         className={cn("chart", "heatmap", `heatmap--${variant}`, className)}
         style={rootStyle}
         {...rest}
       >
+        {/* Children of role="img" are presentational, but aria-describedby still resolves this text. */}
+        <span id={summaryId} className="sr-only">
+          {summary}
+        </span>
         <div className="heatmap__scroll">
           {/* biome-ignore lint/a11y/noStaticElementInteractions: pointer-only tooltip; the chart is exposed as role=img */}
           <div className="heatmap__grid" style={gridStyle} onMouseLeave={() => setTip(null)}>

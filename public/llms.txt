@@ -63,7 +63,7 @@ import { Hero, PricingGrid } from "kaze-design-system/marketing";
 
 ### フィードバック
 
-- [Alert](https://kaze-design-system.vercel.app/docs/components/alert): ユーザーに重要な情報を伝えるアラートコンポーネント。情報・成功・警告・エラーの4バリアント。
+- [Alert](https://kaze-design-system.vercel.app/docs/components/alert): ユーザーに重要な情報を伝えるアラートコンポーネント。情報・成功・警告・エラーと中立の 5 バリアント。
 - [Progress](https://kaze-design-system.vercel.app/docs/components/progress): 処理の進捗状況を視覚的に表示するプログレスバーコンポーネント。サイズ・カラー・ラベル対応。
 - [Meter](https://kaze-design-system.vercel.app/docs/components/meter): メーター（既知範囲の値表示）
 - [Skeleton](https://kaze-design-system.vercel.app/docs/components/skeleton): コンテンツの読み込み中に表示するスケルトンプレースホルダーコンポーネント。

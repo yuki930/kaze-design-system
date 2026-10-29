@@ -5,16 +5,19 @@
    Usage:
      <link rel="stylesheet" href="kaze.css">
 
-   Layers (in order):
-     1. tokens     — Design tokens (colors, spacing, typography)
-     2. reset      — Modern CSS reset & base styles
-     3. components — UI component classes
-     4. utilities  — Utility classes (highest specificity)
+   Cascade layers (all nested under `kaze` so they never collide with
+   Tailwind's `components` / `utilities` layers):
+     1. kaze.tokens     — Design tokens (colors, spacing, typography)
+     2. kaze.reset      — Modern CSS reset & base styles
+     3. kaze.components — UI component classes
+     4. kaze.utilities  — Utility classes (highest specificity)
+
+   Using Tailwind? Import "core.css" instead and skip utilities.css.
    ============================================================ */
 
-@layer tokens, reset, components, utilities;
+@layer kaze.tokens, kaze.reset, kaze.components, kaze.utilities;
 
-@import url("tokens.css") layer(tokens);
-@import url("reset.css") layer(reset);
-@import url("components.css") layer(components);
-@import url("utilities.css") layer(utilities);
+@import url("tokens.css");
+@import url("reset.css");
+@import url("components.css");
+@import url("utilities.css");

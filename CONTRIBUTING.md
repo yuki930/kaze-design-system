@@ -29,7 +29,7 @@ npm install
 | `npm run dev` | Next.js 開発サーバー (port 4173, Turbopack)。`/docs/components` にアクセスして全コンポーネントを確認 |
 | `npm run storybook` | Storybook 起動 (port 6006) |
 | `npm run typecheck` | TypeScript 型チェック |
-| `npm test` | Vitest で unit + storybook browser テスト実行 |
+| `npm test` | Vitest の unit テスト（`npm run test:storybook` でブラウザテスト） |
 | `npm run test:watch` | Vitest watch モード |
 | `npm run build:lib` | ライブラリビルド (`dist/` 生成) |
 | `npm run docs:llms` | `public/llms.txt` / `public/llms-full.txt` 再生成 |

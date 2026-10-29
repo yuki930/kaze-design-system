@@ -5,14 +5,18 @@ export interface SidebarProps extends HTMLAttributes<HTMLElement> {
   children: ReactNode;
   logo?: ReactNode;
   footer?: ReactNode;
+  /** Accessible name of the <nav> landmark (default: "メインナビゲーション") */
+  navLabel?: string;
 }
 
 export const Sidebar = forwardRef<HTMLElement, SidebarProps>(
-  ({ children, logo, footer, className, ...rest }, ref) => {
+  ({ children, logo, footer, navLabel = "メインナビゲーション", className, ...rest }, ref) => {
     return (
       <aside ref={ref} className={cn("sidebar", className)} {...rest}>
         {logo && <div className="sidebar__logo">{logo}</div>}
-        <nav className="sidebar__nav">{children}</nav>
+        <nav className="sidebar__nav" aria-label={navLabel}>
+          {children}
+        </nav>
         {footer && <div className="sidebar__footer">{footer}</div>}
       </aside>
     );
@@ -25,22 +29,26 @@ Sidebar.displayName = "Sidebar";
 
 export interface NavItemProps extends HTMLAttributes<HTMLElement> {
   icon?: ReactNode;
+  /** Marks the item as the current page (adds aria-current="page") */
   active?: boolean;
   children: ReactNode;
-  /** Render as a different element (default: "button"). Accepts "a", "button", or a component like Next.js Link. */
+  /** Render as a different element. Defaults to "a" when `href` is given, otherwise "button". Accepts "a", "button", or a component like Next.js Link. */
   as?: React.ElementType;
   /** Allow href for anchor/link usage */
   href?: string;
 }
 
 export const NavItem = forwardRef<HTMLElement, NavItemProps>(
-  ({ icon, active, as: Component = "button", className, children, ...rest }, ref) => {
+  ({ icon, active, as: asProp, href, className, children, ...rest }, ref) => {
+    const Component: React.ElementType = asProp ?? (href ? "a" : "button");
     const typeAttr = Component === "button" ? { type: "button" as const } : {};
 
     return (
       <Component
         ref={ref}
         className={cn("nav-item", active && "nav-item--active", className)}
+        aria-current={active ? "page" : undefined}
+        href={href}
         {...typeAttr}
         {...rest}
       >

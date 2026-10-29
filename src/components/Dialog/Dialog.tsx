@@ -11,7 +11,6 @@ import {
   useContext,
   type HTMLAttributes,
   type MouseEvent,
-  type KeyboardEvent,
   type RefObject,
 } from "react";
 import { createPortal } from "react-dom";
@@ -22,6 +21,9 @@ import { lockScroll } from "@/utils/scrollLock";
 /* ── Dialog ────────────────────────────────────────────────── */
 
 const CLOSE_ANIMATION_MS = 200;
+
+// Open dialogs, top-most last, so nested dialogs close one at a time on Escape.
+const dialogStack: object[] = [];
 
 export interface DialogProps extends HTMLAttributes<HTMLDivElement> {
   open: boolean;
@@ -75,10 +77,48 @@ export const Dialog = forwardRef<HTMLDivElement, DialogProps>(
       return unlock;
     }, [open]);
 
-    // Focus trap: trap focus inside dialog when open, auto-focus first element
-    // useFocusTrap also restores focus to the previously focused element on
-    // deactivation, so the separate returnFocusRef effect is no longer needed.
-    useFocusTrap(internalRef, open);
+    // Activate only once the portal is mounted (visible) so the container ref is set.
+    const trapActive = open && visible && !closing;
+
+    // Make everything behind the dialog inert (aria-modal alone is not honored by all AT).
+    // Declared BEFORE useFocusTrap on purpose: effect cleanups run in declaration
+    // order, and the opener must be un-inerted before the trap restores focus to it.
+    useEffect(() => {
+      const container = internalRef.current;
+      if (!trapActive || !container) return;
+      let root: HTMLElement = container;
+      while (root.parentElement && root.parentElement !== document.body) root = root.parentElement;
+      const changed: Element[] = [];
+      for (const el of Array.from(document.body.children)) {
+        if (el === root || el.hasAttribute("inert") || el.classList.contains("toast-container"))
+          continue;
+        el.setAttribute("inert", "");
+        changed.push(el);
+      }
+      return () => {
+        for (const el of changed) el.removeAttribute("inert");
+      };
+    }, [trapActive]);
+
+    useFocusTrap(internalRef, trapActive);
+
+    // Escape on document (works even if focus left the dialog). Only the top-most dialog closes.
+    useEffect(() => {
+      if (!trapActive) return;
+      const token = {};
+      dialogStack.push(token);
+      const onKeyDown = (e: globalThis.KeyboardEvent) => {
+        if (e.key !== "Escape" || dialogStack[dialogStack.length - 1] !== token) return;
+        e.stopPropagation();
+        onClose();
+      };
+      document.addEventListener("keydown", onKeyDown);
+      return () => {
+        document.removeEventListener("keydown", onKeyDown);
+        const i = dialogStack.indexOf(token);
+        if (i >= 0) dialogStack.splice(i, 1);
+      };
+    }, [trapActive, onClose]);
 
     const handleOverlayClick = useCallback(
       (e: MouseEvent<HTMLDivElement>) => {
@@ -89,33 +129,19 @@ export const Dialog = forwardRef<HTMLDivElement, DialogProps>(
       [onClose],
     );
 
-    // ── Escape key: handled on the overlay element so stopPropagation
-    //    prevents nested dialogs from all closing at once (C7) ──
-    const handleOverlayKeyDown = useCallback(
-      (e: KeyboardEvent<HTMLDivElement>) => {
-        if (e.key === "Escape") {
-          e.stopPropagation();
-          onClose();
-        }
-      },
-      [onClose],
-    );
-
     if (!visible) return null;
     if (typeof document === "undefined") return null;
 
     return createPortal(
+      // biome-ignore lint/a11y/useKeyWithClickEvents: Escape is handled on document (see above), so the backdrop needs no key handler.
       // biome-ignore lint/a11y/noStaticElementInteractions: the backdrop only handles click-outside-to-close; keyboard users close the dialog with Escape, and the backdrop itself must not be focusable.
-      <div
-        className={cn("overlay", closing && "overlay--closing")}
-        onClick={handleOverlayClick}
-        onKeyDown={handleOverlayKeyDown}
-      >
+      <div className={cn("overlay", closing && "overlay--closing")} onClick={handleOverlayClick}>
         <div
           ref={mergedRef}
           role="dialog"
           aria-modal="true"
           aria-labelledby={titleId}
+          tabIndex={-1}
           className={cn("dialog", className)}
           {...rest}
         >

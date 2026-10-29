@@ -1,17 +1,20 @@
 import { forwardRef, type TextareaHTMLAttributes } from "react";
 import { cn } from "@/lib/utils";
+import { isAriaInvalid } from "../_internal/aria";
 
 export interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   error?: boolean;
 }
 
 export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
-  ({ error, className, ...rest }, ref) => {
+  ({ error, className, "aria-invalid": ariaInvalid, ...rest }, ref) => {
+    // `aria-invalid` alone (e.g. injected by FormField) is enough to show the error state.
+    const invalid = error || isAriaInvalid(ariaInvalid);
     return (
       <textarea
         ref={ref}
-        aria-invalid={error ? "true" : undefined}
-        className={cn("textarea", error && "textarea--error", className)}
+        aria-invalid={error ? "true" : ariaInvalid}
+        className={cn("textarea", invalid && "textarea--error", className)}
         {...rest}
       />
     );

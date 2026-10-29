@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Noto_Sans_JP, Montserrat } from "next/font/google";
-import { ThemeProvider } from "@/hooks";
+import { ThemeProvider, ThemeScript } from "@/hooks";
 import { SourceLink } from "@/views/site/SourceLink";
 import "./globals.css";
 
@@ -31,6 +31,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       suppressHydrationWarning
       className={`${notoSansJP.variable} ${montserrat.variable}`}
     >
+      <head>
+        <ThemeScript defaultTheme="light" />
+      </head>
       <body>
         <ThemeProvider defaultTheme="light">
           {children}

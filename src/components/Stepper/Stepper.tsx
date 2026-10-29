@@ -29,32 +29,48 @@ export interface StepperProps extends HTMLAttributes<HTMLDivElement> {
 export const Stepper = forwardRef<HTMLDivElement, StepperProps>(
   ({ steps, currentStep, className, ...rest }, ref) => (
     <div ref={ref} className={cn("stepper", className)} {...rest}>
-      {steps.map((step, i) => {
-        const isCompleted = i < currentStep;
-        const isActive = i === currentStep;
-        return (
-          // biome-ignore lint/suspicious/noArrayIndexKey: steps are ordinal (the index is rendered as the step number) and labels are not guaranteed unique.
-          <div key={i} style={{ display: "contents" }}>
-            <div className={cn("stepper__step", isActive && "stepper__step--active")}>
-              <span
-                className={cn(
-                  "stepper__circle",
-                  isActive && "stepper__circle--active",
-                  isCompleted && "stepper__circle--completed",
-                )}
-              >
-                {isCompleted ? <CheckIcon /> : i + 1}
-              </span>
-              <span className="stepper__label">{step.label}</span>
-            </div>
-            {i < steps.length - 1 && (
-              <span
-                className={cn("stepper__connector", isCompleted && "stepper__connector--completed")}
-              />
-            )}
-          </div>
-        );
-      })}
+      <ol className="stepper__list">
+        {steps.map((step, i) => {
+          const isCompleted = i < currentStep;
+          const isActive = i === currentStep;
+          return (
+            <li
+              // biome-ignore lint/suspicious/noArrayIndexKey: steps are ordinal (the index is rendered as the step number) and labels are not guaranteed unique.
+              key={i}
+              className="stepper__item"
+              aria-current={isActive ? "step" : undefined}
+            >
+              <div className={cn("stepper__step", isActive && "stepper__step--active")}>
+                <span
+                  className={cn(
+                    "stepper__circle",
+                    isActive && "stepper__circle--active",
+                    isCompleted && "stepper__circle--completed",
+                  )}
+                >
+                  {isCompleted ? (
+                    <>
+                      <CheckIcon />
+                      <span className="sr-only">完了</span>
+                    </>
+                  ) : (
+                    i + 1
+                  )}
+                </span>
+                <span className="stepper__label">{step.label}</span>
+              </div>
+              {i < steps.length - 1 && (
+                <span
+                  className={cn(
+                    "stepper__connector",
+                    isCompleted && "stepper__connector--completed",
+                  )}
+                />
+              )}
+            </li>
+          );
+        })}
+      </ol>
     </div>
   ),
 );

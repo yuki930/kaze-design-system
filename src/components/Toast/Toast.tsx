@@ -1,6 +1,8 @@
 "use client";
 
 import {
+  forwardRef,
+  useMemo,
   createContext,
   useContext,
   useCallback,
@@ -22,6 +24,8 @@ export interface ToastData {
   description?: string;
   variant?: ToastVariant;
   duration?: number;
+  /** Internal: set while the exit animation plays */
+  removing?: boolean;
 }
 
 export interface ToastOptions {
@@ -40,7 +44,10 @@ export interface ToastProviderProps {
 }
 
 interface ToastContextValue {
-  toast: (options: ToastOptions) => void;
+  /** Shows a toast and returns its id */
+  toast: (options: ToastOptions) => string;
+  /** Dismisses a toast by id (plays the exit animation) */
+  dismiss: (id: string) => void;
 }
 
 /* ── Context ───────────────────────────────────────────────── */
@@ -61,38 +68,87 @@ export function useToast(): ToastContextValue {
 
 interface ToastItemProps {
   data: ToastData;
+  onDismiss: (id: string) => void;
   onRemove: (id: string) => void;
   closeLabel?: string;
 }
 
-function ToastItem(props: ToastItemProps) {
-  const { data, onRemove } = props;
+const REMOVE_ANIMATION_MS = 150;
+
+const ToastItem = forwardRef<HTMLDivElement, ToastItemProps>(function ToastItem(props, ref) {
+  const { data, onDismiss, onRemove } = props;
   const closeLabel = props.closeLabel ?? "閉じる";
-  const [removing, setRemoving] = useState(false);
+  const removing = Boolean(data.removing);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const remainingRef = useRef(data.duration ?? 4000);
+  const startedAtRef = useRef(0);
+  const hoverRef = useRef(false);
+  const focusRef = useRef(false);
 
-  const dismiss = useCallback(() => {
-    setRemoving(true);
-    setTimeout(() => {
-      onRemove(data.id);
-    }, 150);
-  }, [data.id, onRemove]);
+  const stopTimer = useCallback(() => {
+    if (timerRef.current === null) return;
+    clearTimeout(timerRef.current);
+    timerRef.current = null;
+    remainingRef.current = Math.max(0, remainingRef.current - (Date.now() - startedAtRef.current));
+  }, []);
 
+  const startTimer = useCallback(() => {
+    if (timerRef.current !== null) return;
+    startedAtRef.current = Date.now();
+    timerRef.current = setTimeout(() => {
+      timerRef.current = null;
+      onDismiss(data.id);
+    }, remainingRef.current);
+  }, [data.id, onDismiss]);
+
+  // Auto-dismiss timer; paused while hovered or focused (WCAG 2.2.1)
   useEffect(() => {
-    const duration = data.duration ?? 4000;
-    timerRef.current = setTimeout(dismiss, duration);
+    if (removing) return;
+    if (!hoverRef.current && !focusRef.current) startTimer();
     return () => {
-      if (timerRef.current) {
+      if (timerRef.current !== null) {
         clearTimeout(timerRef.current);
+        timerRef.current = null;
       }
     };
-  }, [data.duration, dismiss]);
+  }, [removing, startTimer]);
+
+  // Unmount after the exit animation; cleared if the item unmounts first
+  useEffect(() => {
+    if (!removing) return;
+    const timer = setTimeout(() => onRemove(data.id), REMOVE_ANIMATION_MS);
+    return () => clearTimeout(timer);
+  }, [removing, data.id, onRemove]);
+
+  const pause = (kind: "hover" | "focus") => {
+    if (kind === "hover") hoverRef.current = true;
+    else focusRef.current = true;
+    stopTimer();
+  };
+  const resume = (kind: "hover" | "focus") => {
+    if (kind === "hover") hoverRef.current = false;
+    else focusRef.current = false;
+    if (!hoverRef.current && !focusRef.current && !removing) startTimer();
+  };
 
   const variantClass =
     data.variant && data.variant !== "default" ? `toast--${data.variant}` : undefined;
 
   return (
-    <div className={cn("toast", variantClass)} role="status" data-removing={removing || undefined}>
+    // biome-ignore lint/a11y/noStaticElementInteractions: hover/focus handlers only pause the auto-dismiss timer (WCAG 2.2.1); the element is a live region, not a control.
+    <div
+      ref={ref}
+      className={cn("toast", variantClass)}
+      role={data.variant === "negative" || data.variant === "warning" ? "alert" : "status"}
+      aria-atomic="true"
+      data-removing={removing || undefined}
+      onMouseEnter={() => pause("hover")}
+      onMouseLeave={() => resume("hover")}
+      onFocus={() => pause("focus")}
+      onBlur={(e) => {
+        if (!e.currentTarget.contains(e.relatedTarget as Node | null)) resume("focus");
+      }}
+    >
       {data.variant && data.variant !== "default" && (
         <span className="toast__icon" aria-hidden="true">
           {data.variant === "positive" && (
@@ -171,7 +227,12 @@ function ToastItem(props: ToastItemProps) {
         <div className="toast__title">{data.title}</div>
         {data.description && <div className="toast__description">{data.description}</div>}
       </div>
-      <button type="button" className="toast__close" onClick={dismiss} aria-label={closeLabel}>
+      <button
+        type="button"
+        className="toast__close"
+        onClick={() => onDismiss(data.id)}
+        aria-label={closeLabel}
+      >
         <svg
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
@@ -190,7 +251,7 @@ function ToastItem(props: ToastItemProps) {
       </button>
     </div>
   );
-}
+});
 
 /* ── ToastProvider ─────────────────────────────────────────── */
 
@@ -212,20 +273,35 @@ export function ToastProvider({
       duration: options.duration ?? 4000,
     };
     setToasts((prev) => [...prev, newToast]);
+    return id;
+  }, []);
+
+  const dismiss = useCallback((id: string) => {
+    setToasts((prev) =>
+      prev.map((t) => (t.id === id && !t.removing ? { ...t, removing: true } : t)),
+    );
   }, []);
 
   const removeToast = useCallback((id: string) => {
     setToasts((prev) => prev.filter((t) => t.id !== id));
   }, []);
 
+  const value = useMemo(() => ({ toast, dismiss }), [toast, dismiss]);
+
   return (
-    <ToastContext.Provider value={{ toast }}>
+    <ToastContext.Provider value={value}>
       {children}
       {typeof document !== "undefined" &&
         createPortal(
-          <section className="toast-container" aria-label={containerLabel} aria-live="polite">
+          <section className="toast-container" aria-label={containerLabel}>
             {toasts.map((t) => (
-              <ToastItem key={t.id} data={t} onRemove={removeToast} closeLabel={closeLabel} />
+              <ToastItem
+                key={t.id}
+                data={t}
+                onDismiss={dismiss}
+                onRemove={removeToast}
+                closeLabel={closeLabel}
+              />
             ))}
           </section>,
           document.body,

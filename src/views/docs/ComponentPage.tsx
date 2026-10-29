@@ -656,7 +656,7 @@ const componentDocs: Record<string, ComponentDoc> = {
       },
       {
         name: "size",
-        type: '"sm" | "md" | "lg"',
+        type: '"xs" | "sm" | "md" | "lg"',
         default: '"md"',
         description: "アバターのサイズ",
       },
@@ -683,7 +683,7 @@ const componentDocs: Record<string, ComponentDoc> = {
       },
       {
         name: "value",
-        type: "string",
+        type: "string | number",
         description: "表示する値",
       },
       {
@@ -774,8 +774,8 @@ const componentDocs: Record<string, ComponentDoc> = {
       },
       {
         name: "children",
-        type: "React.ReactNode",
-        description: "トリガーとなる要素",
+        type: "ReactElement",
+        description: "トリガーとなる要素（1 つの要素。文字列は不可）",
       },
     ],
     usage: `<Tooltip content="ヘルプテキスト">
@@ -932,24 +932,53 @@ const componentDocs: Record<string, ComponentDoc> = {
     ),
     props: [
       {
-        name: "variant",
-        type: '"success" | "error" | "warning" | "info"',
-        description: "トーストの種類",
+        name: "ToastProvider",
+        type: "component",
+        description: "アプリのルートに 1 つ置く。closeLabel / containerLabel で文言を変更可能",
       },
       {
-        name: "title",
+        name: "useToast()",
+        type: "{ toast, dismiss }",
+        description: "toast(options) は表示して id を返す。dismiss(id) で閉じる",
+      },
+      {
+        name: "toast.title",
         type: "string",
         description: "トーストのタイトル",
       },
       {
-        name: "children",
-        type: "React.ReactNode",
-        description: "トーストの内容",
+        name: "toast.description",
+        type: "string",
+        description: "本文（省略可）",
+      },
+      {
+        name: "toast.variant",
+        type: '"default" | "positive" | "negative" | "warning" | "info"',
+        default: '"default"',
+        description: "種類。negative / warning は role=alert で読み上げられる",
+      },
+      {
+        name: "toast.duration",
+        type: "number",
+        default: "4000",
+        description: "自動で閉じるまでのミリ秒。hover / focus 中は止まる",
       },
     ],
-    usage: `<Toast variant="success" title="保存完了">
-  データが正常に保存されました。
-</Toast>`,
+    usage: `// ルートで 1 回
+<ToastProvider>
+  <App />
+</ToastProvider>
+
+// 任意のコンポーネント内
+const { toast } = useToast();
+
+<Button
+  onClick={() =>
+    toast({ title: "保存完了", description: "データが正常に保存されました。", variant: "positive" })
+  }
+>
+  保存
+</Button>`,
   },
 
   "form-field": {
@@ -2773,7 +2802,7 @@ import { Icon } from "kaze-design-system";
   alert: {
     title: "Alert",
     description:
-      "ユーザーに重要な情報を伝えるアラートコンポーネント。情報・成功・警告・エラーの4バリアント。",
+      "ユーザーに重要な情報を伝えるアラートコンポーネント。情報・成功・警告・エラーと中立の 5 バリアント。",
     preview: (
       <div className={styles.previewColumn} style={{ gap: "1rem" }}>
         <Alert variant="info" icon={<Info size={18} />}>
@@ -2796,7 +2825,7 @@ import { Icon } from "kaze-design-system";
     props: [
       {
         name: "variant",
-        type: '"info" | "positive" | "warning" | "negative"',
+        type: '"default" | "info" | "positive" | "warning" | "negative"',
         default: '"info"',
         description: "アラートのスタイルバリアント",
       },
@@ -2856,8 +2885,8 @@ import { Icon } from "kaze-design-system";
       },
       {
         name: "color",
-        type: '"primary" | "positive" | "warning" | "negative"',
-        default: '"primary"',
+        type: '"default" | "positive" | "negative" | "warning" | "info"',
+        default: '"default"',
         description: "バーの色",
       },
       { name: "label", type: "string", description: "バーの上に表示するラベルテキスト" },

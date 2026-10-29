@@ -156,6 +156,30 @@ export function TokensPage() {
           </p>
         </div>
         <div style={{ marginTop: "16px" }}>
+          <strong className={styles.tokenName}>--font-display</strong>
+          <br />
+          <code className={styles.inlineCode}>var(--font-display)</code>
+          <p
+            style={{
+              fontFamily: "var(--font-display)",
+              fontFeatureSettings: "var(--font-feature-display)",
+              fontWeight: 700,
+              marginTop: "8px",
+            }}
+          >
+            見出しと大きな数値 1,234,567 Kaze
+          </p>
+          <p
+            style={{
+              marginTop: "4px",
+              fontSize: "var(--font-size-sm)",
+              color: "var(--color-fg-secondary)",
+            }}
+          >
+            Montserrat を欧文に重ね、プロポーショナルかな（palt）を適用します。本文には使いません。
+          </p>
+        </div>
+        <div style={{ marginTop: "16px" }}>
           <strong className={styles.tokenName}>--font-mono</strong>
           <br />
           <code className={styles.inlineCode}>var(--font-mono)</code>

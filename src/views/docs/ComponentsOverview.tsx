@@ -2,7 +2,7 @@ import type { CSSProperties, ReactNode } from "react";
 import styles from "./docs.module.css";
 import Link from "next/link";
 
-interface ComponentInfo {
+export interface ComponentInfo {
   name: string;
   path: string;
   description: string;
@@ -14,15 +14,15 @@ interface ComponentInfo {
  * own (it links out to the tokens/colors/utilities docs), so every
  * `Category` below belongs to exactly one of the two component catalogs.
  */
-type Layer = "application-ui" | "marketing";
+export type Layer = "application-ui" | "marketing";
 
-interface Category {
+export interface Category {
   title: string;
   layer: Layer;
   components: ComponentInfo[];
 }
 
-const categories: Category[] = [
+export const categories: Category[] = [
   {
     title: "フォーム",
     layer: "application-ui",

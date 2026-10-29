@@ -78,6 +78,7 @@ describe("LineChart", () => {
     fireEvent.keyDown(svg, { key: "ArrowRight" });
     fireEvent.keyDown(svg, { key: "ArrowRight" });
     const tip = container.querySelector(".chart-tooltip") as HTMLElement;
+    expect(tip).toHaveAttribute("role", "status");
     expect(tip).toHaveTextContent("2月");
     expect(tip).toHaveTextContent("売上");
     expect(tip).toHaveTextContent("利用者");

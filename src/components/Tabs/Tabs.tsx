@@ -3,7 +3,9 @@
 import {
   forwardRef,
   useCallback,
+  useEffect,
   useId,
+  useRef,
   createContext,
   useContext,
   type HTMLAttributes,
@@ -11,6 +13,7 @@ import {
   type KeyboardEvent,
 } from "react";
 import { cn } from "@/lib/utils";
+import { composeEventHandlers } from "@/lib/composeEventHandlers";
 
 /* ── TabsContext ───────────────────────────────────────────── */
 
@@ -64,7 +67,30 @@ export interface TabsProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 export const Tabs = forwardRef<HTMLDivElement, TabsProps>(
-  ({ variant = "default", className, children, ...rest }, ref) => {
+  ({ variant = "default", className, children, onKeyDown, ...rest }, ref) => {
+    const listRef = useRef<HTMLDivElement | null>(null);
+    const fallbackTabRef = useRef<HTMLElement | null>(null);
+
+    // With no active tab every tab is tabIndex=-1 and the tablist cannot be reached by Tab.
+    // Tab cannot see its siblings, so the first enabled tab is made tabbable here, and
+    // handed back as soon as a real active tab exists.
+    useEffect(() => {
+      const list = listRef.current;
+      if (!list) return;
+      const hasActive = list.querySelector('[role="tab"][aria-selected="true"]') !== null;
+      const previous = fallbackTabRef.current;
+      if (previous && previous.getAttribute("aria-selected") !== "true") {
+        previous.tabIndex = -1;
+      }
+      fallbackTabRef.current = null;
+      if (hasActive) return;
+      const first = list.querySelector<HTMLElement>('[role="tab"]:not([disabled])');
+      if (first) {
+        first.tabIndex = 0;
+        fallbackTabRef.current = first;
+      }
+    });
+
     const handleKeyDown = useCallback((e: KeyboardEvent<HTMLDivElement>) => {
       const target = e.target as HTMLElement;
       if (target.getAttribute("role") !== "tab") return;
@@ -102,11 +128,16 @@ export const Tabs = forwardRef<HTMLDivElement, TabsProps>(
 
     return (
       <div
-        ref={ref}
-        role="tablist"
-        className={cn("tabs", variant === "pills" && "tabs--pills", className)}
-        onKeyDown={handleKeyDown}
         {...rest}
+        ref={(node) => {
+          listRef.current = node;
+          if (typeof ref === "function") ref(node);
+          else if (ref) ref.current = node;
+        }}
+        role="tablist"
+        aria-orientation="horizontal"
+        className={cn("tabs", variant === "pills" && "tabs--pills", className)}
+        onKeyDown={composeEventHandlers(onKeyDown, handleKeyDown)}
       >
         {children}
       </div>
@@ -182,6 +213,8 @@ export const TabPanel = forwardRef<HTMLDivElement, TabPanelProps>(
         ref={ref}
         id={panelId}
         role="tabpanel"
+        // biome-ignore lint/a11y/noNoninteractiveTabindex: APG tabs pattern, a panel without focusable content must itself be tabbable so keyboard users can reach it.
+        tabIndex={0}
         aria-labelledby={tabId}
         className={cn("tab-panel", className)}
         {...rest}

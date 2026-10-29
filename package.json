@@ -44,12 +44,17 @@
       "types": "./dist/types/tokens/tokens.d.ts",
       "import": "./dist/tokens.js"
     },
+    "./components/*": {
+      "types": "./dist/types/components/*/index.d.ts",
+      "import": "./dist/components/*/*.js"
+    },
     "./package.json": "./package.json",
     "./css/tokens": "./tokens.css",
     "./css/reset": "./reset.css",
     "./css/components": "./components.css",
     "./css/utilities": "./utilities.css",
-    "./css/all": "./kaze.css"
+    "./css/all": "./kaze.css",
+    "./css/core": "./core.css"
   },
   "files": [
     "dist",
@@ -57,7 +62,9 @@
     "reset.css",
     "components.css",
     "utilities.css",
-    "kaze.css"
+    "kaze.css",
+    "core.css",
+    "CHANGELOG.md"
   ],
   "engines": {
     "node": ">=18"

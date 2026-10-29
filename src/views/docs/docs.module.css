@@ -120,7 +120,7 @@
 .pageTitle {
   font-size: var(--font-size-3xl);
   font-weight: var(--font-weight-bold);
-  letter-spacing: var(--letter-spacing-tight);
+  letter-spacing: 0; /* Japanese headings: no negative tracking */
   margin-bottom: var(--space-2);
   line-height: var(--line-height-tight);
 }

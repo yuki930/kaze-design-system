@@ -1,3 +1,8 @@
+/* Wrapped in @layer kaze.reset so the file stays layered when imported on
+   its own (e.g. `import "kaze-design-system/css/reset"`). The `kaze` parent
+   layer keeps these rules out of Tailwind's `components` / `utilities` layers.
+   Unlayered author styles always win over these rules. */
+@layer kaze.reset {
 /* ============================================================
    Kaze (風) Design System — Reset & Base Styles
    Modern CSS reset + Japanese-optimized base typography
@@ -20,6 +25,10 @@ html {
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
   hanging-punctuation: first allow-end last;
+  /* Japanese line breaking: strict kinsoku, trim doubled-up brackets. Both are
+     ignored by browsers that do not support them. */
+  line-break: strict;
+  text-spacing-trim: trim-start;
   tab-size: 4;
   line-height: var(--line-height-normal);
   font-size: var(--font-size-base);
@@ -28,7 +37,7 @@ html {
 body {
   font-family: var(--font-sans);
   font-size: var(--font-size-base);
-  line-height: var(--line-height-relaxed);
+  line-height: var(--line-height-loose);
   color: var(--color-fg);
   background-color: var(--color-bg);
   min-height: 100dvh;
@@ -77,6 +86,8 @@ h1, h2, h3, h4, h5, h6 {
   font-size: inherit;
   font-weight: inherit;
   overflow-wrap: break-word;
+  /* Break Japanese headings at phrase boundaries (Chrome 119+); others ignore it */
+  word-break: auto-phrase;
 }
 
 p {
@@ -166,4 +177,5 @@ p {
     background-color: var(--zinc-700);
     color: var(--zinc-100);
   }
+}
 }

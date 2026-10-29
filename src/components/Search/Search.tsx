@@ -1,11 +1,22 @@
 "use client";
 
-import { forwardRef, useState, useCallback, type HTMLAttributes, type ChangeEvent } from "react";
+import {
+  forwardRef,
+  useState,
+  useCallback,
+  type HTMLAttributes,
+  type InputHTMLAttributes,
+  type ChangeEvent,
+  type KeyboardEvent,
+} from "react";
 import { cn } from "@/lib/utils";
+import { composeEventHandlers } from "@/lib/composeEventHandlers";
+import { isComposingEvent } from "@/lib/jaText";
 
 export interface SearchProps extends Omit<HTMLAttributes<HTMLDivElement>, "onChange"> {
   placeholder?: string;
   shortcut?: string;
+  /** Called when the user submits with Enter (not during IME composition). Use onChange for every keystroke. */
   onSearch?: (value: string) => void;
   /** Controlled value */
   value?: string;
@@ -13,17 +24,20 @@ export interface SearchProps extends Omit<HTMLAttributes<HTMLDivElement>, "onCha
   onChange?: (value: string) => void;
   /** Accessible label for the search input */
   "aria-label"?: string;
+  /** Extra props for the inner <input> (name, disabled, autoComplete, onBlur, ...). `...rest` stays on the wrapper. */
+  inputProps?: Omit<InputHTMLAttributes<HTMLInputElement>, "value" | "onChange" | "type">;
 }
 
 export const Search = forwardRef<HTMLInputElement, SearchProps>(
   (
     {
-      placeholder = "Search...",
+      placeholder = "検索",
       shortcut,
       onSearch,
       value: valueProp,
       onChange: onChangeProp,
       "aria-label": ariaLabel,
+      inputProps,
       className,
       ...rest
     },
@@ -40,9 +54,17 @@ export const Search = forwardRef<HTMLInputElement, SearchProps>(
           setInternalValue(newValue);
         }
         onChangeProp?.(newValue);
-        onSearch?.(newValue);
       },
-      [isControlled, onChangeProp, onSearch],
+      [isControlled, onChangeProp],
+    );
+
+    const handleKeyDown = useCallback(
+      (e: KeyboardEvent<HTMLInputElement>) => {
+        // Enter during IME composition only confirms the conversion.
+        if (e.key !== "Enter" || isComposingEvent(e)) return;
+        onSearch?.(e.currentTarget.value);
+      },
+      [onSearch],
     );
 
     return (
@@ -65,13 +87,16 @@ export const Search = forwardRef<HTMLInputElement, SearchProps>(
           <path d="m21 21-4.3-4.3" />
         </svg>
         <input
-          ref={ref}
-          type="text"
-          className="search__input"
-          placeholder={placeholder}
           aria-label={ariaLabel ?? placeholder}
+          {...inputProps}
+          ref={ref}
+          type="search"
+          enterKeyHint="search"
+          className={cn("search__input", inputProps?.className)}
+          placeholder={placeholder}
           value={currentValue}
           onChange={handleChange}
+          onKeyDown={composeEventHandlers(inputProps?.onKeyDown, handleKeyDown)}
         />
         {shortcut && (
           // biome-ignore lint/a11y/noAriaHiddenOnFocusable: <kbd> has no tabIndex and is not focusable; the shortcut hint is visual only.

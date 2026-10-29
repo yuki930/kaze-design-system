@@ -1,8 +1,9 @@
 /* Kaze Design System — Global styles for Next.js app */
 
-@layer tokens, reset, components, utilities;
+@layer kaze.tokens, kaze.reset, kaze.components, kaze.utilities, site;
 
-@import url("../tokens.css") layer(tokens);
-@import url("../reset.css") layer(reset);
-@import url("../components.css") layer(components);
-@import url("../utilities.css") layer(utilities);
+@import url("../tokens.css");
+@import url("../reset.css");
+@import url("../components.css");
+@import url("../utilities.css");
+@import url("../src/styles/site.css") layer(site);

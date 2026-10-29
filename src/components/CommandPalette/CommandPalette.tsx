@@ -7,6 +7,7 @@ import {
   useEffect,
   useRef,
   useMemo,
+  useId,
   type HTMLAttributes,
   type ReactNode,
   type KeyboardEvent as ReactKeyboardEvent,
@@ -14,6 +15,8 @@ import {
 } from "react";
 import { createPortal } from "react-dom";
 import { cn } from "@/lib/utils";
+import { composeEventHandlers } from "@/lib/composeEventHandlers";
+import { includesJa, isComposingEvent } from "@/lib/jaText";
 import { useFocusTrap } from "@/hooks/useFocusTrap";
 import { lockScroll } from "@/utils/scrollLock";
 
@@ -24,6 +27,8 @@ export interface Command {
   label: string;
   icon?: ReactNode;
   group?: string;
+  /** Extra search terms (aliases, English names, readings) matched in addition to the label */
+  keywords?: string[];
   onSelect: () => void;
 }
 
@@ -38,6 +43,15 @@ export interface CommandPaletteProps extends Omit<HTMLAttributes<HTMLDivElement>
   label?: string;
   /** Message shown when no commands match (default: "該当するコマンドが見つかりません") */
   emptyMessage?: string;
+  /** Replace the default matcher (width / kana / case insensitive match on label and keywords) */
+  filter?: (command: Command, query: string) => boolean;
+}
+
+function defaultFilter(command: Command, query: string): boolean {
+  return (
+    includesJa(command.label, query) ||
+    (command.keywords?.some((keyword) => includesJa(keyword, query)) ?? false)
+  );
 }
 
 /* ── CommandPalette ────────────────────────────────────────── */
@@ -52,7 +66,9 @@ export const CommandPalette = forwardRef<HTMLDivElement, CommandPaletteProps>(
       searchLabel = "コマンド検索",
       label,
       emptyMessage = "該当するコマンドが見つかりません",
+      filter = defaultFilter,
       className,
+      onKeyDown,
       ...rest
     },
     ref,
@@ -62,6 +78,8 @@ export const CommandPalette = forwardRef<HTMLDivElement, CommandPaletteProps>(
     const inputRef = useRef<HTMLInputElement | null>(null);
     const listRef = useRef<HTMLDivElement | null>(null);
     const dialogRef = useRef<HTMLDivElement | null>(null);
+    const baseId = useId();
+    const listId = `${baseId}-list`;
 
     // Focus trap: trap focus inside command palette when open
     useFocusTrap(dialogRef, open);
@@ -76,9 +94,8 @@ export const CommandPalette = forwardRef<HTMLDivElement, CommandPaletteProps>(
     // Filter commands by query
     const filtered = useMemo(() => {
       if (!query.trim()) return commands;
-      const lower = query.toLowerCase();
-      return commands.filter((cmd) => cmd.label.toLowerCase().includes(lower));
-    }, [commands, query]);
+      return commands.filter((cmd) => filter(cmd, query));
+    }, [commands, query, filter]);
 
     // Group the filtered commands
     const grouped = useMemo(() => {
@@ -139,6 +156,8 @@ export const CommandPalette = forwardRef<HTMLDivElement, CommandPaletteProps>(
 
     const handleKeyDown = useCallback(
       (e: ReactKeyboardEvent) => {
+        // Keys pressed during IME composition belong to the IME (candidate selection, commit, cancel).
+        if (isComposingEvent(e)) return;
         switch (e.key) {
           case "ArrowDown": {
             e.preventDefault();
@@ -196,12 +215,19 @@ export const CommandPalette = forwardRef<HTMLDivElement, CommandPaletteProps>(
           aria-modal="true"
           aria-label={label ?? "コマンドパレット"}
           className={cn("command-palette", className)}
-          onKeyDown={handleKeyDown}
           {...rest}
+          onKeyDown={composeEventHandlers(onKeyDown, handleKeyDown)}
         >
           <input
             ref={inputRef}
             type="text"
+            role="combobox"
+            aria-expanded="true"
+            aria-controls={listId}
+            aria-activedescendant={
+              flatList[highlightedIndex] ? `${baseId}-option-${highlightedIndex}` : undefined
+            }
+            aria-autocomplete="list"
             className="command-palette__input"
             placeholder={placeholder}
             value={query}
@@ -209,11 +235,30 @@ export const CommandPalette = forwardRef<HTMLDivElement, CommandPaletteProps>(
             aria-label={searchLabel}
             autoComplete="off"
           />
-          <div ref={listRef} className="command-palette__list" role="listbox">
-            {flatList.length === 0 && <div className="command-palette__empty">{emptyMessage}</div>}
-            {Array.from(grouped.entries()).map(([group, cmds]) => (
-              <div key={group || "__default"}>
-                {group && <div className="command-palette__group">{group}</div>}
+          <div
+            ref={listRef}
+            id={listId}
+            className="command-palette__list"
+            role="listbox"
+            aria-label={searchLabel}
+          >
+            {flatList.length === 0 && (
+              <div className="command-palette__empty" role="status">
+                {emptyMessage}
+              </div>
+            )}
+            {Array.from(grouped.entries()).map(([group, cmds], groupIndex) => (
+              // biome-ignore lint/a11y/useSemanticElements: a <fieldset> brings form-control semantics and default borders; this is a labelled option group inside a listbox.
+              <div
+                key={group || "__default"}
+                role="group"
+                aria-labelledby={group ? `${baseId}-group-${groupIndex}` : undefined}
+              >
+                {group && (
+                  <div id={`${baseId}-group-${groupIndex}`} className="command-palette__group">
+                    {group}
+                  </div>
+                )}
                 {cmds.map((cmd) => {
                   const index = flatIndex++;
                   return (
@@ -221,6 +266,7 @@ export const CommandPalette = forwardRef<HTMLDivElement, CommandPaletteProps>(
                     // biome-ignore lint/a11y/useFocusableInteractive: options must not take focus; focus stays on the search input and the highlighted option is tracked via aria-selected.
                     <div
                       key={cmd.id}
+                      id={`${baseId}-option-${index}`}
                       role="option"
                       data-command-item=""
                       aria-selected={index === highlightedIndex}
