@@ -118,6 +118,11 @@ export const categories: Category[] = [
       { name: "Dialog", path: "dialog", description: "ダイアログ" },
       { name: "Tooltip", path: "tooltip", description: "ツールチップ" },
       {
+        name: "Popover",
+        path: "popover",
+        description: "ポップオーバー（クリック起動の浮遊パネル）",
+      },
+      {
         name: "HelpButton",
         path: "help-button",
         description: "ヘルプポップオーバー（クリック起動）",

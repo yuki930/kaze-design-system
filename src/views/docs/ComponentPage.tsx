@@ -32,6 +32,10 @@ import {
   CategoryBar,
   ChartLegend,
   SegmentedControl,
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  PopoverClose,
 } from "@/components";
 import { Tooltip } from "@/components/Tooltip/Tooltip";
 import { Icon } from "@/components/Icon/Icon";
@@ -3579,6 +3583,95 @@ import { Icon } from "kaze-design-system";
     usage: `<FilterPill active>すべて</FilterPill>
 <FilterPill color="#3b82f6" dot>テクノロジー</FilterPill>
 <FilterPill>マーケティング</FilterPill>`,
+  },
+
+  popover: {
+    title: "Popover",
+    description:
+      "クリックで開く非モーダルの浮遊パネル。Dialog と違い背景は操作でき、Escape・外側クリックで閉じてトリガーにフォーカスを戻します。ホバーで出る補足は Tooltip、メニュー項目は Dropdown を使います。",
+    preview: (
+      <div className={styles.preview}>
+        <Popover>
+          <PopoverTrigger asChild>
+            <Button variant="outline">表示設定</Button>
+          </PopoverTrigger>
+          <PopoverContent aria-label="表示設定">
+            <p style={{ marginBottom: "var(--space-3)" }}>一覧の密度と並び順を変更できます。</p>
+            <PopoverClose asChild>
+              <Button size="sm">閉じる</Button>
+            </PopoverClose>
+          </PopoverContent>
+        </Popover>
+      </div>
+    ),
+    props: [
+      { name: "open", type: "boolean", description: "開閉状態（制御）" },
+      {
+        name: "defaultOpen",
+        type: "boolean",
+        default: "false",
+        description: "初期の開閉状態（非制御）",
+      },
+      {
+        name: "onOpenChange",
+        type: "(open: boolean) => void",
+        description: "開閉が変わる時のコールバック",
+      },
+      {
+        name: "PopoverTrigger.asChild",
+        type: "boolean",
+        default: "false",
+        description:
+          '子要素をそのままトリガーにする。aria-expanded / aria-controls / aria-haspopup="dialog" が注入される',
+      },
+      {
+        name: "PopoverContent.side",
+        type: '"top" | "bottom" | "left" | "right"',
+        default: '"bottom"',
+        description: "トリガーのどの側に出すか。画面からはみ出すときは反対側へ反転する",
+      },
+      {
+        name: "PopoverContent.align",
+        type: '"start" | "center" | "end"',
+        default: '"center"',
+        description: "トリガーとの揃え位置",
+      },
+      {
+        name: "PopoverContent.sideOffset",
+        type: "number",
+        default: "8",
+        description: "トリガーとの間隔（px）",
+      },
+      {
+        name: "PopoverContent.anchorRef",
+        type: "RefObject<HTMLElement | null>",
+        description: "トリガーの代わりに位置の基準にする要素",
+      },
+      {
+        name: "PopoverContent.onOpenAutoFocus",
+        type: "(event: Event) => void",
+        description: "開いた直後に呼ばれる。preventDefault() で初期フォーカスを自前で制御できる",
+      },
+      {
+        name: "PopoverClose.asChild",
+        type: "boolean",
+        default: "false",
+        description: "子要素をそのまま閉じるボタンにする",
+      },
+    ],
+    usage: `import { Button, Popover, PopoverClose, PopoverContent, PopoverTrigger } from "kaze-design-system";
+
+<Popover>
+  <PopoverTrigger asChild>
+    <Button variant="outline">表示設定</Button>
+  </PopoverTrigger>
+  <PopoverContent aria-label="表示設定" side="bottom" align="start">
+    <p>一覧の密度と並び順を変更できます。</p>
+    <PopoverClose asChild>
+      <Button size="sm">閉じる</Button>
+    </PopoverClose>
+  </PopoverContent>
+</Popover>`,
   },
 };
 
