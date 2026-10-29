@@ -28,6 +28,10 @@ const OUT_FULL = path.join(root, "public/llms-full.txt");
 // Props table rendered on /docs/components/[name]; generated so it cannot drift from the types
 const OUT_PROPS = path.join(root, "src/views/docs/generated/props.json");
 const GUIDES_DIR = path.join(root, "src/views/docs/guidelines");
+/** Japanese descriptions for props whose JSDoc is English or missing (docs table only) */
+const PROP_DESCRIPTIONS = JSON.parse(
+  fs.readFileSync(path.join(root, "src/views/docs/propDescriptions.json"), "utf8"),
+);
 
 /** Shared aliases from src/lib/types.ts, inlined so the tables show the actual values */
 const SHARED_ALIASES = {
@@ -252,6 +256,7 @@ function formatPropRow(prop) {
   const optional = prop.optional ? "?" : "";
   parts.push(`- \`${prop.name}${optional}\`: \`${prop.type}\``);
   if (prop.default) parts.push(`  - Default: \`${prop.default}\``);
+  if (prop.deprecated) parts.push(`  - Deprecated: ${prop.deprecated}`);
   if (prop.description) parts.push(`  - ${prop.description}`);
   return parts.join("\n");
 }
@@ -329,6 +334,7 @@ function extractPropsFromFile(filePath, interfaceName) {
 
     let description = "";
     let defaultValue = "";
+    let deprecated = "";
 
     const jsDocs = ts.getJSDocCommentsAndTags(member);
     for (const doc of jsDocs) {
@@ -342,12 +348,22 @@ function extractPropsFromFile(filePath, interfaceName) {
             if ((tagName === "default" || tagName === "defaultValue") && tag.comment) {
               defaultValue = jsDocCommentToString(tag.comment);
             }
+            if (tagName === "deprecated") {
+              deprecated = jsDocCommentToString(tag.comment) || "非推奨";
+            }
           }
         }
       }
     }
 
-    props.push({ name, type, optional, description, default: defaultValue });
+    props.push({
+      name,
+      type,
+      optional,
+      description,
+      default: defaultValue,
+      ...(deprecated ? { deprecated } : {}),
+    });
   }
 
   return props;
@@ -402,7 +418,7 @@ function resolveExtractionTarget(title) {
  * has neither. Hand-written entries not present in extracted (typically
  * inherited HTML attrs) are appended at the end.
  */
-function mergeProps(extracted, handWritten, { preferHandWritten = false } = {}) {
+function mergeProps(extracted, handWritten, { preferHandWritten = false, japanese = {} } = {}) {
   if (!extracted) return handWritten || [];
 
   const merged = [];
@@ -415,9 +431,10 @@ function mergeProps(extracted, handWritten, { preferHandWritten = false } = {}) 
       type: ex.type,
       optional: ex.optional,
       description: preferHandWritten
-        ? hw?.description || ex.description || ""
+        ? japanese[ex.name] || hw?.description || ex.description || ""
         : ex.description || hw?.description || "",
       default: ex.default || hw?.default || "",
+      ...(ex.deprecated ? { deprecated: ex.deprecated } : {}),
     });
     handByName.delete(ex.name);
   }
@@ -451,7 +468,12 @@ function main() {
     const extracted = extractPropsFromFile(target.file, target.interface);
     if (extracted) {
       // The docs site is Japanese, so its table keeps the hand-written (Japanese) descriptions
-      doc.pageProps = mergeProps(extracted, doc.props, { preferHandWritten: true });
+      doc.pageProps = mergeProps(extracted, doc.props, {
+        preferHandWritten: true,
+        japanese: PROP_DESCRIPTIONS[doc.slug] ?? {},
+      });
+      // Deprecated props go last so the table reads as the current API first
+      doc.pageProps.sort((a, b) => Number(Boolean(a.deprecated)) - Number(Boolean(b.deprecated)));
       doc.props = mergeProps(extracted, doc.props);
       extractedCount++;
     } else {

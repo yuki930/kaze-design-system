@@ -134,6 +134,37 @@ Related: fab, dialog, tooltip, dropdown
 
 Docs: https://kaze-design-system.vercel.app/docs/components/fab
 
+**使う場面**
+
+- 画面の主役になる操作を 1 つだけ、スクロールしても常に押せる位置に置く（新規作成、メッセージ作成など）
+- モバイルの一覧画面や、キャンバス上で追加操作が必要な画面
+- ラベルが要る場合は extended で、アイコンと文言を並べる
+
+**使わない場面**
+
+- 操作が複数ある画面。FAB は 1 画面に 1 つまで。ほかの操作は Button や Dropdown にまとめる
+- フォームの送信や保存。フォームの末尾に Button の primary を置く
+- ページ内の通常の導線。Button を使う。FAB は position: fixed で画面に固定されるので、本文の流れの中には置けない
+
+**キーボード操作**
+
+| キー | 動作 |
+|---|---|
+| Tab | FAB にフォーカスを移す |
+| Enter / Space | FAB を押す |
+
+**アクセシビリティ**
+
+- label は必須。extended でないときは aria-label になり、extended のときは見えているラベル文言が名前になる
+- disabled のときは aria-disabled も付く。asChild でリンクにした場合は、属性の代わりにクリックを止める
+- 固定表示なので、末尾の項目やフッターを隠さないよう、スクロール領域の下に余白を取る
+
+**文言**
+
+- 「新規作成」「メッセージを書く」のように、押すと何が起きるかを動詞で書く。アイコンだけの FAB でも label に同じ文言を入れる
+
+Related: button, dropdown, tooltip
+
 **Props**
 
 - `label`: `string`
@@ -167,6 +198,37 @@ Docs: https://kaze-design-system.vercel.app/docs/components/fab
 
 Docs: https://kaze-design-system.vercel.app/docs/components/input
 
+**使う場面**
+
+- 氏名、メールアドレス、検索語など、1 行で収まる自由入力
+- type で用途を指定する（email、tel、url、password）。モバイルのキーボードと自動入力が合う
+- 検証に失敗した状態は error で赤枠にし、理由は FormField の error か近くの文言で伝える
+
+**使わない場面**
+
+- 数量・金額・割合などの数値。カンマ区切り、全角入力、増減ボタンが要るなら NumberField
+- 日付。書き方のゆれと和暦の入力を受けたいなら DatePicker
+- 改行を含む長文。Textarea を使う
+- 選択肢が決まっている入力。Select（少数）か Combobox（多数）にして、打ち間違いをなくす
+
+**キーボード操作**
+
+| キー | 動作 |
+|---|---|
+| Tab | 入力欄にフォーカスを移す |
+
+**アクセシビリティ**
+
+- ラベルは必ず用意する。placeholder はラベルの代わりにならない。FormField で包むと label と関連付く
+- error だけでなく aria-invalid も付く（FormField の error でも付く）。色だけで伝えず、エラー文言を添える
+- 補足やエラーの文言は aria-describedby で結ぶ。FormField が自動で結ぶ
+
+**文言**
+
+- placeholder は入力例にとどめる（「例: 相楽 実咲」）。形式の説明は FormField の description に書く
+
+Related: form-field, textarea, number-field, date-picker, combobox
+
 **Props**
 
 - `error?`: `boolean`
@@ -190,6 +252,41 @@ Docs: https://kaze-design-system.vercel.app/docs/components/input
 
 Docs: https://kaze-design-system.vercel.app/docs/components/number-field
 
+**使う場面**
+
+- 数量、金額、割合など、数値として扱う入力。step で増減の幅を決め、min / max で範囲を限る
+- 金額は currency（JPY など）で通貨記号と桁区切りを付ける。単位は suffix（%、件）で添える
+- 全角数字や「−」の入力を受けたい日本語のフォーム。全角は半角に直して解釈する
+
+**使わない場面**
+
+- 郵便番号、電話番号、会員番号など、数値ではない数字の並び。先頭の 0 や区切りが意味を持つので Input を使う
+- 範囲の大まかな指定。選択肢が少なければ SegmentedControl か Select
+- 値が長い桁になる ID。桁区切りを付けて表示されてしまう
+
+**キーボード操作**
+
+| キー | 動作 |
+|---|---|
+| ↑ | step の分だけ増やす |
+| ↓ | step の分だけ減らす |
+| Enter | 入力を確定する（IME の変換中は確定しない） |
+| Tab | 確定して次へ移る。増減ボタンはタブ移動の対象外 |
+
+**アクセシビリティ**
+
+- 入力欄は type="text" に inputMode="decimal"。スクリーンリーダーでは数値入力ではなくテキスト欄として読まれる
+- 増減ボタンの名前は decrementLabel / incrementLabel で変える。既定は「減少」「増加」
+- label と errorMessage を自前で持つ。errorMessage は role="alert" で読み上げられ、aria-describedby で結ばれる
+- 値の確定はフォーカスが外れたとき。入力中は onValueChange が呼ばれない
+
+**文言**
+
+- label に単位を含めない。単位は suffix や currency で見せる（label「割引率」、suffix「%」）
+- 範囲があるときは、description か errorMessage に「0 から 100 の間で入力してください」のように範囲を書く
+
+Related: input, form-field, select, segmented-control
+
 **Props**
 
 - `value?`: `number | null`
@@ -199,6 +296,7 @@ Docs: https://kaze-design-system.vercel.app/docs/components/number-field
 - `onValueChange?`: `(value: number | null) => void`
   - Called with the parsed value (null when empty)
 - `onChange?`: `(value: number | null) => void`
+  - Deprecated: `onValueChange` に改名。次のマイナーで削除
 - `min?`: `number`
   - Minimum allowed value
 - `max?`: `number`
@@ -246,6 +344,41 @@ Docs: https://kaze-design-system.vercel.app/docs/components/number-field
 
 Docs: https://kaze-design-system.vercel.app/docs/components/select
 
+**使う場面**
+
+- 選択肢が 6 件から 10 件程度で、1 つだけ選ぶ入力（都道府県の絞り込み、並び順など）
+- 送信ボタンで確定するフォームの 1 項目
+- モバイルでは OS 標準のピッカーが開くので、選択肢が多くても操作しやすい
+
+**使わない場面**
+
+- 選択肢が 5 件以下で全部見せたいとき。Radio（送信で確定）か SegmentedControl（即時反映）を使う
+- 選択肢が 10 件を大きく超えるとき、または名前で探したいとき（取引先、郵便の地名）。Combobox を使う
+- 複数選択。Checkbox の並びか FilterPill を使う
+- 操作の実行（並べ替えて今すぐ反映など、メニューから実行）。Dropdown を使う
+
+**キーボード操作**
+
+| キー | 動作 |
+|---|---|
+| Tab | フォーカスを移す |
+| ↑ / ↓ | 選択肢を切り替える（開いていれば候補を移動する） |
+| Space / Alt + ↓ | 選択肢の一覧を開く（ブラウザ標準の操作） |
+| 文字キー | その文字で始まる選択肢へ移る |
+
+**アクセシビリティ**
+
+- ブラウザ標準の select なので、読み上げと操作はブラウザに任せられる。独自の一覧は描画しない
+- ラベルは必ず用意する。FormField で包むと label と関連付く
+- error と aria-invalid の両方で赤枠が付く。エラー文言も添える
+
+**文言**
+
+- 先頭に「選択してください」のような案内の option を置き、value を空にする。必須項目なら送信時に未選択を検出できる
+- 選択肢は短い名詞で、並びに意味を持たせる（五十音、利用頻度、時系列のいずれか 1 つ）
+
+Related: combobox, radio, segmented-control, dropdown, form-field
+
 **Props**
 
 - `error?`: `boolean`
@@ -268,6 +401,43 @@ Docs: https://kaze-design-system.vercel.app/docs/components/select
 入力しながら候補を絞り込んで選ぶフォーム部品（WAI-ARIA の combobox + listbox）。既定の絞り込みはひらがな・カタカナ・全角半角・大文字小文字を区別せず、IME 変換中の Enter や矢印キーは無視します。選択肢が少なく絞り込みが不要なら Select を使います。
 
 Docs: https://kaze-design-system.vercel.app/docs/components/combobox
+
+**使う場面**
+
+- 選択肢が 10 件を超えるとき、または名前の一部で探したいとき（取引先、担当者、国、地名）
+- ふりがなや別名で探せるようにしたいとき。keywords にヨミや略称を持たせる
+- 名前（label）ではなく ID（value）をフォームで送りたいとき。name を付けると hidden で value が送られる
+
+**使わない場面**
+
+- 選択肢が 10 件以下。Select のほうが速く、モバイルで OS の標準ピッカーが使える
+- 自由入力も受けたいとき。Combobox は候補にない文字を確定しない。Input を使う
+- 複数選択。Combobox は 1 つだけ。Checkbox の並びか FilterPill を使う
+- 操作を探すこと（コマンド、ページ移動）。CommandPalette を使う
+
+**キーボード操作**
+
+| キー | 動作 |
+|---|---|
+| ↓ / ↑ | 一覧を開き、候補を移動する。端では反対側へ回る。無効な候補は飛ばす |
+| Home / End | 一覧が開いているとき、最初と最後の候補へ移る |
+| Enter | ハイライト中の候補を選ぶ（フォームは送信されない） |
+| Esc | 一覧を閉じ、入力を選択中のラベルに戻す |
+| Tab | 一覧を閉じて次へ移る。ラベルと一致する文字は選択として扱う |
+
+**アクセシビリティ**
+
+- input に role="combobox"、一覧に role="listbox"、候補に role="option" を付け、ハイライトは aria-activedescendant で伝える。フォーカスは常に入力欄に残る
+- 候補がないとき、emptyMessage が role="status" で読まれる。文言は emptyMessage で変える
+- IME の変換中は矢印キーや Enter を候補の操作として扱わない。日本語入力で候補を誤って確定しない
+- 一覧の名前は aria-label で渡す。ラベルがない場合は必ず指定する
+
+**文言**
+
+- placeholder に「担当者を検索」のように、探せることを書く
+- emptyMessage は「見つかりません」ではなく、次の行動が分かる文言にする（「該当する取引先がありません。綴りを変えてください」）
+
+Related: select, input, command-palette, form-field
 
 **Props**
 
@@ -320,6 +490,46 @@ const options = [
 日付入力とカレンダーのポップオーバー（WAI-ARIA の Date Picker Dialog）。値は "YYYY-MM-DD" の文字列で、Date のタイムゾーンずれが起きません。era="japanese" で「令和8年10月29日」の和暦表示になり、入力は 2026/10/29・20261029・令和8年10月29日・R8.10.29・全角数字を受け付けます。祝日データは持たないので、休業日などは isDateDisabled で渡します。
 
 Docs: https://kaze-design-system.vercel.app/docs/components/date-picker
+
+**使う場面**
+
+- 誕生日、締切日、利用開始日など、カレンダーから選べる日付 1 つ
+- 和暦（令和8年10月29日）で入力・表示したい日本向けのフォーム。era="japanese" で切り替える
+- 休業日や過去日を選べなくしたいとき。min / max は範囲、isDateDisabled は個別の日に使う
+
+**使わない場面**
+
+- 期間（開始日から終了日）。DatePicker を 2 つ並べて、終了日の min に開始日を渡す
+- 日付と時刻の組み合わせ。DatePicker は日付だけ。時刻は Input などを別に置く
+- 生年月日のように数十年前へさかのぼる入力で、カレンダーのクリックだけに頼ること。直接入力できることを案内する
+- 日付の表示だけ。Text や DescriptionList に書式を整えて出す
+
+**キーボード操作**
+
+| キー | 動作 |
+|---|---|
+| Enter | 入力欄の日付を確定する（IME の変換中は確定しない） |
+| ← / → | カレンダーで 1 日ずつ移動する |
+| ↑ / ↓ | カレンダーで 1 週間ずつ移動する |
+| PageUp / PageDown | 1 か月ずつ移動する。Shift を押しながらなら 1 年ずつ |
+| Home / End | その週の最初と最後の日へ移る |
+| Enter / Space | カレンダーで日付を選ぶ |
+| Esc | カレンダーを閉じる |
+
+**アクセシビリティ**
+
+- 入力欄とカレンダーを開くボタンは別。直接入力できるので、カレンダーを使えない人も困らない
+- カレンダーは日付ごとに「令和8年10月29日木曜日」の名前を持ち、今日は aria-current="date"。選択できない日は aria-disabled
+- 読み取れない日付を入力したまま確定すると、値は null になり、入力欄は error 表示になる。エラー文言は利用側で添える
+- ボタンやカレンダーの名前は calendarButtonLabel、dialogLabel、prevMonthLabel、nextMonthLabel で変える
+
+**文言**
+
+- 入力できる形式を description に書く。受け付けるのは 2026/10/29、2026-10-29、20261029、令和8年10月29日、R8.10.29 など
+- value と name で送られる値は、和暦の設定でも常に YYYY-MM-DD（西暦）。サーバーで和暦を扱わなくてよい
+- 不正な日付のエラーは「日付を 2026/10/29 の形式で入力してください」のように、書き方を示す
+
+Related: input, form-field, popover, select
 
 **Props**
 
@@ -394,6 +604,39 @@ import { DatePicker, FormField } from "kaze-design-system";
 
 Docs: https://kaze-design-system.vercel.app/docs/components/checkbox
 
+**使う場面**
+
+- 送信ボタンで確定するフォームでの、オン・オフの選択（利用規約への同意、通知を受け取る）
+- 複数の選択肢から、0 個以上を選ぶとき（複数選択）
+- 「同意する」のように、チェックしていないとき送信できない確認
+
+**使わない場面**
+
+- 切り替えた瞬間に設定が反映される項目。Switch を使う
+- 選択肢から 1 つだけを選ぶとき。Radio か Select を使う
+- 一覧の絞り込み条件。FilterPill のほうが、並べて見せるときに場所を取らない
+- 操作の実行。Button を使う
+
+**キーボード操作**
+
+| キー | 動作 |
+|---|---|
+| Tab | チェックボックスにフォーカスを移す |
+| Space | オンとオフを切り替える |
+
+**アクセシビリティ**
+
+- ブラウザ標準の checkbox を使っているので、状態の読み上げはブラウザに任せられる
+- label を渡すとクリックできる範囲がラベル全体に広がる。ラベルのない単独利用では aria-label を付ける
+- error で aria-invalid が付く。理由は近くに文言で書き、aria-describedby で結ぶ
+
+**文言**
+
+- 「メールで通知を受け取る」のように、オンにしたときの状態を肯定形で書く。「受け取らない」の否定形は避ける
+- 同意は「利用規約に同意する」のように、何に同意するかをラベルに入れる
+
+Related: switch, radio, filter-pill, form-field
+
 **Props**
 
 - `label?`: `string`
@@ -420,6 +663,41 @@ Docs: https://kaze-design-system.vercel.app/docs/components/checkbox
 
 Docs: https://kaze-design-system.vercel.app/docs/components/radio
 
+**使う場面**
+
+- 選択肢が 2 件から 5 件で、全部を見せて 1 つだけ選ばせるとき（プラン、支払い方法）
+- 送信ボタンで確定するフォームの項目。選んだ時点では何も反映されない
+- 選択肢の説明が長いとき。ラベルの下に補足を置ける
+
+**使わない場面**
+
+- 選択肢が 6 件以上。Select か Combobox を使う
+- 選んだ瞬間に表示が切り替わる操作（一覧の表示形式）。SegmentedControl を使う
+- 複数選択。Checkbox を使う
+- オン・オフ。Checkbox か Switch を使う
+
+**キーボード操作**
+
+| キー | 動作 |
+|---|---|
+| Tab | グループに入る。選択済みの項目、なければ先頭へ |
+| ↑ / ↓ / ← / → | グループ内の選択を移す（ブラウザ標準の操作） |
+| Space | フォーカス中の項目を選ぶ |
+
+**アクセシビリティ**
+
+- RadioGroup は fieldset と legend で、複数の Radio を 1 つのまとまりとして伝える。label が legend になる
+- error と errorMessage を渡すと、各 Radio に aria-invalid と aria-describedby が付き、メッセージが結ばれる
+- 同じ name を持つ Radio だけが 1 つのグループになる。RadioGroup の中でも各 Radio に同じ name を付ける
+- 初期値を選んでおくか、未選択のまま送信を許すかを決める。一度選ぶと未選択には戻せない
+
+**文言**
+
+- 選択肢は互いに重ならない言葉にする。「その他」を置くなら最後
+- グループの label は「支払い方法」のように、何を選ぶかを名詞で書く
+
+Related: select, segmented-control, checkbox, form-field
+
 **Props**
 
 - `label?`: `string`
@@ -445,6 +723,38 @@ Docs: https://kaze-design-system.vercel.app/docs/components/radio
 
 Docs: https://kaze-design-system.vercel.app/docs/components/textarea
 
+**使う場面**
+
+- コメント、問い合わせ内容、備考など、複数行にわたる自由入力
+- 文字数に上限があるとき。FormField の maxLength と currentLength でカウンターを出す
+- 入力量が分からないとき。rows を指定して、初期の高さを決める
+
+**使わない場面**
+
+- 1 行で収まる入力。Input を使う
+- 書式のあるリッチな文章（太字、リンク）。Textarea は書式なしのテキストだけ
+- 選択肢のある入力。Select / Radio / Combobox を使う
+
+**キーボード操作**
+
+| キー | 動作 |
+|---|---|
+| Tab | テキストエリアにフォーカスを移す |
+| Enter | 改行する（フォームは送信されない） |
+
+**アクセシビリティ**
+
+- ラベルは必ず用意する。FormField で包むと label と関連付く
+- FormField の maxLength はカウンターを出すだけで、入力は止めない。textarea 自体にも maxLength を渡すこと
+- error と aria-invalid の両方で赤枠が付く。エラー文言も添える
+
+**文言**
+
+- placeholder は入力例にとどめる。「詳細を入力してください」のようにラベルと同じ言葉を繰り返さない
+- 上限があるときは description に書く（「500 文字まで」）。カウンターは入力中の目安
+
+Related: input, form-field
+
 **Props**
 
 - `error?`: `boolean`
@@ -465,6 +775,39 @@ Docs: https://kaze-design-system.vercel.app/docs/components/textarea
 オン・オフを切り替えるトグルスイッチコンポーネント。ラベル付きで使用可能。
 
 Docs: https://kaze-design-system.vercel.app/docs/components/switch
+
+**使う場面**
+
+- 切り替えた瞬間に設定が反映される項目（通知のオン・オフ、機能の有効化）
+- 状態がオン・オフの 2 つで、保存ボタンがない設定画面
+- ラベルが現在の状態でなく、対象を指すとき（「メール通知」）
+
+**使わない場面**
+
+- 送信ボタンで確定するフォーム。Checkbox を使う（Switch は押した時点で反映される印象を与える）
+- 複数から選ぶこと。Checkbox の並びか FilterPill
+- 1 つだけを選ぶこと。Radio か SegmentedControl
+- 「同意する」のような確認。Checkbox を使う
+
+**キーボード操作**
+
+| キー | 動作 |
+|---|---|
+| Tab | スイッチにフォーカスを移す |
+| Space | オンとオフを切り替える |
+
+**アクセシビリティ**
+
+- checkbox に role="switch" を付けた実装。状態はブラウザが読み上げるので、aria-checked は自前で付けない
+- label を渡すとクリックできる範囲がラベル全体に広がる。ラベルのない単独利用では aria-label を付ける
+- 切り替えが失敗したとき、スイッチを元に戻し、理由を Toast などで伝える
+
+**文言**
+
+- ラベルは対象の名詞で書く（「メール通知」）。「メール通知をオンにする」は状態と二重になる
+- オンのときに何が起きるかが分からない項目は、description か補足の文を添える
+
+Related: checkbox, segmented-control, form-field, toast
 
 **Props**
 
@@ -493,6 +836,34 @@ Docs: https://kaze-design-system.vercel.app/docs/components/switch
 フォームフィールド
 
 Docs: https://kaze-design-system.vercel.app/docs/components/form-field
+
+**使う場面**
+
+- Input、Select、Textarea、Combobox、DatePicker に、ラベル・説明・エラー・文字数を付けるとき
+- 必須項目は required。ラベルの末尾に * が付き、コントロールに required と aria-required が渡る
+- エラーは error に文言を渡す。コントロールに aria-invalid が付き、文言は role="alert" で読まれる
+
+**使わない場面**
+
+- RadioGroup、NumberField。これらは label と errorMessage を自前で持つので、FormField で二重に包まない
+- Checkbox や Switch 単体。ラベルを持つので、補足が要るときだけ使う
+- 子に複数のコントロールを渡すこと。children は 1 つの要素だけ。複数並べるなら要素ごとに FormField を使う
+- エラー文言のないエラー表示。必ず何が間違いかを書く
+
+**アクセシビリティ**
+
+- label の htmlFor、コントロールの id、aria-describedby を自動で結ぶ。コントロールに id があればそれを使う
+- aria-describedby には description、error、カウンターの順で並ぶ。コントロール自身の指定は末尾に残る
+- error は role="alert" で、表示された時点で読み上げられる。入力中に毎回エラーを出すと読み上げが多すぎるので、確定時に出す
+- maxLength はカウンターだけを出す。入力を止めるには、コントロールにも maxLength を渡す。残り 10 文字以下で aria-live="polite" になる
+
+**文言**
+
+- label は「メールアドレス」のような名詞。必須は required で示し、文言に「(必須)」と書かない
+- description は入力前に読むヒント（書式、上限、使い道）。エラーは入力後に読む修正方法。同じことを繰り返さない
+- エラー文言は何が間違いで、どう直すかを書く（「@ を含むメールアドレスを入力してください」）
+
+Related: input, select, textarea, combobox, date-picker
 
 **Props**
 
@@ -526,6 +897,40 @@ Docs: https://kaze-design-system.vercel.app/docs/components/form-field
 
 Docs: https://kaze-design-system.vercel.app/docs/components/filter-pill
 
+**使う場面**
+
+- 一覧・表・チャートの絞り込み条件。複数のピルを同時にオンにでき、押した瞬間に結果へ反映する
+- カテゴリー、ステータス、タグなど、5 件から 10 件程度の条件を横に並べて見せる
+- 凡例を兼ねたいとき。color と dot で系列の色を示す
+
+**使わない場面**
+
+- 送信ボタンで確定するフォームの複数選択。Checkbox を使う
+- 排他的な切り替え（表示形式、期間）。SegmentedControl を使う
+- 選択肢が多いとき。Combobox か Select を使う
+- ページ内の移動。Tabs を使う
+
+**キーボード操作**
+
+| キー | 動作 |
+|---|---|
+| Tab | ピルにフォーカスを移す |
+| Enter / Space | オンとオフを切り替える |
+
+**アクセシビリティ**
+
+- button に aria-pressed を付けた切り替えボタン。オンのとき「押されている」と読み上げられる
+- 並べるときは、囲み要素に role="group" と aria-label を付け、何の絞り込みかを伝える
+- dot の色だけで系列を区別させない。ラベルに名前を入れ、色が見えなくても分かるようにする
+- 絞り込みの結果件数が変わったら、近くで「12 件を表示」のように件数を伝える
+
+**文言**
+
+- 条件を短い名詞で書く（「未対応」「営業部」）。「未対応のみ」のように動作を含めない
+- 全件に戻す手段を用意する。「すべて」のピルか、「条件をクリア」のリンク
+
+Related: segmented-control, checkbox, chart-legend, select
+
 **Props**
 
 - `active?`: `boolean`
@@ -550,6 +955,43 @@ Docs: https://kaze-design-system.vercel.app/docs/components/filter-pill
 単一選択のセグメント切り替え。期間（1W / 1M / 3M / 1Y）や表示モードの切り替えに。
 
 Docs: https://kaze-design-system.vercel.app/docs/components/segmented-control
+
+**使う場面**
+
+- 表示形式、期間、並び順のように、選んだ瞬間に表示が切り替わる 2 件から 5 件の選択
+- 項目を全部見せ、並べて比較して選んでほしいとき
+- fullWidth で幅いっぱいに並べると、モバイルでも押しやすい
+
+**使わない場面**
+
+- 送信ボタンで確定するフォームの 1 項目。Radio か Select を使う
+- 選択肢が 6 件以上、またはラベルが長いとき。Select を使う
+- 複数選択。FilterPill か Checkbox を使う
+- ページや画面の切り替え。Tabs を使う（Tabs はパネルを持ち、URL と結びつく）
+- オン・オフの切り替え。Switch を使う
+
+**キーボード操作**
+
+| キー | 動作 |
+|---|---|
+| Tab | グループに入る。選択中の項目、なければ最初の有効な項目へ |
+| → / ↓ | 次の項目へ移り、選択する。最後からは先頭へ回る |
+| ← / ↑ | 前の項目へ移り、選択する。先頭からは最後へ回る |
+| Home / End | 最初と最後の有効な項目へ移り、選択する |
+
+**アクセシビリティ**
+
+- role="radiogroup" の中に role="radio" のボタンが並ぶ。選択中は aria-checked="true"。無効な項目は飛ばされる
+- aria-label は必須。何を選ぶ部品かを伝える（「表示形式」）
+- 矢印キーで移動すると同時に選択され、onValueChange が呼ばれる。確定が要る操作には向かない
+- name を渡すと、選択中の値が hidden の input としてフォームに送られる
+
+**文言**
+
+- ラベルは 1 語から 3 語の名詞（「日」「週」「月」、「リスト」「カード」）
+- 並びは自然な順序にする（短い期間から長い期間へ）。左端を既定値にする
+
+Related: radio, tabs, filter-pill, switch, select
 
 **Props**
 
@@ -594,6 +1036,29 @@ Docs: https://kaze-design-system.vercel.app/docs/components/segmented-control
 
 Docs: https://kaze-design-system.vercel.app/docs/components/card
 
+**使う場面**
+
+- 関連する情報を 1 つのまとまりとして囲む（ダッシュボードの指標、設定のグループ、一覧の 1 件）
+- カード全体が 1 つの遷移先になるときは interactive、情報量が多い一覧では compact、背景で区切るだけなら fill を使う
+- 見出しは CardTitle（h3）、補足は CardDescription、操作は CardFooter に置いて構造を揃える
+
+**使わない場面**
+
+- カードの中にカードを入れること。区切りたいだけなら Divider か余白を使う
+- 行と列で比べるデータ。Table を使う
+- カードが 1 枚しかなく、周囲に並ぶものがないとき。囲まずに Heading と本文で見せる
+
+**アクセシビリティ**
+
+- interactive は見た目（hover 時の強調）を変えるだけで、フォーカスや役割は付かない。押せるカードにするときは中のタイトルを <a> か Button にし、クリック対象を利用者側で用意する
+- CardTitle は h3 を出力する。ページの見出し階層に合わせ、h2 の下に置く
+
+**文言**
+
+- タイトルは名詞で短く（「今月の売上」「通知の設定」）。説明は 1 文で、タイトルの言い換えにしない
+
+Related: list, table, metric, divider, grid
+
 **Props**
 
 - `variant?`: `"default" | "interactive" | "compact" | "fill"`
@@ -633,12 +1098,38 @@ Docs: https://kaze-design-system.vercel.app/docs/components/card
 
 Docs: https://kaze-design-system.vercel.app/docs/components/badge
 
+**使う場面**
+
+- 項目の状態や分類を、短い語で添える（「公開中」「下書き」「新着」）
+- tone は意味で選ぶ。positive は成功・完了、negative は失敗・要対応、warning は注意、info は補足、default は中立
+- 強調したいときだけ solid にする。同じ画面に solid が並ぶと、どれも目立たなくなる
+
+**使わない場面**
+
+- データの鮮度や取得状態（自動更新・要更新・欠損など）。StatusBadge を使う
+- 押せるもの。Badge は操作できない。絞り込みなら FilterPill、操作なら Button を使う
+- 色だけで意味を伝えること。tone を変えても必ずラベルの文字で意味が読めるようにする
+
+**アクセシビリティ**
+
+- 色は読み上げで伝わらない。「エラー」「警告」のように意味を文字にする
+- dot は装飾（aria-hidden）。意味は dot ではなく文字で伝える
+- 動的に変わる状態（処理中から完了へ）を知らせたいときだけ live を付ける。role="status" が付き、変化が読み上げられる。静的な表示に付けない
+
+**文言**
+
+- 1〜4 文字を目安に、名詞か体言止めで書く。文にしない
+- 同じ状態には同じ語を使う。画面ごとに「完了」「終了」「済み」を混ぜない
+
+Related: status-badge, filter-pill, alert, table
+
 **Props**
 
 - `tone?`: `"default" | "positive" | "negative" | "warning" | "info"`
   - Default: `"default"`
   - 意味色（旧 variant）
 - `variant?`: `"default" | "positive" | "negative" | "warning" | "info"`
+  - Deprecated: `tone` に改名。次のマイナーで削除
 - `dot?`: `boolean`
   - Default: `false`
   - ドットインジケーターを表示するかどうか
@@ -657,9 +1148,33 @@ Docs: https://kaze-design-system.vercel.app/docs/components/badge
 
 #### StatusBadge
 
-データ状態（live / stale / missing / manual / loading）を一目で示すバッジ。内部で Badge をラップし、適切な variant・ラベル・role=status を自動付与します。ダッシュボード系 UI で各指標の鮮度表示に最適。
+データ状態（live / stale / missing / manual / loading）を一目で示すバッジ。内部で Badge をラップし、適切な tone・ラベル・role=status を自動付与します。ダッシュボード系 UI で各指標の鮮度表示に最適。
 
 Docs: https://kaze-design-system.vercel.app/docs/components/status-badge
+
+**使う場面**
+
+- 指標やデータ源の鮮度・取得状態を示す。status は live（自動更新）、stale（要更新）、missing（欠損）、manual（手動）、loading（取得中）の 5 つ
+- ダッシュボードの各指標の横に置き、その数字を信じてよいかを一目で伝える
+- 既定の文言で足りないときは label で差し替える。status の意味（色と live の挙動）は変わらない
+
+**使わない場面**
+
+- 5 つの状態に当てはまらない分類やラベル。Badge に tone を指定して使う
+- 処理の成功・失敗の通知。Toast か Alert を使う
+- tone を指定すること。status から自動で決まり、tone / children は受け取らない
+
+**アクセシビリティ**
+
+- 内部で Badge を使う。live と loading は role="status" が付き、取得状態の変化が読み上げられる。stale、missing、manual は読み上げない
+- live を渡すと自動の判定を上書きできる。画面に同じバッジが大量に並ぶときは live={false} にして、読み上げの洪水を避ける
+- dot は装飾。状態は文言と dot の色の両方で伝わる
+
+**文言**
+
+- 既定の文言（自動更新・要更新・欠損・手動・取得中）をそのまま使う。変えるなら、画面全体で統一する
+
+Related: badge, metric, alert, skeleton, tracker
 
 **Props**
 
@@ -685,6 +1200,31 @@ Docs: https://kaze-design-system.vercel.app/docs/components/status-badge
 テーブル
 
 Docs: https://kaze-design-system.vercel.app/docs/components/table
+
+**使う場面**
+
+- 同じ項目を持つ複数のデータを、行と列で比べる（ユーザー一覧、請求履歴、成績表）
+- 数値の列は右揃えにして、桁をそろえる。TableCell と TableHead に className="table__cell--numeric" を付けると、右揃えと等幅数字（tabular-nums）になる
+- 行数が多いときは compact で密度を上げる。Table は横にあふれると table-wrapper 内でスクロールする
+
+**使わない場面**
+
+- 1 件ずつの詳細表示や、列が 2 つ程度の項目と値の組。DescriptionList を使う
+- 見た目を揃えるためのレイアウト。Grid や layout を使う
+- モバイルで列が多い一覧をそのまま出すこと。重要な列に絞るか、List に切り替える
+
+**アクセシビリティ**
+
+- TableHead は scope="col" が既定。行見出しの列には scope="row" を指定する
+- 表のタイトルは、近くの見出しか aria-label / aria-labelledby で付ける。Table 自体は名前を持たない
+- ソートや選択の状態は、見た目だけにせず aria-sort やチェックボックスのラベルで伝える。Table は並べ替えの仕組みを持たないので、利用側で付ける
+
+**文言**
+
+- 列見出しは名詞で短く。単位は見出しに入れる（「金額（円）」）。セルごとに単位を繰り返さない
+- 数値は小数の桁数をそろえ、3 桁区切りにする。空欄は「-」を使い、0 と区別する
+
+Related: description-list, list, pagination, badge, card
 
 **Props**
 
@@ -727,6 +1267,31 @@ Docs: https://kaze-design-system.vercel.app/docs/components/table
 
 Docs: https://kaze-design-system.vercel.app/docs/components/metric
 
+**使う場面**
+
+- 売上・会員数・達成率など、画面の主役になる 1 つの数字を、ラベルとセットで見せる
+- 前回比は change に渡す。trend は increase / decrease ではなく、良し悪しで選ぶ。良い変化は positive、悪い変化は negative
+- ダッシュボードの最上段に 3〜4 個並べ、全体の状態を一目で伝える。強調したい 1 つだけ large にする
+
+**使わない場面**
+
+- 推移そのものを見せたいとき。Metric に Sparkline を添えるか、LineChart を使う
+- 複数の数字を比べること。BarChart か Table を使う
+- 目標に対する進み具合。Progress か Meter を使う
+
+**アクセシビリティ**
+
+- change の増減は色（positive の緑、negative の赤）だけで区別される。value に符号や向きを文字で入れる（「+12.4%」「-3.2%」、「前月比 +12.4%」）
+- 減少が良い指標（解約率、エラー数）では、減っていれば trend は positive にする。符号は「-」のまま残し、色と符号が食い違っても意味が通るようにする
+- label と value は別の span に出る。見出しや単位は label か value に含め、「売上 1,240 万円」と続けて読めるようにする
+
+**文言**
+
+- label は名詞で短く（「月間売上」「アクティブ会員」）。単位は value か label に入れる
+- change の value には比べる基準を添える（「前月比 +12.4%」）。基準がないと増減の意味が伝わらない
+
+Related: sparkline, card, status-badge, progress, line-chart
+
 **Props**
 
 - `label`: `string`
@@ -751,6 +1316,29 @@ Docs: https://kaze-design-system.vercel.app/docs/components/metric
 
 Docs: https://kaze-design-system.vercel.app/docs/components/avatar
 
+**使う場面**
+
+- ユーザーや組織を、画像かイニシャルで識別する（コメント、担当者、メンバー一覧）
+- 画像が無い・読み込めないときのために、fallback にイニシャルや頭文字を渡す
+- size は xs / sm / md / lg の 4 段階。文脈に合わせて選び、同じリストの中では統一する
+
+**使わない場面**
+
+- ロゴや商品写真。img か Logo を使う
+- 状態や属性を示すこと。Badge を使う
+- 名前が近くに表示されていないのに、画像だけで人を特定させること。名前も添える
+
+**アクセシビリティ**
+
+- src があるときは <img> が出て、alt が名前になる。alt を省略すると空文字になり、読み上げられない。名前が隣に表示されているときは省略でよく、単独で人を表すときは alt に名前を入れる
+- fallback のテキスト表示のときは role="img" と aria-label に fallback が入る。fallback が「M」のような頭文字だけだと名前が伝わらないので、隣に氏名を置くか、aria-label を渡す
+
+**文言**
+
+- fallback は 1〜2 文字。日本語は姓の 1 文字、英字は名と姓の頭文字にする
+
+Related: badge, list, dropdown, logo
+
 **Props**
 
 - `size?`: `"xs" | "sm" | "md" | "lg"`
@@ -774,6 +1362,31 @@ Docs: https://kaze-design-system.vercel.app/docs/components/avatar
 ランキングリスト
 
 Docs: https://kaze-design-system.vercel.app/docs/components/bar-list
+
+**使う場面**
+
+- 項目ごとの値を、ラベル付きの横棒で並べる。ランキングや上位 N 件（流入元、ページ別アクセス、商品別売上）
+- 既定は値の降順。並び順を変えない元データには sortOrder="none" を使う
+- 行ごとに href を渡すと、その行がリンクになる。Next.js の Link は as で渡す
+
+**使わない場面**
+
+- 10 件を超える項目。上位 5〜10 件に絞り、残りは「その他」にまとめるか Table を使う
+- 時間の推移。LineChart か ColumnChart を使う
+- 凡例が必要な複数系列や、軸を持つ比較。BarChart か ColumnChart を使う
+
+**アクセシビリティ**
+
+- ラベルと値が文字で出ているので、棒の長さが読めなくても内容は伝わる。値を省略しない
+- href を付けた行は <a> になり、Tab で移動して Enter で開ける。リンクの意味がラベルだけで伝わる文言にする
+- 棒の色を意味づけに使うときは、色だけに頼らずラベルにも書く
+
+**文言**
+
+- ラベルは短く（半角 20 文字程度まで）。長いとバーの上で折り返す
+- valueFormatter か displayValue で単位を付ける（「1,240 件」「12.4%」）
+
+Related: bar-chart, table, category-bar, metric
 
 **Props**
 
@@ -802,6 +1415,30 @@ Docs: https://kaze-design-system.vercel.app/docs/components/bar-list
 
 Docs: https://kaze-design-system.vercel.app/docs/components/tracker
 
+**使う場面**
+
+- 時間や回数の並びを、1 つの区間ごとの状態で見せる（稼働状況の 90 日、日次バッチの成否、連続達成）
+- 区間ごとの状態は tone で表す。positive は正常、negative は異常、warning は警告、info は情報、default はデータなし
+- tooltip に日付や理由を入れると、マウスでの確認と読み上げの両方に使われる
+
+**使わない場面**
+
+- 数値の大きさを比べること。BarChart か ColumnChart を使う
+- 区間が少なく（5 個以下）、それぞれの内容を読ませたいとき。List か Timeline を使う
+- 進捗の割合。Progress を使う
+
+**アクセシビリティ**
+
+- role="figure" と aria-label が付く。label を省略すると「N区間」になる。「過去 90 日の稼働状況」のように、何を表すかを label に書く
+- 各区間には、tone に応じた「正常」「異常」「警告」「情報」「データなし」の文字が読み上げ用に入る。tooltip があれば「tooltip（状態）」の形で読まれる
+- title は表示のためだけで、キーボードでは出ない。重要な内容は tooltip に頼らず、近くの文章でも伝える
+
+**文言**
+
+- tooltip は「10 月 12 日 障害発生（30 分）」のように、日付と事実を短く。状態名は自動で付くので繰り返さない
+
+Related: status-badge, timeline, progress, heatmap
+
 **Props**
 
 - `data`: `TrackerItem[]`
@@ -827,6 +1464,29 @@ Docs: https://kaze-design-system.vercel.app/docs/components/tracker
 透かし表示
 
 Docs: https://kaze-design-system.vercel.app/docs/components/watermark
+
+**使う場面**
+
+- 社外秘、サンプル、下書きなど、内容の扱いを画面全体に示す
+- 本文の読みやすさを優先して薄くする。既定の opacity は 0.08。濃くしても 0.15 程度まで
+- 囲んだ領域の上に、クリックを通すかたちで重なる（pointer-events: none）。中の操作は妨げない
+
+**使わない場面**
+
+- 情報漏えいを防ぐ手段としての利用。画面の写真や DOM の操作で消せるので、抑止と注意喚起にとどめる
+- 重要な内容の伝達。aria-hidden で読み上げられない。重要な状態は Badge や Alert で文字として伝える
+- 広告やブランドの装飾。読みづらくなる
+
+**アクセシビリティ**
+
+- ウォーターマークは aria-hidden で、支援技術には伝わらない。「社外秘」のような情報は、見出しや本文にも書く
+- テキストは userSelect: none で選択できない。コピーされる内容には影響しない
+
+**文言**
+
+- text は短く（「社外秘」「SAMPLE」）。1 つの画面で複数の語を混ぜない
+
+Related: alert, badge, card
 
 **Props**
 
@@ -864,6 +1524,31 @@ Docs: https://kaze-design-system.vercel.app/docs/components/watermark
 
 Docs: https://kaze-design-system.vercel.app/docs/components/bar-chart
 
+**使う場面**
+
+- 項目ごとの大きさを比べる（チャネル別の流入数、部署別の人数）。棒の長さで比べるので、ラベルが長くても読める
+- 項目数は 3〜10 個。値の大きい順に並べて渡すと、ランキングとして読める
+- 複数の BarChart を並べて比べるときは、max を共通の値にそろえる。そろえないと、棒の長さが比べられない
+
+**使わない場面**
+
+- 時間の推移。LineChart か ColumnChart を使う
+- 全体に占める割合。DonutChart か CategoryBar を使う
+- 上位 N 件のリンク付きランキング。BarList を使う。系列が複数あるときは ColumnChart を使う
+
+**アクセシビリティ**
+
+- aria-label は必須（型でも必須）。「チャネル別の流入数」のように、何を比べるグラフかを書く。無いと、読み上げで内容の見当がつかない
+- role="figure" になり、各項目の「ラベル 値（最大値に対する %）」が読み上げ用に入る。棒は aria-hidden で、ラベルと数値は画面にも文字で出る
+- 色は項目を区別するためではなく装飾。色の違いに意味を持たせるときは、ラベルでも伝える
+- キーボードでは操作できない（フォーカスされない）。読み上げと画面の文字で同じ情報が得られる
+
+**文言**
+
+- ラベルは短い名詞（「自然検索」「広告」）。formatValue で単位を付ける（「1,240 件」）
+
+Related: bar-list, column-chart, donut-chart, category-bar, chart-legend
+
 **Props**
 
 - `data`: `BarChartItem[]`
@@ -893,6 +1578,32 @@ Docs: https://kaze-design-system.vercel.app/docs/components/bar-chart
 SVGベースのドーナツチャート。凡例とセンターラベル付き。
 
 Docs: https://kaze-design-system.vercel.app/docs/components/donut-chart
+
+**使う場面**
+
+- 全体に占める構成比を見せる（支払い方法の内訳、ステータス別の件数）。合計が 100% になることが前提
+- 項目は 2〜5 個まで。centerLabel に合計や主役の数字を入れると、中央の余白が情報になる
+- ラベルと値を凡例に出し（showLegend は既定で true）、色と項目の対応を文字で読めるようにする
+
+**使わない場面**
+
+- 項目が 6 個を超えるとき。色が識別できず、小さな弧は読めない。上位をまとめて「その他」にするか、BarChart を使う
+- 項目どうしの大小を正確に比べること。弧の長さは棒より比べにくい。BarChart を使う
+- 時間の推移や、合計にならない値。LineChart か ColumnChart を使う
+- 1 本の帯で構成比と目標線を見せたいとき。CategoryBar を使う
+
+**アクセシビリティ**
+
+- aria-label は必須。「支払い方法の内訳」のように書く。SVG は aria-hidden で、読み上げには centerLabel と「ラベル 値（%）」の一覧が入る
+- 色だけに頼らない。凡例にラベルと値を出し、showLegend を false にするときは、近くの文章や表で同じ数字を伝える
+- 凡例の値は元の値のまま（% ではない）。割合を見せたいときは、値を % で渡すか、centerLabel や周囲の文で補う
+- キーボードでは操作できない。同じ内容を読み上げの要約で伝える
+
+**文言**
+
+- centerLabel は短く（「合計 1,240」「82%」）。長いと穴に収まらない
+
+Related: category-bar, bar-chart, chart-legend, metric
 
 **Props**
 
@@ -931,6 +1642,28 @@ Docs: https://kaze-design-system.vercel.app/docs/components/donut-chart
 
 Docs: https://kaze-design-system.vercel.app/docs/components/sparkline
 
+**使う場面**
+
+- 数字のそばに添えて、増えているか減っているかの傾きだけを示す（Metric や Table のセル）
+- データは 7〜30 点程度。大きな傾向が見えるように、軸も目盛りも付けない前提で使う
+- 色は 1 つ。意味を持たせるときは、増加は positive、減少は negative の色にそろえ、文字（+12%）も併記する
+
+**使わない場面**
+
+- 単体で置くこと。軸も目盛りも値もないので、何の数字か、どれだけ変わったかが読めない。必ず隣に値かラベルを置く
+- 正確な値を読ませるとき。LineChart を使う
+- 2 点未満のデータ。データが 2 点未満だと何も描かれない（null を返す）。空の状態は文字で示す
+- 複数系列の比較。LineChart を使う
+
+**アクセシビリティ**
+
+- label（または aria-label）を渡すと role="img" で読み上げられる。渡さないと aria-hidden になる
+- 隣に値が表示されているときは、label を渡さず装飾にしてよい（数字が読まれるので、二重に読み上げない）
+- 単体で置くとき、または傾きが重要なときは label に「過去 7 日のアクセス数は増加傾向」のように、傾向を言葉で書く
+- 色だけで増減を伝えない。上がった、下がったを文字でも伝える
+
+Related: metric, line-chart, table, tracker
+
 **Props**
 
 - `data`: `number[]`
@@ -966,6 +1699,44 @@ without it the SVG is decorative (aria-hidden), e.g. next to a visible KPI value
 時系列データの折れ線 / 面グラフ。複数系列、凡例での表示切替、ホバーとキーボードのツールチップに対応。SVG 手書きで依存ゼロ。
 
 Docs: https://kaze-design-system.vercel.app/docs/components/line-chart
+
+**使う場面**
+
+- 時間の経過に沿った推移を見せる（月次の売上、日次のアクセス、残高）。折れ線の傾きで増減が読める
+- 系列は 1〜4 本。それ以上は読み取れないので、絞るか、ChartLegend の切り替えで見せ分ける
+- 価格や残高のように、値の範囲が狭い線は startAtZero={false} にして変化を見やすくする。棒グラフと違い、0 から始めなくても誤解されにくい
+- 欠損値は null にすると、線が途切れる。0 で埋めると「ゼロだった」と誤解される
+
+**使わない場面**
+
+- 項目どうしの大きさの比較。BarChart か ColumnChart を使う
+- 全体に占める割合。DonutChart か CategoryBar を使う
+- データ点が少なく（3 点以下）、傾きを語れないとき。数字を Metric か Table で見せる
+- 1 行の中で傾きだけ見せたいとき。Sparkline を使う
+
+**キーボード操作**
+
+| キー | 動作 |
+|---|---|
+| Tab | グラフにフォーカスを移す |
+| → | 次のデータ点に移動し、値のツールチップを出す（最初はいちばん左） |
+| ← | 前のデータ点に移動する（最初はいちばん右） |
+| Home / End | 最初・最後のデータ点に移動する |
+| Esc | ツールチップを閉じる |
+
+**アクセシビリティ**
+
+- aria-label は必須。「過去 12 か月の売上推移」のように書く。グラフは role="img" で、ラベル以外のデータは読み上げられない
+- データ点に移動すると、ツールチップ（role="status"）の内容が読み上げられる。全データを一度に知らせる仕組みはないので、傾向や最大値、最新値は近くの文章か表でも書く
+- 系列の違いは色だけでなく、ChartLegend のラベルで伝える。showLegend は既定で true なので、外さない
+- 凡例のボタンで系列を隠せる。aria-pressed で状態が伝わる
+
+**文言**
+
+- formatValue で単位を付ける（「1,240 万円」）。軸と tooltip の両方に反映される
+- x 軸のラベルは短くそろえる（「10月」「1/5」）
+
+Related: column-chart, sparkline, chart-legend, bar-chart, heatmap
 
 **Props**
 
@@ -1028,6 +1799,42 @@ Docs: https://kaze-design-system.vercel.app/docs/components/line-chart
 
 Docs: https://kaze-design-system.vercel.app/docs/components/column-chart
 
+**使う場面**
+
+- 期間ごとの量を比べる（月別の売上、週別の新規登録）。1 つ 1 つの値の大きさを読ませたい推移に向く
+- 系列が複数あるとき。grouped は系列どうしの比較、stacked は合計と内訳を同時に見せる
+- 系列は 1〜4 本、期間は 4〜24 個程度。ラベルが長いときは、BarChart の横棒を使う
+
+**使わない場面**
+
+- なめらかな傾きを見せたい長い時系列（30 点以上）。LineChart を使う
+- 全体に占める割合を 1 時点で見せること。DonutChart か CategoryBar を使う
+- stacked で系列が多く、内側の系列の値を比べさせたいとき。上と下以外は基準線が動くので比べにくい。grouped を使う
+
+**キーボード操作**
+
+| キー | 動作 |
+|---|---|
+| Tab | グラフにフォーカスを移す |
+| → | 次のカテゴリに移動し、値のツールチップを出す（最初は先頭） |
+| ← | 前のカテゴリに移動する（最初は末尾） |
+| Home / End | 最初・最後のカテゴリに移動する |
+| Esc | ツールチップを閉じる |
+
+**アクセシビリティ**
+
+- aria-label は必須。グラフは role="img" で、ラベルだけが読み上げられる。「月別の新規登録数（2026 年）」のように書く
+- カテゴリに移動すると、ツールチップ（role="status"）にカテゴリ名と各系列の値が出て、読み上げられる。フォーカスが外れると閉じる
+- 系列の違いは色だけに頼らず、ChartLegend のラベルで伝える。stacked では tooltip に合計も出る
+- 傾向や最大・最小の月は、近くの文章か Table でも書く
+
+**文言**
+
+- formatValue で単位を付ける。軸と tooltip の両方に反映される
+- カテゴリは短い名詞（「10月」「東京」）。長いと自動で間引かれる
+
+Related: line-chart, bar-chart, chart-legend, table, donut-chart
+
 **Props**
 
 - `data`: `Record<string, string | number>[]`
@@ -1088,6 +1895,32 @@ Docs: https://kaze-design-system.vercel.app/docs/components/column-chart
 2次元の密度を単一色相の濃淡で見せるヒートマップ。曜日×時間帯などの行×列（matrix）と、日別カレンダー（calendar）に対応。
 
 Docs: https://kaze-design-system.vercel.app/docs/components/heatmap
+
+**使う場面**
+
+- 時間帯と曜日など、2 つの軸が交わる場所の濃淡から、集中している所を見つける（matrix）
+- 日ごとの活動量を、1 年などの長い期間で見せる（calendar。コミット数、ログイン回数）
+- 値の違いは 1 色の濃淡で表す。levels（既定 5 段階）と max で、濃さの基準をそろえる
+
+**使わない場面**
+
+- 正確な数値を読ませること。濃淡の差は数値ほど細かく読めない。Table を使う
+- 5 行以下・5 列以下の小さな比較。BarChart か Table を使う
+- 値の正負や、基準との差を見せること。濃淡は 1 方向（少ないから多い）にしか使えない
+- 意味の違うカテゴリを色で分けること。1 色の濃淡で、値の大きさだけを表す
+
+**アクセシビリティ**
+
+- aria-label は必須。「過去 1 年のコミット数」のように書く。ヒートマップは role="img" で、中のセルは読み上げられない
+- 最大値とその場所（「最大値 42（2026-03-12）」）が、aria-describedby で読み上げ用に付く。ほかのセルの値は伝わらない
+- セルの値は、マウスを重ねたときのツールチップでしか見られない。キーボードでは操作できない。重要な数字は、近くの文章や Table でも伝える
+- 「少 ... 多」の凡例は装飾（aria-hidden）。濃淡の意味は、aria-label か周囲の文で説明する
+
+**文言**
+
+- formatValue で単位を付ける（「42 件」）。tooltip の文言を変えるときは formatTooltip を使う
+
+Related: column-chart, line-chart, tracker, table
 
 **Props**
 
@@ -1164,6 +1997,32 @@ Docs: https://kaze-design-system.vercel.app/docs/components/heatmap
 
 Docs: https://kaze-design-system.vercel.app/docs/components/category-bar
 
+**使う場面**
+
+- 1 本の帯で、全体の内訳を見せる（予算の使い道、容量の使用状況、達成度の段階）
+- marker で、目標や基準の位置を帯の上に示す。値は data と同じ単位で渡す
+- DonutChart より細長い場所に収まる。カードの中や表のセルで、構成比を 1 行で見せたいときに使う
+
+**使わない場面**
+
+- 項目が 6 個を超えるとき。細い区間が読めない。まとめるか BarChart を使う
+- 項目どうしの大小を正確に比べること。BarChart を使う
+- 1 つの値が上限に対して、どこまで進んだか。Progress か Meter を使う
+- 時間の推移。LineChart か ColumnChart を使う
+
+**アクセシビリティ**
+
+- aria-label は必須。role="img" で、内容は「ラベル 値（割合）」の一覧と、marker のラベルと値が読み上げ用に入る。画面上のラベルは aria-hidden で、読み上げの重複を避けている
+- showLabels は既定で true。色と項目の対応が文字で出る。showLabels を false にするときは、近くの文章で内訳を伝える
+- showPercent を true にすると、割合も読み上げ用の要約に入る。割合が大事なときに付ける
+- 区間にマウスを重ねるとラベルと値が出る（title）。キーボードでは出ないので、重要な数字は画面のラベルに出す
+
+**文言**
+
+- marker の label は「目標」「上限」のように短く。省略すると、読み上げ用に「目標」が使われる
+
+Related: donut-chart, bar-chart, progress, meter, chart-legend
+
 **Props**
 
 - `data`: `CategoryBarItem[]`
@@ -1204,6 +2063,37 @@ Docs: https://kaze-design-system.vercel.app/docs/components/category-bar
 
 Docs: https://kaze-design-system.vercel.app/docs/components/chart-legend
 
+**使う場面**
+
+- 複数系列のグラフで、色と系列名の対応を示す。色だけでは系列が判別できないので、凡例は省略しない
+- onToggle を渡すと、各項目が切り替えボタンになり、利用者が系列を隠せる。hidden に隠れているキーを渡して状態を持つ
+- LineChart と ColumnChart は自前で ChartLegend を持つ。自作のグラフや、複数のグラフで凡例を共有するときに、単体で使う
+
+**使わない場面**
+
+- 系列が 1 本のとき。グラフのタイトルで足りる
+- DonutChart と CategoryBar。すでに値付きの凡例を内蔵している
+- 系列を隠す機能を持たないグラフで、onToggle を渡すこと。押しても何も起きないボタンになる
+
+**キーボード操作**
+
+| キー | 動作 |
+|---|---|
+| Tab | 凡例の項目（onToggle があるとき）にフォーカスを移す |
+| Enter / Space | 系列の表示と非表示を切り替える |
+
+**アクセシビリティ**
+
+- onToggle があるときは <button> で、aria-pressed が系列の表示状態を伝える。押された状態が「表示中」。onToggle がなければ、ただの文字（span）になり、操作できない
+- 色見本（swatch）は aria-hidden で、系列名の文字が読み上げられる。系列名は色の説明ではなく、データの名前にする
+- 隠れた項目は薄く表示される。薄さは見た目だけの手がかりで、状態は aria-pressed で伝わる。hidden に渡したキーの系列は、グラフ側でも実際に描画から外す
+
+**文言**
+
+- label はグラフの系列名と一致させる（「売上」「利益」）。tooltip や軸の表記と揃える
+
+Related: line-chart, column-chart, donut-chart, filter-pill
+
 **Props**
 
 - `items`: `ChartLegendItem[]`
@@ -1238,12 +2128,39 @@ const [hidden, setHidden] = useState<string[]>([]);
 
 Docs: https://kaze-design-system.vercel.app/docs/components/alert
 
+**使う場面**
+
+- 画面やセクションに常に載せておく、状態・注意・エラーの説明（支払い方法の期限切れ、メンテナンス予告など）
+- tone は伝える重さで選ぶ。info は補足、positive は完了の報告、warning は放置すると困ること、negative は失敗やブロック
+- 利用者が読み終えるまで残したいメッセージ。次の操作の案内は本文にリンクやボタンで添える
+
+**使わない場面**
+
+- 操作の直後に出して、数秒で消えてよい結果の報告。Toast を使う
+- 入力欄ごとの検証エラー。FormField の error で該当欄の下に出す
+- 確認や選択を求めること。判断が必要なら Dialog を使う
+- 同じ画面に 3 つ以上並べること。重要度が伝わらなくなるので、1 つにまとめるか優先順位を付ける
+
+**アクセシビリティ**
+
+- role="alert" が付くため、表示された瞬間に割り込んで読み上げられる。tone に関わらず同じ強さ
+- ページを開いた時点から置いてある補足まで割り込ませたくない場合は、Alert ではなく Card や Text で書く
+- 色だけに頼らず、title か本文で「エラー」「注意」のように種類を言葉にする。icon は装飾なので読み上げられない前提で使う
+
+**文言**
+
+- title は状況を 1 行で、本文は理由と次の行動を書く（「支払い方法の期限が切れています」「カード情報を更新してください」）
+- 「エラーが発生しました」だけで終えない。何が起きて、何をすればよいかを書く
+
+Related: toast, dialog, form-field, empty-state, badge
+
 **Props**
 
 - `tone?`: `"default" | "positive" | "negative" | "warning" | "info"`
   - Default: `"info"`
   - 意味色（旧 variant）
 - `variant?`: `"default" | "positive" | "negative" | "warning" | "info"`
+  - Deprecated: `tone` に改名。次のマイナーで削除
 - `icon?`: `ReactNode`
   - 左側に表示するアイコン
 - `title?`: `string`
@@ -1271,6 +2188,32 @@ Docs: https://kaze-design-system.vercel.app/docs/components/alert
 
 Docs: https://kaze-design-system.vercel.app/docs/components/progress
 
+**使う場面**
+
+- アップロード、書き出し、セットアップなど、終わりに向かって進む作業の進み具合
+- value と max で割合を出す。showValue を付けると % を表示する
+- ステップ数が決まっている手順の全体像は Stepper と併用してよい
+
+**使わない場面**
+
+- 容量の使用量や予算の消化など、上限に対する現在の量。Meter を使う（Progress は終われば満タンになる、Meter は範囲内のどこにあるかを示す）
+- 終わりが分からない読み込み。Skeleton を使う
+- 複数ステップの現在地。Stepper を使う
+- 数値の比較や内訳。BarChart、CategoryBar を使う
+
+**アクセシビリティ**
+
+- role="progressbar" と aria-valuenow / aria-valuemin(0) / aria-valuemax が付く。aria-label には label が使われる
+- label を省くと名前のない進捗バーになる。画面上の見出しで足りない場合も label を渡す
+- 値の更新ごとに読み上げられるわけではない。完了や失敗は Toast や Alert でも伝える
+
+**文言**
+
+- label は何の進み具合かを書く（「画像をアップロード中」「データを書き出し中」）
+- 完了後は Progress を残さず、結果の文言に置き換える
+
+Related: meter, stepper, skeleton, toast
+
 **Props**
 
 - `value`: `number`
@@ -1285,6 +2228,7 @@ Docs: https://kaze-design-system.vercel.app/docs/components/progress
   - Default: `"default"`
   - バーの意味色（旧 color）
 - `color?`: `"default" | "positive" | "negative" | "warning" | "info"`
+  - Deprecated: `tone` に改名。次のマイナーで削除
 - `size?`: `"sm" | "md" | "lg"`
   - Default: `"md"`
   - プログレスバーの高さ
@@ -1301,6 +2245,32 @@ Docs: https://kaze-design-system.vercel.app/docs/components/progress
 メーター（既知範囲の値表示）
 
 Docs: https://kaze-design-system.vercel.app/docs/components/meter
+
+**使う場面**
+
+- ストレージ、API の呼び出し回数、予算など、上限に対して今どれだけ使っているか
+- warningThreshold（既定 0.7）と dangerThreshold（既定 0.9）を超えると、色が positive から warning、negative に変わる。しきい値は 0 から 1 の割合で渡す
+- min と max で範囲を指定できる。showValue は「value / max」の形で表示する
+
+**使わない場面**
+
+- 終わりに向かって進む作業。Progress を使う（Meter は満タンが「良い状態」とは限らない）
+- しきい値の色分けが合わない指標（多いほどよい数など）。tone を渡すと自動の色分けは止まる
+- 構成比や項目ごとの比較。DonutChart、CategoryBar、BarList を使う
+- 時間の推移。Sparkline や LineChart を使う
+
+**アクセシビリティ**
+
+- role="meter" と aria-valuenow / aria-valuemin / aria-valuemax が付く。aria-label には label が使われる
+- 色の変化は支援技術に伝わらない。「残りわずか」など状態を文言でも示す
+- しきい値のマーカーは aria-hidden で読み上げられない
+
+**文言**
+
+- label は何の量かを書く（「ストレージ使用量」「今月の API 呼び出し」）
+- 単位は label か周囲の文に含める。showValue の表示は数値のみ
+
+Related: progress, bar-list, category-bar, alert
 
 **Props**
 
@@ -1326,6 +2296,7 @@ Docs: https://kaze-design-system.vercel.app/docs/components/meter
 - `tone?`: `"default" | "positive" | "negative" | "warning" | "info"`
   - Semantic color (overrides threshold-based coloring)
 - `color?`: `"default" | "positive" | "negative" | "warning" | "info"`
+  - Deprecated: `tone` に改名。次のマイナーで削除
 - `size?`: `"sm" | "md" | "lg"`
   - Size
 
@@ -1340,6 +2311,27 @@ Docs: https://kaze-design-system.vercel.app/docs/components/meter
 コンテンツの読み込み中に表示するスケルトンプレースホルダーコンポーネント。
 
 Docs: https://kaze-design-system.vercel.app/docs/components/skeleton
+
+**使う場面**
+
+- データ取得中に、あとから出る内容と同じ大きさ・位置の枠を先に見せる
+- width / height で寸法を合わせ、アバターなどの丸いものは circle にする
+- 表やカードの一覧など、レイアウトが決まっている読み込み
+
+**使わない場面**
+
+- ボタン操作の結果待ち。ボタンの disabled や Progress で示す
+- 取得した結果が 0 件のとき。EmptyState を使う
+- 終わりの見えない処理の進み具合の説明。Progress を使う
+- 操作できない理由や失敗の説明。Alert を使う
+
+**アクセシビリティ**
+
+- aria-hidden="true" が付くため、支援技術には何も伝わらない
+- 読み込み中であることは親要素に aria-busy="true" を付けるか、visually hidden の「読み込み中」を添えて伝える
+- 読み込みが終わったら Skeleton を外し、内容に置き換える
+
+Related: progress, empty-state, card, table
 
 **Props**
 
@@ -1364,6 +2356,33 @@ Docs: https://kaze-design-system.vercel.app/docs/components/skeleton
 データが存在しない場合に表示する空状態コンポーネント。sm / md / lg の3サイズに対応し、テーブルセル内の小さな表示からページ全体の大きな表示まで使い分けられます。role="status" が自動付与されます。
 
 Docs: https://kaze-design-system.vercel.app/docs/components/empty-state
+
+**使う場面**
+
+- 一覧や検索結果が 0 件のとき、理由と次の行動を伝える
+- 初めて使う画面で、最初の 1 件を作る導線を置く（actions に Button）
+- size は置く場所に合わせる。画面全体は lg、カードやパネルの中は sm か md
+
+**使わない場面**
+
+- 読み込み中の表示。Skeleton を使う
+- エラーで取得できなかったとき。原因と再試行を Alert で示す
+- 画面の一部に残す注意書き。Alert を使う
+- actions に primary のボタンを複数置くこと。主な行動は 1 つに絞る
+
+**アクセシビリティ**
+
+- role="status" が付き、出現時に控えめに読み上げられる。title は h3 になる
+- 見出しの階層は周囲に合わせて確認する。h3 が前後と合わない場合は構造を見直す
+- icon は装飾として扱い、意味は title と description で伝える
+
+**文言**
+
+- title は状態を言い切る（「プロジェクトはまだありません」「該当する結果がありません」）
+- description は次の行動か、条件の変え方を書く（「キーワードを変えて検索してください」）
+- actions のボタンは動詞で書く（「プロジェクトを作成する」）
+
+Related: skeleton, alert, table, search, button
 
 **Props**
 
@@ -1398,6 +2417,40 @@ Docs: https://kaze-design-system.vercel.app/docs/components/empty-state
 トースト通知
 
 Docs: https://kaze-design-system.vercel.app/docs/components/toast
+
+**使う場面**
+
+- 操作の結果を短く伝える（「保存しました」「リンクをコピーしました」）。数秒で消えても困らない内容
+- tone で重さを選ぶ。default / info / positive は控えめ、warning / negative は強く読み上げられる
+- 表示位置は画面の端で、作業の邪魔をしない。ToastProvider をルートに 1 つ置き、useToast() の toast() で呼ぶ
+
+**使わない場面**
+
+- 読み終えるまで残したいメッセージ、取り消せない失敗、次の操作が必要な通知。Alert を使う
+- 確認や選択を求めること。Dialog を使う
+- 入力欄の検証エラー。FormField の error を使う
+- 見逃すと困る内容。自動で消えるので、読めなかった人は取り返せない。ボタンなど操作を載せることもできない
+
+**キーボード操作**
+
+| キー | 動作 |
+|---|---|
+| Tab | 表示中の Toast の閉じるボタンにフォーカスを移す（フォーカス中は自動で閉じるタイマーが止まる） |
+| Enter / Space | 閉じるボタンを押して Toast を閉じる |
+
+**アクセシビリティ**
+
+- tone が negative / warning なら role="alert"（即時に割り込んで読み上げ）、それ以外は role="status"（現在の読み上げが終わってから）。緊急でない内容に negative / warning を使わない
+- 自動で閉じるまでの既定は 4000ms。マウスホバーかフォーカスの間はタイマーが止まる（WCAG 2.2.1）。長い文は duration を延ばす
+- Toast は Dialog や Drawer を開いている間も操作でき、背景の inert の対象外
+- closeLabel と containerLabel で閉じるボタンと通知領域の名前を変えられる
+
+**文言**
+
+- title は結果を過去形か完了形で短く（「保存しました」「招待を送りました」）
+- 失敗は理由と次の行動を description に書く。ただし重要な失敗は Alert に回す
+
+Related: alert, dialog, form-field, button
 
 **Props**
 
@@ -1449,6 +2502,42 @@ const { toast } = useToast();
 
 Docs: https://kaze-design-system.vercel.app/docs/components/tabs
 
+**使う場面**
+
+- 同じ画面の中で、関連する内容のまとまりを切り替える（概要 / 設定 / 履歴）
+- TabGroup に value と onValueChange（非制御なら defaultValue）を渡し、Tab と TabPanel を同じ value で対応させる
+- variant は "default"（下線）か "pills"（面）。画面の主要な区切りは default、小さな領域の切り替えは pills
+- URL が変わるタブは、Tab に asChild を付けて <a> や Next.js の Link を包む
+
+**使わない場面**
+
+- フォームの値を選ぶこと。選択肢が 2〜5 個なら SegmentedControl、それ以上なら Select（Tabs は中身を切り替え、SegmentedControl は値を選ぶ）
+- 手順を順番に進めること。Stepper を使う
+- アプリ全体の移動。Sidebar か Navbar を使う
+- タブが 6 個を超えるとき。分類を見直すか、Sidebar や Select に移す
+
+**キーボード操作**
+
+| キー | 動作 |
+|---|---|
+| Tab | 選択中のタブにフォーカスを移す。次の Tab で TabPanel に移る |
+| → / ← | 次 / 前のタブにフォーカスを移し、そのタブを選択する。端では反対側に回る |
+| Home / End | 最初 / 最後のタブにフォーカスを移し、選択する |
+
+**アクセシビリティ**
+
+- role="tablist" / "tab" / "tabpanel" と aria-selected、aria-controls、aria-labelledby が付く。Tab と TabPanel の value を揃えると関連付けが自動で繋がる
+- 矢印キーで移動すると同時に選択される（自動選択）。選択のたびに重い処理が走る内容には向かない
+- tablist は横方向のみ。縦のタブとして上下キーで操作する用途は想定していない
+- タブ名は文字で書く。アイコンだけのタブには aria-label を付ける
+
+**文言**
+
+- タブ名は 1〜2 語の名詞にする（「概要」「メンバー」「請求」）
+- 並列の関係にそろえる。動詞と名詞を混ぜない
+
+Related: segmented-control, stepper, sidebar, disclosure
+
 **Props**
 
 - `variant?`: `"default" | "pills"`
@@ -1483,6 +2572,39 @@ Docs: https://kaze-design-system.vercel.app/docs/components/tabs
 
 Docs: https://kaze-design-system.vercel.app/docs/components/sidebar
 
+**使う場面**
+
+- アプリ全体の主要な移動先を、画面の左に常に並べる
+- NavItem の active で現在のページを示す。href を渡すと <a>、渡さないと <button> になる。Next.js の Link は asChild で包む
+- 項目が多いときは SidebarGroupLabel でまとめ、SidebarDivider で区切る
+
+**使わない場面**
+
+- ページ内の切り替え。Tabs を使う
+- 移動先が 5 個以下の小さなサイトや LP。Navbar か TopBar を使う
+- 操作の実行（保存、削除など）を並べること。Button や Dropdown を使う
+- 階層が深いナビゲーション。1 段のグループまでにとどめ、深い階層は Breadcrumb と併用する
+
+**キーボード操作**
+
+| キー | 動作 |
+|---|---|
+| Tab / Shift + Tab | ナビゲーション項目に順番にフォーカスを移す |
+| Enter | リンクやボタンを開く（Space はボタンの項目のみ） |
+
+**アクセシビリティ**
+
+- <aside> の中に <nav> があり、既定の名前は「メインナビゲーション」。ページ内に複数の nav があるときは navLabel で区別する
+- active な NavItem には aria-current="page" が付く。色だけでなく支援技術にも現在地が伝わる
+- アイコンだけで項目を示さない。NavItem には必ずテキストを入れる
+
+**文言**
+
+- 項目名は移動先の名詞で 1〜2 語（「ダッシュボード」「請求」）
+- グループ名は項目をまとめる分類にする（「管理」「設定」）
+
+Related: topbar, breadcrumb, tabs, navbar
+
 **Props**
 
 - `children`: `ReactNode`
@@ -1509,6 +2631,26 @@ Docs: https://kaze-design-system.vercel.app/docs/components/sidebar
 
 Docs: https://kaze-design-system.vercel.app/docs/components/topbar
 
+**使う場面**
+
+- ページの上部に、画面のタイトルや検索、ユーザーメニューなどを置く
+- children に左側の内容、actions に右側の操作を渡す
+- Sidebar と組み合わせて、アプリのシェルを作る
+
+**使わない場面**
+
+- LP やプロダクトサイトのヘッダー。Navbar を使う
+- 主要な移動先の一覧。Sidebar を使う
+- 操作を 4 つ以上並べること。重要なものだけ出し、残りは Dropdown にまとめる
+
+**アクセシビリティ**
+
+- <header> 要素としてレンダリングされる。ページ全体のヘッダーとして 1 つだけ使う
+- actions のアイコンボタンには aria-label を付ける
+- TopBar 自体にキーボード操作はない。中に置いた部品の操作に従う
+
+Related: sidebar, navbar, breadcrumb, search
+
 **Props**
 
 - `children?`: `ReactNode`
@@ -1529,6 +2671,32 @@ Docs: https://kaze-design-system.vercel.app/docs/components/topbar
 現在のページ位置を階層的に表示するパンくずリストコンポーネント。
 
 Docs: https://kaze-design-system.vercel.app/docs/components/breadcrumb
+
+**使う場面**
+
+- 階層が 3 段以上ある画面で、今いる場所と上位への戻り道を示す（ホーム > 設定 > メンバー）
+- items に { label, href } を順に渡す。最後の項目が現在のページで、リンクにならない
+- Next.js の Link などは各項目の as で渡す
+
+**使わない場面**
+
+- 階層のないフラットな画面。置いても情報が増えない
+- 手順の進み具合。Stepper を使う
+- 同じ階層の画面の切り替え。Tabs か Sidebar を使う
+- 最後以外の項目に href を付け忘れること。リンクにならず、ただのテキストになる（上の階層に戻れない）
+
+**アクセシビリティ**
+
+- <nav aria-label="パンくず"> の中の <ol> になる。label でナビゲーションの名前を変えられる
+- 現在のページには aria-current="page" が付く
+- 区切りの記号は視覚だけで、読み上げには含まれない
+
+**文言**
+
+- label は遷移先ページの見出しと同じ言葉にする
+- ページ名を略さない。階層が深いときは中間の項目を減らすのではなく、階層自体を見直す
+
+Related: sidebar, topbar, tabs, pagination
 
 **Props**
 
@@ -1555,6 +2723,35 @@ Docs: https://kaze-design-system.vercel.app/docs/components/breadcrumb
 
 Docs: https://kaze-design-system.vercel.app/docs/components/pagination
 
+**使う場面**
+
+- 表や検索結果など、件数が多い一覧を、ページに分けて見せる
+- page と onPageChange で制御する。任意の初期ページだけ決めるなら defaultPage（非制御）
+- siblingCount（既定 1）で現在のページの前後に出す番号の数を調整する
+
+**使わない場面**
+
+- ページが 2 つ以下のとき。「もっと見る」ボタンのほうが軽い
+- ページの位置が重要でない一覧。無限スクロールか「もっと見る」を検討する
+- 手順の進行。Stepper を使う
+- タブのように中身を切り替える操作。Tabs を使う
+
+**キーボード操作**
+
+| キー | 動作 |
+|---|---|
+| Tab / Shift + Tab | 前へ、ページ番号、次へのボタンに順番にフォーカスを移す |
+| Enter / Space | フォーカス中のボタンを押してページを移動する |
+
+**アクセシビリティ**
+
+- <nav aria-label="ページネーション"> になる。現在のページには aria-current="page" が付く
+- 各ボタンの名前は「3ページ目」のように読み上げられる。文言は pageLabel、prevLabel、nextLabel で変えられる
+- 先頭では「前のページ」、末尾では「次のページ」が disabled になる。省略記号は読み上げられない
+- ページを移動したら、表の先頭など内容の位置に合わせて、必要なら見出しにフォーカスを移す
+
+Related: table, list, breadcrumb, search
+
 **Props**
 
 - `page?`: `number`
@@ -1563,6 +2760,7 @@ Docs: https://kaze-design-system.vercel.app/docs/components/pagination
   - Default: `1`
   - 初期ページ（非制御、既定 1）
 - `currentPage?`: `number`
+  - Deprecated: `page` に改名。次のマイナーで削除
 - `totalPages`: `number`
   - 総ページ数
 - `onPageChange?`: `(page: number) => void`
@@ -1595,6 +2793,32 @@ Docs: https://kaze-design-system.vercel.app/docs/components/pagination
 
 Docs: https://kaze-design-system.vercel.app/docs/components/stepper
 
+**使う場面**
+
+- 登録、購入、セットアップなど、順番に進める手順の現在地を示す
+- steps に { label } を並べ、step に現在の位置を 0 始まりで渡す。それより前は完了として表示する
+- ステップ数は 3〜5 個が目安
+
+**使わない場面**
+
+- ステップをクリックして自由に行き来する操作。Stepper は表示専用。Tabs を使う
+- 作業の進み具合の割合。Progress を使う
+- 順番のない切り替え。Tabs か SegmentedControl を使う
+- ステップが 6 個を超えるとき。手順を分けるか、Progress に切り替える
+
+**アクセシビリティ**
+
+- <ol> のリストで、現在のステップには aria-current="step" が付く
+- 完了したステップは、チェックアイコンに加えて「完了」が読み上げ用に入る
+- ステップが変わったときの通知はない。画面遷移か見出しの更新で、現在地が伝わるようにする
+
+**文言**
+
+- label は 1〜3 語の名詞にする（「情報入力」「確認」「完了」）
+- 手順の最後は「完了」で終える
+
+Related: progress, tabs, breadcrumb, form-field
+
 **Props**
 
 - `steps`: `StepperStep[]`
@@ -1602,6 +2826,7 @@ Docs: https://kaze-design-system.vercel.app/docs/components/stepper
 - `step?`: `number`
   - 現在のステップ（0 始まり）
 - `currentStep?`: `number`
+  - Deprecated: `step` に改名。次のマイナーで削除
 
 **Usage**
 
@@ -1622,6 +2847,40 @@ Docs: https://kaze-design-system.vercel.app/docs/components/stepper
 単一項目の展開/折りたたみ UI（コラプシブル）。HTML の <details>/<summary> の代替として、ブラウザ間のマーカー位置ズレを解消し、kaze のトークンで余白・色・フォントを統一します。内部的には <button> + 領域分けで構築し、aria-expanded/aria-controls を付与、Escape キーで閉じる操作にも対応。FAQ コンポーネントが複数 Q&A の束であるのに対し、Disclosure はテーブル内の補足やヘルプテキストなど任意の場所に単品で挿入できます。
 
 Docs: https://kaze-design-system.vercel.app/docs/components/disclosure
+
+**使う場面**
+
+- 補足、FAQ、詳細設定など、必要な人だけが開けばよい内容をたたんでおく
+- defaultOpen で初期状態、open と onOpenChange で制御する
+- icon は "chevron"（既定）か "plus"、variant は default / ghost / bordered から選ぶ
+
+**使わない場面**
+
+- ほとんどの人が読むべき内容。最初から見せる
+- 画面を切り替えるような大きな区切り。Tabs を使う
+- 短い補足の説明。Tooltip か HelpButton を使う
+- FAQ を載せるマーケティングページ。FAQ を使う
+
+**キーボード操作**
+
+| キー | 動作 |
+|---|---|
+| Tab | トリガーにフォーカスを移す |
+| Enter / Space | 開閉を切り替える |
+| Escape | 開いているときにトリガーにフォーカスがあれば閉じる |
+
+**アクセシビリティ**
+
+- トリガーは <button> で、aria-expanded と aria-controls が付く。内容は <section> が aria-labelledby でトリガーの名前を持つ
+- 閉じている内容は hidden になり、読み上げにもタブ移動にも含まれない
+- disabled にするとトリガーも押せなくなる。理由が必要なら近くに文言で示す
+
+**文言**
+
+- title は開いたときに何が見えるかが分かる言葉にする（「詳細設定」「配送について」）
+- 「もっと見る」だけにしない。何についてかを入れる
+
+Related: faq, tabs, help-button, card
 
 **Props**
 
@@ -1685,6 +2944,41 @@ not auto-rotated.
 
 Docs: https://kaze-design-system.vercel.app/docs/components/dialog
 
+**使う場面**
+
+- 削除や解約など、取り消せない操作の確認。続ける前に必ず判断してほしいとき
+- 短い入力を求めて、終わるまで背景の操作を止めたいとき（名前の変更、招待の送信）
+- open と onOpenChange で制御する。DialogHeader / DialogTitle / DialogBody / DialogFooter の順に組む
+
+**使わない場面**
+
+- 操作の結果を伝えるだけ。Toast を使う（Dialog は操作を止めて判断を求めるときのもの）
+- 画面に残しておく注意や説明。Alert を使う
+- 一覧を見ながら詳細を編集したいとき。Drawer を使う
+- 補足の説明やちょっとした設定。Tooltip、Popover、HelpButton を使う（Dialog を重ねるのも避け、手順を分けるか画面遷移にする）
+
+**キーボード操作**
+
+| キー | 動作 |
+|---|---|
+| Tab / Shift + Tab | Dialog 内の操作に順にフォーカスを移す。端では反対側に回り、外には出ない |
+| Escape | onOpenChange(false) を呼ぶ。重なっているときは最前面だけ閉じる |
+
+**アクセシビリティ**
+
+- role="dialog" と aria-modal="true" が付き、aria-labelledby は DialogTitle に自動でつながる。DialogTitle を必ず置く
+- 開くと最初のフォーカスできる要素にフォーカスが移り、背景は inert になって読み上げ・操作の対象外になる。閉じると開いた要素にフォーカスが戻る
+- 背景のスクロールは止まる。背景クリックでも閉じるので、入力途中のものがあるときは onOpenChange 側で確認する
+- 閉じる処理は呼び出し側が持つ。onOpenChange(false) を受けて open を false にしないと閉じない
+
+**文言**
+
+- DialogTitle は何をするかを問いで書く（「このプロジェクトを削除しますか」）
+- ボタンは問いに対応する動詞にする。「削除する」と「キャンセル」。「OK」「はい」は使わない
+- 本文は影響を 1〜2 文で書く。取り消せないときはそれを明記する
+
+Related: drawer, toast, alert, popover, button
+
 **Props**
 
 - `open`: `boolean`
@@ -1692,7 +2986,9 @@ Docs: https://kaze-design-system.vercel.app/docs/components/dialog
 - `onOpenChange?`: `(open: boolean) => void`
   - Escape / 背景クリック / 閉じる操作で呼ばれる。`open` を false にするのは呼び出し側
 - `onClose?`: `() => void`
+  - Deprecated: `onOpenChange` に改名。次のマイナーで削除
 - `returnFocusRef?`: `RefObject<HTMLElement | null>`
+  - Deprecated: useFocusTrap handles focus restoration automatically. Kept for backward compat: ignored.
 - `title?`: `string`
   - ダイアログのタイトル
 - `children?`: `React.ReactNode`
@@ -1711,6 +3007,40 @@ Docs: https://kaze-design-system.vercel.app/docs/components/dialog
 画面の端から出るモーダルパネル。Dialog と同じ挙動（フォーカストラップ・背景の inert 化・スクロールロック・Escape・背景クリック・閉じアニメ・フォーカス復帰）で、フィルターや詳細表示のように一覧を見たまま操作したい場面に向きます。モバイル幅では side="bottom"（ボトムシート）を推奨します。
 
 Docs: https://kaze-design-system.vercel.app/docs/components/drawer
+
+**使う場面**
+
+- 一覧や表を見ながら、行の詳細を確認・編集したいとき。背景の文脈を残せる
+- 絞り込みや設定など、画面の横から出す補助的なパネル
+- side は "right"（既定）、"left"、"bottom"。狭い画面では "bottom"。size は sm / md / lg
+
+**使わない場面**
+
+- 短い確認や、はい・いいえの判断。Dialog を使う
+- 結果を伝えるだけ。Toast を使う
+- 画面の主な内容。常に見せたいなら Sidebar か通常のレイアウトに置く
+- ツールチップ程度の補足。Popover か HelpButton を使う
+
+**キーボード操作**
+
+| キー | 動作 |
+|---|---|
+| Tab / Shift + Tab | Drawer 内の操作に順にフォーカスを移す。端では反対側に回り、外には出ない |
+| Escape | onOpenChange(false) を呼ぶ。重なっているときは最前面だけ閉じる |
+
+**アクセシビリティ**
+
+- role="dialog" と aria-modal="true" が付く。モーダルなので、背景は inert になり、スクロールも止まる
+- 名前は DrawerTitle から付く。タイトルを置かない場合は aria-label を渡す
+- 開くと最初のフォーカスできる要素に移り、閉じると開いた要素に戻る
+- 背景クリックでも閉じる。open を false にするのは呼び出し側
+
+**文言**
+
+- DrawerTitle は対象と目的が分かる名詞にする（「注文の詳細」「絞り込み」）
+- フッターのボタンは Dialog と同じく動詞で書く（「保存する」「閉じる」）
+
+Related: dialog, popover, sidebar, table
 
 **Props**
 
@@ -1756,6 +3086,40 @@ import { Button, Drawer, DrawerBody, DrawerFooter, DrawerHeader, DrawerTitle } f
 
 Docs: https://kaze-design-system.vercel.app/docs/components/tooltip
 
+**使う場面**
+
+- アイコンだけのボタンの名前や、省略した文字の補足など、読めなくても操作に困らない短い説明
+- side（既定 "top"）で出る向きを指定する。画面の端では反対側に自動で切り替わる
+- delay（既定 200ms）で、通りすがりのホバーでは出ないようにする
+
+**使わない場面**
+
+- 操作に必須の情報や、入力のルール。常に表示するか FormField の hint に書く
+- リンクやボタンを含む内容、長い説明。Popover か HelpButton を使う
+- タッチ端末でしか伝わらない情報。ホバーのない端末では見えない前提で設計する
+- disabled のボタンの理由を載せること。フォーカスもホバーも受けないことがあるので、近くに文言で書く
+
+**キーボード操作**
+
+| キー | 動作 |
+|---|---|
+| Tab | トリガーにフォーカスを移すと、delay のあとに Tooltip が表示される |
+| Escape | 表示中の Tooltip を閉じる（フォーカスは動かない） |
+
+**アクセシビリティ**
+
+- role="tooltip" の要素が、トリガーの aria-describedby に結ばれる。名前（aria-label）の代わりにはならない
+- アイコンだけのボタンには aria-label を付けたうえで、見える補足として Tooltip を添える
+- ホバー・フォーカスで出て、Escape で閉じ、Tooltip の上にポインターを乗せても消えない（WCAG 1.4.13）
+- 中にフォーカスできる要素を入れない。操作できる中身は Popover を使う
+
+**文言**
+
+- 1 行、10〜20 字を目安に名詞か動詞句で書く（「ダークモードに切り替え」）
+- ボタンのラベルを繰り返さない。ラベルが「保存」なら、「変更を保存」のように足りない情報を書く
+
+Related: popover, help-button, button, form-field
+
 **Props**
 
 - `content`: `ReactNode`
@@ -1790,6 +3154,36 @@ Docs: https://kaze-design-system.vercel.app/docs/components/tooltip
 クリックで開く非モーダルの浮遊パネル。Dialog と違い背景は操作でき、Escape・外側クリックで閉じてトリガーにフォーカスを戻します。ホバーで出る補足は Tooltip、メニュー項目は Dropdown を使います。
 
 Docs: https://kaze-design-system.vercel.app/docs/components/popover
+
+**使う場面**
+
+- ボタンやリンク、入力欄など、操作できる中身を、クリックで開く小さなパネルに入れる（フィルター、簡単な設定、日付の選択）
+- PopoverTrigger と PopoverContent を Popover で包み、中の閉じるボタンには PopoverClose を使う
+- side（既定 "bottom"）と align で出る位置を決める。画面の端では反対側に切り替わる。anchorRef で別の要素に寄せられる
+
+**使わない場面**
+
+- 補足を読むだけのとき。操作できる中身がなければ Tooltip か HelpButton を使う
+- 背景の操作を止めたい確認や必須の入力。Dialog を使う
+- 大きなフォームや長いコンテンツ。Drawer か Dialog を使う
+- 操作を並べたメニュー。Dropdown を使う
+
+**キーボード操作**
+
+| キー | 動作 |
+|---|---|
+| Enter / Space | トリガーを押して開閉する |
+| Tab / Shift + Tab | 開いたパネル内の操作にフォーカスを移す（フォーカスは閉じ込めない） |
+| Escape | パネルを閉じる。フォーカスがトリガーかパネルの中にあればトリガーに戻る |
+
+**アクセシビリティ**
+
+- トリガーには aria-haspopup="dialog"、aria-expanded、aria-controls が付き、パネルは role="dialog"（モーダルではない）
+- 開くと最初のフォーカスできる要素にフォーカスが移る。なければパネル自体。onOpenAutoFocus で preventDefault すると初期フォーカスを自分で決められる
+- 背景は inert にならず、スクロールも止まらない。パネルの外をクリックすると閉じる
+- パネルに名前が必要なら aria-label か aria-labelledby を渡す
+
+Related: tooltip, help-button, dialog, dropdown, date-picker
 
 **Props**
 
@@ -1845,6 +3239,41 @@ import { Button, Popover, PopoverClose, PopoverContent, PopoverTrigger } from "k
 
 Docs: https://kaze-design-system.vercel.app/docs/components/help-button
 
+**使う場面**
+
+- フォームのラベルの横など、読みたい人だけが開く短い補足（用語の説明、入力のルール）
+- title と本文（children）で、数行の説明を出す
+- position で出る向き、size で幅（sm / md / lg）を決める
+
+**使わない場面**
+
+- 読まないと操作を間違える情報。画面上に常に表示する
+- リンクやボタン、入力欄を含む内容。Popover を使う
+- アイコンボタンの名前だけを補う。Tooltip を使う
+- 長い説明や手順。別ページか Disclosure で見せる
+
+**キーボード操作**
+
+| キー | 動作 |
+|---|---|
+| Tab | ヘルプボタンにフォーカスを移す |
+| Enter / Space | 説明を開閉する |
+| Escape | 説明を閉じて、ヘルプボタンにフォーカスを戻す |
+
+**アクセシビリティ**
+
+- ボタンの名前は ariaLabel（既定「ヘルプ」）。同じ画面に複数あるときは「パスワードのヘルプ」のように何のヘルプかを入れる
+- aria-expanded が付き、開いた説明は role="dialog"（aria-modal="false"）。開いてもフォーカスは説明には移らない
+- 説明は DOM の末尾に出るので、Tab で説明の中に入りにくい。リンクなど操作できる中身は入れない
+- 外をクリックすると閉じる
+
+**文言**
+
+- title は何についての説明かを名詞で書く（「ワークスペース名とは」）
+- 本文は 2〜3 文まで。結論から書く
+
+Related: tooltip, popover, form-field, disclosure
+
 **Props**
 
 - `title?`: `string`
@@ -1883,6 +3312,43 @@ Docs: https://kaze-design-system.vercel.app/docs/components/help-button
 
 Docs: https://kaze-design-system.vercel.app/docs/components/dropdown
 
+**使う場面**
+
+- 1 つのボタンに、関連する操作を 3 つ以上まとめる（編集、複製、削除）
+- 行ごとの「…」メニューなど、省スペースで操作を出したいとき
+- DropdownTrigger、DropdownMenu、DropdownItem を並べ、項目の onSelect で処理する。区切りは DropdownSeparator
+
+**使わない場面**
+
+- フォームの値を選ぶこと。Select か Combobox を使う（Dropdown は操作を実行する）
+- ページ移動のナビゲーション。Sidebar や Breadcrumb を使う
+- 操作が 1〜2 個のとき。Button を直接並べる
+- 入力欄やフィルターなど、操作できる中身を入れる。Popover を使う
+
+**キーボード操作**
+
+| キー | 動作 |
+|---|---|
+| Enter / Space | トリガーでメニューを開き、最初の項目にフォーカスする。項目では選択して閉じる |
+| ↓ / ↑ | トリガーでは開いて最初 / 最後の項目に移る。メニューでは次 / 前の項目に移る（端で回る） |
+| Home / End | 最初 / 最後の項目に移る |
+| 文字キー | その文字で始まる項目に移る（日本語の入力中は除く） |
+| Escape / Tab | メニューを閉じてトリガーにフォーカスを戻す。Tab はそのまま次の要素へ進む |
+
+**アクセシビリティ**
+
+- トリガーに aria-haspopup="menu"、aria-expanded、aria-controls が付く。メニューは role="menu"、項目は role="menuitem"
+- 項目を選ぶとメニューが閉じ、フォーカスはトリガーに戻る
+- disabled の項目は aria-disabled になり、矢印キーの移動から外れる
+- 削除など危険な操作は項目のラベルで明示し、Dialog で確認する
+
+**文言**
+
+- 項目は動詞で書き、語尾をそろえる（「名前を変更」「複製」「削除」）
+- 危険な操作は区切りを入れて、最後に置く
+
+Related: select, popover, button, dialog
+
 **Props**
 
 - `children`: `ReactNode`
@@ -1920,6 +3386,43 @@ Docs: https://kaze-design-system.vercel.app/docs/components/dropdown
 コマンドパレット
 
 Docs: https://kaze-design-system.vercel.app/docs/components/command-palette
+
+**使う場面**
+
+- アプリ内の移動や操作を、キーボードで検索して実行する。操作が多いアプリの上級者向け
+- commands に { id, label, group, keywords, onSelect } を渡す。group で見出し付きに分かれ、keywords で別名や英語名でも見つかる
+- open と onOpenChange で制御する。開くショートカット（⌘K など）は呼び出し側で用意する
+
+**使わない場面**
+
+- 初めての利用者が見つける必要のある主要な操作。ふつうの画面上のボタンやメニューにも置く
+- 選択肢から値を選ぶこと。Select か Combobox を使う
+- フォームの入力やコンテンツの検索。Search を使う
+- 操作が 5 個以下のアプリ。Dropdown で足りる
+
+**キーボード操作**
+
+| キー | 動作 |
+|---|---|
+| 文字入力 | label と keywords で絞り込む（全角・半角、ひらがな・カタカナ、大文字・小文字を区別しない） |
+| ↓ / ↑ | 候補を次 / 前に移す。端では反対側に回る。フォーカスは入力欄に残る |
+| Enter | 選択中のコマンドを実行して閉じる |
+| Escape | 閉じる（背後の Dialog などは閉じない） |
+| Tab / Shift + Tab | パレット内でフォーカスを回す。外には出ない |
+
+**アクセシビリティ**
+
+- role="dialog"（aria-modal）の中に、combobox の入力欄と listbox の候補が入る。選択中の候補は aria-activedescendant で伝わる
+- 候補にフォーカスは移らず、入力欄に残る。日本語入力の変換中のキーは IME に任せ、パレットは反応しない
+- 該当なしのときは emptyMessage が role="status" で伝わる
+- dialog の名前は label（既定「コマンドパレット」）。背景は inert にならず、スクロールだけ止まる
+
+**文言**
+
+- label は動詞を含む操作名か、移動先の名前にする（「プロジェクトを作成」「設定を開く」）
+- keywords に略称、英語名、読みを入れて、探す人の言葉で見つかるようにする
+
+Related: search, dialog, dropdown, combobox
 
 **Props**
 
@@ -1962,6 +3465,26 @@ Docs: https://kaze-design-system.vercel.app/docs/components/command-palette
 
 Docs: https://kaze-design-system.vercel.app/docs/components/layout
 
+**使う場面**
+
+- サイドバー + トップバー + 本文の構成で、業務アプリやダッシュボードの画面全体を組む
+- 画面ごとに 1 つだけ置き、sidebar と topbar に Sidebar / Topbar を渡す
+- 本文は children に渡す。内側が <main> になるので、ページ内に別の <main> を作らない
+
+**使わない場面**
+
+- LP やマーケティングページの骨組み。Navbar、Section、LPFooter を並べる
+- 本文の中で要素を並べるだけの用途。カードや項目の並びは Grid を使う
+- ダイアログや入れ子の画面に AppLayout を重ねること。画面全体の枠は 1 つで足りる
+
+**アクセシビリティ**
+
+- 本文は <main> で包まれるため、スクリーンリーダーの「メインコンテンツへ移動」で本文に飛べる
+- sidebar と topbar は渡した要素のままなので、Sidebar や Topbar 側のランドマーク（<nav> など）が読み上げに使われる
+- スキップリンクは用意していない。キーボード利用者のためにサイドバーの項目が多い画面では、利用側で本文へのスキップリンクを足す
+
+Related: sidebar, topbar, grid, breadcrumb
+
 **Props**
 
 - `sidebar?`: `ReactNode`
@@ -1988,6 +3511,30 @@ Docs: https://kaze-design-system.vercel.app/docs/components/layout
 
 Docs: https://kaze-design-system.vercel.app/docs/components/divider
 
+**使う場面**
+
+- 意味のまとまりが切り替わる場所に線を引く（設定画面のグループ間、メニューの区分けなど）
+- 「または」のように 2 つの選択肢をつなぐときは text を付ける（ログインのメールとソーシャルの間など）
+- 線を主張させたくない密な領域では subtle を使う
+
+**使わない場面**
+
+- 余白だけで区切れる場面。線を足すより gap や padding を整える
+- 見出しで区切るべき場面。節の区切りは Heading でタイトルを付ける
+- 表の行間やリストの行間。Table の罫線や List の divided を使う
+
+**アクセシビリティ**
+
+- text なしは <hr> で出力され、区切りとして読み上げられる
+- text 付きは <div> で出力され、区切りの役割は伝わらず、文字だけが読まれる。「または」のような文言は読まれても意味が通る書き方にする
+- 見た目だけの線で、読み上げでは不要な場面では aria-hidden を付ける
+
+**文言**
+
+- text は「または」「ほか」のように 1 語から数語で書く。説明文にはしない
+
+Related: card, list, heading, form-field
+
 **Props**
 
 - `text?`: `string`
@@ -2009,6 +3556,25 @@ Docs: https://kaze-design-system.vercel.app/docs/components/divider
 レスポンシブ対応のグリッドレイアウト。ブレイクポイントごとのカラム数を prop で制御。
 
 Docs: https://kaze-design-system.vercel.app/docs/components/grid
+
+**使う場面**
+
+- カード、指標、画像など、同じ種類の要素を等幅の列で並べる
+- columns（デスクトップ）、columnsMd（1024px 以下）、columnsSm（640px 以下）で画面幅ごとの列数を決める。スマホは 1 列にするのが基本
+- 余白は gap に "sm" "md" "lg" のような意味の名前か、space トークンの数値を渡す
+
+**使わない場面**
+
+- マーケティングの特長紹介や料金の並び。FeatureGrid や PricingGrid が専用の見た目を持っている
+- 行と列の見出しがあるデータ。Table を使う
+- 要素が 1 列に縦積みされるだけの場面。Grid でなくスタック用のユーティリティで足りる
+
+**アクセシビリティ**
+
+- 出力は <div> で、役割は付かない。並び順がそのまま読み上げ順になるので、見た目で並び替えず DOM の順を意味どおりにする
+- 項目の集まりであることを伝えたいときは、子に List を使うか、利用側で role を足す
+
+Related: card, metric, feature-grid, layout
 
 **Props**
 
@@ -2047,6 +3613,38 @@ Docs: https://kaze-design-system.vercel.app/docs/components/grid
 
 Docs: https://kaze-design-system.vercel.app/docs/components/search
 
+**使う場面**
+
+- 一覧や画面内を絞り込む、1 行の検索ボックス
+- Enter で検索を確定する場面は onSearch、打つたびに絞り込む場面は onValueChange を使い分ける
+- ショートカットを案内するときは shortcut に "⌘K" のように書く。表示だけで、キー自体は利用側で割り当てる
+
+**使わない場面**
+
+- 操作の呼び出しや画面移動を兼ねる検索。CommandPalette を使う
+- 選択肢から 1 つ選ぶ入力。候補が多いときは Combobox を使う
+- フォームの一般的な文字入力。Input を使う
+
+**キーボード操作**
+
+| キー | 動作 |
+|---|---|
+| Tab | 検索ボックスにフォーカスを移す |
+| Enter | onSearch を呼ぶ。日本語入力の変換確定中は呼ばない |
+
+**アクセシビリティ**
+
+- 外側が role="search" のランドマークになり、スクリーンリーダーで検索領域へ移動できる
+- 虫眼鏡アイコンは aria-hidden で、ショートカット表示（kbd）も読み上げない
+- aria-label を省くと placeholder が入力欄の名前になる。placeholder を変えるときは名前として通じる言葉にし、ページ内に検索が複数あるなら aria-label で区別する
+
+**文言**
+
+- placeholder は「注文を検索」「メンバーを探す」のように、何を探せるかを書く。「検索」だけは対象が分からない
+- 検索結果がないときは、空の状態を EmptyState で示し、条件を変える方法を伝える
+
+Related: input, command-palette, combobox, topbar, empty-state
+
 **Props**
 
 - `placeholder?`: `string`
@@ -2062,6 +3660,7 @@ Docs: https://kaze-design-system.vercel.app/docs/components/search
 - `onValueChange?`: `(value: string) => void`
   - Called with the new value on every change
 - `onChange?`: `(value: string) => void`
+  - Deprecated: `onValueChange` に改名。次のマイナーで削除
 - `aria-label?`: `string`
   - Accessible label for the search input
 - `inputProps?`: `Omit<InputHTMLAttributes<HTMLInputElement>, "value" | "onChange" | "type">`
@@ -2078,6 +3677,25 @@ Docs: https://kaze-design-system.vercel.app/docs/components/search
 ロゴ
 
 Docs: https://kaze-design-system.vercel.app/docs/components/logo
+
+**使う場面**
+
+- Navbar、Sidebar、LPFooter の先頭に置くブランド表示
+- 狭い場所や既にサービス名が見える場所では showText={false} でマークだけにする
+- size は sm、md、lg の 3 つ。ナビゲーションは md、LP の大きな見出し周りは lg
+
+**使わない場面**
+
+- 自社サービスのロゴの差し替え。Kaze の Logo は Kaze 自身のマークなので、自社のロゴは img や SVG を Navbar の logo スロットに渡す
+- 意味を持つアイコンの代わり。Icon を使う
+- ロゴの変形（色替え、回転、余白の削り）。currentColor で描かれるので、色は親の color で決める
+
+**アクセシビリティ**
+
+- マークは aria-hidden で、文字 "kaze 風" が名前として読まれる
+- showText={false} にすると読み上げる名前が無くなる。リンクで包む場合は、リンク側に aria-label="ホームへ" のような名前を付ける
+
+Related: navbar, sidebar, lp-footer, icon
 
 **Props**
 
@@ -2100,6 +3718,30 @@ Docs: https://kaze-design-system.vercel.app/docs/components/logo
 アイコン
 
 Docs: https://kaze-design-system.vercel.app/docs/components/icon
+
+**使う場面**
+
+- lucide-react などのアイコンを、Kaze のサイズ（xs 12、sm 14、md 16、lg 20、xl 24 px）に揃えて置く
+- 文字に添える装飾のアイコンは label を付けない。隣の文字が意味を伝えるので、読み上げからは外れる
+- アイコンだけで意味を伝える場面（状態を示す印など）は label を付ける。role="img" と aria-label として出力される
+
+**使わない場面**
+
+- アイコンだけのボタン。Button の iconOnly と aria-label を使う
+- 文字で十分に伝わる意味をアイコンに任せること。アイコンは補助で、重要な操作や状態には文字を添える
+- Kaze の内部で使う線画（検索の虫眼鏡など）を差し替える用途。コンポーネントが自前で持っている
+
+**アクセシビリティ**
+
+- label なしは aria-hidden で隠れ、ありは role="img" と aria-label で読み上げられる
+- 同じ意味の文字が隣にあるのに label も付けると二重に読まれる。どちらか一方にする
+- 色だけで状態を伝えない。アイコンの形と label か隣の文字でも伝える
+
+**文言**
+
+- label は「エラー」「完了」のように、アイコンが示す意味を短く書く。「赤い丸」「チェックのアイコン」のように見た目は書かない
+
+Related: button, status-badge, alert, tooltip
 
 **Props**
 
@@ -2126,6 +3768,33 @@ import { Icon } from "kaze-design-system";
 セマンティックな見出しコンポーネント。レベル1〜6、説明テキスト、ボーダー付きに対応。
 
 Docs: https://kaze-design-system.vercel.app/docs/components/heading
+
+**使う場面**
+
+- ページと節のタイトル。見出しは文書の構造を作るので、見た目の大きさでなく階層で選ぶ
+- level は見た目（heading--1 から 6 のスタイル）を決める。出力のタグは既定で同じ数字の h1 から h6
+- 見た目と階層が食い違うときは as でタグを指定する。例: 文書上は h3 だが目立たせたくないなら、level={5} と as="h3" を組み合わせる
+- 見出しの補足は description に渡す。見出しの直後に <p> が付く
+
+**使わない場面**
+
+- 大きな文字や太字にするだけの用途。見出しでない文は Text の size と weight で整える
+- level の飛ばし（h2 の次に h4）。階層が分かりづらく、スクリーンリーダーの見出し一覧が崩れる
+- ページに h1 を複数置くこと。h1 はページのタイトルで 1 つ。Hero を使う LP では Hero が h1 を出力するので、ほかに h1 を置かない
+- カードやパネルの中の短いタイトルを見た目の都合で h1 や h2 にすること。周囲の階層に合わせた level（多くは 3 か 4）を選ぶ
+
+**アクセシビリティ**
+
+- スクリーンリーダー利用者は見出し一覧から目的の節へ移動する。ページ全体で h1、h2、h3 の順に入れ子になっているかを確認する
+- level の既定は 2。ページの最上位に置くなら level={1} を明示する
+- Section 内の SectionHeader は h2、FeatureCard と PricingCard は h3、LPFooter の列見出しは h4 を出力する。これらの下や前後に Heading を置くときは階層を合わせる
+
+**文言**
+
+- 見出しだけを読んで、その節に何が書いてあるか分かるようにする。「概要」より「請求書の発行方法」
+- 文にするなら言い切る。体言止めか、「〜する」で終える
+
+Related: text, section, hero, description-list
 
 **Props**
 
@@ -2154,6 +3823,32 @@ Docs: https://kaze-design-system.vercel.app/docs/components/heading
 汎用テキストコンポーネント。variant / size / weight / color / align を prop で制御。LP や UI で独自 CSS なしにテキストを扱える。
 
 Docs: https://kaze-design-system.vercel.app/docs/components/text
+
+**使う場面**
+
+- 本文、補足、注釈など、見出しでない文章
+- variant は body（本文）、lead（導入文）、caption（図表の説明や注釈）、overline（見出しの上の小さなラベル）から選ぶ
+- color は muted や subtle で重要度を下げ、positive、warning、negative で状態を伝える。色だけで伝えず、文言でも伝える
+- 意味のある強調は as="strong"、語調の強調は as="em" で出力する。見た目だけなら weight を使う
+
+**使わない場面**
+
+- 節のタイトル。Heading を使い、文書の構造に載せる
+- 大きく目立たせるために size="2xl" を使って見出し代わりにすること。読み上げの見出し一覧に出ず、構造が伝わらない
+- ラベルとして使う場面で as="p" のままにすること。フォーム項目のラベルは FormField か as="label" に htmlFor を付ける
+- key と value を組にして並べる用途。DescriptionList を使う
+
+**アクセシビリティ**
+
+- 既定は <p>。インラインの文は as="span" にして、<p> の入れ子を避ける
+- color だけで意味を伝えない。negative の文には「エラー」など、色なしでも分かる言葉を入れる
+- size を下げすぎない。xs は補足にとどめ、読ませたい文には base 以上を使う
+
+**文言**
+
+- 1 文を短く。長い説明は段落を分け、重要な結論を先に書く
+
+Related: heading, badge, description-list, form-field
 
 **Props**
 
@@ -2190,6 +3885,39 @@ Docs: https://kaze-design-system.vercel.app/docs/components/text
 アイテム一覧を表示するリストコンポーネント。アイコン・説明・アクション付き。
 
 Docs: https://kaze-design-system.vercel.app/docs/components/list
+
+**使う場面**
+
+- 同じ種類の項目を縦に並べる（メンバー、通知、設定項目、ファイルなど）。各行にアイコンやアバター（leading）、状態や操作（trailing）、補足（description）を付けられる
+- 順番に意味があるときは marker="decimal" で <ol> にする。手順や順位が該当する
+- 行全体を押せるようにするときは interactive を付け、遷移なら asChild で <a> を包む
+
+**使わない場面**
+
+- ラベルと値の組（氏名: 相楽 実咲、プラン: Pro など）。DescriptionList を使う
+- 列ごとに比較・並べ替えるデータ。Table を使う
+- 出来事を時系列で追う履歴。Timeline を使う
+- 行ごとに別々の操作を持つメニュー。Dropdown を使う
+
+**キーボード操作**
+
+| キー | 動作 |
+|---|---|
+| Tab | interactive の行がリンクなら、行ごとにフォーカスを移す |
+| Enter | フォーカスしたリンクを開く |
+
+**アクセシビリティ**
+
+- marker が decimal のとき <ol>、それ以外は <ul> で出力され、項目数が読み上げられる
+- interactive だけでは行は押せない。クリックの処理を付けるなら <button> を中に置くか、asChild で <a> にする。<li> に onClick だけ付けてもキーボードで操作できない
+- asChild のときは <li> の中に <a> が入る。リンクの名前は title と description をまとめて読まれるので、title は単独で意味が通る言葉にする
+
+**文言**
+
+- title は項目名を短く、description は title にない補足を書く。同じ内容を繰り返さない
+- trailing に置くバッジや日付は、短く揃える。行ごとに長さがばらつくと崩れる
+
+Related: description-list, table, timeline, avatar, dropdown
 
 **Props**
 
@@ -2248,6 +3976,32 @@ Docs: https://kaze-design-system.vercel.app/docs/components/list
 
 Docs: https://kaze-design-system.vercel.app/docs/components/description-list
 
+**使う場面**
+
+- 項目名と値の組を並べる（詳細画面のプロフィール、注文情報、設定の確認など）
+- 項目名が短く値が長いときは horizontal で横並びにする。スマホでは縦に積む
+- 区切り線が欲しいときは bordered を付ける
+
+**使わない場面**
+
+- 同じ項目名の行が何件も続くデータ。列で比較できる Table を使う
+- 項目名のない並び。List を使う
+- 時刻順の出来事。Timeline を使う
+- 編集できる入力欄。FormField と Input を使う
+
+**アクセシビリティ**
+
+- <dl>、<dt>、<dd> で出力され、項目名と値の対応が支援技術に伝わる
+- 1 組は DescriptionItem で包み、term に項目名、children に値を渡す。出力は <div> で包んだ <dt> と <dd> の 1 組
+- 値が空のときは「未設定」のように言葉で示す。空の <dd> は読み上げで途切れて聞こえる
+
+**文言**
+
+- 項目名は名詞で短く（「メールアドレス」「契約プラン」）。末尾に「:」は付けない
+- 値は単位を含めて書く（「12 席」「2026 年 10 月 29 日」）。日付や数の書式は画面全体で揃える
+
+Related: list, table, card, form-field
+
 **Props**
 
 - `horizontal?`: `boolean`
@@ -2281,6 +4035,32 @@ Docs: https://kaze-design-system.vercel.app/docs/components/description-list
 時系列のイベントを縦に表示するタイムラインコンポーネント。
 
 Docs: https://kaze-design-system.vercel.app/docs/components/timeline
+
+**使う場面**
+
+- 出来事を時系列で縦に並べる（変更履歴、注文の進捗、監査ログなど）
+- tone で出来事の性質を点の色に出す（positive は完了、warning は保留、negative は失敗、info は通知）。tone は色の補助で、文言でも伝える
+- time に日時、title に出来事、description に詳細を渡す。新しいものを上にするか下にするかは画面で揃える
+
+**使わない場面**
+
+- 手順の進行を示す UI。今どの段階かを見せるなら Stepper を使う
+- 並び順に意味がない一覧。List を使う
+- 日時と値を列で比べる履歴。Table を使う
+- 旧 prop の status は使わない。tone に統一する
+
+**アクセシビリティ**
+
+- <ul> と <li> で出力され、項目数は伝わるが、点の色は読み上げられない。状態の違いは title か description の言葉に含める
+- time は文字として読まれるだけで、<time> 要素ではない。機械的に日時を扱う必要があるときは、利用側で title や description に <time dateTime> を使う
+- 点は装飾で、読み上げには出ない
+
+**文言**
+
+- title は「何が起きたか」を過去形か体言止めで書く（「請求書を発行」「承認が完了」）
+- time は同じ書式で揃える。相対表記（3 分前）と絶対表記（10 月 29 日 14:30）を混ぜない
+
+Related: stepper, list, table, status-badge
 
 **Props**
 
@@ -2316,6 +4096,40 @@ Docs: https://kaze-design-system.vercel.app/docs/components/timeline
 
 Docs: https://kaze-design-system.vercel.app/docs/components/navbar
 
+**使う場面**
+
+- LP やプロダクトサイトの最上部に置く、ロゴ + ページ内リンク + 主な操作の帯
+- logo にロゴ、children に NavbarLinks を渡し、右側の actions に「ログイン」と主な CTA を置く
+- 現在のページやセクションのリンクには active を付ける。aria-current="page" が出力される
+- ヒーロー画像に重ねるときは transparent にする
+
+**使わない場面**
+
+- 業務アプリの画面上部。Topbar と Sidebar を使う
+- リンクが 6 個を超える構成。主要なものだけ残し、残りは LPFooter に移す
+- actions に主な操作を 2 つ以上並べること。主な操作は 1 つにし、もう 1 つは文字のリンクか outline にする
+
+**キーボード操作**
+
+| キー | 動作 |
+|---|---|
+| Tab | ロゴ、リンク、actions の順にフォーカスを移す |
+| Enter | フォーカスしたリンクを開く（ボタンは Enter / Space で押す） |
+
+**アクセシビリティ**
+
+- <nav> のランドマークで出力される。ページに <nav> が複数ある（フッターなど）ときは aria-label="メイン" のように名前を付けて区別する
+- リンクは <ul> の <li> に入り、項目数が読み上げられる
+- Next.js の Link を使うときは asChild で包む。as も使えるが、両方指定したときは asChild が優先される
+- ページ内アンカーに active を付ける場合も aria-current="page" になる。現在地として正しいか確認する
+
+**文言**
+
+- リンク名は 2 から 6 文字の名詞（「機能」「料金」「導入事例」）。動詞の文にしない
+- ログインは「ログイン」、登録の導線は「無料で始める」のように動詞で書く
+
+Related: logo, hero, lp-footer, topbar, button
+
 **Props**
 
 - `logo?`: `ReactNode`
@@ -2346,6 +4160,34 @@ Docs: https://kaze-design-system.vercel.app/docs/components/navbar
 ヒーローセクション
 
 Docs: https://kaze-design-system.vercel.app/docs/components/hero
+
+**使う場面**
+
+- LP の最上部。何が手に入るかを 1 文で伝え、次の行動を 1 つ示す
+- title は h1 で出力される。ページに h1 は 1 つなので、LP のほかの場所で h1 を使わない
+- badge にリリースや対象の短い一言、subtitle に title の根拠を 1 から 2 文で添える
+- children には CTA を置く。主な操作を 1 つ（primary）、補助を 1 つまで
+
+**使わない場面**
+
+- ページの 2 番目以降のセクション。Section と SectionHeader を使う
+- 多色のグラデーション背景。bg と bgImage には Zinc 系の単色か、単一のアクセント色を使う。複数の色相を混ぜない
+- title や badge に絵文字を入れること
+- 文字が読めない画像を敷くこと。bgImage を使うときは overlay で暗くし、文字が読めるコントラストを確かめる
+
+**アクセシビリティ**
+
+- title は <h1> として読み上げられ、ページの主題になる。ページの <title> と合わせる
+- bg、bgImage の背景は装飾で、読み上げられない。伝えたい内容は title と subtitle に文字で書く
+- 背景色と文字色のコントラスト比は 4.5:1 以上にする。bgImage の上は overlay で確保する
+
+**文言**
+
+- title は「何が手に入るか」を 1 文で言い切る。例: 「請求から入金確認まで、1 つの画面で終わる」。「次世代の」「革新的な」のような形容は避け、数字か具体的な成果を入れる
+- subtitle は title を言い換えず、対象や条件を足す（誰向けか、どれくらいで始められるか）
+- CTA は動詞で書く（「無料で始める」「資料を請求する」）。「こちら」「詳しくはこちら」は避ける。badge は名詞で短く（「v1.0 を公開」「中小企業向け」）
+
+Related: navbar, section, cta-banner, button, split-section
 
 **Props**
 
@@ -2388,6 +4230,32 @@ Docs: https://kaze-design-system.vercel.app/docs/components/hero
 
 Docs: https://kaze-design-system.vercel.app/docs/components/section
 
+**使う場面**
+
+- LP を縦に区切る基本の単位。Section の中に SectionHeader と本文（FeatureGrid、Stats など）を置く
+- size は sm、md、lg で上下の余白を変える。節の重みに合わせる
+- background は default、muted、dark。節の切り替わりを背景で示し、muted と default を交互にするのが基本
+- SectionHeader の title は h2 で出力される。節ごとに 1 つ置く
+
+**使わない場面**
+
+- ページ最上部。Hero を使う
+- 業務アプリの画面内のまとまり。Card や Heading を使う
+- dark を何度も重ねること。強い節はページ内で 1 回から 2 回にとどめる
+- 背景の違いを装飾のために増やすこと。色数は default、muted、dark の 3 つで足りる
+
+**アクセシビリティ**
+
+- <section> で出力されるが、名前がないとランドマークにならない。節のタイトルと結びつけたいときは aria-labelledby で見出しの id を指す
+- SectionHeader の h2 は Hero の h1 の下の階層。節の中の小見出しは h3 から始める（FeatureCard と PricingCard は h3）
+
+**文言**
+
+- SectionHeader の title は、その節で読者が得ることを言い切る（「3 つの手順で導入できる」）。「特長」「機能一覧」のようなラベルだけの見出しは避ける
+- description は 1 から 2 文。title の繰り返しにしない
+
+Related: hero, feature-grid, split-section, stats, cta-banner
+
 **Props**
 
 - `size?`: `"sm" | "md" | "lg"`
@@ -2413,6 +4281,32 @@ Docs: https://kaze-design-system.vercel.app/docs/components/section
 画像＋テキストの左右分割レイアウト。LP の交互セクションに最適。
 
 Docs: https://kaze-design-system.vercel.app/docs/components/split-section
+
+**使う場面**
+
+- 画像や画面のスクリーンショットと、説明の文章を左右に並べる。1 つの機能を深く説明する節に使う
+- media に画像や図、children に見出し・本文・リンクを渡す。左右を入れ替えるときは reverse
+- 2 つ以上続けるときは reverse を交互にして、視線が左右に動くようにする
+
+**使わない場面**
+
+- 同じ重みの特長を並べる場面。FeatureGrid を使う
+- 画像のない節。Section と SectionHeader だけで足りる
+- 3 つ以上の要素を横に並べること。2 列は文字と画像の組に限る
+- mediaBg で複数の色相のグラデーションを使うこと。単色か単一アクセントの控えめな背景にする
+
+**アクセシビリティ**
+
+- 出力は <section> で、見出しを自動では持たない。children の先頭に h2 か h3 の見出しを置き、節の階層に合わせる
+- media の画像には、内容を伝える alt を付ける。飾りなら alt="" にする
+- DOM の順序は media が先、本文が後で、reverse は見た目だけを入れ替える。読み上げでも本文より先に media が読まれるので、意味のある画像には alt を付け、本文だけで内容が伝わるようにする
+
+**文言**
+
+- 見出しは機能名でなく、それで何ができるかを書く（「承認の状況を一画面で見渡せる」）
+- 本文は 2 から 3 文。リンクは動詞で書く（「仕組みを見る」）
+
+Related: section, feature-grid, hero, cta-banner
 
 **Props**
 
@@ -2447,6 +4341,32 @@ Docs: https://kaze-design-system.vercel.app/docs/components/split-section
 
 Docs: https://kaze-design-system.vercel.app/docs/components/feature-grid
 
+**使う場面**
+
+- 特長や機能を、同じ重みで 2 から 4 列に並べる。columns は 2、3、4（既定は 3）
+- FeatureCard に title、description、必要なら icon を渡す。1 枚で 1 つのことを言う
+- 項目数は columns の倍数に揃える（3 列なら 3 枚か 6 枚）。端数が出ると最後の行が崩れる
+
+**使わない場面**
+
+- 画像で説明したい 1 つの機能。SplitSection を使う
+- 順番や優先度がある項目。手順なら番号付きの List か Stepper を使う
+- データの数値を見せる場面。Stats を使う
+- icon の色を項目ごとに変えること。アイコンの色は 1 色に揃える
+
+**アクセシビリティ**
+
+- FeatureCard の title は h3 で出力される。置く Section の SectionHeader（h2）の下の階層
+- icon はそのまま渡した要素が出力される。装飾なら aria-hidden を付ける（Kaze の Icon は label なしなら自動で付く）
+- カードは <div> で、リンクにはならない。カード全体を押せる想定のデザインにしない
+
+**文言**
+
+- title は 12 文字前後の名詞か短い文（「自動で突合する」）。description は 1 から 2 文で、title にない根拠か数字を入れる
+- 全カードで書き方を揃える（すべて体言止め、すべて「〜する」など）
+
+Related: section, split-section, stats, card, icon
+
 **Props**
 
 - `columns?`: `2 | 3 | 4`
@@ -2466,6 +4386,31 @@ Docs: https://kaze-design-system.vercel.app/docs/components/feature-grid
 数値ハイライト
 
 Docs: https://kaze-design-system.vercel.app/docs/components/stats
+
+**使う場面**
+
+- 導入社数、処理件数、削減時間など、実績の数字を 3 から 4 個並べる
+- StatItem の value に数字と単位（「1,200 社」）、label に何の数字か、description に条件を書く
+- 数字は実データのものだけを使う。集計の時点や範囲を description で示す
+
+**使わない場面**
+
+- ダッシュボードの指標。Metric を使う
+- 根拠のない数字。出典や期間を示せないなら置かない
+- 5 個以上の並べ方。読み手が拾えなくなる
+- 数字の比較・推移。推移はチャート（BarChart、LineChart）を使う
+
+**アクセシビリティ**
+
+- 出力は <div> と <span> だけで、役割や項目数は伝わらない。value、label、description の順に読まれる
+- value は文字列で渡す。単位まで含め、数字だけを装飾で分けるときも読み上げで意味が通るようにする
+
+**文言**
+
+- label は「何の数字か」を名詞で（「導入企業数」）。「実績」のような総称にしない
+- ダミーデータは社名・人名とも、リポジトリで決めたプールから使う。実在企業の数字に見える値を入れない
+
+Related: section, metric, feature-grid, testimonial
 
 **Props**
 
@@ -2491,6 +4436,34 @@ Docs: https://kaze-design-system.vercel.app/docs/components/stats
 料金プラン
 
 Docs: https://kaze-design-system.vercel.app/docs/components/pricing
+
+**使う場面**
+
+- プランを比べて選んでもらう節。PricingGrid の中に PricingCard を 2 から 4 枚並べる
+- おすすめのプランに featured と badge（「人気」など）を付ける。featured は 1 枚だけ
+- price に金額、period に単位（「月」）を渡すと「/月」と表示される。features には含まれる内容を 1 項目 1 行で渡す
+- children に CTA ボタンを置く。各カードのボタンは同じ位置・同じ書き方で揃える
+
+**使わない場面**
+
+- 機能の差を細かく比較する表。Table を使う
+- featured を複数のカードに付けること。どれを選ぶべきか分からなくなる
+- features に条件の長い説明を入れること。1 項目は 1 行に収まる長さにする
+- 価格を画像にすること。文字として渡す
+
+**アクセシビリティ**
+
+- PricingCard の name は h3 で出力される。Section の下に置き、階層を合わせる
+- features は <ul> で出力され、チェックマークは装飾（aria-hidden）。項目数が読み上げられる
+- featured は見た目の強調だけで、読み上げには伝わらない。badge の文言（「人気」）が読み上げの手がかりになる
+
+**文言**
+
+- name は短い固有名（「スタータ」「チーム」）。description にだれ向けかを 1 文で書く
+- price は税込か税抜かを画面のどこかに明記する。料金の表記は公開前に事実確認する
+- CTA は「無料で始める」「営業に相談する」のように動詞で書き、プランの性質に合わせて変える
+
+Related: section, cta-banner, faq, table, button
 
 **Props**
 
@@ -2525,6 +4498,33 @@ Docs: https://kaze-design-system.vercel.app/docs/components/pricing
 
 Docs: https://kaze-design-system.vercel.app/docs/components/testimonial
 
+**使う場面**
+
+- 導入した人の声を、短い引用と名前・役職で見せる。TestimonialGrid の中に 2 から 3 枚並べる
+- quote は 1 から 3 文。具体的な成果（時間、件数、金額）を含むものを選ぶ
+- authorName と authorRole に誰の声かを書く。役職は偏らせず、利用場面が異なる人を混ぜる
+- showIcon で顔写真（authorImage）かイニシャルを出す
+
+**使わない場面**
+
+- 実在の顧客の声を無断で使うこと。掲載の了承がない声は載せない
+- 「とても便利です」のような、何が良いか分からない一言
+- 1 件だけを大きく見せる場面。数字で語るなら Stats、疑問に答えるなら FAQ を使う
+- デモやダミーでの思いつきの架空名。人名と社名はリポジトリで決めたプールから割り当てる
+
+**アクセシビリティ**
+
+- 引用は <blockquote> で出力される。出典の名前と役職は引用の外の別要素で、読み上げ順で引用の次に読まれる
+- authorImage があれば Avatar の alt に authorName が入る。写真が装飾の意味しか持たないなら showIcon を使わない
+- イニシャルは authorName を空白で分けた各語の先頭文字を使う。空白のない名前は 1 文字になる。日本語の名前は姓と名を空白で分けて渡す
+
+**文言**
+
+- quote は話し言葉の調子を残してよいが、誇張や断定の強い言い回し（「No.1」「最高」）は避け、事実だけにする
+- authorRole は「会社名 役職」の順で短く（「ノルン株式会社 取締役 CTO」）
+
+Related: section, stats, avatar, faq, cta-banner
+
 **Props**
 
 - `quote`: `string`
@@ -2552,6 +4552,41 @@ Docs: https://kaze-design-system.vercel.app/docs/components/testimonial
 
 Docs: https://kaze-design-system.vercel.app/docs/components/faq
 
+**使う場面**
+
+- よくある疑問と答えを、開閉式で並べる。導入前の不安（料金、期間、対応範囲）を解く
+- FAQItem の question に質問、answer か children に答えを渡す。答えにリンクや段落を入れるなら children
+- headingLevel は置く場所の階層に合わせる（Section の h2 の下なら既定の 3）
+- 質問は 5 から 8 個。読者が迷う順に並べる
+
+**使わない場面**
+
+- 操作手順や詳しいドキュメント。リンク先のヘルプに書き、FAQ では要点だけ答える
+- 項目が多すぎる一覧。10 個を超えるなら分類するか、検索のあるヘルプに移す
+- 常に読ませたい重要事項。開閉の中に隠さず、本文に書く
+- アプリ内の設定などの開閉。Disclosure を使う
+
+**キーボード操作**
+
+| キー | 動作 |
+|---|---|
+| Tab | 次の質問にフォーカスを移す |
+| Enter / Space | フォーカスした質問の答えを開く・閉じる |
+
+**アクセシビリティ**
+
+- 質問は見出し（既定 h3）の中のボタンで出力され、aria-expanded で開閉の状態が伝わる。見出し一覧から質問に移動できる
+- 閉じている答えは inert と aria-hidden で隠れ、フォーカスも読み上げもされない
+- 1 つを開いても、ほかの質問は閉じない。複数を同時に開ける
+- FAQ 全体を囲む見出し（SectionHeader の h2 など）を先に置き、headingLevel を階層に合わせる
+
+**文言**
+
+- question は読者の言葉で書く（「無料プランに期限はありますか」）。社内の用語は使わない
+- answer は結論から書く。「はい」「いいえ」「できる」で始め、1 から 3 文で理由と条件を足す
+
+Related: section, disclosure, pricing, cta-banner, hero
+
 **Props**
 
 - `question?`: `string`
@@ -2575,6 +4610,32 @@ Docs: https://kaze-design-system.vercel.app/docs/components/faq
 
 Docs: https://kaze-design-system.vercel.app/docs/components/cta-banner
 
+**使う場面**
+
+- ページの終わり近くで、次の行動をもう一度促す帯。ページに 1 つ置く
+- title で行動の価値を 1 文で伝え、description に安心材料（無料、期間、解約の条件など）を添える
+- children に操作を置く。主な操作は 1 つ、補助は 1 つまで
+
+**使わない場面**
+
+- ページ最上部。Hero を使う
+- 1 つのページに何度も置くこと。節ごとに CTA を重ねると、どれが主役か分からない
+- お知らせや警告。Alert を使う
+- 背景に多色のグラデーションを使うこと。単色か単一アクセントにする
+
+**アクセシビリティ**
+
+- title は <h2> で出力される。Hero の h1 の下の階層で、直前の節と同じ階層に並ぶ
+- 中のボタンやリンクは通常の操作として読み上げられる。リンクの文言だけで行き先が分かるようにする
+
+**文言**
+
+- title は読み手の得を言い切る（「今日から請求業務を 1 画面にまとめる」）。「お問い合わせはこちら」のような案内にしない
+- ボタンは動詞で書く（「無料で始める」「資料を請求する」）。Hero の CTA と同じ言葉にそろえると迷わない
+- description は 1 文。条件（無料、クレジットカード不要など）は事実確認してから書く
+
+Related: hero, section, pricing, button, lp-footer
+
 **Props**
 
 - `title`: `string`
@@ -2597,6 +4658,39 @@ Docs: https://kaze-design-system.vercel.app/docs/components/cta-banner
 サイトフッター
 
 Docs: https://kaze-design-system.vercel.app/docs/components/lp-footer
+
+**使う場面**
+
+- LP とプロダクトサイトの最下部。ブランド、リンクの列、著作権や規約へのリンクを置く
+- columns に { title, links } の配列を渡す。列は 2 から 4 つ、1 列のリンクは 5 個程度まで
+- bottomLeft に著作権表示、bottomRight に利用規約・プライバシーポリシーなどを置く
+- logo と description でブランドを 1 から 2 文で紹介する
+
+**使わない場面**
+
+- 業務アプリの画面下部。LPFooter はマーケティングサイト用
+- ナビゲーションの全複製。Navbar と同じ項目を並べず、補助リンク（会社情報、規約、サポート）を中心にする
+- リンクの列に CTA を詰め込むこと。行動の促しは CTABanner に任せる
+
+**キーボード操作**
+
+| キー | 動作 |
+|---|---|
+| Tab | フッター内のリンクを順にフォーカスする |
+| Enter | フォーカスしたリンクを開く |
+
+**アクセシビリティ**
+
+- <footer> で出力され、本文の後ろにあれば contentinfo のランドマークになる
+- 列のタイトルは <h4> で出力される。直前の見出しが h2 のページでは h3 を飛ばすことになるので、見出し一覧での階層を確認する
+- リンクは <a> と <ul> で出力され、列ごとに項目数が伝わる。Navbar が <nav> を持つので、フッターのリンク群に名前が必要なら列を <nav aria-label> で囲む（利用側の対応）
+
+**文言**
+
+- 列のタイトルは「プロダクト」「会社」「サポート」のように名詞で。リンクも名詞で短く
+- 著作権表示は「© 2026 ノルン株式会社」の形。社名はデモではプールから選ぶ
+
+Related: navbar, logo, cta-banner, section
 
 **Props**
 

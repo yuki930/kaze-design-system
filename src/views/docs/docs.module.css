@@ -456,18 +456,17 @@
 
 .guideCard {
   border: 1px solid var(--color-border);
-  border-top-width: 3px;
   border-radius: var(--radius-lg);
   padding: var(--space-4) var(--space-5);
   background: var(--color-bg);
 }
 
-.guideCard[data-kind="use"] {
-  border-top-color: var(--color-positive-strong);
+.guideCard[data-kind="use"] .guideCardTitle {
+  color: var(--color-positive-strong);
 }
 
-.guideCard[data-kind="avoid"] {
-  border-top-color: var(--color-negative-strong);
+.guideCard[data-kind="avoid"] .guideCardTitle {
+  color: var(--color-negative-strong);
 }
 
 .guideCardTitle {
@@ -542,4 +541,17 @@
 
 .relatedList a:hover {
   background: var(--color-bg-secondary);
+}
+
+.deprecatedMark {
+  margin-left: var(--space-1-5);
+  font-family: var(--font-sans);
+  font-size: var(--font-size-2xs);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-fg-tertiary);
+}
+
+.propsTable tr[data-deprecated] td:first-child code {
+  color: var(--color-fg-tertiary);
+  text-decoration: line-through;
 }

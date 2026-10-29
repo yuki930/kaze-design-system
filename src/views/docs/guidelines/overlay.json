@@ -1,1 +1,203 @@
-{}
+{
+  "dialog": {
+    "use": [
+      "削除や解約など、取り消せない操作の確認。続ける前に必ず判断してほしいとき",
+      "短い入力を求めて、終わるまで背景の操作を止めたいとき（名前の変更、招待の送信）",
+      "open と onOpenChange で制御する。DialogHeader / DialogTitle / DialogBody / DialogFooter の順に組む"
+    ],
+    "avoid": [
+      "操作の結果を伝えるだけ。Toast を使う（Dialog は操作を止めて判断を求めるときのもの）",
+      "画面に残しておく注意や説明。Alert を使う",
+      "一覧を見ながら詳細を編集したいとき。Drawer を使う",
+      "補足の説明やちょっとした設定。Tooltip、Popover、HelpButton を使う（Dialog を重ねるのも避け、手順を分けるか画面遷移にする）"
+    ],
+    "keyboard": [
+      { "keys": "Tab / Shift + Tab", "action": "Dialog 内の操作に順にフォーカスを移す。端では反対側に回り、外には出ない" },
+      { "keys": "Escape", "action": "onOpenChange(false) を呼ぶ。重なっているときは最前面だけ閉じる" }
+    ],
+    "a11y": [
+      "role=\"dialog\" と aria-modal=\"true\" が付き、aria-labelledby は DialogTitle に自動でつながる。DialogTitle を必ず置く",
+      "開くと最初のフォーカスできる要素にフォーカスが移り、背景は inert になって読み上げ・操作の対象外になる。閉じると開いた要素にフォーカスが戻る",
+      "背景のスクロールは止まる。背景クリックでも閉じるので、入力途中のものがあるときは onOpenChange 側で確認する",
+      "閉じる処理は呼び出し側が持つ。onOpenChange(false) を受けて open を false にしないと閉じない"
+    ],
+    "writing": [
+      "DialogTitle は何をするかを問いで書く（「このプロジェクトを削除しますか」）",
+      "ボタンは問いに対応する動詞にする。「削除する」と「キャンセル」。「OK」「はい」は使わない",
+      "本文は影響を 1〜2 文で書く。取り消せないときはそれを明記する"
+    ],
+    "related": ["drawer", "toast", "alert", "popover", "button"]
+  },
+  "drawer": {
+    "use": [
+      "一覧や表を見ながら、行の詳細を確認・編集したいとき。背景の文脈を残せる",
+      "絞り込みや設定など、画面の横から出す補助的なパネル",
+      "side は \"right\"（既定）、\"left\"、\"bottom\"。狭い画面では \"bottom\"。size は sm / md / lg"
+    ],
+    "avoid": [
+      "短い確認や、はい・いいえの判断。Dialog を使う",
+      "結果を伝えるだけ。Toast を使う",
+      "画面の主な内容。常に見せたいなら Sidebar か通常のレイアウトに置く",
+      "ツールチップ程度の補足。Popover か HelpButton を使う"
+    ],
+    "keyboard": [
+      { "keys": "Tab / Shift + Tab", "action": "Drawer 内の操作に順にフォーカスを移す。端では反対側に回り、外には出ない" },
+      { "keys": "Escape", "action": "onOpenChange(false) を呼ぶ。重なっているときは最前面だけ閉じる" }
+    ],
+    "a11y": [
+      "role=\"dialog\" と aria-modal=\"true\" が付く。モーダルなので、背景は inert になり、スクロールも止まる",
+      "名前は DrawerTitle から付く。タイトルを置かない場合は aria-label を渡す",
+      "開くと最初のフォーカスできる要素に移り、閉じると開いた要素に戻る",
+      "背景クリックでも閉じる。open を false にするのは呼び出し側"
+    ],
+    "writing": [
+      "DrawerTitle は対象と目的が分かる名詞にする（「注文の詳細」「絞り込み」）",
+      "フッターのボタンは Dialog と同じく動詞で書く（「保存する」「閉じる」）"
+    ],
+    "related": ["dialog", "popover", "sidebar", "table"]
+  },
+  "tooltip": {
+    "use": [
+      "アイコンだけのボタンの名前や、省略した文字の補足など、読めなくても操作に困らない短い説明",
+      "side（既定 \"top\"）で出る向きを指定する。画面の端では反対側に自動で切り替わる",
+      "delay（既定 200ms）で、通りすがりのホバーでは出ないようにする"
+    ],
+    "avoid": [
+      "操作に必須の情報や、入力のルール。常に表示するか FormField の hint に書く",
+      "リンクやボタンを含む内容、長い説明。Popover か HelpButton を使う",
+      "タッチ端末でしか伝わらない情報。ホバーのない端末では見えない前提で設計する",
+      "disabled のボタンの理由を載せること。フォーカスもホバーも受けないことがあるので、近くに文言で書く"
+    ],
+    "keyboard": [
+      { "keys": "Tab", "action": "トリガーにフォーカスを移すと、delay のあとに Tooltip が表示される" },
+      { "keys": "Escape", "action": "表示中の Tooltip を閉じる（フォーカスは動かない）" }
+    ],
+    "a11y": [
+      "role=\"tooltip\" の要素が、トリガーの aria-describedby に結ばれる。名前（aria-label）の代わりにはならない",
+      "アイコンだけのボタンには aria-label を付けたうえで、見える補足として Tooltip を添える",
+      "ホバー・フォーカスで出て、Escape で閉じ、Tooltip の上にポインターを乗せても消えない（WCAG 1.4.13）",
+      "中にフォーカスできる要素を入れない。操作できる中身は Popover を使う"
+    ],
+    "writing": [
+      "1 行、10〜20 字を目安に名詞か動詞句で書く（「ダークモードに切り替え」）",
+      "ボタンのラベルを繰り返さない。ラベルが「保存」なら、「変更を保存」のように足りない情報を書く"
+    ],
+    "related": ["popover", "help-button", "button", "form-field"]
+  },
+  "popover": {
+    "use": [
+      "ボタンやリンク、入力欄など、操作できる中身を、クリックで開く小さなパネルに入れる（フィルター、簡単な設定、日付の選択）",
+      "PopoverTrigger と PopoverContent を Popover で包み、中の閉じるボタンには PopoverClose を使う",
+      "side（既定 \"bottom\"）と align で出る位置を決める。画面の端では反対側に切り替わる。anchorRef で別の要素に寄せられる"
+    ],
+    "avoid": [
+      "補足を読むだけのとき。操作できる中身がなければ Tooltip か HelpButton を使う",
+      "背景の操作を止めたい確認や必須の入力。Dialog を使う",
+      "大きなフォームや長いコンテンツ。Drawer か Dialog を使う",
+      "操作を並べたメニュー。Dropdown を使う"
+    ],
+    "keyboard": [
+      { "keys": "Enter / Space", "action": "トリガーを押して開閉する" },
+      { "keys": "Tab / Shift + Tab", "action": "開いたパネル内の操作にフォーカスを移す（フォーカスは閉じ込めない）" },
+      { "keys": "Escape", "action": "パネルを閉じる。フォーカスがトリガーかパネルの中にあればトリガーに戻る" }
+    ],
+    "a11y": [
+      "トリガーには aria-haspopup=\"dialog\"、aria-expanded、aria-controls が付き、パネルは role=\"dialog\"（モーダルではない）",
+      "開くと最初のフォーカスできる要素にフォーカスが移る。なければパネル自体。onOpenAutoFocus で preventDefault すると初期フォーカスを自分で決められる",
+      "背景は inert にならず、スクロールも止まらない。パネルの外をクリックすると閉じる",
+      "パネルに名前が必要なら aria-label か aria-labelledby を渡す"
+    ],
+    "related": ["tooltip", "help-button", "dialog", "dropdown", "date-picker"]
+  },
+  "help-button": {
+    "use": [
+      "フォームのラベルの横など、読みたい人だけが開く短い補足（用語の説明、入力のルール）",
+      "title と本文（children）で、数行の説明を出す",
+      "position で出る向き、size で幅（sm / md / lg）を決める"
+    ],
+    "avoid": [
+      "読まないと操作を間違える情報。画面上に常に表示する",
+      "リンクやボタン、入力欄を含む内容。Popover を使う",
+      "アイコンボタンの名前だけを補う。Tooltip を使う",
+      "長い説明や手順。別ページか Disclosure で見せる"
+    ],
+    "keyboard": [
+      { "keys": "Tab", "action": "ヘルプボタンにフォーカスを移す" },
+      { "keys": "Enter / Space", "action": "説明を開閉する" },
+      { "keys": "Escape", "action": "説明を閉じて、ヘルプボタンにフォーカスを戻す" }
+    ],
+    "a11y": [
+      "ボタンの名前は ariaLabel（既定「ヘルプ」）。同じ画面に複数あるときは「パスワードのヘルプ」のように何のヘルプかを入れる",
+      "aria-expanded が付き、開いた説明は role=\"dialog\"（aria-modal=\"false\"）。開いてもフォーカスは説明には移らない",
+      "説明は DOM の末尾に出るので、Tab で説明の中に入りにくい。リンクなど操作できる中身は入れない",
+      "外をクリックすると閉じる"
+    ],
+    "writing": [
+      "title は何についての説明かを名詞で書く（「ワークスペース名とは」）",
+      "本文は 2〜3 文まで。結論から書く"
+    ],
+    "related": ["tooltip", "popover", "form-field", "disclosure"]
+  },
+  "dropdown": {
+    "use": [
+      "1 つのボタンに、関連する操作を 3 つ以上まとめる（編集、複製、削除）",
+      "行ごとの「…」メニューなど、省スペースで操作を出したいとき",
+      "DropdownTrigger、DropdownMenu、DropdownItem を並べ、項目の onSelect で処理する。区切りは DropdownSeparator"
+    ],
+    "avoid": [
+      "フォームの値を選ぶこと。Select か Combobox を使う（Dropdown は操作を実行する）",
+      "ページ移動のナビゲーション。Sidebar や Breadcrumb を使う",
+      "操作が 1〜2 個のとき。Button を直接並べる",
+      "入力欄やフィルターなど、操作できる中身を入れる。Popover を使う"
+    ],
+    "keyboard": [
+      { "keys": "Enter / Space", "action": "トリガーでメニューを開き、最初の項目にフォーカスする。項目では選択して閉じる" },
+      { "keys": "↓ / ↑", "action": "トリガーでは開いて最初 / 最後の項目に移る。メニューでは次 / 前の項目に移る（端で回る）" },
+      { "keys": "Home / End", "action": "最初 / 最後の項目に移る" },
+      { "keys": "文字キー", "action": "その文字で始まる項目に移る（日本語の入力中は除く）" },
+      { "keys": "Escape / Tab", "action": "メニューを閉じてトリガーにフォーカスを戻す。Tab はそのまま次の要素へ進む" }
+    ],
+    "a11y": [
+      "トリガーに aria-haspopup=\"menu\"、aria-expanded、aria-controls が付く。メニューは role=\"menu\"、項目は role=\"menuitem\"",
+      "項目を選ぶとメニューが閉じ、フォーカスはトリガーに戻る",
+      "disabled の項目は aria-disabled になり、矢印キーの移動から外れる",
+      "削除など危険な操作は項目のラベルで明示し、Dialog で確認する"
+    ],
+    "writing": [
+      "項目は動詞で書き、語尾をそろえる（「名前を変更」「複製」「削除」）",
+      "危険な操作は区切りを入れて、最後に置く"
+    ],
+    "related": ["select", "popover", "button", "dialog"]
+  },
+  "command-palette": {
+    "use": [
+      "アプリ内の移動や操作を、キーボードで検索して実行する。操作が多いアプリの上級者向け",
+      "commands に { id, label, group, keywords, onSelect } を渡す。group で見出し付きに分かれ、keywords で別名や英語名でも見つかる",
+      "open と onOpenChange で制御する。開くショートカット（⌘K など）は呼び出し側で用意する"
+    ],
+    "avoid": [
+      "初めての利用者が見つける必要のある主要な操作。ふつうの画面上のボタンやメニューにも置く",
+      "選択肢から値を選ぶこと。Select か Combobox を使う",
+      "フォームの入力やコンテンツの検索。Search を使う",
+      "操作が 5 個以下のアプリ。Dropdown で足りる"
+    ],
+    "keyboard": [
+      { "keys": "文字入力", "action": "label と keywords で絞り込む（全角・半角、ひらがな・カタカナ、大文字・小文字を区別しない）" },
+      { "keys": "↓ / ↑", "action": "候補を次 / 前に移す。端では反対側に回る。フォーカスは入力欄に残る" },
+      { "keys": "Enter", "action": "選択中のコマンドを実行して閉じる" },
+      { "keys": "Escape", "action": "閉じる（背後の Dialog などは閉じない）" },
+      { "keys": "Tab / Shift + Tab", "action": "パレット内でフォーカスを回す。外には出ない" }
+    ],
+    "a11y": [
+      "role=\"dialog\"（aria-modal）の中に、combobox の入力欄と listbox の候補が入る。選択中の候補は aria-activedescendant で伝わる",
+      "候補にフォーカスは移らず、入力欄に残る。日本語入力の変換中のキーは IME に任せ、パレットは反応しない",
+      "該当なしのときは emptyMessage が role=\"status\" で伝わる",
+      "dialog の名前は label（既定「コマンドパレット」）。背景は inert にならず、スクロールだけ止まる"
+    ],
+    "writing": [
+      "label は動詞を含む操作名か、移動先の名前にする（「プロジェクトを作成」「設定を開く」）",
+      "keywords に略称、英語名、読みを入れて、探す人の言葉で見つかるようにする"
+    ],
+    "related": ["search", "dialog", "dropdown", "combobox"]
+  }
+}

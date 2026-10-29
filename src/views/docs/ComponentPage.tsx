@@ -118,9 +118,14 @@ interface PropDoc {
   description: string;
   /** Set on the generated table: false means the prop is required */
   optional?: boolean;
+  /** Set on the generated table from the @deprecated JSDoc tag */
+  deprecated?: string;
 }
 
 const propTables = generatedProps as Record<string, PropDoc[]>;
+
+/** JSDoc text uses Markdown code ticks; the table shows plain text */
+const stripCodeTicks = (text: string) => text.replace(/`([^`]+)`/g, "$1");
 
 const componentNames = new Map(
   categories.flatMap((c) => c.components.map((comp) => [comp.path, comp.name] as const)),
@@ -493,7 +498,7 @@ const componentDocs: Record<string, ComponentDoc> = {
   "status-badge": {
     title: "StatusBadge",
     description:
-      "データ状態（live / stale / missing / manual / loading）を一目で示すバッジ。内部で Badge をラップし、適切な variant・ラベル・role=status を自動付与します。ダッシュボード系 UI で各指標の鮮度表示に最適。",
+      "データ状態（live / stale / missing / manual / loading）を一目で示すバッジ。内部で Badge をラップし、適切な tone・ラベル・role=status を自動付与します。ダッシュボード系 UI で各指標の鮮度表示に最適。",
     preview: (
       <div className={styles.previewColumn} style={{ gap: "1rem" }}>
         <div className={styles.preview}>
@@ -940,7 +945,7 @@ const componentDocs: Record<string, ComponentDoc> = {
       >
         <p>トースト通知は画面の端に一時的に表示されるため、ここではプレビューを省略しています。</p>
         <p>
-          <code>variant</code> プロパティで通知の種類を指定できます。
+          <code>tone</code> プロパティで通知の種類を指定できます。
         </p>
       </div>
     ),
@@ -4011,16 +4016,17 @@ export function ComponentPage({ name }: { name?: string } = {}) {
           </thead>
           <tbody>
             {props.map((prop) => (
-              <tr key={prop.name}>
+              <tr key={prop.name} data-deprecated={prop.deprecated ? "" : undefined}>
                 <td>
                   <code>{prop.name}</code>
                   {prop.optional === false && <span className={styles.requiredMark}>必須</span>}
+                  {prop.deprecated && <span className={styles.deprecatedMark}>非推奨</span>}
                 </td>
                 <td>
                   <code>{prop.type}</code>
                 </td>
                 <td>{prop.default ? <code>{prop.default}</code> : "なし"}</td>
-                <td>{prop.description}</td>
+                <td>{stripCodeTicks(prop.deprecated ?? prop.description)}</td>
               </tr>
             ))}
           </tbody>

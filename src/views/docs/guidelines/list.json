@@ -1,1 +1,97 @@
-{}
+{
+  "list": {
+    "use": [
+      "同じ種類の項目を縦に並べる（メンバー、通知、設定項目、ファイルなど）。各行にアイコンやアバター（leading）、状態や操作（trailing）、補足（description）を付けられる",
+      "順番に意味があるときは marker=\"decimal\" で <ol> にする。手順や順位が該当する",
+      "行全体を押せるようにするときは interactive を付け、遷移なら asChild で <a> を包む"
+    ],
+    "avoid": [
+      "ラベルと値の組（氏名: 相楽 実咲、プラン: Pro など）。DescriptionList を使う",
+      "列ごとに比較・並べ替えるデータ。Table を使う",
+      "出来事を時系列で追う履歴。Timeline を使う",
+      "行ごとに別々の操作を持つメニュー。Dropdown を使う"
+    ],
+    "keyboard": [
+      {
+        "keys": "Tab",
+        "action": "interactive の行がリンクなら、行ごとにフォーカスを移す"
+      },
+      {
+        "keys": "Enter",
+        "action": "フォーカスしたリンクを開く"
+      }
+    ],
+    "a11y": [
+      "marker が decimal のとき <ol>、それ以外は <ul> で出力され、項目数が読み上げられる",
+      "interactive だけでは行は押せない。クリックの処理を付けるなら <button> を中に置くか、asChild で <a> にする。<li> に onClick だけ付けてもキーボードで操作できない",
+      "asChild のときは <li> の中に <a> が入る。リンクの名前は title と description をまとめて読まれるので、title は単独で意味が通る言葉にする"
+    ],
+    "writing": [
+      "title は項目名を短く、description は title にない補足を書く。同じ内容を繰り返さない",
+      "trailing に置くバッジや日付は、短く揃える。行ごとに長さがばらつくと崩れる"
+    ],
+    "related": [
+      "description-list",
+      "table",
+      "timeline",
+      "avatar",
+      "dropdown"
+    ]
+  },
+  "description-list": {
+    "use": [
+      "項目名と値の組を並べる（詳細画面のプロフィール、注文情報、設定の確認など）",
+      "項目名が短く値が長いときは horizontal で横並びにする。スマホでは縦に積む",
+      "区切り線が欲しいときは bordered を付ける"
+    ],
+    "avoid": [
+      "同じ項目名の行が何件も続くデータ。列で比較できる Table を使う",
+      "項目名のない並び。List を使う",
+      "時刻順の出来事。Timeline を使う",
+      "編集できる入力欄。FormField と Input を使う"
+    ],
+    "a11y": [
+      "<dl>、<dt>、<dd> で出力され、項目名と値の対応が支援技術に伝わる",
+      "1 組は DescriptionItem で包み、term に項目名、children に値を渡す。出力は <div> で包んだ <dt> と <dd> の 1 組",
+      "値が空のときは「未設定」のように言葉で示す。空の <dd> は読み上げで途切れて聞こえる"
+    ],
+    "writing": [
+      "項目名は名詞で短く（「メールアドレス」「契約プラン」）。末尾に「:」は付けない",
+      "値は単位を含めて書く（「12 席」「2026 年 10 月 29 日」）。日付や数の書式は画面全体で揃える"
+    ],
+    "related": [
+      "list",
+      "table",
+      "card",
+      "form-field"
+    ]
+  },
+  "timeline": {
+    "use": [
+      "出来事を時系列で縦に並べる（変更履歴、注文の進捗、監査ログなど）",
+      "tone で出来事の性質を点の色に出す（positive は完了、warning は保留、negative は失敗、info は通知）。tone は色の補助で、文言でも伝える",
+      "time に日時、title に出来事、description に詳細を渡す。新しいものを上にするか下にするかは画面で揃える"
+    ],
+    "avoid": [
+      "手順の進行を示す UI。今どの段階かを見せるなら Stepper を使う",
+      "並び順に意味がない一覧。List を使う",
+      "日時と値を列で比べる履歴。Table を使う",
+      "旧 prop の status は使わない。tone に統一する"
+    ],
+    "a11y": [
+      "<ul> と <li> で出力され、項目数は伝わるが、点の色は読み上げられない。状態の違いは title か description の言葉に含める",
+      "time は文字として読まれるだけで、<time> 要素ではない。機械的に日時を扱う必要があるときは、利用側で title や description に <time dateTime> を使う",
+      "点は装飾で、読み上げには出ない"
+    ],
+    "writing": [
+      "title は「何が起きたか」を過去形か体言止めで書く（「請求書を発行」「承認が完了」）",
+      "time は同じ書式で揃える。相対表記（3 分前）と絶対表記（10 月 29 日 14:30）を混ぜない"
+    ],
+    "related": [
+      "stepper",
+      "list",
+      "table",
+      "status-badge"
+    ]
+  }
+}

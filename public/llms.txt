@@ -44,7 +44,7 @@ import { Hero, PricingGrid } from "kaze-design-system/marketing";
 
 - [Card](https://kaze-design-system.vercel.app/docs/components/card): カードコンポーネント
 - [Badge](https://kaze-design-system.vercel.app/docs/components/badge): バッジ
-- [StatusBadge](https://kaze-design-system.vercel.app/docs/components/status-badge): データ状態（live / stale / missing / manual / loading）を一目で示すバッジ。内部で Badge をラップし、適切な variant・ラベル・role=status を自動付与します。ダッシュボード系 UI で各指標の鮮度表示に最適。
+- [StatusBadge](https://kaze-design-system.vercel.app/docs/components/status-badge): データ状態（live / stale / missing / manual / loading）を一目で示すバッジ。内部で Badge をラップし、適切な tone・ラベル・role=status を自動付与します。ダッシュボード系 UI で各指標の鮮度表示に最適。
 - [Table](https://kaze-design-system.vercel.app/docs/components/table): テーブル
 - [Metric](https://kaze-design-system.vercel.app/docs/components/metric): メトリクス表示
 - [Avatar](https://kaze-design-system.vercel.app/docs/components/avatar): アバター

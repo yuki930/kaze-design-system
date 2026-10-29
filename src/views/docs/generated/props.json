@@ -55,7 +55,7 @@
       "name": "aria-describedby",
       "type": "string",
       "optional": true,
-      "description": "ID of the element that describes this input (e.g. error or helper text)",
+      "description": "補足やエラー文言の要素 ID。FormField で包むと自動で結ばれる",
       "default": ""
     },
     {
@@ -94,7 +94,7 @@
       "name": "error",
       "type": "boolean",
       "optional": true,
-      "description": "Marks the checkbox invalid (sets aria-invalid). `aria-invalid` passed directly is honored too.",
+      "description": "エラー状態にする（aria-invalid が付く）。aria-invalid を直接渡してもよい",
       "default": ""
     },
     {
@@ -188,13 +188,6 @@
       "default": "\"default\""
     },
     {
-      "name": "variant",
-      "type": "\"default\" | \"positive\" | \"negative\" | \"warning\" | \"info\"",
-      "optional": true,
-      "description": "",
-      "default": ""
-    },
-    {
       "name": "dot",
       "type": "boolean",
       "optional": true,
@@ -212,8 +205,16 @@
       "name": "live",
       "type": "boolean",
       "optional": true,
-      "description": "When true, adds role=\"status\" for live-region announcements",
+      "description": "true のとき role=\"status\" を付け、変化を読み上げる",
       "default": ""
+    },
+    {
+      "name": "variant",
+      "type": "\"default\" | \"positive\" | \"negative\" | \"warning\" | \"info\"",
+      "optional": true,
+      "description": "",
+      "default": "",
+      "deprecated": "`tone` に改名。次のマイナーで削除"
     }
   ],
   "status-badge": [
@@ -244,7 +245,7 @@
       "name": "compact",
       "type": "boolean",
       "optional": true,
-      "description": "",
+      "description": "行の高さを詰める",
       "default": ""
     },
     {
@@ -295,7 +296,7 @@
       "name": "variant",
       "type": "\"default\" | \"pills\"",
       "optional": true,
-      "description": "",
+      "description": "見た目。default は下線、pills は塗りのピル",
       "default": ""
     },
     {
@@ -410,20 +411,6 @@
       "default": ""
     },
     {
-      "name": "onClose",
-      "type": "() => void",
-      "optional": true,
-      "description": "",
-      "default": ""
-    },
-    {
-      "name": "returnFocusRef",
-      "type": "RefObject<HTMLElement | null>",
-      "optional": true,
-      "description": "",
-      "default": ""
-    },
-    {
       "name": "title",
       "type": "string",
       "optional": true,
@@ -436,6 +423,22 @@
       "optional": true,
       "description": "ダイアログの内容",
       "default": ""
+    },
+    {
+      "name": "onClose",
+      "type": "() => void",
+      "optional": true,
+      "description": "",
+      "default": "",
+      "deprecated": "`onOpenChange` に改名。次のマイナーで削除"
+    },
+    {
+      "name": "returnFocusRef",
+      "type": "RefObject<HTMLElement | null>",
+      "optional": true,
+      "description": "使われていない（閉じたときのフォーカスは自動で開いた要素に戻る）",
+      "default": "",
+      "deprecated": "useFocusTrap handles focus restoration automatically. Kept for backward compat: ignored."
     }
   ],
   "tooltip": [
@@ -457,21 +460,21 @@
       "name": "open",
       "type": "boolean",
       "optional": true,
-      "description": "Controlled open state. Hover / focus / Escape then only call `onOpenChange`",
+      "description": "表示状態（制御）。指定すると、ホバー・フォーカス・Escape は onOpenChange を呼ぶだけになる",
       "default": ""
     },
     {
       "name": "defaultOpen",
       "type": "boolean",
       "optional": true,
-      "description": "Initial open state (uncontrolled)",
+      "description": "初期の表示状態（非制御）",
       "default": ""
     },
     {
       "name": "onOpenChange",
       "type": "(open: boolean) => void",
       "optional": true,
-      "description": "",
+      "description": "表示状態が変わる時のコールバック",
       "default": ""
     },
     {
@@ -485,21 +488,21 @@
       "name": "delay",
       "type": "number",
       "optional": true,
-      "description": "Delay in ms before the tooltip shows",
+      "description": "表示までの待ち時間（ミリ秒）",
       "default": ""
     },
     {
       "name": "className",
       "type": "string",
       "optional": true,
-      "description": "Extra class for the tooltip element",
+      "description": "ツールチップ要素に足すクラス",
       "default": ""
     },
     {
       "name": "style",
       "type": "CSSProperties",
       "optional": true,
-      "description": "Inline style for the tooltip element (position is controlled by the component)",
+      "description": "ツールチップ要素のインラインスタイル（位置はコンポーネントが決める）",
       "default": ""
     }
   ],
@@ -550,7 +553,7 @@
       "name": "className",
       "type": "string",
       "optional": true,
-      "description": "",
+      "description": "ルート要素に足すクラス",
       "default": ""
     }
   ],
@@ -559,28 +562,28 @@
       "name": "children",
       "type": "ReactNode",
       "optional": false,
-      "description": "",
+      "description": "DropdownTrigger と DropdownMenu",
       "default": ""
     },
     {
       "name": "open",
       "type": "boolean",
       "optional": true,
-      "description": "",
+      "description": "開閉状態（制御）",
       "default": ""
     },
     {
       "name": "defaultOpen",
       "type": "boolean",
       "optional": true,
-      "description": "Initial open state for uncontrolled usage",
+      "description": "初期の開閉状態（非制御）",
       "default": ""
     },
     {
       "name": "onOpenChange",
       "type": "(open: boolean) => void",
       "optional": true,
-      "description": "",
+      "description": "開閉が変わる時のコールバック",
       "default": ""
     },
     {
@@ -624,7 +627,7 @@
       "name": "children",
       "type": "ReactNode",
       "optional": false,
-      "description": "",
+      "description": "ToastProvider で包むアプリ全体",
       "default": ""
     },
     {
@@ -731,7 +734,7 @@
       "name": "children",
       "type": "ReactElement",
       "optional": true,
-      "description": "The form control element (Input, Select, Textarea, etc.)",
+      "description": "フォーム部品（Input、Select、Textarea など）。id と aria 属性が自動で結ばれる",
       "default": ""
     }
   ],
@@ -858,7 +861,7 @@
       "name": "filter",
       "type": "(command: Command, query: string) => boolean",
       "optional": true,
-      "description": "Replace the default matcher (width / kana / case insensitive match on label and keywords)",
+      "description": "絞り込みの差し替え。既定は label と keywords を、全角半角・ひらがなカタカナ・大文字小文字を区別せずに照合する",
       "default": ""
     }
   ],
@@ -927,28 +930,21 @@
       "name": "value",
       "type": "string",
       "optional": true,
-      "description": "Controlled value",
+      "description": "入力値（制御）",
       "default": ""
     },
     {
       "name": "defaultValue",
       "type": "string",
       "optional": true,
-      "description": "Initial value (uncontrolled)",
+      "description": "初期値（非制御）",
       "default": ""
     },
     {
       "name": "onValueChange",
       "type": "(value: string) => void",
       "optional": true,
-      "description": "Called with the new value on every change",
-      "default": ""
-    },
-    {
-      "name": "onChange",
-      "type": "(value: string) => void",
-      "optional": true,
-      "description": "",
+      "description": "入力値が変わるたびに呼ばれる",
       "default": ""
     },
     {
@@ -962,8 +958,16 @@
       "name": "inputProps",
       "type": "Omit<InputHTMLAttributes<HTMLInputElement>, \"value\" | \"onChange\" | \"type\">",
       "optional": true,
-      "description": "Extra props for the inner <input> (name, disabled, autoComplete, onBlur, ...). `...rest` stays on the wrapper.",
+      "description": "内側の input に渡す属性（name、disabled、autoComplete、onBlur など）",
       "default": ""
+    },
+    {
+      "name": "onChange",
+      "type": "(value: string) => void",
+      "optional": true,
+      "description": "",
+      "default": "",
+      "deprecated": "`onValueChange` に改名。次のマイナーで削除"
     }
   ],
   "logo": [
@@ -1167,7 +1171,7 @@
       "name": "description",
       "type": "string",
       "optional": true,
-      "description": "",
+      "description": "プラン名の下に出す短い説明",
       "default": ""
     },
     {
@@ -1239,7 +1243,7 @@
       "name": "showIcon",
       "type": "boolean",
       "optional": true,
-      "description": "Show avatar or initials icon",
+      "description": "アバター画像かイニシャルを表示する",
       "default": ""
     }
   ],
@@ -1359,7 +1363,7 @@
       "name": "children",
       "type": "ReactNode",
       "optional": false,
-      "description": "",
+      "description": "見出しの文言",
       "default": ""
     }
   ],
@@ -1440,14 +1444,14 @@
       "name": "gapMd",
       "type": "\"xs\" | \"sm\" | \"md\" | \"lg\" | \"xl\" | SpaceToken | number | (string & {})",
       "optional": true,
-      "description": "Gap at ≤1024px: falls back to gap",
+      "description": "1024px 以下での間隔。未指定なら gap",
       "default": ""
     },
     {
       "name": "gapSm",
       "type": "\"xs\" | \"sm\" | \"md\" | \"lg\" | \"xl\" | SpaceToken | number | (string & {})",
       "optional": true,
-      "description": "Gap at ≤640px: falls back to gapMd, then gap",
+      "description": "640px 以下での間隔。未指定なら gapMd、それもなければ gap",
       "default": ""
     }
   ],
@@ -1470,7 +1474,7 @@
       "name": "children",
       "type": "ReactNode",
       "optional": false,
-      "description": "",
+      "description": "ListItem の並び",
       "default": ""
     },
     {
@@ -1544,7 +1548,7 @@
       "name": "children",
       "type": "ReactNode",
       "optional": false,
-      "description": "",
+      "description": "TimelineItem の並び",
       "default": ""
     },
     {
@@ -1602,7 +1606,7 @@
       "name": "aria-label",
       "type": "string",
       "optional": false,
-      "description": "Accessible label for the chart (required for accessibility)",
+      "description": "グラフの名前（必須）。読み上げで何のグラフかを伝える",
       "default": ""
     }
   ],
@@ -1653,28 +1657,28 @@
       "name": "showGrid",
       "type": "boolean",
       "optional": true,
-      "description": "Show horizontal grid lines (default: true)",
+      "description": "横の目盛り線を表示する",
       "default": ""
     },
     {
       "name": "showXAxis",
       "type": "boolean",
       "optional": true,
-      "description": "Show x axis labels (default: true)",
+      "description": "X 軸のラベルを表示する",
       "default": ""
     },
     {
       "name": "showYAxis",
       "type": "boolean",
       "optional": true,
-      "description": "Show y axis labels (default: true)",
+      "description": "Y 軸のラベルを表示する",
       "default": ""
     },
     {
       "name": "showLegend",
       "type": "boolean",
       "optional": true,
-      "description": "Show the toggleable legend (default: true)",
+      "description": "クリックで系列を切り替えられる凡例を表示する",
       "default": ""
     },
     {
@@ -1853,14 +1857,14 @@
       "name": "startDate",
       "type": "string",
       "optional": true,
-      "description": "calendar: first day (`YYYY-MM-DD`). Defaults to the earliest date in `data`",
+      "description": "calendar のときの開始日（YYYY-MM-DD）。未指定なら data の最初の日",
       "default": ""
     },
     {
       "name": "endDate",
       "type": "string",
       "optional": true,
-      "description": "calendar: last day (`YYYY-MM-DD`). Defaults to the latest date in `data`",
+      "description": "calendar のときの終了日（YYYY-MM-DD）。未指定なら data の最後の日",
       "default": ""
     },
     {
@@ -2055,7 +2059,7 @@
       "name": "aria-label",
       "type": "string",
       "optional": false,
-      "description": "Accessible label for the chart (required for accessibility)",
+      "description": "グラフの名前（必須）。読み上げで何のグラフかを伝える",
       "default": ""
     }
   ],
@@ -2099,7 +2103,7 @@
       "name": "label",
       "type": "string",
       "optional": true,
-      "description": "Accessible name. When given the sparkline is exposed as an image with this label;\nwithout it the SVG is decorative (aria-hidden), e.g. next to a visible KPI value.",
+      "description": "読み上げ用の名前。指定すると画像として読まれ、省略すると装飾として読み飛ばされる",
       "default": ""
     }
   ],
@@ -2110,13 +2114,6 @@
       "optional": true,
       "description": "意味色（旧 variant）",
       "default": "\"info\""
-    },
-    {
-      "name": "variant",
-      "type": "\"default\" | \"positive\" | \"negative\" | \"warning\" | \"info\"",
-      "optional": true,
-      "description": "",
-      "default": ""
     },
     {
       "name": "icon",
@@ -2138,6 +2135,14 @@
       "optional": false,
       "description": "アラートの内容",
       "default": ""
+    },
+    {
+      "name": "variant",
+      "type": "\"default\" | \"positive\" | \"negative\" | \"warning\" | \"info\"",
+      "optional": true,
+      "description": "",
+      "default": "",
+      "deprecated": "`tone` に改名。次のマイナーで削除"
     }
   ],
   "progress": [
@@ -2152,7 +2157,7 @@
       "name": "max",
       "type": "number",
       "optional": true,
-      "description": "",
+      "description": "最大値",
       "default": ""
     },
     {
@@ -2177,18 +2182,19 @@
       "default": "\"default\""
     },
     {
-      "name": "color",
-      "type": "\"default\" | \"positive\" | \"negative\" | \"warning\" | \"info\"",
-      "optional": true,
-      "description": "",
-      "default": ""
-    },
-    {
       "name": "size",
       "type": "\"sm\" | \"md\" | \"lg\"",
       "optional": true,
       "description": "プログレスバーの高さ",
       "default": "\"md\""
+    },
+    {
+      "name": "color",
+      "type": "\"default\" | \"positive\" | \"negative\" | \"warning\" | \"info\"",
+      "optional": true,
+      "description": "",
+      "default": "",
+      "deprecated": "`tone` に改名。次のマイナーで削除"
     }
   ],
   "switch": [
@@ -2320,13 +2326,6 @@
       "default": "1"
     },
     {
-      "name": "currentPage",
-      "type": "number",
-      "optional": true,
-      "description": "",
-      "default": ""
-    },
-    {
       "name": "totalPages",
       "type": "number",
       "optional": false,
@@ -2374,6 +2373,14 @@
       "optional": true,
       "description": "Accessible label for each page button (default: `${page}ページ目`)",
       "default": ""
+    },
+    {
+      "name": "currentPage",
+      "type": "number",
+      "optional": true,
+      "description": "",
+      "default": "",
+      "deprecated": "`page` に改名。次のマイナーで削除"
     }
   ],
   "stepper": [
@@ -2396,7 +2403,8 @@
       "type": "number",
       "optional": true,
       "description": "",
-      "default": ""
+      "default": "",
+      "deprecated": "`step` に改名。次のマイナーで削除"
     }
   ],
   "disclosure": [
@@ -2467,21 +2475,21 @@
       "name": "className",
       "type": "string",
       "optional": true,
-      "description": "Additional class on the root wrapper",
+      "description": "ルート要素に足すクラス",
       "default": ""
     },
     {
       "name": "triggerClassName",
       "type": "string",
       "optional": true,
-      "description": "Additional class on the trigger button",
+      "description": "開閉ボタンに足すクラス",
       "default": ""
     },
     {
       "name": "contentClassName",
       "type": "string",
       "optional": true,
-      "description": "Additional class on the content region",
+      "description": "中身の領域に足すクラス",
       "default": ""
     },
     {
@@ -2504,7 +2512,7 @@
       "name": "orientation",
       "type": "\"horizontal\" | \"vertical\"",
       "optional": true,
-      "description": "",
+      "description": "並べる向き（horizontal は横、vertical は縦）",
       "default": ""
     },
     {
@@ -2518,7 +2526,7 @@
       "name": "errorMessage",
       "type": "string",
       "optional": true,
-      "description": "",
+      "description": "グループの下に出すエラー文言",
       "default": ""
     }
   ],
@@ -2599,7 +2607,7 @@
       "name": "color",
       "type": "string",
       "optional": true,
-      "description": "Watermark text color",
+      "description": "透かし文字の色",
       "default": ""
     },
     {
@@ -2613,7 +2621,7 @@
       "name": "children",
       "type": "ReactNode",
       "optional": true,
-      "description": "",
+      "description": "透かしを重ねる中身",
       "default": ""
     }
   ],
@@ -2675,18 +2683,19 @@
       "default": ""
     },
     {
+      "name": "size",
+      "type": "\"sm\" | \"md\" | \"lg\"",
+      "optional": true,
+      "description": "バーの高さ",
+      "default": ""
+    },
+    {
       "name": "color",
       "type": "\"default\" | \"positive\" | \"negative\" | \"warning\" | \"info\"",
       "optional": true,
       "description": "",
-      "default": ""
-    },
-    {
-      "name": "size",
-      "type": "\"sm\" | \"md\" | \"lg\"",
-      "optional": true,
-      "description": "Size",
-      "default": ""
+      "default": "",
+      "deprecated": "`tone` に改名。次のマイナーで削除"
     }
   ],
   "tracker": [
@@ -2740,7 +2749,7 @@
       "name": "defaultValue",
       "type": "number | null",
       "optional": true,
-      "description": "Initial numeric value (uncontrolled)",
+      "description": "初期値（非制御）",
       "default": ""
     },
     {
@@ -2748,13 +2757,6 @@
       "type": "(value: number | null) => void",
       "optional": true,
       "description": "値変更時のコールバック（旧 onChange）",
-      "default": ""
-    },
-    {
-      "name": "onChange",
-      "type": "(value: number | null) => void",
-      "optional": true,
-      "description": "",
       "default": ""
     },
     {
@@ -2789,7 +2791,7 @@
       "name": "locale",
       "type": "string",
       "optional": true,
-      "description": "Locale for formatting (default: \"ja-JP\")",
+      "description": "数値の書式に使うロケール（既定は ja-JP）",
       "default": ""
     },
     {
@@ -2817,7 +2819,7 @@
       "name": "errorMessage",
       "type": "string",
       "optional": true,
-      "description": "Error message",
+      "description": "入力欄の下に出すエラー文言（role=\"alert\" で読み上げる）",
       "default": ""
     },
     {
@@ -2847,6 +2849,14 @@
       "optional": true,
       "description": "Accessible label for increment button (default: \"増加\")",
       "default": ""
+    },
+    {
+      "name": "onChange",
+      "type": "(value: number | null) => void",
+      "optional": true,
+      "description": "",
+      "default": "",
+      "deprecated": "`onValueChange` に改名。次のマイナーで削除"
     }
   ],
   "segmented-control": [
@@ -2935,7 +2945,7 @@
       "name": "children",
       "type": "ReactNode",
       "optional": true,
-      "description": "",
+      "description": "PopoverTrigger と PopoverContent",
       "default": ""
     },
     {
@@ -3070,7 +3080,7 @@
       "name": "wrapperClassName",
       "type": "string",
       "optional": true,
-      "description": "Class for the outer wrapper",
+      "description": "外側の要素に足すクラス",
       "default": ""
     },
     {
@@ -3191,21 +3201,21 @@
       "name": "prevMonthLabel",
       "type": "string",
       "optional": true,
-      "description": "",
+      "description": "前の月へ移るボタンの名前（既定は「前の月」）",
       "default": ""
     },
     {
       "name": "nextMonthLabel",
       "type": "string",
       "optional": true,
-      "description": "",
+      "description": "次の月へ移るボタンの名前（既定は「次の月」）",
       "default": ""
     },
     {
       "name": "wrapperClassName",
       "type": "string",
       "optional": true,
-      "description": "Class for the outer wrapper",
+      "description": "外側の要素に足すクラス",
       "default": ""
     },
     {

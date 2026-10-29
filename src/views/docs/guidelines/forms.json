@@ -11,8 +11,14 @@
       "アイコンだけのボタンを説明なしで置くこと。iconOnly のときは aria-label を必ず付け、必要なら Tooltip を添える"
     ],
     "keyboard": [
-      { "keys": "Tab", "action": "ボタンにフォーカスを移す" },
-      { "keys": "Enter / Space", "action": "ボタンを押す" }
+      {
+        "keys": "Tab",
+        "action": "ボタンにフォーカスを移す"
+      },
+      {
+        "keys": "Enter / Space",
+        "action": "ボタンを押す"
+      }
     ],
     "a11y": [
       "disabled のときは aria-disabled も付くので、読み上げで「使用不可」と伝わる",
@@ -23,6 +29,557 @@
       "「保存する」「招待を送る」のように、押すと何が起きるかを動詞で書く。「OK」「はい」は避ける",
       "Dialog のボタンは、本文の問いかけに対応する言葉にする（「削除しますか」なら「削除する」と「キャンセル」）"
     ],
-    "related": ["fab", "dialog", "tooltip", "dropdown"]
+    "related": [
+      "fab",
+      "dialog",
+      "tooltip",
+      "dropdown"
+    ]
+  },
+  "fab": {
+    "use": [
+      "画面の主役になる操作を 1 つだけ、スクロールしても常に押せる位置に置く（新規作成、メッセージ作成など）",
+      "モバイルの一覧画面や、キャンバス上で追加操作が必要な画面",
+      "ラベルが要る場合は extended で、アイコンと文言を並べる"
+    ],
+    "avoid": [
+      "操作が複数ある画面。FAB は 1 画面に 1 つまで。ほかの操作は Button や Dropdown にまとめる",
+      "フォームの送信や保存。フォームの末尾に Button の primary を置く",
+      "ページ内の通常の導線。Button を使う。FAB は position: fixed で画面に固定されるので、本文の流れの中には置けない"
+    ],
+    "keyboard": [
+      {
+        "keys": "Tab",
+        "action": "FAB にフォーカスを移す"
+      },
+      {
+        "keys": "Enter / Space",
+        "action": "FAB を押す"
+      }
+    ],
+    "a11y": [
+      "label は必須。extended でないときは aria-label になり、extended のときは見えているラベル文言が名前になる",
+      "disabled のときは aria-disabled も付く。asChild でリンクにした場合は、属性の代わりにクリックを止める",
+      "固定表示なので、末尾の項目やフッターを隠さないよう、スクロール領域の下に余白を取る"
+    ],
+    "writing": [
+      "「新規作成」「メッセージを書く」のように、押すと何が起きるかを動詞で書く。アイコンだけの FAB でも label に同じ文言を入れる"
+    ],
+    "related": [
+      "button",
+      "dropdown",
+      "tooltip"
+    ]
+  },
+  "input": {
+    "use": [
+      "氏名、メールアドレス、検索語など、1 行で収まる自由入力",
+      "type で用途を指定する（email、tel、url、password）。モバイルのキーボードと自動入力が合う",
+      "検証に失敗した状態は error で赤枠にし、理由は FormField の error か近くの文言で伝える"
+    ],
+    "avoid": [
+      "数量・金額・割合などの数値。カンマ区切り、全角入力、増減ボタンが要るなら NumberField",
+      "日付。書き方のゆれと和暦の入力を受けたいなら DatePicker",
+      "改行を含む長文。Textarea を使う",
+      "選択肢が決まっている入力。Select（少数）か Combobox（多数）にして、打ち間違いをなくす"
+    ],
+    "keyboard": [
+      {
+        "keys": "Tab",
+        "action": "入力欄にフォーカスを移す"
+      }
+    ],
+    "a11y": [
+      "ラベルは必ず用意する。placeholder はラベルの代わりにならない。FormField で包むと label と関連付く",
+      "error だけでなく aria-invalid も付く（FormField の error でも付く）。色だけで伝えず、エラー文言を添える",
+      "補足やエラーの文言は aria-describedby で結ぶ。FormField が自動で結ぶ"
+    ],
+    "writing": [
+      "placeholder は入力例にとどめる（「例: 相楽 実咲」）。形式の説明は FormField の description に書く"
+    ],
+    "related": [
+      "form-field",
+      "textarea",
+      "number-field",
+      "date-picker",
+      "combobox"
+    ]
+  },
+  "number-field": {
+    "use": [
+      "数量、金額、割合など、数値として扱う入力。step で増減の幅を決め、min / max で範囲を限る",
+      "金額は currency（JPY など）で通貨記号と桁区切りを付ける。単位は suffix（%、件）で添える",
+      "全角数字や「−」の入力を受けたい日本語のフォーム。全角は半角に直して解釈する"
+    ],
+    "avoid": [
+      "郵便番号、電話番号、会員番号など、数値ではない数字の並び。先頭の 0 や区切りが意味を持つので Input を使う",
+      "範囲の大まかな指定。選択肢が少なければ SegmentedControl か Select",
+      "値が長い桁になる ID。桁区切りを付けて表示されてしまう"
+    ],
+    "keyboard": [
+      {
+        "keys": "↑",
+        "action": "step の分だけ増やす"
+      },
+      {
+        "keys": "↓",
+        "action": "step の分だけ減らす"
+      },
+      {
+        "keys": "Enter",
+        "action": "入力を確定する（IME の変換中は確定しない）"
+      },
+      {
+        "keys": "Tab",
+        "action": "確定して次へ移る。増減ボタンはタブ移動の対象外"
+      }
+    ],
+    "a11y": [
+      "入力欄は type=\"text\" に inputMode=\"decimal\"。スクリーンリーダーでは数値入力ではなくテキスト欄として読まれる",
+      "増減ボタンの名前は decrementLabel / incrementLabel で変える。既定は「減少」「増加」",
+      "label と errorMessage を自前で持つ。errorMessage は role=\"alert\" で読み上げられ、aria-describedby で結ばれる",
+      "値の確定はフォーカスが外れたとき。入力中は onValueChange が呼ばれない"
+    ],
+    "writing": [
+      "label に単位を含めない。単位は suffix や currency で見せる（label「割引率」、suffix「%」）",
+      "範囲があるときは、description か errorMessage に「0 から 100 の間で入力してください」のように範囲を書く"
+    ],
+    "related": [
+      "input",
+      "form-field",
+      "select",
+      "segmented-control"
+    ]
+  },
+  "select": {
+    "use": [
+      "選択肢が 6 件から 10 件程度で、1 つだけ選ぶ入力（都道府県の絞り込み、並び順など）",
+      "送信ボタンで確定するフォームの 1 項目",
+      "モバイルでは OS 標準のピッカーが開くので、選択肢が多くても操作しやすい"
+    ],
+    "avoid": [
+      "選択肢が 5 件以下で全部見せたいとき。Radio（送信で確定）か SegmentedControl（即時反映）を使う",
+      "選択肢が 10 件を大きく超えるとき、または名前で探したいとき（取引先、郵便の地名）。Combobox を使う",
+      "複数選択。Checkbox の並びか FilterPill を使う",
+      "操作の実行（並べ替えて今すぐ反映など、メニューから実行）。Dropdown を使う"
+    ],
+    "keyboard": [
+      {
+        "keys": "Tab",
+        "action": "フォーカスを移す"
+      },
+      {
+        "keys": "↑ / ↓",
+        "action": "選択肢を切り替える（開いていれば候補を移動する）"
+      },
+      {
+        "keys": "Space / Alt + ↓",
+        "action": "選択肢の一覧を開く（ブラウザ標準の操作）"
+      },
+      {
+        "keys": "文字キー",
+        "action": "その文字で始まる選択肢へ移る"
+      }
+    ],
+    "a11y": [
+      "ブラウザ標準の select なので、読み上げと操作はブラウザに任せられる。独自の一覧は描画しない",
+      "ラベルは必ず用意する。FormField で包むと label と関連付く",
+      "error と aria-invalid の両方で赤枠が付く。エラー文言も添える"
+    ],
+    "writing": [
+      "先頭に「選択してください」のような案内の option を置き、value を空にする。必須項目なら送信時に未選択を検出できる",
+      "選択肢は短い名詞で、並びに意味を持たせる（五十音、利用頻度、時系列のいずれか 1 つ）"
+    ],
+    "related": [
+      "combobox",
+      "radio",
+      "segmented-control",
+      "dropdown",
+      "form-field"
+    ]
+  },
+  "combobox": {
+    "use": [
+      "選択肢が 10 件を超えるとき、または名前の一部で探したいとき（取引先、担当者、国、地名）",
+      "ふりがなや別名で探せるようにしたいとき。keywords にヨミや略称を持たせる",
+      "名前（label）ではなく ID（value）をフォームで送りたいとき。name を付けると hidden で value が送られる"
+    ],
+    "avoid": [
+      "選択肢が 10 件以下。Select のほうが速く、モバイルで OS の標準ピッカーが使える",
+      "自由入力も受けたいとき。Combobox は候補にない文字を確定しない。Input を使う",
+      "複数選択。Combobox は 1 つだけ。Checkbox の並びか FilterPill を使う",
+      "操作を探すこと（コマンド、ページ移動）。CommandPalette を使う"
+    ],
+    "keyboard": [
+      {
+        "keys": "↓ / ↑",
+        "action": "一覧を開き、候補を移動する。端では反対側へ回る。無効な候補は飛ばす"
+      },
+      {
+        "keys": "Home / End",
+        "action": "一覧が開いているとき、最初と最後の候補へ移る"
+      },
+      {
+        "keys": "Enter",
+        "action": "ハイライト中の候補を選ぶ（フォームは送信されない）"
+      },
+      {
+        "keys": "Esc",
+        "action": "一覧を閉じ、入力を選択中のラベルに戻す"
+      },
+      {
+        "keys": "Tab",
+        "action": "一覧を閉じて次へ移る。ラベルと一致する文字は選択として扱う"
+      }
+    ],
+    "a11y": [
+      "input に role=\"combobox\"、一覧に role=\"listbox\"、候補に role=\"option\" を付け、ハイライトは aria-activedescendant で伝える。フォーカスは常に入力欄に残る",
+      "候補がないとき、emptyMessage が role=\"status\" で読まれる。文言は emptyMessage で変える",
+      "IME の変換中は矢印キーや Enter を候補の操作として扱わない。日本語入力で候補を誤って確定しない",
+      "一覧の名前は aria-label で渡す。ラベルがない場合は必ず指定する"
+    ],
+    "writing": [
+      "placeholder に「担当者を検索」のように、探せることを書く",
+      "emptyMessage は「見つかりません」ではなく、次の行動が分かる文言にする（「該当する取引先がありません。綴りを変えてください」）"
+    ],
+    "related": [
+      "select",
+      "input",
+      "command-palette",
+      "form-field"
+    ]
+  },
+  "date-picker": {
+    "use": [
+      "誕生日、締切日、利用開始日など、カレンダーから選べる日付 1 つ",
+      "和暦（令和8年10月29日）で入力・表示したい日本向けのフォーム。era=\"japanese\" で切り替える",
+      "休業日や過去日を選べなくしたいとき。min / max は範囲、isDateDisabled は個別の日に使う"
+    ],
+    "avoid": [
+      "期間（開始日から終了日）。DatePicker を 2 つ並べて、終了日の min に開始日を渡す",
+      "日付と時刻の組み合わせ。DatePicker は日付だけ。時刻は Input などを別に置く",
+      "生年月日のように数十年前へさかのぼる入力で、カレンダーのクリックだけに頼ること。直接入力できることを案内する",
+      "日付の表示だけ。Text や DescriptionList に書式を整えて出す"
+    ],
+    "keyboard": [
+      {
+        "keys": "Enter",
+        "action": "入力欄の日付を確定する（IME の変換中は確定しない）"
+      },
+      {
+        "keys": "← / →",
+        "action": "カレンダーで 1 日ずつ移動する"
+      },
+      {
+        "keys": "↑ / ↓",
+        "action": "カレンダーで 1 週間ずつ移動する"
+      },
+      {
+        "keys": "PageUp / PageDown",
+        "action": "1 か月ずつ移動する。Shift を押しながらなら 1 年ずつ"
+      },
+      {
+        "keys": "Home / End",
+        "action": "その週の最初と最後の日へ移る"
+      },
+      {
+        "keys": "Enter / Space",
+        "action": "カレンダーで日付を選ぶ"
+      },
+      {
+        "keys": "Esc",
+        "action": "カレンダーを閉じる"
+      }
+    ],
+    "a11y": [
+      "入力欄とカレンダーを開くボタンは別。直接入力できるので、カレンダーを使えない人も困らない",
+      "カレンダーは日付ごとに「令和8年10月29日木曜日」の名前を持ち、今日は aria-current=\"date\"。選択できない日は aria-disabled",
+      "読み取れない日付を入力したまま確定すると、値は null になり、入力欄は error 表示になる。エラー文言は利用側で添える",
+      "ボタンやカレンダーの名前は calendarButtonLabel、dialogLabel、prevMonthLabel、nextMonthLabel で変える"
+    ],
+    "writing": [
+      "入力できる形式を description に書く。受け付けるのは 2026/10/29、2026-10-29、20261029、令和8年10月29日、R8.10.29 など",
+      "value と name で送られる値は、和暦の設定でも常に YYYY-MM-DD（西暦）。サーバーで和暦を扱わなくてよい",
+      "不正な日付のエラーは「日付を 2026/10/29 の形式で入力してください」のように、書き方を示す"
+    ],
+    "related": [
+      "input",
+      "form-field",
+      "popover",
+      "select"
+    ]
+  },
+  "checkbox": {
+    "use": [
+      "送信ボタンで確定するフォームでの、オン・オフの選択（利用規約への同意、通知を受け取る）",
+      "複数の選択肢から、0 個以上を選ぶとき（複数選択）",
+      "「同意する」のように、チェックしていないとき送信できない確認"
+    ],
+    "avoid": [
+      "切り替えた瞬間に設定が反映される項目。Switch を使う",
+      "選択肢から 1 つだけを選ぶとき。Radio か Select を使う",
+      "一覧の絞り込み条件。FilterPill のほうが、並べて見せるときに場所を取らない",
+      "操作の実行。Button を使う"
+    ],
+    "keyboard": [
+      {
+        "keys": "Tab",
+        "action": "チェックボックスにフォーカスを移す"
+      },
+      {
+        "keys": "Space",
+        "action": "オンとオフを切り替える"
+      }
+    ],
+    "a11y": [
+      "ブラウザ標準の checkbox を使っているので、状態の読み上げはブラウザに任せられる",
+      "label を渡すとクリックできる範囲がラベル全体に広がる。ラベルのない単独利用では aria-label を付ける",
+      "error で aria-invalid が付く。理由は近くに文言で書き、aria-describedby で結ぶ"
+    ],
+    "writing": [
+      "「メールで通知を受け取る」のように、オンにしたときの状態を肯定形で書く。「受け取らない」の否定形は避ける",
+      "同意は「利用規約に同意する」のように、何に同意するかをラベルに入れる"
+    ],
+    "related": [
+      "switch",
+      "radio",
+      "filter-pill",
+      "form-field"
+    ]
+  },
+  "radio": {
+    "use": [
+      "選択肢が 2 件から 5 件で、全部を見せて 1 つだけ選ばせるとき（プラン、支払い方法）",
+      "送信ボタンで確定するフォームの項目。選んだ時点では何も反映されない",
+      "選択肢の説明が長いとき。ラベルの下に補足を置ける"
+    ],
+    "avoid": [
+      "選択肢が 6 件以上。Select か Combobox を使う",
+      "選んだ瞬間に表示が切り替わる操作（一覧の表示形式）。SegmentedControl を使う",
+      "複数選択。Checkbox を使う",
+      "オン・オフ。Checkbox か Switch を使う"
+    ],
+    "keyboard": [
+      {
+        "keys": "Tab",
+        "action": "グループに入る。選択済みの項目、なければ先頭へ"
+      },
+      {
+        "keys": "↑ / ↓ / ← / →",
+        "action": "グループ内の選択を移す（ブラウザ標準の操作）"
+      },
+      {
+        "keys": "Space",
+        "action": "フォーカス中の項目を選ぶ"
+      }
+    ],
+    "a11y": [
+      "RadioGroup は fieldset と legend で、複数の Radio を 1 つのまとまりとして伝える。label が legend になる",
+      "error と errorMessage を渡すと、各 Radio に aria-invalid と aria-describedby が付き、メッセージが結ばれる",
+      "同じ name を持つ Radio だけが 1 つのグループになる。RadioGroup の中でも各 Radio に同じ name を付ける",
+      "初期値を選んでおくか、未選択のまま送信を許すかを決める。一度選ぶと未選択には戻せない"
+    ],
+    "writing": [
+      "選択肢は互いに重ならない言葉にする。「その他」を置くなら最後",
+      "グループの label は「支払い方法」のように、何を選ぶかを名詞で書く"
+    ],
+    "related": [
+      "select",
+      "segmented-control",
+      "checkbox",
+      "form-field"
+    ]
+  },
+  "textarea": {
+    "use": [
+      "コメント、問い合わせ内容、備考など、複数行にわたる自由入力",
+      "文字数に上限があるとき。FormField の maxLength と currentLength でカウンターを出す",
+      "入力量が分からないとき。rows を指定して、初期の高さを決める"
+    ],
+    "avoid": [
+      "1 行で収まる入力。Input を使う",
+      "書式のあるリッチな文章（太字、リンク）。Textarea は書式なしのテキストだけ",
+      "選択肢のある入力。Select / Radio / Combobox を使う"
+    ],
+    "keyboard": [
+      {
+        "keys": "Tab",
+        "action": "テキストエリアにフォーカスを移す"
+      },
+      {
+        "keys": "Enter",
+        "action": "改行する（フォームは送信されない）"
+      }
+    ],
+    "a11y": [
+      "ラベルは必ず用意する。FormField で包むと label と関連付く",
+      "FormField の maxLength はカウンターを出すだけで、入力は止めない。textarea 自体にも maxLength を渡すこと",
+      "error と aria-invalid の両方で赤枠が付く。エラー文言も添える"
+    ],
+    "writing": [
+      "placeholder は入力例にとどめる。「詳細を入力してください」のようにラベルと同じ言葉を繰り返さない",
+      "上限があるときは description に書く（「500 文字まで」）。カウンターは入力中の目安"
+    ],
+    "related": [
+      "input",
+      "form-field"
+    ]
+  },
+  "switch": {
+    "use": [
+      "切り替えた瞬間に設定が反映される項目（通知のオン・オフ、機能の有効化）",
+      "状態がオン・オフの 2 つで、保存ボタンがない設定画面",
+      "ラベルが現在の状態でなく、対象を指すとき（「メール通知」）"
+    ],
+    "avoid": [
+      "送信ボタンで確定するフォーム。Checkbox を使う（Switch は押した時点で反映される印象を与える）",
+      "複数から選ぶこと。Checkbox の並びか FilterPill",
+      "1 つだけを選ぶこと。Radio か SegmentedControl",
+      "「同意する」のような確認。Checkbox を使う"
+    ],
+    "keyboard": [
+      {
+        "keys": "Tab",
+        "action": "スイッチにフォーカスを移す"
+      },
+      {
+        "keys": "Space",
+        "action": "オンとオフを切り替える"
+      }
+    ],
+    "a11y": [
+      "checkbox に role=\"switch\" を付けた実装。状態はブラウザが読み上げるので、aria-checked は自前で付けない",
+      "label を渡すとクリックできる範囲がラベル全体に広がる。ラベルのない単独利用では aria-label を付ける",
+      "切り替えが失敗したとき、スイッチを元に戻し、理由を Toast などで伝える"
+    ],
+    "writing": [
+      "ラベルは対象の名詞で書く（「メール通知」）。「メール通知をオンにする」は状態と二重になる",
+      "オンのときに何が起きるかが分からない項目は、description か補足の文を添える"
+    ],
+    "related": [
+      "checkbox",
+      "segmented-control",
+      "form-field",
+      "toast"
+    ]
+  },
+  "form-field": {
+    "use": [
+      "Input、Select、Textarea、Combobox、DatePicker に、ラベル・説明・エラー・文字数を付けるとき",
+      "必須項目は required。ラベルの末尾に * が付き、コントロールに required と aria-required が渡る",
+      "エラーは error に文言を渡す。コントロールに aria-invalid が付き、文言は role=\"alert\" で読まれる"
+    ],
+    "avoid": [
+      "RadioGroup、NumberField。これらは label と errorMessage を自前で持つので、FormField で二重に包まない",
+      "Checkbox や Switch 単体。ラベルを持つので、補足が要るときだけ使う",
+      "子に複数のコントロールを渡すこと。children は 1 つの要素だけ。複数並べるなら要素ごとに FormField を使う",
+      "エラー文言のないエラー表示。必ず何が間違いかを書く"
+    ],
+    "a11y": [
+      "label の htmlFor、コントロールの id、aria-describedby を自動で結ぶ。コントロールに id があればそれを使う",
+      "aria-describedby には description、error、カウンターの順で並ぶ。コントロール自身の指定は末尾に残る",
+      "error は role=\"alert\" で、表示された時点で読み上げられる。入力中に毎回エラーを出すと読み上げが多すぎるので、確定時に出す",
+      "maxLength はカウンターだけを出す。入力を止めるには、コントロールにも maxLength を渡す。残り 10 文字以下で aria-live=\"polite\" になる"
+    ],
+    "writing": [
+      "label は「メールアドレス」のような名詞。必須は required で示し、文言に「(必須)」と書かない",
+      "description は入力前に読むヒント（書式、上限、使い道）。エラーは入力後に読む修正方法。同じことを繰り返さない",
+      "エラー文言は何が間違いで、どう直すかを書く（「@ を含むメールアドレスを入力してください」）"
+    ],
+    "related": [
+      "input",
+      "select",
+      "textarea",
+      "combobox",
+      "date-picker"
+    ]
+  },
+  "filter-pill": {
+    "use": [
+      "一覧・表・チャートの絞り込み条件。複数のピルを同時にオンにでき、押した瞬間に結果へ反映する",
+      "カテゴリー、ステータス、タグなど、5 件から 10 件程度の条件を横に並べて見せる",
+      "凡例を兼ねたいとき。color と dot で系列の色を示す"
+    ],
+    "avoid": [
+      "送信ボタンで確定するフォームの複数選択。Checkbox を使う",
+      "排他的な切り替え（表示形式、期間）。SegmentedControl を使う",
+      "選択肢が多いとき。Combobox か Select を使う",
+      "ページ内の移動。Tabs を使う"
+    ],
+    "keyboard": [
+      {
+        "keys": "Tab",
+        "action": "ピルにフォーカスを移す"
+      },
+      {
+        "keys": "Enter / Space",
+        "action": "オンとオフを切り替える"
+      }
+    ],
+    "a11y": [
+      "button に aria-pressed を付けた切り替えボタン。オンのとき「押されている」と読み上げられる",
+      "並べるときは、囲み要素に role=\"group\" と aria-label を付け、何の絞り込みかを伝える",
+      "dot の色だけで系列を区別させない。ラベルに名前を入れ、色が見えなくても分かるようにする",
+      "絞り込みの結果件数が変わったら、近くで「12 件を表示」のように件数を伝える"
+    ],
+    "writing": [
+      "条件を短い名詞で書く（「未対応」「営業部」）。「未対応のみ」のように動作を含めない",
+      "全件に戻す手段を用意する。「すべて」のピルか、「条件をクリア」のリンク"
+    ],
+    "related": [
+      "segmented-control",
+      "checkbox",
+      "chart-legend",
+      "select"
+    ]
+  },
+  "segmented-control": {
+    "use": [
+      "表示形式、期間、並び順のように、選んだ瞬間に表示が切り替わる 2 件から 5 件の選択",
+      "項目を全部見せ、並べて比較して選んでほしいとき",
+      "fullWidth で幅いっぱいに並べると、モバイルでも押しやすい"
+    ],
+    "avoid": [
+      "送信ボタンで確定するフォームの 1 項目。Radio か Select を使う",
+      "選択肢が 6 件以上、またはラベルが長いとき。Select を使う",
+      "複数選択。FilterPill か Checkbox を使う",
+      "ページや画面の切り替え。Tabs を使う（Tabs はパネルを持ち、URL と結びつく）",
+      "オン・オフの切り替え。Switch を使う"
+    ],
+    "keyboard": [
+      {
+        "keys": "Tab",
+        "action": "グループに入る。選択中の項目、なければ最初の有効な項目へ"
+      },
+      {
+        "keys": "→ / ↓",
+        "action": "次の項目へ移り、選択する。最後からは先頭へ回る"
+      },
+      {
+        "keys": "← / ↑",
+        "action": "前の項目へ移り、選択する。先頭からは最後へ回る"
+      },
+      {
+        "keys": "Home / End",
+        "action": "最初と最後の有効な項目へ移り、選択する"
+      }
+    ],
+    "a11y": [
+      "role=\"radiogroup\" の中に role=\"radio\" のボタンが並ぶ。選択中は aria-checked=\"true\"。無効な項目は飛ばされる",
+      "aria-label は必須。何を選ぶ部品かを伝える（「表示形式」）",
+      "矢印キーで移動すると同時に選択され、onValueChange が呼ばれる。確定が要る操作には向かない",
+      "name を渡すと、選択中の値が hidden の input としてフォームに送られる"
+    ],
+    "writing": [
+      "ラベルは 1 語から 3 語の名詞（「日」「週」「月」、「リスト」「カード」）",
+      "並びは自然な順序にする（短い期間から長い期間へ）。左端を既定値にする"
+    ],
+    "related": [
+      "radio",
+      "tabs",
+      "filter-pill",
+      "switch",
+      "select"
+    ]
   }
 }
