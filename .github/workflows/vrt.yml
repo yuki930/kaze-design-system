@@ -70,7 +70,10 @@ jobs:
           if git diff --cached --quiet; then
             echo "Baselines unchanged" >> "$GITHUB_STEP_SUMMARY"
           else
-            git commit -m "test: update visual regression baselines [skip ci]"
+            # No [skip ci]: GITHUB_TOKEN pushes start no workflows anyway, and the
+            # marker leaked into squash-merge bodies, which skipped CI and the
+            # npm release on main (#67, #70).
+            git commit -m "test: update visual regression baselines"
             git push
           fi
 
