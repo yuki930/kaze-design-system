@@ -17,6 +17,7 @@ import {
   TabGroup,
   Tabs,
   Tab,
+  VisuallyHidden,
 } from "@/components";
 import { Heading } from "@/components/Heading/Heading";
 
@@ -108,6 +109,10 @@ export function PricingPage() {
 
       {/* ── 4. Pricing Cards ───────────────────────────────────── */}
       <Section id="pricing">
+        {/* The plan cards are h3; this keeps the outline h1 → h2 → h3 without changing the look */}
+        <VisuallyHidden asChild>
+          <h2>プラン一覧</h2>
+        </VisuallyHidden>
         <PricingGrid>
           {/* Free */}
           <PricingCard

@@ -1001,7 +1001,8 @@
 }
 
 .metric__value--lg {
-  font-size: var(--font-size-4xl);
+  /* Same 4xl size on desktop; shrinks below ~450px so ¥12,847,320 fits a phone */
+  font-size: clamp(var(--font-size-2xl), 8vw, var(--font-size-4xl));
   font-weight: var(--font-weight-bold);
 }
 
@@ -2717,6 +2718,7 @@
 }
 
 .list-item__description {
+  overflow-wrap: anywhere;
   font-size: var(--font-size-xs);
   color: var(--color-fg-secondary);
   margin-top: var(--space-0-5);
@@ -2933,7 +2935,8 @@
 
 .bar-chart__item {
   display: grid;
-  grid-template-columns: minmax(60px, auto) 1fr auto;
+  /* The label gives way (with an ellipsis) before the bar does on narrow screens */
+  grid-template-columns: minmax(0, max-content) minmax(48px, 1fr) auto;
   align-items: center;
   gap: var(--space-3);
 }
@@ -2943,6 +2946,9 @@
   color: var(--color-fg-secondary);
   white-space: nowrap;
   text-align: right;
+  min-width: 60px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .bar-chart__track {
