@@ -13,8 +13,6 @@ import {
   TableCell,
   Metric,
   Avatar,
-  Tabs,
-  Tab,
   Search,
   Divider,
   Select,
@@ -27,6 +25,9 @@ import {
   Grid,
   FAB,
   Text,
+  ColumnChart,
+  Heatmap,
+  SegmentedControl,
 } from "@/components";
 import type { BarChartItem, DonutChartSegment } from "@/components";
 import { AppLayout } from "@/components/Layout";
@@ -140,6 +141,57 @@ const popularPages: PopularPage[] = [
 
 const chartPeriods: ChartPeriod[] = ["日別", "週別", "月別"];
 
+const sessionSeries = [
+  { key: "organic", label: "オーガニック検索" },
+  { key: "direct", label: "ダイレクト" },
+  { key: "social", label: "ソーシャル" },
+  { key: "referral", label: "リファラル" },
+];
+
+/** Deterministic session counts per channel (no Math.random, so SSR and client agree). */
+function buildSessions(labels: string[], scale: number) {
+  return labels.map((label, i) => {
+    const wave = 1 + Math.sin(i * 0.8) * 0.12 + i * 0.015;
+    return {
+      label,
+      organic: Math.round(scale * 0.46 * wave),
+      direct: Math.round(scale * 0.25 * (1 + Math.cos(i * 1.3) * 0.08)),
+      social: Math.round(scale * 0.17 * (1 + Math.sin(i * 2.1) * 0.2)),
+      referral: Math.round(scale * 0.12 * (1 + Math.cos(i * 0.6) * 0.1)),
+    };
+  });
+}
+
+const sessionTrend: Record<ChartPeriod, ReturnType<typeof buildSessions>> = {
+  日別: buildSessions(
+    Array.from({ length: 14 }, (_, i) => `10/${16 + i}`),
+    9800,
+  ),
+  週別: buildSessions(
+    Array.from({ length: 12 }, (_, i) => `W${32 + i}`),
+    68000,
+  ),
+  月別: buildSessions(
+    ["11月", "12月", "1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月"],
+    284000,
+  ),
+};
+
+const weekdays = ["月", "火", "水", "木", "金", "土", "日"];
+const hours = Array.from({ length: 24 }, (_, h) => String(h));
+
+/** Sessions by weekday x hour: business-hour peak on weekdays, evening peak on weekends. */
+const hourlySessions = weekdays.map((_, d) =>
+  hours.map((_, h) => {
+    const weekend = d >= 5;
+    const peak = weekend ? 21 : 13;
+    const base = weekend ? 220 : 380;
+    const curve = Math.exp(-((h - peak) ** 2) / (weekend ? 18 : 22));
+    const night = h < 6 ? 0.15 : 1;
+    return Math.round((base * curve + 40) * night + ((d * 7 + h * 3) % 17));
+  }),
+);
+
 /* ── Analytics Dashboard Component ─────────────────────────── */
 
 export function AnalyticsDashboard() {
@@ -251,24 +303,40 @@ export function AnalyticsDashboard() {
         </Card>
       </Grid>
 
+      {/* Session Trend */}
+      <Card className={styles.trendCard}>
+        <CardHeader>
+          <div className={layoutStyles.chartHeader}>
+            <CardTitle>セッション推移</CardTitle>
+            <SegmentedControl
+              aria-label="集計単位"
+              size="sm"
+              options={chartPeriods.map((p) => ({ value: p, label: p }))}
+              value={activePeriod}
+              onValueChange={(v) => setActivePeriod(v as ChartPeriod)}
+            />
+          </div>
+        </CardHeader>
+        <CardBody>
+          <ColumnChart
+            aria-label={`チャネル別セッション推移（${activePeriod}）`}
+            index="label"
+            data={sessionTrend[activePeriod]}
+            series={sessionSeries}
+            layout="stacked"
+            height={260}
+            formatValue={(v) => v.toLocaleString("ja-JP")}
+          />
+        </CardBody>
+      </Card>
+
       {/* Charts Row */}
       <div className={styles.chartsGrid}>
         {/* Channel Sessions BarChart */}
         <Card>
           <CardHeader>
             <div className={layoutStyles.chartHeader}>
-              <CardTitle>チャネル別セッション</CardTitle>
-              <Tabs variant="pills">
-                {chartPeriods.map((period) => (
-                  <Tab
-                    key={period}
-                    active={activePeriod === period}
-                    onClick={() => setActivePeriod(period)}
-                  >
-                    {period}
-                  </Tab>
-                ))}
-              </Tabs>
+              <CardTitle>チャネル別セッション（今月）</CardTitle>
             </div>
           </CardHeader>
           <CardBody>
@@ -295,6 +363,23 @@ export function AnalyticsDashboard() {
           </CardBody>
         </Card>
       </div>
+
+      {/* Weekday x Hour Heatmap */}
+      <Card className={styles.trendCard}>
+        <CardHeader>
+          <CardTitle>曜日×時間帯のセッション</CardTitle>
+        </CardHeader>
+        <CardBody>
+          <Heatmap
+            aria-label="曜日と時間帯別のセッション数"
+            rows={weekdays}
+            columns={hours}
+            values={hourlySessions}
+            cellSize={20}
+            formatValue={(v) => `${v.toLocaleString("ja-JP")} セッション`}
+          />
+        </CardBody>
+      </Card>
 
       <Divider subtle />
 

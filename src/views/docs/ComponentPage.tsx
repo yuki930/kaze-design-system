@@ -2366,6 +2366,13 @@ import { Icon } from "kaze-design-system";
       },
       { name: "yAxisWidth", type: "number", description: "y 軸ラベルの幅（既定: 48）" },
       {
+        name: "startAtZero",
+        type: "boolean",
+        default: "true",
+        description:
+          "y 軸に 0 を含める。false でデータの範囲に合わせる（株価・残高などの推移向け）",
+      },
+      {
         name: "formatValue",
         type: "(value: number) => string",
         description: "y 軸とツールチップの値フォーマット",

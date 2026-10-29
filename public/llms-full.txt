@@ -823,6 +823,9 @@ Docs: https://kaze-design-system.vercel.app/docs/components/line-chart
   - Always show point markers. The hovered point is shown regardless (default: false)
 - `yAxisWidth?`: `number`
   - Width reserved for y axis labels in px (default: 48)
+- `startAtZero?`: `boolean`
+  - Default: `true`
+  - Include zero in the y axis (default: true). Set false to fit the data range, e.g. a price or balance line
 - `formatValue?`: `(value: number) => string`
   - Format values for y axis and tooltip
 - `aria-label`: `string`
