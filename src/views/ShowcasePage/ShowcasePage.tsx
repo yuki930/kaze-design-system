@@ -29,7 +29,6 @@ import {
   Palette,
   Moon,
   ArrowRight,
-  Github,
   Layers,
   Boxes,
   Droplets,
@@ -61,6 +60,7 @@ import {
   PartyPopper,
   Newspaper,
 } from "lucide-react";
+import { GitHubMark } from "@/views/site/GitHubMark";
 import styles from "./ShowcasePage.module.css";
 import { NPM_URL, REPO_URL, repoFileUrl } from "@/views/site/repo";
 
@@ -390,7 +390,7 @@ export function ShowcasePage() {
               aria-label="GitHub リポジトリ"
             >
               <Button variant="ghost" size="sm" iconOnly aria-label="リポジトリ">
-                <Github size={18} />
+                <GitHubMark size={18} />
               </Button>
             </a>
             <a href="/docs">
@@ -423,7 +423,7 @@ export function ShowcasePage() {
         <a href={REPO_URL} target="_blank" rel="noreferrer">
           <Button size="lg" variant="outline">
             <span className={styles.ctaGroup}>
-              <Github size={16} />
+              <GitHubMark size={16} />
               GitHub
             </span>
           </Button>

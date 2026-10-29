@@ -5,8 +5,12 @@ updates:
     schedule:
       interval: weekly
     groups:
+      # minor / patch bumps land together in one PR. Major bumps open one PR per
+      # package so each compatibility break (TypeScript, vitest, lucide, ...) is
+      # judged on its own.
       dev-dependencies:
         dependency-type: development
+        update-types: ["minor", "patch"]
     open-pull-requests-limit: 5
   - package-ecosystem: github-actions
     directory: /
