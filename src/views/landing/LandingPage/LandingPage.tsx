@@ -1,4 +1,5 @@
-import { Zap, Palette, Accessibility, Moon, Sun, Sparkles, Rocket, Github } from "lucide-react";
+import { Zap, Palette, Accessibility, Moon, Sun, Sparkles, Rocket } from "lucide-react";
+import { GitHubMark } from "@/views/site/GitHubMark";
 import {
   Navbar,
   NavbarLinks,
@@ -108,7 +109,7 @@ export function LandingPage() {
               aria-label="リポジトリ"
             >
               <Button variant="ghost" size="sm" iconOnly aria-label="リポジトリ">
-                <Github size={18} />
+                <GitHubMark size={18} />
               </Button>
             </a>
             <Button size="sm">
