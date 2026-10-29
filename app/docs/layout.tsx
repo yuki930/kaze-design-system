@@ -95,6 +95,9 @@ export default function DocsLayoutWrapper({ children }: { children: React.ReactN
             <a href={NPM_URL} target="_blank" rel="noreferrer" className={styles.externalLink}>
               npm
             </a>
+            <a href="/storybook/index.html" className={styles.externalLink}>
+              Storybook
+            </a>
           </div>
         </div>
       </aside>

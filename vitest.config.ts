@@ -26,6 +26,26 @@ export default defineConfig({
     },
   },
   test: {
+    // `npm run test:coverage` (unit project). Thresholds sit just under the current
+    // numbers so coverage can only go up; raise them as tests are added.
+    coverage: {
+      provider: "v8",
+      include: [
+        "src/components/**/*.{ts,tsx}",
+        "src/hooks/**/*.{ts,tsx}",
+        "src/lib/**/*.{ts,tsx}",
+        "src/utils/**/*.ts",
+        "src/tokens/**/*.ts",
+      ],
+      exclude: [
+        "**/*.stories.tsx",
+        "**/*.test.{ts,tsx}",
+        "**/index.ts",
+        "src/components/marketing.ts",
+      ],
+      reporter: ["text-summary", "html"],
+      thresholds: { statements: 94, branches: 88, functions: 95, lines: 96 },
+    },
     projects: [
       // Unit tests (jsdom)
       {

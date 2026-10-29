@@ -25,7 +25,12 @@ export const Hero = forwardRef<HTMLElement, HeroProps>(
       ...(bg ? { background: bg } : {}),
       ...(bgImage
         ? {
-            backgroundImage: bgImage.startsWith("url(") ? bgImage : `url(${bgImage})`,
+            // A bare path or URL is wrapped in url(); url(...) and gradients pass through as-is
+            backgroundImage: /^(url|(repeating-)?(linear|radial|conic)-gradient|image-set)\(/.test(
+              bgImage,
+            )
+              ? bgImage
+              : `url(${bgImage})`,
             backgroundSize: "cover",
             backgroundPosition: "center",
           }

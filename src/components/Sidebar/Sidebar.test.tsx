@@ -1,6 +1,7 @@
+import { createRef } from "react";
 import { describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
-import { NavItem, Sidebar } from "./Sidebar";
+import { NavItem, Sidebar, SidebarDivider, SidebarGroupLabel } from "./Sidebar";
 
 describe("Sidebar", () => {
   it("labels the nav landmark with a Japanese default", () => {
@@ -77,5 +78,87 @@ describe("NavItem", () => {
       </NavItem>,
     );
     expect(screen.getByRole("link", { name: "ホーム" })).toHaveClass("nav-item");
+  });
+});
+
+describe("Sidebar slots", () => {
+  it("omits logo and footer by default", () => {
+    const { container } = render(
+      <Sidebar>
+        <NavItem>ホーム</NavItem>
+      </Sidebar>,
+    );
+    expect(container.querySelector(".sidebar__logo")).toBeNull();
+    expect(container.querySelector(".sidebar__footer")).toBeNull();
+    expect(screen.getByRole("complementary")).toHaveClass("sidebar");
+  });
+
+  it("renders logo and footer, merges className, forwards ref and rest", () => {
+    const ref = createRef<HTMLElement>();
+    const { container } = render(
+      <Sidebar
+        ref={ref}
+        className="extra"
+        id="side"
+        logo={<img src="/logo.svg" alt="ノルン" />}
+        footer={<span>相楽 実咲</span>}
+      >
+        <NavItem>ホーム</NavItem>
+      </Sidebar>,
+    );
+    const aside = screen.getByRole("complementary");
+    expect(ref.current).toBe(aside);
+    expect(aside).toHaveClass("sidebar", "extra");
+    expect(aside).toHaveAttribute("id", "side");
+    expect(container.querySelector(".sidebar__logo")).toContainElement(
+      screen.getByRole("img", { name: "ノルン" }),
+    );
+    expect(container.querySelector(".sidebar__footer")).toHaveTextContent("相楽 実咲");
+  });
+});
+
+describe("NavItem extras", () => {
+  it("renders the icon before the label and forwards ref", () => {
+    const ref = createRef<HTMLElement>();
+    render(
+      <NavItem ref={ref} icon={<svg data-testid="icon" />} className="extra">
+        ホーム
+      </NavItem>,
+    );
+    const button = screen.getByRole("button", { name: "ホーム" });
+    expect(ref.current).toBe(button);
+    expect(button).toHaveClass("nav-item", "extra");
+    expect(screen.getByTestId("icon").parentElement).toHaveClass("nav-item__icon");
+    expect(button.firstElementChild).toHaveClass("nav-item__icon");
+  });
+
+  it("does not set type on a non-button element", () => {
+    render(<NavItem href="/a">A</NavItem>);
+    expect(screen.getByRole("link", { name: "A" })).not.toHaveAttribute("type");
+  });
+});
+
+describe("SidebarGroupLabel", () => {
+  it("renders children, merges className, forwards ref and rest", () => {
+    const ref = createRef<HTMLDivElement>();
+    render(
+      <SidebarGroupLabel ref={ref} className="extra" id="g">
+        設定
+      </SidebarGroupLabel>,
+    );
+    const label = screen.getByText("設定");
+    expect(ref.current).toBe(label);
+    expect(label).toHaveClass("sidebar__group-label", "extra");
+    expect(label).toHaveAttribute("id", "g");
+  });
+});
+
+describe("SidebarDivider", () => {
+  it("renders a separator, merges className and forwards ref", () => {
+    const ref = createRef<HTMLDivElement>();
+    render(<SidebarDivider ref={ref} className="extra" />);
+    const sep = screen.getByRole("separator");
+    expect(ref.current).toBe(sep);
+    expect(sep).toHaveClass("sidebar__divider", "extra");
   });
 });

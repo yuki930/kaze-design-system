@@ -58,7 +58,7 @@ export const CategoryBar = forwardRef<HTMLDivElement, CategoryBarProps>(
     const ratioOf = (v: number) => (total > 0 ? v / total : 0);
     const markerPos = marker && total > 0 ? Math.min(1, Math.max(0, ratioOf(marker.value))) : null;
 
-    const describe = (d: { label: string; value: number }) =>
+    const describeSegment = (d: { label: string; value: number }) =>
       `${d.label} ${formatValue(d.value)}${showPercent ? ` (${formatPercent(ratioOf(d.value))})` : ""}`;
 
     return (
@@ -70,7 +70,7 @@ export const CategoryBar = forwardRef<HTMLDivElement, CategoryBarProps>(
         {...rest}
       >
         <span className="sr-only">
-          {items.map(describe).join("、")}
+          {items.map(describeSegment).join("、")}
           {marker ? `。${marker.label ?? "目標"} ${formatValue(marker.value)}` : ""}
         </span>
         <div className="category-bar__track" style={{ height }} aria-hidden="true">
@@ -81,7 +81,7 @@ export const CategoryBar = forwardRef<HTMLDivElement, CategoryBarProps>(
                   key={d.label}
                   className="category-bar__segment"
                   style={{ flexGrow: d.value, background: d.color }}
-                  title={describe(d)}
+                  title={describeSegment(d)}
                 />
               ),
           )}

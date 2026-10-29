@@ -1,5 +1,6 @@
 import { forwardRef, type HTMLAttributes } from "react";
 import { cn } from "@/lib/utils";
+import { withUniqueKeys } from "@/lib/uniqueKeys";
 
 export interface BarListItem {
   /** Label text */
@@ -38,8 +39,9 @@ export const BarList = forwardRef<HTMLDivElement, BarListProps>(
 
     return (
       <div ref={ref} className={cn("barlist", className)} {...rest}>
-        {sorted.map((item) => {
-          const pct = (item.value / maxValue) * 100;
+        {withUniqueKeys(sorted, (d) => d.label).map(({ key, item }) => {
+          // Negative values draw an empty bar rather than a negative width
+          const pct = (Math.max(item.value, 0) / maxValue) * 100;
           const display =
             item.displayValue ?? (valueFormatter ? valueFormatter(item.value) : String(item.value));
 
@@ -62,15 +64,11 @@ export const BarList = forwardRef<HTMLDivElement, BarListProps>(
           const LinkComponent = item.as ?? "a";
 
           return item.href ? (
-            <LinkComponent
-              key={item.label}
-              href={item.href}
-              className="barlist__row barlist__row--link"
-            >
+            <LinkComponent key={key} href={item.href} className="barlist__row barlist__row--link">
               {content}
             </LinkComponent>
           ) : (
-            <div key={item.label} className="barlist__row">
+            <div key={key} className="barlist__row">
               {content}
             </div>
           );

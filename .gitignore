@@ -42,3 +42,10 @@ coverage/
 
 # Claude Code agent worktrees
 .claude/worktrees/
+
+# Static Storybook built into the docs site (npm run storybook:site)
+public/storybook/
+
+# Visual regression (npm run vrt)
+test-results/
+playwright-report/

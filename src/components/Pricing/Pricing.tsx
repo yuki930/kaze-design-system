@@ -1,5 +1,6 @@
 import { forwardRef, type HTMLAttributes } from "react";
 import { cn } from "@/lib/utils";
+import { withUniqueKeys } from "@/lib/uniqueKeys";
 
 /* -- PricingGrid --------------------------------------------------- */
 
@@ -48,8 +49,8 @@ export const PricingCard = forwardRef<HTMLDivElement, PricingCardProps>(
           {period && <span className="pricing-card__period">/{period}</span>}
         </div>
         <ul className="pricing-card__features">
-          {features.map((feature) => (
-            <li key={feature} className="pricing-card__feature">
+          {withUniqueKeys(features, (f) => f).map(({ key, item: feature }) => (
+            <li key={key} className="pricing-card__feature">
               <svg
                 className="pricing-card__check"
                 width="16"
