@@ -3873,6 +3873,76 @@ const options = [
   />
 </FormField>`,
   },
+
+  drawer: {
+    title: "Drawer",
+    description:
+      '画面の端から出るモーダルパネル。Dialog と同じ挙動（フォーカストラップ・背景の inert 化・スクロールロック・Escape・背景クリック・閉じアニメ・フォーカス復帰）で、フィルターや詳細表示のように一覧を見たまま操作したい場面に向きます。モバイル幅では side="bottom"（ボトムシート）を推奨します。',
+    preview: (
+      <div
+        style={{
+          padding: "2rem",
+          textAlign: "center",
+          color: "var(--color-fg-secondary)",
+        }}
+      >
+        <p>Drawer はモーダルとして表示されるため、ここではプレビューを省略しています。</p>
+        <p>
+          <code>open</code> を <code>true</code> にすると、<code>side</code>{" "}
+          で指定した端から表示されます。
+        </p>
+      </div>
+    ),
+    props: [
+      { name: "open", type: "boolean", description: "表示状態" },
+      {
+        name: "onOpenChange",
+        type: "(open: boolean) => void",
+        description:
+          "Escape・背景クリック・閉じる操作で false が渡る。open を false にするのは呼び出し側",
+      },
+      {
+        name: "side",
+        type: '"left" | "right" | "bottom"',
+        default: '"right"',
+        description: "パネルが出てくる端。モバイル幅では bottom（ボトムシート）を推奨",
+      },
+      {
+        name: "size",
+        type: '"sm" | "md" | "lg"',
+        default: '"md"',
+        description:
+          "left / right では幅（20rem / 28rem / 40rem）、bottom では高さの上限（40% / 60% / 90%）",
+      },
+      {
+        name: "aria-label",
+        type: "string",
+        description: "DrawerTitle を置かない場合の名前。指定すると aria-labelledby は付かない",
+      },
+      {
+        name: "DrawerHeader / DrawerTitle / DrawerBody / DrawerFooter",
+        type: "HTMLAttributes",
+        description:
+          "DrawerTitle は h2 で、Drawer の aria-labelledby に自動で接続される。DrawerBody だけがスクロールする",
+      },
+    ],
+    usage: `import { Button, Drawer, DrawerBody, DrawerFooter, DrawerHeader, DrawerTitle } from "kaze-design-system";
+
+<Drawer open={open} onOpenChange={setOpen} side="right" size="md">
+  <DrawerHeader>
+    <DrawerTitle>絞り込み</DrawerTitle>
+  </DrawerHeader>
+  <DrawerBody>
+    <p>条件を選んでください。</p>
+  </DrawerBody>
+  <DrawerFooter>
+    <Button variant="outline" onClick={() => setOpen(false)}>
+      キャンセル
+    </Button>
+    <Button onClick={() => setOpen(false)}>適用</Button>
+  </DrawerFooter>
+</Drawer>`,
+  },
 };
 
 /** "Layout (AppLayout)" -> "Layout", "BarChart" -> "BarChart" */

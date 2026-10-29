@@ -2,29 +2,20 @@
 
 import {
   forwardRef,
-  useState,
-  useEffect,
   useCallback,
   useId,
   useRef,
   createContext,
   useContext,
   type HTMLAttributes,
-  type MouseEvent,
   type RefObject,
 } from "react";
 import { createPortal } from "react-dom";
 import { cn } from "@/lib/utils";
-import { useFocusTrap } from "@/hooks/useFocusTrap";
-import { lockScroll } from "@/utils/scrollLock";
 import { warnDeprecated } from "@/lib/deprecate";
+import { useModalLayer } from "../_internal/useModalLayer";
 
 /* ── Dialog ────────────────────────────────────────────────── */
-
-const CLOSE_ANIMATION_MS = 200;
-
-// Open dialogs, top-most last, so nested dialogs close one at a time on Escape.
-const dialogStack: object[] = [];
 
 export interface DialogProps extends HTMLAttributes<HTMLDivElement> {
   open: boolean;
@@ -43,8 +34,6 @@ export const Dialog = forwardRef<HTMLDivElement, DialogProps>(
   ) => {
     const titleId = useId();
     const internalRef = useRef<HTMLDivElement>(null);
-    const [visible, setVisible] = useState(false);
-    const [closing, setClosing] = useState(false);
 
     const requestClose = useCallback(() => {
       if (onClose) {
@@ -72,79 +61,10 @@ export const Dialog = forwardRef<HTMLDivElement, DialogProps>(
       [ref],
     );
 
-    // Sync visibility with open prop — play close animation before unmounting
-    // biome-ignore lint/correctness/useExhaustiveDependencies: only react to `open`; `visible` is read to decide whether to animate out
-    useEffect(() => {
-      if (open) {
-        setVisible(true);
-        setClosing(false);
-      } else if (visible) {
-        setClosing(true);
-        const timer = setTimeout(() => {
-          setClosing(false);
-          setVisible(false);
-        }, CLOSE_ANIMATION_MS);
-        return () => clearTimeout(timer);
-      }
-    }, [open]);
-
-    // ── Scroll lock: ref-counting pattern (C6) ──
-    useEffect(() => {
-      if (!open) return;
-      const unlock = lockScroll();
-      return unlock;
-    }, [open]);
-
-    // Activate only once the portal is mounted (visible) so the container ref is set.
-    const trapActive = open && visible && !closing;
-
-    // Make everything behind the dialog inert (aria-modal alone is not honored by all AT).
-    // Declared BEFORE useFocusTrap on purpose: effect cleanups run in declaration
-    // order, and the opener must be un-inerted before the trap restores focus to it.
-    useEffect(() => {
-      const container = internalRef.current;
-      if (!trapActive || !container) return;
-      let root: HTMLElement = container;
-      while (root.parentElement && root.parentElement !== document.body) root = root.parentElement;
-      const changed: Element[] = [];
-      for (const el of Array.from(document.body.children)) {
-        if (el === root || el.hasAttribute("inert") || el.classList.contains("toast-container"))
-          continue;
-        el.setAttribute("inert", "");
-        changed.push(el);
-      }
-      return () => {
-        for (const el of changed) el.removeAttribute("inert");
-      };
-    }, [trapActive]);
-
-    useFocusTrap(internalRef, trapActive);
-
-    // Escape on document (works even if focus left the dialog). Only the top-most dialog closes.
-    useEffect(() => {
-      if (!trapActive) return;
-      const token = {};
-      dialogStack.push(token);
-      const onKeyDown = (e: globalThis.KeyboardEvent) => {
-        if (e.key !== "Escape" || dialogStack[dialogStack.length - 1] !== token) return;
-        e.stopPropagation();
-        requestClose();
-      };
-      document.addEventListener("keydown", onKeyDown);
-      return () => {
-        document.removeEventListener("keydown", onKeyDown);
-        const i = dialogStack.indexOf(token);
-        if (i >= 0) dialogStack.splice(i, 1);
-      };
-    }, [trapActive, requestClose]);
-
-    const handleOverlayClick = useCallback(
-      (e: MouseEvent<HTMLDivElement>) => {
-        if (e.target === e.currentTarget) {
-          requestClose();
-        }
-      },
-      [requestClose],
+    const { visible, closing, state, onBackdropClick } = useModalLayer(
+      internalRef,
+      open,
+      requestClose,
     );
 
     if (!visible) return null;
@@ -155,8 +75,8 @@ export const Dialog = forwardRef<HTMLDivElement, DialogProps>(
       // biome-ignore lint/a11y/noStaticElementInteractions: the backdrop only handles click-outside-to-close; keyboard users close the dialog with Escape, and the backdrop itself must not be focusable.
       <div
         className={cn("overlay", closing && "overlay--closing")}
-        data-state={open && !closing ? "open" : "closed"}
-        onClick={handleOverlayClick}
+        data-state={state}
+        onClick={onBackdropClick}
       >
         <div
           ref={mergedRef}
@@ -165,7 +85,7 @@ export const Dialog = forwardRef<HTMLDivElement, DialogProps>(
           aria-labelledby={titleId}
           tabIndex={-1}
           className={cn("dialog", className)}
-          data-state={open && !closing ? "open" : "closed"}
+          data-state={state}
           {...rest}
         >
           <DialogTitleIdContext.Provider value={titleId}>{children}</DialogTitleIdContext.Provider>

@@ -118,6 +118,7 @@ export const categories: Category[] = [
     layer: "application-ui",
     components: [
       { name: "Dialog", path: "dialog", description: "ダイアログ" },
+      { name: "Drawer", path: "drawer", description: "ドロワー（端から出るモーダルパネル）" },
       { name: "Tooltip", path: "tooltip", description: "ツールチップ" },
       {
         name: "Popover",
