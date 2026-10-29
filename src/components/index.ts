@@ -93,6 +93,7 @@ export type {
   TableRowProps,
   TableHeadProps,
   TableCellProps,
+  SortDirection,
 } from "./Table";
 
 export { Avatar } from "./Avatar";
@@ -265,6 +266,18 @@ export type { SwitchProps } from "./Switch";
 export { Skeleton } from "./Skeleton";
 export type { SkeletonProps } from "./Skeleton";
 
+export { Spinner } from "./Spinner";
+export type { SpinnerProps, SpinnerSize } from "./Spinner";
+
+export { TypingIndicator } from "./TypingIndicator";
+export type { TypingIndicatorProps, TypingIndicatorSize } from "./TypingIndicator";
+
+export { Link } from "./Link";
+export type { LinkProps } from "./Link";
+
+export { VisuallyHidden } from "./VisuallyHidden";
+export type { VisuallyHiddenProps } from "./VisuallyHidden";
+
 export { EmptyState } from "./EmptyState";
 export type { EmptyStateProps, EmptyStateSize } from "./EmptyState";
 
@@ -334,6 +347,12 @@ export type { NumberFieldProps, NumberFieldCurrency } from "./NumberField";
 /* ── Theme ─────────────────────────────────────────────────── */
 
 export { ThemeProvider, useTheme } from "../hooks/useTheme";
+export { useTableSort } from "../hooks/useTableSort";
+export type {
+  UseTableSortOptions,
+  UseTableSortResult,
+  TableSortProps,
+} from "../hooks/useTableSort";
 export type { Theme, ThemeContextValue, ThemeProviderProps } from "../hooks/useTheme";
 
 /* ── Shared vocabulary ─────────────────────────────────────── */

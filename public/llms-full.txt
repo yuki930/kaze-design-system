@@ -1,6 +1,6 @@
 # kaze-design-system: Full API Reference
 
-> Minimal React design system for dashboards, landing pages and Japanese UI: warm neutral grays, 73 components, SVG charts with zero dependencies, light/dark themes, typography tuned for CJK text
+> Minimal React design system for dashboards, landing pages and Japanese UI: warm neutral grays, 77 components, SVG charts with zero dependencies, light/dark themes, typography tuned for CJK text
 
 Version: 1.0.0
 Site: https://kaze-design-system.vercel.app
@@ -78,7 +78,7 @@ Docs: https://kaze-design-system.vercel.app/docs/components/button
 
 **使わない場面**
 
-- 別のページへ移動するだけの操作。リンク（<a>）を使い、ボタンの見た目にしたいときは asChild で <a> を包む
+- 別のページへ移動するだけの操作。文中なら Link を使う。リンク（<a>）を使い、ボタンの見た目にしたいときは asChild で <a> を包む
 - 1 つの領域に primary を並べること。どれが主な操作かわからなくなる
 - アイコンだけのボタンを説明なしで置くこと。iconOnly のときは aria-label を必ず付け、必要なら Tooltip を添える
 
@@ -92,6 +92,7 @@ Docs: https://kaze-design-system.vercel.app/docs/components/button
 **アクセシビリティ**
 
 - disabled のときは aria-disabled も付くので、読み上げで「使用不可」と伝わる
+- loading のときは aria-busy と aria-disabled が付き、クリックは受け付けないがフォーカスは外れない。disabled 属性は付けないので、処理中も Tab で届く
 - asChild でリンクにした場合は disabled 属性の代わりに aria-disabled を付け、クリックを止める
 - 押せない理由が利用者にわからない場合は、disabled にせず押したあとにエラーで理由を伝えるほうが親切
 
@@ -116,6 +117,9 @@ Related: fab, dialog, tooltip, dropdown
 - `iconOnly?`: `boolean`
   - Default: `false`
   - アイコンのみのボタンにするかどうか
+- `loading?`: `boolean`
+  - Default: `false`
+  - 処理中。先頭にスピナーを出し、クリックを受け付けない（フォーカスは保つ）
 - `asChild?`: `boolean`
   - 子要素にスタイルと振る舞いを委ねる（Next.js の Link など）
 - `disabled?`: `boolean`
@@ -126,6 +130,7 @@ Related: fab, dialog, tooltip, dropdown
 
 ```tsx
 <Button variant="primary" size="md">ボタン</Button>
+<Button loading>保存中</Button>
 ```
 
 #### FAB
@@ -1200,7 +1205,8 @@ Docs: https://kaze-design-system.vercel.app/docs/components/table
 **使う場面**
 
 - 同じ項目を持つ複数のデータを、行と列で比べる（ユーザー一覧、請求履歴、成績表）
-- 数値の列は右揃えにして、桁をそろえる。TableCell と TableHead に className="table__cell--numeric" を付けると、右揃えと等幅数字（tabular-nums）になる
+- 数値の列は右揃えにして、桁をそろえる。TableCell に className="table__cell--numeric" を付けると、右揃えと等幅数字（tabular-nums）になる。見出しのセルは左揃えのまま
+- 並べ替えられる列は、TableHead に onSort と sortDirection を渡す。見出しがボタンになり、矢印が付く。並べ替えの状態管理は useTableSort が引き受ける（押すたびに 昇順、降順、解除）
 - 行数が多いときは compact で密度を上げる。Table は横にあふれると table-wrapper 内でスクロールする
 
 **使わない場面**
@@ -1209,11 +1215,19 @@ Docs: https://kaze-design-system.vercel.app/docs/components/table
 - 見た目を揃えるためのレイアウト。Grid や layout を使う
 - モバイルで列が多い一覧をそのまま出すこと。重要な列に絞るか、List に切り替える
 
+**キーボード操作**
+
+| キー | 動作 |
+|---|---|
+| Tab | onSort がある列見出しのボタンにフォーカスを移す |
+| Enter / Space | その列で並べ替える（昇順、降順、解除の順に切り替わる） |
+
 **アクセシビリティ**
 
 - TableHead は scope="col" が既定。行見出しの列には scope="row" を指定する
 - 表のタイトルは、近くの見出しか aria-label / aria-labelledby で付ける。Table 自体は名前を持たない
-- ソートや選択の状態は、見た目だけにせず aria-sort やチェックボックスのラベルで伝える。Table は並べ替えの仕組みを持たないので、利用側で付ける
+- 並べ替え中の列には aria-sort が付く（並べ替えていない列には付けない）。並べ替えるかどうかは onSort で利用側が決める。選択の状態は、見た目だけにせずチェックボックスのラベルで伝える
+- onSort を渡した見出しは <button> になる。Tab で見出しにフォーカスし、Enter か Space で並べ替える。矢印は装飾で、状態は aria-sort で伝わる
 
 **文言**
 
@@ -1234,25 +1248,37 @@ Related: description-list, list, pagination, badge, card
 - `TableRow?`: `サブコンポーネント`
   - テーブルの行（tr）
 - `TableHead?`: `サブコンポーネント`
-  - ヘッダーセル（th）
+  - ヘッダーセル（th）。onSort を渡すと見出しが並べ替えボタンになり、sortDirection（ascending / descending / none）で矢印と aria-sort が決まる
 - `TableCell?`: `サブコンポーネント`
   - データセル（td）
 
 **Usage**
 
 ```tsx
+import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell, useTableSort } from "kaze-design-system";
+
+const rows = [
+  { store: "渋谷", sales: 4820000 },
+  { store: "梅田", sales: 3915000 },
+];
+const { rows: sorted, getSortProps } = useTableSort(rows, {
+  initial: { key: "sales", direction: "descending" },
+});
+
 <Table>
   <TableHeader>
     <TableRow>
-      <TableHead>名前</TableHead>
-      <TableHead>メール</TableHead>
+      <TableHead {...getSortProps("store")}>店舗</TableHead>
+      <TableHead className="table__cell--numeric" {...getSortProps("sales")}>売上</TableHead>
     </TableRow>
   </TableHeader>
   <TableBody>
-    <TableRow>
-      <TableCell>堀内昌平</TableCell>
-      <TableCell>shohei.horiuchi@norn.co.jp</TableCell>
-    </TableRow>
+    {sorted.map((row) => (
+      <TableRow key={row.store}>
+        <TableCell>{row.store}</TableCell>
+        <TableCell className="table__cell--numeric">{row.sales}</TableCell>
+      </TableRow>
+    ))}
   </TableBody>
 </Table>
 ```
@@ -2310,7 +2336,7 @@ Docs: https://kaze-design-system.vercel.app/docs/components/skeleton
 
 **使わない場面**
 
-- ボタン操作の結果待ち。ボタンの disabled や Progress で示す
+- ボタン操作の結果待ち。Button の loading や Spinner で示す
 - 取得した結果が 0 件のとき。EmptyState を使う
 - 終わりの見えない処理の進み具合の説明。Progress を使う
 - 操作できない理由や失敗の説明。Alert を使う
@@ -2321,7 +2347,7 @@ Docs: https://kaze-design-system.vercel.app/docs/components/skeleton
 - 読み込み中であることは親要素に aria-busy="true" を付けるか、visually hidden の「読み込み中」を添えて伝える
 - 読み込みが終わったら Skeleton を外し、内容に置き換える
 
-Related: progress, empty-state, card, table
+Related: progress, spinner, empty-state, card, table
 
 **Props**
 
@@ -2400,6 +2426,101 @@ Related: skeleton, alert, table, search, button
   description="新しいアイテムを追加してください。"
   actions={<Button>新規作成</Button>}
 />
+```
+
+#### Spinner
+
+読み込み中を伝える小さな表示。色は周りの文字色を受け継ぐ。
+
+Docs: https://kaze-design-system.vercel.app/docs/components/spinner
+
+**使う場面**
+
+- いつ終わるかわからない短い待ち（保存中、同期中、送信中）を、小さく示す
+- ボタンの中の処理待ちは Button の loading を使う（Spinner が先頭に入る）。文字の横や暗い背景の上にもそのまま置ける。色は周りの文字色を受け継ぐ
+- size は置く場所に合わせる。文字の横や Button は sm（14px）、既定は md（18px）、領域の中央に置くなら lg（24px）
+
+**使わない場面**
+
+- ページやカードの形が決まっている読み込み。あとから出る内容と同じ形の Skeleton を使う
+- 進み具合がわかる処理。Progress を使う
+- 相手が入力中であることの表示。意味と読み上げが違うので TypingIndicator を使う
+- 処理に失敗したときの説明。Alert を使う
+
+**アクセシビリティ**
+
+- role="status" が付き、表示されると label（既定は「読み込み中」）が控えめに読み上げられる。見た目の回転は読み上げられない
+- 何を待っているかがわかるように、label は「請求書を送信しています」のように具体的にする
+- prefers-reduced-motion では回転を止めず、2.4 秒に 1 周のゆっくりした動きにする
+- Button の loading の中では、スピナー自体は読み上げず、ボタンの aria-busy で処理中を伝える
+
+**文言**
+
+- label は進行形で書く（「保存しています」「同期しています」）。「お待ちください」だけにしない
+
+Related: button, skeleton, progress, typing-indicator, alert
+
+**Props**
+
+- `size?`: `"sm" | "md" | "lg"`
+  - Default: `"md"`
+  - 14 / 18 / 24px
+- `label?`: `string`
+  - Default: `"読み込み中"`
+  - 読み上げ用の文言
+
+**Usage**
+
+```tsx
+<Spinner />
+<Spinner size="sm" label="同期しています" />
+<Button loading>保存中</Button>
+```
+
+#### TypingIndicator
+
+相手が入力中であることを示す、順に明るくなる 3 つの点。
+
+Docs: https://kaze-design-system.vercel.app/docs/components/typing-indicator
+
+**使う場面**
+
+- チャットやコメント欄で、相手が入力中であることを小さく示す（点が順に明るくなる）
+- 誰が入力中かを伝えたいときは、label に「宮田 千夏さんが入力中」のように渡し、近くに同じ文を表示する
+- size は置く場所に合わせる。吹き出しの中や文字の横は sm、既定は md、チャットの下端に独立して置くなら lg
+
+**使わない場面**
+
+- 処理の待ち。意味と読み上げが違うので Spinner を使う（Spinner は「読み込み中」、これは「入力中」を伝える）
+- データの読み込み。形が決まっているなら Skeleton を使う
+- 入力が終わったあとも出し続けること。相手の入力が止まったら消す
+
+**アクセシビリティ**
+
+- role="status" が付き、表示されると label（既定は「入力中」）が控えめに読み上げられる。点は装飾なので読み上げられない
+- 入力中は頻繁に出入りするので、画面内に 1 つだけ置く。複数人なら「2 人が入力中」のように 1 つにまとめる
+- prefers-reduced-motion では点の動きを止め、少し薄い静止した点で表示する
+
+**文言**
+
+- label は「〇〇さんが入力中」のように、主語を入れる。入力者を示さないなら既定の「入力中」で足りる
+
+Related: spinner, skeleton, alert
+
+**Props**
+
+- `size?`: `"sm" | "md" | "lg"`
+  - Default: `"md"`
+  - 14 / 18 / 24px
+- `label?`: `string`
+  - Default: `"入力中"`
+  - 読み上げ用の文言。誰が入力中かは「宮田 千夏さんが入力中」のように渡す
+
+**Usage**
+
+```tsx
+<TypingIndicator />
+<TypingIndicator size="sm" label="宮田 千夏さんが入力中" />
 ```
 
 #### Toast
@@ -2660,6 +2781,66 @@ Related: sidebar, navbar, breadcrumb, search
 <TopBar actions={<Button>新規作成</Button>}>
   <h2>ダッシュボード</h2>
 </TopBar>
+```
+
+#### Link
+
+文中に置くリンク。外部サイトへは external で新しいタブと ↗ を付ける。
+
+Docs: https://kaze-design-system.vercel.app/docs/components/link
+
+**使う場面**
+
+- 文章の中に置く、ほかのページや外部サイトへの移動（「請求書の設定」「ヘルプセンター」）
+- 別サイトへ出るときは external を付ける。新しいタブで開き、末尾に ↗ が付く
+- Next.js の Link など、すでにルーティング用の要素があるときは asChild で包む。見た目と下線だけをそちらに渡せる
+
+**使わない場面**
+
+- ページ内で何かを実行する操作。Button を使う。ボタンの見た目で移動させたいときは Button に asChild で <a> を包む
+- ナビゲーションメニューの項目。Sidebar や Navbar を使う
+- 本文と見分けがつかない装飾。リンクは下線で示す形のままにし、下線を消さない
+
+**キーボード操作**
+
+| キー | 動作 |
+|---|---|
+| Tab | リンクにフォーカスを移す |
+| Enter | リンク先へ移動する（external のときは新しいタブで開く） |
+
+**アクセシビリティ**
+
+- <a> をそのまま描画するので、リンクとして読み上げられる。href を必ず付ける
+- external のときは ↗ は aria-hidden で読み上げず、代わりに「（新しいタブで開きます）」が続けて読み上げられる。文言は externalLabel で差し替えられる
+- 色ではなく下線でリンクだとわかる。フォーカスのときはリングが出る
+
+**文言**
+
+- リンク文字は移動先がわかる名詞か動詞で書く（「請求書の設定」）。「こちら」「詳しくはここ」にしない
+- 文の途中に置くときは、リンク文字だけで意味が通る長さにする
+
+Related: button, breadcrumb, navbar, sidebar
+
+**Props**
+
+- `asChild?`: `boolean`
+  - Default: `false`
+  - 子要素にスタイルを委ねる（Next.js の Link など）
+- `external?`: `boolean`
+  - Default: `false`
+  - 別サイトへのリンク。新しいタブで開き、末尾に ↗ を付ける
+- `externalLabel?`: `string`
+  - Default: `"（新しいタブで開きます）"`
+  - external のときの読み上げ文言
+
+**Usage**
+
+```tsx
+<Link href="/settings">請求書の設定</Link>
+<Link href="https://example.com" external>ヘルプセンター</Link>
+<Link asChild>
+  <a href="/help">ヘルプ</a>
+</Link>
 ```
 
 #### Breadcrumb
@@ -3862,6 +4043,61 @@ Related: heading, badge, description-list, form-field
 <Text variant="caption" color="muted">2024年1月1日 公開</Text>
 <Text variant="overline">カテゴリ</Text>
 <Text weight="bold" color="primary">重要なテキスト</Text>
+```
+
+#### VisuallyHidden
+
+画面には出さず、読み上げソフトにだけ伝える文字を包む。
+
+Docs: https://kaze-design-system.vercel.app/docs/components/visually-hidden
+
+**使う場面**
+
+- 画面には出さず、読み上げソフトにだけ伝える文字を包む（アイコンだけのボタンの名前、グラフの要約）
+- フォーカスしたときだけ見せたいスキップリンク（「本文へ移動」）は focusable を付ける。Tab で最初に届く位置に置く
+- <a> など自分で用意した要素に当てたいときは asChild を使う
+
+**使わない場面**
+
+- 見えている文字をわざわざ隠して重複させること。見える文字があるなら、それを name に使う
+- フォーカスできる要素を focusable なしで隠すこと。キーボードで操作する人には、フォーカスした先が見えなくなる
+- 内容を隠して見せないための手段。display:none のような非表示とは違い、読み上げでは読まれる
+
+**キーボード操作**
+
+| キー | 動作 |
+|---|---|
+| Tab | focusable のとき、フォーカスが届くと画面の左上に表示される |
+| Enter | 中のリンクを開く（スキップリンクなら本文へ移動する） |
+
+**アクセシビリティ**
+
+- sr-only クラスを使うので、見えなくても読み上げられる。中の文字は支援技術に通常どおり届く
+- focusable はフォーカスされたときに、文字色・背景・小さな角丸・フォーカスリングで控えめに表示される。フォーカスが外れると再び隠れる
+- アイコンだけのボタンには VisuallyHidden で名前を入れるか、aria-label を使う。どちらか一方にする
+
+**文言**
+
+- 読み上げられる文として自然に書く（「検索」「本文へ移動」）。画面の文言と同じ語を使う
+
+Related: button, link, text
+
+**Props**
+
+- `asChild?`: `boolean`
+  - Default: `false`
+  - 子要素にスタイルを委ねる（スキップリンクの <a> など）
+- `focusable?`: `boolean`
+  - Default: `false`
+  - フォーカスされたときだけ画面に表示する（スキップリンク用）
+
+**Usage**
+
+```tsx
+<VisuallyHidden>検索</VisuallyHidden>
+<VisuallyHidden asChild focusable>
+  <a href="#main">本文へ移動</a>
+</VisuallyHidden>
 ```
 
 ### リスト

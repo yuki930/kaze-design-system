@@ -449,7 +449,7 @@ export function ShowcasePage() {
                   <Layers size={16} />
                   <span>コンポーネント</span>
                 </div>
-                <div className={styles.statsCardNumber}>73</div>
+                <div className={styles.statsCardNumber}>77</div>
                 <Text size="sm" color="muted">
                   9カテゴリのコンポーネントで
                   <br />
@@ -601,7 +601,7 @@ export function ShowcasePage() {
               level={2}
               description="Foundation の上に、Application UI と Marketing の2つのカタログを揃えています。"
             >
-              73のコンポーネント
+              77のコンポーネント
             </Heading>
           </div>
 

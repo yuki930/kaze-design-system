@@ -695,10 +695,131 @@
   font-variant-numeric: tabular-nums;
 }
 
+/* Sortable header: the heading text becomes a button with a direction arrow */
+.table__sort {
+  all: unset;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+  white-space: nowrap;
+  border-radius: var(--radius-sm);
+}
+
+.table__sort:focus-visible {
+  outline: var(--ring-width) solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.table__sort-icon {
+  width: 12px;
+  height: 12px;
+  flex: none;
+}
+
+.table__sort-icon--idle {
+  color: var(--color-fg-decorative);
+}
+
 /* Compact table */
 .table--compact th,
 .table--compact td {
   padding: var(--space-2) var(--space-3);
+}
+
+/* ── Spinner ─────────────────────────────────────────────── */
+@keyframes kaze-spin {
+  to { transform: rotate(360deg); }
+}
+
+.spinner {
+  --spinner-size: 18px;
+  position: relative;
+  display: inline-block;
+  width: var(--spinner-size);
+  height: var(--spinner-size);
+  border-radius: 50%;
+  border: max(1.5px, calc(var(--spinner-size) / 12)) solid color-mix(in srgb, currentColor 18%, transparent);
+  border-top-color: currentColor;
+  animation: kaze-spin 0.8s linear infinite;
+  flex: none;
+}
+
+.spinner--sm { --spinner-size: 14px; }
+.spinner--md { --spinner-size: 18px; }
+.spinner--lg { --spinner-size: 24px; }
+
+/* Slow the rotation instead of stopping it. !important so this layer's rule beats
+   the global reduced-motion reset in utilities.css (earlier layer wins for !important). */
+@media (prefers-reduced-motion: reduce) {
+  .spinner {
+    animation-duration: 2.4s !important;
+    animation-iteration-count: infinite !important;
+  }
+}
+
+/* ── TypingIndicator ─────────────────────────────────────── */
+@keyframes kaze-typing-dot {
+  0%, 80%, 100% { opacity: 0.25; }
+  40% { opacity: 1; }
+}
+
+.typing-indicator {
+  --typing-indicator-size: 18px;
+  position: relative;
+  display: inline-flex;
+  gap: calc(var(--typing-indicator-size) / 6);
+  align-items: center;
+  height: var(--typing-indicator-size);
+}
+
+.typing-indicator--sm { --typing-indicator-size: 14px; }
+.typing-indicator--md { --typing-indicator-size: 18px; }
+.typing-indicator--lg { --typing-indicator-size: 24px; }
+
+.typing-indicator__dot {
+  width: calc(var(--typing-indicator-size) / 4.5);
+  height: calc(var(--typing-indicator-size) / 4.5);
+  border-radius: 50%;
+  background: currentColor;
+  animation: kaze-typing-dot 1.2s ease-in-out infinite;
+}
+
+.typing-indicator__dot:nth-child(2) { animation-delay: 0.15s; }
+.typing-indicator__dot:nth-child(3) { animation-delay: 0.3s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .typing-indicator__dot {
+    animation: none;
+    opacity: 0.6;
+  }
+}
+
+/* ── Link ────────────────────────────────────────────────── */
+.link {
+  color: var(--color-fg);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.25em;
+  text-decoration-color: var(--color-fg-decorative);
+}
+
+.link:hover {
+  text-decoration-color: currentColor;
+}
+
+.link:focus-visible {
+  outline: var(--ring-width) solid var(--color-focus);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+.link__external {
+  font-size: 0.8em;
+  margin-left: 0.15em;
+  color: var(--color-fg-tertiary);
 }
 
 /* ── Avatar ──────────────────────────────────────────────── */
@@ -5234,5 +5355,26 @@ button.chart-legend__item:focus-visible {
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
+}
+
+/* Skip links: stay hidden until keyboard focus, then show as a small quiet chip */
+.sr-only--focusable:focus,
+.sr-only--focusable:focus-within {
+  position: fixed;
+  top: var(--space-2);
+  left: var(--space-2);
+  z-index: var(--z-modal);
+  width: auto;
+  height: auto;
+  margin: 0;
+  padding: var(--space-2) var(--space-3);
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+  color: var(--color-fg);
+  background: var(--color-surface);
+  border-radius: var(--radius-sm);
+  outline: var(--ring-width) solid var(--color-focus);
+  outline-offset: var(--ring-offset);
 }
 }

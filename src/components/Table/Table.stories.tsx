@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/nextjs";
 import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "./Table";
 import { Badge } from "../Badge/Badge";
+import { useTableSort } from "../../hooks/useTableSort";
 
 const meta = {
   title: "Components/Table",
@@ -103,4 +104,54 @@ export const WithBadges: Story = {
       </TableBody>
     </Table>
   ),
+};
+
+const salesData = [
+  { store: "渋谷", sales: 4820000, yoy: 12.4 },
+  { store: "梅田", sales: 3915000, yoy: 3.1 },
+  { store: "天神", sales: 2140000, yoy: -1.8 },
+];
+
+const yen = (n: number) => `¥${n.toLocaleString("ja-JP")}`;
+const percent = (n: number) => `${n < 0 ? "−" : "+"}${Math.abs(n)}%`;
+
+function SortableTable({
+  initial,
+}: {
+  initial?: { key: "store" | "sales" | "yoy"; direction: "ascending" | "descending" };
+}) {
+  const { rows, getSortProps } = useTableSort(salesData, { initial });
+  return (
+    <Table compact>
+      <TableHeader>
+        <TableRow>
+          <TableHead {...getSortProps("store")}>店舗</TableHead>
+          <TableHead className="table__cell--numeric" {...getSortProps("sales")}>
+            売上
+          </TableHead>
+          <TableHead className="table__cell--numeric" {...getSortProps("yoy")}>
+            前年比
+          </TableHead>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        {rows.map((row) => (
+          <TableRow key={row.store}>
+            <TableCell>{row.store}</TableCell>
+            <TableCell className="table__cell--numeric">{yen(row.sales)}</TableCell>
+            <TableCell className="table__cell--numeric">{percent(row.yoy)}</TableCell>
+          </TableRow>
+        ))}
+      </TableBody>
+    </Table>
+  );
+}
+
+export const Sortable: Story = {
+  render: () => <SortableTable />,
+};
+
+/** 「売上」の降順で並べた状態 */
+export const SortedBySalesDescending: Story = {
+  render: () => <SortableTable initial={{ key: "sales", direction: "descending" }} />,
 };

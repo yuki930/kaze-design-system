@@ -1,6 +1,8 @@
 import { createRef } from "react";
 import { describe, expect, it } from "vitest";
 import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import { vi } from "vitest";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "./Table";
 
 function Sample(props: { compact?: boolean; className?: string }) {
@@ -88,5 +90,50 @@ describe("Table", () => {
     expect(refs.td.current).toBe(td);
     expect(td).toHaveClass("td");
     expect(td).toHaveAttribute("colspan", "2");
+  });
+});
+
+describe("TableHead sorting", () => {
+  function renderHead(props: Parameters<typeof TableHead>[0]) {
+    render(
+      <Table aria-label="売上">
+        <TableHeader>
+          <TableRow>
+            <TableHead {...props}>売上</TableHead>
+          </TableRow>
+        </TableHeader>
+      </Table>,
+    );
+    return screen.getByRole("columnheader");
+  }
+
+  it("is plain text without onSort", () => {
+    const th = renderHead({});
+    expect(th.querySelector("button")).toBeNull();
+    expect(th).not.toHaveAttribute("aria-sort");
+  });
+
+  it("wraps the heading in a button and calls onSort", async () => {
+    const onSort = vi.fn();
+    const th = renderHead({ onSort });
+    const button = screen.getByRole("button", { name: "売上" });
+    expect(button).toHaveClass("table__sort");
+    expect(button).toHaveAttribute("type", "button");
+    expect(th).not.toHaveAttribute("aria-sort");
+    expect(th.querySelector(".table__sort-icon--idle")).not.toBeNull();
+    await userEvent.click(button);
+    expect(onSort).toHaveBeenCalledTimes(1);
+  });
+
+  it.each(["ascending", "descending"] as const)("sets aria-sort for %s", (sortDirection) => {
+    const th = renderHead({ onSort: () => {}, sortDirection });
+    expect(th).toHaveAttribute("aria-sort", sortDirection);
+    expect(th.querySelector(".table__sort-icon--idle")).toBeNull();
+    expect(th.querySelector("svg")).toHaveAttribute("aria-hidden", "true");
+  });
+
+  it("keeps the numeric class on the th", () => {
+    const th = renderHead({ onSort: () => {}, className: "table__cell--numeric" });
+    expect(th).toHaveClass("table__cell--numeric");
   });
 });
