@@ -16,6 +16,13 @@ CHANGELOG entries and version bumps are generated automatically by `.github/work
 ### 0.x policy
 
 While the major version is 0, a **minor** release may include breaking changes (they are called out in the release notes with a migration note); a **patch** release never does. The public API will be frozen at 1.0.
+## [0.10.3] - 2026-10-29
+
+### Other
+
+- chore(deps-dev): bump lucide-react from 0.575.0 to 1.61.0 (#49)
+
+
 ## [0.10.2] - 2026-10-29
 
 ### Other
