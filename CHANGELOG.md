@@ -21,6 +21,21 @@ CHANGELOG entries and version bumps are generated automatically by `.github/work
 - **Patch** releases fix bugs and never change the public API.
 
 Before 1.0, minor releases could include breaking changes; see MIGRATION.md for moving from 0.x.
+## [1.1.0] - 2026-10-29
+
+### Features
+
+- feat: Spinner, TypingIndicator, Link, VisuallyHidden, sortable Table and Button loading (#67)
+
+### Other
+
+- ci: release the latest main and push the tag before publishing to npm (#68)
+- docs: usage examples type-checked, ⌘K search and mobile navigation (#66)
+- chore(deps): bump actions/upload-artifact from 4 to 7 (#65)
+- build: move to TypeScript 6 instead of 7 (#64)
+- chore(deps-dev): bump jsdom from 28.1.0 to 30.1.3 (#62)
+
+
 ## [1.0.0] - 2026-10-29
 
 ### Features
