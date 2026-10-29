@@ -21,6 +21,14 @@ CHANGELOG entries and version bumps are generated automatically by `.github/work
 - **Patch** releases fix bugs and never change the public API.
 
 Before 1.0, minor releases could include breaking changes; see MIGRATION.md for moving from 0.x.
+## [1.0.1] - 2026-10-29
+
+### Other
+
+- chore(deps-dev): bump @types/node from 25.3.0 to 26.6.5 (#61)
+- chore(deps-dev): bump the dev-dependencies group with 5 updates (#59)
+
+
 ## [1.0.0] - 2026-10-29
 
 ### Features
