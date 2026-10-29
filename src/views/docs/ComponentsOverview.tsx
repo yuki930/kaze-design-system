@@ -173,6 +173,7 @@ export const categories: Category[] = [
     title: "マーケティング",
     layer: "marketing",
     components: [
+      { name: "AnnouncementBar", path: "announcement-bar", description: "お知らせ帯" },
       { name: "Navbar", path: "navbar", description: "ナビゲーションバー" },
       { name: "Hero", path: "hero", description: "ヒーローセクション" },
       { name: "Section", path: "section", description: "汎用セクション" },

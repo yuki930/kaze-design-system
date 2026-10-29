@@ -11,7 +11,6 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    badge: "新機能",
     title: "静かで、速くて、読みやすい。",
     subtitle: "管理画面と日本語コンテンツのための React デザインシステム。",
   },

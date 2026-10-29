@@ -7,7 +7,7 @@
 
 - **日本語がきれいに見える**: 英数字は Montserrat、かなと漢字は Noto Sans JP で組みます。プロポーショナルかな（palt）を全体にかけて字間を整え、行間はゆったりめにとっています
 - **日本語入力でつまずかない**: 変換を確定する Enter では送信されません。全角の「１２３」や「ー」のマイナスも数値として受け取り、ひらがなとカタカナのどちらで検索しても見つかります
-- **77 のコンポーネント**: フォーム、テーブル、ダッシュボード、ランディングページまで。折れ線・縦棒・ヒートマップなどのグラフも、外部ライブラリなしの SVG で描きます
+- **78 のコンポーネント**: フォーム、テーブル、ダッシュボード、ランディングページまで。折れ線・縦棒・ヒートマップなどのグラフも、外部ライブラリなしの SVG で描きます
 - **だれでも使える**: 文字と背景のコントラストは、どのテーマでも WCAG 2.2 AA を満たします。ダイアログ・メニュー・タブはキーボードだけで操作できます
 - **テーマと密度を切り替えられる**: ライト / ダーク、温かみのあるグレー / 青みのグレー、ふつう / コンパクト。どれも HTML の属性ひとつで切り替わります
 - **素の CSS で動く**: CSS 変数とカスケードレイヤーだけで作っていて、CSS-in-JS は使いません。Tailwind と同じページでも併用できます
@@ -60,7 +60,7 @@ AI コーディングアシスタントは以下のファイルからライブ�
 - **Short index**: https://kaze-design-system.vercel.app/llms.txt
 - **Full API reference**: https://kaze-design-system.vercel.app/llms-full.txt
 
-`llms-full.txt` には 77 コンポーネントの `Props` / `Usage` / カテゴリが機械可読形式で含まれており、Storybook を参照しなくても正確なコード提案が可能です。[llmstxt.org](https://llmstxt.org) 準拠。
+`llms-full.txt` には 78 コンポーネントの `Props` / `Usage` / カテゴリが機械可読形式で含まれており、Storybook を参照しなくても正確なコード提案が可能です。[llmstxt.org](https://llmstxt.org) 準拠。
 
 ## インストール
 
@@ -130,7 +130,7 @@ kaze は1パッケージ・3レイヤーで構成されています。
 
 - **Foundation**: デザイントークン（カラー・タイポグラフィ・スペーシング）と CSS。両レイヤー共通の土台
 - **Application UI**: 管理画面・アプリ向けの66コンポーネント。`kaze-design-system` から import
-- **Marketing**: LP・キャンペーンページ向けの11コンポーネント。`kaze-design-system/marketing` から import
+- **Marketing**: LP・キャンペーンページ向けの12コンポーネント。`kaze-design-system/marketing` から import
 
 ```tsx
 // Application UI
@@ -140,7 +140,7 @@ import { Table, Sidebar, CommandPalette } from "kaze-design-system";
 import { Hero, PricingGrid, CTABanner } from "kaze-design-system/marketing";
 ```
 
-## コンポーネント一覧（77 コンポーネント）
+## コンポーネント一覧（78 コンポーネント）
 
 ### Application UI（66）
 
@@ -155,11 +155,11 @@ import { Hero, PricingGrid, CTABanner } from "kaze-design-system/marketing";
 | **レイアウト** | AppLayout, Divider, Grid, Search, Logo, Icon, Heading, Text, VisuallyHidden |
 | **リスト** | List, DescriptionList, Timeline |
 
-### Marketing（11）
+### Marketing（12）
 
 | カテゴリ | コンポーネント |
 |---|---|
-| **マーケティング** | Navbar, Hero, Section, SplitSection, FeatureGrid, Stats, Pricing, Testimonial, FAQ, CTABanner, LPFooter |
+| **マーケティング** | AnnouncementBar, Navbar, Hero, Section, SplitSection, FeatureGrid, Stats, Pricing, Testimonial, FAQ, CTABanner, LPFooter |
 
 詳細は [kaze-design-system.vercel.app/docs/components](https://kaze-design-system.vercel.app/docs/components) を参照してください。
 

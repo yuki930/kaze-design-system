@@ -1,4 +1,4 @@
-import { Zap, Palette, Accessibility, Moon, Sun, Sparkles, Rocket } from "lucide-react";
+import { Moon, Sun, Sparkles, Rocket } from "lucide-react";
 import { GitHubMark } from "@/views/site/GitHubMark";
 import {
   Navbar,
@@ -28,27 +28,24 @@ import styles from "./LandingPage.module.css";
 
 /* ── Feature data ─────────────────────────────────────────── */
 
-const features = [
+// 先頭が主役（spotlight の左の列）。残りは脇に並ぶ
+const [leadFeature, ...minorFeatures] = [
   {
-    icon: <Zap size={24} />,
     title: "圧倒的な軽量さ",
     description:
       "ランタイム JavaScript ゼロ。gzip 後 23KB 程度の CSS で、すべてのコンポーネントをスタイリングします。パフォーマンスを犠牲にしません。",
   },
   {
-    icon: <Palette size={24} />,
     title: "デザイントークン",
     description:
       "カラー・タイポグラフィ・スペーシングを一元管理。CSS カスタムプロパティベースで、テーマの切り替えもわずか数行です。",
   },
   {
-    icon: <Accessibility size={24} />,
     title: "アクセシビリティ",
     description:
       "WAI-ARIA ガイドラインに準拠。キーボード操作、スクリーンリーダー対応を標準搭載し、すべてのユーザーに配慮した体験を届けます。",
   },
   {
-    icon: <Moon size={24} />,
     title: "ダークモード",
     description:
       "ライト / ダークをワンクリックで切り替え。デザイントークンの自動変換により、追加の CSS は一切不要です。",
@@ -84,7 +81,7 @@ const testimonials = [
 /* ── Stats data ───────────────────────────────────────────── */
 
 const stats = [
-  { value: "77", label: "コンポーネント" },
+  { value: "78", label: "コンポーネント" },
   { value: "0", label: "依存関係" },
   { value: "100%", label: "TypeScript" },
   { value: "23KB", label: "CSS gzip 合計" },
@@ -131,7 +128,6 @@ export function LandingPage() {
 
       {/* ── 2. Hero ────────────────────────────────────────── */}
       <Hero
-        badge="日本語組版 × Quiet Gray"
         title="美しいUIを、もっと速く"
         subtitle="Kaze は、人にもAIにも扱いやすいデザインシステムです。明快なトークン設計と軽量な CSS で、AI コーディングツールとの協業でも、手書きでも、迷わず美しい UI を組み立てられます。"
         bg="var(--color-bg-inverse)"
@@ -165,9 +161,22 @@ export function LandingPage() {
           title="なぜ Kaze を選ぶのか"
           description="開発体験とユーザー体験の両方を追求した、モダンなデザインシステム。"
         />
-        <FeatureGrid columns={2}>
-          {features.map((f) => (
-            <FeatureCard key={f.title} icon={f.icon} title={f.title} description={f.description} />
+        <FeatureGrid variant="spotlight">
+          <FeatureCard
+            figure={
+              <>
+                23<small>KB</small>
+              </>
+            }
+            title={leadFeature.title}
+            description={leadFeature.description}
+          >
+            <pre>
+              <code>import &quot;kaze-design-system/css/all&quot;;</code>
+            </pre>
+          </FeatureCard>
+          {minorFeatures.map((f) => (
+            <FeatureCard key={f.title} title={f.title} description={f.description} />
           ))}
         </FeatureGrid>
       </Section>

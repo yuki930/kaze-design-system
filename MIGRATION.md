@@ -71,3 +71,26 @@ v1.0 では、v0.10 で非推奨にした古い prop と型名を削除しまし
 <Tab\b[^>]*\bactive\b
 <TabPanel\b[^>]*\bselected=
 ```
+
+## v2 で削除予定（現在は非推奨）
+
+v1 の間は動き続け、開発中のコンソールに警告が一度だけ出ます。次のメジャーで削除するので、今のうちに書き換えてください。
+
+| コンポーネント | 今 | 置き換え先 |
+|---|---|---|
+| Hero | `<Hero badge="v1.1 を公開" …>` | ページ最上部に `AnnouncementBar` を置く（下の例） |
+
+見出しの上のバッジは、キャッチコピーなら外し、お知らせなら Hero から切り離してページの最上部に置きます。
+
+```tsx
+// 今
+<Navbar … />
+<Hero badge="v1.1 を公開しました" title="…" />
+
+// 置き換え後
+<AnnouncementBar action={<Link href="/changelog">変更点を見る</Link>}>
+  v1.1 を公開しました。
+</AnnouncementBar>
+<Navbar … />
+<Hero title="…" />
+```

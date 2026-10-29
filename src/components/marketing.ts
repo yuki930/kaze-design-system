@@ -8,6 +8,9 @@
    セット構成は docs の Marketing カタログと一致させること。
    ------------------------------------------------------------- */
 
+export { AnnouncementBar } from "./AnnouncementBar";
+export type { AnnouncementBarProps } from "./AnnouncementBar";
+
 export { Navbar, NavbarLinks, NavbarLink } from "./Navbar";
 export type { NavbarProps, NavbarLinksProps, NavbarLinkProps } from "./Navbar";
 
@@ -21,7 +24,12 @@ export { SplitSection } from "./SplitSection";
 export type { SplitSectionProps } from "./SplitSection";
 
 export { FeatureGrid, FeatureCard } from "./FeatureGrid";
-export type { FeatureGridProps, FeatureCardProps, FeatureGridColumns } from "./FeatureGrid";
+export type {
+  FeatureGridProps,
+  FeatureCardProps,
+  FeatureGridColumns,
+  FeatureGridVariant,
+} from "./FeatureGrid";
 
 export { Stats, StatItem } from "./Stats";
 export type { StatsProps, StatItemProps } from "./Stats";

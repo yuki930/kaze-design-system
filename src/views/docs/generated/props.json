@@ -998,14 +998,30 @@
       "default": ""
     }
   ],
-  "hero": [
+  "announcement-bar": [
     {
-      "name": "badge",
-      "type": "string",
-      "optional": true,
-      "description": "タイトル上のバッジテキスト",
+      "name": "children",
+      "type": "ReactNode",
+      "optional": false,
+      "description": "お知らせの文。1 行に収まる長さにする",
       "default": ""
     },
+    {
+      "name": "action",
+      "type": "ReactNode",
+      "optional": true,
+      "description": "続きへの導線。Kaze の Link を渡す",
+      "default": ""
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "optional": true,
+      "description": "ランドマーク（aside）の名前",
+      "default": "\"お知らせ\""
+    }
+  ],
+  "hero": [
     {
       "name": "title",
       "type": "string",
@@ -1047,6 +1063,14 @@
       "optional": true,
       "description": "CTAボタンなどのアクション要素",
       "default": ""
+    },
+    {
+      "name": "badge",
+      "type": "string",
+      "optional": true,
+      "description": "タイトル上のバッジテキスト。非推奨で、v2 で削除。お知らせは AnnouncementBar を使う",
+      "default": "",
+      "deprecated": "ページ上部のお知らせは AnnouncementBar を使う。v2 で削除"
     }
   ],
   "section": [
@@ -1107,8 +1131,29 @@
       "name": "columns",
       "type": "2 | 3 | 4",
       "optional": true,
-      "description": "カラム数",
+      "description": "カラム数（variant が grid のとき）",
       "default": "3"
+    },
+    {
+      "name": "variant",
+      "type": "\"grid\" | \"spotlight\"",
+      "optional": true,
+      "description": "grid は同じ重みで均等に並べる。spotlight は最初の子を主役（左の列）、残りを脇（右の列）に並べる。spotlight では icon は描かれない",
+      "default": "\"grid\""
+    },
+    {
+      "name": "figure",
+      "type": "React.ReactNode",
+      "optional": true,
+      "description": "タイトルの上に大きく置く数字と単位（FeatureCard）。例: <>23<small>KB</small></>",
+      "default": ""
+    },
+    {
+      "name": "children",
+      "type": "React.ReactNode",
+      "optional": true,
+      "description": "description の下に置く補足。コード片など（FeatureCard）",
+      "default": ""
     }
   ],
   "stats": [
