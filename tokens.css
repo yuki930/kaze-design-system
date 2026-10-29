@@ -303,37 +303,28 @@
   --chart-teal: var(--teal-500);
   --chart-yellow: var(--yellow-500);
   --chart-green: var(--green-500);
-  /* Series order for charts. Every colour keeps 3:1 against both the light
-     surface and the dark surface (WCAG 1.4.11). The order is chosen so that
-     the first colours stay apart under protanopia, deuteranopia and
-     tritanopia as well as normal vision: the closest pair among the first 4
-     is CIEDE2000 12.2, first 6 is 7.4, first 8 is 5.2. Prefer six series or
-     fewer. The named --chart-<hue> colours are unchanged. */
-  --chart-1: var(--blue-600);
-  --chart-2: var(--amber-600);
-  --chart-3: var(--emerald-700);
-  --chart-4: var(--orange-700);
-  --chart-5: var(--cyan-600);
-  --chart-6: var(--pink-500);
-  --chart-7: var(--green-600);
-  --chart-8: var(--red-500);
-  --chart-9: var(--lime-700);
-  --chart-10: var(--teal-600);
-  --chart-11: var(--violet-500);
-  --chart-12: var(--yellow-700);
+  --chart-1: var(--chart-blue);
+  --chart-2: var(--chart-emerald);
+  --chart-3: var(--chart-amber);
+  --chart-4: var(--chart-pink);
+  --chart-5: var(--chart-cyan);
+  --chart-6: var(--chart-red);
+  --chart-7: var(--chart-lime);
+  --chart-8: var(--chart-purple);
+  --chart-9: var(--chart-orange);
+  --chart-10: var(--chart-teal);
+  --chart-11: var(--chart-yellow);
+  --chart-12: var(--chart-green);
 
   /* ── Typography ────────────────────────────────────────── */
-  /* Body: Japanese-first stack. Latin glyphs fall through to Noto's own
-     Latin, so numbers and ASCII share x-height and weight with the kana. */
-  --font-sans: var(--font-noto-sans-jp, "Noto Sans JP"), -apple-system, BlinkMacSystemFont,
+  /* Montserrat for Latin and numerals, Noto Sans JP for kana and kanji. */
+  --font-sans: var(--font-montserrat, "Montserrat"), var(--font-noto-sans-jp, "Noto Sans JP"), -apple-system, BlinkMacSystemFont,
     "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo,
     sans-serif;
-  /* Display: headings and large numerals. Montserrat for Latin, Noto for
-     kana. */
-  --font-display: var(--font-montserrat, "Montserrat"), var(--font-noto-sans-jp, "Noto Sans JP"), -apple-system,
-    "Hiragino Sans", Meiryo, sans-serif;
-  /* Proportional kana (palt) is applied to display text only. On body copy
-     it tightens punctuation and hurts readability. */
+  /* Same as font-sans. Kept so code that references it keeps working. */
+  --font-display: var(--font-sans);
+  /* palt is applied to all text from :root; this token stays for code that
+     references it. */
   --font-feature-display: "palt" 1;
   --font-mono: "SF Mono", "Fira Code", "Fira Mono", "Roboto Mono", monospace;
   --measure-ja: 40em; /* max line length for Japanese prose (about 40 characters) */
@@ -376,9 +367,8 @@
   --density-dropdown-py: var(--space-1-5); /* Dropdown item vertical padding */
   --density-tab-py: var(--space-2); /* Tabs vertical padding */
 
-  /* Root font-size is left at the browser default (1rem) so users who enlarge
-     text in their browser are respected. Kerning stays on for all text. */
-  font-kerning: normal;
+  /* Proportional kana (palt) for all text. */
+  font-feature-settings: "palt" 1;
 
   /* Breakpoints (reference only, use @media): sm 640px / md 768px /
      lg 1024px / xl 1280px / 2xl 1536px */

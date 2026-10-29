@@ -66,7 +66,8 @@ tsconfig.build.json     # ライブラリビルド用 TypeScript 設定
 `next` 等を dependencies に戻すのは禁止（npm 利用者全員に Next.js が入ってしまう）。
 
 ## CSS 設計
-- **PALT**: 本文には適用しない。`--font-feature-display`（`"palt" 1`）を見出し・Metric・Stats・料金などの表示用テキストにだけ当てる
+- **PALT**: `font-feature-settings: "palt" 1` は `tokens.css` の `:root` でグローバル適用（本文も含む）
+- **書体**: 英数字は Montserrat、かなと漢字は Noto Sans JP（`--font-sans`）。palt と書体はオーナーのこだわりなので、組版の一般論を理由に変えない。文字の見た目が変わる変更は事前に確認する
 - **ダークモード**: `[data-theme="dark"]` セレクタ + `@media (prefers-color-scheme: dark)` フォールバック
   - フォールバックは `:root:not([data-theme="light"])` パターン
   - `[data-theme="dark"]` だけのルールを書いたら、同じ内容を `@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) ... }` にも書く

@@ -5,7 +5,7 @@
 
 **Kaze（風）** は、業務アプリやダッシュボードのための React デザインシステムです。白と温かみのあるグレーを基調にした、落ち着いた見た目。数字と日本語を一日中読み続ける画面のために作っています。
 
-- **日本語がきれいに読める**: 本文は Noto Sans JP で、行間は 1.75 とゆったりめ。小さい「っ」や「ー」が行の頭に来ないようにし、行頭の括弧の余白も詰めます。文字詰め（palt）は見出しと大きな数字だけにかけ、本文は読みやすさを優先しています
+- **日本語がきれいに見える**: 英数字は Montserrat、かなと漢字は Noto Sans JP で組みます。プロポーショナルかな（palt）を全体にかけて字間を整え、行間はゆったりめにとっています
 - **日本語入力でつまずかない**: 変換を確定する Enter では送信されません。全角の「１２３」や「ー」のマイナスも数値として受け取り、ひらがなとカタカナのどちらで検索しても見つかります
 - **73 のコンポーネント**: フォーム、テーブル、ダッシュボード、ランディングページまで。折れ線・縦棒・ヒートマップなどのグラフも、外部ライブラリなしの SVG で描きます
 - **だれでも使える**: 文字と背景のコントラストは、どのテーマでも WCAG 2.2 AA を満たします。ダイアログ・メニュー・タブはキーボードだけで操作できます
@@ -238,11 +238,11 @@ CSS カスタムプロパティベース:
 - カラー: `--color-*`（warm zinc パレット）。文字色は `fg` / `fg-muted` / `fg-secondary` / `fg-tertiary` がすべて WCAG AA（4.5:1）を満たし、`fg-decorative` だけが装飾専用
 - フォーカス: `--color-focus`（既定は `fg`。全テーマで 3:1 以上の実線リング）
 - スペーシング: `--space-*`
-- タイポグラフィ: `--font-size-*`, `--font-weight-*`, `--font-sans`（本文、Noto Sans JP 主体）, `--font-display`（見出しと大きな数値、Montserrat + palt）, `--measure-ja`（日本語本文の行長 40em）
+- タイポグラフィ: `--font-size-*`, `--font-weight-*`, `--font-sans`（英数字は Montserrat、かなと漢字は Noto Sans JP）
 - ボーダー: `--radius-*`
 - シャドウ: `--shadow-*`
 - 密度: `--density-*`（コントロール高さ・行パディング・UI フォントサイズ。下記「密度」参照）
-- チャート: `--chart-1` 〜 `--chart-12`（系列の色。ライトとダークの背景で 3:1 以上、色覚特性でも先頭ほど見分けやすい順）
+- チャート: `--chart-1` 〜 `--chart-12`、色名つきの `--chart-blue` など
 
 JS から値を参照したい場合は `kaze-design-system/tokens` から import できます。`cssVar` はトークン名を型でチェックします。
 
@@ -269,10 +269,10 @@ cssVar("color-bg"); // "var(--color-bg)"。存在しない名前は型エラー
 
 `reset.css` と `tokens.css` が、日本語の本文と UI に合わせた既定値を適用します。
 
-- 本文は Noto Sans JP 主体、行間 1.75、ルートのフォントサイズはブラウザ既定（ユーザーの拡大設定を尊重）
-- 禁則処理 `line-break: strict`、約物の詰め `text-spacing-trim: trim-start`、見出しの文節改行 `word-break: auto-phrase`（対応ブラウザのみ）
-- プロポーショナルかな（palt）と Montserrat は、見出し・Metric・Stats・料金などの表示用テキストにだけ適用
-- 数値は `tabular-nums`、日本語見出しの字間は 0（欧文数字のみ `--letter-spacing-tight`）
+- 英数字は Montserrat、かなと漢字は Noto Sans JP（`--font-sans`）
+- プロポーショナルかな（palt）を `:root` で全体に適用
+- 本文の行間は 1.625（`--line-height-relaxed`）、見出しは `--letter-spacing-tight` で引き締める
+- 数値は `tabular-nums`
 
 ## テーマ（ライト / ダーク）
 

@@ -2460,12 +2460,11 @@
     },
     "chart-1": {
       "$type": "color",
-      "$value": "{primitive.blue-600}",
-      "$description": "Series order for charts. Every colour keeps 3:1 against both the light surface and the dark surface (WCAG 1.4.11). The order is chosen so that the first colours stay apart under protanopia, deuteranopia and tritanopia as well as normal vision: the closest pair among the first 4 is CIEDE2000 12.2, first 6 is 7.4, first 8 is 5.2. Prefer six series or fewer. The named --chart-<hue> colours are unchanged."
+      "$value": "{semantic.chart-blue}"
     },
     "chart-2": {
       "$type": "color",
-      "$value": "{primitive.amber-600}",
+      "$value": "{semantic.chart-emerald}",
       "$extensions": {
         "jp.kaze": {
           "section": "Color: Charts (→ palette refs, 12 named)"
@@ -2474,7 +2473,7 @@
     },
     "chart-3": {
       "$type": "color",
-      "$value": "{primitive.emerald-700}",
+      "$value": "{semantic.chart-amber}",
       "$extensions": {
         "jp.kaze": {
           "section": "Color: Charts (→ palette refs, 12 named)"
@@ -2483,7 +2482,7 @@
     },
     "chart-4": {
       "$type": "color",
-      "$value": "{primitive.orange-700}",
+      "$value": "{semantic.chart-pink}",
       "$extensions": {
         "jp.kaze": {
           "section": "Color: Charts (→ palette refs, 12 named)"
@@ -2492,7 +2491,7 @@
     },
     "chart-5": {
       "$type": "color",
-      "$value": "{primitive.cyan-600}",
+      "$value": "{semantic.chart-cyan}",
       "$extensions": {
         "jp.kaze": {
           "section": "Color: Charts (→ palette refs, 12 named)"
@@ -2501,7 +2500,7 @@
     },
     "chart-6": {
       "$type": "color",
-      "$value": "{primitive.pink-500}",
+      "$value": "{semantic.chart-red}",
       "$extensions": {
         "jp.kaze": {
           "section": "Color: Charts (→ palette refs, 12 named)"
@@ -2510,7 +2509,7 @@
     },
     "chart-7": {
       "$type": "color",
-      "$value": "{primitive.green-600}",
+      "$value": "{semantic.chart-lime}",
       "$extensions": {
         "jp.kaze": {
           "section": "Color: Charts (→ palette refs, 12 named)"
@@ -2519,7 +2518,7 @@
     },
     "chart-8": {
       "$type": "color",
-      "$value": "{primitive.red-500}",
+      "$value": "{semantic.chart-purple}",
       "$extensions": {
         "jp.kaze": {
           "section": "Color: Charts (→ palette refs, 12 named)"
@@ -2528,7 +2527,7 @@
     },
     "chart-9": {
       "$type": "color",
-      "$value": "{primitive.lime-700}",
+      "$value": "{semantic.chart-orange}",
       "$extensions": {
         "jp.kaze": {
           "section": "Color: Charts (→ palette refs, 12 named)"
@@ -2537,7 +2536,7 @@
     },
     "chart-10": {
       "$type": "color",
-      "$value": "{primitive.teal-600}",
+      "$value": "{semantic.chart-teal}",
       "$extensions": {
         "jp.kaze": {
           "section": "Color: Charts (→ palette refs, 12 named)"
@@ -2546,7 +2545,7 @@
     },
     "chart-11": {
       "$type": "color",
-      "$value": "{primitive.violet-500}",
+      "$value": "{semantic.chart-yellow}",
       "$extensions": {
         "jp.kaze": {
           "section": "Color: Charts (→ palette refs, 12 named)"
@@ -2555,7 +2554,7 @@
     },
     "chart-12": {
       "$type": "color",
-      "$value": "{primitive.yellow-700}",
+      "$value": "{semantic.chart-green}",
       "$extensions": {
         "jp.kaze": {
           "section": "Color: Charts (→ palette refs, 12 named)"
@@ -2564,8 +2563,8 @@
     },
     "font-sans": {
       "$type": "fontFamily",
-      "$value": "var(--font-noto-sans-jp, \"Noto Sans JP\"), -apple-system, BlinkMacSystemFont,\n    \"Segoe UI\", \"Hiragino Kaku Gothic ProN\", \"Hiragino Sans\", Meiryo,\n    sans-serif",
-      "$description": "Body: Japanese-first stack. Latin glyphs fall through to Noto's own Latin, so numbers and ASCII share x-height and weight with the kana.",
+      "$value": "var(--font-montserrat, \"Montserrat\"), var(--font-noto-sans-jp, \"Noto Sans JP\"), -apple-system, BlinkMacSystemFont,\n    \"Segoe UI\", \"Hiragino Kaku Gothic ProN\", \"Hiragino Sans\", Meiryo,\n    sans-serif",
+      "$description": "Montserrat for Latin and numerals, Noto Sans JP for kana and kanji.",
       "$extensions": {
         "jp.kaze": {
           "section": "Typography"
@@ -2574,8 +2573,8 @@
     },
     "font-display": {
       "$type": "fontFamily",
-      "$value": "var(--font-montserrat, \"Montserrat\"), var(--font-noto-sans-jp, \"Noto Sans JP\"), -apple-system,\n    \"Hiragino Sans\", Meiryo, sans-serif",
-      "$description": "Display: headings and large numerals. Montserrat for Latin, Noto for kana.",
+      "$value": "{semantic.font-sans}",
+      "$description": "Same as font-sans. Kept so code that references it keeps working.",
       "$extensions": {
         "jp.kaze": {
           "section": "Typography"
@@ -2585,7 +2584,7 @@
     "font-feature-display": {
       "$type": "dimension",
       "$value": "\"palt\" 1",
-      "$description": "Proportional kana (palt) is applied to display text only. On body copy it tightens punctuation and hurts readability.",
+      "$description": "palt is applied to all text from :root; this token stays for code that references it.",
       "$extensions": {
         "jp.kaze": {
           "section": "Typography"
