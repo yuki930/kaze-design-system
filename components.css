@@ -595,7 +595,8 @@
 
 .badge--default {
   background-color: var(--color-bg-tertiary);
-  color: var(--color-fg-secondary);
+  /* fg-muted: 6.9:1 on bg-tertiary in light (fg-secondary was 4.3:1); same as before in dark */
+  color: var(--color-fg-muted);
 }
 
 .badge--positive {
@@ -1014,7 +1015,7 @@
   font-weight: var(--font-weight-medium);
 }
 
-.metric__change--positive { color: var(--color-positive-fg); }
+.metric__change--positive { color: var(--color-positive-strong); } /* 5.5:1 on white; positive-fg was 3.8:1 */
 .metric__change--negative { color: var(--color-negative-fg); }
 
 /* ── Tooltip ─────────────────────────────────────────────── */

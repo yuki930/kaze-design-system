@@ -59,11 +59,11 @@
 }
 
 .profitPositive {
-  color: var(--color-positive);
+  color: var(--color-positive-strong);
 }
 
 .profitNegative {
-  color: var(--color-negative);
+  color: var(--color-negative-fg);
 }
 
 .notificationBtn {
