@@ -126,3 +126,20 @@ describe("NumberField API", () => {
     expect(onChange).not.toHaveBeenCalled();
   });
 });
+
+describe("NumberField inside FormField", () => {
+  it("keeps the aria-invalid that FormField injects for an error", async () => {
+    const { FormField } = await import("../FormField");
+    render(
+      <FormField label="数量" error="1 以上で入力してください">
+        <NumberField aria-label="数量" />
+      </FormField>,
+    );
+    expect(screen.getByRole("textbox", { name: "数量" })).toHaveAttribute("aria-invalid", "true");
+  });
+
+  it("still marks the field invalid from its own error prop", () => {
+    render(<NumberField aria-label="金額" error />);
+    expect(screen.getByRole("textbox", { name: "金額" })).toHaveAttribute("aria-invalid", "true");
+  });
+});

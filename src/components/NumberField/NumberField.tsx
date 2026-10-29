@@ -284,7 +284,8 @@ export const NumberField = forwardRef<HTMLInputElement, NumberFieldProps>(
             onBlur={composeEventHandlers(onBlur, handleBlur)}
             onKeyDown={composeEventHandlers(onKeyDown, handleKeyDown)}
             disabled={disabled}
-            aria-invalid={error || undefined}
+            // Keep an aria-invalid passed in from outside (e.g. FormField error) when `error` is unset
+            aria-invalid={error ? true : rest["aria-invalid"]}
             aria-describedby={
               [rest["aria-describedby"], errorMessage ? `${id}-error` : undefined]
                 .filter(Boolean)

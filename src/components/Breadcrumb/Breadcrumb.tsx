@@ -19,16 +19,20 @@ export const Breadcrumb = forwardRef<HTMLElement, BreadcrumbProps>(
       <ol className="breadcrumb">
         {items.map((item, i) => {
           const LinkComponent = item.as ?? "a";
+          const isLast = i === items.length - 1;
           return (
             <li key={item.href ?? item.label} className="breadcrumb__item">
-              {i < items.length - 1 && item.href ? (
+              {!isLast && item.href ? (
                 <LinkComponent href={item.href} className="breadcrumb__link">
                   {item.label}
                 </LinkComponent>
-              ) : (
+              ) : isLast ? (
                 <span className="breadcrumb__current" aria-current="page">
                   {item.label}
                 </span>
+              ) : (
+                // A middle item without href is plain text, not the current page
+                <span className="breadcrumb__text">{item.label}</span>
               )}
             </li>
           );
