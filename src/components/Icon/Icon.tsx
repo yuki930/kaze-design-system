@@ -1,7 +1,8 @@
 import { forwardRef, type ComponentType, type HTMLAttributes } from "react";
+import type { Size } from "../../lib/types";
 import { cn } from "@/lib/utils";
 
-export type IconSize = "xs" | "sm" | "md" | "lg" | "xl";
+export type IconSize = Size;
 
 /** Any icon component accepting `size` / `strokeWidth` (e.g. a lucide-react icon).
  *  Typed structurally so the published types don't require lucide-react. */

@@ -7,15 +7,15 @@ import { Button } from "../Button/Button";
 function ToastTrigger({
   title,
   description,
-  variant,
+  tone,
 }: {
   title: string;
   description?: string;
-  variant?: "default" | "positive" | "negative" | "warning" | "info";
+  tone?: "default" | "positive" | "negative" | "warning" | "info";
 }) {
   const { toast } = useToast();
   return (
-    <Button variant="outline" onClick={() => toast({ title, description, variant })}>
+    <Button variant="outline" onClick={() => toast({ title, description, tone })}>
       トーストを表示
     </Button>
   );
@@ -50,7 +50,7 @@ export const Positive: Story = {
     <ToastTrigger
       title="操作が完了しました"
       description="ファイルが正常にアップロードされました。"
-      variant="positive"
+      tone="positive"
     />
   ),
 };
@@ -60,7 +60,7 @@ export const Negative: Story = {
     <ToastTrigger
       title="エラーが発生しました"
       description="接続に失敗しました。もう一度お試しください。"
-      variant="negative"
+      tone="negative"
     />
   ),
 };
@@ -70,13 +70,13 @@ export const Warning: Story = {
     <ToastTrigger
       title="注意が必要です"
       description="ストレージの使用量が90%を超えています。"
-      variant="warning"
+      tone="warning"
     />
   ),
 };
 
 export const Info: Story = {
   render: () => (
-    <ToastTrigger title="お知らせ" description="新しいバージョンが利用可能です。" variant="info" />
+    <ToastTrigger title="お知らせ" description="新しいバージョンが利用可能です。" tone="info" />
   ),
 };

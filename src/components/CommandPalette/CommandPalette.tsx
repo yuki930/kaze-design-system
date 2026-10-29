@@ -215,6 +215,7 @@ export const CommandPalette = forwardRef<HTMLDivElement, CommandPaletteProps>(
           aria-modal="true"
           aria-label={label ?? "コマンドパレット"}
           className={cn("command-palette", className)}
+          data-state="open"
           {...rest}
           onKeyDown={composeEventHandlers(onKeyDown, handleKeyDown)}
         >

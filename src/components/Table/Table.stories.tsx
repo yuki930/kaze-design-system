@@ -94,7 +94,7 @@ export const WithBadges: Story = {
             <TableCell>{stock.name}</TableCell>
             <TableCell>{stock.price}</TableCell>
             <TableCell>
-              <Badge variant={signalVariant[stock.signal]} dot>
+              <Badge tone={signalVariant[stock.signal]} dot>
                 {stock.signal}
               </Badge>
             </TableCell>

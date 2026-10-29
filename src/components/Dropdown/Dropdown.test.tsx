@@ -1,4 +1,4 @@
-import { describe, it, expect, vi } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem } from "./Dropdown";
 
@@ -142,5 +142,16 @@ describe("DropdownItem handlers", () => {
     fireEvent.click(screen.getByRole("menuitem", { name: "編集" }));
     expect(onClick).toHaveBeenCalled();
     expect(onSelect).toHaveBeenCalled();
+  });
+});
+
+describe("Dropdown data-state", () => {
+  it("reflects open / closed on the trigger and the menu", () => {
+    setup();
+    const trigger = screen.getByRole("button", { name: "操作" });
+    expect(trigger).toHaveAttribute("data-state", "closed");
+    fireEvent.click(trigger);
+    expect(trigger).toHaveAttribute("data-state", "open");
+    expect(screen.getByRole("menu")).toHaveAttribute("data-state", "open");
   });
 });

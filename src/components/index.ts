@@ -134,7 +134,7 @@ export { AppLayout } from "./Layout";
 export type { AppLayoutProps } from "./Layout";
 
 export { Logo } from "./Logo";
-export type { LogoProps } from "./Logo";
+export type { LogoProps, LogoSize } from "./Logo";
 
 export { ToastProvider, useToast } from "./Toast";
 export type {
@@ -294,7 +294,7 @@ export { Watermark } from "./Watermark";
 export type { WatermarkProps } from "./Watermark";
 
 export { Meter } from "./Meter";
-export type { MeterProps, MeterColor } from "./Meter";
+export type { MeterProps, MeterColor, MeterSize } from "./Meter";
 
 export { Tracker } from "./Tracker";
 export type { TrackerProps, TrackerItem, TrackerStatus } from "./Tracker";
@@ -309,3 +309,9 @@ export type { NumberFieldProps, NumberFieldCurrency } from "./NumberField";
 
 export { ThemeProvider, useTheme } from "../hooks/useTheme";
 export type { Theme, ThemeContextValue, ThemeProviderProps } from "../hooks/useTheme";
+
+/* ── Shared vocabulary ─────────────────────────────────────── */
+
+export type { Tone, Size } from "../lib/types";
+export { Slot } from "../lib/Slot";
+export type { SlotProps } from "../lib/Slot";

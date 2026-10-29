@@ -14,35 +14,35 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    variant: "default",
+    tone: "default",
     title: "お知らせ",
   },
 };
 
 export const Positive: Story = {
   args: {
-    variant: "positive",
+    tone: "positive",
     title: "完了しました",
   },
 };
 
 export const Negative: Story = {
   args: {
-    variant: "negative",
+    tone: "negative",
     title: "エラーが発生しました",
   },
 };
 
 export const Warning: Story = {
   args: {
-    variant: "warning",
+    tone: "warning",
     title: "注意が必要です",
   },
 };
 
 export const Info: Story = {
   args: {
-    variant: "info",
+    tone: "info",
     title: "情報",
   },
 };

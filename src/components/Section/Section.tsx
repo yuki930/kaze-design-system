@@ -1,9 +1,10 @@
 import { forwardRef, type HTMLAttributes } from "react";
+import type { Size } from "../../lib/types";
 import { cn } from "@/lib/utils";
 
 /* -- Section ------------------------------------------------------- */
 
-export type SectionSize = "sm" | "md" | "lg";
+export type SectionSize = Extract<Size, "sm" | "md" | "lg">;
 export type SectionBackground = "default" | "muted" | "dark";
 
 export interface SectionProps extends HTMLAttributes<HTMLElement> {

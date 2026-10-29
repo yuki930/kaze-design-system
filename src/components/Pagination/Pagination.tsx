@@ -1,8 +1,16 @@
-import { forwardRef, type HTMLAttributes } from "react";
+"use client";
+
+import { forwardRef, useState, type HTMLAttributes } from "react";
 import { cn } from "@/lib/utils";
+import { renamedProp } from "@/lib/deprecate";
 
 export interface PaginationProps extends HTMLAttributes<HTMLElement> {
-  currentPage: number;
+  /** 現在のページ（1 始まり、制御） */
+  page?: number;
+  /** 初期ページ（非制御、既定 1） */
+  defaultPage?: number;
+  /** @deprecated `page` に改名。次のマイナーで削除 */
+  currentPage?: number;
   totalPages: number;
   onPageChange?: (page: number) => void;
   siblingCount?: number;
@@ -36,7 +44,9 @@ const defaultPageLabel = (page: number) => `${page}ページ目`;
 export const Pagination = forwardRef<HTMLElement, PaginationProps>(
   (
     {
-      currentPage,
+      page: pageProp,
+      defaultPage = 1,
+      currentPage: currentPageProp,
       totalPages,
       onPageChange,
       siblingCount = 1,
@@ -49,6 +59,19 @@ export const Pagination = forwardRef<HTMLElement, PaginationProps>(
     },
     ref,
   ) => {
+    const controlledPage = renamedProp(
+      "Pagination",
+      "currentPage",
+      "page",
+      currentPageProp,
+      pageProp,
+    );
+    const [internalPage, setInternalPage] = useState(defaultPage);
+    const currentPage = controlledPage ?? internalPage;
+    const goTo = (next: number) => {
+      if (controlledPage === undefined) setInternalPage(next);
+      onPageChange?.(next);
+    };
     const pages = getPages(currentPage, totalPages, siblingCount);
     return (
       <nav ref={ref} aria-label={label} className={cn("pagination", className)} {...rest}>
@@ -56,7 +79,7 @@ export const Pagination = forwardRef<HTMLElement, PaginationProps>(
           type="button"
           className="pagination__btn"
           disabled={currentPage <= 1}
-          onClick={() => onPageChange?.(currentPage - 1)}
+          onClick={() => goTo(currentPage - 1)}
           aria-label={prevLabel}
         >
           ‹
@@ -71,7 +94,7 @@ export const Pagination = forwardRef<HTMLElement, PaginationProps>(
               type="button"
               key={page}
               className={cn("pagination__btn", page === currentPage && "pagination__btn--active")}
-              onClick={() => onPageChange?.(page)}
+              onClick={() => goTo(page)}
               aria-label={pageLabel(page)}
               aria-current={page === currentPage ? "page" : undefined}
             >
@@ -83,7 +106,7 @@ export const Pagination = forwardRef<HTMLElement, PaginationProps>(
           type="button"
           className="pagination__btn"
           disabled={currentPage >= totalPages}
-          onClick={() => onPageChange?.(currentPage + 1)}
+          onClick={() => goTo(currentPage + 1)}
           aria-label={nextLabel}
         >
           ›

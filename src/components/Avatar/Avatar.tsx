@@ -1,7 +1,8 @@
 import { forwardRef, type HTMLAttributes } from "react";
+import type { Size } from "../../lib/types";
 import { cn } from "@/lib/utils";
 
-export type AvatarSize = "xs" | "sm" | "md" | "lg";
+export type AvatarSize = Extract<Size, "xs" | "sm" | "md" | "lg">;
 
 export interface AvatarProps extends HTMLAttributes<HTMLSpanElement> {
   size?: AvatarSize;

@@ -441,7 +441,7 @@ export function AnalyticsDashboard() {
                 trailing={
                   <div className={styles.pageTrailing}>
                     <div className={styles.progressWrap}>
-                      <Progress value={page.share} max={100} size="sm" color="info" />
+                      <Progress value={page.share} max={100} size="sm" tone="info" />
                     </div>
                   </div>
                 }

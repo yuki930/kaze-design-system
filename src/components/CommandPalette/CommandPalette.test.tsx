@@ -86,3 +86,10 @@ describe("CommandPalette", () => {
     expect(onSelectA).toHaveBeenCalled();
   });
 });
+
+describe("CommandPalette data-state", () => {
+  it("marks the dialog as open", () => {
+    setup();
+    expect(screen.getByRole("dialog")).toHaveAttribute("data-state", "open");
+  });
+});

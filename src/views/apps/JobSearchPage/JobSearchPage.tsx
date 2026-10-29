@@ -4,6 +4,7 @@ import {
   Card,
   Badge,
   Input,
+  TabGroup,
   Tabs,
   Tab,
   Divider,
@@ -336,7 +337,7 @@ function JobSearchInner() {
         const willSave = target ? !target.saved : false;
         toast({
           title: willSave ? "求人を保存しました" : "保存を解除しました",
-          variant: "default",
+          tone: "default",
           duration: 2000,
         });
         return prev.map((j) => (j.id === id ? { ...j, saved: !j.saved } : j));
@@ -353,7 +354,7 @@ function JobSearchInner() {
         toast({
           title: "応募しました",
           description: target?.title,
-          variant: "positive",
+          tone: "positive",
         });
         return prev.map((j) => (j.id === id ? { ...j, applied: true } : j));
       });
@@ -389,7 +390,7 @@ function JobSearchInner() {
           </Text>
         </div>
         <div className={styles.headerRight}>
-          <Badge variant="info">{filteredJobs.length} 件</Badge>
+          <Badge tone="info">{filteredJobs.length} 件</Badge>
           <Button variant="ghost" size="sm" iconOnly onClick={toggleTheme} aria-label="テーマ切替">
             {resolvedTheme === "light" ? <Moon size={18} /> : <Sun size={18} />}
           </Button>
@@ -441,26 +442,18 @@ function JobSearchInner() {
 
       {/* ── Category tabs ──────────────────────────────────── */}
       <div className={styles.categoryRow}>
-        <Tabs>
-          <Tab active={categoryFilter === "all"} onClick={() => setCategoryFilter("all")}>
-            すべて
-          </Tab>
-          <Tab active={categoryFilter === "engineer"} onClick={() => setCategoryFilter("engineer")}>
-            エンジニア
-          </Tab>
-          <Tab active={categoryFilter === "design"} onClick={() => setCategoryFilter("design")}>
-            デザイン
-          </Tab>
-          <Tab active={categoryFilter === "pm"} onClick={() => setCategoryFilter("pm")}>
-            PM
-          </Tab>
-          <Tab
-            active={categoryFilter === "marketing"}
-            onClick={() => setCategoryFilter("marketing")}
-          >
-            営業・マーケ
-          </Tab>
-        </Tabs>
+        <TabGroup
+          value={categoryFilter}
+          onValueChange={(v) => setCategoryFilter(v as CategoryFilter)}
+        >
+          <Tabs>
+            <Tab value="all">すべて</Tab>
+            <Tab value="engineer">エンジニア</Tab>
+            <Tab value="design">デザイン</Tab>
+            <Tab value="pm">PM</Tab>
+            <Tab value="marketing">営業・マーケ</Tab>
+          </Tabs>
+        </TabGroup>
       </div>
 
       {/* ── Main scrollable area ────────────────────────────── */}
@@ -509,7 +502,7 @@ function JobSearchInner() {
                         {job.title}
                       </Text>
                       {job.isNew && (
-                        <Badge variant="negative" className={styles.newBadge}>
+                        <Badge tone="negative" className={styles.newBadge}>
                           NEW
                         </Badge>
                       )}
@@ -537,11 +530,11 @@ function JobSearchInner() {
 
                     {/* tags */}
                     <div className={styles.tagRow}>
-                      <Badge variant={jobTypeConfig[job.jobType].variant}>
+                      <Badge tone={jobTypeConfig[job.jobType].variant}>
                         {jobTypeConfig[job.jobType].label}
                       </Badge>
                       {job.tags.map((tag) => (
-                        <Badge key={tag} variant="default">
+                        <Badge key={tag} tone="default">
                           {tag}
                         </Badge>
                       ))}
@@ -555,7 +548,7 @@ function JobSearchInner() {
                         詳細
                       </Button>
                       {job.applied ? (
-                        <Badge variant="positive">応募済み</Badge>
+                        <Badge tone="positive">応募済み</Badge>
                       ) : (
                         <Button size="sm" onClick={() => toggleApply(job.id)}>
                           応募する
@@ -593,7 +586,7 @@ function JobSearchInner() {
       </nav>
 
       {/* ── Filter Dialog ──────────────────────────────────── */}
-      <Dialog open={filterOpen} onClose={() => setFilterOpen(false)} returnFocusRef={filterBtnRef}>
+      <Dialog open={filterOpen} onOpenChange={setFilterOpen}>
         <DialogHeader>
           <DialogTitle>絞り込み</DialogTitle>
         </DialogHeader>

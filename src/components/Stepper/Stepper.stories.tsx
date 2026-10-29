@@ -11,7 +11,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    currentStep: 2,
+    step: 2,
     steps: [
       { label: "アカウント情報" },
       { label: "プロフィール設定" },

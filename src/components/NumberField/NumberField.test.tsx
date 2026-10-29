@@ -1,6 +1,7 @@
-import { describe, it, expect, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { NumberField, parseLocaleNumber } from "./NumberField";
+import { resetDeprecationWarnings } from "@/lib/deprecate";
 
 function typeAndBlur(input: HTMLElement, text: string) {
   fireEvent.focus(input);
@@ -30,21 +31,21 @@ describe("parseLocaleNumber", () => {
 describe("NumberField", () => {
   it("commits fullwidth input as an ASCII number", () => {
     const onChange = vi.fn();
-    render(<NumberField aria-label="数量" onChange={onChange} />);
+    render(<NumberField aria-label="数量" onValueChange={onChange} />);
     typeAndBlur(screen.getByRole("textbox"), "１２３");
     expect(onChange).toHaveBeenLastCalledWith(123);
   });
 
   it("commits empty input as null, not 0", () => {
     const onChange = vi.fn();
-    render(<NumberField aria-label="数量" value={5} onChange={onChange} />);
+    render(<NumberField aria-label="数量" value={5} onValueChange={onChange} />);
     typeAndBlur(screen.getByRole("textbox"), "");
     expect(onChange).toHaveBeenLastCalledWith(null);
   });
 
   it("does not commit on Enter during IME composition", () => {
     const onChange = vi.fn();
-    render(<NumberField aria-label="数量" onChange={onChange} />);
+    render(<NumberField aria-label="数量" onValueChange={onChange} />);
     const input = screen.getByRole("textbox");
     fireEvent.focus(input);
     fireEvent.change(input, { target: { value: "１２" } });
@@ -54,7 +55,7 @@ describe("NumberField", () => {
 
   it("commits on Enter outside composition", () => {
     const onChange = vi.fn();
-    render(<NumberField aria-label="数量" onChange={onChange} />);
+    render(<NumberField aria-label="数量" onValueChange={onChange} />);
     const input = screen.getByRole("textbox") as HTMLInputElement;
     input.focus();
     fireEvent.change(input, { target: { value: "42" } });
@@ -65,7 +66,7 @@ describe("NumberField", () => {
   it("still commits when the consumer passes onBlur, and calls it", () => {
     const onChange = vi.fn();
     const onBlur = vi.fn();
-    render(<NumberField aria-label="数量" onChange={onChange} onBlur={onBlur} />);
+    render(<NumberField aria-label="数量" onValueChange={onChange} onBlur={onBlur} />);
     typeAndBlur(screen.getByRole("textbox"), "7");
     expect(onBlur).toHaveBeenCalled();
     expect(onChange).toHaveBeenLastCalledWith(7);
@@ -90,8 +91,38 @@ describe("NumberField", () => {
 
   it("clamps to min / max", () => {
     const onChange = vi.fn();
-    render(<NumberField aria-label="数量" min={0} max={10} onChange={onChange} />);
+    render(<NumberField aria-label="数量" min={0} max={10} onValueChange={onChange} />);
     typeAndBlur(screen.getByRole("textbox"), "99");
     expect(onChange).toHaveBeenLastCalledWith(10);
+  });
+});
+
+let warn: ReturnType<typeof vi.spyOn>;
+beforeEach(() => {
+  resetDeprecationWarnings();
+  warn = vi.spyOn(console, "warn").mockImplementation(() => {});
+});
+afterEach(() => {
+  warn.mockRestore();
+});
+
+describe("NumberField API", () => {
+  it("keeps the deprecated onChange working and warns once", () => {
+    const onChange = vi.fn();
+    render(<NumberField aria-label="数量" onChange={onChange} />);
+    const input = screen.getByRole("textbox", { name: "数量" });
+    typeAndBlur(input, "5");
+    typeAndBlur(input, "6");
+    expect(onChange).toHaveBeenLastCalledWith(6);
+    expect(warn).toHaveBeenCalledTimes(1);
+  });
+
+  it("prefers onValueChange over onChange", () => {
+    const onChange = vi.fn();
+    const onValueChange = vi.fn();
+    render(<NumberField aria-label="数量" onChange={onChange} onValueChange={onValueChange} />);
+    typeAndBlur(screen.getByRole("textbox", { name: "数量" }), "9");
+    expect(onValueChange).toHaveBeenLastCalledWith(9);
+    expect(onChange).not.toHaveBeenCalled();
   });
 });

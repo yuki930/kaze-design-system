@@ -10,6 +10,7 @@ import {
   type KeyboardEvent,
 } from "react";
 import { cn } from "@/lib/utils";
+import { renamedProp } from "@/lib/deprecate";
 import { composeEventHandlers } from "@/lib/composeEventHandlers";
 import { isComposingEvent } from "@/lib/jaText";
 
@@ -20,7 +21,11 @@ export interface SearchProps extends Omit<HTMLAttributes<HTMLDivElement>, "onCha
   onSearch?: (value: string) => void;
   /** Controlled value */
   value?: string;
-  /** Change handler for controlled mode */
+  /** Initial value (uncontrolled) */
+  defaultValue?: string;
+  /** Called with the new value on every change */
+  onValueChange?: (value: string) => void;
+  /** @deprecated `onValueChange` に改名。次のマイナーで削除 */
   onChange?: (value: string) => void;
   /** Accessible label for the search input */
   "aria-label"?: string;
@@ -35,6 +40,8 @@ export const Search = forwardRef<HTMLInputElement, SearchProps>(
       shortcut,
       onSearch,
       value: valueProp,
+      defaultValue = "",
+      onValueChange,
       onChange: onChangeProp,
       "aria-label": ariaLabel,
       inputProps,
@@ -43,9 +50,17 @@ export const Search = forwardRef<HTMLInputElement, SearchProps>(
     },
     ref,
   ) => {
-    const [internalValue, setInternalValue] = useState("");
+    const [internalValue, setInternalValue] = useState(defaultValue);
     const isControlled = valueProp !== undefined;
     const currentValue = isControlled ? valueProp : internalValue;
+
+    const onValueChangeResolved = renamedProp(
+      "Search",
+      "onChange",
+      "onValueChange",
+      onChangeProp,
+      onValueChange,
+    );
 
     const handleChange = useCallback(
       (e: ChangeEvent<HTMLInputElement>) => {
@@ -53,9 +68,9 @@ export const Search = forwardRef<HTMLInputElement, SearchProps>(
         if (!isControlled) {
           setInternalValue(newValue);
         }
-        onChangeProp?.(newValue);
+        onValueChangeResolved?.(newValue);
       },
-      [isControlled, onChangeProp],
+      [isControlled, onValueChangeResolved],
     );
 
     const handleKeyDown = useCallback(

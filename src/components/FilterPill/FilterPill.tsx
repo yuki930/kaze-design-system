@@ -23,6 +23,7 @@ export const FilterPill = forwardRef<HTMLButtonElement, FilterPillProps>(
         className={cn("filter-pill", active && "filter-pill--active", className)}
         style={pillStyle}
         aria-pressed={active}
+        data-state={active ? "on" : "off"}
         {...rest}
       >
         {dot && <span className="filter-pill__dot" aria-hidden="true" />}

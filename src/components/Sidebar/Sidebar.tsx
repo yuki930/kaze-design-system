@@ -1,5 +1,6 @@
-import { forwardRef, type HTMLAttributes, type ReactNode } from "react";
+import { forwardRef, type ElementType, type HTMLAttributes, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
+import { Slot } from "@/lib/Slot";
 
 export interface SidebarProps extends HTMLAttributes<HTMLElement> {
   children: ReactNode;
@@ -36,11 +37,13 @@ export interface NavItemProps extends HTMLAttributes<HTMLElement> {
   as?: React.ElementType;
   /** Allow href for anchor/link usage */
   href?: string;
+  /** 子要素にスタイルと振る舞いを委ねる（Next.js の Link など）。`as` と併用した場合は asChild が優先 */
+  asChild?: boolean;
 }
 
 export const NavItem = forwardRef<HTMLElement, NavItemProps>(
-  ({ icon, active, as: asProp, href, className, children, ...rest }, ref) => {
-    const Component: React.ElementType = asProp ?? (href ? "a" : "button");
+  ({ icon, active, as: asProp, href, asChild, className, children, ...rest }, ref) => {
+    const Component: ElementType = asChild ? Slot : (asProp ?? (href ? "a" : "button"));
     const typeAttr = Component === "button" ? { type: "button" as const } : {};
 
     return (
@@ -52,8 +55,14 @@ export const NavItem = forwardRef<HTMLElement, NavItemProps>(
         {...typeAttr}
         {...rest}
       >
-        {icon && <span className="nav-item__icon">{icon}</span>}
-        {children}
+        {asChild ? (
+          children
+        ) : (
+          <>
+            {icon && <span className="nav-item__icon">{icon}</span>}
+            {children}
+          </>
+        )}
       </Component>
     );
   },

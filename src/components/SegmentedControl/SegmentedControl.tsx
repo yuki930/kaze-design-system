@@ -9,6 +9,7 @@ import {
   type ReactNode,
 } from "react";
 import { cn } from "../../lib/utils";
+import type { Size } from "../../lib/types";
 
 export interface SegmentedControlOption {
   value: string;
@@ -24,7 +25,7 @@ export interface SegmentedControlProps
   /** Initial value when uncontrolled */
   defaultValue?: string;
   onValueChange?: (value: string) => void;
-  size?: "sm" | "md";
+  size?: Extract<Size, "sm" | "md">;
   /** Stretch to the container width with equal-width segments */
   fullWidth?: boolean;
   /** Group name, emitted on a hidden input for native form submission */
@@ -133,6 +134,7 @@ export const SegmentedControl = forwardRef<HTMLDivElement, SegmentedControlProps
               role="radio"
               aria-checked={checked}
               data-value={o.value}
+              data-state={checked ? "on" : "off"}
               disabled={o.disabled}
               tabIndex={o.value === tabStop ? 0 : -1}
               className="segmented-control__option"

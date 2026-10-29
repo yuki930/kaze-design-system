@@ -1,7 +1,12 @@
 import { forwardRef, type HTMLAttributes } from "react";
+import { renamedProp } from "@/lib/deprecate";
+import type { Size, Tone } from "../../lib/types";
 import { cn } from "@/lib/utils";
 
-export type MeterColor = "default" | "positive" | "negative" | "warning" | "info";
+/** @deprecated `Tone` を使う */
+export type MeterColor = Tone;
+
+export type MeterSize = Extract<Size, "sm" | "md" | "lg">;
 
 export interface MeterProps extends HTMLAttributes<HTMLDivElement> {
   /** Current value */
@@ -18,13 +23,15 @@ export interface MeterProps extends HTMLAttributes<HTMLDivElement> {
   label?: string;
   /** Show percentage text */
   showValue?: boolean;
-  /** Color variant (overrides threshold-based coloring) */
-  color?: MeterColor;
+  /** Semantic color (overrides threshold-based coloring) */
+  tone?: Tone;
+  /** @deprecated `tone` に改名。次のマイナーで削除 */
+  color?: Tone;
   /** Size */
-  size?: "sm" | "md" | "lg";
+  size?: MeterSize;
 }
 
-function autoColor(pct: number, warn: number, danger: number): MeterColor {
+function autoColor(pct: number, warn: number, danger: number): Tone {
   if (pct >= danger) return "negative";
   if (pct >= warn) return "warning";
   return "positive";
@@ -40,6 +47,7 @@ export const Meter = forwardRef<HTMLDivElement, MeterProps>(
       dangerThreshold = 0.9,
       label,
       showValue,
+      tone: toneProp,
       color,
       size = "md",
       className,
@@ -49,10 +57,12 @@ export const Meter = forwardRef<HTMLDivElement, MeterProps>(
   ) => {
     const range = max - min || 1;
     const pct = Math.min(1, Math.max(0, (value - min) / range));
-    const resolvedColor = color ?? autoColor(pct, warningThreshold, dangerThreshold);
+    const tone =
+      renamedProp("Meter", "color", "tone", color, toneProp) ??
+      autoColor(pct, warningThreshold, dangerThreshold);
 
     return (
-      <div ref={ref} className={cn("meter", className)} {...rest}>
+      <div ref={ref} data-tone={tone} className={cn("meter", className)} {...rest}>
         {(label || showValue) && (
           <div className="meter__label-row">
             {label && <span className="meter__label">{label}</span>}
@@ -73,10 +83,7 @@ export const Meter = forwardRef<HTMLDivElement, MeterProps>(
           aria-label={label}
         >
           <div
-            className={cn(
-              "meter__fill",
-              resolvedColor !== "default" && `meter__fill--${resolvedColor}`,
-            )}
+            className={cn("meter__fill", tone !== "default" && `meter__fill--${tone}`)}
             style={{ width: `${pct * 100}%` }}
           />
           {/* Threshold markers */}

@@ -6,6 +6,7 @@ import {
   Badge,
   Input,
   Checkbox,
+  TabGroup,
   Tabs,
   Tab,
   Divider,
@@ -226,7 +227,7 @@ export function TodoPage() {
           </Text>
         </div>
         <div className={styles.headerRight}>
-          <Badge variant="info">{activeCount} 件</Badge>
+          <Badge tone="info">{activeCount} 件</Badge>
           <Button variant="ghost" size="sm" iconOnly onClick={toggleTheme} aria-label="テーマ切替">
             {resolvedTheme === "light" ? <Moon size={18} /> : <Sun size={18} />}
           </Button>
@@ -265,17 +266,13 @@ export function TodoPage() {
 
         {/* ── Filter tabs ──────────────────────────────────── */}
         <div className={styles.filterRow}>
-          <Tabs>
-            <Tab active={filter === "all"} onClick={() => setFilter("all")}>
-              すべて
-            </Tab>
-            <Tab active={filter === "active"} onClick={() => setFilter("active")}>
-              未完了
-            </Tab>
-            <Tab active={filter === "completed"} onClick={() => setFilter("completed")}>
-              完了済み
-            </Tab>
-          </Tabs>
+          <TabGroup value={filter} onValueChange={(v) => setFilter(v as Filter)}>
+            <Tabs>
+              <Tab value="all">すべて</Tab>
+              <Tab value="active">未完了</Tab>
+              <Tab value="completed">完了済み</Tab>
+            </Tabs>
+          </TabGroup>
         </div>
 
         {/* ── Todo list ──────────────────────────────────── */}
@@ -312,9 +309,9 @@ export function TodoPage() {
                           {todo.text}
                         </Text>
                         <div className={styles.todoMeta}>
-                          {todo.tag && <Badge variant="default">{todo.tag}</Badge>}
+                          {todo.tag && <Badge tone="default">{todo.tag}</Badge>}
                           {todo.priority !== "none" && (
-                            <Badge variant={priorityConfig[todo.priority].variant}>
+                            <Badge tone={priorityConfig[todo.priority].variant}>
                               <Flag size={10} /> {priorityConfig[todo.priority].label}
                             </Badge>
                           )}

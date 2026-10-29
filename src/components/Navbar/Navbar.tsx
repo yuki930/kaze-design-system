@@ -1,5 +1,12 @@
-import { forwardRef, type HTMLAttributes, type AnchorHTMLAttributes, type ReactNode } from "react";
+import {
+  forwardRef,
+  type ElementType,
+  type HTMLAttributes,
+  type AnchorHTMLAttributes,
+  type ReactNode,
+} from "react";
 import { cn } from "@/lib/utils";
+import { Slot } from "@/lib/Slot";
 
 /* -- Navbar -------------------------------------------------------- */
 
@@ -51,15 +58,19 @@ export interface NavbarLinkProps extends AnchorHTMLAttributes<HTMLAnchorElement>
   active?: boolean;
   /** Render as a different element (default: "a"). Accepts Next.js Link etc. */
   as?: React.ElementType;
+  /** 子要素にスタイルと振る舞いを委ねる（Next.js の Link など）。`as` と併用した場合は asChild が優先 */
+  asChild?: boolean;
 }
 
 export const NavbarLink = forwardRef<HTMLElement, NavbarLinkProps>(
-  ({ active, as: Component = "a", className, children, ...rest }, ref) => {
+  ({ active, as: asProp = "a", asChild, className, children, ...rest }, ref) => {
+    const Component: ElementType = asChild ? Slot : asProp;
     return (
       <li>
         <Component
           ref={ref}
           className={cn("navbar__link", active && "navbar__link--active", className)}
+          aria-current={active ? "page" : undefined}
           {...rest}
         >
           {children}

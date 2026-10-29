@@ -9,11 +9,12 @@ import {
   type KeyboardEvent,
   type ReactNode,
 } from "react";
+import type { Size } from "../../lib/types";
 import { cn } from "@/lib/utils";
 
 export type DisclosureIcon = "chevron" | "plus" | ReactNode;
 export type DisclosureIconPosition = "left" | "right";
-export type DisclosureSize = "sm" | "md" | "lg";
+export type DisclosureSize = Extract<Size, "sm" | "md" | "lg">;
 export type DisclosureVariant = "default" | "ghost" | "bordered";
 
 export interface DisclosureProps {
@@ -155,6 +156,7 @@ export const Disclosure = forwardRef<HTMLDivElement, DisclosureProps>(
             triggerClassName,
           )}
           aria-expanded={isOpen}
+          data-state={isOpen ? "open" : "closed"}
           aria-controls={contentId}
           disabled={disabled}
           onClick={toggle}
@@ -187,6 +189,7 @@ export const Disclosure = forwardRef<HTMLDivElement, DisclosureProps>(
           aria-labelledby={triggerId}
           className={cn("disclosure__content", contentClassName)}
           hidden={!isOpen}
+          data-state={isOpen ? "open" : "closed"}
         >
           <div className="disclosure__content-inner">{children}</div>
         </section>

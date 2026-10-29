@@ -661,7 +661,7 @@ export function ShowcasePage() {
                   <CardHeader>
                     <div className={styles.sampleCardHeader}>
                       <div className={styles.sampleEmoji}>{page.icon}</div>
-                      <Badge variant="default">{page.category}</Badge>
+                      <Badge tone="default">{page.category}</Badge>
                     </div>
                   </CardHeader>
                   <CardBody>
