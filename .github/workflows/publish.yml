@@ -50,17 +50,46 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  publish:
+  # Runs are queued (concurrency above), and each one releases the latest main,
+  # not the commit that triggered it. When an earlier queued run has already
+  # released everything, there is nothing left and the publish job is skipped.
+  check:
     runs-on: ubuntu-latest
     # Skip runs created by the release bot itself (defense in depth —
     # GITHUB_TOKEN pushes should not re-trigger workflows, but we guard anyway).
     if: github.event_name == 'workflow_dispatch' || !startsWith(github.event.head_commit.message, 'release:')
+    outputs:
+      release: ${{ steps.pending.outputs.release }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Anything unreleased on main?
+        id: pending
+        run: |
+          LAST_TAG=$(git tag --list 'v*' --sort=-v:refname | head -n 1)
+          RANGE=${LAST_TAG:+${LAST_TAG}..HEAD}
+          PENDING=$(git log $RANGE --pretty=format:'%s' | grep -v '^release:' || true)
+          if [ -n "$PENDING" ] || [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "release=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "Nothing to release since ${LAST_TAG}" >> "$GITHUB_STEP_SUMMARY"
+            echo "release=false" >> "$GITHUB_OUTPUT"
+          fi
+
+  publish:
+    needs: check
+    if: needs.check.outputs.release == 'true'
+    runs-on: ubuntu-latest
     permissions:
       contents: write
       id-token: write   # npm Trusted Publishing (OIDC)
     steps:
       - uses: actions/checkout@v7
         with:
+          ref: main
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
@@ -187,11 +216,10 @@ jobs:
       - name: Build library
         run: npm run build:lib
 
-      - name: Publish to NPM
-        # Authenticates via OIDC (npm Trusted Publisher), no NPM_TOKEN needed.
-        # Provenance is attached automatically.
-        run: npm publish --access public
-
+      # Push the release commit and tag BEFORE publishing. If main moved on in
+      # the meantime the push is rejected and nothing reaches npm; the queued
+      # run for the newer commit releases everything instead. (Publishing
+      # first once left 1.0.1 on npm with no tag, which blocked later runs.)
       - name: Commit, tag and push release
         run: |
           git config user.name "github-actions[bot]"
@@ -200,7 +228,13 @@ jobs:
           git add package.json package-lock.json CHANGELOG.md public/llms.txt public/llms-full.txt
           git commit -m "release: v${VERSION} [skip ci]"
           git tag "v${VERSION}"
-          git push origin main --tags
+          git push --atomic origin main "v${VERSION}"
+
+      - name: Publish to NPM
+        # Authenticates via OIDC (npm Trusted Publisher), no NPM_TOKEN needed.
+        # Provenance is attached automatically. If this step fails after the
+        # push above, run the "Publish Recovery" workflow with the new tag.
+        run: npm publish --access public
 
       - name: Create GitHub Release
         env:
