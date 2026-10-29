@@ -16,6 +16,14 @@ CHANGELOG entries and version bumps are generated automatically by `.github/work
 ### 0.x policy
 
 While the major version is 0, a **minor** release may include breaking changes (they are called out in the release notes with a migration note); a **patch** release never does. The public API will be frozen at 1.0.
+## [0.10.1] - 2026-10-29
+
+### Other
+
+- chore(deps-dev): bump @testing-library/jest-dom from 6.9.1 to 7.0.1 (#46)
+- chore(deps-dev): bump the dev-dependencies group with 14 updates (#45)
+
+
 ## [0.10.0] - 2026-10-29
 
 ### Features
