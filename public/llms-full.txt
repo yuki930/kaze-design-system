@@ -70,12 +70,44 @@ Add `data-density="compact"` to an ancestor (`<html>` or a panel) to tighten con
 
 Docs: https://kaze-design-system.vercel.app/docs/components/button
 
+**使う場面**
+
+- 保存・送信・削除など、その場で何かを実行する操作
+- 1 つの画面で主に押してほしい操作には primary を 1 つだけ使い、ほかは secondary や outline にする
+- 取り消せない操作（削除・解約など）には destructive を使い、確認の Dialog と組み合わせる
+
+**使わない場面**
+
+- 別のページへ移動するだけの操作。リンク（<a>）を使い、ボタンの見た目にしたいときは asChild で <a> を包む
+- 1 つの領域に primary を並べること。どれが主な操作かわからなくなる
+- アイコンだけのボタンを説明なしで置くこと。iconOnly のときは aria-label を必ず付け、必要なら Tooltip を添える
+
+**キーボード操作**
+
+| キー | 動作 |
+|---|---|
+| Tab | ボタンにフォーカスを移す |
+| Enter / Space | ボタンを押す |
+
+**アクセシビリティ**
+
+- disabled のときは aria-disabled も付くので、読み上げで「使用不可」と伝わる
+- asChild でリンクにした場合は disabled 属性の代わりに aria-disabled を付け、クリックを止める
+- 押せない理由が利用者にわからない場合は、disabled にせず押したあとにエラーで理由を伝えるほうが親切
+
+**文言**
+
+- 「保存する」「招待を送る」のように、押すと何が起きるかを動詞で書く。「OK」「はい」は避ける
+- Dialog のボタンは、本文の問いかけに対応する言葉にする（「削除しますか」なら「削除する」と「キャンセル」）
+
+Related: fab, dialog, tooltip, dropdown
+
 **Props**
 
 - `variant?`: `"primary" | "secondary" | "outline" | "ghost" | "destructive"`
   - Default: `"primary"`
   - ボタンのスタイルバリアント
-- `size?`: `Extract<Size, "xs" | "sm" | "md" | "lg">`
+- `size?`: `"xs" | "sm" | "md" | "lg"`
   - Default: `"md"`
   - ボタンのサイズ
 - `fullWidth?`: `boolean`
@@ -109,7 +141,7 @@ Docs: https://kaze-design-system.vercel.app/docs/components/fab
 - `variant?`: `"primary" | "secondary"`
   - Default: `"primary"`
   - スタイルバリアント
-- `size?`: `Extract<Size, "sm" | "md" | "lg">`
+- `size?`: `"sm" | "md" | "lg"`
   - Default: `"md"`
   - ボタンのサイズ
 - `position?`: `"bottom-right" | "bottom-left" | "top-right" | "top-left"`
@@ -252,7 +284,7 @@ Docs: https://kaze-design-system.vercel.app/docs/components/combobox
   - Replaces the default match. Receives the option and the typed text
 - `name?`: `string`
   - Submitted through a hidden input so the value (not the label) reaches the form
-- `size?`: `Extract<Size, "sm" | "md">`
+- `size?`: `"sm" | "md"`
   - Default: `"md"`
   - サイズ
 - `emptyMessage?`: `string`
@@ -320,7 +352,7 @@ field is emptied or holds text that is not a selectable date.
   - カレンダーの開閉が変わる時のコールバック
 - `name?`: `string`
   - Submitted through a hidden input as "YYYY-MM-DD" (empty string when no date)
-- `size?`: `Extract<Size, "sm" | "md">`
+- `size?`: `"sm" | "md"`
   - Default: `"md"`
   - サイズ
 - `calendarButtonLabel?`: `string`
@@ -529,7 +561,7 @@ Docs: https://kaze-design-system.vercel.app/docs/components/segmented-control
   - Initial value when uncontrolled
 - `onValueChange?`: `(value: string) => void`
   - 選択変更時のコールバック
-- `size?`: `Extract<Size, "sm" | "md">`
+- `size?`: `"sm" | "md"`
   - Default: `"md"`
   - サイズ
 - `fullWidth?`: `boolean`
@@ -603,10 +635,10 @@ Docs: https://kaze-design-system.vercel.app/docs/components/badge
 
 **Props**
 
-- `tone?`: `Tone`
+- `tone?`: `"default" | "positive" | "negative" | "warning" | "info"`
   - Default: `"default"`
   - 意味色（旧 variant）
-- `variant?`: `Tone`
+- `variant?`: `"default" | "positive" | "negative" | "warning" | "info"`
 - `dot?`: `boolean`
   - Default: `false`
   - ドットインジケーターを表示するかどうか
@@ -721,7 +753,7 @@ Docs: https://kaze-design-system.vercel.app/docs/components/avatar
 
 **Props**
 
-- `size?`: `Extract<Size, "xs" | "sm" | "md" | "lg">`
+- `size?`: `"xs" | "sm" | "md" | "lg"`
   - Default: `"md"`
   - アバターのサイズ
 - `src?`: `string`
@@ -1208,10 +1240,10 @@ Docs: https://kaze-design-system.vercel.app/docs/components/alert
 
 **Props**
 
-- `tone?`: `Tone`
+- `tone?`: `"default" | "positive" | "negative" | "warning" | "info"`
   - Default: `"info"`
   - 意味色（旧 variant）
-- `variant?`: `Tone`
+- `variant?`: `"default" | "positive" | "negative" | "warning" | "info"`
 - `icon?`: `ReactNode`
   - 左側に表示するアイコン
 - `title?`: `string`
@@ -1249,11 +1281,11 @@ Docs: https://kaze-design-system.vercel.app/docs/components/progress
 - `showValue?`: `boolean`
   - Default: `false`
   - パーセンテージ値を表示するかどうか
-- `tone?`: `Tone`
+- `tone?`: `"default" | "positive" | "negative" | "warning" | "info"`
   - Default: `"default"`
   - バーの意味色（旧 color）
-- `color?`: `Tone`
-- `size?`: `Extract<Size, "sm" | "md" | "lg">`
+- `color?`: `"default" | "positive" | "negative" | "warning" | "info"`
+- `size?`: `"sm" | "md" | "lg"`
   - Default: `"md"`
   - プログレスバーの高さ
 
@@ -1291,10 +1323,10 @@ Docs: https://kaze-design-system.vercel.app/docs/components/meter
 - `showValue?`: `boolean`
   - Default: `false`
   - Show percentage text
-- `tone?`: `Tone`
+- `tone?`: `"default" | "positive" | "negative" | "warning" | "info"`
   - Semantic color (overrides threshold-based coloring)
-- `color?`: `Tone`
-- `size?`: `Extract<Size, "sm" | "md" | "lg">`
+- `color?`: `"default" | "positive" | "negative" | "warning" | "info"`
+- `size?`: `"sm" | "md" | "lg"`
   - Size
 
 **Usage**
@@ -1343,7 +1375,7 @@ Docs: https://kaze-design-system.vercel.app/docs/components/empty-state
   - 説明テキスト
 - `actions?`: `ReactNode`
   - アクションボタンなどの要素
-- `size?`: `Extract<Size, "sm" | "md" | "lg">`
+- `size?`: `"sm" | "md" | "lg"`
   - Default: `"md"`
   - 表示サイズ。sm はテーブルセル内、md はセクション、lg はページ全体向け
 
@@ -1612,7 +1644,7 @@ not auto-rotated.
 - `iconPosition?`: `"left" | "right"`
   - Default: `"left"`
   - Which side the marker appears on
-- `size?`: `Extract<Size, "sm" | "md" | "lg">`
+- `size?`: `"sm" | "md" | "lg"`
   - Default: `"md"`
   - Trigger row density
 - `variant?`: `"default" | "ghost" | "bordered"`
@@ -1689,7 +1721,7 @@ Docs: https://kaze-design-system.vercel.app/docs/components/drawer
 - `side?`: `"left" | "right" | "bottom"`
   - Default: `"right"`
   - Edge the panel slides from. On narrow screens `"bottom"` is the better fit
-- `size?`: `Extract<Size, "sm" | "md" | "lg">`
+- `size?`: `"sm" | "md" | "lg"`
   - Default: `"md"`
   - Width of a side panel / height cap of a bottom sheet
 - `aria-label?`: `string`
@@ -1822,7 +1854,7 @@ Docs: https://kaze-design-system.vercel.app/docs/components/help-button
 - `position?`: `"top" | "bottom" | "left" | "right"`
   - Default: `"bottom"`
   - Preferred side the popover appears on
-- `size?`: `Extract<Size, "sm" | "md" | "lg">`
+- `size?`: `"sm" | "md" | "lg"`
   - Default: `"md"`
   - Popover width
 - `icon?`: `ReactNode`
@@ -2049,7 +2081,7 @@ Docs: https://kaze-design-system.vercel.app/docs/components/logo
 
 **Props**
 
-- `size?`: `Extract<Size, "sm" | "md" | "lg">`
+- `size?`: `"sm" | "md" | "lg"`
   - Default: `"md"`
   - ロゴのサイズ
 - `showText?`: `boolean`
@@ -2358,7 +2390,7 @@ Docs: https://kaze-design-system.vercel.app/docs/components/section
 
 **Props**
 
-- `size?`: `Extract<Size, "sm" | "md" | "lg">`
+- `size?`: `"sm" | "md" | "lg"`
   - Default: `"md"`
   - 上下パディングのサイズ
 - `background?`: `"default" | "muted" | "dark"`

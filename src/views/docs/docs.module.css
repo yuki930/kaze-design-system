@@ -445,3 +445,101 @@
     padding: var(--space-10) var(--space-8) var(--space-16);
   }
 }
+
+/* ── Guidelines ───────────────────────────────────── */
+.guideGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+}
+
+.guideCard {
+  border: 1px solid var(--color-border);
+  border-top-width: 3px;
+  border-radius: var(--radius-lg);
+  padding: var(--space-4) var(--space-5);
+  background: var(--color-bg);
+}
+
+.guideCard[data-kind="use"] {
+  border-top-color: var(--color-positive-strong);
+}
+
+.guideCard[data-kind="avoid"] {
+  border-top-color: var(--color-negative-strong);
+}
+
+.guideCardTitle {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  margin: 0 0 var(--space-2);
+}
+
+.guideList {
+  margin: 0 0 var(--space-6);
+  padding-left: 1.25em;
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-relaxed);
+}
+
+.guideCard .guideList {
+  margin-bottom: 0;
+}
+
+.guideList li + li {
+  margin-top: var(--space-1-5);
+}
+
+.tableScroll {
+  overflow-x: auto;
+}
+
+.tableNote {
+  margin: calc(-1 * var(--space-4)) 0 var(--space-6);
+  font-size: var(--font-size-xs);
+  color: var(--color-fg-tertiary);
+}
+
+.requiredMark {
+  margin-left: var(--space-1-5);
+  font-family: var(--font-sans);
+  font-size: var(--font-size-2xs);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-negative-strong);
+}
+
+.kbd {
+  display: inline-block;
+  padding: 0 var(--space-1-5);
+  border: 1px solid var(--color-border);
+  border-bottom-width: 2px;
+  border-radius: var(--radius-sm);
+  background: var(--color-bg-secondary);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  white-space: nowrap;
+}
+
+.relatedList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin: 0 0 var(--space-6);
+  padding: 0;
+  list-style: none;
+}
+
+.relatedList a {
+  display: inline-block;
+  padding: var(--space-1) var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-sm);
+  color: var(--color-fg);
+  text-decoration: none;
+}
+
+.relatedList a:hover {
+  background: var(--color-bg-secondary);
+}
