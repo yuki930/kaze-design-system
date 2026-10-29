@@ -4393,6 +4393,53 @@ button.chart-legend__item:focus-visible {
   width: 100%;
 }
 
+/* Below 768px the sidebar leaves the row and opens in a Drawer from a menu button.
+   768px and up is untouched: the button and the minimal bar stay display: none. */
+.app-layout__menu-button,
+.app-layout__bar {
+  display: none;
+}
+
+@media (max-width: 767.98px) {
+  .app-layout > :not(.app-layout__main) {
+    display: none;
+  }
+
+  .app-layout__menu-button {
+    display: inline-flex;
+  }
+
+  .app-layout__bar {
+    position: sticky;
+    top: 0;
+    display: flex;
+    align-items: center;
+    height: var(--topbar-height);
+    padding: 0 var(--space-4);
+    background-color: var(--color-bg);
+    border-bottom: 1px solid var(--color-border);
+    z-index: var(--z-sticky);
+  }
+
+  .top-bar__lead {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+}
+
+/* The sidebar inside the drawer fills it instead of sticking to the viewport */
+.app-layout__drawer-body {
+  padding: 0;
+}
+
+.app-layout__drawer .sidebar {
+  position: static;
+  width: auto;
+  height: auto;
+  border-right: 0;
+}
+
 /* ── TopBar ──────────────────────────────────────────────── */
 
 .top-bar {

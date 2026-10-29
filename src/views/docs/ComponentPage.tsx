@@ -1421,12 +1421,37 @@ import { Icon } from "kaze-design-system";
       {
         name: "sidebar",
         type: "React.ReactNode",
-        description: "サイドバー要素",
+        description:
+          "サイドバー要素。768px 以上では左に固定表示。768px 未満では隠れ、メニューボタンで左のドロワーに同じ中身が開く（開いている間だけ DOM に置く。ドロワー内のリンクを押すと閉じる）",
       },
       {
         name: "topbar",
         type: "React.ReactNode",
-        description: "トップバー要素",
+        description:
+          "トップバー要素。TopBar を渡すと 768px 未満で左端にメニューボタンが出る。渡さないときは、メニューボタンだけの最小のバーを 768px 未満でだけ出す",
+      },
+      {
+        name: "navOpen",
+        type: "boolean",
+        description: "768px 未満のメニュー（ドロワー）の開閉。渡すと制御コンポーネントになる",
+      },
+      {
+        name: "defaultNavOpen",
+        type: "boolean",
+        default: "false",
+        description: "非制御のときの初期状態",
+      },
+      {
+        name: "onNavOpenChange",
+        type: "(open: boolean) => void",
+        description:
+          "Escape、背景クリック、ドロワー内のリンク、メニューボタンで開閉が求められたとき",
+      },
+      {
+        name: "navLabel",
+        type: "string",
+        default: '"メニュー"',
+        description: "メニューボタンとドロワーのアクセシブルな名前",
       },
       {
         name: "children",
