@@ -44,6 +44,7 @@
       "types": "./dist/types/tokens/tokens.d.ts",
       "import": "./dist/tokens.js"
     },
+    "./tokens/*.json": "./tokens/*.tokens.json",
     "./components/*": {
       "types": "./dist/types/components/*/index.d.ts",
       "import": "./dist/components/*/*.js"
@@ -59,6 +60,7 @@
   "files": [
     "dist",
     "tokens.css",
+    "tokens",
     "reset.css",
     "components.css",
     "utilities.css",
@@ -90,7 +92,8 @@
     "typecheck": "tsc --noEmit",
     "lint": "biome lint .",
     "format": "biome format .",
-    "format:fix": "biome check --write ."
+    "format:fix": "biome check --write .",
+    "tokens": "node scripts/build-tokens.mjs"
   },
   "peerDependencies": {
     "lucide-react": "^0.575.0 || ^1.0.0",

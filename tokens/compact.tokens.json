@@ -1,0 +1,40 @@
+{
+  "component": {
+    "density-control-height": {
+      "$type": "dimension",
+      "$value": "2rem"
+    },
+    "density-row-py": {
+      "$type": "dimension",
+      "$value": "{primitive.space-2}"
+    },
+    "density-row-px": {
+      "$type": "dimension",
+      "$value": "{primitive.space-3}"
+    },
+    "density-font-size-ui": {
+      "$type": "dimension",
+      "$value": "{primitive.font-size-xs}"
+    },
+    "density-line-height-ui": {
+      "$type": "dimension",
+      "$value": "{primitive.line-height-snug}"
+    },
+    "density-nav-py": {
+      "$type": "dimension",
+      "$value": "{primitive.space-1-5}"
+    },
+    "density-nav-gap": {
+      "$type": "dimension",
+      "$value": "{primitive.space-2}"
+    },
+    "density-dropdown-py": {
+      "$type": "dimension",
+      "$value": "{primitive.space-1}"
+    },
+    "density-tab-py": {
+      "$type": "dimension",
+      "$value": "{primitive.space-1-5}"
+    }
+  }
+}

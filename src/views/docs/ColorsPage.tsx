@@ -338,19 +338,20 @@ const chartColors = [
   { name: "green", variable: "--chart-green", ref: "green-500" },
 ];
 
+/** Mirrors --chart-1..12 in tokens/base.tokens.json (the swatches render the tokens themselves) */
 const chartCategorical = [
-  { name: "1", ref: "blue-500" },
-  { name: "2", ref: "amber-500" },
-  { name: "3", ref: "emerald-500" },
-  { name: "4", ref: "pink-500" },
-  { name: "5", ref: "cyan-500" },
-  { name: "6", ref: "red-500" },
-  { name: "7", ref: "lime-500" },
-  { name: "8", ref: "violet-500" },
-  { name: "9", ref: "orange-500" },
-  { name: "10", ref: "teal-500" },
-  { name: "11", ref: "yellow-500" },
-  { name: "12", ref: "green-500" },
+  { name: "1", ref: "blue-600" },
+  { name: "2", ref: "amber-600" },
+  { name: "3", ref: "emerald-700" },
+  { name: "4", ref: "orange-700" },
+  { name: "5", ref: "cyan-600" },
+  { name: "6", ref: "pink-500" },
+  { name: "7", ref: "green-600" },
+  { name: "8", ref: "red-500" },
+  { name: "9", ref: "lime-700" },
+  { name: "10", ref: "teal-600" },
+  { name: "11", ref: "violet-500" },
+  { name: "12", ref: "yellow-700" },
 ];
 
 /* ── Helpers ─────────────────────────────────────────────── */
@@ -614,7 +615,8 @@ export function ColorsPage() {
           marginBottom: "var(--space-4)",
         }}
       >
-        BarChart / DonutChart / Sparkline で使用。パレットの 500 を参照。
+        色名で直接指定したいときに使う。パレットの 500 を参照。系列の色は下の Categorical
+        を順に使う。
       </p>
       <div className={styles.tokenGrid}>
         {chartColors.map((c) => (
@@ -629,6 +631,17 @@ export function ColorsPage() {
       </div>
 
       <h3 className={styles.subsectionTitle}>Categorical（12色）</h3>
+      <p
+        style={{
+          fontSize: "var(--font-size-sm)",
+          color: "var(--color-fg-secondary)",
+          marginBottom: "var(--space-4)",
+        }}
+      >
+        LineChart / ColumnChart / BarChart / DonutChart / CategoryBar
+        が、系列にこの順で色を割り当てる。 どの色もライトとダークの背景に対して 3:1 以上あり、P
+        型・D 型・T 型の色覚でも先頭の色ほど見分けやすい順に並べている。系列は 6 本までにとどめる。
+      </p>
       <div
         style={{
           display: "flex",
@@ -644,7 +657,7 @@ export function ColorsPage() {
             key={c.name}
             style={{
               flex: 1,
-              background: `var(--${c.ref})`,
+              background: `var(--chart-${c.name})`,
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
@@ -663,7 +676,9 @@ export function ColorsPage() {
       <div className={styles.codeBlock}>
         <div style={{ marginBottom: "8px" }}>
           <code className={styles.inlineCode}>--ring-color</code>{" "}
-          <span className={styles.tokenValue}>rgba(120, 113, 108, 0.3)</span>
+          <span className={styles.tokenValue}>
+            var(--color-focus)（文字色と同じ。どのテーマでも 3:1 以上）
+          </span>
         </div>
         <div style={{ marginBottom: "8px" }}>
           <code className={styles.inlineCode}>--ring-offset</code>{" "}
@@ -678,23 +693,22 @@ export function ColorsPage() {
       {/* ── Token hierarchy ────────────────────────────────── */}
       <h2 className={styles.sectionTitle}>トークン階層</h2>
       <div className={styles.codeBlock}>
-        {`┌─────────────────────────────────────────────┐
-│  Semantic Tokens (テーマ対応)                │
-│  --color-bg, --color-fg, --color-positive... │
-│  → ライト / ダークで自動切替                │
-├─────────────────────────────────────────────┤
-│  Palette (12色×10) + Zinc (11段階)          │
-│  --blue-500, --red-50, --zinc-200...        │
-│  → 固定値、テーマ非依存                     │
-└─────────────────────────────────────────────┘
+        {`tokens/*.tokens.json（DTCG 形式）が元データ。npm run tokens で tokens.css を生成する
+
+┌ component ─ --density-control-height, --sidebar-width ...
+│             部品ごとの寸法。密度（compact）で切り替わる
+├ semantic ── --color-bg, --color-fg, --color-positive, --chart-1 ...
+│             役割の色。ライト / ダーク / 寒色グレーで切り替わる
+└ primitive ─ --blue-600, --zinc-200, --space-4, --radius-md ...
+              素の値。テーマに依存しない
 
 /* 推奨: セマンティックトークンを使う */
 .card { background: var(--color-surface); }
 
-/* チャート・装飾にはパレットを直接使う */
-.hero { background: var(--blue-500); }
+/* チャートの系列は番号付きを順に使う */
+.series-a { stroke: var(--chart-1); }
 
-/* ステータスは semantic → palette の参照 */
+/* semantic は primitive を参照する */
 --color-positive → var(--emerald-500)`}
       </div>
     </div>
