@@ -16,6 +16,13 @@ CHANGELOG entries and version bumps are generated automatically by `.github/work
 ### 0.x policy
 
 While the major version is 0, a **minor** release may include breaking changes (they are called out in the release notes with a migration note); a **patch** release never does. The public API will be frozen at 1.0.
+## [0.9.0] - 2026-10-29
+
+### Features
+
+- feat: accessibility, Japanese input and typography overhaul (phase 1 of the "best in Japan" plan) (#40)
+
+
 ## [0.8.1] - 2026-10-29
 
 ### Bug Fixes
