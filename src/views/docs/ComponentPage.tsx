@@ -59,6 +59,7 @@ import {
   DropdownItem,
 } from "@/components/Dropdown/Dropdown";
 import { FormField } from "@/components/FormField/FormField";
+import { AnnouncementBar } from "@/components/AnnouncementBar/AnnouncementBar";
 import { Hero } from "@/components/Hero/Hero";
 import { Section, SectionHeader } from "@/components/Section/Section";
 import { SplitSection } from "@/components/SplitSection/SplitSection";
@@ -1605,15 +1606,42 @@ import { Icon } from "kaze-design-system";
 </Navbar>`,
   },
 
+  "announcement-bar": {
+    title: "AnnouncementBar",
+    description: "ページ最上部に置く 1 行のお知らせ帯",
+    preview: (
+      <AnnouncementBar action={<Link href="#changes">変更点を見る</Link>}>
+        v1.1 を公開しました。Spinner や Table の並べ替えが加わっています。
+      </AnnouncementBar>
+    ),
+    props: [
+      {
+        name: "children",
+        type: "React.ReactNode",
+        description: "お知らせの文。1 行に収まる長さにする",
+      },
+      {
+        name: "action",
+        type: "React.ReactNode",
+        description: "続きへの導線。Kaze の Link を渡す",
+      },
+      {
+        name: "label",
+        type: "string",
+        default: '"お知らせ"',
+        description: "ランドマーク（aside）の名前",
+      },
+    ],
+    usage: `<AnnouncementBar action={<Link href="/changelog">変更点を見る</Link>}>
+  v1.1 を公開しました。
+</AnnouncementBar>`,
+  },
+
   hero: {
     title: "Hero",
     description: "ヒーローセクション",
     preview: (
-      <Hero
-        title="美しいUIを、もっと速く"
-        subtitle="最小限のコードで最大限のデザインを。"
-        badge="New"
-      >
+      <Hero title="美しいUIを、もっと速く" subtitle="最小限のコードで最大限のデザインを。">
         <Button>はじめる</Button>
         <Button variant="outline">ドキュメント</Button>
       </Hero>
@@ -1621,7 +1649,12 @@ import { Icon } from "kaze-design-system";
     props: [
       { name: "title", type: "string", description: "メインタイトル" },
       { name: "subtitle", type: "string", description: "サブタイトル" },
-      { name: "badge", type: "string", description: "タイトル上のバッジテキスト" },
+      {
+        name: "badge",
+        type: "string",
+        description:
+          "タイトル上のバッジテキスト。非推奨で、v2 で削除。お知らせは AnnouncementBar を使う",
+      },
       { name: "bg", type: "string", description: '背景色。例: "var(--blue-500)"' },
       { name: "bgImage", type: "string", description: "背景画像 URL または CSS gradient" },
       {
@@ -1631,7 +1664,7 @@ import { Icon } from "kaze-design-system";
       },
       { name: "children", type: "React.ReactNode", description: "CTAボタンなどのアクション要素" },
     ],
-    usage: `<Hero title="メインタイトル" subtitle="説明テキスト" badge="New">
+    usage: `<Hero title="メインタイトル" subtitle="説明テキスト">
   <Button>はじめる</Button>
 </Hero>
 
@@ -1777,9 +1810,43 @@ import { Icon } from "kaze-design-system";
         />
       </FeatureGrid>
     ),
-    props: [{ name: "columns", type: "2 | 3 | 4", default: "3", description: "カラム数" }],
+    props: [
+      {
+        name: "columns",
+        type: "2 | 3 | 4",
+        default: "3",
+        description: "カラム数（variant が grid のとき）",
+      },
+      {
+        name: "variant",
+        type: '"grid" | "spotlight"',
+        default: '"grid"',
+        description:
+          "grid は同じ重みで均等に並べる。spotlight は最初の子を主役（左の列）、残りを脇（右の列）に並べる。spotlight では icon は描かれない",
+      },
+      {
+        name: "figure",
+        type: "React.ReactNode",
+        description:
+          "タイトルの上に大きく置く数字と単位（FeatureCard）。例: <>23<small>KB</small></>",
+      },
+      {
+        name: "children",
+        type: "React.ReactNode",
+        description: "description の下に置く補足。コード片など（FeatureCard）",
+      },
+    ],
     usage: `<FeatureGrid columns={3}>
   <FeatureCard icon={<Zap />} title="高速" description="説明テキスト" />
+</FeatureGrid>
+
+{/* 主役を 1 つ、残りは脇に */}
+<FeatureGrid variant="spotlight">
+  <FeatureCard figure={<>23<small>KB</small></>} title="圧倒的な軽量さ" description="説明テキスト">
+    <pre><code>import "kaze-design-system/css/all";</code></pre>
+  </FeatureCard>
+  <FeatureCard title="デザイントークン" description="説明テキスト" />
+  <FeatureCard title="ダークモード" description="説明テキスト" />
 </FeatureGrid>`,
   },
 

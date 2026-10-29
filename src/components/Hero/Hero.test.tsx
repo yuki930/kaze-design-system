@@ -1,6 +1,7 @@
 import { createRef } from "react";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
+import { resetDeprecationWarnings } from "@/lib/deprecate";
 import { Hero } from "./Hero";
 
 function getSection(container: HTMLElement) {
@@ -33,6 +34,25 @@ describe("Hero", () => {
     const link = screen.getByRole("link", { name: "始める" });
     expect(link).toHaveAttribute("href", "/start");
     expect(link.parentElement).toHaveClass("hero__actions");
+  });
+
+  it("warns once in development that badge is deprecated, and still renders it", () => {
+    resetDeprecationWarnings();
+    const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
+    const { rerender } = render(<Hero badge="新機能" title="t" />);
+    rerender(<Hero badge="新機能" title="t2" />);
+    expect(warn).toHaveBeenCalledTimes(1);
+    expect(warn.mock.calls[0]?.[0]).toContain("AnnouncementBar");
+    expect(screen.getByText("新機能")).toHaveClass("hero__badge");
+    warn.mockRestore();
+  });
+
+  it("does not warn when badge is not used", () => {
+    resetDeprecationWarnings();
+    const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
+    render(<Hero title="t" />);
+    expect(warn).not.toHaveBeenCalled();
+    warn.mockRestore();
   });
 
   it("applies bg as the background and marks the hero as colored", () => {

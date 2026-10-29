@@ -1,6 +1,6 @@
 # kaze-design-system: Full API Reference
 
-> Minimal React design system for dashboards, landing pages and Japanese UI: warm neutral grays, 77 components, SVG charts with zero dependencies, light/dark themes, typography tuned for CJK text
+> Minimal React design system for dashboards, landing pages and Japanese UI: warm neutral grays, 78 components, SVG charts with zero dependencies, light/dark themes, typography tuned for CJK text
 
 Version: 1.1.1
 Site: https://kaze-design-system.vercel.app
@@ -56,7 +56,7 @@ Add `data-density="compact"` to an ancestor (`<html>` or a panel) to tighten con
 ## Layers and entry points
 
 - Application UI: dashboards and business apps. Import from `kaze-design-system`.
-- Marketing: the 11 landing-page components (Navbar, Hero, Section, SplitSection, FeatureGrid, Stats, Pricing, Testimonial, FAQ, CTABanner, LPFooter). Import from `kaze-design-system/marketing` (also re-exported from the root).
+- Marketing: the 12 landing-page components (AnnouncementBar, Navbar, Hero, Section, SplitSection, FeatureGrid, Stats, Pricing, Testimonial, FAQ, CTABanner, LPFooter). Import from `kaze-design-system/marketing` (also re-exported from the root).
 - Hooks: `kaze-design-system/hooks` (useFocusTrap, useLegendToggle; useTheme is also exported from the root).
 - JS tokens: `kaze-design-system/tokens`.
 
@@ -4312,6 +4312,56 @@ Related: stepper, list, table, status-badge
 
 ### マーケティング
 
+#### AnnouncementBar
+
+ページ最上部に置く 1 行のお知らせ帯
+
+Docs: https://kaze-design-system.vercel.app/docs/components/announcement-bar
+
+**使う場面**
+
+- ページ最上部（Navbar の上）に置く 1 行のお知らせ。リリース、メンテナンス、期間限定の告知などに使う
+- children にお知らせの文、action に続きへの導線を渡す。action には Kaze の Link を使う
+- お知らせは一度に 1 つ。複数あるときは最新の 1 つだけを置き、残りは変更履歴に回す
+
+**使わない場面**
+
+- Hero の見出しの上に小さなバッジとして置くこと。お知らせは Hero から切り離し、この帯に置く
+- エラーや操作の結果を伝える通知。Alert か Toast を使う
+- 2 行以上になる長い文。要点だけにして、詳細は action のリンク先に書く
+- 背景色や絵文字で目立たせること。文字と罫線だけの静かな見た目を保つ
+
+**アクセシビリティ**
+
+- <aside> に aria-label="お知らせ" を付けて出力される（complementary のランドマーク）。label で名前を差し替えられる。ページに帯を複数置くときは名前を変えて区別する
+- role は付けず、読み上げを割り込ませない。緊急の通知は Alert（role="alert"）を使う
+- action のリンクは文脈なしでも意味が通る文言にする（「こちら」にしない）
+
+**文言**
+
+- 1 文で言い切り、末尾は「。」。例: 「v1.1 を公開しました。Spinner や Table の並べ替えが加わっています。」
+- action は動詞で短く（「変更点を見る」「詳細を読む」）。新しいタブで開くリンクには external を付ける
+
+Related: hero, navbar, link, alert
+
+**Props**
+
+- `children`: `ReactNode`
+  - お知らせの文。1 行に収まる長さにする
+- `action?`: `ReactNode`
+  - 続きへの導線。Kaze の `Link` を渡す
+- `label?`: `string`
+  - Default: `"お知らせ"`
+  - ランドマークの名前
+
+**Usage**
+
+```tsx
+<AnnouncementBar action={<Link href="/changelog">変更点を見る</Link>}>
+  v1.1 を公開しました。
+</AnnouncementBar>
+```
+
 #### Navbar
 
 マーケティングサイト用ナビゲーションバー
@@ -4387,14 +4437,15 @@ Docs: https://kaze-design-system.vercel.app/docs/components/hero
 
 - LP の最上部。何が手に入るかを 1 文で伝え、次の行動を 1 つ示す
 - title は h1 で出力される。ページに h1 は 1 つなので、LP のほかの場所で h1 を使わない
-- badge にリリースや対象の短い一言、subtitle に title の根拠を 1 から 2 文で添える
+- subtitle に title の根拠を 1 から 2 文で添える
 - children には CTA を置く。主な操作を 1 つ（primary）、補助を 1 つまで
 
 **使わない場面**
 
 - ページの 2 番目以降のセクション。Section と SectionHeader を使う
+- 見出しの上のバッジ（badge は非推奨で、v2 で削除）。ページ上部のお知らせは AnnouncementBar を使う
 - 多色のグラデーション背景。bg と bgImage には Zinc 系の単色か、単一のアクセント色を使う。複数の色相を混ぜない
-- title や badge に絵文字を入れること
+- title に絵文字を入れること
 - 文字が読めない画像を敷くこと。bgImage を使うときは overlay で暗くし、文字が読めるコントラストを確かめる
 
 **アクセシビリティ**
@@ -4407,14 +4458,15 @@ Docs: https://kaze-design-system.vercel.app/docs/components/hero
 
 - title は「何が手に入るか」を 1 文で言い切る。例: 「請求から入金確認まで、1 つの画面で終わる」。「次世代の」「革新的な」のような形容は避け、数字か具体的な成果を入れる
 - subtitle は title を言い換えず、対象や条件を足す（誰向けか、どれくらいで始められるか）
-- CTA は動詞で書く（「無料で始める」「資料を請求する」）。「こちら」「詳しくはこちら」は避ける。badge は名詞で短く（「v1.0 を公開」「中小企業向け」）
+- CTA は動詞で書く（「無料で始める」「資料を請求する」）。「こちら」「詳しくはこちら」は避ける
 
-Related: navbar, section, cta-banner, button, split-section
+Related: announcement-bar, navbar, section, cta-banner, button, split-section
 
 **Props**
 
 - `badge?`: `string`
-  - タイトル上のバッジテキスト
+  - Deprecated: ページ上部のお知らせは AnnouncementBar を使う。v2 で削除
+  - タイトル上のバッジテキスト。非推奨で、v2 で削除。お知らせは AnnouncementBar を使う
 - `title`: `string`
   - メインタイトル
 - `subtitle?`: `string`
@@ -4431,7 +4483,7 @@ Related: navbar, section, cta-banner, button, split-section
 **Usage**
 
 ```tsx
-<Hero title="メインタイトル" subtitle="説明テキスト" badge="New">
+<Hero title="メインタイトル" subtitle="説明テキスト">
   <Button>はじめる</Button>
 </Hero>
 
@@ -4568,6 +4620,7 @@ Docs: https://kaze-design-system.vercel.app/docs/components/feature-grid
 - 特長や機能を、同じ重みで 2 から 4 列に並べる。columns は 2、3、4（既定は 3）
 - FeatureCard に title、description、必要なら icon を渡す。1 枚で 1 つのことを言う
 - 項目数は columns の倍数に揃える（3 列なら 3 枚か 6 枚）。端数が出ると最後の行が崩れる
+- spotlight にすると、最初の子を主役（左の列）、残りを脇（右の列）に並べる。いちばん伝えたい 1 点があるときに使う。主役には figure に数字と単位、children にコード片などの補足を渡せる
 
 **使わない場面**
 
@@ -4575,17 +4628,21 @@ Docs: https://kaze-design-system.vercel.app/docs/components/feature-grid
 - 順番や優先度がある項目。手順なら番号付きの List か Stepper を使う
 - データの数値を見せる場面。Stats を使う
 - icon の色を項目ごとに変えること。アイコンの色は 1 色に揃える
+- 全項目を同じ重みで見せたい場面での spotlight。均等に見せるなら variant は grid（既定）のままにする
+- spotlight の主役を複数にすること。主役は先頭の 1 つだけで、spotlight では icon は描かれない
 
 **アクセシビリティ**
 
 - FeatureCard の title は h3 で出力される。置く Section の SectionHeader（h2）の下の階層
 - icon はそのまま渡した要素が出力される。装飾なら aria-hidden を付ける（Kaze の Icon は label なしなら自動で付く）
 - カードは <div> で、リンクにはならない。カード全体を押せる想定のデザインにしない
+- spotlight でも主役と脇のタイトルはすべて h3。見た目の大きさだけが違い、文書の階層は同じ
 
 **文言**
 
 - title は 12 文字前後の名詞か短い文（「自動で突合する」）。description は 1 から 2 文で、title にない根拠か数字を入れる
 - 全カードで書き方を揃える（すべて体言止め、すべて「〜する」など）
+- spotlight の figure は数字と単位だけにし、意味は title と description で説明する
 
 Related: section, split-section, stats, card, icon
 
@@ -4593,13 +4650,30 @@ Related: section, split-section, stats, card, icon
 
 - `columns?`: `2 | 3 | 4`
   - Default: `3`
-  - カラム数
+  - `grid` のときの列数
+- `variant?`: `"grid" | "spotlight"`
+  - Default: `"grid"`
+  - `grid`: 同じ重みのカードを均等に並べる。
+`spotlight`: 最初の子を主役（左の列）、残りを脇（右の列）に並べる。columns は使わない
+- `figure?`: `React.ReactNode`
+  - タイトルの上に大きく置く数字と単位（FeatureCard）。例: <>23<small>KB</small></>
+- `children?`: `React.ReactNode`
+  - description の下に置く補足。コード片など（FeatureCard）
 
 **Usage**
 
 ```tsx
 <FeatureGrid columns={3}>
   <FeatureCard icon={<Zap />} title="高速" description="説明テキスト" />
+</FeatureGrid>
+
+{/* 主役を 1 つ、残りは脇に */}
+<FeatureGrid variant="spotlight">
+  <FeatureCard figure={<>23<small>KB</small></>} title="圧倒的な軽量さ" description="説明テキスト">
+    <pre><code>import "kaze-design-system/css/all";</code></pre>
+  </FeatureCard>
+  <FeatureCard title="デザイントークン" description="説明テキスト" />
+  <FeatureCard title="ダークモード" description="説明テキスト" />
 </FeatureGrid>
 ```
 

@@ -8,6 +8,8 @@ import {
   CardDescription,
   CardBody,
   Logo,
+  AnnouncementBar,
+  Link,
   Navbar,
   NavbarLinks,
   NavbarLink,
@@ -26,7 +28,6 @@ import { DonutChart } from "@/components/DonutChart/DonutChart";
 import { useTheme } from "@/hooks";
 import {
   Zap,
-  Palette,
   Moon,
   ArrowRight,
   Layers,
@@ -368,6 +369,16 @@ export function ShowcasePage() {
 
   return (
     <div className={styles.page}>
+      <AnnouncementBar
+        action={
+          <Link href={repoFileUrl("CHANGELOG.md")} external>
+            変更点を見る
+          </Link>
+        }
+      >
+        v{process.env.NEXT_PUBLIC_KAZE_VERSION} を公開しました。
+      </AnnouncementBar>
+
       {/* ── 1. Navbar ──────────────────────────────────────────── */}
       <Navbar
         logo={<Logo size="md" />}
@@ -415,7 +426,6 @@ export function ShowcasePage() {
 
       {/* ── 2. Hero ────────────────────────────────────────────── */}
       <Hero
-        badge={`v${process.env.NEXT_PUBLIC_KAZE_VERSION} リリース`}
         title="Kaze Design System"
         subtitle="数字と日本語を、一日中読み続ける画面のために。白と温かみのあるグレーでまとめた、React のデザインシステムです。"
         className={styles.heroSection}
@@ -449,7 +459,7 @@ export function ShowcasePage() {
                   <Layers size={16} />
                   <span>コンポーネント</span>
                 </div>
-                <div className={styles.statsCardNumber}>77</div>
+                <div className={styles.statsCardNumber}>78</div>
                 <Text size="sm" color="muted">
                   9カテゴリのコンポーネントで
                   <br />
@@ -574,21 +584,27 @@ export function ShowcasePage() {
           title="Kaze の特徴"
           description="開発のしやすさと使い心地の両方にこだわった、モダンなデザインシステム。"
         />
-        <FeatureGrid columns={3}>
+        <FeatureGrid variant="spotlight">
           <FeatureCard
-            icon={<Moon size={24} />}
+            figure={
+              <>
+                23<small>KB</small>
+              </>
+            }
+            title="軽量設計"
+            description="スタイリングは純粋な CSS で、CSS-in-JS のランタイムが不要。gzip 約 23KB の軽量パッケージです。"
+          >
+            <pre>
+              <code>import &quot;kaze-design-system/css/all&quot;;</code>
+            </pre>
+          </FeatureCard>
+          <FeatureCard
             title="ダークモード対応"
             description="ライト・ダークの切り替えは属性ひとつ。すべてのコンポーネントが自動で配色を合わせます。"
           />
           <FeatureCard
-            icon={<Palette size={24} />}
             title="日本語に最適化"
             description="日本語の文章に合わせた行間・文字間・フォント設定。読みやすく美しい画面を手軽に作れます。"
-          />
-          <FeatureCard
-            icon={<Zap size={24} />}
-            title="軽量設計"
-            description="スタイリングは純粋な CSS で、CSS-in-JS のランタイムが不要。gzip 約 23KB の軽量パッケージです。"
           />
         </FeatureGrid>
       </Section>
@@ -601,7 +617,7 @@ export function ShowcasePage() {
               level={2}
               description="Foundation の上に、Application UI と Marketing の2つのカタログを揃えています。"
             >
-              77のコンポーネント
+              78のコンポーネント
             </Heading>
           </div>
 

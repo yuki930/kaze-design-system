@@ -7,7 +7,7 @@
 - **デザイン方針**: Zinc ベースのミニマルデザインシステム、日本語組版最適化
 - **CSS**: カスタムプロパティ（CSS Variables）ベース、`@layer` でカスケード管理
 - **テーマ**: ライト / ダーク（`data-theme` 属性 + `prefers-color-scheme` フォールバック）
-- **コンポーネント数**: 77
+- **コンポーネント数**: 78
 
 ## 環境セットアップ
 ```bash
@@ -40,7 +40,7 @@ app/                    # Next.js App Router ページ
 src/
   components/           # UIコンポーネント（各コンポーネントは独立フォルダ）
     index.ts            # barrel export（"use client" 付き。Marketing も再 export）
-    marketing.ts        # kaze-design-system/marketing のエントリ（Marketing 11個）
+    marketing.ts        # kaze-design-system/marketing のエントリ（Marketing 12個）
   hooks/                # useTheme, useFocusTrap, useLegendToggle（"use client" 付き）
   tokens/               # JS トークン（kaze-design-system/tokens）
   views/                # ページ実装（dashboards/, landing/, apps/, docs/ 等）
@@ -88,8 +88,8 @@ Kaze は「1パッケージ・3レイヤー」構成。上位レイヤーは下�
 
 - **Foundation**: `tokens.css` / `utilities.css` など、両カタログが共有する土台。単独のコンポーネントは持たず、`/docs/tokens`・`/docs/colors`・`/docs/utilities` として提示する。
 - **Application UI**: 業務アプリ・ダッシュボードの画面を組む66コンポーネント。フォーム/データ表示/チャート/フィードバック/ナビゲーション/オーバーレイ/レイアウト/リストの8カテゴリ。
-- **Marketing**: LP・プロダクトサイトを組む正準11コンポーネント。Navbar, Hero, Section, SplitSection, FeatureGrid, Stats, Pricing, Testimonial, FAQ, CTABanner, LPFooter。この11個以外を追加する場合は Issue で合意を取ってから増やす（勝手に一点ものを足さない）。追加・削除したときは `src/components/marketing.ts` の export も合わせる。
-- コンポーネント総数は 77（66 + 11）。`src/views/docs/ComponentsOverview.tsx` の `categories` 配列がこの2カタログ + Foundation 導線の唯一のソース。`scripts/generate-llms.mjs` がこの配列を TypeScript Compiler API で解析して `llms.txt` / `llms-full.txt` を生成するため、カテゴリ構造を変える際は両方を追従修正し `npm run docs:llms` で77個出力されることを確認する。
+- **Marketing**: LP・プロダクトサイトを組む正準12コンポーネント。AnnouncementBar, Navbar, Hero, Section, SplitSection, FeatureGrid, Stats, Pricing, Testimonial, FAQ, CTABanner, LPFooter。AnnouncementBar はオーナーの承認を得て追加した（2026-10）。それ以外を追加する場合は Issue で合意を取ってから増やす（勝手に一点ものを足さない）。追加・削除したときは `src/components/marketing.ts` の export も合わせる。
+- コンポーネント総数は 78（66 + 12）。`src/views/docs/ComponentsOverview.tsx` の `categories` 配列がこの2カタログ + Foundation 導線の唯一のソース。`scripts/generate-llms.mjs` がこの配列を TypeScript Compiler API で解析して `llms.txt` / `llms-full.txt` を生成するため、カテゴリ構造を変える際は両方を追従修正し `npm run docs:llms` で78個出力されることを確認する。
 
 ### Marketing コンポーネントのデモ制約
 Marketing はランディングページの世界観を見せる場なので、Application UI より表現の自由度は上げてよいが、以下は例外なく守る。

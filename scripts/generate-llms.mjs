@@ -618,7 +618,7 @@ function main() {
   fullLines.push("");
   fullLines.push(`- Application UI: dashboards and business apps. Import from \`${pkg.name}\`.`);
   fullLines.push(
-    `- Marketing: the 11 landing-page components (Navbar, Hero, Section, SplitSection, FeatureGrid, Stats, Pricing, Testimonial, FAQ, CTABanner, LPFooter). Import from \`${pkg.name}/marketing\` (also re-exported from the root).`,
+    `- Marketing: the 12 landing-page components (AnnouncementBar, Navbar, Hero, Section, SplitSection, FeatureGrid, Stats, Pricing, Testimonial, FAQ, CTABanner, LPFooter). Import from \`${pkg.name}/marketing\` (also re-exported from the root).`,
   );
   fullLines.push(
     `- Hooks: \`${pkg.name}/hooks\` (useFocusTrap, useLegendToggle; useTheme is also exported from the root).`,

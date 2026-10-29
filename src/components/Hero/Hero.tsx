@@ -1,9 +1,11 @@
 import { forwardRef, type CSSProperties, type HTMLAttributes } from "react";
 import { cn } from "@/lib/utils";
+import { warnDeprecated } from "@/lib/deprecate";
 
 /* -- Hero ---------------------------------------------------------- */
 
 export interface HeroProps extends HTMLAttributes<HTMLElement> {
+  /** @deprecated ページ上部のお知らせは AnnouncementBar を使う。v2 で削除 */
   badge?: string;
   title: string;
   subtitle?: string;
@@ -17,6 +19,12 @@ export interface HeroProps extends HTMLAttributes<HTMLElement> {
 
 export const Hero = forwardRef<HTMLElement, HeroProps>(
   ({ badge, title, subtitle, bg, bgImage, overlay, className, children, style, ...rest }, ref) => {
+    if (badge) {
+      warnDeprecated(
+        "Hero.badge",
+        "Hero の `badge` は非推奨です。ページ上部のお知らせは AnnouncementBar を使ってください。v2 で削除します",
+      );
+    }
     const hasBg = !!(bg || bgImage);
     const overlayOpacity = overlay === true ? 0.5 : typeof overlay === "number" ? overlay : 0;
 
