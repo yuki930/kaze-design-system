@@ -16,6 +16,13 @@ CHANGELOG entries and version bumps are generated automatically by `.github/work
 ### 0.x policy
 
 While the major version is 0, a **minor** release may include breaking changes (they are called out in the release notes with a migration note); a **patch** release never does. The public API will be frozen at 1.0.
+## [0.10.2] - 2026-10-29
+
+### Other
+
+- docs: rewrite the README intro and showcase copy, link npm from the top page (#51)
+
+
 ## [0.10.1] - 2026-10-29
 
 ### Other
