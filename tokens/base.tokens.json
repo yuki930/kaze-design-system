@@ -2460,17 +2460,12 @@
     },
     "chart-1": {
       "$type": "color",
-      "$value": "{semantic.chart-blue}",
-      "$description": "Numbered aliases for programmatic access",
-      "$extensions": {
-        "jp.kaze": {
-          "section": "Color: Charts (→ palette refs, 12 named)"
-        }
-      }
+      "$value": "{primitive.blue-600}",
+      "$description": "Series order for charts. Every colour keeps 3:1 against both the light surface and the dark surface (WCAG 1.4.11). The order is chosen so that the first colours stay apart under protanopia, deuteranopia and tritanopia as well as normal vision: the closest pair among the first 4 is CIEDE2000 12.2, first 6 is 7.4, first 8 is 5.2. Prefer six series or fewer. The named --chart-<hue> colours are unchanged."
     },
     "chart-2": {
       "$type": "color",
-      "$value": "{semantic.chart-emerald}",
+      "$value": "{primitive.amber-600}",
       "$extensions": {
         "jp.kaze": {
           "section": "Color: Charts (→ palette refs, 12 named)"
@@ -2479,7 +2474,7 @@
     },
     "chart-3": {
       "$type": "color",
-      "$value": "{semantic.chart-amber}",
+      "$value": "{primitive.emerald-700}",
       "$extensions": {
         "jp.kaze": {
           "section": "Color: Charts (→ palette refs, 12 named)"
@@ -2488,7 +2483,7 @@
     },
     "chart-4": {
       "$type": "color",
-      "$value": "{semantic.chart-pink}",
+      "$value": "{primitive.orange-700}",
       "$extensions": {
         "jp.kaze": {
           "section": "Color: Charts (→ palette refs, 12 named)"
@@ -2497,7 +2492,7 @@
     },
     "chart-5": {
       "$type": "color",
-      "$value": "{semantic.chart-cyan}",
+      "$value": "{primitive.cyan-600}",
       "$extensions": {
         "jp.kaze": {
           "section": "Color: Charts (→ palette refs, 12 named)"
@@ -2506,7 +2501,7 @@
     },
     "chart-6": {
       "$type": "color",
-      "$value": "{semantic.chart-red}",
+      "$value": "{primitive.pink-500}",
       "$extensions": {
         "jp.kaze": {
           "section": "Color: Charts (→ palette refs, 12 named)"
@@ -2515,7 +2510,7 @@
     },
     "chart-7": {
       "$type": "color",
-      "$value": "{semantic.chart-lime}",
+      "$value": "{primitive.green-600}",
       "$extensions": {
         "jp.kaze": {
           "section": "Color: Charts (→ palette refs, 12 named)"
@@ -2524,7 +2519,7 @@
     },
     "chart-8": {
       "$type": "color",
-      "$value": "{semantic.chart-purple}",
+      "$value": "{primitive.red-500}",
       "$extensions": {
         "jp.kaze": {
           "section": "Color: Charts (→ palette refs, 12 named)"
@@ -2533,7 +2528,7 @@
     },
     "chart-9": {
       "$type": "color",
-      "$value": "{semantic.chart-orange}",
+      "$value": "{primitive.lime-700}",
       "$extensions": {
         "jp.kaze": {
           "section": "Color: Charts (→ palette refs, 12 named)"
@@ -2542,7 +2537,7 @@
     },
     "chart-10": {
       "$type": "color",
-      "$value": "{semantic.chart-teal}",
+      "$value": "{primitive.teal-600}",
       "$extensions": {
         "jp.kaze": {
           "section": "Color: Charts (→ palette refs, 12 named)"
@@ -2551,7 +2546,7 @@
     },
     "chart-11": {
       "$type": "color",
-      "$value": "{semantic.chart-yellow}",
+      "$value": "{primitive.violet-500}",
       "$extensions": {
         "jp.kaze": {
           "section": "Color: Charts (→ palette refs, 12 named)"
@@ -2560,7 +2555,7 @@
     },
     "chart-12": {
       "$type": "color",
-      "$value": "{semantic.chart-green}",
+      "$value": "{primitive.yellow-700}",
       "$extensions": {
         "jp.kaze": {
           "section": "Color: Charts (→ palette refs, 12 named)"

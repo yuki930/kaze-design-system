@@ -242,12 +242,28 @@ CSS カスタムプロパティベース:
 - ボーダー: `--radius-*`
 - シャドウ: `--shadow-*`
 - 密度: `--density-*`（コントロール高さ・行パディング・UI フォントサイズ。下記「密度」参照）
+- チャート: `--chart-1` 〜 `--chart-12`（系列の色。ライトとダークの背景で 3:1 以上、色覚特性でも先頭ほど見分けやすい順）
 
-JS から値を参照したい場合は `kaze-design-system/tokens` から import できます。
+JS から値を参照したい場合は `kaze-design-system/tokens` から import できます。`cssVar` はトークン名を型でチェックします。
 
 ```ts
-import { space } from "kaze-design-system/tokens";
+import { cssVar, space } from "kaze-design-system/tokens";
+
+cssVar("color-bg"); // "var(--color-bg)"。存在しない名前は型エラー
 ```
+
+### トークンの元データ（DTCG）
+
+`tokens.css` は、[Design Tokens Community Group](https://www.designtokens.org/) 形式の JSON から生成しています。JSON はパッケージに入っているので、Figma の変数や他のツールに取り込めます。
+
+| ファイル | 中身 |
+|---|---|
+| `kaze-design-system/tokens/base.json` | 全トークン（ライト・暖色グレー・標準の密度） |
+| `kaze-design-system/tokens/dark.json` | ダークテーマでの上書き |
+| `kaze-design-system/tokens/cool.json` / `cool-dark.json` | 寒色グレーのパレットでの上書き |
+| `kaze-design-system/tokens/compact.json` | コンパクトな密度での上書き |
+
+各ファイルは `primitive`（色の階調・余白・角丸などの素の値）、`semantic`（`color-bg` のような役割）、`component`（密度やレイアウトの寸法）の 3 層に分かれています。トークンを変えるときは JSON を編集して `npm run tokens` を実行します。
 
 ## 日本語組版の既定値
 

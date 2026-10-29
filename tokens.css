@@ -303,18 +303,24 @@
   --chart-teal: var(--teal-500);
   --chart-yellow: var(--yellow-500);
   --chart-green: var(--green-500);
-  --chart-1: var(--chart-blue); /* Numbered aliases for programmatic access */
-  --chart-2: var(--chart-emerald);
-  --chart-3: var(--chart-amber);
-  --chart-4: var(--chart-pink);
-  --chart-5: var(--chart-cyan);
-  --chart-6: var(--chart-red);
-  --chart-7: var(--chart-lime);
-  --chart-8: var(--chart-purple);
-  --chart-9: var(--chart-orange);
-  --chart-10: var(--chart-teal);
-  --chart-11: var(--chart-yellow);
-  --chart-12: var(--chart-green);
+  /* Series order for charts. Every colour keeps 3:1 against both the light
+     surface and the dark surface (WCAG 1.4.11). The order is chosen so that
+     the first colours stay apart under protanopia, deuteranopia and
+     tritanopia as well as normal vision: the closest pair among the first 4
+     is CIEDE2000 12.2, first 6 is 7.4, first 8 is 5.2. Prefer six series or
+     fewer. The named --chart-<hue> colours are unchanged. */
+  --chart-1: var(--blue-600);
+  --chart-2: var(--amber-600);
+  --chart-3: var(--emerald-700);
+  --chart-4: var(--orange-700);
+  --chart-5: var(--cyan-600);
+  --chart-6: var(--pink-500);
+  --chart-7: var(--green-600);
+  --chart-8: var(--red-500);
+  --chart-9: var(--lime-700);
+  --chart-10: var(--teal-600);
+  --chart-11: var(--violet-500);
+  --chart-12: var(--yellow-700);
 
   /* ── Typography ────────────────────────────────────────── */
   /* Body: Japanese-first stack. Latin glyphs fall through to Noto's own
