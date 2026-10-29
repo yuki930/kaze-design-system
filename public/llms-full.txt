@@ -1,6 +1,6 @@
 # kaze-design-system: Full API Reference
 
-> Minimal React design system for dashboards, landing pages and Japanese UI: warm neutral grays, 69 components, SVG charts with zero dependencies, light/dark themes, typography tuned for CJK text
+> Minimal React design system for dashboards, landing pages and Japanese UI: warm neutral grays, 73 components, SVG charts with zero dependencies, light/dark themes, typography tuned for CJK text
 
 Version: 0.10.4
 Site: https://kaze-design-system.vercel.app
@@ -229,6 +229,131 @@ Docs: https://kaze-design-system.vercel.app/docs/components/select
   <option>選択肢1</option>
   <option>選択肢2</option>
 </Select>
+```
+
+#### Combobox
+
+入力しながら候補を絞り込んで選ぶフォーム部品（WAI-ARIA の combobox + listbox）。既定の絞り込みはひらがな・カタカナ・全角半角・大文字小文字を区別せず、IME 変換中の Enter や矢印キーは無視します。選択肢が少なく絞り込みが不要なら Select を使います。
+
+Docs: https://kaze-design-system.vercel.app/docs/components/combobox
+
+**Props**
+
+- `options`: `ComboboxOption[]`
+  - 候補。keywords は表示せず検索だけに使う読みや別名
+- `value?`: `string | null`
+  - Selected option value (controlled). `null` means nothing selected
+- `defaultValue?`: `string | null`
+  - Default: `null`
+  - Initial selected value (uncontrolled)
+- `onValueChange?`: `(value: string | null) => void`
+  - Called when the selection changes. `null` when the user clears the text
+- `filter?`: `(option: ComboboxOption, query: string) => boolean`
+  - Replaces the default match. Receives the option and the typed text
+- `name?`: `string`
+  - Submitted through a hidden input so the value (not the label) reaches the form
+- `size?`: `Extract<Size, "sm" | "md">`
+  - Default: `"md"`
+  - サイズ
+- `emptyMessage?`: `string`
+  - Default: `"候補がありません"`
+  - Shown when no option matches
+- `wrapperClassName?`: `string`
+  - Class for the outer wrapper
+- `aria-invalid?`: `boolean | 'true' | 'false'`
+  - true で Input と同じエラー表示。FormField の error から自動で渡される
+
+**Usage**
+
+```tsx
+import { Combobox, FormField } from "kaze-design-system";
+
+const options = [
+  { value: "tokyo", label: "東京都", keywords: ["とうきょう"] },
+  { value: "osaka", label: "大阪府", keywords: ["おおさか"] },
+];
+
+<FormField label="都道府県" error={error}>
+  <Combobox
+    name="prefecture"
+    options={options}
+    value={prefecture}
+    onValueChange={setPrefecture}
+  />
+</FormField>
+```
+
+#### DatePicker
+
+日付入力とカレンダーのポップオーバー（WAI-ARIA の Date Picker Dialog）。値は "YYYY-MM-DD" の文字列で、Date のタイムゾーンずれが起きません。era="japanese" で「令和8年10月29日」の和暦表示になり、入力は 2026/10/29・20261029・令和8年10月29日・R8.10.29・全角数字を受け付けます。祝日データは持たないので、休業日などは isDateDisabled で渡します。
+
+Docs: https://kaze-design-system.vercel.app/docs/components/date-picker
+
+**Props**
+
+- `value?`: `string | null`
+  - Selected date as "YYYY-MM-DD" (controlled). `null` means empty
+- `defaultValue?`: `string | null`
+  - Default: `null`
+  - Initial date (uncontrolled)
+- `onValueChange?`: `(value: string | null) => void`
+  - Called with "YYYY-MM-DD" when a date is picked or typed, and with `null` when the
+field is emptied or holds text that is not a selectable date.
+- `era?`: `Era`
+  - Default: `"gregorian"`
+  - How the date is written in the field and the calendar heading
+- `min?`: `string`
+  - Earliest selectable date, "YYYY-MM-DD"
+- `max?`: `string`
+  - Latest selectable date, "YYYY-MM-DD"
+- `isDateDisabled?`: `(date: string) => boolean`
+  - Marks individual dates as unavailable (holidays, closed days, ...)
+- `weekStartsOn?`: `0 | 1`
+  - Default: `0`
+  - First column of the calendar: 0 = Sunday, 1 = Monday
+- `open?`: `boolean`
+  - Calendar popover state
+- `defaultOpen?`: `boolean`
+  - Default: `false`
+  - カレンダーの初期の開閉（非制御）
+- `onOpenChange?`: `(open: boolean) => void`
+  - カレンダーの開閉が変わる時のコールバック
+- `name?`: `string`
+  - Submitted through a hidden input as "YYYY-MM-DD" (empty string when no date)
+- `size?`: `Extract<Size, "sm" | "md">`
+  - Default: `"md"`
+  - サイズ
+- `calendarButtonLabel?`: `string`
+  - Default: `"カレンダーを開く"`
+  - Accessible name of the calendar toggle button
+- `dialogLabel?`: `string`
+  - Default: `"日付を選択"`
+  - Accessible name of the calendar dialog
+- `prevMonthLabel?`: `string`
+- `nextMonthLabel?`: `string`
+- `wrapperClassName?`: `string`
+  - Class for the outer wrapper
+- `prevMonthLabel / nextMonthLabel?`: `string`
+  - Default: `"前の月" / "次の月"`
+  - 月送りボタンのラベル
+- `aria-invalid?`: `boolean | 'true' | 'false'`
+  - true で Input と同じエラー表示。解釈できない日付を入力した時は自動で true になる。FormField の error からも渡される
+
+**Usage**
+
+```tsx
+import { DatePicker, FormField } from "kaze-design-system";
+
+<FormField label="開始日" error={error}>
+  <DatePicker
+    name="startDate"
+    era="japanese"
+    value={startDate}
+    onValueChange={setStartDate}
+    min="2026-04-01"
+    isDateDisabled={(date) => closedDays.has(date)}
+  />
+</FormField>
 ```
 
 #### Checkbox
@@ -1549,6 +1674,50 @@ Docs: https://kaze-design-system.vercel.app/docs/components/dialog
 </Dialog>
 ```
 
+#### Drawer
+
+画面の端から出るモーダルパネル。Dialog と同じ挙動（フォーカストラップ・背景の inert 化・スクロールロック・Escape・背景クリック・閉じアニメ・フォーカス復帰）で、フィルターや詳細表示のように一覧を見たまま操作したい場面に向きます。モバイル幅では side="bottom"（ボトムシート）を推奨します。
+
+Docs: https://kaze-design-system.vercel.app/docs/components/drawer
+
+**Props**
+
+- `open`: `boolean`
+  - 表示状態
+- `onOpenChange?`: `(open: boolean) => void`
+  - Called with `false` on Escape, backdrop click or any close request. The caller sets `open`
+- `side?`: `"left" | "right" | "bottom"`
+  - Default: `"right"`
+  - Edge the panel slides from. On narrow screens `"bottom"` is the better fit
+- `size?`: `Extract<Size, "sm" | "md" | "lg">`
+  - Default: `"md"`
+  - Width of a side panel / height cap of a bottom sheet
+- `aria-label?`: `string`
+  - DrawerTitle を置かない場合の名前。指定すると aria-labelledby は付かない
+- `DrawerHeader / DrawerTitle / DrawerBody / DrawerFooter?`: `HTMLAttributes`
+  - DrawerTitle は h2 で、Drawer の aria-labelledby に自動で接続される。DrawerBody だけがスクロールする
+
+**Usage**
+
+```tsx
+import { Button, Drawer, DrawerBody, DrawerFooter, DrawerHeader, DrawerTitle } from "kaze-design-system";
+
+<Drawer open={open} onOpenChange={setOpen} side="right" size="md">
+  <DrawerHeader>
+    <DrawerTitle>絞り込み</DrawerTitle>
+  </DrawerHeader>
+  <DrawerBody>
+    <p>条件を選んでください。</p>
+  </DrawerBody>
+  <DrawerFooter>
+    <Button variant="outline" onClick={() => setOpen(false)}>
+      キャンセル
+    </Button>
+    <Button onClick={() => setOpen(false)}>適用</Button>
+  </DrawerFooter>
+</Drawer>
+```
+
 #### Tooltip
 
 ツールチップ
@@ -1582,6 +1751,60 @@ Docs: https://kaze-design-system.vercel.app/docs/components/tooltip
 <Tooltip content="ヘルプテキスト">
   <Button>ホバー</Button>
 </Tooltip>
+```
+
+#### Popover
+
+クリックで開く非モーダルの浮遊パネル。Dialog と違い背景は操作でき、Escape・外側クリックで閉じてトリガーにフォーカスを戻します。ホバーで出る補足は Tooltip、メニュー項目は Dropdown を使います。
+
+Docs: https://kaze-design-system.vercel.app/docs/components/popover
+
+**Props**
+
+- `children?`: `ReactNode`
+- `open?`: `boolean`
+  - Controlled open state
+- `defaultOpen?`: `boolean`
+  - Default: `false`
+  - Initial open state (uncontrolled)
+- `onOpenChange?`: `(open: boolean) => void`
+  - 開閉が変わる時のコールバック
+- `PopoverTrigger.asChild?`: `boolean`
+  - Default: `false`
+  - 子要素をそのままトリガーにする。aria-expanded / aria-controls / aria-haspopup="dialog" が注入される
+- `PopoverContent.side?`: `"top" | "bottom" | "left" | "right"`
+  - Default: `"bottom"`
+  - トリガーのどの側に出すか。画面からはみ出すときは反対側へ反転する
+- `PopoverContent.align?`: `"start" | "center" | "end"`
+  - Default: `"center"`
+  - トリガーとの揃え位置
+- `PopoverContent.sideOffset?`: `number`
+  - Default: `8`
+  - トリガーとの間隔（px）
+- `PopoverContent.anchorRef?`: `RefObject<HTMLElement | null>`
+  - トリガーの代わりに位置の基準にする要素
+- `PopoverContent.onOpenAutoFocus?`: `(event: Event) => void`
+  - 開いた直後に呼ばれる。preventDefault() で初期フォーカスを自前で制御できる
+- `PopoverClose.asChild?`: `boolean`
+  - Default: `false`
+  - 子要素をそのまま閉じるボタンにする
+
+**Usage**
+
+```tsx
+import { Button, Popover, PopoverClose, PopoverContent, PopoverTrigger } from "kaze-design-system";
+
+<Popover>
+  <PopoverTrigger asChild>
+    <Button variant="outline">表示設定</Button>
+  </PopoverTrigger>
+  <PopoverContent aria-label="表示設定" side="bottom" align="start">
+    <p>一覧の密度と並び順を変更できます。</p>
+    <PopoverClose asChild>
+      <Button size="sm">閉じる</Button>
+    </PopoverClose>
+  </PopoverContent>
+</Popover>
 ```
 
 #### HelpButton

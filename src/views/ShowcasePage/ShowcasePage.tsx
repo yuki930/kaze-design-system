@@ -238,11 +238,11 @@ interface ComponentCategory {
    Foundation は共有前提のためカード化しない。ここでは Application UI 8カテゴリ /
    Marketing 1カタログの2層で見せる。データ可視化系(データ表示・チャート)だけ
    単一アクセントで強調し、残りはニュートラルトーンに統一する。
-   内訳は docs の ComponentsOverview の分類（計69）と一致させる。 */
+   内訳は docs の ComponentsOverview の分類（計73）と一致させる。 */
 const componentCategories: ComponentCategory[] = [
   {
     name: "フォーム",
-    count: 12,
+    count: 14,
     icon: <FormInput size={18} />,
     color: "var(--color-fg-tertiary)",
     layer: "application-ui",
@@ -277,7 +277,7 @@ const componentCategories: ComponentCategory[] = [
   },
   {
     name: "オーバーレイ",
-    count: 5,
+    count: 7,
     icon: <Layers size={18} />,
     color: "var(--color-fg-tertiary)",
     layer: "application-ui",
@@ -449,7 +449,7 @@ export function ShowcasePage() {
                   <Layers size={16} />
                   <span>コンポーネント</span>
                 </div>
-                <div className={styles.statsCardNumber}>69</div>
+                <div className={styles.statsCardNumber}>73</div>
                 <Text size="sm" color="muted">
                   9カテゴリのコンポーネントで
                   <br />
@@ -601,7 +601,7 @@ export function ShowcasePage() {
               level={2}
               description="Foundation の上に、Application UI と Marketing の2つのカタログを揃えています。"
             >
-              69のコンポーネント
+              73のコンポーネント
             </Heading>
           </div>
 

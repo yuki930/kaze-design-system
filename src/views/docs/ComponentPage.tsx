@@ -1,5 +1,6 @@
 import styles from "./docs.module.css";
 import { repoTreeUrl } from "@/views/site/repo";
+import { DialogDemo, DrawerDemo } from "./OverlayDemos";
 import {
   Button,
   Input,
@@ -32,6 +33,12 @@ import {
   CategoryBar,
   ChartLegend,
   SegmentedControl,
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  PopoverClose,
+  Combobox,
+  DatePicker,
 } from "@/components";
 import { Tooltip } from "@/components/Tooltip/Tooltip";
 import { Icon } from "@/components/Icon/Icon";
@@ -714,22 +721,7 @@ const componentDocs: Record<string, ComponentDoc> = {
   dialog: {
     title: "Dialog",
     description: "ダイアログ",
-    preview: (
-      <div
-        style={{
-          padding: "2rem",
-          textAlign: "center",
-          color: "var(--color-fg-secondary)",
-        }}
-      >
-        <p>
-          ダイアログはモーダルウィンドウとして表示されるため、ここではプレビューを省略しています。
-        </p>
-        <p>
-          <code>open</code> プロパティを <code>true</code> にすることで表示されます。
-        </p>
-      </div>
-    ),
+    preview: <DialogDemo />,
     props: [
       {
         name: "open",
@@ -3579,6 +3571,349 @@ import { Icon } from "kaze-design-system";
     usage: `<FilterPill active>すべて</FilterPill>
 <FilterPill color="#3b82f6" dot>テクノロジー</FilterPill>
 <FilterPill>マーケティング</FilterPill>`,
+  },
+
+  popover: {
+    title: "Popover",
+    description:
+      "クリックで開く非モーダルの浮遊パネル。Dialog と違い背景は操作でき、Escape・外側クリックで閉じてトリガーにフォーカスを戻します。ホバーで出る補足は Tooltip、メニュー項目は Dropdown を使います。",
+    preview: (
+      <div className={styles.preview}>
+        <Popover>
+          <PopoverTrigger asChild>
+            <Button variant="outline">表示設定</Button>
+          </PopoverTrigger>
+          <PopoverContent aria-label="表示設定">
+            <p style={{ marginBottom: "var(--space-3)" }}>一覧の密度と並び順を変更できます。</p>
+            <PopoverClose asChild>
+              <Button size="sm">閉じる</Button>
+            </PopoverClose>
+          </PopoverContent>
+        </Popover>
+      </div>
+    ),
+    props: [
+      { name: "open", type: "boolean", description: "開閉状態（制御）" },
+      {
+        name: "defaultOpen",
+        type: "boolean",
+        default: "false",
+        description: "初期の開閉状態（非制御）",
+      },
+      {
+        name: "onOpenChange",
+        type: "(open: boolean) => void",
+        description: "開閉が変わる時のコールバック",
+      },
+      {
+        name: "PopoverTrigger.asChild",
+        type: "boolean",
+        default: "false",
+        description:
+          '子要素をそのままトリガーにする。aria-expanded / aria-controls / aria-haspopup="dialog" が注入される',
+      },
+      {
+        name: "PopoverContent.side",
+        type: '"top" | "bottom" | "left" | "right"',
+        default: '"bottom"',
+        description: "トリガーのどの側に出すか。画面からはみ出すときは反対側へ反転する",
+      },
+      {
+        name: "PopoverContent.align",
+        type: '"start" | "center" | "end"',
+        default: '"center"',
+        description: "トリガーとの揃え位置",
+      },
+      {
+        name: "PopoverContent.sideOffset",
+        type: "number",
+        default: "8",
+        description: "トリガーとの間隔（px）",
+      },
+      {
+        name: "PopoverContent.anchorRef",
+        type: "RefObject<HTMLElement | null>",
+        description: "トリガーの代わりに位置の基準にする要素",
+      },
+      {
+        name: "PopoverContent.onOpenAutoFocus",
+        type: "(event: Event) => void",
+        description: "開いた直後に呼ばれる。preventDefault() で初期フォーカスを自前で制御できる",
+      },
+      {
+        name: "PopoverClose.asChild",
+        type: "boolean",
+        default: "false",
+        description: "子要素をそのまま閉じるボタンにする",
+      },
+    ],
+    usage: `import { Button, Popover, PopoverClose, PopoverContent, PopoverTrigger } from "kaze-design-system";
+
+<Popover>
+  <PopoverTrigger asChild>
+    <Button variant="outline">表示設定</Button>
+  </PopoverTrigger>
+  <PopoverContent aria-label="表示設定" side="bottom" align="start">
+    <p>一覧の密度と並び順を変更できます。</p>
+    <PopoverClose asChild>
+      <Button size="sm">閉じる</Button>
+    </PopoverClose>
+  </PopoverContent>
+</Popover>`,
+  },
+
+  combobox: {
+    title: "Combobox",
+    description:
+      "入力しながら候補を絞り込んで選ぶフォーム部品（WAI-ARIA の combobox + listbox）。既定の絞り込みはひらがな・カタカナ・全角半角・大文字小文字を区別せず、IME 変換中の Enter や矢印キーは無視します。選択肢が少なく絞り込みが不要なら Select を使います。",
+    preview: (
+      <div style={{ maxWidth: "20rem" }}>
+        <FormField label="都道府県" description="「とうきょう」「ｵｵｻｶ」でも絞り込めます">
+          <Combobox
+            options={[
+              { value: "tokyo", label: "東京都", keywords: ["とうきょう"] },
+              { value: "osaka", label: "大阪府", keywords: ["おおさか"] },
+              { value: "kyoto", label: "京都府", keywords: ["きょうと"] },
+              { value: "hokkaido", label: "北海道", keywords: ["ほっかいどう"] },
+              { value: "fukuoka", label: "福岡県", keywords: ["ふくおか"], disabled: true },
+            ]}
+            placeholder="選択または入力"
+          />
+        </FormField>
+      </div>
+    ),
+    props: [
+      {
+        name: "options",
+        type: "{ value: string; label: string; keywords?: string[]; disabled?: boolean }[]",
+        description: "候補。keywords は表示せず検索だけに使う読みや別名",
+      },
+      {
+        name: "value",
+        type: "string | null",
+        description: "選択中の value（制御）。未選択は null",
+      },
+      {
+        name: "defaultValue",
+        type: "string | null",
+        default: "null",
+        description: "初期の選択（非制御）",
+      },
+      {
+        name: "onValueChange",
+        type: "(value: string | null) => void",
+        description: "選択が変わる時のコールバック。入力を空にして離れると null",
+      },
+      {
+        name: "filter",
+        type: "(option: ComboboxOption, query: string) => boolean",
+        description: "絞り込みの差し替え。既定は label と keywords への includesJa",
+      },
+      {
+        name: "name",
+        type: "string",
+        description: "指定すると hidden input で value（ラベルではなく）をフォーム送信する",
+      },
+      {
+        name: "size",
+        type: '"sm" | "md"',
+        default: '"md"',
+        description: "サイズ",
+      },
+      {
+        name: "emptyMessage",
+        type: "string",
+        default: '"候補がありません"',
+        description: "一致する候補がないときの文言",
+      },
+      {
+        name: "aria-invalid",
+        type: "boolean | 'true' | 'false'",
+        description: "true で Input と同じエラー表示。FormField の error から自動で渡される",
+      },
+    ],
+    usage: `import { Combobox, FormField } from "kaze-design-system";
+
+const options = [
+  { value: "tokyo", label: "東京都", keywords: ["とうきょう"] },
+  { value: "osaka", label: "大阪府", keywords: ["おおさか"] },
+];
+
+<FormField label="都道府県" error={error}>
+  <Combobox
+    name="prefecture"
+    options={options}
+    value={prefecture}
+    onValueChange={setPrefecture}
+  />
+</FormField>`,
+  },
+
+  "date-picker": {
+    title: "DatePicker",
+    description:
+      '日付入力とカレンダーのポップオーバー（WAI-ARIA の Date Picker Dialog）。値は "YYYY-MM-DD" の文字列で、Date のタイムゾーンずれが起きません。era="japanese" で「令和8年10月29日」の和暦表示になり、入力は 2026/10/29・20261029・令和8年10月29日・R8.10.29・全角数字を受け付けます。祝日データは持たないので、休業日などは isDateDisabled で渡します。',
+    preview: (
+      <div style={{ display: "grid", gap: "var(--space-4)", maxWidth: "20rem" }}>
+        <FormField label="開始日（西暦）">
+          <DatePicker defaultValue="2026-10-29" />
+        </FormField>
+        <FormField
+          label="開始日（和暦）"
+          description="R8.10.29 や 令和8年10月29日 でも入力できます"
+        >
+          <DatePicker era="japanese" defaultValue="2026-10-29" weekStartsOn={1} />
+        </FormField>
+      </div>
+    ),
+    props: [
+      {
+        name: "value",
+        type: "string | null",
+        description: '選択中の日付 "YYYY-MM-DD"（制御）。未入力は null',
+      },
+      {
+        name: "defaultValue",
+        type: "string | null",
+        default: "null",
+        description: "初期の日付（非制御）",
+      },
+      {
+        name: "onValueChange",
+        type: "(value: string | null) => void",
+        description:
+          "日付が決まった時のコールバック。入力を空にした時と、解釈できない・選べない日付を入力した時は null",
+      },
+      {
+        name: "era",
+        type: '"gregorian" | "japanese"',
+        default: '"gregorian"',
+        description: "表示の暦。入力欄とカレンダーの見出し・日付ラベルが切り替わる",
+      },
+      { name: "min", type: "string", description: '選べる最初の日 "YYYY-MM-DD"' },
+      { name: "max", type: "string", description: '選べる最後の日 "YYYY-MM-DD"' },
+      {
+        name: "isDateDisabled",
+        type: "(date: string) => boolean",
+        description: "個別に選べない日を指定する（祝日・休業日など）",
+      },
+      {
+        name: "weekStartsOn",
+        type: "0 | 1",
+        default: "0",
+        description: "週の始まり。0 = 日曜、1 = 月曜",
+      },
+      { name: "open", type: "boolean", description: "カレンダーの開閉（制御）" },
+      {
+        name: "defaultOpen",
+        type: "boolean",
+        default: "false",
+        description: "カレンダーの初期の開閉（非制御）",
+      },
+      {
+        name: "onOpenChange",
+        type: "(open: boolean) => void",
+        description: "カレンダーの開閉が変わる時のコールバック",
+      },
+      {
+        name: "name",
+        type: "string",
+        description: '指定すると hidden input で "YYYY-MM-DD" をフォーム送信する',
+      },
+      { name: "size", type: '"sm" | "md"', default: '"md"', description: "サイズ" },
+      {
+        name: "calendarButtonLabel",
+        type: "string",
+        default: '"カレンダーを開く"',
+        description: "カレンダーを開くボタンのラベル",
+      },
+      {
+        name: "dialogLabel",
+        type: "string",
+        default: '"日付を選択"',
+        description: "カレンダーダイアログのラベル",
+      },
+      {
+        name: "prevMonthLabel / nextMonthLabel",
+        type: "string",
+        default: '"前の月" / "次の月"',
+        description: "月送りボタンのラベル",
+      },
+      {
+        name: "aria-invalid",
+        type: "boolean | 'true' | 'false'",
+        description:
+          "true で Input と同じエラー表示。解釈できない日付を入力した時は自動で true になる。FormField の error からも渡される",
+      },
+    ],
+    usage: `import { DatePicker, FormField } from "kaze-design-system";
+
+<FormField label="開始日" error={error}>
+  <DatePicker
+    name="startDate"
+    era="japanese"
+    value={startDate}
+    onValueChange={setStartDate}
+    min="2026-04-01"
+    isDateDisabled={(date) => closedDays.has(date)}
+  />
+</FormField>`,
+  },
+
+  drawer: {
+    title: "Drawer",
+    description:
+      '画面の端から出るモーダルパネル。Dialog と同じ挙動（フォーカストラップ・背景の inert 化・スクロールロック・Escape・背景クリック・閉じアニメ・フォーカス復帰）で、フィルターや詳細表示のように一覧を見たまま操作したい場面に向きます。モバイル幅では side="bottom"（ボトムシート）を推奨します。',
+    preview: <DrawerDemo />,
+    props: [
+      { name: "open", type: "boolean", description: "表示状態" },
+      {
+        name: "onOpenChange",
+        type: "(open: boolean) => void",
+        description:
+          "Escape・背景クリック・閉じる操作で false が渡る。open を false にするのは呼び出し側",
+      },
+      {
+        name: "side",
+        type: '"left" | "right" | "bottom"',
+        default: '"right"',
+        description: "パネルが出てくる端。モバイル幅では bottom（ボトムシート）を推奨",
+      },
+      {
+        name: "size",
+        type: '"sm" | "md" | "lg"',
+        default: '"md"',
+        description:
+          "left / right では幅（20rem / 28rem / 40rem）、bottom では高さの上限（40% / 60% / 90%）",
+      },
+      {
+        name: "aria-label",
+        type: "string",
+        description: "DrawerTitle を置かない場合の名前。指定すると aria-labelledby は付かない",
+      },
+      {
+        name: "DrawerHeader / DrawerTitle / DrawerBody / DrawerFooter",
+        type: "HTMLAttributes",
+        description:
+          "DrawerTitle は h2 で、Drawer の aria-labelledby に自動で接続される。DrawerBody だけがスクロールする",
+      },
+    ],
+    usage: `import { Button, Drawer, DrawerBody, DrawerFooter, DrawerHeader, DrawerTitle } from "kaze-design-system";
+
+<Drawer open={open} onOpenChange={setOpen} side="right" size="md">
+  <DrawerHeader>
+    <DrawerTitle>絞り込み</DrawerTitle>
+  </DrawerHeader>
+  <DrawerBody>
+    <p>条件を選んでください。</p>
+  </DrawerBody>
+  <DrawerFooter>
+    <Button variant="outline" onClick={() => setOpen(false)}>
+      キャンセル
+    </Button>
+    <Button onClick={() => setOpen(false)}>適用</Button>
+  </DrawerFooter>
+</Drawer>`,
   },
 };
 

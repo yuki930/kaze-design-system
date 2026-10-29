@@ -7,7 +7,7 @@
 - **デザイン方針**: Zinc ベースのミニマルデザインシステム、日本語組版最適化
 - **CSS**: カスタムプロパティ（CSS Variables）ベース、`@layer` でカスケード管理
 - **テーマ**: ライト / ダーク（`data-theme` 属性 + `prefers-color-scheme` フォールバック）
-- **コンポーネント数**: 69
+- **コンポーネント数**: 73
 
 ## 環境セットアップ
 ```bash
@@ -77,7 +77,7 @@ tsconfig.build.json     # ライブラリビルド用 TypeScript 設定
 
 ## コンポーネント設計
 - barrel export（`components/index.ts`, `components/marketing.ts`, `hooks/index.ts`）は `"use client"` 付きで、ここがクライアント境界
-- Portal 系（Dialog, Toast, Dropdown, Tooltip, CommandPalette）や state / effect を持つものは個別ファイルにも `"use client"` を付ける
+- Portal 系（Dialog, Drawer, Popover, Toast, Dropdown, Tooltip, CommandPalette）や state / effect を持つものは個別ファイルにも `"use client"` を付ける
 - `useId` だけを使うフォーム要素（Input, Checkbox 等）や静的コンポーネント（Card, Badge 等）は個別ファイルに付けなくてよい
 - `lucide-react` は optional peer なので、コンポーネント本体で import しない（アイコンは inline SVG か、`Icon` に外から渡す）
 - 公開型が参照するモジュールは相対パスで import する（`@/` は `.d.ts` に残り利用者側で解決できない。CI でチェック）
@@ -86,9 +86,9 @@ tsconfig.build.json     # ライブラリビルド用 TypeScript 設定
 Kaze は「1パッケージ・3レイヤー」構成。上位レイヤーは下位レイヤーのトークンだけを参照し、逆方向の参照はしない。
 
 - **Foundation**: `tokens.css` / `utilities.css` など、両カタログが共有する土台。単独のコンポーネントは持たず、`/docs/tokens`・`/docs/colors`・`/docs/utilities` として提示する。
-- **Application UI**: 業務アプリ・ダッシュボードの画面を組む58コンポーネント。フォーム/データ表示/チャート/フィードバック/ナビゲーション/オーバーレイ/レイアウト/リストの8カテゴリ。
+- **Application UI**: 業務アプリ・ダッシュボードの画面を組む62コンポーネント。フォーム/データ表示/チャート/フィードバック/ナビゲーション/オーバーレイ/レイアウト/リストの8カテゴリ。
 - **Marketing**: LP・プロダクトサイトを組む正準11コンポーネント。Navbar, Hero, Section, SplitSection, FeatureGrid, Stats, Pricing, Testimonial, FAQ, CTABanner, LPFooter。この11個以外を追加する場合は Issue で合意を取ってから増やす（勝手に一点ものを足さない）。追加・削除したときは `src/components/marketing.ts` の export も合わせる。
-- コンポーネント総数は 69（58 + 11）。`src/views/docs/ComponentsOverview.tsx` の `categories` 配列がこの2カタログ + Foundation 導線の唯一のソース。`scripts/generate-llms.mjs` がこの配列を TypeScript Compiler API で解析して `llms.txt` / `llms-full.txt` を生成するため、カテゴリ構造を変える際は両方を追従修正し `npm run docs:llms` で69個出力されることを確認する。
+- コンポーネント総数は 73（62 + 11）。`src/views/docs/ComponentsOverview.tsx` の `categories` 配列がこの2カタログ + Foundation 導線の唯一のソース。`scripts/generate-llms.mjs` がこの配列を TypeScript Compiler API で解析して `llms.txt` / `llms-full.txt` を生成するため、カテゴリ構造を変える際は両方を追従修正し `npm run docs:llms` で73個出力されることを確認する。
 
 ### Marketing コンポーネントのデモ制約
 Marketing はランディングページの世界観を見せる場なので、Application UI より表現の自由度は上げてよいが、以下は例外なく守る。

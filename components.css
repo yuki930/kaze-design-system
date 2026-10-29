@@ -4747,6 +4747,460 @@ button.chart-legend__item:focus-visible {
   color: inherit;
 }
 
+/* ── Popover ─────────────────────────────────────────────── */
+/* z-index sits just above modal so a popover opened inside a Dialog / Drawer stays visible */
+.popover__content {
+  position: fixed;
+  z-index: calc(var(--z-modal) + 1);
+  min-width: 12rem;
+  max-width: min(24rem, calc(100vw - var(--space-4) * 2));
+  padding: var(--space-4);
+  background: var(--color-surface);
+  color: var(--color-fg);
+  font-size: var(--density-font-size-ui);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-box);
+  box-shadow: var(--shadow-md);
+  animation: kaze-fade-in var(--duration-normal) var(--ease-out);
+}
+
+.popover__content:focus-visible {
+  outline: var(--ring-width) solid var(--color-focus);
+  outline-offset: var(--ring-offset);
+}
+
+/* ── Combobox ────────────────────────────────────────────── */
+.combobox {
+  position: relative;
+  display: block;
+  width: 100%;
+}
+
+/* The input keeps the .input look (incl. aria-invalid); only room for the chevron is added */
+.combobox__input {
+  padding-right: var(--space-8);
+}
+
+.combobox--sm .combobox__input {
+  height: calc(var(--density-control-height) - 0.25rem);
+  font-size: var(--font-size-xs);
+}
+
+.combobox__chevron {
+  position: absolute;
+  top: 50%;
+  right: var(--space-3);
+  color: var(--color-fg-tertiary);
+  transform: translateY(-50%);
+  pointer-events: none;
+  transition: transform var(--duration-normal) var(--ease-default);
+}
+
+.combobox[data-state="open"] .combobox__chevron {
+  transform: translateY(-50%) rotate(180deg);
+}
+
+/* z-index sits just above modal so a list opened inside a Dialog / Drawer stays visible */
+.combobox__popup {
+  position: fixed;
+  z-index: calc(var(--z-modal) + 1);
+  max-height: 16rem;
+  overflow-y: auto;
+  padding: var(--space-1);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-box);
+  box-shadow: var(--shadow-md);
+  animation: kaze-fade-in var(--duration-fast) var(--ease-out);
+}
+
+.combobox__option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  padding: var(--density-dropdown-py) var(--space-3);
+  font-size: var(--density-font-size-ui);
+  color: var(--color-fg);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}
+
+/* DOM focus stays in the input, so the highlight is the only cue for the active option */
+.combobox__option[data-highlighted="true"] {
+  background: var(--color-surface-hover);
+}
+
+.combobox__option[aria-selected="true"] {
+  font-weight: var(--font-weight-medium);
+}
+
+.combobox__option[aria-disabled="true"] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.combobox__check {
+  flex-shrink: 0;
+}
+
+.combobox__empty {
+  padding: var(--density-dropdown-py) var(--space-3);
+  font-size: var(--density-font-size-ui);
+  color: var(--color-fg-secondary);
+}
+
+@media (forced-colors: active) {
+  .combobox__option[data-highlighted="true"] {
+    outline: 2px solid Highlight;
+    outline-offset: -2px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .combobox__chevron {
+    transition: none;
+  }
+}
+
+/* ── DatePicker ──────────────────────────────────────────── */
+.datepicker {
+  position: relative;
+  display: block;
+  width: 100%;
+}
+
+/* The input keeps the .input look (incl. aria-invalid); only room for the toggle is added */
+.datepicker__input {
+  padding-right: var(--space-10);
+}
+
+.datepicker--sm .datepicker__input {
+  height: calc(var(--density-control-height) - 0.25rem);
+  font-size: var(--font-size-xs);
+}
+
+.datepicker__toggle {
+  position: absolute;
+  top: 50%;
+  right: var(--space-1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(var(--density-control-height) - var(--space-2));
+  height: calc(var(--density-control-height) - var(--space-2));
+  color: var(--color-fg-secondary);
+  background: transparent;
+  border: 0;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transform: translateY(-50%);
+  transition: background-color var(--duration-fast) var(--ease-default);
+}
+
+.datepicker--sm .datepicker__toggle {
+  width: calc(var(--density-control-height) - var(--space-3));
+  height: calc(var(--density-control-height) - var(--space-3));
+}
+
+.datepicker__toggle:hover:not(:disabled) {
+  background: var(--color-surface-hover);
+}
+
+.datepicker__toggle:focus-visible {
+  outline: var(--ring-width) solid var(--color-focus);
+  outline-offset: var(--ring-offset);
+}
+
+.datepicker__toggle:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.datepicker__popover {
+  min-width: 0;
+  padding: var(--space-3);
+}
+
+.datepicker__calendar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  width: max-content;
+}
+
+.datepicker__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.datepicker__title {
+  font-size: var(--density-font-size-ui);
+  font-weight: var(--font-weight-semibold);
+  font-variant-numeric: tabular-nums;
+}
+
+.datepicker__nav {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--density-control-height);
+  height: var(--density-control-height);
+  color: var(--color-fg);
+  background: transparent;
+  border: 0;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}
+
+.datepicker__nav:hover:not(:disabled) {
+  background: var(--color-surface-hover);
+}
+
+.datepicker__nav:focus-visible {
+  outline: var(--ring-width) solid var(--color-focus);
+  outline-offset: -2px;
+}
+
+.datepicker__nav:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.datepicker__grid {
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.datepicker__weekday {
+  padding: var(--space-1) 0;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-fg-secondary);
+  text-align: center;
+}
+
+.datepicker__weekday abbr {
+  text-decoration: none;
+  cursor: default;
+}
+
+/* Weekend colors are a hint only: the column heading and each day's label already name the weekday */
+.datepicker__weekday--sun,
+.datepicker__day--sun {
+  color: var(--color-negative-fg);
+}
+
+.datepicker__weekday--sat,
+.datepicker__day--sat {
+  color: var(--color-info-fg);
+}
+
+.datepicker__grid td {
+  padding: 1px;
+  text-align: center;
+}
+
+.datepicker__day {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--density-control-height);
+  height: var(--density-control-height);
+  font-size: var(--density-font-size-ui);
+  font-variant-numeric: tabular-nums;
+  color: var(--color-fg);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}
+
+.datepicker__day:hover {
+  background: var(--color-surface-hover);
+}
+
+.datepicker__day:focus-visible {
+  outline: var(--ring-width) solid var(--color-focus);
+  outline-offset: -2px;
+}
+
+/* Today: a ring, so it stays visible on top of the weekend colors and without relying on hue */
+.datepicker__day[data-today="true"] {
+  border-color: var(--color-border-strong);
+  font-weight: var(--font-weight-semibold);
+}
+
+.datepicker__day[data-selected="true"],
+.datepicker__day[data-selected="true"]:hover {
+  color: var(--color-primary-fg);
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.datepicker__day[aria-disabled="true"] {
+  opacity: 0.4;
+  text-decoration: line-through;
+  cursor: not-allowed;
+}
+
+.datepicker__day[aria-disabled="true"]:hover {
+  background: transparent;
+}
+
+@media (forced-colors: active) {
+  .datepicker__day[data-selected="true"] {
+    forced-color-adjust: none;
+    color: HighlightText;
+    background: Highlight;
+  }
+}
+
+/* ── Drawer ──────────────────────────────────────────────── */
+/* Reuses .overlay (backdrop, z-index, fade) and pins the panel to an edge */
+.overlay--drawer {
+  padding: 0;
+  align-items: stretch;
+  justify-content: flex-end;
+}
+
+.overlay--drawer[data-side="left"] {
+  justify-content: flex-start;
+}
+
+.overlay--drawer[data-side="bottom"] {
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.drawer {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-surface);
+  color: var(--color-fg);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-xl);
+  z-index: var(--z-modal);
+  max-width: 100%;
+  animation: kaze-drawer-in-right var(--duration-slower) var(--ease-out);
+}
+
+.drawer:focus {
+  outline: none;
+}
+
+/* Side panels fill the height; the width comes from the size */
+.drawer--left,
+.drawer--right {
+  height: 100dvh;
+  border-top: 0;
+  border-bottom: 0;
+}
+
+.drawer--right {
+  border-right: 0;
+  border-radius: var(--radius-box) 0 0 var(--radius-box);
+}
+
+.drawer--left {
+  border-left: 0;
+  border-radius: 0 var(--radius-box) var(--radius-box) 0;
+  animation-name: kaze-drawer-in-left;
+}
+
+.drawer--left.drawer--sm,
+.drawer--right.drawer--sm { width: 20rem; }
+.drawer--left.drawer--md,
+.drawer--right.drawer--md { width: 28rem; }
+.drawer--left.drawer--lg,
+.drawer--right.drawer--lg { width: 40rem; }
+
+/* Bottom sheets span the width and are capped in height by the size */
+.drawer--bottom {
+  width: 100%;
+  border-bottom: 0;
+  border-radius: var(--radius-box) var(--radius-box) 0 0;
+  animation-name: kaze-drawer-in-bottom;
+}
+
+.drawer--bottom.drawer--sm { max-height: 40dvh; }
+.drawer--bottom.drawer--md { max-height: 60dvh; }
+.drawer--bottom.drawer--lg { max-height: 90dvh; }
+
+.overlay--closing .drawer--right {
+  animation: kaze-drawer-out-right var(--duration-slow) var(--ease-in) forwards;
+}
+
+.overlay--closing .drawer--left {
+  animation: kaze-drawer-out-left var(--duration-slow) var(--ease-in) forwards;
+}
+
+.overlay--closing .drawer--bottom {
+  animation: kaze-drawer-out-bottom var(--duration-slow) var(--ease-in) forwards;
+}
+
+@keyframes kaze-drawer-in-right {
+  from { transform: translateX(100%); }
+  to   { transform: translateX(0); }
+}
+
+@keyframes kaze-drawer-in-left {
+  from { transform: translateX(-100%); }
+  to   { transform: translateX(0); }
+}
+
+@keyframes kaze-drawer-in-bottom {
+  from { transform: translateY(100%); }
+  to   { transform: translateY(0); }
+}
+
+@keyframes kaze-drawer-out-right {
+  from { transform: translateX(0); }
+  to   { transform: translateX(100%); }
+}
+
+@keyframes kaze-drawer-out-left {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-100%); }
+}
+
+@keyframes kaze-drawer-out-bottom {
+  from { transform: translateY(0); }
+  to   { transform: translateY(100%); }
+}
+
+.drawer__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-5);
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.drawer__title {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+}
+
+/* The body scrolls; header and footer stay put */
+.drawer__body {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  padding: var(--space-5);
+}
+
+.drawer__footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-2);
+  padding: var(--space-4) var(--space-5);
+  border-top: 1px solid var(--color-border-subtle);
+}
+
 /* ── Reduced motion ─────────────────────────────────────────
    Shipped in the components layer so it applies even when utilities.css is
    not loaded. Covers every animated component above. */
@@ -4761,7 +5215,14 @@ button.chart-legend__item:focus-visible {
   .command-palette,
   .toast,
   .toast[data-removing="true"],
-  .dropdown__menu {
+  .dropdown__menu,
+  .popover__content,
+  .combobox__popup,
+  .datepicker__popover,
+  .drawer,
+  .overlay--closing .drawer--right,
+  .overlay--closing .drawer--left,
+  .overlay--closing .drawer--bottom {
     animation: none;
   }
 

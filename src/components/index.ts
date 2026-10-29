@@ -57,6 +57,12 @@ export type { SegmentedControlProps, SegmentedControlOption } from "./SegmentedC
 export { Input } from "./Input";
 export type { InputProps } from "./Input";
 
+export { Combobox, defaultComboboxFilter } from "./Combobox";
+export type { ComboboxProps, ComboboxOption, ComboboxSize } from "./Combobox";
+
+export { DatePicker } from "./DatePicker";
+export type { DatePickerProps, DatePickerEra, DatePickerSize } from "./DatePicker";
+
 export { Select } from "./Select";
 export type { SelectProps } from "./Select";
 
@@ -115,6 +121,27 @@ export type {
   DialogBodyProps,
   DialogFooterProps,
 } from "./Dialog";
+
+export { Popover, PopoverTrigger, PopoverContent, PopoverClose } from "./Popover";
+export type {
+  PopoverProps,
+  PopoverTriggerProps,
+  PopoverContentProps,
+  PopoverCloseProps,
+  PopoverSide,
+  PopoverAlign,
+} from "./Popover";
+
+export { Drawer, DrawerHeader, DrawerTitle, DrawerBody, DrawerFooter } from "./Drawer";
+export type {
+  DrawerProps,
+  DrawerHeaderProps,
+  DrawerTitleProps,
+  DrawerBodyProps,
+  DrawerFooterProps,
+  DrawerSide,
+  DrawerSize,
+} from "./Drawer";
 
 export { Divider } from "./Divider";
 export type { DividerProps } from "./Divider";

@@ -1,8 +1,8 @@
 # kaze-design-system
 
-> Minimal React design system for dashboards, landing pages and Japanese UI: warm neutral grays, 69 components, SVG charts with zero dependencies, light/dark themes, typography tuned for CJK text
+> Minimal React design system for dashboards, landing pages and Japanese UI: warm neutral grays, 73 components, SVG charts with zero dependencies, light/dark themes, typography tuned for CJK text
 
-kaze-design-system is a React 18/19 + TypeScript design system with 69 components in two layers: Application UI (dashboards, business apps) and Marketing (landing pages, importable from `kaze-design-system/marketing`). It is built around a warm neutral gray palette, optimized for Japanese typography (PALT enabled globally), uses CSS custom properties for theming (light/dark via `data-theme`, cool palette via `data-palette="cool"`, compact density via `data-density="compact"`), and ships as ESM with peer dependencies on react and react-dom (lucide-react optional).
+kaze-design-system is a React 18/19 + TypeScript design system with 73 components in two layers: Application UI (dashboards, business apps) and Marketing (landing pages, importable from `kaze-design-system/marketing`). It is built around a warm neutral gray palette, optimized for Japanese typography (PALT enabled globally), uses CSS custom properties for theming (light/dark via `data-theme`, cool palette via `data-palette="cool"`, compact density via `data-density="compact"`), and ships as ESM with peer dependencies on react and react-dom (lucide-react optional).
 
 ## Installation
 
@@ -30,6 +30,8 @@ import { Hero, PricingGrid } from "kaze-design-system/marketing";
 - [Input](https://kaze-design-system.vercel.app/docs/components/input): テキスト入力
 - [NumberField](https://kaze-design-system.vercel.app/docs/components/number-field): 通貨対応数値入力
 - [Select](https://kaze-design-system.vercel.app/docs/components/select): セレクトボックス
+- [Combobox](https://kaze-design-system.vercel.app/docs/components/combobox): 入力しながら候補を絞り込んで選ぶフォーム部品（WAI-ARIA の combobox + listbox）。既定の絞り込みはひらがな・カタカナ・全角半角・大文字小文字を区別せず、IME 変換中の Enter や矢印キーは無視します。選択肢が少なく絞り込みが不要なら Select を使います。
+- [DatePicker](https://kaze-design-system.vercel.app/docs/components/date-picker): 日付入力とカレンダーのポップオーバー（WAI-ARIA の Date Picker Dialog）。値は "YYYY-MM-DD" の文字列で、Date のタイムゾーンずれが起きません。era="japanese" で「令和8年10月29日」の和暦表示になり、入力は 2026/10/29・20261029・令和8年10月29日・R8.10.29・全角数字を受け付けます。祝日データは持たないので、休業日などは isDateDisabled で渡します。
 - [Checkbox](https://kaze-design-system.vercel.app/docs/components/checkbox): チェックボックス
 - [Radio](https://kaze-design-system.vercel.app/docs/components/radio): ラジオボタン
 - [Textarea](https://kaze-design-system.vercel.app/docs/components/textarea): テキストエリア
@@ -83,7 +85,9 @@ import { Hero, PricingGrid } from "kaze-design-system/marketing";
 ### オーバーレイ
 
 - [Dialog](https://kaze-design-system.vercel.app/docs/components/dialog): ダイアログ
+- [Drawer](https://kaze-design-system.vercel.app/docs/components/drawer): 画面の端から出るモーダルパネル。Dialog と同じ挙動（フォーカストラップ・背景の inert 化・スクロールロック・Escape・背景クリック・閉じアニメ・フォーカス復帰）で、フィルターや詳細表示のように一覧を見たまま操作したい場面に向きます。モバイル幅では side="bottom"（ボトムシート）を推奨します。
 - [Tooltip](https://kaze-design-system.vercel.app/docs/components/tooltip): ツールチップ
+- [Popover](https://kaze-design-system.vercel.app/docs/components/popover): クリックで開く非モーダルの浮遊パネル。Dialog と違い背景は操作でき、Escape・外側クリックで閉じてトリガーにフォーカスを戻します。ホバーで出る補足は Tooltip、メニュー項目は Dropdown を使います。
 - [HelpButton](https://kaze-design-system.vercel.app/docs/components/help-button): ラベルの横に配置する「?」ボタン。クリックで詳細説明の popover が開きます。outside click / ESC キーで閉じ、Portal でレンダリングされるためスクロールや z-index の影響を受けません。Tooltip（ホバー起動・一時表示）と異なり、クリックで開閉する永続モードを提供します。
 - [Dropdown](https://kaze-design-system.vercel.app/docs/components/dropdown): ドロップダウンメニュー
 - [CommandPalette](https://kaze-design-system.vercel.app/docs/components/command-palette): コマンドパレット
