@@ -120,9 +120,8 @@ const css = [
   block(":root", [
     ...declarations(base, "  ", { sections: true }),
     "",
-    "  /* Root font-size is left at the browser default (1rem) so users who enlarge",
-    "     text in their browser are respected. Kerning stays on for all text. */",
-    "  font-kerning: normal;",
+    "  /* Proportional kana (palt) for all text. */",
+    '  font-feature-settings: "palt" 1;',
     "",
     "  /* Breakpoints (reference only, use @media): sm 640px / md 768px /",
     "     lg 1024px / xl 1280px / 2xl 1536px */",

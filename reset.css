@@ -27,8 +27,6 @@ html {
   hanging-punctuation: first allow-end last;
   /* Japanese line breaking: strict kinsoku, trim doubled-up brackets. Both are
      ignored by browsers that do not support them. */
-  line-break: strict;
-  text-spacing-trim: trim-start;
   tab-size: 4;
   line-height: var(--line-height-normal);
   font-size: var(--font-size-base);
@@ -37,7 +35,7 @@ html {
 body {
   font-family: var(--font-sans);
   font-size: var(--font-size-base);
-  line-height: var(--line-height-loose);
+  line-height: var(--line-height-relaxed);
   color: var(--color-fg);
   background-color: var(--color-bg);
   min-height: 100dvh;
@@ -87,7 +85,6 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: inherit;
   overflow-wrap: break-word;
   /* Break Japanese headings at phrase boundaries (Chrome 119+); others ignore it */
-  word-break: auto-phrase;
 }
 
 p {

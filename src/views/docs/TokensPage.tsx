@@ -176,7 +176,7 @@ export function TokensPage() {
               color: "var(--color-fg-secondary)",
             }}
           >
-            Montserrat を欧文に重ね、プロポーショナルかな（palt）を適用します。本文には使いません。
+            --font-sans と同じ書体です。以前のバージョンとの互換のために残しています。
           </p>
         </div>
         <div style={{ marginTop: "16px" }}>

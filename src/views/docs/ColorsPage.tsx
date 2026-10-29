@@ -340,18 +340,18 @@ const chartColors = [
 
 /** Mirrors --chart-1..12 in tokens/base.tokens.json (the swatches render the tokens themselves) */
 const chartCategorical = [
-  { name: "1", ref: "blue-600" },
-  { name: "2", ref: "amber-600" },
-  { name: "3", ref: "emerald-700" },
-  { name: "4", ref: "orange-700" },
-  { name: "5", ref: "cyan-600" },
-  { name: "6", ref: "pink-500" },
-  { name: "7", ref: "green-600" },
-  { name: "8", ref: "red-500" },
-  { name: "9", ref: "lime-700" },
-  { name: "10", ref: "teal-600" },
-  { name: "11", ref: "violet-500" },
-  { name: "12", ref: "yellow-700" },
+  { name: "1", ref: "blue-500" },
+  { name: "2", ref: "emerald-500" },
+  { name: "3", ref: "amber-500" },
+  { name: "4", ref: "pink-500" },
+  { name: "5", ref: "cyan-500" },
+  { name: "6", ref: "red-500" },
+  { name: "7", ref: "lime-500" },
+  { name: "8", ref: "violet-500" },
+  { name: "9", ref: "orange-500" },
+  { name: "10", ref: "teal-500" },
+  { name: "11", ref: "yellow-500" },
+  { name: "12", ref: "green-500" },
 ];
 
 /* ── Helpers ─────────────────────────────────────────────── */
@@ -615,8 +615,7 @@ export function ColorsPage() {
           marginBottom: "var(--space-4)",
         }}
       >
-        色名で直接指定したいときに使う。パレットの 500 を参照。系列の色は下の Categorical
-        を順に使う。
+        BarChart / DonutChart / Sparkline で使用。パレットの 500 を参照。
       </p>
       <div className={styles.tokenGrid}>
         {chartColors.map((c) => (
@@ -638,9 +637,7 @@ export function ColorsPage() {
           marginBottom: "var(--space-4)",
         }}
       >
-        LineChart / ColumnChart / BarChart / DonutChart / CategoryBar
-        が、系列にこの順で色を割り当てる。 どの色もライトとダークの背景に対して 3:1 以上あり、P
-        型・D 型・T 型の色覚でも先頭の色ほど見分けやすい順に並べている。系列は 6 本までにとどめる。
+        番号付きの --chart-1 〜 --chart-12。CategoryBar や Heatmap が順に使う。
       </p>
       <div
         style={{

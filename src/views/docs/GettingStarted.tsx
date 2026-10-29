@@ -154,15 +154,13 @@ function App() {
           実現しています。アクセントカラーは意図的に最小限に抑え、データそのものを主役にします。
         </p>
         <p>
-          <strong>日本語に最適化した組版</strong>: ルートのフォントサイズはブラウザ既定（通常 16px）
-          を尊重し、本文の行間 1.75、禁則処理（line-break:
-          strict）、約物の詰め（text-spacing-trim）、 文節単位の改行（word-break:
-          auto-phrase）を既定で適用しています。
+          <strong>日本語に最適化した組版</strong>:
+          プロポーショナルかな（palt）を全体にかけて字間を整え、 本文の行間は 1.625
+          とゆったりめにとっています。
         </p>
         <p>
-          <strong>Noto Sans JP + Montserrat</strong>: 本文と UI は Noto Sans JP を主体にし、
-          かな・漢字・欧文の字面と太さをそろえています。見出しと大きな数値（Metric、Stats、料金）だけ
-          Montserrat を重ね、プロポーショナルかな（palt）もこの表示用テキストに限って適用します。
+          <strong>Montserrat + Noto Sans JP</strong>: 英数字は Montserrat、かなと漢字は Noto Sans JP
+          で組みます。数字や英語のラベルまで、Kaze らしい形にそろいます。
         </p>
       </div>
     </div>
