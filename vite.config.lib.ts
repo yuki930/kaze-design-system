@@ -1,6 +1,5 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
-import { preserveDirectives } from "rollup-plugin-preserve-directives";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -32,7 +31,6 @@ export default defineConfig({
         entryFileNames: "[name].js",
         assetFileNames: "styles/[name][extname]",
       },
-      plugins: [preserveDirectives()],
     },
     outDir: "dist",
     emptyOutDir: false,

@@ -39,3 +39,6 @@ coverage/
 
 # npm auth (contains publish token)
 .npmrc
+
+# Claude Code agent worktrees
+.claude/worktrees/
