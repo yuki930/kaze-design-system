@@ -42,7 +42,9 @@ export const BarChart = forwardRef<HTMLDivElement, BarChartProps>(
           const color = item.color ?? CHART_COLORS[i % CHART_COLORS.length];
           return (
             <div key={item.label} className="bar-chart__item">
-              <span className="bar-chart__label">{item.label}</span>
+              <span className="bar-chart__label" title={item.label}>
+                {item.label}
+              </span>
               <span className="bar-chart__track" aria-hidden="true">
                 <span className="bar-chart__fill" style={{ width: `${pct}%`, background: color }} />
               </span>

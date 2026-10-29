@@ -218,6 +218,14 @@
   align-items: stretch;
 }
 
+/* A row inside a column preview is a group, not another frame */
+.previewColumn .preview {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  background: none;
+}
+
 .previewLabel {
   font-size: var(--font-size-xs);
   color: var(--color-fg-tertiary);
