@@ -21,6 +21,12 @@ CHANGELOG entries and version bumps are generated automatically by `.github/work
 - **Patch** releases fix bugs and never change the public API.
 
 Before 1.0, minor releases could include breaking changes; see MIGRATION.md for moving from 0.x.
+## [1.0.0] - 2026-10-29
+
+### Features
+
+- feat!: v1.0, remove the APIs deprecated in v0.10 (#63)
+
 
 ## [0.13.2] - 2026-10-29
 
