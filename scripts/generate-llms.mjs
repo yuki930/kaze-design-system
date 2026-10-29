@@ -25,6 +25,19 @@ const OVERVIEW_PAGE = path.join(root, "src/views/docs/ComponentsOverview.tsx");
 const PACKAGE_JSON = path.join(root, "package.json");
 const OUT_SHORT = path.join(root, "public/llms.txt");
 const OUT_FULL = path.join(root, "public/llms-full.txt");
+// Props table rendered on /docs/components/[name]; generated so it cannot drift from the types
+const OUT_PROPS = path.join(root, "src/views/docs/generated/props.json");
+const GUIDES_DIR = path.join(root, "src/views/docs/guidelines");
+/** Japanese descriptions for props whose JSDoc is English or missing (docs table only) */
+const PROP_DESCRIPTIONS = JSON.parse(
+  fs.readFileSync(path.join(root, "src/views/docs/propDescriptions.json"), "utf8"),
+);
+
+/** Shared aliases from src/lib/types.ts, inlined so the tables show the actual values */
+const SHARED_ALIASES = {
+  Tone: '"default" | "positive" | "negative" | "warning" | "info"',
+  Size: '"xs" | "sm" | "md" | "lg" | "xl"',
+};
 
 const SITE_URL = "https://kaze-design-system.vercel.app";
 
@@ -203,11 +216,47 @@ function parseCategories() {
   return categories;
 }
 
+/** Merge every src/views/docs/guidelines/*.json into one slug-keyed map. */
+function readGuides() {
+  const merged = {};
+  for (const file of fs
+    .readdirSync(GUIDES_DIR)
+    .filter((f) => f.endsWith(".json"))
+    .sort()) {
+    Object.assign(merged, JSON.parse(fs.readFileSync(path.join(GUIDES_DIR, file), "utf8")));
+  }
+  return merged;
+}
+
+function formatGuide(guide) {
+  const lines = [];
+  const list = (title, items) => {
+    if (!items?.length) return;
+    lines.push(`**${title}**`, "");
+    for (const item of items) lines.push(`- ${item}`);
+    lines.push("");
+  };
+  list("使う場面", guide.use);
+  list("使わない場面", guide.avoid);
+  if (guide.keyboard?.length) {
+    lines.push("**キーボード操作**", "", "| キー | 動作 |", "|---|---|");
+    for (const row of guide.keyboard) lines.push(`| ${row.keys} | ${row.action} |`);
+    lines.push("");
+  }
+  list("アクセシビリティ", guide.a11y);
+  list("文言", guide.writing);
+  if (guide.related?.length) {
+    lines.push(`Related: ${guide.related.join(", ")}`, "");
+  }
+  return lines;
+}
+
 function formatPropRow(prop) {
   const parts = [];
   const optional = prop.optional ? "?" : "";
   parts.push(`- \`${prop.name}${optional}\`: \`${prop.type}\``);
   if (prop.default) parts.push(`  - Default: \`${prop.default}\``);
+  if (prop.deprecated) parts.push(`  - Deprecated: ${prop.deprecated}`);
   if (prop.description) parts.push(`  - ${prop.description}`);
   return parts.join("\n");
 }
@@ -263,12 +312,15 @@ function extractPropsFromFile(filePath, interfaceName) {
       .trim();
 
   const resolveType = (typeText) => {
-    // Inline simple named type aliases defined in the same file.
+    // Inline simple named type aliases defined in the same file or shared from src/lib/types.ts.
     // e.g. `ButtonVariant` → `"primary" | "secondary" | ...`
-    if (typeAliases.has(typeText)) {
-      return normalizeType(typeAliases.get(typeText));
-    }
-    return normalizeType(typeText);
+    let text = typeText;
+    if (typeAliases.has(text)) text = typeAliases.get(text);
+    else if (SHARED_ALIASES[text]) text = SHARED_ALIASES[text];
+    // `Extract<Size, "sm" | "md">` → `"sm" | "md"`
+    const extract = normalizeType(text).match(/^Extract<\w+,\s*(.+)>$/);
+    if (extract) text = extract[1];
+    return normalizeType(text);
   };
 
   const props = [];
@@ -282,6 +334,7 @@ function extractPropsFromFile(filePath, interfaceName) {
 
     let description = "";
     let defaultValue = "";
+    let deprecated = "";
 
     const jsDocs = ts.getJSDocCommentsAndTags(member);
     for (const doc of jsDocs) {
@@ -295,12 +348,22 @@ function extractPropsFromFile(filePath, interfaceName) {
             if ((tagName === "default" || tagName === "defaultValue") && tag.comment) {
               defaultValue = jsDocCommentToString(tag.comment);
             }
+            if (tagName === "deprecated") {
+              deprecated = jsDocCommentToString(tag.comment) || "非推奨";
+            }
           }
         }
       }
     }
 
-    props.push({ name, type, optional, description, default: defaultValue });
+    props.push({
+      name,
+      type,
+      optional,
+      description,
+      default: defaultValue,
+      ...(deprecated ? { deprecated } : {}),
+    });
   }
 
   return props;
@@ -355,7 +418,7 @@ function resolveExtractionTarget(title) {
  * has neither. Hand-written entries not present in extracted (typically
  * inherited HTML attrs) are appended at the end.
  */
-function mergeProps(extracted, handWritten) {
+function mergeProps(extracted, handWritten, { preferHandWritten = false, japanese = {} } = {}) {
   if (!extracted) return handWritten || [];
 
   const merged = [];
@@ -367,8 +430,11 @@ function mergeProps(extracted, handWritten) {
       name: ex.name,
       type: ex.type,
       optional: ex.optional,
-      description: ex.description || hw?.description || "",
+      description: preferHandWritten
+        ? japanese[ex.name] || hw?.description || ex.description || ""
+        : ex.description || hw?.description || "",
       default: ex.default || hw?.default || "",
+      ...(ex.deprecated ? { deprecated: ex.deprecated } : {}),
     });
     handByName.delete(ex.name);
   }
@@ -401,6 +467,13 @@ function main() {
     const target = resolveExtractionTarget(doc.title);
     const extracted = extractPropsFromFile(target.file, target.interface);
     if (extracted) {
+      // The docs site is Japanese, so its table keeps the hand-written (Japanese) descriptions
+      doc.pageProps = mergeProps(extracted, doc.props, {
+        preferHandWritten: true,
+        japanese: PROP_DESCRIPTIONS[doc.slug] ?? {},
+      });
+      // Deprecated props go last so the table reads as the current API first
+      doc.pageProps.sort((a, b) => Number(Boolean(a.deprecated)) - Number(Boolean(b.deprecated)));
       doc.props = mergeProps(extracted, doc.props);
       extractedCount++;
     } else {
@@ -412,6 +485,7 @@ function main() {
   }
 
   const docBySlug = new Map(docs.map((d) => [d.slug, d]));
+  const guides = readGuides();
   const totalComponents = categories.reduce((sum, c) => sum + c.components.length, 0);
 
   // --- llms.txt (short index) -------------------------------------------
@@ -571,6 +645,9 @@ function main() {
       fullLines.push(`Docs: ${SITE_URL}/docs/components/${slug}`);
       fullLines.push("");
 
+      const guide = guides[slug];
+      if (guide) fullLines.push(...formatGuide(guide));
+
       if (doc?.props?.length) {
         fullLines.push("**Props**");
         fullLines.push("");
@@ -631,6 +708,13 @@ function main() {
   fullLines.push("");
 
   fs.writeFileSync(OUT_FULL, fullLines.join("\n"));
+
+  const pageProps = {};
+  for (const doc of docs) {
+    if (doc.slug) pageProps[doc.slug] = doc.pageProps ?? doc.props;
+  }
+  fs.mkdirSync(path.dirname(OUT_PROPS), { recursive: true });
+  fs.writeFileSync(OUT_PROPS, `${JSON.stringify(pageProps, null, 2)}\n`);
 
   console.log(`[llms] wrote ${path.relative(root, OUT_SHORT)} (${shortLines.length} lines)`);
   console.log(

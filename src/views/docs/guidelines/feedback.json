@@ -1,0 +1,142 @@
+{
+  "alert": {
+    "use": [
+      "画面やセクションに常に載せておく、状態・注意・エラーの説明（支払い方法の期限切れ、メンテナンス予告など）",
+      "tone は伝える重さで選ぶ。info は補足、positive は完了の報告、warning は放置すると困ること、negative は失敗やブロック",
+      "利用者が読み終えるまで残したいメッセージ。次の操作の案内は本文にリンクやボタンで添える"
+    ],
+    "avoid": [
+      "操作の直後に出して、数秒で消えてよい結果の報告。Toast を使う",
+      "入力欄ごとの検証エラー。FormField の error で該当欄の下に出す",
+      "確認や選択を求めること。判断が必要なら Dialog を使う",
+      "同じ画面に 3 つ以上並べること。重要度が伝わらなくなるので、1 つにまとめるか優先順位を付ける"
+    ],
+    "a11y": [
+      "role=\"alert\" が付くため、表示された瞬間に割り込んで読み上げられる。tone に関わらず同じ強さ",
+      "ページを開いた時点から置いてある補足まで割り込ませたくない場合は、Alert ではなく Card や Text で書く",
+      "色だけに頼らず、title か本文で「エラー」「注意」のように種類を言葉にする。icon は装飾なので読み上げられない前提で使う"
+    ],
+    "writing": [
+      "title は状況を 1 行で、本文は理由と次の行動を書く（「支払い方法の期限が切れています」「カード情報を更新してください」）",
+      "「エラーが発生しました」だけで終えない。何が起きて、何をすればよいかを書く"
+    ],
+    "related": ["toast", "dialog", "form-field", "empty-state", "badge"]
+  },
+  "progress": {
+    "use": [
+      "アップロード、書き出し、セットアップなど、終わりに向かって進む作業の進み具合",
+      "value と max で割合を出す。showValue を付けると % を表示する",
+      "ステップ数が決まっている手順の全体像は Stepper と併用してよい"
+    ],
+    "avoid": [
+      "容量の使用量や予算の消化など、上限に対する現在の量。Meter を使う（Progress は終われば満タンになる、Meter は範囲内のどこにあるかを示す）",
+      "終わりが分からない読み込み。Skeleton を使う",
+      "複数ステップの現在地。Stepper を使う",
+      "数値の比較や内訳。BarChart、CategoryBar を使う"
+    ],
+    "a11y": [
+      "role=\"progressbar\" と aria-valuenow / aria-valuemin(0) / aria-valuemax が付く。aria-label には label が使われる",
+      "label を省くと名前のない進捗バーになる。画面上の見出しで足りない場合も label を渡す",
+      "値の更新ごとに読み上げられるわけではない。完了や失敗は Toast や Alert でも伝える"
+    ],
+    "writing": [
+      "label は何の進み具合かを書く（「画像をアップロード中」「データを書き出し中」）",
+      "完了後は Progress を残さず、結果の文言に置き換える"
+    ],
+    "related": ["meter", "stepper", "skeleton", "toast"]
+  },
+  "meter": {
+    "use": [
+      "ストレージ、API の呼び出し回数、予算など、上限に対して今どれだけ使っているか",
+      "warningThreshold（既定 0.7）と dangerThreshold（既定 0.9）を超えると、色が positive から warning、negative に変わる。しきい値は 0 から 1 の割合で渡す",
+      "min と max で範囲を指定できる。showValue は「value / max」の形で表示する"
+    ],
+    "avoid": [
+      "終わりに向かって進む作業。Progress を使う（Meter は満タンが「良い状態」とは限らない）",
+      "しきい値の色分けが合わない指標（多いほどよい数など）。tone を渡すと自動の色分けは止まる",
+      "構成比や項目ごとの比較。DonutChart、CategoryBar、BarList を使う",
+      "時間の推移。Sparkline や LineChart を使う"
+    ],
+    "a11y": [
+      "role=\"meter\" と aria-valuenow / aria-valuemin / aria-valuemax が付く。aria-label には label が使われる",
+      "色の変化は支援技術に伝わらない。「残りわずか」など状態を文言でも示す",
+      "しきい値のマーカーは aria-hidden で読み上げられない"
+    ],
+    "writing": [
+      "label は何の量かを書く（「ストレージ使用量」「今月の API 呼び出し」）",
+      "単位は label か周囲の文に含める。showValue の表示は数値のみ"
+    ],
+    "related": ["progress", "bar-list", "category-bar", "alert"]
+  },
+  "skeleton": {
+    "use": [
+      "データ取得中に、あとから出る内容と同じ大きさ・位置の枠を先に見せる",
+      "width / height で寸法を合わせ、アバターなどの丸いものは circle にする",
+      "表やカードの一覧など、レイアウトが決まっている読み込み"
+    ],
+    "avoid": [
+      "ボタン操作の結果待ち。ボタンの disabled や Progress で示す",
+      "取得した結果が 0 件のとき。EmptyState を使う",
+      "終わりの見えない処理の進み具合の説明。Progress を使う",
+      "操作できない理由や失敗の説明。Alert を使う"
+    ],
+    "a11y": [
+      "aria-hidden=\"true\" が付くため、支援技術には何も伝わらない",
+      "読み込み中であることは親要素に aria-busy=\"true\" を付けるか、visually hidden の「読み込み中」を添えて伝える",
+      "読み込みが終わったら Skeleton を外し、内容に置き換える"
+    ],
+    "related": ["progress", "empty-state", "card", "table"]
+  },
+  "empty-state": {
+    "use": [
+      "一覧や検索結果が 0 件のとき、理由と次の行動を伝える",
+      "初めて使う画面で、最初の 1 件を作る導線を置く（actions に Button）",
+      "size は置く場所に合わせる。画面全体は lg、カードやパネルの中は sm か md"
+    ],
+    "avoid": [
+      "読み込み中の表示。Skeleton を使う",
+      "エラーで取得できなかったとき。原因と再試行を Alert で示す",
+      "画面の一部に残す注意書き。Alert を使う",
+      "actions に primary のボタンを複数置くこと。主な行動は 1 つに絞る"
+    ],
+    "a11y": [
+      "role=\"status\" が付き、出現時に控えめに読み上げられる。title は h3 になる",
+      "見出しの階層は周囲に合わせて確認する。h3 が前後と合わない場合は構造を見直す",
+      "icon は装飾として扱い、意味は title と description で伝える"
+    ],
+    "writing": [
+      "title は状態を言い切る（「プロジェクトはまだありません」「該当する結果がありません」）",
+      "description は次の行動か、条件の変え方を書く（「キーワードを変えて検索してください」）",
+      "actions のボタンは動詞で書く（「プロジェクトを作成する」）"
+    ],
+    "related": ["skeleton", "alert", "table", "search", "button"]
+  },
+  "toast": {
+    "use": [
+      "操作の結果を短く伝える（「保存しました」「リンクをコピーしました」）。数秒で消えても困らない内容",
+      "tone で重さを選ぶ。default / info / positive は控えめ、warning / negative は強く読み上げられる",
+      "表示位置は画面の端で、作業の邪魔をしない。ToastProvider をルートに 1 つ置き、useToast() の toast() で呼ぶ"
+    ],
+    "avoid": [
+      "読み終えるまで残したいメッセージ、取り消せない失敗、次の操作が必要な通知。Alert を使う",
+      "確認や選択を求めること。Dialog を使う",
+      "入力欄の検証エラー。FormField の error を使う",
+      "見逃すと困る内容。自動で消えるので、読めなかった人は取り返せない。ボタンなど操作を載せることもできない"
+    ],
+    "keyboard": [
+      { "keys": "Tab", "action": "表示中の Toast の閉じるボタンにフォーカスを移す（フォーカス中は自動で閉じるタイマーが止まる）" },
+      { "keys": "Enter / Space", "action": "閉じるボタンを押して Toast を閉じる" }
+    ],
+    "a11y": [
+      "tone が negative / warning なら role=\"alert\"（即時に割り込んで読み上げ）、それ以外は role=\"status\"（現在の読み上げが終わってから）。緊急でない内容に negative / warning を使わない",
+      "自動で閉じるまでの既定は 4000ms。マウスホバーかフォーカスの間はタイマーが止まる（WCAG 2.2.1）。長い文は duration を延ばす",
+      "Toast は Dialog や Drawer を開いている間も操作でき、背景の inert の対象外",
+      "closeLabel と containerLabel で閉じるボタンと通知領域の名前を変えられる"
+    ],
+    "writing": [
+      "title は結果を過去形か完了形で短く（「保存しました」「招待を送りました」）",
+      "失敗は理由と次の行動を description に書く。ただし重要な失敗は Alert に回す"
+    ],
+    "related": ["alert", "dialog", "form-field", "button"]
+  }
+}

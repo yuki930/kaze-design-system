@@ -1,0 +1,175 @@
+{
+  "tabs": {
+    "use": [
+      "同じ画面の中で、関連する内容のまとまりを切り替える（概要 / 設定 / 履歴）",
+      "TabGroup に value と onValueChange（非制御なら defaultValue）を渡し、Tab と TabPanel を同じ value で対応させる",
+      "variant は \"default\"（下線）か \"pills\"（面）。画面の主要な区切りは default、小さな領域の切り替えは pills",
+      "URL が変わるタブは、Tab に asChild を付けて <a> や Next.js の Link を包む"
+    ],
+    "avoid": [
+      "フォームの値を選ぶこと。選択肢が 2〜5 個なら SegmentedControl、それ以上なら Select（Tabs は中身を切り替え、SegmentedControl は値を選ぶ）",
+      "手順を順番に進めること。Stepper を使う",
+      "アプリ全体の移動。Sidebar か Navbar を使う",
+      "タブが 6 個を超えるとき。分類を見直すか、Sidebar や Select に移す"
+    ],
+    "keyboard": [
+      { "keys": "Tab", "action": "選択中のタブにフォーカスを移す。次の Tab で TabPanel に移る" },
+      { "keys": "→ / ←", "action": "次 / 前のタブにフォーカスを移し、そのタブを選択する。端では反対側に回る" },
+      { "keys": "Home / End", "action": "最初 / 最後のタブにフォーカスを移し、選択する" }
+    ],
+    "a11y": [
+      "role=\"tablist\" / \"tab\" / \"tabpanel\" と aria-selected、aria-controls、aria-labelledby が付く。Tab と TabPanel の value を揃えると関連付けが自動で繋がる",
+      "矢印キーで移動すると同時に選択される（自動選択）。選択のたびに重い処理が走る内容には向かない",
+      "tablist は横方向のみ。縦のタブとして上下キーで操作する用途は想定していない",
+      "タブ名は文字で書く。アイコンだけのタブには aria-label を付ける"
+    ],
+    "writing": [
+      "タブ名は 1〜2 語の名詞にする（「概要」「メンバー」「請求」）",
+      "並列の関係にそろえる。動詞と名詞を混ぜない"
+    ],
+    "related": ["segmented-control", "stepper", "sidebar", "disclosure"]
+  },
+  "sidebar": {
+    "use": [
+      "アプリ全体の主要な移動先を、画面の左に常に並べる",
+      "NavItem の active で現在のページを示す。href を渡すと <a>、渡さないと <button> になる。Next.js の Link は asChild で包む",
+      "項目が多いときは SidebarGroupLabel でまとめ、SidebarDivider で区切る"
+    ],
+    "avoid": [
+      "ページ内の切り替え。Tabs を使う",
+      "移動先が 5 個以下の小さなサイトや LP。Navbar か TopBar を使う",
+      "操作の実行（保存、削除など）を並べること。Button や Dropdown を使う",
+      "階層が深いナビゲーション。1 段のグループまでにとどめ、深い階層は Breadcrumb と併用する"
+    ],
+    "keyboard": [
+      { "keys": "Tab / Shift + Tab", "action": "ナビゲーション項目に順番にフォーカスを移す" },
+      { "keys": "Enter", "action": "リンクやボタンを開く（Space はボタンの項目のみ）" }
+    ],
+    "a11y": [
+      "<aside> の中に <nav> があり、既定の名前は「メインナビゲーション」。ページ内に複数の nav があるときは navLabel で区別する",
+      "active な NavItem には aria-current=\"page\" が付く。色だけでなく支援技術にも現在地が伝わる",
+      "アイコンだけで項目を示さない。NavItem には必ずテキストを入れる"
+    ],
+    "writing": [
+      "項目名は移動先の名詞で 1〜2 語（「ダッシュボード」「請求」）",
+      "グループ名は項目をまとめる分類にする（「管理」「設定」）"
+    ],
+    "related": ["topbar", "breadcrumb", "tabs", "navbar"]
+  },
+  "topbar": {
+    "use": [
+      "ページの上部に、画面のタイトルや検索、ユーザーメニューなどを置く",
+      "children に左側の内容、actions に右側の操作を渡す",
+      "Sidebar と組み合わせて、アプリのシェルを作る"
+    ],
+    "avoid": [
+      "LP やプロダクトサイトのヘッダー。Navbar を使う",
+      "主要な移動先の一覧。Sidebar を使う",
+      "操作を 4 つ以上並べること。重要なものだけ出し、残りは Dropdown にまとめる"
+    ],
+    "a11y": [
+      "<header> 要素としてレンダリングされる。ページ全体のヘッダーとして 1 つだけ使う",
+      "actions のアイコンボタンには aria-label を付ける",
+      "TopBar 自体にキーボード操作はない。中に置いた部品の操作に従う"
+    ],
+    "related": ["sidebar", "navbar", "breadcrumb", "search"]
+  },
+  "breadcrumb": {
+    "use": [
+      "階層が 3 段以上ある画面で、今いる場所と上位への戻り道を示す（ホーム > 設定 > メンバー）",
+      "items に { label, href } を順に渡す。最後の項目が現在のページで、リンクにならない",
+      "Next.js の Link などは各項目の as で渡す"
+    ],
+    "avoid": [
+      "階層のないフラットな画面。置いても情報が増えない",
+      "手順の進み具合。Stepper を使う",
+      "同じ階層の画面の切り替え。Tabs か Sidebar を使う",
+      "最後以外の項目に href を付け忘れること。リンクにならず、ただのテキストになる（上の階層に戻れない）"
+    ],
+    "a11y": [
+      "<nav aria-label=\"パンくず\"> の中の <ol> になる。label でナビゲーションの名前を変えられる",
+      "現在のページには aria-current=\"page\" が付く",
+      "区切りの記号は視覚だけで、読み上げには含まれない"
+    ],
+    "writing": [
+      "label は遷移先ページの見出しと同じ言葉にする",
+      "ページ名を略さない。階層が深いときは中間の項目を減らすのではなく、階層自体を見直す"
+    ],
+    "related": ["sidebar", "topbar", "tabs", "pagination"]
+  },
+  "pagination": {
+    "use": [
+      "表や検索結果など、件数が多い一覧を、ページに分けて見せる",
+      "page と onPageChange で制御する。任意の初期ページだけ決めるなら defaultPage（非制御）",
+      "siblingCount（既定 1）で現在のページの前後に出す番号の数を調整する"
+    ],
+    "avoid": [
+      "ページが 2 つ以下のとき。「もっと見る」ボタンのほうが軽い",
+      "ページの位置が重要でない一覧。無限スクロールか「もっと見る」を検討する",
+      "手順の進行。Stepper を使う",
+      "タブのように中身を切り替える操作。Tabs を使う"
+    ],
+    "keyboard": [
+      { "keys": "Tab / Shift + Tab", "action": "前へ、ページ番号、次へのボタンに順番にフォーカスを移す" },
+      { "keys": "Enter / Space", "action": "フォーカス中のボタンを押してページを移動する" }
+    ],
+    "a11y": [
+      "<nav aria-label=\"ページネーション\"> になる。現在のページには aria-current=\"page\" が付く",
+      "各ボタンの名前は「3ページ目」のように読み上げられる。文言は pageLabel、prevLabel、nextLabel で変えられる",
+      "先頭では「前のページ」、末尾では「次のページ」が disabled になる。省略記号は読み上げられない",
+      "ページを移動したら、表の先頭など内容の位置に合わせて、必要なら見出しにフォーカスを移す"
+    ],
+    "related": ["table", "list", "breadcrumb", "search"]
+  },
+  "stepper": {
+    "use": [
+      "登録、購入、セットアップなど、順番に進める手順の現在地を示す",
+      "steps に { label } を並べ、step に現在の位置を 0 始まりで渡す。それより前は完了として表示する",
+      "ステップ数は 3〜5 個が目安"
+    ],
+    "avoid": [
+      "ステップをクリックして自由に行き来する操作。Stepper は表示専用。Tabs を使う",
+      "作業の進み具合の割合。Progress を使う",
+      "順番のない切り替え。Tabs か SegmentedControl を使う",
+      "ステップが 6 個を超えるとき。手順を分けるか、Progress に切り替える"
+    ],
+    "a11y": [
+      "<ol> のリストで、現在のステップには aria-current=\"step\" が付く",
+      "完了したステップは、チェックアイコンに加えて「完了」が読み上げ用に入る",
+      "ステップが変わったときの通知はない。画面遷移か見出しの更新で、現在地が伝わるようにする"
+    ],
+    "writing": [
+      "label は 1〜3 語の名詞にする（「情報入力」「確認」「完了」）",
+      "手順の最後は「完了」で終える"
+    ],
+    "related": ["progress", "tabs", "breadcrumb", "form-field"]
+  },
+  "disclosure": {
+    "use": [
+      "補足、FAQ、詳細設定など、必要な人だけが開けばよい内容をたたんでおく",
+      "defaultOpen で初期状態、open と onOpenChange で制御する",
+      "icon は \"chevron\"（既定）か \"plus\"、variant は default / ghost / bordered から選ぶ"
+    ],
+    "avoid": [
+      "ほとんどの人が読むべき内容。最初から見せる",
+      "画面を切り替えるような大きな区切り。Tabs を使う",
+      "短い補足の説明。Tooltip か HelpButton を使う",
+      "FAQ を載せるマーケティングページ。FAQ を使う"
+    ],
+    "keyboard": [
+      { "keys": "Tab", "action": "トリガーにフォーカスを移す" },
+      { "keys": "Enter / Space", "action": "開閉を切り替える" },
+      { "keys": "Escape", "action": "開いているときにトリガーにフォーカスがあれば閉じる" }
+    ],
+    "a11y": [
+      "トリガーは <button> で、aria-expanded と aria-controls が付く。内容は <section> が aria-labelledby でトリガーの名前を持つ",
+      "閉じている内容は hidden になり、読み上げにもタブ移動にも含まれない",
+      "disabled にするとトリガーも押せなくなる。理由が必要なら近くに文言で示す"
+    ],
+    "writing": [
+      "title は開いたときに何が見えるかが分かる言葉にする（「詳細設定」「配送について」）",
+      "「もっと見る」だけにしない。何についてかを入れる"
+    ],
+    "related": ["faq", "tabs", "help-button", "card"]
+  }
+}

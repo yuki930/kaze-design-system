@@ -53,4 +53,4 @@ jobs:
       - name: Check llms.txt is up to date
         run: |
           npm run docs:llms
-          git diff --exit-code -- public/llms.txt public/llms-full.txt
+          git diff --exit-code -- public/llms.txt public/llms-full.txt src/views/docs/generated/props.json

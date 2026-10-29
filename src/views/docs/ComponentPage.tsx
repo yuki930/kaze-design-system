@@ -1,6 +1,9 @@
 import styles from "./docs.module.css";
 import { repoTreeUrl } from "@/views/site/repo";
 import { DialogDemo, DrawerDemo } from "./OverlayDemos";
+import { categories } from "./ComponentsOverview";
+import generatedProps from "./generated/props.json";
+import { guides } from "./guidelines";
 import {
   Button,
   Input,
@@ -113,7 +116,20 @@ interface PropDoc {
   type: string;
   default?: string;
   description: string;
+  /** Set on the generated table: false means the prop is required */
+  optional?: boolean;
+  /** Set on the generated table from the @deprecated JSDoc tag */
+  deprecated?: string;
 }
+
+const propTables = generatedProps as Record<string, PropDoc[]>;
+
+/** JSDoc text uses Markdown code ticks; the table shows plain text */
+const stripCodeTicks = (text: string) => text.replace(/`([^`]+)`/g, "$1");
+
+const componentNames = new Map(
+  categories.flatMap((c) => c.components.map((comp) => [comp.path, comp.name] as const)),
+);
 
 interface ComponentDoc {
   title: string;
@@ -482,7 +498,7 @@ const componentDocs: Record<string, ComponentDoc> = {
   "status-badge": {
     title: "StatusBadge",
     description:
-      "データ状態（live / stale / missing / manual / loading）を一目で示すバッジ。内部で Badge をラップし、適切な variant・ラベル・role=status を自動付与します。ダッシュボード系 UI で各指標の鮮度表示に最適。",
+      "データ状態（live / stale / missing / manual / loading）を一目で示すバッジ。内部で Badge をラップし、適切な tone・ラベル・role=status を自動付与します。ダッシュボード系 UI で各指標の鮮度表示に最適。",
     preview: (
       <div className={styles.previewColumn} style={{ gap: "1rem" }}>
         <div className={styles.preview}>
@@ -929,7 +945,7 @@ const componentDocs: Record<string, ComponentDoc> = {
       >
         <p>トースト通知は画面の端に一時的に表示されるため、ここではプレビューを省略しています。</p>
         <p>
-          <code>variant</code> プロパティで通知の種類を指定できます。
+          <code>tone</code> プロパティで通知の種類を指定できます。
         </p>
       </div>
     ),
@@ -3938,6 +3954,9 @@ export function ComponentPage({ name }: { name?: string } = {}) {
     );
   }
 
+  const guide = name ? guides[name] : undefined;
+  const props = (name && propTables[name]) || doc.props;
+
   return (
     <div>
       <h1 className={styles.pageTitle}>{doc.title}</h1>
@@ -3955,36 +3974,127 @@ export function ComponentPage({ name }: { name?: string } = {}) {
       <h2 className={styles.sectionTitle}>プレビュー</h2>
       {doc.preview}
 
+      {guide && (
+        <>
+          <h2 className={styles.sectionTitle}>使いどころ</h2>
+          <div className={styles.guideGrid}>
+            <section className={styles.guideCard} data-kind="use">
+              <h3 className={styles.guideCardTitle}>使う場面</h3>
+              <ul className={styles.guideList}>
+                {guide.use.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </section>
+            <section className={styles.guideCard} data-kind="avoid">
+              <h3 className={styles.guideCardTitle}>使わない場面</h3>
+              <ul className={styles.guideList}>
+                {guide.avoid.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </section>
+          </div>
+        </>
+      )}
+
       <h2 className={styles.sectionTitle}>使い方</h2>
       <pre className={styles.codeBlock}>
         <code>{doc.usage}</code>
       </pre>
 
       <h2 className={styles.sectionTitle}>プロパティ</h2>
-      <table className={styles.propsTable}>
-        <thead>
-          <tr>
-            <th>名前</th>
-            <th>型</th>
-            <th>デフォルト</th>
-            <th>説明</th>
-          </tr>
-        </thead>
-        <tbody>
-          {doc.props.map((prop) => (
-            <tr key={prop.name}>
-              <td>
-                <code>{prop.name}</code>
-              </td>
-              <td>
-                <code>{prop.type}</code>
-              </td>
-              <td>{prop.default ? <code>{prop.default}</code> : "なし"}</td>
-              <td>{prop.description}</td>
+      <div className={styles.tableScroll}>
+        <table className={styles.propsTable}>
+          <thead>
+            <tr>
+              <th>名前</th>
+              <th>型</th>
+              <th>デフォルト</th>
+              <th>説明</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {props.map((prop) => (
+              <tr key={prop.name} data-deprecated={prop.deprecated ? "" : undefined}>
+                <td>
+                  <code>{prop.name}</code>
+                  {prop.optional === false && <span className={styles.requiredMark}>必須</span>}
+                  {prop.deprecated && <span className={styles.deprecatedMark}>非推奨</span>}
+                </td>
+                <td>
+                  <code>{prop.type}</code>
+                </td>
+                <td>{prop.default ? <code>{prop.default}</code> : "なし"}</td>
+                <td>{stripCodeTicks(prop.deprecated ?? prop.description)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p className={styles.tableNote}>
+        型と必須かどうかはソースの型定義から自動で生成しています。表にない HTML
+        標準の属性（className や aria-* など）も、ルート要素にそのまま渡せます。
+      </p>
+
+      {guide?.keyboard && guide.keyboard.length > 0 && (
+        <>
+          <h2 className={styles.sectionTitle}>キーボード操作</h2>
+          <table className={styles.propsTable}>
+            <thead>
+              <tr>
+                <th>キー</th>
+                <th>動作</th>
+              </tr>
+            </thead>
+            <tbody>
+              {guide.keyboard.map((row) => (
+                <tr key={row.keys}>
+                  <td>
+                    <kbd className={styles.kbd}>{row.keys}</kbd>
+                  </td>
+                  <td>{row.action}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </>
+      )}
+
+      {guide?.a11y && guide.a11y.length > 0 && (
+        <>
+          <h2 className={styles.sectionTitle}>アクセシビリティ</h2>
+          <ul className={styles.guideList}>
+            {guide.a11y.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+        </>
+      )}
+
+      {guide?.writing && guide.writing.length > 0 && (
+        <>
+          <h2 className={styles.sectionTitle}>文言</h2>
+          <ul className={styles.guideList}>
+            {guide.writing.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+        </>
+      )}
+
+      {guide?.related && guide.related.length > 0 && (
+        <>
+          <h2 className={styles.sectionTitle}>関連するコンポーネント</h2>
+          <ul className={styles.relatedList}>
+            {guide.related.map((slug) => (
+              <li key={slug}>
+                <a href={`/docs/components/${slug}`}>{componentNames.get(slug) ?? slug}</a>
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
     </div>
   );
 }

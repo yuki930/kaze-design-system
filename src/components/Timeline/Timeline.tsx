@@ -34,6 +34,7 @@ export const TimelineItem = forwardRef<HTMLLIElement, TimelineItemProps>(
     return (
       <li ref={ref} data-tone={tone} className={cn("timeline-item", className)} {...rest}>
         <span
+          aria-hidden="true"
           className={cn("timeline-item__dot", tone !== "default" && `timeline-item__dot--${tone}`)}
         />
         {time && <span className="timeline-item__time">{time}</span>}
