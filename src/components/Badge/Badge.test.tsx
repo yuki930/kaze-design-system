@@ -1,27 +1,11 @@
-import { afterEach, beforeEach, describe, it, expect, vi } from "vitest";
-import { resetDeprecationWarnings } from "@/lib/deprecate";
+import { describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { Badge } from "./Badge";
-
-let warn: ReturnType<typeof vi.spyOn>;
-beforeEach(() => {
-  resetDeprecationWarnings();
-  warn = vi.spyOn(console, "warn").mockImplementation(() => {});
-});
-afterEach(() => warn.mockRestore());
 
 describe("Badge", () => {
   it("exposes data-tone and ignores no-warn for tone", () => {
     render(<Badge tone="positive">ok</Badge>);
     expect(screen.getByText("ok")).toHaveAttribute("data-tone", "positive");
-    expect(warn).not.toHaveBeenCalled();
-  });
-
-  it("still honors deprecated variant and warns once", () => {
-    const { rerender } = render(<Badge variant="negative">ng</Badge>);
-    rerender(<Badge variant="negative">ng2</Badge>);
-    expect(screen.getByText("ng2")).toHaveClass("badge--negative");
-    expect(warn).toHaveBeenCalledTimes(1);
   });
 
   it("renders children", () => {

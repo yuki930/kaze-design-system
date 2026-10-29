@@ -1,10 +1,6 @@
 import { forwardRef, type HTMLAttributes } from "react";
-import { renamedProp } from "@/lib/deprecate";
 import type { Size, Tone } from "../../lib/types";
 import { cn } from "@/lib/utils";
-
-/** @deprecated `Tone` を使う */
-export type ProgressColor = Tone;
 
 export type ProgressSize = Extract<Size, "sm" | "md" | "lg">;
 
@@ -14,17 +10,14 @@ export interface ProgressProps extends HTMLAttributes<HTMLDivElement> {
   label?: string;
   showValue?: boolean;
   tone?: Tone;
-  /** @deprecated `tone` に改名。次のマイナーで削除 */
-  color?: Tone;
   size?: ProgressSize;
 }
 
 export const Progress = forwardRef<HTMLDivElement, ProgressProps>(
   (
-    { value, max = 100, label, showValue, tone: toneProp, color, size = "md", className, ...rest },
+    { value, max = 100, label, showValue, tone = "default", size = "md", className, ...rest },
     ref,
   ) => {
-    const tone = renamedProp("Progress", "color", "tone", color, toneProp) ?? "default";
     const pct = Math.min(100, Math.max(0, (value / max) * 100));
     return (
       <div ref={ref} data-tone={tone} className={cn("progress", className)} {...rest}>

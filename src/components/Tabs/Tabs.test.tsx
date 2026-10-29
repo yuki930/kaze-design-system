@@ -1,17 +1,7 @@
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { useState } from "react";
-import { resetDeprecationWarnings } from "@/lib/deprecate";
 import { TabGroup, Tabs, Tab, TabPanel } from "./Tabs";
-
-let warn: ReturnType<typeof vi.spyOn>;
-beforeEach(() => {
-  resetDeprecationWarnings();
-  warn = vi.spyOn(console, "warn").mockImplementation(() => {});
-});
-afterEach(() => {
-  warn.mockRestore();
-});
 
 function Group({ onValueChange }: { onValueChange?: (v: string) => void }) {
   return (
@@ -96,7 +86,6 @@ describe("TabGroup value", () => {
     expect(screen.queryByText("内容A")).toBeNull();
     expect(screen.getByRole("tabpanel")).toHaveAttribute("data-state", "active");
     expect(onValueChange).toHaveBeenCalledWith("b");
-    expect(warn).not.toHaveBeenCalled();
   });
 
   it("works as a controlled state in a parent", () => {
@@ -146,36 +135,22 @@ describe("TabGroup value", () => {
   });
 });
 
-describe("Tab (legacy active / selected)", () => {
-  it("still marks the active tab and warns once", () => {
-    render(
-      <Tabs>
-        <Tab active>アクティブ</Tab>
-        <Tab active={false}>非アクティブ</Tab>
-      </Tabs>,
-    );
-    const activeTab = screen.getByRole("tab", { name: "アクティブ" });
-    expect(activeTab).toHaveAttribute("aria-selected", "true");
-    expect(activeTab).toHaveAttribute("tabindex", "0");
-    expect(activeTab).toHaveClass("tab", "tab--active");
-    expect(screen.getByRole("tab", { name: "非アクティブ" })).toHaveAttribute("tabindex", "-1");
-    expect(warn).toHaveBeenCalledTimes(1);
-  });
-
-  it("still shows a panel through selected and warns", () => {
+describe("Tab / TabPanel outside a TabGroup", () => {
+  it("renders every Tab unselected and hides every TabPanel without crashing", () => {
     render(
       <>
-        <TabPanel value="a" selected="a">
-          内容
-        </TabPanel>
-        <TabPanel value="b" selected="a">
-          隠れる
-        </TabPanel>
+        <Tabs>
+          <Tab value="a">タブ1</Tab>
+          <Tab>タブ2</Tab>
+        </Tabs>
+        <TabPanel value="a">内容</TabPanel>
       </>,
     );
-    expect(screen.getByText("内容")).toBeInTheDocument();
-    expect(screen.queryByText("隠れる")).toBeNull();
-    expect(warn).toHaveBeenCalledTimes(1);
+    for (const tab of screen.getAllByRole("tab")) {
+      expect(tab).toHaveAttribute("aria-selected", "false");
+      expect(tab).not.toHaveClass("tab--active");
+    }
+    expect(screen.queryByText("内容")).toBeNull();
   });
 });
 

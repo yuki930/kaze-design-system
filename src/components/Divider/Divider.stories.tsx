@@ -4,6 +4,13 @@ import { Divider } from "./Divider";
 const meta = {
   title: "Components/Divider",
   component: Divider,
+  decorators: [
+    (Story) => (
+      <div style={{ width: 480 }}>
+        <Story />
+      </div>
+    ),
+  ],
 } satisfies Meta<typeof Divider>;
 
 export default meta;

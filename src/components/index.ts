@@ -27,7 +27,7 @@ export type {
 } from "./Card";
 
 export { Badge } from "./Badge";
-export type { BadgeProps, BadgeVariant } from "./Badge";
+export type { BadgeProps } from "./Badge";
 
 export { StatusBadge } from "./StatusBadge";
 export type { StatusBadgeProps, StatusBadgeStatus } from "./StatusBadge";
@@ -166,7 +166,6 @@ export type { LogoProps, LogoSize } from "./Logo";
 export { ToastProvider, useToast } from "./Toast";
 export type {
   ToastProviderProps,
-  ToastVariant,
   ToastData,
   ToastOptions,
 } from "./Toast";
@@ -224,7 +223,7 @@ export { DescriptionList, DescriptionItem } from "./DescriptionList";
 export type { DescriptionListProps, DescriptionItemProps } from "./DescriptionList";
 
 export { Timeline, TimelineItem } from "./Timeline";
-export type { TimelineProps, TimelineItemProps, TimelineItemStatus } from "./Timeline";
+export type { TimelineProps, TimelineItemProps } from "./Timeline";
 
 /* ── Charts ────────────────────────────────────────────────── */
 
@@ -255,10 +254,10 @@ export type { ChartLegendProps, ChartLegendItem } from "./ChartLegend";
 /* ── Feedback & UI ─────────────────────────────────────────── */
 
 export { Alert } from "./Alert";
-export type { AlertProps, AlertVariant } from "./Alert";
+export type { AlertProps } from "./Alert";
 
 export { Progress } from "./Progress";
-export type { ProgressProps, ProgressColor, ProgressSize } from "./Progress";
+export type { ProgressProps, ProgressSize } from "./Progress";
 
 export { Switch } from "./Switch";
 export type { SwitchProps } from "./Switch";
@@ -321,10 +320,10 @@ export { Watermark } from "./Watermark";
 export type { WatermarkProps } from "./Watermark";
 
 export { Meter } from "./Meter";
-export type { MeterProps, MeterColor, MeterSize } from "./Meter";
+export type { MeterProps, MeterSize } from "./Meter";
 
 export { Tracker } from "./Tracker";
-export type { TrackerProps, TrackerItem, TrackerStatus } from "./Tracker";
+export type { TrackerProps, TrackerItem } from "./Tracker";
 
 export { BarList } from "./BarList";
 export type { BarListProps, BarListItem } from "./BarList";

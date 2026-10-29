@@ -20,8 +20,9 @@ export default defineConfig({
     toHaveScreenshot: {
       animations: "disabled",
       caret: "hide",
-      // anti-aliasing noise only; any real change is far above this
-      maxDiffPixelRatio: 0.002,
+      // Baselines and runs share the same Linux image, so rendering is deterministic.
+      // Keep this tight: a ratio of the 800x600 page let a missing label slip through.
+      maxDiffPixels: 10,
     },
   },
   use: {

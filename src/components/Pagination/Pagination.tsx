@@ -2,15 +2,12 @@
 
 import { forwardRef, useState, type HTMLAttributes } from "react";
 import { cn } from "@/lib/utils";
-import { renamedProp } from "@/lib/deprecate";
 
 export interface PaginationProps extends HTMLAttributes<HTMLElement> {
   /** 現在のページ（1 始まり、制御） */
   page?: number;
   /** 初期ページ（非制御、既定 1） */
   defaultPage?: number;
-  /** @deprecated `page` に改名。次のマイナーで削除 */
-  currentPage?: number;
   totalPages: number;
   onPageChange?: (page: number) => void;
   siblingCount?: number;
@@ -44,9 +41,8 @@ const defaultPageLabel = (page: number) => `${page}ページ目`;
 export const Pagination = forwardRef<HTMLElement, PaginationProps>(
   (
     {
-      page: pageProp,
+      page: controlledPage,
       defaultPage = 1,
-      currentPage: currentPageProp,
       totalPages,
       onPageChange,
       siblingCount = 1,
@@ -59,13 +55,6 @@ export const Pagination = forwardRef<HTMLElement, PaginationProps>(
     },
     ref,
   ) => {
-    const controlledPage = renamedProp(
-      "Pagination",
-      "currentPage",
-      "page",
-      currentPageProp,
-      pageProp,
-    );
     const [internalPage, setInternalPage] = useState(defaultPage);
     const currentPage = controlledPage ?? internalPage;
     const goTo = (next: number) => {

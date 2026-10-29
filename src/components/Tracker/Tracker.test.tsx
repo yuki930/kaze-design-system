@@ -1,5 +1,4 @@
-import { describe, it, expect, vi } from "vitest";
-import { resetDeprecationWarnings } from "@/lib/deprecate";
+import { describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { Tracker } from "./Tracker";
 
@@ -46,14 +45,5 @@ describe("Tracker", () => {
   it("exposes data-tone per segment", () => {
     render(<Tracker data={data} />);
     expect(screen.getAllByRole("listitem")[1]).toHaveAttribute("data-tone", "negative");
-  });
-
-  it("still honors deprecated status and warns once", () => {
-    resetDeprecationWarnings();
-    const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
-    render(<Tracker data={[{ status: "info" }, { status: "info" }]} />);
-    expect(screen.getAllByRole("listitem")[0]).toHaveClass("tracker__segment--info");
-    expect(warn).toHaveBeenCalledTimes(1);
-    warn.mockRestore();
   });
 });

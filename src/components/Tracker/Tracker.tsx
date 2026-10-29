@@ -1,16 +1,10 @@
 import { forwardRef, type HTMLAttributes } from "react";
-import { renamedProp } from "@/lib/deprecate";
 import type { Tone } from "../../lib/types";
 import { cn } from "@/lib/utils";
-
-/** @deprecated `Tone` を使う */
-export type TrackerStatus = Tone;
 
 export interface TrackerItem {
   /** Tone determines the segment color (default when omitted) */
   tone?: Tone;
-  /** @deprecated `tone` に改名。次のマイナーで削除 */
-  status?: Tone;
   /** Optional tooltip text */
   tooltip?: string;
 }
@@ -31,12 +25,8 @@ const STATUS_LABELS: Record<Tone, string> = {
   default: "データなし",
 };
 
-function resolveTone(item: TrackerItem): Tone {
-  return renamedProp("Tracker", "status", "tone", item.status, item.tone) ?? "default";
-}
-
 function segmentText(item: TrackerItem): string {
-  const status = STATUS_LABELS[resolveTone(item)];
+  const status = STATUS_LABELS[item.tone ?? "default"];
   if (!item.tooltip || item.tooltip === status) return status;
   return `${item.tooltip}（${status}）`;
 }
@@ -54,7 +44,7 @@ export const Tracker = forwardRef<HTMLDivElement, TrackerProps>(
       >
         <ol className="tracker__list">
           {data.map((item, i) => {
-            const tone = resolveTone(item);
+            const tone = item.tone ?? "default";
             return (
               <li
                 // biome-ignore lint/suspicious/noArrayIndexKey: segments are positional time slots without their own id; the position is the identity and the list is never reordered.

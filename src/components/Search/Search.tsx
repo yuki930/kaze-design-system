@@ -10,14 +10,13 @@ import {
   type KeyboardEvent,
 } from "react";
 import { cn } from "@/lib/utils";
-import { renamedProp } from "@/lib/deprecate";
 import { composeEventHandlers } from "@/lib/composeEventHandlers";
 import { isComposingEvent } from "@/lib/jaText";
 
 export interface SearchProps extends Omit<HTMLAttributes<HTMLDivElement>, "onChange"> {
   placeholder?: string;
   shortcut?: string;
-  /** Called when the user submits with Enter (not during IME composition). Use onChange for every keystroke. */
+  /** Called when the user submits with Enter (not during IME composition). Use onValueChange for every keystroke. */
   onSearch?: (value: string) => void;
   /** Controlled value */
   value?: string;
@@ -25,8 +24,6 @@ export interface SearchProps extends Omit<HTMLAttributes<HTMLDivElement>, "onCha
   defaultValue?: string;
   /** Called with the new value on every change */
   onValueChange?: (value: string) => void;
-  /** @deprecated `onValueChange` に改名。次のマイナーで削除 */
-  onChange?: (value: string) => void;
   /** Accessible label for the search input */
   "aria-label"?: string;
   /** Extra props for the inner <input> (name, disabled, autoComplete, onBlur, ...). `...rest` stays on the wrapper. */
@@ -42,7 +39,6 @@ export const Search = forwardRef<HTMLInputElement, SearchProps>(
       value: valueProp,
       defaultValue = "",
       onValueChange,
-      onChange: onChangeProp,
       "aria-label": ariaLabel,
       inputProps,
       className,
@@ -54,23 +50,15 @@ export const Search = forwardRef<HTMLInputElement, SearchProps>(
     const isControlled = valueProp !== undefined;
     const currentValue = isControlled ? valueProp : internalValue;
 
-    const onValueChangeResolved = renamedProp(
-      "Search",
-      "onChange",
-      "onValueChange",
-      onChangeProp,
-      onValueChange,
-    );
-
     const handleChange = useCallback(
       (e: ChangeEvent<HTMLInputElement>) => {
         const newValue = e.target.value;
         if (!isControlled) {
           setInternalValue(newValue);
         }
-        onValueChangeResolved?.(newValue);
+        onValueChange?.(newValue);
       },
-      [isControlled, onValueChangeResolved],
+      [isControlled, onValueChange],
     );
 
     const handleKeyDown = useCallback(
