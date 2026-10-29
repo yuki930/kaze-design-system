@@ -13,12 +13,14 @@ export interface Placement {
   side: Side;
 }
 
+type PanelSize = Pick<DOMRect, "width" | "height">;
+
 const OPPOSITE: Record<Side, Side> = { top: "bottom", bottom: "top", left: "right", right: "left" };
 
 /** Minimum distance kept between the panel and the viewport edge */
 export const VIEWPORT_MARGIN = 4;
 
-function place(trigger: DOMRect, panel: DOMRect, side: Side, align: Align, offset: number) {
+function place(trigger: DOMRect, panel: PanelSize, side: Side, align: Align, offset: number) {
   const vertical = side === "top" || side === "bottom";
   let top: number;
   let left: number;
@@ -42,7 +44,7 @@ function place(trigger: DOMRect, panel: DOMRect, side: Side, align: Align, offse
   return { top, left };
 }
 
-function overflows(pos: { top: number; left: number }, panel: DOMRect, side: Side): boolean {
+function overflows(pos: { top: number; left: number }, panel: PanelSize, side: Side): boolean {
   if (side === "top") return pos.top < 0;
   if (side === "bottom") return pos.top + panel.height > window.innerHeight;
   if (side === "left") return pos.left < 0;
@@ -56,7 +58,7 @@ function overflows(pos: { top: number; left: number }, panel: DOMRect, side: Sid
  */
 export function computePlacement(
   trigger: DOMRect,
-  panel: DOMRect,
+  panel: PanelSize,
   side: Side,
   align: Align,
   offset: number,

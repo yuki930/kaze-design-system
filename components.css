@@ -4769,6 +4769,100 @@ button.chart-legend__item:focus-visible {
   outline-offset: var(--ring-offset);
 }
 
+/* ── Combobox ────────────────────────────────────────────── */
+.combobox {
+  position: relative;
+  display: block;
+  width: 100%;
+}
+
+/* The input keeps the .input look (incl. aria-invalid); only room for the chevron is added */
+.combobox__input {
+  padding-right: var(--space-8);
+}
+
+.combobox--sm .combobox__input {
+  height: calc(var(--density-control-height) - 0.25rem);
+  font-size: var(--font-size-xs);
+}
+
+.combobox__chevron {
+  position: absolute;
+  top: 50%;
+  right: var(--space-3);
+  color: var(--color-fg-tertiary);
+  transform: translateY(-50%);
+  pointer-events: none;
+  transition: transform var(--duration-normal) var(--ease-default);
+}
+
+.combobox[data-state="open"] .combobox__chevron {
+  transform: translateY(-50%) rotate(180deg);
+}
+
+/* z-index sits just above modal so a list opened inside a Dialog / Drawer stays visible */
+.combobox__popup {
+  position: fixed;
+  z-index: calc(var(--z-modal) + 1);
+  max-height: 16rem;
+  overflow-y: auto;
+  padding: var(--space-1);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-box);
+  box-shadow: var(--shadow-md);
+  animation: kaze-fade-in var(--duration-fast) var(--ease-out);
+}
+
+.combobox__option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  padding: var(--density-dropdown-py) var(--space-3);
+  font-size: var(--density-font-size-ui);
+  color: var(--color-fg);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}
+
+/* DOM focus stays in the input, so the highlight is the only cue for the active option */
+.combobox__option[data-highlighted="true"] {
+  background: var(--color-surface-hover);
+}
+
+.combobox__option[aria-selected="true"] {
+  font-weight: var(--font-weight-medium);
+}
+
+.combobox__option[aria-disabled="true"] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.combobox__check {
+  flex-shrink: 0;
+}
+
+.combobox__empty {
+  padding: var(--density-dropdown-py) var(--space-3);
+  font-size: var(--density-font-size-ui);
+  color: var(--color-fg-secondary);
+}
+
+@media (forced-colors: active) {
+  .combobox__option[data-highlighted="true"] {
+    outline: 2px solid Highlight;
+    outline-offset: -2px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .combobox__chevron {
+    transition: none;
+  }
+}
+
 /* ── Reduced motion ─────────────────────────────────────────
    Shipped in the components layer so it applies even when utilities.css is
    not loaded. Covers every animated component above. */
@@ -4784,7 +4878,8 @@ button.chart-legend__item:focus-visible {
   .toast,
   .toast[data-removing="true"],
   .dropdown__menu,
-  .popover__content {
+  .popover__content,
+  .combobox__popup {
     animation: none;
   }
 

@@ -57,6 +57,9 @@ export type { SegmentedControlProps, SegmentedControlOption } from "./SegmentedC
 export { Input } from "./Input";
 export type { InputProps } from "./Input";
 
+export { Combobox, defaultComboboxFilter } from "./Combobox";
+export type { ComboboxProps, ComboboxOption, ComboboxSize } from "./Combobox";
+
 export { Select } from "./Select";
 export type { SelectProps } from "./Select";
 

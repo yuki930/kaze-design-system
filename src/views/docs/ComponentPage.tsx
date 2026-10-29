@@ -36,6 +36,7 @@ import {
   PopoverTrigger,
   PopoverContent,
   PopoverClose,
+  Combobox,
 } from "@/components";
 import { Tooltip } from "@/components/Tooltip/Tooltip";
 import { Icon } from "@/components/Icon/Icon";
@@ -3672,6 +3673,93 @@ import { Icon } from "kaze-design-system";
     </PopoverClose>
   </PopoverContent>
 </Popover>`,
+  },
+
+  combobox: {
+    title: "Combobox",
+    description:
+      "入力しながら候補を絞り込んで選ぶフォーム部品（WAI-ARIA の combobox + listbox）。既定の絞り込みはひらがな・カタカナ・全角半角・大文字小文字を区別せず、IME 変換中の Enter や矢印キーは無視します。選択肢が少なく絞り込みが不要なら Select を使います。",
+    preview: (
+      <div style={{ maxWidth: "20rem" }}>
+        <FormField label="都道府県" description="「とうきょう」「ｵｵｻｶ」でも絞り込めます">
+          <Combobox
+            options={[
+              { value: "tokyo", label: "東京都", keywords: ["とうきょう"] },
+              { value: "osaka", label: "大阪府", keywords: ["おおさか"] },
+              { value: "kyoto", label: "京都府", keywords: ["きょうと"] },
+              { value: "hokkaido", label: "北海道", keywords: ["ほっかいどう"] },
+              { value: "fukuoka", label: "福岡県", keywords: ["ふくおか"], disabled: true },
+            ]}
+            placeholder="選択または入力"
+          />
+        </FormField>
+      </div>
+    ),
+    props: [
+      {
+        name: "options",
+        type: "{ value: string; label: string; keywords?: string[]; disabled?: boolean }[]",
+        description: "候補。keywords は表示せず検索だけに使う読みや別名",
+      },
+      {
+        name: "value",
+        type: "string | null",
+        description: "選択中の value（制御）。未選択は null",
+      },
+      {
+        name: "defaultValue",
+        type: "string | null",
+        default: "null",
+        description: "初期の選択（非制御）",
+      },
+      {
+        name: "onValueChange",
+        type: "(value: string | null) => void",
+        description: "選択が変わる時のコールバック。入力を空にして離れると null",
+      },
+      {
+        name: "filter",
+        type: "(option: ComboboxOption, query: string) => boolean",
+        description: "絞り込みの差し替え。既定は label と keywords への includesJa",
+      },
+      {
+        name: "name",
+        type: "string",
+        description: "指定すると hidden input で value（ラベルではなく）をフォーム送信する",
+      },
+      {
+        name: "size",
+        type: '"sm" | "md"',
+        default: '"md"',
+        description: "サイズ",
+      },
+      {
+        name: "emptyMessage",
+        type: "string",
+        default: '"候補がありません"',
+        description: "一致する候補がないときの文言",
+      },
+      {
+        name: "aria-invalid",
+        type: "boolean | 'true' | 'false'",
+        description: "true で Input と同じエラー表示。FormField の error から自動で渡される",
+      },
+    ],
+    usage: `import { Combobox, FormField } from "kaze-design-system";
+
+const options = [
+  { value: "tokyo", label: "東京都", keywords: ["とうきょう"] },
+  { value: "osaka", label: "大阪府", keywords: ["おおさか"] },
+];
+
+<FormField label="都道府県" error={error}>
+  <Combobox
+    name="prefecture"
+    options={options}
+    value={prefecture}
+    onValueChange={setPrefecture}
+  />
+</FormField>`,
   },
 };
 

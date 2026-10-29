@@ -32,6 +32,7 @@ export const categories: Category[] = [
       { name: "Input", path: "input", description: "テキスト入力" },
       { name: "NumberField", path: "number-field", description: "通貨対応数値入力" },
       { name: "Select", path: "select", description: "セレクトボックス" },
+      { name: "Combobox", path: "combobox", description: "絞り込み付きの選択（日本語入力対応）" },
       { name: "Checkbox", path: "checkbox", description: "チェックボックス" },
       { name: "Radio", path: "radio", description: "ラジオボタン" },
       { name: "Textarea", path: "textarea", description: "テキストエリア" },
