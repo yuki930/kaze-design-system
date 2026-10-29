@@ -18,8 +18,10 @@ export const Default: Story = {
 export const WithLabel: Story = {
   render: (args) => (
     <div>
-      <label className="label">メールアドレス</label>
-      <Input {...args} placeholder="misaki.sagara@norn.co.jp" type="email" />
+      <label className="label" htmlFor="story-input-email">
+        メールアドレス
+      </label>
+      <Input {...args} id="story-input-email" placeholder="misaki.sagara@norn.co.jp" type="email" />
     </div>
   ),
 };

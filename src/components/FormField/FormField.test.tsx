@@ -76,7 +76,7 @@ describe("FormField", () => {
     expect(describedBy).toBeTruthy();
 
     // Verify the referenced elements exist
-    const ids = describedBy!.split(" ");
+    const ids = (describedBy ?? "").split(" ");
     for (const id of ids) {
       expect(document.getElementById(id)).toBeInTheDocument();
     }

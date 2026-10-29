@@ -29,6 +29,7 @@ export const Tracker = forwardRef<HTMLDivElement, TrackerProps>(
       >
         {data.map((item, i) => (
           <div
+            // biome-ignore lint/suspicious/noArrayIndexKey: segments are positional time slots without their own id; the position is the identity and the list is never reordered.
             key={i}
             className={cn("tracker__segment", `tracker__segment--${item.status}`)}
             title={item.tooltip}

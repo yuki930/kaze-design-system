@@ -223,7 +223,22 @@ function OverviewCard({
   description: string;
 }) {
   return (
-    <Link href={href} style={{ textDecoration: "none", color: "inherit" }}>
+    <Link
+      href={href}
+      style={{ textDecoration: "none", color: "inherit" }}
+      onMouseEnter={(e) => {
+        const card = e.currentTarget.firstElementChild as HTMLElement | null;
+        if (!card) return;
+        card.style.boxShadow = "0 2px 8px rgba(0, 0, 0, 0.08)";
+        card.style.borderColor = "var(--color-primary)";
+      }}
+      onMouseLeave={(e) => {
+        const card = e.currentTarget.firstElementChild as HTMLElement | null;
+        if (!card) return;
+        card.style.boxShadow = "none";
+        card.style.borderColor = "var(--color-border)";
+      }}
+    >
       <div
         style={{
           border: "1px solid var(--color-border)",
@@ -234,14 +249,6 @@ function OverviewCard({
             "box-shadow var(--duration-fast) var(--ease-default), border-color var(--duration-fast) var(--ease-default)",
           cursor: "pointer",
           background: "var(--color-surface)",
-        }}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.boxShadow = "0 2px 8px rgba(0, 0, 0, 0.08)";
-          e.currentTarget.style.borderColor = "var(--color-primary)";
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.boxShadow = "none";
-          e.currentTarget.style.borderColor = "var(--color-border)";
         }}
       >
         <h3

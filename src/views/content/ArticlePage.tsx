@@ -247,7 +247,7 @@ export function ArticlePage() {
                 date: "2026年2月8日",
               },
             ].map((article) => (
-              <a key={article.title} href="#" className="article__related-card">
+              <a key={article.title} href="/article" className="article__related-card">
                 <img src={article.image} alt={article.title} />
                 <span className="article__related-card-title">{article.title}</span>
                 <span className="article__related-card-meta">

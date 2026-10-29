@@ -19,8 +19,15 @@ export const Default: Story = {
 export const WithLabel: Story = {
   render: (args) => (
     <div>
-      <label className="label">備考</label>
-      <Textarea {...args} placeholder="補足事項があればご記入ください" rows={4} />
+      <label className="label" htmlFor="story-textarea-note">
+        備考
+      </label>
+      <Textarea
+        {...args}
+        id="story-textarea-note"
+        placeholder="補足事項があればご記入ください"
+        rows={4}
+      />
     </div>
   ),
 };

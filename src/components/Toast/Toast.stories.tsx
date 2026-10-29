@@ -25,7 +25,7 @@ const meta = {
   title: "Components/Toast",
   component: ToastProvider,
   args: {
-    children: null!,
+    children: null,
   },
   decorators: [
     (Story) => (

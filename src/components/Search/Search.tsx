@@ -46,6 +46,7 @@ export const Search = forwardRef<HTMLInputElement, SearchProps>(
     );
 
     return (
+      // biome-ignore lint/a11y/useSemanticElements: the <search> element is not supported in all target browsers yet (Safari < 17); role="search" on a div exposes the same landmark.
       <div role="search" className={cn("search", className)} {...rest}>
         <svg
           className="search__icon"
@@ -73,6 +74,7 @@ export const Search = forwardRef<HTMLInputElement, SearchProps>(
           onChange={handleChange}
         />
         {shortcut && (
+          // biome-ignore lint/a11y/noAriaHiddenOnFocusable: <kbd> has no tabIndex and is not focusable; the shortcut hint is visual only.
           <kbd className="search__kbd" aria-hidden="true">
             {shortcut}
           </kbd>

@@ -10,6 +10,7 @@ const sampleCommands: Command[] = [
     group: "一般",
     icon: (
       <svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="16"
         height="16"
@@ -32,6 +33,7 @@ const sampleCommands: Command[] = [
     group: "一般",
     icon: (
       <svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="16"
         height="16"
@@ -54,6 +56,7 @@ const sampleCommands: Command[] = [
     group: "プロジェクト",
     icon: (
       <svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="16"
         height="16"
@@ -76,6 +79,7 @@ const sampleCommands: Command[] = [
     group: "プロジェクト",
     icon: (
       <svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="16"
         height="16"
@@ -99,6 +103,7 @@ const sampleCommands: Command[] = [
     group: "アカウント",
     icon: (
       <svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="16"
         height="16"

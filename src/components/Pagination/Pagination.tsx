@@ -14,15 +14,17 @@ export interface PaginationProps extends HTMLAttributes<HTMLElement> {
   nextLabel?: string;
 }
 
-function getPages(current: number, total: number, siblings: number): (number | "...")[] {
-  const range: (number | "...")[] = [];
+type PageItem = number | "ellipsis-start" | "ellipsis-end";
+
+function getPages(current: number, total: number, siblings: number): PageItem[] {
+  const range: PageItem[] = [];
   const left = Math.max(2, current - siblings);
   const right = Math.min(total - 1, current + siblings);
 
   range.push(1);
-  if (left > 2) range.push("...");
+  if (left > 2) range.push("ellipsis-start");
   for (let i = left; i <= right; i++) range.push(i);
-  if (right < total - 1) range.push("...");
+  if (right < total - 1) range.push("ellipsis-end");
   if (total > 1) range.push(total);
   return range;
 }
@@ -54,9 +56,9 @@ export const Pagination = forwardRef<HTMLElement, PaginationProps>(
         >
           ‹
         </button>
-        {pages.map((page, i) =>
-          page === "..." ? (
-            <span key={`e${i}`} className="pagination__ellipsis">
+        {pages.map((page) =>
+          typeof page === "string" ? (
+            <span key={page} className="pagination__ellipsis">
               …
             </span>
           ) : (

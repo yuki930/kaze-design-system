@@ -97,6 +97,7 @@ function ToastItem(props: ToastItemProps) {
         <span className="toast__icon" aria-hidden="true">
           {data.variant === "positive" && (
             <svg
+              aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="16"
               height="16"
@@ -112,6 +113,7 @@ function ToastItem(props: ToastItemProps) {
           )}
           {data.variant === "negative" && (
             <svg
+              aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="16"
               height="16"
@@ -129,6 +131,7 @@ function ToastItem(props: ToastItemProps) {
           )}
           {data.variant === "warning" && (
             <svg
+              aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="16"
               height="16"
@@ -146,6 +149,7 @@ function ToastItem(props: ToastItemProps) {
           )}
           {data.variant === "info" && (
             <svg
+              aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="16"
               height="16"
@@ -169,6 +173,7 @@ function ToastItem(props: ToastItemProps) {
       </div>
       <button type="button" className="toast__close" onClick={dismiss} aria-label={closeLabel}>
         <svg
+          aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="14"
           height="14"
@@ -218,11 +223,11 @@ export function ToastProvider({
       {children}
       {typeof document !== "undefined" &&
         createPortal(
-          <div className="toast-container" aria-label={containerLabel} aria-live="polite">
+          <section className="toast-container" aria-label={containerLabel} aria-live="polite">
             {toasts.map((t) => (
               <ToastItem key={t.id} data={t} onRemove={removeToast} closeLabel={closeLabel} />
             ))}
-          </div>,
+          </section>,
           document.body,
         )}
     </ToastContext.Provider>
