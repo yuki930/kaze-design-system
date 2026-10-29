@@ -2,7 +2,7 @@
 
 > Minimal React design system for dashboards, landing pages and Japanese UI: warm neutral grays, 69 components, SVG charts with zero dependencies, light/dark themes, typography tuned for CJK text
 
-Version: 0.9.0
+Version: 0.9.1
 Site: https://kaze-design-system.vercel.app
 Package: kaze-design-system
 

@@ -16,6 +16,18 @@ CHANGELOG entries and version bumps are generated automatically by `.github/work
 ### 0.x policy
 
 While the major version is 0, a **minor** release may include breaking changes (they are called out in the release notes with a migration note); a **patch** release never does. The public API will be frozen at 1.0.
+## [0.9.1] - 2026-10-29
+
+### Bug Fixes
+
+- fix: drop the lucide Github icon and split major dependency bumps (#44)
+
+### Other
+
+- chore(deps): bump actions/setup-node from 4 to 7 (#42)
+- chore(deps): bump actions/checkout from 4 to 7 (#41)
+
+
 ## [0.9.0] - 2026-10-29
 
 ### Features
