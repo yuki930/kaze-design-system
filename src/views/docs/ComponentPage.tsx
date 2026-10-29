@@ -2546,7 +2546,9 @@ import { Icon } from "kaze-design-system";
     description:
       "2次元の密度を単一色相の濃淡で見せるヒートマップ。曜日×時間帯などの行×列（matrix）と、日別カレンダー（calendar）に対応。",
     preview: (
-      <div style={{ display: "grid", gap: "var(--space-6)" }}>
+      <div
+        style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr)", gap: "var(--space-6)" }}
+      >
         <Heatmap
           aria-label="曜日と時間帯別のアクセス数"
           rows={["月", "火", "水", "木", "金"]}
