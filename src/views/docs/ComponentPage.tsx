@@ -1,5 +1,6 @@
 import styles from "./docs.module.css";
 import { repoTreeUrl } from "@/views/site/repo";
+import { DialogDemo, DrawerDemo } from "./OverlayDemos";
 import {
   Button,
   Input,
@@ -720,22 +721,7 @@ const componentDocs: Record<string, ComponentDoc> = {
   dialog: {
     title: "Dialog",
     description: "ダイアログ",
-    preview: (
-      <div
-        style={{
-          padding: "2rem",
-          textAlign: "center",
-          color: "var(--color-fg-secondary)",
-        }}
-      >
-        <p>
-          ダイアログはモーダルウィンドウとして表示されるため、ここではプレビューを省略しています。
-        </p>
-        <p>
-          <code>open</code> プロパティを <code>true</code> にすることで表示されます。
-        </p>
-      </div>
-    ),
+    preview: <DialogDemo />,
     props: [
       {
         name: "open",
@@ -3878,21 +3864,7 @@ const options = [
     title: "Drawer",
     description:
       '画面の端から出るモーダルパネル。Dialog と同じ挙動（フォーカストラップ・背景の inert 化・スクロールロック・Escape・背景クリック・閉じアニメ・フォーカス復帰）で、フィルターや詳細表示のように一覧を見たまま操作したい場面に向きます。モバイル幅では side="bottom"（ボトムシート）を推奨します。',
-    preview: (
-      <div
-        style={{
-          padding: "2rem",
-          textAlign: "center",
-          color: "var(--color-fg-secondary)",
-        }}
-      >
-        <p>Drawer はモーダルとして表示されるため、ここではプレビューを省略しています。</p>
-        <p>
-          <code>open</code> を <code>true</code> にすると、<code>side</code>{" "}
-          で指定した端から表示されます。
-        </p>
-      </div>
-    ),
+    preview: <DrawerDemo />,
     props: [
       { name: "open", type: "boolean", description: "表示状態" },
       {
