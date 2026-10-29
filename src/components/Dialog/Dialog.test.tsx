@@ -1,7 +1,7 @@
-import { act, render } from "@testing-library/react";
-import { useState } from "react";
+import { act, fireEvent, render, screen } from "@testing-library/react";
+import { createRef, useState } from "react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { Dialog, DialogBody } from "@/components/Dialog";
+import { Dialog, DialogBody, DialogFooter, DialogHeader, DialogTitle } from "@/components/Dialog";
 import { resetDeprecationWarnings } from "@/lib/deprecate";
 
 const settle = () => act(async () => new Promise((r) => setTimeout(r, 300)));
@@ -147,5 +147,224 @@ describe("Dialog API", () => {
     }
     expect(onClose).toHaveBeenCalledTimes(2);
     expect(warn).toHaveBeenCalledTimes(1);
+  });
+});
+
+const pressEscape = () =>
+  act(async () => {
+    document.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape", bubbles: true }));
+  });
+
+describe("Dialog rendering", () => {
+  it("renders nothing while closed", () => {
+    render(
+      <Dialog open={false}>
+        <DialogBody>本文</DialogBody>
+      </Dialog>,
+    );
+    expect(screen.queryByRole("dialog")).toBeNull();
+  });
+
+  it("portals into body and is labelled by DialogTitle", async () => {
+    const { container } = render(
+      <Dialog open className="custom" data-testid="dlg">
+        <DialogHeader className="h">
+          <DialogTitle>削除の確認</DialogTitle>
+        </DialogHeader>
+        <DialogBody>本文</DialogBody>
+        <DialogFooter className="f">操作</DialogFooter>
+      </Dialog>,
+    );
+    await settle();
+    const dialog = screen.getByRole("dialog", { name: "削除の確認" });
+    expect(container.contains(dialog)).toBe(false);
+    expect(dialog).toHaveAttribute("aria-modal", "true");
+    expect(dialog).toHaveAttribute("tabindex", "-1");
+    expect(dialog).toHaveClass("dialog", "custom");
+    expect(dialog).toHaveAttribute("data-testid", "dlg");
+    expect(dialog.parentElement).toHaveClass("overlay");
+    expect(screen.getByText("削除の確認").tagName).toBe("H2");
+    expect(screen.getByText("削除の確認")).toHaveClass("dialog__title");
+    expect(screen.getByText("本文")).toHaveClass("dialog__body");
+    expect(screen.getByText("操作")).toHaveClass("dialog__footer", "f");
+    expect(dialog.querySelector(".dialog__header")).toHaveClass("h");
+  });
+
+  it("lets DialogTitle override its id", async () => {
+    render(
+      <Dialog open>
+        <DialogTitle id="own">タイトル</DialogTitle>
+      </Dialog>,
+    );
+    await settle();
+    expect(screen.getByText("タイトル")).toHaveAttribute("id", "own");
+  });
+
+  it("renders DialogTitle outside a Dialog without an id", () => {
+    render(<DialogTitle>単独</DialogTitle>);
+    expect(screen.getByText("単独")).not.toHaveAttribute("id");
+  });
+
+  it("forwards object and callback refs", async () => {
+    const objRef = createRef<HTMLDivElement>();
+    const { unmount } = render(
+      <Dialog open ref={objRef}>
+        本文
+      </Dialog>,
+    );
+    await settle();
+    expect(objRef.current).toBe(screen.getByRole("dialog"));
+    unmount();
+
+    const fnRef = vi.fn();
+    render(
+      <Dialog open ref={fnRef}>
+        本文
+      </Dialog>,
+    );
+    await settle();
+    expect(fnRef).toHaveBeenCalledWith(screen.getByRole("dialog"));
+  });
+
+  it("forwards refs on the sub components", () => {
+    const h = createRef<HTMLDivElement>();
+    const t = createRef<HTMLHeadingElement>();
+    const b = createRef<HTMLDivElement>();
+    const f = createRef<HTMLDivElement>();
+    render(
+      <>
+        <DialogHeader ref={h} />
+        <DialogTitle ref={t} />
+        <DialogBody ref={b} />
+        <DialogFooter ref={f} />
+      </>,
+    );
+    expect(h.current).toHaveClass("dialog__header");
+    expect(t.current).toHaveClass("dialog__title");
+    expect(b.current).toHaveClass("dialog__body");
+    expect(f.current).toHaveClass("dialog__footer");
+  });
+});
+
+function Nested({
+  outer,
+  inner,
+}: {
+  outer: (open: boolean) => void;
+  inner: (open: boolean) => void;
+}) {
+  const [outerOpen, setOuterOpen] = useState(true);
+  const [innerOpen, setInnerOpen] = useState(false);
+  return (
+    <Dialog
+      open={outerOpen}
+      aria-label="外側"
+      onOpenChange={(o) => {
+        outer(o);
+        setOuterOpen(o);
+      }}
+    >
+      <button type="button" onClick={() => setInnerOpen(true)}>
+        開く
+      </button>
+      <Dialog
+        open={innerOpen}
+        aria-label="内側"
+        onOpenChange={(o) => {
+          inner(o);
+          setInnerOpen(o);
+        }}
+      >
+        <button type="button">内側のボタン</button>
+      </Dialog>
+    </Dialog>
+  );
+}
+
+describe("Dialog closing", () => {
+  it("closes on overlay click but not on a click inside the panel", async () => {
+    const onOpenChange = vi.fn();
+    render(<Controlled onOpenChange={onOpenChange} />);
+    await settle();
+    fireEvent.click(screen.getByText("本文"));
+    expect(onOpenChange).not.toHaveBeenCalled();
+    const overlay = screen.getByRole("dialog").parentElement as HTMLElement;
+    await act(async () => {
+      fireEvent.click(overlay);
+    });
+    expect(onOpenChange).toHaveBeenCalledWith(false);
+  });
+
+  it("plays the closing animation before unmounting", async () => {
+    const { rerender } = render(
+      <Dialog open>
+        <DialogBody>本文</DialogBody>
+      </Dialog>,
+    );
+    await settle();
+    rerender(
+      <Dialog open={false}>
+        <DialogBody>本文</DialogBody>
+      </Dialog>,
+    );
+    const dialog = screen.getByRole("dialog");
+    expect(dialog).toHaveAttribute("data-state", "closed");
+    expect(dialog.parentElement).toHaveClass("overlay--closing");
+    await settle();
+    expect(screen.queryByRole("dialog")).toBeNull();
+  });
+
+  it("reopening during the closing animation keeps it mounted", async () => {
+    const { rerender } = render(<Dialog open>本文</Dialog>);
+    await settle();
+    rerender(<Dialog open={false}>本文</Dialog>);
+    rerender(<Dialog open>本文</Dialog>);
+    await settle();
+    const dialog = screen.getByRole("dialog");
+    expect(dialog).toHaveAttribute("data-state", "open");
+    expect(dialog.parentElement).not.toHaveClass("overlay--closing");
+  });
+
+  it("closes only the top-most of nested dialogs on Escape", async () => {
+    const outer = vi.fn();
+    const inner = vi.fn();
+    render(<Nested outer={outer} inner={inner} />);
+    await settle();
+    await act(async () => {
+      fireEvent.click(screen.getByText("開く"));
+    });
+    await settle();
+    expect(screen.getAllByRole("dialog", { hidden: true })).toHaveLength(2);
+
+    await pressEscape();
+    expect(inner).toHaveBeenCalledWith(false);
+    expect(outer).not.toHaveBeenCalled();
+    await settle();
+
+    await pressEscape();
+    expect(outer).toHaveBeenCalledWith(false);
+  });
+
+  it("calls both onOpenChange and the deprecated onClose when given together", async () => {
+    const onOpenChange = vi.fn();
+    const onClose = vi.fn();
+    render(
+      <Dialog open onOpenChange={onOpenChange} onClose={onClose}>
+        本文
+      </Dialog>,
+    );
+    await settle();
+    await pressEscape();
+    expect(onOpenChange).toHaveBeenCalledWith(false);
+    expect(onClose).toHaveBeenCalledTimes(1);
+    expect(warn).toHaveBeenCalledTimes(1);
+  });
+
+  it("does not throw when closed without any handler", async () => {
+    render(<Dialog open>本文</Dialog>);
+    await settle();
+    await pressEscape();
+    // still open: the caller owns `open`
+    expect(screen.getByRole("dialog")).toHaveAttribute("data-state", "open");
   });
 });
