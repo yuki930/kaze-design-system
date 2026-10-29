@@ -1,6 +1,5 @@
 import { forwardRef, type HTMLAttributes } from "react";
 import { cn } from "@/lib/utils";
-import { renamedProp } from "@/lib/deprecate";
 
 const CheckIcon = () => (
   <svg
@@ -26,14 +25,10 @@ export interface StepperProps extends HTMLAttributes<HTMLDivElement> {
   steps: StepperStep[];
   /** 現在のステップ（0 始まり） */
   step?: number;
-  /** @deprecated `step` に改名。次のマイナーで削除 */
-  currentStep?: number;
 }
 
 export const Stepper = forwardRef<HTMLDivElement, StepperProps>(
-  ({ steps, step: stepProp, currentStep: currentStepProp, className, ...rest }, ref) => {
-    const currentStep =
-      renamedProp("Stepper", "currentStep", "step", currentStepProp, stepProp) ?? 0;
+  ({ steps, step: currentStep = 0, className, ...rest }, ref) => {
     return (
       <div ref={ref} className={cn("stepper", className)} {...rest}>
         <ol className="stepper__list">

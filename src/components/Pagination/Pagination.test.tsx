@@ -1,7 +1,6 @@
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { fireEvent, render, screen } from "@testing-library/react";
 import { Pagination } from "./Pagination";
-import { resetDeprecationWarnings } from "@/lib/deprecate";
 
 describe("Pagination", () => {
   it("labels each page button and marks the current page", () => {
@@ -32,15 +31,6 @@ describe("Pagination", () => {
   });
 });
 
-let warn: ReturnType<typeof vi.spyOn>;
-beforeEach(() => {
-  resetDeprecationWarnings();
-  warn = vi.spyOn(console, "warn").mockImplementation(() => {});
-});
-afterEach(() => {
-  warn.mockRestore();
-});
-
 describe("Pagination API", () => {
   it("works uncontrolled with defaultPage", () => {
     const onPageChange = vi.fn();
@@ -61,24 +51,6 @@ describe("Pagination API", () => {
     render(<Pagination page={1} totalPages={5} />);
     fireEvent.click(screen.getByRole("button", { name: "5ページ目" }));
     expect(screen.getByRole("button", { name: "1ページ目" })).toHaveAttribute(
-      "aria-current",
-      "page",
-    );
-  });
-
-  it("keeps the deprecated currentPage working and warns once", () => {
-    const { rerender } = render(<Pagination currentPage={3} totalPages={5} />);
-    rerender(<Pagination currentPage={4} totalPages={5} />);
-    expect(screen.getByRole("button", { name: "4ページ目" })).toHaveAttribute(
-      "aria-current",
-      "page",
-    );
-    expect(warn).toHaveBeenCalledTimes(1);
-  });
-
-  it("prefers page over currentPage", () => {
-    render(<Pagination page={2} currentPage={4} totalPages={5} />);
-    expect(screen.getByRole("button", { name: "2ページ目" })).toHaveAttribute(
       "aria-current",
       "page",
     );

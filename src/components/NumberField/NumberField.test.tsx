@@ -1,8 +1,7 @@
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { createRef } from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { NumberField, parseLocaleNumber } from "./NumberField";
-import { resetDeprecationWarnings } from "@/lib/deprecate";
 
 function typeAndBlur(input: HTMLElement, text: string) {
   fireEvent.focus(input);
@@ -98,33 +97,14 @@ describe("NumberField", () => {
   });
 });
 
-let warn: ReturnType<typeof vi.spyOn>;
-beforeEach(() => {
-  resetDeprecationWarnings();
-  warn = vi.spyOn(console, "warn").mockImplementation(() => {});
-});
-afterEach(() => {
-  warn.mockRestore();
-});
-
 describe("NumberField API", () => {
-  it("keeps the deprecated onChange working and warns once", () => {
-    const onChange = vi.fn();
-    render(<NumberField aria-label="数量" onChange={onChange} />);
+  it("reports the parsed number through onValueChange", () => {
+    const onValueChange = vi.fn();
+    render(<NumberField aria-label="数量" onValueChange={onValueChange} />);
     const input = screen.getByRole("textbox", { name: "数量" });
     typeAndBlur(input, "5");
     typeAndBlur(input, "6");
-    expect(onChange).toHaveBeenLastCalledWith(6);
-    expect(warn).toHaveBeenCalledTimes(1);
-  });
-
-  it("prefers onValueChange over onChange", () => {
-    const onChange = vi.fn();
-    const onValueChange = vi.fn();
-    render(<NumberField aria-label="数量" onChange={onChange} onValueChange={onValueChange} />);
-    typeAndBlur(screen.getByRole("textbox", { name: "数量" }), "9");
-    expect(onValueChange).toHaveBeenLastCalledWith(9);
-    expect(onChange).not.toHaveBeenCalled();
+    expect(onValueChange).toHaveBeenLastCalledWith(6);
   });
 });
 

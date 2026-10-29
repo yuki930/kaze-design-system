@@ -295,8 +295,6 @@ Related: input, form-field, select, segmented-control
   - Initial numeric value (uncontrolled)
 - `onValueChange?`: `(value: number | null) => void`
   - Called with the parsed value (null when empty)
-- `onChange?`: `(value: number | null) => void`
-  - Deprecated: `onValueChange` に改名。次のマイナーで削除
 - `min?`: `number`
   - Minimum allowed value
 - `max?`: `number`
@@ -1128,8 +1126,6 @@ Related: status-badge, filter-pill, alert, table
 - `tone?`: `"default" | "positive" | "negative" | "warning" | "info"`
   - Default: `"default"`
   - 意味色（旧 variant）
-- `variant?`: `"default" | "positive" | "negative" | "warning" | "info"`
-  - Deprecated: `tone` に改名。次のマイナーで削除
 - `dot?`: `boolean`
   - Default: `false`
   - ドットインジケーターを表示するかどうか
@@ -2159,8 +2155,6 @@ Related: toast, dialog, form-field, empty-state, badge
 - `tone?`: `"default" | "positive" | "negative" | "warning" | "info"`
   - Default: `"info"`
   - 意味色（旧 variant）
-- `variant?`: `"default" | "positive" | "negative" | "warning" | "info"`
-  - Deprecated: `tone` に改名。次のマイナーで削除
 - `icon?`: `ReactNode`
   - 左側に表示するアイコン
 - `title?`: `string`
@@ -2227,8 +2221,6 @@ Related: meter, stepper, skeleton, toast
 - `tone?`: `"default" | "positive" | "negative" | "warning" | "info"`
   - Default: `"default"`
   - バーの意味色（旧 color）
-- `color?`: `"default" | "positive" | "negative" | "warning" | "info"`
-  - Deprecated: `tone` に改名。次のマイナーで削除
 - `size?`: `"sm" | "md" | "lg"`
   - Default: `"md"`
   - プログレスバーの高さ
@@ -2295,8 +2287,6 @@ Related: progress, bar-list, category-bar, alert
   - Show percentage text
 - `tone?`: `"default" | "positive" | "negative" | "warning" | "info"`
   - Semantic color (overrides threshold-based coloring)
-- `color?`: `"default" | "positive" | "negative" | "warning" | "info"`
-  - Deprecated: `tone` に改名。次のマイナーで削除
 - `size?`: `"sm" | "md" | "lg"`
   - Size
 
@@ -2759,8 +2749,6 @@ Related: table, list, breadcrumb, search
 - `defaultPage?`: `number`
   - Default: `1`
   - 初期ページ（非制御、既定 1）
-- `currentPage?`: `number`
-  - Deprecated: `page` に改名。次のマイナーで削除
 - `totalPages`: `number`
   - 総ページ数
 - `onPageChange?`: `(page: number) => void`
@@ -2825,8 +2813,6 @@ Related: progress, tabs, breadcrumb, form-field
   - ステップの配列 { label }
 - `step?`: `number`
   - 現在のステップ（0 始まり）
-- `currentStep?`: `number`
-  - Deprecated: `step` に改名。次のマイナーで削除
 
 **Usage**
 
@@ -2985,10 +2971,6 @@ Related: drawer, toast, alert, popover, button
   - ダイアログの表示状態
 - `onOpenChange?`: `(open: boolean) => void`
   - Escape / 背景クリック / 閉じる操作で呼ばれる。`open` を false にするのは呼び出し側
-- `onClose?`: `() => void`
-  - Deprecated: `onOpenChange` に改名。次のマイナーで削除
-- `returnFocusRef?`: `RefObject<HTMLElement | null>`
-  - Deprecated: useFocusTrap handles focus restoration automatically. Kept for backward compat: ignored.
 - `title?`: `string`
   - ダイアログのタイトル
 - `children?`: `React.ReactNode`
@@ -3652,15 +3634,13 @@ Related: input, command-palette, combobox, topbar, empty-state
 - `shortcut?`: `string`
   - キーボードショートカットの表示テキスト
 - `onSearch?`: `(value: string) => void`
-  - Called when the user submits with Enter (not during IME composition). Use onChange for every keystroke.
+  - Called when the user submits with Enter (not during IME composition). Use onValueChange for every keystroke.
 - `value?`: `string`
   - Controlled value
 - `defaultValue?`: `string`
   - Initial value (uncontrolled)
 - `onValueChange?`: `(value: string) => void`
   - Called with the new value on every change
-- `onChange?`: `(value: string) => void`
-  - Deprecated: `onValueChange` に改名。次のマイナーで削除
 - `aria-label?`: `string`
   - Accessible label for the search input
 - `inputProps?`: `Omit<InputHTMLAttributes<HTMLInputElement>, "value" | "onChange" | "type">`

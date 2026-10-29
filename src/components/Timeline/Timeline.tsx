@@ -1,10 +1,6 @@
 import { forwardRef, type ReactNode, type HTMLAttributes } from "react";
-import { renamedProp } from "@/lib/deprecate";
 import type { Tone } from "../../lib/types";
 import { cn } from "@/lib/utils";
-
-/** @deprecated `Tone` を使う */
-export type TimelineItemStatus = Tone;
 
 export interface TimelineProps extends HTMLAttributes<HTMLUListElement> {
   children: ReactNode;
@@ -24,13 +20,10 @@ export interface TimelineItemProps extends Omit<HTMLAttributes<HTMLLIElement>, "
   title: ReactNode;
   description?: ReactNode;
   tone?: Tone;
-  /** @deprecated `tone` に改名。次のマイナーで削除 */
-  status?: Tone;
 }
 
 export const TimelineItem = forwardRef<HTMLLIElement, TimelineItemProps>(
-  ({ time, title, description, tone: toneProp, status, className, ...rest }, ref) => {
-    const tone = renamedProp("TimelineItem", "status", "tone", status, toneProp) ?? "default";
+  ({ time, title, description, tone = "default", className, ...rest }, ref) => {
     return (
       <li ref={ref} data-tone={tone} className={cn("timeline-item", className)} {...rest}>
         <span

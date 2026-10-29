@@ -3,7 +3,7 @@ import { Badge, type BadgeProps } from "../Badge";
 
 export type StatusBadgeStatus = "live" | "stale" | "missing" | "manual" | "loading";
 
-export interface StatusBadgeProps extends Omit<BadgeProps, "variant" | "tone" | "children"> {
+export interface StatusBadgeProps extends Omit<BadgeProps, "tone" | "children"> {
   status: StatusBadgeStatus;
   /** Overrides the default label for the given status */
   label?: string;

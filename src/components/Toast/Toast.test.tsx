@@ -1,6 +1,5 @@
 import { act, fireEvent, render, screen } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { resetDeprecationWarnings } from "@/lib/deprecate";
 import { ToastProvider, useToast } from "@/components/Toast";
 
 let api: ReturnType<typeof useToast>;
@@ -69,19 +68,6 @@ describe("Toast", () => {
     expect(el).toHaveAttribute("data-state", "open");
     act(() => api.dismiss(id));
     expect(el).toHaveAttribute("data-state", "closing");
-  });
-
-  it("still honors deprecated variant and warns once", () => {
-    resetDeprecationWarnings();
-    const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
-    mount();
-    act(() => {
-      api.toast({ title: "a", variant: "negative" });
-      api.toast({ title: "b", variant: "negative" });
-    });
-    expect(screen.getAllByRole("alert")).toHaveLength(2);
-    expect(warn).toHaveBeenCalledTimes(1);
-    warn.mockRestore();
   });
 });
 

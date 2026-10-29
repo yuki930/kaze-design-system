@@ -1,7 +1,6 @@
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { describe, expect, it } from "vitest";
 import { render, screen, within } from "@testing-library/react";
 import { Stepper } from "./Stepper";
-import { resetDeprecationWarnings } from "@/lib/deprecate";
 
 const steps = [{ label: "アカウント情報" }, { label: "プロフィール設定" }, { label: "確認" }];
 
@@ -37,25 +36,9 @@ describe("Stepper", () => {
   });
 });
 
-let warn: ReturnType<typeof vi.spyOn>;
-beforeEach(() => {
-  resetDeprecationWarnings();
-  warn = vi.spyOn(console, "warn").mockImplementation(() => {});
-});
-afterEach(() => {
-  warn.mockRestore();
-});
-
 describe("Stepper API", () => {
-  it("keeps the deprecated currentStep working and warns once", () => {
-    const { rerender } = render(<Stepper steps={steps} currentStep={1} />);
-    rerender(<Stepper steps={steps} currentStep={2} />);
-    expect(screen.getAllByRole("listitem")[2]).toHaveAttribute("aria-current", "step");
-    expect(warn).toHaveBeenCalledTimes(1);
-  });
-
-  it("prefers step over currentStep", () => {
-    render(<Stepper steps={steps} step={0} currentStep={2} />);
+  it("starts at the first step when step is omitted", () => {
+    render(<Stepper steps={steps} />);
     expect(screen.getAllByRole("listitem")[0]).toHaveAttribute("aria-current", "step");
   });
 });

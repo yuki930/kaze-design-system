@@ -8,11 +8,9 @@ import {
   createContext,
   useContext,
   type HTMLAttributes,
-  type RefObject,
 } from "react";
 import { createPortal } from "react-dom";
 import { cn } from "@/lib/utils";
-import { warnDeprecated } from "@/lib/deprecate";
 import { useModalLayer } from "../_internal/useModalLayer";
 
 /* ── Dialog ────────────────────────────────────────────────── */
@@ -21,30 +19,16 @@ export interface DialogProps extends HTMLAttributes<HTMLDivElement> {
   open: boolean;
   /** Escape / 背景クリック / 閉じる操作で呼ばれる。`open` を false にするのは呼び出し側 */
   onOpenChange?: (open: boolean) => void;
-  /** @deprecated `onOpenChange` に改名。次のマイナーで削除 */
-  onClose?: () => void;
-  /** @deprecated useFocusTrap handles focus restoration automatically. Kept for backward compat: ignored. */
-  returnFocusRef?: RefObject<HTMLElement | null>;
 }
 
 export const Dialog = forwardRef<HTMLDivElement, DialogProps>(
-  (
-    { open, onOpenChange, onClose, returnFocusRef: _returnFocusRef, className, children, ...rest },
-    ref,
-  ) => {
+  ({ open, onOpenChange, className, children, ...rest }, ref) => {
     const titleId = useId();
     const internalRef = useRef<HTMLDivElement>(null);
 
     const requestClose = useCallback(() => {
-      if (onClose) {
-        warnDeprecated(
-          "Dialog.onClose",
-          "Dialog の `onClose` は `onOpenChange` に改名しました。次のマイナーバージョンで削除します",
-        );
-      }
       onOpenChange?.(false);
-      onClose?.();
-    }, [onOpenChange, onClose]);
+    }, [onOpenChange]);
 
     // ── Callback ref: merge forwarded ref with internal ref (M5) ──
     const mergedRef = useCallback(
