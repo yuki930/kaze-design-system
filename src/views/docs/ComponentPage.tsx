@@ -983,21 +983,27 @@ const componentDocs: Record<string, ComponentDoc> = {
         description: "自動で閉じるまでのミリ秒。hover / focus 中は止まる",
       },
     ],
-    usage: `// ルートで 1 回
-<ToastProvider>
-  <App />
-</ToastProvider>
+    usage: `import type { ReactNode } from "react";
+import { Button, ToastProvider, useToast } from "kaze-design-system";
 
-// 任意のコンポーネント内
-const { toast } = useToast();
+// アプリのルートで 1 回だけ包む
+export function Providers({ children }: { children: ReactNode }) {
+  return <ToastProvider>{children}</ToastProvider>;
+}
 
-<Button
-  onClick={() =>
-    toast({ title: "保存完了", description: "データが正常に保存されました。", tone: "positive" })
-  }
->
-  保存
-</Button>`,
+// 配下のどのコンポーネントからでも呼べる
+export function SaveButton() {
+  const { toast } = useToast();
+  return (
+    <Button
+      onClick={() =>
+        toast({ title: "保存しました", description: "変更は次回の読み込みから反映されます。", tone: "positive" })
+      }
+    >
+      保存
+    </Button>
+  );
+}`,
   },
 
   "form-field": {
@@ -2540,7 +2546,9 @@ import { Icon } from "kaze-design-system";
     description:
       "2次元の密度を単一色相の濃淡で見せるヒートマップ。曜日×時間帯などの行×列（matrix）と、日別カレンダー（calendar）に対応。",
     preview: (
-      <div style={{ display: "grid", gap: "var(--space-6)" }}>
+      <div
+        style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr)", gap: "var(--space-6)" }}
+      >
         <Heatmap
           aria-label="曜日と時間帯別のアクセス数"
           rows={["月", "火", "水", "木", "金"]}
@@ -3234,7 +3242,7 @@ import { Icon } from "kaze-design-system";
   variant="bordered"
   defaultOpen
 >
-  <SomeDetailPanel />
+  <p>通知の頻度や、一覧に表示する件数を変更できます。</p>
 </Disclosure>`,
   },
 
@@ -3500,7 +3508,7 @@ import { Icon } from "kaze-design-system";
   label="金額"
   value={15000}
   currency="JPY"
-  onChange={(v) => setValue(v)}
+  onValueChange={(v) => setValue(v)}
 />`,
   },
 
