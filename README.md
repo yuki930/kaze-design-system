@@ -8,7 +8,7 @@
 - **69 コンポーネント**: フォーム、テーブル、依存ゼロの SVG チャート（折れ線・縦棒・ヒートマップ等）、ダッシュボード UI、ランディングページ、マーケティングパーツまで
 - **日本語組版に最適化**: PALT グローバル適用、和欧混植、括弧ツメ、適切な line-height
 - **ライト / ダーク両対応**: `data-theme` 属性で切替、`prefers-color-scheme` 連動
-- **素の CSS + カスケードレイヤー**: `@layer tokens, reset, components, utilities` でカスケード管理、Tailwind/CSS-in-JS 不要
+- **素の CSS + カスケードレイヤー**: `@layer kaze.tokens, kaze.reset, kaze.components, kaze.utilities` でカスケード管理、Tailwind/CSS-in-JS 不要
 - **ESM only + Tree-shakeable**: React 18 / 19 + TypeScript、peer deps は `react`, `react-dom`（`lucide-react` は任意）のみ
 - **AI フレンドリー**: [`/llms.txt`](https://kaze-design-system.vercel.app/llms.txt) で全コンポーネント API を 1 ファイル配信
 
@@ -233,9 +233,10 @@ import { useFocusTrap, useLegendToggle } from "kaze-design-system/hooks";
 
 CSS カスタムプロパティベース:
 
-- カラー: `--color-*`（warm zinc パレット）
+- カラー: `--color-*`（warm zinc パレット）。文字色は `fg` / `fg-muted` / `fg-secondary` / `fg-tertiary` がすべて WCAG AA（4.5:1）を満たし、`fg-decorative` だけが装飾専用
+- フォーカス: `--color-focus`（既定は `fg`。全テーマで 3:1 以上の実線リング）
 - スペーシング: `--space-*`
-- タイポグラフィ: `--font-size-*`, `--font-weight-*`
+- タイポグラフィ: `--font-size-*`, `--font-weight-*`, `--font-sans`（本文、Noto Sans JP 主体）, `--font-display`（見出しと大きな数値、Montserrat + palt）, `--measure-ja`（日本語本文の行長 40em）
 - ボーダー: `--radius-*`
 - シャドウ: `--shadow-*`
 - 密度: `--density-*`（コントロール高さ・行パディング・UI フォントサイズ。下記「密度」参照）
@@ -246,12 +247,47 @@ JS から値を参照したい場合は `kaze-design-system/tokens` から impor
 import { space } from "kaze-design-system/tokens";
 ```
 
+## 日本語組版の既定値
+
+`reset.css` と `tokens.css` が、日本語の本文と UI に合わせた既定値を適用します。
+
+- 本文は Noto Sans JP 主体、行間 1.75、ルートのフォントサイズはブラウザ既定（ユーザーの拡大設定を尊重）
+- 禁則処理 `line-break: strict`、約物の詰め `text-spacing-trim: trim-start`、見出しの文節改行 `word-break: auto-phrase`（対応ブラウザのみ）
+- プロポーショナルかな（palt）と Montserrat は、見出し・Metric・Stats・料金などの表示用テキストにだけ適用
+- 数値は `tabular-nums`、日本語見出しの字間は 0（欧文数字のみ `--letter-spacing-tight`）
+
 ## テーマ（ライト / ダーク）
 
 `data-theme="light"` / `data-theme="dark"` で切り替え。
 `ThemeProvider` で自動管理。`prefers-color-scheme` による OS 設定連動にも対応。
 
 `data-palette="cool"` を付けると warm zinc から cool slate のパレットに切り替わります（ライト / ダークどちらとも併用可）。
+
+ダークモード利用者の初回描画がライトで一瞬光るのを防ぐには、`<head>` に `ThemeScript` を置きます。React が動く前に保存済みのテーマを `<html>` に適用します。
+
+```tsx
+import { ThemeProvider, ThemeScript } from "kaze-design-system/hooks";
+
+<html lang="ja" suppressHydrationWarning>
+  <head>
+    <ThemeScript defaultTheme="system" />
+  </head>
+  <body>
+    <ThemeProvider defaultTheme="system">{children}</ThemeProvider>
+  </body>
+</html>
+```
+
+## Server Components から使う
+
+ルートの barrel（`kaze-design-system`）は `"use client"` 付きなので、そこから import したコンポーネントはすべてクライアント境界に入ります。state を持たない静的コンポーネント（Card、Badge、Heading、Table など 54 個）を Server Component のまま使いたい場合は、個別のサブパスから import してください。
+
+```tsx
+import { Card, CardHeader, CardTitle } from "kaze-design-system/components/Card";
+import { Badge } from "kaze-design-system/components/Badge";
+```
+
+state を持つコンポーネント（Dialog、Dropdown、Tabs など）は個別ファイルの先頭に `"use client"` が付いているので、同じ書き方で問題なく動きます。
 
 ## 密度（Density）
 
@@ -263,7 +299,13 @@ import { space } from "kaze-design-system/tokens";
 
 ## CSS のレイヤーについて
 
-`css/all`（`kaze.css`）は `@layer tokens, reset, components, utilities` でラップされています。`css/components` などを個別に読み込むとレイヤーは付きません。また、レイヤー外のスタイル（CSS Modules など）は常にレイヤー内のスタイルより優先されます。
+Kaze の CSS はすべて `kaze` 配下のカスケードレイヤー（`kaze.tokens` → `kaze.reset` → `kaze.components` → `kaze.utilities`）に入っています。`css/components` などを個別に読み込んでも、各ファイルが自分のレイヤーを宣言するので順序は保たれます。レイヤー外のスタイル（CSS Modules、あなたのアプリの CSS）は常に Kaze より優先されます。
+
+**Tailwind と併用する場合**は `kaze-design-system/css/core`（tokens + reset + components）を読み込み、`css/utilities` は読み込まないでください。`.flex` や `.hidden` のようなユーティリティ名が Tailwind と重なるためです。レイヤー名を `kaze.*` に分けているので、Tailwind の `components` / `utilities` レイヤーと混ざることはありません。
+
+```tsx
+import "kaze-design-system/css/core"; // Tailwind と併用
+```
 
 ## 開発
 

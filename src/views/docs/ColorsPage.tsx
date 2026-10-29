@@ -227,9 +227,17 @@ const bgColors: SemanticColor[] = [
 const fgColors: SemanticColor[] = [
   { name: "fg", variable: "--color-fg", light: "zinc-950", dark: "zinc-50" },
   { name: "fg-secondary", variable: "--color-fg-secondary", light: "zinc-500", dark: "zinc-400" },
-  { name: "fg-tertiary", variable: "--color-fg-tertiary", light: "zinc-400", dark: "zinc-400" },
+  { name: "fg-tertiary", variable: "--color-fg-tertiary", light: "zinc-500", dark: "zinc-400" },
   { name: "fg-inverse", variable: "--color-fg-inverse", light: "#ffffff", dark: "zinc-950" },
   { name: "fg-muted", variable: "--color-fg-muted", light: "zinc-600", dark: "zinc-400" },
+  {
+    name: "fg-placeholder",
+    variable: "--color-fg-placeholder",
+    light: "zinc-600",
+    dark: "zinc-400",
+  },
+  { name: "fg-decorative", variable: "--color-fg-decorative", light: "zinc-400", dark: "zinc-600" },
+  { name: "focus", variable: "--color-focus", light: "= fg", dark: "= fg" },
 ];
 
 const borderColors: SemanticColor[] = [

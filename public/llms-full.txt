@@ -157,7 +157,9 @@ Docs: https://kaze-design-system.vercel.app/docs/components/number-field
 **Props**
 
 - `value?`: `number | null`
-  - Current numeric value
+  - Current numeric value (controlled)
+- `defaultValue?`: `number | null`
+  - Initial numeric value (uncontrolled)
 - `onChange?`: `(value: number | null) => void`
   - Change handler
 - `min?`: `number`
@@ -234,6 +236,8 @@ Docs: https://kaze-design-system.vercel.app/docs/components/checkbox
 
 - `label?`: `string`
   - チェックボックスのラベルテキスト
+- `error?`: `boolean`
+  - Marks the checkbox invalid (sets aria-invalid). `aria-invalid` passed directly is honored too.
 - `checked?`: `boolean`
   - Default: `false`
   - 選択状態
@@ -338,7 +342,7 @@ Docs: https://kaze-design-system.vercel.app/docs/components/form-field
   - Error message. When set, the child control receives aria-invalid
 - `required?`: `boolean`
   - Default: `false`
-  - Whether the field is required (appends * to label)
+  - Whether the field is required (appends * to label and passes required / aria-required to the control)
 - `maxLength?`: `number`
   - Maximum character count – renders a counter below the control
 - `currentLength?`: `number`
@@ -640,7 +644,7 @@ Docs: https://kaze-design-system.vercel.app/docs/components/tracker
 - `data`: `TrackerItem[]`
   - Array of status segments
 - `label?`: `string`
-  - Accessible label for the tracker (default: `${data.length} segments`)
+  - Accessible label for the tracker (default: `${data.length}区間`)
 
 **Usage**
 
@@ -780,6 +784,9 @@ Docs: https://kaze-design-system.vercel.app/docs/components/sparkline
 - `showArea?`: `boolean`
   - Default: `false`
   - 塗りつぶしエリアを表示
+- `label?`: `string`
+  - Accessible name. When given the sparkline is exposed as an image with this label;
+without it the SVG is decorative (aria-hidden), e.g. next to a visible KPI value.
 
 **Usage**
 
@@ -1064,7 +1071,7 @@ const [hidden, setHidden] = useState<string[]>([]);
 
 #### Alert
 
-ユーザーに重要な情報を伝えるアラートコンポーネント。情報・成功・警告・エラーの4バリアント。
+ユーザーに重要な情報を伝えるアラートコンポーネント。情報・成功・警告・エラーと中立の 5 バリアント。
 
 Docs: https://kaze-design-system.vercel.app/docs/components/alert
 
@@ -1111,7 +1118,7 @@ Docs: https://kaze-design-system.vercel.app/docs/components/progress
   - Default: `false`
   - パーセンテージ値を表示するかどうか
 - `color?`: `"default" | "positive" | "negative" | "warning" | "info"`
-  - Default: `"primary"`
+  - Default: `"default"`
   - バーの色
 - `size?`: `"sm" | "md" | "lg"`
   - Default: `"md"`
@@ -1229,22 +1236,43 @@ Docs: https://kaze-design-system.vercel.app/docs/components/toast
 **Props**
 
 - `children`: `ReactNode`
-  - トーストの内容
 - `closeLabel?`: `string`
   - Accessible label for the close button on each toast (default: "閉じる")
 - `containerLabel?`: `string`
   - Accessible label for the toast container (default: "通知")
-- `variant?`: `"success" | "error" | "warning" | "info"`
-  - トーストの種類
-- `title?`: `string`
+- `ToastProvider?`: `component`
+  - アプリのルートに 1 つ置く。closeLabel / containerLabel で文言を変更可能
+- `useToast()?`: `{ toast, dismiss }`
+  - toast(options) は表示して id を返す。dismiss(id) で閉じる
+- `toast.title?`: `string`
   - トーストのタイトル
+- `toast.description?`: `string`
+  - 本文（省略可）
+- `toast.variant?`: `"default" | "positive" | "negative" | "warning" | "info"`
+  - Default: `"default"`
+  - 種類。negative / warning は role=alert で読み上げられる
+- `toast.duration?`: `number`
+  - Default: `4000`
+  - 自動で閉じるまでのミリ秒。hover / focus 中は止まる
 
 **Usage**
 
 ```tsx
-<Toast variant="success" title="保存完了">
-  データが正常に保存されました。
-</Toast>
+// ルートで 1 回
+<ToastProvider>
+  <App />
+</ToastProvider>
+
+// 任意のコンポーネント内
+const { toast } = useToast();
+
+<Button
+  onClick={() =>
+    toast({ title: "保存完了", description: "データが正常に保存されました。", variant: "positive" })
+  }
+>
+  保存
+</Button>
 ```
 
 ### ナビゲーション
@@ -1289,6 +1317,8 @@ Docs: https://kaze-design-system.vercel.app/docs/components/sidebar
   - サイドバー上部に表示するロゴ要素
 - `footer?`: `ReactNode`
   - サイドバー下部のフッター要素
+- `navLabel?`: `string`
+  - Accessible name of the <nav> landmark (default: "メインナビゲーション")
 
 **Usage**
 
@@ -1368,6 +1398,8 @@ Docs: https://kaze-design-system.vercel.app/docs/components/pagination
   - Accessible label for the previous button (default: "前のページ")
 - `nextLabel?`: `string`
   - Accessible label for the next button (default: "次のページ")
+- `pageLabel?`: `(page: number) => string`
+  - Accessible label for each page button (default: `${page}ページ目`)
 
 **Usage**
 
@@ -1511,6 +1543,10 @@ Docs: https://kaze-design-system.vercel.app/docs/components/tooltip
   - Which side the tooltip appears on
 - `delay?`: `number`
   - Delay in ms before the tooltip shows
+- `className?`: `string`
+  - Extra class for the tooltip element
+- `style?`: `CSSProperties`
+  - Inline style for the tooltip element (position is controlled by the component)
 
 **Usage**
 
@@ -1568,6 +1604,8 @@ Docs: https://kaze-design-system.vercel.app/docs/components/dropdown
 
 - `children`: `ReactNode`
 - `open?`: `boolean`
+- `defaultOpen?`: `boolean`
+  - Initial open state for uncontrolled usage
 - `onOpenChange?`: `(open: boolean) => void`
 - `Dropdown?`: `コンポーネント`
   - ドロップダウンのルート要素
@@ -1617,6 +1655,8 @@ Docs: https://kaze-design-system.vercel.app/docs/components/command-palette
   - Accessible label for the dialog (default: "コマンドパレット")
 - `emptyMessage?`: `string`
   - Message shown when no commands match (default: "該当するコマンドが見つかりません")
+- `filter?`: `(command: Command, query: string) => boolean`
+  - Replace the default matcher (width / kana / case insensitive match on label and keywords)
 
 **Usage**
 
@@ -1731,13 +1771,15 @@ Docs: https://kaze-design-system.vercel.app/docs/components/search
 - `shortcut?`: `string`
   - キーボードショートカットの表示テキスト
 - `onSearch?`: `(value: string) => void`
-  - 検索テキスト変更時のコールバック
+  - Called when the user submits with Enter (not during IME composition). Use onChange for every keystroke.
 - `value?`: `string`
   - Controlled value
 - `onChange?`: `(value: string) => void`
   - Change handler for controlled mode
 - `aria-label?`: `string`
   - Accessible label for the search input
+- `inputProps?`: `Omit<InputHTMLAttributes<HTMLInputElement>, "value" | "onChange" | "type">`
+  - Extra props for the inner <input> (name, disabled, autoComplete, onBlur, ...). `...rest` stays on the wrapper.
 
 **Usage**
 

@@ -198,3 +198,10 @@ jobs:
           git commit -m "release: v${VERSION} [skip ci]"
           git tag "v${VERSION}"
           git push origin main --tags
+
+      - name: Create GitHub Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          gh release create "v${VERSION}" --title "v${VERSION}" --notes-file "$RUNNER_TEMP/changelog-entry.md"

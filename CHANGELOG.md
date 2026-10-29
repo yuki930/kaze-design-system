@@ -12,6 +12,10 @@ Commit prefix determines the next version bump on release:
 - `feat!:`, `fix!:`, `refactor!:` or a commit body containing `BREAKING CHANGE:` → **major** bump
 
 CHANGELOG entries and version bumps are generated automatically by `.github/workflows/publish.yml` on every push to `main` that touches library source files.
+
+### 0.x policy
+
+While the major version is 0, a **minor** release may include breaking changes (they are called out in the release notes with a migration note); a **patch** release never does. The public API will be frozen at 1.0.
 ## [0.8.1] - 2026-10-29
 
 ### Bug Fixes

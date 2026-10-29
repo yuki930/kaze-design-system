@@ -47,3 +47,10 @@ jobs:
 
       - name: Check package contents
         run: npm pack --dry-run
+
+      # llms.txt is generated from the component catalog; a stale copy means
+      # AI assistants get wrong props.
+      - name: Check llms.txt is up to date
+        run: |
+          npm run docs:llms
+          git diff --exit-code -- public/llms.txt public/llms-full.txt

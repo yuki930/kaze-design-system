@@ -1,0 +1,9 @@
+/* Kaze without the utility classes: tokens + reset + components.
+   Use this entry when you combine Kaze with Tailwind (or any other utility
+   framework) so class names like .flex / .hidden / .grid do not collide. */
+
+@layer kaze.tokens, kaze.reset, kaze.components;
+
+@import url("tokens.css");
+@import url("reset.css");
+@import url("components.css");

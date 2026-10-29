@@ -7,6 +7,11 @@ export interface SparklineProps extends Omit<SVGAttributes<SVGSVGElement>, "chil
   height?: number;
   color?: string;
   showArea?: boolean;
+  /**
+   * Accessible name. When given the sparkline is exposed as an image with this label;
+   * without it the SVG is decorative (aria-hidden), e.g. next to a visible KPI value.
+   */
+  label?: string;
 }
 
 export const Sparkline = forwardRef<SVGSVGElement, SparklineProps>(
@@ -17,6 +22,8 @@ export const Sparkline = forwardRef<SVGSVGElement, SparklineProps>(
       height = 24,
       color = "var(--chart-emerald)",
       showArea = false,
+      label,
+      "aria-label": ariaLabel,
       className,
       ...rest
     },
@@ -38,6 +45,8 @@ export const Sparkline = forwardRef<SVGSVGElement, SparklineProps>(
     const linePath = `M${points.join("L")}`;
     const areaPath = `${linePath}L${width - padding},${height - padding}L${padding},${height - padding}Z`;
 
+    const name = label ?? ariaLabel;
+
     return (
       <svg
         ref={ref}
@@ -45,7 +54,9 @@ export const Sparkline = forwardRef<SVGSVGElement, SparklineProps>(
         width={width}
         height={height}
         viewBox={`0 0 ${width} ${height}`}
-        aria-hidden="true"
+        role={name ? "img" : undefined}
+        aria-label={name}
+        aria-hidden={name ? undefined : "true"}
         {...rest}
       >
         {showArea && <path className="sparkline__area" d={areaPath} fill={color} />}

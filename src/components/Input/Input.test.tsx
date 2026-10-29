@@ -37,6 +37,18 @@ describe("Input", () => {
     expect(input).not.toHaveAttribute("aria-invalid");
   });
 
+  it("shows the error style when only aria-invalid is set (FormField injects it)", () => {
+    render(<Input aria-invalid="true" placeholder="aria入力" />);
+    const input = screen.getByPlaceholderText("aria入力");
+    expect(input).toHaveClass("input--error");
+    expect(input).toHaveAttribute("aria-invalid", "true");
+  });
+
+  it("does not show the error style for aria-invalid=false", () => {
+    render(<Input aria-invalid={false} placeholder="有効入力" />);
+    expect(screen.getByPlaceholderText("有効入力")).not.toHaveClass("input--error");
+  });
+
   it("forwards ref", () => {
     const ref = createRef<HTMLInputElement>();
     render(<Input ref={ref} placeholder="参照" />);

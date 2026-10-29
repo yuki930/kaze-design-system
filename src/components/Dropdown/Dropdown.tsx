@@ -7,23 +7,37 @@ import {
   useCallback,
   useEffect,
   useRef,
+  useId,
   forwardRef,
+  cloneElement,
+  isValidElement,
   type ReactNode,
+  type ReactElement,
   type HTMLAttributes,
   type KeyboardEvent as ReactKeyboardEvent,
+  type MouseEvent as ReactMouseEvent,
+  type Ref,
 } from "react";
 import { createPortal } from "react-dom";
 import { cn } from "@/lib/utils";
+import { composeEventHandlers } from "@/lib/composeEventHandlers";
+import { isComposingEvent, normalizeJa } from "@/lib/jaText";
 
 /* ── Types ─────────────────────────────────────────────────── */
 
 export interface DropdownProps {
   children: ReactNode;
   open?: boolean;
+  /** Initial open state for uncontrolled usage */
+  defaultOpen?: boolean;
   onOpenChange?: (open: boolean) => void;
 }
 
 export interface DropdownTriggerProps {
+  /**
+   * A single element (e.g. <Button>) receives the trigger props directly.
+   * Anything else is wrapped in a <button type="button">.
+   */
   children: ReactNode;
 }
 
@@ -41,13 +55,16 @@ export type DropdownSeparatorProps = Record<string, never>;
 
 /* ── Context ───────────────────────────────────────────────── */
 
+type InitialFocus = "first" | "last" | "menu";
+
 interface DropdownContextValue {
   open: boolean;
   setOpen: (open: boolean) => void;
+  openWith: (focus: InitialFocus) => void;
+  initialFocusRef: React.RefObject<InitialFocus>;
   triggerRef: React.RefObject<HTMLElement | null>;
-  highlightedIndex: number;
-  setHighlightedIndex: (index: number) => void;
-  resetItems: () => void;
+  triggerId: string;
+  menuId: string;
 }
 
 const DropdownContext = createContext<DropdownContextValue | null>(null);
@@ -60,16 +77,24 @@ function useDropdownContext(): DropdownContextValue {
   return context;
 }
 
+const ITEM_SELECTOR = '[data-dropdown-item]:not([data-disabled="true"])';
+
+function assignRef<T>(ref: Ref<T> | undefined, node: T | null) {
+  if (typeof ref === "function") ref(node);
+  else if (ref) (ref as React.MutableRefObject<T | null>).current = node;
+}
+
 /* ── Dropdown ──────────────────────────────────────────────── */
 
 export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
-  ({ children, open: controlledOpen, onOpenChange }, ref) => {
-    const [internalOpen, setInternalOpen] = useState(false);
+  ({ children, open: controlledOpen, defaultOpen = false, onOpenChange }, ref) => {
+    const [internalOpen, setInternalOpen] = useState(defaultOpen);
     const isControlled = controlledOpen !== undefined;
     const open = isControlled ? controlledOpen : internalOpen;
     const triggerRef = useRef<HTMLElement | null>(null);
-    const [highlightedIndex, setHighlightedIndex] = useState(-1);
-    const itemCountRef = useRef(0);
+    const initialFocusRef = useRef<InitialFocus>("menu");
+    const triggerId = useId();
+    const menuId = useId();
 
     const setOpen = useCallback(
       (value: boolean) => {
@@ -77,27 +102,21 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
           setInternalOpen(value);
         }
         onOpenChange?.(value);
-        if (!value) {
-          setHighlightedIndex(-1);
-        }
       },
       [isControlled, onOpenChange],
     );
 
-    const resetItems = useCallback(() => {
-      itemCountRef.current = 0;
-    }, []);
+    const openWith = useCallback(
+      (focus: InitialFocus) => {
+        initialFocusRef.current = focus;
+        setOpen(true);
+      },
+      [setOpen],
+    );
 
     return (
       <DropdownContext.Provider
-        value={{
-          open,
-          setOpen,
-          triggerRef,
-          highlightedIndex,
-          setHighlightedIndex,
-          resetItems,
-        }}
+        value={{ open, setOpen, openWith, initialFocusRef, triggerRef, triggerId, menuId }}
       >
         <div ref={ref} style={{ display: "contents" }}>
           {children}
@@ -111,42 +130,61 @@ Dropdown.displayName = "Dropdown";
 
 /* ── DropdownTrigger ───────────────────────────────────────── */
 
-export const DropdownTrigger = forwardRef<HTMLSpanElement, DropdownTriggerProps>(
+type TriggerChildProps = {
+  id?: string;
+  ref?: Ref<HTMLElement>;
+  onClick?: (e: ReactMouseEvent<HTMLElement>) => void;
+  onKeyDown?: (e: ReactKeyboardEvent<HTMLElement>) => void;
+};
+
+export const DropdownTrigger = forwardRef<HTMLElement, DropdownTriggerProps>(
   ({ children }, ref) => {
-    const { open, setOpen, triggerRef } = useDropdownContext();
+    const { open, setOpen, openWith, triggerRef, triggerId, menuId } = useDropdownContext();
 
-    const handleClick = useCallback(() => {
-      setOpen(!open);
-    }, [open, setOpen]);
+    const handleClick = (e: ReactMouseEvent<HTMLElement>) => {
+      if (open) {
+        setOpen(false);
+        return;
+      }
+      // detail === 0: click synthesized from Enter / Space, so land on the first item.
+      openWith(e.detail === 0 ? "first" : "menu");
+    };
 
-    const handleKeyDown = useCallback(
-      (e: ReactKeyboardEvent) => {
-        if (e.key === "ArrowDown" || e.key === "Enter" || e.key === " ") {
-          e.preventDefault();
-          setOpen(true);
-        }
-      },
-      [setOpen],
-    );
+    const handleKeyDown = (e: ReactKeyboardEvent<HTMLElement>) => {
+      if (e.key === "ArrowDown") {
+        e.preventDefault();
+        openWith("first");
+      } else if (e.key === "ArrowUp") {
+        e.preventDefault();
+        openWith("last");
+      }
+    };
+
+    const element = isValidElement(children) ? (children as ReactElement<TriggerChildProps>) : null;
+    const childProps = element?.props;
+
+    const setRef = (node: HTMLElement | null) => {
+      triggerRef.current = node;
+      assignRef(ref, node);
+      assignRef(childProps?.ref, node);
+    };
+
+    const triggerProps = {
+      ref: setRef,
+      id: childProps?.id ?? triggerId,
+      "aria-haspopup": "menu" as const,
+      "aria-expanded": open,
+      "aria-controls": open ? menuId : undefined,
+      onClick: composeEventHandlers(childProps?.onClick, handleClick),
+      onKeyDown: composeEventHandlers(childProps?.onKeyDown, handleKeyDown),
+    };
+
+    if (element) return cloneElement(element, triggerProps);
 
     return (
-      // biome-ignore lint/a11y/useSemanticElements: the trigger wraps arbitrary children (often a <Button>), and nesting a <button> inside a <button> is invalid HTML; the span gets role, tabIndex and keyboard handling instead.
-      <span
-        ref={(node) => {
-          (triggerRef as React.MutableRefObject<HTMLElement | null>).current = node;
-          if (typeof ref === "function") ref(node);
-          else if (ref) ref.current = node;
-        }}
-        role="button"
-        tabIndex={0}
-        aria-expanded={open ? "true" : "false"}
-        aria-haspopup="menu"
-        onClick={handleClick}
-        onKeyDown={handleKeyDown}
-        style={{ display: "inline-flex" }}
-      >
+      <button type="button" {...triggerProps}>
         {children}
-      </span>
+      </button>
     );
   },
 );
@@ -156,40 +194,36 @@ DropdownTrigger.displayName = "DropdownTrigger";
 /* ── DropdownMenu ──────────────────────────────────────────── */
 
 export const DropdownMenu = forwardRef<HTMLDivElement, DropdownMenuProps>(
-  ({ children, className, ...rest }, ref) => {
-    const { open, setOpen, triggerRef, highlightedIndex, setHighlightedIndex, resetItems } =
-      useDropdownContext();
+  ({ children, className, style, onKeyDown, ...rest }, ref) => {
+    const { open, setOpen, triggerRef, initialFocusRef, triggerId, menuId } = useDropdownContext();
     const menuRef = useRef<HTMLDivElement | null>(null);
     const [position, setPosition] = useState<{ top: number; left: number }>({
       top: 0,
       left: 0,
     });
-    const itemsRef = useRef<HTMLElement[]>([]);
+    const typeaheadRef = useRef({ buffer: "", timer: 0 });
 
-    // Reset item registration on each render cycle when open
-    useEffect(() => {
-      if (open) {
-        resetItems();
-        itemsRef.current = [];
-      }
-    }, [open, resetItems]);
-
-    // Position the menu below the trigger
+    // The menu is position: fixed, so viewport coordinates are used as-is (no scroll offset).
     useEffect(() => {
       if (!open || !triggerRef.current) return;
       const rect = triggerRef.current.getBoundingClientRect();
-      setPosition({
-        top: rect.bottom + 4 + window.scrollY,
-        left: rect.left + window.scrollX,
-      });
+      setPosition({ top: rect.bottom + 4, left: rect.left });
     }, [open, triggerRef]);
 
-    // Focus the menu when opened
+    // Move real focus into the menu when opened (menu items are roving-focus targets).
     useEffect(() => {
-      if (open && menuRef.current) {
-        menuRef.current.focus();
-      }
-    }, [open]);
+      if (!open || !menuRef.current) return;
+      const items = menuRef.current.querySelectorAll<HTMLElement>(ITEM_SELECTOR);
+      const mode = initialFocusRef.current;
+      const target =
+        mode === "first" ? items[0] : mode === "last" ? items[items.length - 1] : undefined;
+      (target ?? menuRef.current).focus({ preventScroll: true });
+    }, [open, initialFocusRef]);
+
+    useEffect(() => {
+      const state = typeaheadRef.current;
+      return () => window.clearTimeout(state.timer);
+    }, []);
 
     // Close on outside click
     useEffect(() => {
@@ -208,64 +242,75 @@ export const DropdownMenu = forwardRef<HTMLDivElement, DropdownMenuProps>(
       return () => document.removeEventListener("mousedown", handleClickOutside);
     }, [open, setOpen, triggerRef]);
 
-    // Keyboard navigation
-    const handleKeyDown = useCallback(
-      (e: ReactKeyboardEvent) => {
-        const items = menuRef.current?.querySelectorAll(
-          `[data-dropdown-item]:not([data-disabled="true"])`,
-        );
-        if (!items || items.length === 0) return;
+    const handleKeyDown = (e: ReactKeyboardEvent<HTMLDivElement>) => {
+      if (isComposingEvent(e)) return;
+      const items = Array.from(menuRef.current?.querySelectorAll<HTMLElement>(ITEM_SELECTOR) ?? []);
+      const current = items.indexOf(document.activeElement as HTMLElement);
+      const focusAt = (index: number) => items[index]?.focus({ preventScroll: false });
 
-        const count = items.length;
+      switch (e.key) {
+        case "ArrowDown":
+          e.preventDefault();
+          focusAt(current < items.length - 1 ? current + 1 : 0);
+          return;
+        case "ArrowUp":
+          e.preventDefault();
+          focusAt(current > 0 ? current - 1 : items.length - 1);
+          return;
+        case "Home":
+          e.preventDefault();
+          focusAt(0);
+          return;
+        case "End":
+          e.preventDefault();
+          focusAt(items.length - 1);
+          return;
+        case "Escape":
+          e.preventDefault();
+          setOpen(false);
+          triggerRef.current?.focus();
+          return;
+        case "Tab":
+          // Focus the trigger first so the default Tab action continues from there.
+          triggerRef.current?.focus();
+          setOpen(false);
+          return;
+      }
 
-        switch (e.key) {
-          case "ArrowDown": {
-            e.preventDefault();
-            const next = highlightedIndex < count - 1 ? highlightedIndex + 1 : 0;
-            setHighlightedIndex(next);
-            break;
-          }
-          case "ArrowUp": {
-            e.preventDefault();
-            const prev = highlightedIndex > 0 ? highlightedIndex - 1 : count - 1;
-            setHighlightedIndex(prev);
-            break;
-          }
-          case "Enter":
-          case " ": {
-            e.preventDefault();
-            if (highlightedIndex >= 0 && highlightedIndex < count) {
-              (items[highlightedIndex] as HTMLElement).click();
-            }
-            break;
-          }
-          case "Escape": {
-            e.preventDefault();
-            setOpen(false);
-            triggerRef.current?.focus();
-            break;
-          }
-        }
-      },
-      [highlightedIndex, setHighlightedIndex, setOpen, triggerRef],
-    );
+      // Typeahead: printable single characters jump to the next matching item.
+      if (e.key.length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey) {
+        const state = typeaheadRef.current;
+        if (e.key === " " && state.buffer === "") return;
+        e.preventDefault();
+        window.clearTimeout(state.timer);
+        state.buffer += e.key;
+        state.timer = window.setTimeout(() => {
+          state.buffer = "";
+        }, 500);
+        const query = normalizeJa(state.buffer);
+        const ordered = [...items.slice(current + 1), ...items.slice(0, current + 1)];
+        const match = ordered.find((item) => normalizeJa(item.textContent ?? "").startsWith(query));
+        match?.focus();
+      }
+    };
 
     if (!open) return null;
     if (typeof document === "undefined") return null;
 
     return createPortal(
       <div
+        {...rest}
         ref={(node) => {
           menuRef.current = node;
-          if (typeof ref === "function") ref(node);
-          else if (ref) ref.current = node;
+          assignRef(ref, node);
         }}
+        id={menuId}
         role="menu"
         tabIndex={-1}
+        aria-labelledby={rest["aria-labelledby"] ?? triggerId}
         className={cn("dropdown__menu", className)}
-        style={{ top: position.top, left: position.left }}
-        onKeyDown={handleKeyDown}
-        {...rest}
+        style={{ ...style, top: position.top, left: position.left }}
+        onKeyDown={composeEventHandlers(onKeyDown, handleKeyDown)}
       >
         {children}
       </div>,
@@ -279,37 +324,42 @@ DropdownMenu.displayName = "DropdownMenu";
 /* ── DropdownItem ──────────────────────────────────────────── */
 
 export const DropdownItem = forwardRef<HTMLDivElement, DropdownItemProps>(
-  ({ onSelect, disabled, children, className, ...rest }, ref) => {
-    const { setOpen } = useDropdownContext();
+  ({ onSelect, disabled, children, className, onClick, onKeyDown, onMouseEnter, ...rest }, ref) => {
+    const { setOpen, triggerRef } = useDropdownContext();
 
-    const handleClick = useCallback(() => {
+    const select = () => {
       if (disabled) return;
       onSelect?.();
       setOpen(false);
-    }, [disabled, onSelect, setOpen]);
+      triggerRef.current?.focus();
+    };
 
-    const handleKeyDown = useCallback(
-      (e: ReactKeyboardEvent) => {
-        if (e.key === "Enter" || e.key === " ") {
-          e.preventDefault();
-          handleClick();
-        }
-      },
-      [handleClick],
-    );
+    const handleKeyDown = (e: ReactKeyboardEvent<HTMLDivElement>) => {
+      if (isComposingEvent(e)) return;
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        select();
+      }
+    };
+
+    // Keep hover and keyboard highlight in sync: the hovered item takes real focus.
+    const handleMouseEnter = (e: ReactMouseEvent<HTMLDivElement>) => {
+      if (!disabled) e.currentTarget.focus({ preventScroll: true });
+    };
 
     return (
       <div
+        {...rest}
         ref={ref}
         role="menuitem"
         tabIndex={disabled ? undefined : -1}
         data-dropdown-item=""
         data-disabled={disabled || undefined}
         className={cn("dropdown__item", className)}
-        onClick={handleClick}
-        onKeyDown={handleKeyDown}
+        onClick={composeEventHandlers(onClick, select)}
+        onKeyDown={composeEventHandlers(onKeyDown, handleKeyDown)}
+        onMouseEnter={composeEventHandlers(onMouseEnter, handleMouseEnter)}
         aria-disabled={disabled || undefined}
-        {...rest}
       >
         {children}
       </div>

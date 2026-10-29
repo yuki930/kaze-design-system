@@ -1,5 +1,6 @@
 import { forwardRef, type InputHTMLAttributes } from "react";
 import { cn } from "@/lib/utils";
+import { isAriaInvalid } from "../_internal/aria";
 
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   error?: boolean;
@@ -8,12 +9,14 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ error, className, ...rest }, ref) => {
+  ({ error, className, "aria-invalid": ariaInvalid, ...rest }, ref) => {
+    // `aria-invalid` alone (e.g. injected by FormField) is enough to show the error state.
+    const invalid = error || isAriaInvalid(ariaInvalid);
     return (
       <input
         ref={ref}
-        aria-invalid={error ? "true" : undefined}
-        className={cn("input", error && "input--error", className)}
+        aria-invalid={error ? "true" : ariaInvalid}
+        className={cn("input", invalid && "input--error", className)}
         {...rest}
       />
     );

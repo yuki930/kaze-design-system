@@ -46,4 +46,16 @@ describe("Checkbox", () => {
     const checkbox = screen.getByRole("checkbox");
     expect(checkbox).not.toBeChecked();
   });
+
+  it("sets aria-invalid from the error prop without leaking it to the DOM", () => {
+    render(<Checkbox label="同意" error />);
+    const checkbox = screen.getByRole("checkbox");
+    expect(checkbox).toHaveAttribute("aria-invalid", "true");
+    expect(checkbox).not.toHaveAttribute("error");
+  });
+
+  it("passes aria-invalid through when given directly", () => {
+    render(<Checkbox label="同意" aria-invalid="true" />);
+    expect(screen.getByRole("checkbox")).toHaveAttribute("aria-invalid", "true");
+  });
 });

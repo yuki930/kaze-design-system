@@ -371,6 +371,7 @@ export const LineChart = forwardRef<HTMLDivElement, LineChartProps>(
           {activeRow && activeX !== null && (
             <div
               className="chart-tooltip line-chart__tooltip"
+              role="status"
               style={{
                 left: activeX,
                 top: PAD_TOP,

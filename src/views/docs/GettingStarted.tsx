@@ -1,4 +1,5 @@
 import styles from "./docs.module.css";
+import { categories } from "./ComponentsOverview";
 import { Atom, FileCode2, Package, Server, Paintbrush } from "lucide-react";
 
 export function GettingStarted() {
@@ -34,7 +35,9 @@ export function GettingStarted() {
         </li>
         <li className={styles.checkListItem}>
           <Paintbrush size={18} className={styles.checkListIcon} />
-          <span>Tailwind CSS との併用可（BEM スコープのため競合なし）</span>
+          <span>
+            Tailwind CSS と併用可（レイヤーは kaze.* に分離。併用時は css/core を読み込む）
+          </span>
         </li>
       </ul>
 
@@ -125,43 +128,20 @@ function App() {
       {/* Available Components */}
       <h2 className={styles.sectionTitle}>収録コンポーネント</h2>
       <p>
-        Kaze には 9 カテゴリ・69 個のプロダクション対応コンポーネントが含まれています。 詳細は{" "}
+        Kaze には {categories.length} カテゴリ・
+        {categories.reduce((n, c) => n + c.components.length, 0)}{" "}
+        個のプロダクション対応コンポーネントが含まれています。 詳細は{" "}
         <a href="/docs/components" style={{ color: "var(--color-info-fg)" }}>
           コンポーネント一覧
         </a>
         をご覧ください。
       </p>
       <div className={styles.preview}>
-        <p>
-          <strong>フォーム</strong>: Button, FAB, Input, NumberField, Select, Checkbox, Radio,
-          Textarea, Switch, FormField
-        </p>
-        <p>
-          <strong>データ表示</strong>: Card, Badge, Table, Metric, Avatar, BarList, Tracker,
-          Watermark
-        </p>
-        <p>
-          <strong>チャート</strong>: BarChart, DonutChart, Sparkline
-        </p>
-        <p>
-          <strong>フィードバック</strong>: Alert, Progress, Meter, Skeleton, EmptyState, Toast
-        </p>
-        <p>
-          <strong>ナビゲーション</strong>: Tabs, Sidebar, TopBar, Breadcrumb, Pagination, Stepper
-        </p>
-        <p>
-          <strong>オーバーレイ</strong>: Dialog, Tooltip, Dropdown, CommandPalette
-        </p>
-        <p>
-          <strong>レイアウト</strong>: AppLayout, Divider, Grid, Search, Logo, Icon, Heading, Text
-        </p>
-        <p>
-          <strong>リスト</strong>: List, DescriptionList, Timeline
-        </p>
-        <p>
-          <strong>マーケティング</strong>: Navbar, Hero, Section, SplitSection, FeatureGrid, Stats,
-          Pricing, Testimonial, FAQ, CTABanner, LPFooter
-        </p>
+        {categories.map((category) => (
+          <p key={category.title}>
+            <strong>{category.title}</strong>: {category.components.map((c) => c.name).join(", ")}
+          </p>
+        ))}
       </div>
 
       {/* Design Principles */}
@@ -174,15 +154,15 @@ function App() {
           実現しています。アクセントカラーは意図的に最小限に抑え、データそのものを主役にします。
         </p>
         <p>
-          <strong>日本語に最適化した 15px ベースフォント</strong>: ベースフォントサイズ 15px
-          は、データ密度の高いレイアウトで日本語と欧文が混在するテキストを
-          読みやすくするために選定しています。行間やスペーシングも CJK
-          文字の描画に合わせて調整済みです。
+          <strong>日本語に最適化した組版</strong>: ルートのフォントサイズはブラウザ既定（通常 16px）
+          を尊重し、本文の行間 1.75、禁則処理（line-break:
+          strict）、約物の詰め（text-spacing-trim）、 文節単位の改行（word-break:
+          auto-phrase）を既定で適用しています。
         </p>
         <p>
-          <strong>Montserrat + Noto Sans JP</strong>: 見出しや UI ラベルには Montserrat
-          を使い、クリーンで幾何学的な印象を与えます。本文や日本語コンテンツには Noto Sans JP
-          を採用し、かな・漢字・ラテン文字のすべてで一貫した表示を確保しています。
+          <strong>Noto Sans JP + Montserrat</strong>: 本文と UI は Noto Sans JP を主体にし、
+          かな・漢字・欧文の字面と太さをそろえています。見出しと大きな数値（Metric、Stats、料金）だけ
+          Montserrat を重ね、プロポーショナルかな（palt）もこの表示用テキストに限って適用します。
         </p>
       </div>
     </div>

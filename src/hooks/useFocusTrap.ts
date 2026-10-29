@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, type RefObject } from "react";
+import { useEffect, type RefObject } from "react";
 
 const FOCUSABLE_SELECTOR = [
   "a[href]",
@@ -18,47 +18,43 @@ const FOCUSABLE_SELECTOR = [
  * - Auto-focuses the first focusable element when activated.
  */
 export function useFocusTrap(containerRef: RefObject<HTMLElement | null>, active: boolean): void {
-  // Store the element that had focus before the trap was activated
-  const previousFocusRef = useRef<HTMLElement | null>(null);
-
+  // Callers must pass `active` that flips to true only once the container is mounted
+  // (e.g. Dialog uses `visible && open`), otherwise containerRef.current is still null here.
   useEffect(() => {
-    if (!active || !containerRef.current) return;
-
-    // Remember the currently focused element so we can restore later
-    previousFocusRef.current = document.activeElement as HTMLElement | null;
-
     const container = containerRef.current;
+    if (!active || !container) return;
 
-    // Auto-focus the first focusable element
-    const focusableElements = container.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR);
-    const firstFocusable = focusableElements[0];
+    const previouslyFocused = document.activeElement as HTMLElement | null;
+
+    const firstFocusable = container.querySelector<HTMLElement>(FOCUSABLE_SELECTOR);
     if (firstFocusable) {
       firstFocusable.focus();
+    } else {
+      if (!container.hasAttribute("tabindex")) container.setAttribute("tabindex", "-1");
+      container.focus();
     }
 
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key !== "Tab") return;
 
       const focusable = container.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR);
-      if (focusable.length === 0) return;
-
       const first = focusable[0];
       const last = focusable[focusable.length - 1];
+      if (!first || !last) {
+        e.preventDefault();
+        container.focus();
+        return;
+      }
 
-      if (!first || !last) return;
-
+      const current = document.activeElement;
       if (e.shiftKey) {
-        // Shift+Tab: if on first element, wrap to last
-        if (document.activeElement === first) {
+        if (current === first || current === container) {
           e.preventDefault();
           last.focus();
         }
-      } else {
-        // Tab: if on last element, wrap to first
-        if (document.activeElement === last) {
-          e.preventDefault();
-          first.focus();
-        }
+      } else if (current === last) {
+        e.preventDefault();
+        first.focus();
       }
     };
 
@@ -66,18 +62,19 @@ export function useFocusTrap(containerRef: RefObject<HTMLElement | null>, active
 
     return () => {
       container.removeEventListener("keydown", handleKeyDown);
+      if (previouslyFocused?.isConnected) {
+        previouslyFocused.focus();
+        // focus() is a no-op while the opener is still inert (or hidden); retry
+        // once the surrounding effects have cleaned up.
+        if (
+          document.activeElement !== previouslyFocused &&
+          typeof requestAnimationFrame === "function"
+        ) {
+          requestAnimationFrame(() => {
+            if (previouslyFocused.isConnected) previouslyFocused.focus();
+          });
+        }
+      }
     };
   }, [active, containerRef]);
-
-  // Restore focus when trap is deactivated
-  useEffect(() => {
-    if (!active && previousFocusRef.current) {
-      const elementToRestore = previousFocusRef.current;
-      previousFocusRef.current = null;
-      // Use requestAnimationFrame to ensure the DOM has settled
-      requestAnimationFrame(() => {
-        elementToRestore?.focus();
-      });
-    }
-  }, [active]);
 }

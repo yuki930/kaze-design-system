@@ -1,0 +1,92 @@
+/* Styles for the docs / sample site only. Not shipped in the npm package. */
+
+.blog-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-10);
+}
+
+@media (min-width: 1024px) {
+  .blog-layout { grid-template-columns: 1fr 20rem; }
+}
+
+.settings-profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-6);
+}
+
+.settings-plan-row {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
+  background: var(--color-bg-secondary);
+  margin-bottom: var(--space-6);
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.settings-danger-row {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.settings-danger-row .btn {
+  align-self: flex-start;
+  margin-left: 0;
+}
+
+@media (min-width: 640px) {
+  .settings-profile { flex-direction: row; align-items: flex-start; }
+
+  .settings-plan-row {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+  }
+
+  .settings-danger-row {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .settings-danger-row .btn {
+    align-self: auto;
+    margin-left: auto;
+  }
+}
+
+@media (min-width: 640px) {
+  .feature-grid--cols-4 { grid-template-columns: repeat(2, 1fr); }
+  .stats { grid-template-columns: repeat(2, 1fr); }
+  .lp-footer__nav { grid-template-columns: repeat(2, 1fr); }
+  .testimonial-grid { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+}
+
+@media (min-width: 1024px) {
+  .stats { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
+}
+
+@media (min-width: 768px) {
+  .lp-footer__nav { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (min-width: 1024px) {
+  .feature-grid--cols-4 { grid-template-columns: repeat(4, 1fr); }
+}
+
+/* ================================================================
+   Article / Prose
+   ================================================================ */
+

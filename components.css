@@ -1,3 +1,8 @@
+/* Wrapped in @layer kaze.components so the file stays layered when imported on
+   its own (e.g. `import "kaze-design-system/css/components"`). The `kaze` parent
+   layer keeps these rules out of Tailwind's `components` / `utilities` layers.
+   Unlayered author styles always win over these rules. */
+@layer kaze.components {
 /* ============================================================
    Kaze (風) Design System — Components
    Minimal, composable UI components
@@ -303,19 +308,33 @@
 }
 
 .input::placeholder {
-  color: var(--color-fg-tertiary);
+  color: var(--color-fg-placeholder);
 }
 
-.input:focus {
+.input:focus-visible {
   border-color: var(--color-border-strong);
-  box-shadow: 0 0 0 var(--ring-width) var(--ring-color);
+  outline: var(--ring-width) solid var(--ring-color);
+  outline-offset: var(--ring-offset);
+}
+
+/* FormField injects aria-invalid (not `error`), so style from the attribute too */
+.input[aria-invalid="true"],
+.select[aria-invalid="true"],
+.textarea[aria-invalid="true"] {
+  border-color: var(--color-negative);
+}
+
+.input[aria-invalid="true"]:focus-visible,
+.select[aria-invalid="true"]:focus-visible,
+.textarea[aria-invalid="true"]:focus-visible {
+  outline-color: var(--color-negative);
 }
 
 .input--error {
   border-color: var(--color-negative);
 }
-.input--error:focus {
-  box-shadow: 0 0 0 var(--ring-width) var(--color-error-ring);
+.input--error:focus-visible {
+  outline-color: var(--color-negative);
 }
 
 /* ── Select ──────────────────────────────────────────────── */
@@ -340,9 +359,10 @@
               box-shadow var(--duration-normal) var(--ease-default);
 }
 
-.select:focus {
+.select:focus-visible {
   border-color: var(--color-border-strong);
-  box-shadow: 0 0 0 var(--ring-width) var(--ring-color);
+  outline: var(--ring-width) solid var(--ring-color);
+  outline-offset: var(--ring-offset);
 }
 
 [data-theme="dark"] .select {
@@ -372,9 +392,10 @@
               box-shadow var(--duration-normal) var(--ease-default);
 }
 
-.textarea:focus {
+.textarea:focus-visible {
   border-color: var(--color-border-strong);
-  box-shadow: 0 0 0 var(--ring-width) var(--ring-color);
+  outline: var(--ring-width) solid var(--ring-color);
+  outline-offset: var(--ring-offset);
 }
 
 /* ── Label ───────────────────────────────────────────────── */
@@ -439,6 +460,10 @@
   inset: -10px;
 }
 
+.checkbox__input[aria-invalid="true"] {
+  border-color: var(--color-negative);
+}
+
 .checkbox__input:checked {
   background-color: var(--color-primary);
   border-color: var(--color-primary);
@@ -501,6 +526,10 @@
   border: 2px solid var(--color-border);
   flex-shrink: 0;
   transition: border-color var(--duration-normal) var(--ease-default);
+}
+
+.radio__input[aria-invalid="true"] + .radio__circle {
+  border-color: var(--color-negative);
 }
 
 .radio__input:checked + .radio__circle {
@@ -571,22 +600,22 @@
 
 .badge--positive {
   background-color: var(--color-positive-light);
-  color: var(--color-positive-fg);
+  color: var(--color-positive-strong);
 }
 
 .badge--negative {
   background-color: var(--color-negative-light);
-  color: var(--color-negative-fg);
+  color: var(--color-negative-strong);
 }
 
 .badge--warning {
   background-color: var(--color-warning-light);
-  color: var(--color-warning-fg);
+  color: var(--color-warning-strong);
 }
 
 .badge--info {
   background-color: var(--color-info-light);
-  color: var(--color-info-fg);
+  color: var(--color-info-strong);
 }
 
 /* Solid (inverted) badges */
@@ -595,20 +624,20 @@
   color: var(--color-bg);
 }
 .badge--solid.badge--positive {
-  background-color: var(--color-positive);
-  color: var(--color-fg-inverse);
+  background-color: var(--color-positive-strong);
+  color: var(--color-primary-fg);
 }
 .badge--solid.badge--negative {
-  background-color: var(--color-negative);
-  color: var(--color-fg-inverse);
+  background-color: var(--color-negative-strong);
+  color: var(--color-primary-fg);
 }
 .badge--solid.badge--warning {
-  background-color: var(--color-warning);
-  color: var(--color-fg-inverse);
+  background-color: var(--color-warning-strong);
+  color: var(--color-primary-fg);
 }
 .badge--solid.badge--info {
-  background-color: var(--color-info);
-  color: var(--color-fg-inverse);
+  background-color: var(--color-info-strong);
+  color: var(--color-primary-fg);
 }
 
 /* Badge with dot indicator */
@@ -843,6 +872,8 @@
 }
 
 .metric__value {
+  font-family: var(--font-display);
+  font-feature-settings: var(--font-feature-display);
   font-size: var(--font-size-2xl);
   font-weight: var(--font-weight-semibold);
   color: var(--color-fg);
@@ -875,9 +906,19 @@
   color: var(--color-fg-inverse);
   font-size: var(--font-size-xs);
   border-radius: var(--radius-md);
-  pointer-events: none;
+  pointer-events: auto; /* hoverable (WCAG 1.4.13) */
+  white-space: normal;
+  max-width: 20em;
+  overflow-wrap: anywhere;
+}
+
+.tooltip[data-state="open"] {
   animation: kaze-fade-in var(--duration-fast) var(--ease-out);
-  white-space: nowrap;
+}
+
+/* Kept in the DOM so aria-describedby resolves before the tooltip opens */
+.tooltip[hidden] {
+  display: none;
 }
 
 /* ── Search Bar ──────────────────────────────────────────── */
@@ -912,12 +953,19 @@
   border: none;
   background: none;
   outline: none;
+  appearance: none;
   font-size: inherit;
   color: var(--color-fg);
 }
 
+/* type="search": hide the UA clear button, Search renders its own affordances */
+.search__input::-webkit-search-decoration,
+.search__input::-webkit-search-cancel-button {
+  appearance: none;
+}
+
 .search__input::placeholder {
-  color: var(--color-fg-tertiary);
+  color: var(--color-fg-placeholder);
 }
 
 .search__kbd {
@@ -996,6 +1044,11 @@
     opacity: 0;
     transform: scale(0.95) translateY(8px);
   }
+}
+
+/* The dialog itself receives focus when it has no focusable children */
+.dialog:focus {
+  outline: none;
 }
 
 .dialog {
@@ -1104,7 +1157,7 @@
 }
 
 .form-field__label--required::after {
-  content: " *";
+  content: " *" / "";  /* decorative: the control carries required / aria-required */
   color: var(--color-negative-fg);
 }
 
@@ -1372,10 +1425,13 @@
 }
 
 .hero__title {
+  font-family: var(--font-display);
+  font-feature-settings: var(--font-feature-display);
   font-size: var(--font-size-3xl);
   font-weight: var(--font-weight-bold);
-  letter-spacing: var(--letter-spacing-tight);
-  line-height: var(--line-height-tight);
+  letter-spacing: 0;
+  line-height: 1.35;
+  text-wrap: balance;
   margin: 0 0 var(--space-4);
 }
 
@@ -1451,10 +1507,12 @@
 }
 
 .stat__value {
+  font-family: var(--font-display);
+  font-feature-settings: var(--font-feature-display);
   font-size: var(--font-size-4xl);
   font-weight: var(--font-weight-bold);
   letter-spacing: var(--letter-spacing-tight);
-  line-height: 1;
+  line-height: 1.2;
 }
 
 .stat__label {
@@ -1526,10 +1584,12 @@
 }
 
 .pricing-card__amount {
+  font-family: var(--font-display);
+  font-feature-settings: var(--font-feature-display);
   font-size: var(--font-size-4xl);
   font-weight: var(--font-weight-bold);
   letter-spacing: var(--letter-spacing-tight);
-  line-height: 1;
+  line-height: 1.2;
 }
 
 .pricing-card__period {
@@ -1631,6 +1691,12 @@
   border-bottom: 1px solid var(--color-border);
 }
 
+/* The question button is wrapped in a heading for document structure */
+.faq__heading {
+  margin: 0;
+  font: inherit;
+}
+
 .faq__trigger {
   width: 100%;
   display: flex;
@@ -1697,9 +1763,11 @@
 }
 
 .cta-banner__title {
+  font-family: var(--font-display);
+  font-feature-settings: var(--font-feature-display);
   font-size: var(--font-size-xl);
   font-weight: var(--font-weight-bold);
-  letter-spacing: var(--letter-spacing-tight);
+  letter-spacing: 0;
   margin: 0 0 var(--space-3);
 }
 
@@ -1856,109 +1924,9 @@
   .donut-chart__svg { margin: 0; }
 }
 
-/* ── Sample Pages Responsive ─────────────────────────────── */
-
-.blog-layout {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-10);
-}
-
-.showcase-hero {
-  padding: var(--space-12) var(--space-4) var(--space-8);
-}
-
-@media (min-width: 768px) {
-  .showcase-hero { padding: var(--space-24) var(--space-6) var(--space-16); }
-}
-
-@media (min-width: 1024px) {
-  .blog-layout { grid-template-columns: 1fr 20rem; }
-}
-
-.settings-profile {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-6);
-}
-
-.settings-plan-row {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: var(--space-4);
-  border-radius: var(--radius-lg);
-  background: var(--color-bg-secondary);
-  margin-bottom: var(--space-6);
-  gap: var(--space-4);
-  flex-wrap: wrap;
-}
-
-.settings-danger-row {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: var(--space-4);
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--color-border);
-  gap: var(--space-4);
-  flex-wrap: wrap;
-}
-
-.settings-danger-row .btn {
-  align-self: flex-start;
-  margin-left: 0;
-}
-
-@media (min-width: 640px) {
-  .settings-profile { flex-direction: row; align-items: flex-start; }
-
-  .settings-plan-row {
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--space-3);
-  }
-
-  .settings-danger-row {
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .settings-danger-row .btn {
-    align-self: auto;
-    margin-left: auto;
-  }
-}
-
-@media (min-width: 640px) {
-  .feature-grid--cols-4 { grid-template-columns: repeat(2, 1fr); }
-  .stats { grid-template-columns: repeat(2, 1fr); }
-  .lp-footer__nav { grid-template-columns: repeat(2, 1fr); }
-  .testimonial-grid { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
-}
-
-@media (min-width: 1024px) {
-  .stats { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
-}
-
-@media (min-width: 768px) {
-  .lp-footer__nav { grid-template-columns: repeat(3, 1fr); }
-}
-
-@media (min-width: 1024px) {
-  .feature-grid--cols-4 { grid-template-columns: repeat(4, 1fr); }
-}
-
-/* ================================================================
-   Article / Prose
-   ================================================================ */
-
 /* ── Article Layout ──────────────────────────────────────── */
 .article {
-  max-width: 720px;
+  max-width: var(--measure-ja);
   margin: 0 auto;
   padding: 0 var(--space-6);
 }
@@ -1988,10 +1956,12 @@
 }
 
 .article__title {
+  font-family: var(--font-display);
+  font-feature-settings: var(--font-feature-display);
   font-size: var(--font-size-2xl);
   font-weight: var(--font-weight-bold);
-  letter-spacing: -0.03em;
-  line-height: var(--line-height-tight);
+  letter-spacing: 0;
+  line-height: 1.4;
   margin: 0 0 var(--space-5);
 }
 
@@ -2094,7 +2064,7 @@
 }
 
 .prose li::marker {
-  color: var(--color-fg-tertiary);
+  color: var(--color-fg-decorative);
 }
 
 .prose code {
@@ -2449,18 +2419,18 @@
    ================================================================ */
 
 .heading {
-  font-family: var(--font-sans);
+  font-family: var(--font-display);
+  font-feature-settings: var(--font-feature-display);
   font-weight: var(--font-weight-bold);
   color: var(--color-fg);
   line-height: 1.5;  /* CJK headings need ≥1.5 for proper readability */
-  letter-spacing: var(--letter-spacing-tight);
+  letter-spacing: 0;  /* negative tracking collides kana; palt already tightens */
   margin: 0;
 }
 
 .heading--1 {
   font-size: var(--font-size-2xl);
-  letter-spacing: -0.03em;
-  line-height: 1.3;
+  line-height: 1.4;
 }
 
 .heading--2 {
@@ -2902,6 +2872,7 @@
 .chart-legend__item {
   display: inline-flex;
   align-items: center;
+  min-height: 24px;
   gap: var(--space-1-5);
   padding: 0;
   background: none;
@@ -2922,7 +2893,8 @@ button.chart-legend__item:hover {
 
 button.chart-legend__item:focus-visible {
   outline: none;
-  box-shadow: 0 0 0 var(--ring-width) var(--ring-color);
+  outline: var(--ring-width) solid var(--ring-color);
+  outline-offset: var(--ring-offset);
 }
 
 .chart-legend__item--hidden {
@@ -3080,7 +3052,8 @@ button.chart-legend__item:focus-visible {
 
 .column-chart__figure:focus-visible {
   outline: none;
-  box-shadow: 0 0 0 var(--ring-width) var(--ring-color);
+  outline: var(--ring-width) solid var(--ring-color);
+  outline-offset: var(--ring-offset);
 }
 
 .column-chart__plot {
@@ -3478,7 +3451,7 @@ button.chart-legend__item:focus-visible {
 
 .breadcrumb__item + .breadcrumb__item::before {
   content: "/";
-  color: var(--color-fg-tertiary);
+  color: var(--color-fg-decorative);
   margin: 0 var(--space-1);
 }
 
@@ -3596,10 +3569,10 @@ button.chart-legend__item:focus-visible {
   transition: width var(--duration-slower) var(--ease-out);
 }
 
-.progress__fill--positive { background: var(--color-positive); }
-.progress__fill--negative { background: var(--color-negative); }
-.progress__fill--warning  { background: var(--color-warning); }
-.progress__fill--info     { background: var(--color-info); }
+.progress__fill--positive { background: var(--color-positive-fg); }
+.progress__fill--negative { background: var(--color-negative-fg); }
+.progress__fill--warning  { background: var(--color-warning-fg); }
+.progress__fill--info     { background: var(--color-info-fg); }
 
 /* ================================================================
    Switch
@@ -3616,11 +3589,19 @@ button.chart-legend__item:focus-visible {
   position: relative;
   width: 36px;
   height: 20px;
+  /* 24px minimum target (WCAG 2.5.8) without changing the drawn size */
+  --switch-hit: 2px;
   border-radius: var(--radius-full);
   background: var(--color-bg-tertiary);
   border: 1px solid var(--color-border);
   transition: background-color var(--duration-normal) var(--ease-default), border-color var(--duration-normal) var(--ease-default);
   flex-shrink: 0;
+}
+
+.switch__track::before {
+  content: "";
+  position: absolute;
+  inset: calc(-1 * var(--switch-hit)) calc(-2 * var(--switch-hit));
 }
 
 .switch__thumb {
@@ -3641,6 +3622,10 @@ button.chart-legend__item:focus-visible {
   height: 1px;
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
+}
+
+.switch__input[aria-invalid="true"] + .switch__track {
+  border-color: var(--color-negative);
 }
 
 .switch__input:checked + .switch__track {
@@ -3819,6 +3804,23 @@ button.chart-legend__item:focus-visible {
   gap: var(--space-0);
 }
 
+/* <ol>/<li> carry list semantics; lay them out exactly like the old flat div */
+.stepper__list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-0);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.stepper__item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
 .stepper__step {
   display: flex;
   align-items: center;
@@ -3848,8 +3850,8 @@ button.chart-legend__item:focus-visible {
 }
 
 .stepper__circle--completed {
-  border-color: var(--color-positive);
-  background: var(--color-positive);
+  border-color: var(--color-positive-strong);
+  background: var(--color-positive-strong);
   color: var(--color-fg-inverse);
 }
 
@@ -3934,10 +3936,10 @@ button.chart-legend__item:focus-visible {
               background-color var(--duration-normal) var(--ease-default);
 }
 
-.meter__fill--positive { background: var(--color-positive); }
-.meter__fill--negative { background: var(--color-negative); }
-.meter__fill--warning  { background: var(--color-warning); }
-.meter__fill--info     { background: var(--color-info); }
+.meter__fill--positive { background: var(--color-positive-fg); }
+.meter__fill--negative { background: var(--color-negative-fg); }
+.meter__fill--warning  { background: var(--color-warning-fg); }
+.meter__fill--info     { background: var(--color-info-fg); }
 
 .meter__marker {
   position: absolute;
@@ -3958,6 +3960,16 @@ button.chart-legend__item:focus-visible {
   align-items: stretch;
 }
 
+.tracker__list {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  gap: 2px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
 .tracker__segment {
   flex: 1;
   border-radius: 2px;
@@ -3974,10 +3986,10 @@ button.chart-legend__item:focus-visible {
   border-radius: 2px var(--radius-sm) var(--radius-sm) 2px;
 }
 
-.tracker__segment--positive { background: var(--color-positive); }
-.tracker__segment--negative { background: var(--color-negative); }
-.tracker__segment--warning  { background: var(--color-warning); }
-.tracker__segment--info     { background: var(--color-info); }
+.tracker__segment--positive { background: var(--color-positive-fg); }
+.tracker__segment--negative { background: var(--color-negative-fg); }
+.tracker__segment--warning  { background: var(--color-warning-fg); }
+.tracker__segment--info     { background: var(--color-info-fg); }
 .tracker__segment--default  { background: var(--color-bg-tertiary); }
 
 /* ── BarList ─────────────────────────────────────────────── */
@@ -4066,7 +4078,17 @@ button.chart-legend__item:focus-visible {
 
 .number-field__wrapper:focus-within {
   border-color: var(--color-primary);
-  box-shadow: 0 0 0 var(--ring-width) var(--ring-color);
+  outline: var(--ring-width) solid var(--ring-color);
+  outline-offset: var(--ring-offset);
+}
+
+.number-field__wrapper:has(.number-field__input[aria-invalid="true"]) {
+  border-color: var(--color-negative);
+}
+
+.number-field__wrapper:has(.number-field__input[aria-invalid="true"]):focus-within {
+  outline: var(--ring-width) solid var(--color-negative);
+  outline-offset: var(--ring-offset);
 }
 
 .number-field--error .number-field__wrapper {
@@ -4074,7 +4096,8 @@ button.chart-legend__item:focus-visible {
 }
 
 .number-field--error .number-field__wrapper:focus-within {
-  box-shadow: 0 0 0 var(--ring-width) var(--color-error-ring);
+  outline: var(--ring-width) solid var(--color-negative);
+  outline-offset: var(--ring-offset);
 }
 
 .number-field__input {
@@ -4093,7 +4116,7 @@ button.chart-legend__item:focus-visible {
 }
 
 .number-field__input::placeholder {
-  color: var(--color-fg-tertiary);
+  color: var(--color-fg-placeholder);
 }
 
 .number-field__input:disabled {
@@ -4426,8 +4449,21 @@ button.chart-legend__item:focus-visible {
 }
 
 .dropdown__item:hover,
+.dropdown__item:focus,
 .dropdown__item[data-highlighted="true"] {
   background: var(--color-surface-hover);
+}
+
+/* Focus is shown by the background; keep a visible ring in forced-colors mode */
+.dropdown__item:focus {
+  outline: none;
+}
+
+@media (forced-colors: active) {
+  .dropdown__item:focus {
+    outline: 2px solid Highlight;
+    outline-offset: -2px;
+  }
 }
 
 .dropdown__item[data-disabled="true"] {
@@ -4512,14 +4548,14 @@ button.chart-legend__item:focus-visible {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 18px;
-  height: 18px;
+  width: 24px;
+  height: 24px;
   padding: 0;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-full);
   background: var(--color-bg);
   color: var(--color-fg-tertiary);
-  font-size: 11px;
+  font-size: var(--font-size-2xs);
   font-weight: var(--font-weight-medium);
   line-height: 1;
   cursor: pointer;
@@ -4536,13 +4572,13 @@ button.chart-legend__item:focus-visible {
 }
 
 .help-button:focus-visible {
-  outline: 2px solid var(--color-focus, var(--color-primary));
-  outline-offset: 2px;
+  outline: var(--ring-width) solid var(--ring-color);
+  outline-offset: var(--ring-offset);
 }
 
 .help-popover {
   position: absolute;
-  z-index: 1000;
+  z-index: var(--z-tooltip);
   background: var(--color-surface, var(--color-bg));
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
@@ -4708,4 +4744,47 @@ button.chart-legend__item:focus-visible {
 
 .disclosure__content-inner {
   color: inherit;
+}
+
+/* ── Reduced motion ─────────────────────────────────────────
+   Shipped in the components layer so it applies even when utilities.css is
+   not loaded. Covers every animated component above. */
+@media (prefers-reduced-motion: reduce) {
+  .btn[disabled]:active,
+  .tooltip,
+  .skeleton,
+  .overlay,
+  .overlay--closing,
+  .overlay--closing .dialog,
+  .dialog,
+  .command-palette,
+  .toast,
+  .toast[data-removing="true"],
+  .dropdown__menu {
+    animation: none;
+  }
+
+  .dialog,
+  .faq__answer,
+  .disclosure__content,
+  .segmented-control__indicator,
+  .switch__thumb,
+  .switch__track {
+    transition: none;
+  }
+}
+
+/* Visually hidden text for assistive technology (duplicated from utilities.css
+   so components that rely on it work when only components.css is loaded). */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
 }

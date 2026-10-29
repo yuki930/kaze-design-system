@@ -46,19 +46,30 @@ export const DonutChart = forwardRef<HTMLDivElement, DonutChartProps>(
       return {
         ...d,
         color: d.color ?? CHART_COLORS[i % CHART_COLORS.length],
+        pct,
         dashLength,
         dashOffset,
       };
     });
 
+    // Screen reader summary: the SVG is decorative, so shares are spelled out here.
+    const summary = [
+      centerLabel,
+      segments.map((s) => `${s.label} ${s.value}（${Math.round(s.pct * 100)}%）`).join("、"),
+    ]
+      .filter(Boolean)
+      .join("、");
+
     return (
+      // biome-ignore lint/a11y/useSemanticElements: the forwarded ref and props are typed as HTMLDivElement (public API); switching to <figure> would change the exported types.
       <div
         ref={ref}
-        role="img"
+        role="figure"
         aria-label={ariaLabel}
         className={cn("donut-chart", className)}
         {...rest}
       >
+        {segments.length > 0 && <span className="sr-only">{summary}</span>}
         <svg
           className="donut-chart__svg"
           width={size}
@@ -96,7 +107,11 @@ export const DonutChart = forwardRef<HTMLDivElement, DonutChartProps>(
           <div className="donut-chart__legend">
             {segments.map((seg) => (
               <span key={seg.label} className="donut-chart__legend-item">
-                <span className="donut-chart__legend-dot" style={{ background: seg.color }} />
+                <span
+                  className="donut-chart__legend-dot"
+                  style={{ background: seg.color }}
+                  aria-hidden="true"
+                />
                 <span className="donut-chart__legend-label">{seg.label}</span>
                 <span className="donut-chart__legend-value">{seg.value}</span>
               </span>

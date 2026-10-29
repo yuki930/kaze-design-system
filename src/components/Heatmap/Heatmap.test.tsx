@@ -28,6 +28,22 @@ describe("Heatmap matrix", () => {
     expect(screen.getByText("2")).toBeInTheDocument();
   });
 
+  it("describes the peak cell for screen readers via aria-describedby", () => {
+    render(<Heatmap {...props} />);
+    const img = screen.getByRole("img", { name: "曜日別アクセス" });
+    expect(img).toHaveAccessibleDescription("最大値 10（月 2）");
+  });
+
+  it("keeps a caller-supplied aria-describedby alongside the summary", () => {
+    render(
+      <>
+        <p id="note">注記</p>
+        <Heatmap {...props} aria-describedby="note" />
+      </>,
+    );
+    expect(screen.getByRole("img")).toHaveAccessibleDescription("注記 最大値 10（月 2）");
+  });
+
   it("maps values to levels against the max; 0 and null are empty", () => {
     const { container } = render(<Heatmap {...props} />);
     expect(cellsOf(container).map((c) => c.dataset.level)).toEqual(["0", "3", "5", "0", "1", "5"]);
@@ -127,5 +143,11 @@ describe("Heatmap calendar", () => {
   it("renders no cells for empty data", () => {
     const { container } = render(<Heatmap aria-label="c" variant="calendar" />);
     expect(cellsOf(container)).toHaveLength(0);
+    expect(screen.getByRole("img")).toHaveAccessibleDescription("データなし");
+  });
+
+  it("names the peak day in the summary", () => {
+    render(<Heatmap aria-label="c" variant="calendar" data={data} />);
+    expect(screen.getByRole("img")).toHaveAccessibleDescription("最大値 8（2026-03-08）");
   });
 });

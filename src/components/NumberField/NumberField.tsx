@@ -10,13 +10,20 @@ import {
   type InputHTMLAttributes,
 } from "react";
 import { cn } from "@/lib/utils";
+import { composeEventHandlers } from "@/lib/composeEventHandlers";
+import { isComposingEvent, normalizeNumericInput } from "@/lib/jaText";
 
 export type NumberFieldCurrency = "JPY" | "USD" | "EUR" | "GBP" | "CNY" | "KRW";
 
 export interface NumberFieldProps
-  extends Omit<InputHTMLAttributes<HTMLInputElement>, "value" | "onChange" | "type"> {
-  /** Current numeric value */
+  extends Omit<
+    InputHTMLAttributes<HTMLInputElement>,
+    "value" | "defaultValue" | "onChange" | "type"
+  > {
+  /** Current numeric value (controlled) */
   value?: number | null;
+  /** Initial numeric value (uncontrolled) */
+  defaultValue?: number | null;
   /** Change handler */
   onChange?: (value: number | null) => void;
   /** Minimum allowed value */
@@ -59,6 +66,10 @@ const currencyConfig: Record<
   KRW: { locale: "ko-KR", symbol: "₩", decimals: 0 },
 };
 
+function resolveLocale(locale: string, currency?: NumberFieldCurrency): string {
+  return currency ? currencyConfig[currency].locale : locale;
+}
+
 function formatNumber(value: number, locale: string, currency?: NumberFieldCurrency): string {
   if (currency) {
     const cfg = currencyConfig[currency];
@@ -70,17 +81,40 @@ function formatNumber(value: number, locale: string, currency?: NumberFieldCurre
   return new Intl.NumberFormat(locale).format(value);
 }
 
-function parseLocaleNumber(str: string): number | null {
-  // Remove all non-numeric characters except minus and decimal separators
-  const cleaned = str.replace(/[^\d.\-,]/g, "").replace(/,/g, "");
-  const num = Number(cleaned);
-  return Number.isNaN(num) ? null : num;
+/** Editable text for a value: locale decimal symbol, no grouping, so it round-trips through parseLocaleNumber. */
+function formatForEditing(value: number, locale: string): string {
+  return new Intl.NumberFormat(locale, { useGrouping: false, maximumFractionDigits: 20 }).format(
+    value,
+  );
+}
+
+function escapeRegExp(text: string): string {
+  return text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+/**
+ * Parse user-typed text using the locale's group / decimal symbols.
+ * Fullwidth digits, minus signs and punctuation are normalized first; empty or unparsable input is null.
+ */
+export function parseLocaleNumber(input: string, locale = "ja-JP"): number | null {
+  // Whitespace is stripped by normalizeNumericInput, which also covers space group separators (fr-FR).
+  const text = normalizeNumericInput(input);
+  if (text === "") return null;
+  const parts = new Intl.NumberFormat(locale).formatToParts(12345.6);
+  const group = normalizeNumericInput(parts.find((p) => p.type === "group")?.value ?? "");
+  const decimal = normalizeNumericInput(parts.find((p) => p.type === "decimal")?.value ?? ".");
+  let cleaned = text;
+  if (group) cleaned = cleaned.replace(new RegExp(escapeRegExp(group), "g"), "");
+  if (decimal !== ".") cleaned = cleaned.replace(decimal, ".");
+  if (!/^-?(\d+\.?\d*|\.\d+)$/.test(cleaned)) return null;
+  return Number(cleaned);
 }
 
 export const NumberField = forwardRef<HTMLInputElement, NumberFieldProps>(
   (
     {
-      value,
+      value: valueProp,
+      defaultValue,
       onChange,
       min,
       max,
@@ -98,6 +132,10 @@ export const NumberField = forwardRef<HTMLInputElement, NumberFieldProps>(
       className,
       disabled,
       id: idProp,
+      name,
+      onFocus,
+      onBlur,
+      onKeyDown,
       ...rest
     },
     ref,
@@ -107,6 +145,18 @@ export const NumberField = forwardRef<HTMLInputElement, NumberFieldProps>(
     const [editing, setEditing] = useState(false);
     const [editValue, setEditValue] = useState("");
     const innerRef = useRef<HTMLInputElement | null>(null);
+    const isControlled = valueProp !== undefined;
+    const [internalValue, setInternalValue] = useState<number | null>(defaultValue ?? null);
+    const value = isControlled ? valueProp : internalValue;
+    const numberLocale = resolveLocale(locale, currency);
+
+    const emit = useCallback(
+      (next: number | null) => {
+        if (!isControlled) setInternalValue(next);
+        onChange?.(next);
+      },
+      [isControlled, onChange],
+    );
 
     const resolvedPrefix = prefixProp ?? (currency ? currencyConfig[currency].symbol : undefined);
 
@@ -120,21 +170,14 @@ export const NumberField = forwardRef<HTMLInputElement, NumberFieldProps>(
       [min, max],
     );
 
-    const commitValue = useCallback(
-      (raw: string) => {
-        const parsed = parseLocaleNumber(raw);
-        if (parsed === null) {
-          onChange?.(null);
-        } else {
-          onChange?.(clamp(parsed));
-        }
-      },
-      [onChange, clamp],
-    );
+    const commitValue = (raw: string) => {
+      const parsed = parseLocaleNumber(raw, numberLocale);
+      emit(parsed === null ? null : clamp(parsed));
+    };
 
     const handleFocus = () => {
       setEditing(true);
-      setEditValue(value != null ? String(value) : "");
+      setEditValue(value != null ? formatForEditing(value, numberLocale) : "");
     };
 
     const handleBlur = () => {
@@ -143,31 +186,30 @@ export const NumberField = forwardRef<HTMLInputElement, NumberFieldProps>(
     };
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+      // Enter while composing confirms the IME conversion; it must not commit.
+      if (isComposingEvent(e)) return;
       if (e.key === "Enter") {
-        setEditing(false);
-        commitValue(editValue);
+        // Blur commits, so committing here too would emit twice.
         innerRef.current?.blur();
       }
       if (e.key === "ArrowUp") {
         e.preventDefault();
-        const next = clamp((value ?? 0) + step);
-        onChange?.(next);
+        emit(clamp((value ?? 0) + step));
       }
       if (e.key === "ArrowDown") {
         e.preventDefault();
-        const next = clamp((value ?? 0) - step);
-        onChange?.(next);
+        emit(clamp((value ?? 0) - step));
       }
     };
 
     const increment = () => {
       if (disabled) return;
-      onChange?.(clamp((value ?? 0) + step));
+      emit(clamp((value ?? 0) + step));
     };
 
     const decrement = () => {
       if (disabled) return;
-      onChange?.(clamp((value ?? 0) - step));
+      emit(clamp((value ?? 0) - step));
     };
 
     // Sync ref
@@ -176,6 +218,9 @@ export const NumberField = forwardRef<HTMLInputElement, NumberFieldProps>(
       else if (ref)
         (ref as React.MutableRefObject<HTMLInputElement | null>).current = innerRef.current;
     });
+
+    // Enter can submit a surrounding form before blur commits, so submit what is currently typed.
+    const submitValue = editing ? parseLocaleNumber(editValue, numberLocale) : value;
 
     const displayValue = editing
       ? editValue
@@ -215,6 +260,7 @@ export const NumberField = forwardRef<HTMLInputElement, NumberFieldProps>(
           )}
           {resolvedPrefix && <span className="number-field__affix">{resolvedPrefix}</span>}
           <input
+            {...rest}
             ref={innerRef}
             id={id}
             type="text"
@@ -222,14 +268,21 @@ export const NumberField = forwardRef<HTMLInputElement, NumberFieldProps>(
             className="number-field__input"
             value={displayValue}
             onChange={(e) => setEditValue(e.target.value)}
-            onFocus={handleFocus}
-            onBlur={handleBlur}
-            onKeyDown={handleKeyDown}
+            onFocus={composeEventHandlers(onFocus, handleFocus)}
+            onBlur={composeEventHandlers(onBlur, handleBlur)}
+            onKeyDown={composeEventHandlers(onKeyDown, handleKeyDown)}
             disabled={disabled}
             aria-invalid={error || undefined}
-            aria-describedby={errorMessage ? `${id}-error` : undefined}
-            {...rest}
+            aria-describedby={
+              [rest["aria-describedby"], errorMessage ? `${id}-error` : undefined]
+                .filter(Boolean)
+                .join(" ") || undefined
+            }
           />
+          {/* The visible input holds formatted text ("1,000"), so submit the raw number separately. */}
+          {name && (
+            <input type="hidden" name={name} value={submitValue ?? ""} disabled={disabled} />
+          )}
           {suffix && <span className="number-field__affix">{suffix}</span>}
           {showStepper && (
             <button
