@@ -488,9 +488,9 @@ export function ShowcasePage() {
                   ))}
                 </div>
                 <div className={styles.bars}>
-                  {[90, 60, 50, 40, 30].map((h, i) => (
+                  {[90, 60, 50, 40, 30].map((h) => (
                     <div
-                      key={i}
+                      key={h}
                       className={styles.bar}
                       style={{ height: `${h}%`, background: "var(--color-accent-a)" }}
                     />

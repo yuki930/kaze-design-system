@@ -67,6 +67,7 @@ export const Watermark = forwardRef<HTMLDivElement, WatermarkProps>(
           >
             {Array.from({ length: 200 }).map((_, i) => (
               <span
+                // biome-ignore lint/suspicious/noArrayIndexKey: 200 identical static tiles that are never reordered; the index is the only identity.
                 key={i}
                 style={{
                   fontSize: `${fontSize}px`,

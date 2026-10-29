@@ -12,7 +12,7 @@ const meta = {
   title: "Components/Dropdown",
   component: Dropdown,
   args: {
-    children: null!,
+    children: null,
   },
 } satisfies Meta<typeof Dropdown>;
 

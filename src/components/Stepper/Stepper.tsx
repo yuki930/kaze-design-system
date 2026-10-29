@@ -33,6 +33,7 @@ export const Stepper = forwardRef<HTMLDivElement, StepperProps>(
         const isCompleted = i < currentStep;
         const isActive = i === currentStep;
         return (
+          // biome-ignore lint/suspicious/noArrayIndexKey: steps are ordinal (the index is rendered as the step number) and labels are not guaranteed unique.
           <div key={i} style={{ display: "contents" }}>
             <div className={cn("stepper__step", isActive && "stepper__step--active")}>
               <span

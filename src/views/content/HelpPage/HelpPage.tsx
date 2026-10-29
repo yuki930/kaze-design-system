@@ -158,7 +158,7 @@ export function HelpPage() {
         <ul className={styles.articleList}>
           {popularArticles.map((article) => (
             <li key={article.title}>
-              <a href="#" className={styles.articleItem}>
+              <a href="/article" className={styles.articleItem}>
                 <FileText size={16} className={styles.articleIcon} />
                 <span className={styles.articleTitle}>{article.title}</span>
                 {article.badge && (
@@ -179,7 +179,7 @@ export function HelpPage() {
         <ul className={styles.articleList}>
           {recentArticles.map((article) => (
             <li key={article.title}>
-              <a href="#" className={styles.articleItem}>
+              <a href="/article" className={styles.articleItem}>
                 <FileText size={16} className={styles.articleIcon} />
                 <span className={styles.articleTitle}>{article.title}</span>
                 {article.badge && (

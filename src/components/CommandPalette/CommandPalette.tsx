@@ -85,10 +85,12 @@ export const CommandPalette = forwardRef<HTMLDivElement, CommandPaletteProps>(
       const groups = new Map<string, Command[]>();
       for (const cmd of filtered) {
         const group = cmd.group ?? "";
-        if (!groups.has(group)) {
-          groups.set(group, []);
+        const list = groups.get(group);
+        if (list) {
+          list.push(cmd);
+        } else {
+          groups.set(group, [cmd]);
         }
-        groups.get(group)!.push(cmd);
       }
       return groups;
     }, [filtered]);
@@ -181,6 +183,8 @@ export const CommandPalette = forwardRef<HTMLDivElement, CommandPaletteProps>(
     let flatIndex = 0;
 
     return createPortal(
+      // biome-ignore lint/a11y/noStaticElementInteractions: the backdrop only handles click-outside-to-close; keyboard users close the palette with Escape, and the backdrop itself must not be focusable.
+      // biome-ignore lint/a11y/useKeyWithClickEvents: Escape is handled by the dialog's onKeyDown; the backdrop has no keyboard role of its own.
       <div className="overlay" onClick={handleOverlayClick}>
         <div
           ref={(node) => {
@@ -213,6 +217,8 @@ export const CommandPalette = forwardRef<HTMLDivElement, CommandPaletteProps>(
                 {cmds.map((cmd) => {
                   const index = flatIndex++;
                   return (
+                    // biome-ignore lint/a11y/useKeyWithClickEvents: Arrow/Enter selection is handled by the dialog's onKeyDown while focus stays on the search input (listbox pattern).
+                    // biome-ignore lint/a11y/useFocusableInteractive: options must not take focus; focus stays on the search input and the highlighted option is tracked via aria-selected.
                     <div
                       key={cmd.id}
                       role="option"

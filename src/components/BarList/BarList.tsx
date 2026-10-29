@@ -38,7 +38,7 @@ export const BarList = forwardRef<HTMLDivElement, BarListProps>(
 
     return (
       <div ref={ref} className={cn("barlist", className)} {...rest}>
-        {sorted.map((item, i) => {
+        {sorted.map((item) => {
           const pct = (item.value / maxValue) * 100;
           const display =
             item.displayValue ?? (valueFormatter ? valueFormatter(item.value) : String(item.value));
@@ -62,11 +62,15 @@ export const BarList = forwardRef<HTMLDivElement, BarListProps>(
           const LinkComponent = item.as ?? "a";
 
           return item.href ? (
-            <LinkComponent key={i} href={item.href} className="barlist__row barlist__row--link">
+            <LinkComponent
+              key={item.label}
+              href={item.href}
+              className="barlist__row barlist__row--link"
+            >
               {content}
             </LinkComponent>
           ) : (
-            <div key={i} className="barlist__row">
+            <div key={item.label} className="barlist__row">
               {content}
             </div>
           );

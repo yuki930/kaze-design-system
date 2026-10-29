@@ -78,6 +78,7 @@ export interface SidebarDividerProps extends HTMLAttributes<HTMLDivElement> {}
 export const SidebarDivider = forwardRef<HTMLDivElement, SidebarDividerProps>(
   ({ className, ...rest }, ref) => {
     return (
+      // biome-ignore lint/a11y/useSemanticElements: the forwarded ref and props are typed as HTMLDivElement (public API); switching to <hr> would change the exported types.
       <div ref={ref} className={cn("sidebar__divider", className)} role="separator" {...rest} />
     );
   },

@@ -130,6 +130,7 @@ export const DropdownTrigger = forwardRef<HTMLSpanElement, DropdownTriggerProps>
     );
 
     return (
+      // biome-ignore lint/a11y/useSemanticElements: the trigger wraps arbitrary children (often a <Button>), and nesting a <button> inside a <button> is invalid HTML; the span gets role, tabIndex and keyboard handling instead.
       <span
         ref={(node) => {
           (triggerRef as React.MutableRefObject<HTMLElement | null>).current = node;
@@ -322,6 +323,7 @@ DropdownItem.displayName = "DropdownItem";
 
 export const DropdownSeparator = forwardRef<HTMLDivElement, DropdownSeparatorProps>(
   (_props, ref) => {
+    // biome-ignore lint/a11y/useSemanticElements: the forwarded ref is typed as HTMLDivElement (public API); switching to <hr> would change the exported types.
     return <div ref={ref} role="separator" className="dropdown__separator" />;
   },
 );

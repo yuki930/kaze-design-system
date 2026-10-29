@@ -3,9 +3,7 @@
 import {
   forwardRef,
   useCallback,
-  useEffect,
   useMemo,
-  useRef,
   useState,
   type HTMLAttributes,
   type KeyboardEvent,
@@ -13,6 +11,7 @@ import {
 import { cn } from "@/lib/utils";
 import { CHART_COLORS } from "@/lib/chartColors";
 import { defaultFormat, linearScale, niceScale } from "@/lib/chartScale";
+import { useChartWidth } from "@/lib/useChartWidth";
 import { ChartLegend } from "../ChartLegend";
 
 export interface ColumnChartSeries {
@@ -103,24 +102,9 @@ export const ColumnChart = forwardRef<HTMLDivElement, ColumnChartProps>(
     },
     ref,
   ) => {
-    const wrapRef = useRef<HTMLDivElement>(null);
-    const [width, setWidth] = useState(FALLBACK_WIDTH);
+    const { ref: wrapRef, width, measured } = useChartWidth<HTMLDivElement>(FALLBACK_WIDTH);
     const [hidden, setHidden] = useState<string[]>([]);
     const [active, setActive] = useState<number | null>(null);
-
-    useEffect(() => {
-      const el = wrapRef.current;
-      if (!el) return;
-      const measure = () => {
-        const w = el.clientWidth;
-        if (w > 0) setWidth(w);
-      };
-      measure();
-      if (typeof ResizeObserver === "undefined") return;
-      const ro = new ResizeObserver(measure);
-      ro.observe(el);
-      return () => ro.disconnect();
-    }, []);
 
     const toggle = useCallback((key: string) => {
       setHidden((prev) => (prev.includes(key) ? prev.filter((k) => k !== key) : [...prev, key]));
@@ -251,9 +235,10 @@ export const ColumnChart = forwardRef<HTMLDivElement, ColumnChartProps>(
           >
             <svg
               className="chart__svg column-chart__svg"
-              width={width}
+              width={measured ? width : "100%"}
               height={height}
               viewBox={`0 0 ${width} ${height}`}
+              preserveAspectRatio={measured ? undefined : "none"}
               onPointerLeave={() => setActive(null)}
               aria-hidden="true"
             >

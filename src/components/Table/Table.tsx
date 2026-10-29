@@ -16,12 +16,7 @@ export const Table = forwardRef<HTMLTableElement, TableProps>(
   ({ compact, className, children, ...rest }, ref) => {
     return (
       <div className="table-wrapper">
-        <table
-          ref={ref}
-          role="table"
-          className={cn("table", compact && "table--compact", className)}
-          {...rest}
-        >
+        <table ref={ref} className={cn("table", compact && "table--compact", className)} {...rest}>
           {children}
         </table>
       </div>

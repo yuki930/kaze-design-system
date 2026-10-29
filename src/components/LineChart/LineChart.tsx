@@ -3,7 +3,6 @@
 import {
   forwardRef,
   useCallback,
-  useEffect,
   useRef,
   useState,
   type HTMLAttributes,
@@ -13,6 +12,7 @@ import {
 import { cn } from "@/lib/utils";
 import { CHART_COLORS } from "../../lib/chartColors";
 import { defaultFormat, linearScale, niceScale } from "../../lib/chartScale";
+import { useChartWidth } from "../../lib/useChartWidth";
 import { ChartLegend } from "../ChartLegend";
 
 export interface LineChartSeries {
@@ -169,25 +169,10 @@ export const LineChart = forwardRef<HTMLDivElement, LineChartProps>(
     },
     ref,
   ) => {
-    const wrapRef = useRef<HTMLDivElement>(null);
+    const { ref: wrapRef, width, measured } = useChartWidth<HTMLDivElement>(INITIAL_WIDTH);
     const svgRef = useRef<SVGSVGElement>(null);
-    const [width, setWidth] = useState(INITIAL_WIDTH);
     const [hidden, setHidden] = useState<string[]>([]);
     const [active, setActive] = useState<number | null>(null);
-
-    useEffect(() => {
-      const el = wrapRef.current;
-      if (!el) return;
-      const measure = () => {
-        const w = Math.round(el.getBoundingClientRect().width);
-        if (w > 0) setWidth(w);
-      };
-      measure();
-      if (typeof ResizeObserver === "undefined") return;
-      const ro = new ResizeObserver(measure);
-      ro.observe(el);
-      return () => ro.disconnect();
-    }, []);
 
     const toggle = useCallback((key: string) => {
       setHidden((h) => (h.includes(key) ? h.filter((k) => k !== key) : [...h, key]));
@@ -266,9 +251,10 @@ export const LineChart = forwardRef<HTMLDivElement, LineChartProps>(
             className="chart__svg line-chart__svg"
             role="img"
             aria-label={ariaLabel}
-            width={width}
+            width={measured ? width : "100%"}
             height={height}
             viewBox={`0 0 ${width} ${height}`}
+            preserveAspectRatio={measured ? undefined : "none"}
             // biome-ignore lint/a11y/noNoninteractiveTabindex: keyboard users move the crosshair with arrow keys
             tabIndex={0}
             onPointerMove={(e) => setActive(indexFromPointer(e))}

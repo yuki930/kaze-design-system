@@ -29,15 +29,13 @@ export const Icon = forwardRef<HTMLSpanElement, IconProps>(
       xl: 24,
     };
 
+    // Labelled icons are exposed as role="img"; unlabelled ones are decorative.
+    const a11yProps = label
+      ? { role: "img", "aria-label": label }
+      : { "aria-hidden": true as const };
+
     return (
-      <span
-        ref={ref}
-        role={label ? "img" : undefined}
-        aria-label={label}
-        aria-hidden={label ? undefined : true}
-        className={cn("icon", `icon--${size}`, className)}
-        {...rest}
-      >
+      <span ref={ref} {...a11yProps} className={cn("icon", `icon--${size}`, className)} {...rest}>
         <LucideComponent size={sizeMap[size]} strokeWidth={2} />
       </span>
     );

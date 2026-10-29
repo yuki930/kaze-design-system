@@ -61,20 +61,19 @@ const iconSvgProps = {
   strokeLinecap: "round",
   strokeLinejoin: "round",
   className: "disclosure__icon-svg",
-  "aria-hidden": true,
 } as const;
 
 function renderIcon(icon: DisclosureIcon) {
   if (icon === "chevron" || icon == null) {
     return (
-      <svg {...iconSvgProps}>
+      <svg {...iconSvgProps} aria-hidden="true">
         <path d="m9 18 6-6-6-6" />
       </svg>
     );
   }
   if (icon === "plus") {
     return (
-      <svg {...iconSvgProps}>
+      <svg {...iconSvgProps} aria-hidden="true">
         <path d="M5 12h14" />
         <path d="M12 5v14" />
       </svg>
@@ -130,6 +129,7 @@ export const Disclosure = forwardRef<HTMLDivElement, DisclosureProps>(
     );
 
     const contentId = useId();
+    const triggerId = useId();
     const isBuiltInIcon = icon === "chevron" || icon === "plus";
     const markerNode = useMemo(() => renderIcon(icon), [icon]);
 
@@ -147,6 +147,7 @@ export const Disclosure = forwardRef<HTMLDivElement, DisclosureProps>(
         data-state={isOpen ? "open" : "closed"}
       >
         <button
+          id={triggerId}
           type="button"
           className={cn(
             "disclosure__trigger",
@@ -181,14 +182,14 @@ export const Disclosure = forwardRef<HTMLDivElement, DisclosureProps>(
             </span>
           )}
         </button>
-        <div
+        <section
           id={contentId}
-          role="region"
+          aria-labelledby={triggerId}
           className={cn("disclosure__content", contentClassName)}
           hidden={!isOpen}
         >
           <div className="disclosure__content-inner">{children}</div>
-        </div>
+        </section>
       </div>
     );
   },

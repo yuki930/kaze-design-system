@@ -185,6 +185,7 @@ function signalVariant(signal: Holding["signal"]) {
 function DashboardIcon() {
   return (
     <svg
+      aria-hidden="true"
       width="18"
       height="18"
       viewBox="0 0 24 24"
@@ -205,6 +206,7 @@ function DashboardIcon() {
 function BarChartIcon() {
   return (
     <svg
+      aria-hidden="true"
       width="18"
       height="18"
       viewBox="0 0 24 24"
@@ -224,6 +226,7 @@ function BarChartIcon() {
 function ZapIcon() {
   return (
     <svg
+      aria-hidden="true"
       width="18"
       height="18"
       viewBox="0 0 24 24"
@@ -241,6 +244,7 @@ function ZapIcon() {
 function PieChartIcon() {
   return (
     <svg
+      aria-hidden="true"
       width="18"
       height="18"
       viewBox="0 0 24 24"
@@ -259,6 +263,7 @@ function PieChartIcon() {
 function BellIcon() {
   return (
     <svg
+      aria-hidden="true"
       width="18"
       height="18"
       viewBox="0 0 24 24"
@@ -277,6 +282,7 @@ function BellIcon() {
 function MoonIcon() {
   return (
     <svg
+      aria-hidden="true"
       width="18"
       height="18"
       viewBox="0 0 24 24"
@@ -294,6 +300,7 @@ function MoonIcon() {
 function SunIcon() {
   return (
     <svg
+      aria-hidden="true"
       width="18"
       height="18"
       viewBox="0 0 24 24"
@@ -357,7 +364,7 @@ export function Dashboard() {
       actions={
         <div className={layoutStyles.topBarActions}>
           <div className={styles.notificationBtn}>
-            <Button variant="ghost" size="sm" iconOnly>
+            <Button variant="ghost" size="sm" iconOnly aria-label="通知">
               <BellIcon />
             </Button>
             <span className={styles.notificationDot} />

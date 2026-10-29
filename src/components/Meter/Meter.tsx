@@ -63,6 +63,7 @@ export const Meter = forwardRef<HTMLDivElement, MeterProps>(
             )}
           </div>
         )}
+        {/* biome-ignore lint/a11y/useSemanticElements: the track must contain a styled fill child and support custom colors and sizes, which the native <meter> element cannot render consistently across browsers. */}
         <div
           className={cn("meter__track", size !== "md" && `meter__track--${size}`)}
           role="meter"

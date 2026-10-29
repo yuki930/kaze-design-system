@@ -118,9 +118,9 @@ export function LoginPage() {
                 checked={rememberMe}
                 onChange={(e) => setRememberMe(e.target.checked)}
               />
-              <a href="#" className={styles.forgotLink}>
+              <button type="button" className={styles.forgotLink}>
                 パスワードをお忘れですか？
-              </a>
+              </button>
             </div>
 
             {/* Submit */}
@@ -139,9 +139,9 @@ export function LoginPage() {
         <CardFooter className={styles.cardFooter}>
           <p className={styles.footerText}>
             アカウントをお持ちでない方{" "}
-            <a href="#" className={styles.signupLink}>
+            <button type="button" className={styles.signupLink}>
               新規登録
-            </a>
+            </button>
           </p>
         </CardFooter>
       </Card>

@@ -39,25 +39,6 @@
       "recommended": true,
       "performance": {
         "noImgElement": "off"
-      },
-      "a11y": {
-        "noSvgWithoutTitle": "warn",
-        "useValidAnchor": "warn",
-        "useSemanticElements": "warn",
-        "useAriaPropsSupportedByRole": "warn",
-        "noStaticElementInteractions": "warn",
-        "noLabelWithoutControl": "warn",
-        "useKeyWithClickEvents": "warn",
-        "useFocusableInteractive": "warn",
-        "useAriaPropsForRole": "warn",
-        "noRedundantRoles": "warn",
-        "noAriaHiddenOnFocusable": "warn"
-      },
-      "suspicious": {
-        "noArrayIndexKey": "warn"
-      },
-      "style": {
-        "noNonNullAssertion": "warn"
       }
     }
   },

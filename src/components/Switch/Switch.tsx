@@ -14,6 +14,7 @@ export const Switch = forwardRef<HTMLInputElement, SwitchProps>(
         <input
           ref={ref}
           type="checkbox"
+          // biome-ignore lint/a11y/useAriaPropsForRole: a native checkbox with role="switch" exposes its checked state automatically; a manual aria-checked would go stale for uncontrolled usage.
           role="switch"
           id={switchId}
           className="switch__input"

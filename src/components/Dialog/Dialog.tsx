@@ -105,6 +105,7 @@ export const Dialog = forwardRef<HTMLDivElement, DialogProps>(
     if (typeof document === "undefined") return null;
 
     return createPortal(
+      // biome-ignore lint/a11y/noStaticElementInteractions: the backdrop only handles click-outside-to-close; keyboard users close the dialog with Escape, and the backdrop itself must not be focusable.
       <div
         className={cn("overlay", closing && "overlay--closing")}
         onClick={handleOverlayClick}

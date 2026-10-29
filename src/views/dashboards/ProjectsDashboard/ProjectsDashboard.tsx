@@ -460,9 +460,9 @@ export function ProjectsDashboard() {
         </CardHeader>
         <CardBody>
           <Timeline>
-            {activities.map((activity, i) => (
+            {activities.map((activity) => (
               <TimelineItem
-                key={i}
+                key={`${activity.time}-${activity.title}`}
                 time={activity.time}
                 title={activity.title}
                 status={activity.status}

@@ -25,8 +25,10 @@ export const Default: Story = {
 export const WithLabel: Story = {
   render: (args) => (
     <div>
-      <label className="label">投資経験</label>
-      <Select {...args}>
+      <label className="label" htmlFor="story-select-experience">
+        投資経験
+      </label>
+      <Select {...args} id="story-select-experience">
         <option value="">選択してください</option>
         <option value="none">未経験</option>
         <option value="less1">1年未満</option>

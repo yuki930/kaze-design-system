@@ -13,12 +13,13 @@ export interface AvatarProps extends HTMLAttributes<HTMLSpanElement> {
 export const Avatar = forwardRef<HTMLSpanElement, AvatarProps>(
   ({ size = "md", src, alt, fallback, className, ...rest }, ref) => {
     const showFallback = !src && fallback;
+    // Only expose role="img" + aria-label together when the text fallback is shown.
+    const a11yProps = showFallback ? { role: "img", "aria-label": fallback } : {};
 
     return (
       <span
         ref={ref}
-        role={showFallback ? "img" : undefined}
-        aria-label={showFallback ? fallback : undefined}
+        {...a11yProps}
         className={cn("avatar", `avatar--${size}`, className)}
         {...rest}
       >

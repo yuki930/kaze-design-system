@@ -439,7 +439,8 @@ export function ColorsPage() {
         <span className={styles.paletteHueName}>zinc</span>
         <div className={styles.paletteStrip}>
           {shades.map((shade, i) => {
-            const c = zincScale[i]!;
+            const c = zincScale[i];
+            if (!c) return null;
             return (
               <div
                 key={shade}

@@ -201,6 +201,7 @@ export const NumberField = forwardRef<HTMLInputElement, NumberFieldProps>(
               aria-label={decrementLabel}
             >
               <svg
+                aria-hidden="true"
                 width="12"
                 height="12"
                 viewBox="0 0 12 12"
@@ -240,6 +241,7 @@ export const NumberField = forwardRef<HTMLInputElement, NumberFieldProps>(
               aria-label={incrementLabel}
             >
               <svg
+                aria-hidden="true"
                 width="12"
                 height="12"
                 viewBox="0 0 12 12"
