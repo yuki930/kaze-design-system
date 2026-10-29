@@ -57,4 +57,25 @@ describe("NavItem", () => {
     expect(screen.getByRole("link", { name: "A" })).toHaveClass("nav-item--active");
     expect(screen.getByRole("link", { name: "B" })).not.toHaveAttribute("aria-current");
   });
+
+  it("lends its class and aria-current to the child when asChild", () => {
+    render(
+      <NavItem asChild active icon={<i />}>
+        <a href="/home">ホーム</a>
+      </NavItem>,
+    );
+    const link = screen.getByRole("link", { name: "ホーム" });
+    expect(link).toHaveClass("nav-item", "nav-item--active");
+    expect(link).toHaveAttribute("aria-current", "page");
+    expect(screen.queryByRole("button")).not.toBeInTheDocument();
+  });
+
+  it("prefers asChild over `as`", () => {
+    render(
+      <NavItem asChild as="span">
+        <a href="/home">ホーム</a>
+      </NavItem>,
+    );
+    expect(screen.getByRole("link", { name: "ホーム" })).toHaveClass("nav-item");
+  });
 });

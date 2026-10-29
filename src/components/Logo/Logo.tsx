@@ -1,4 +1,5 @@
 import { forwardRef, type HTMLAttributes } from "react";
+import type { Size } from "../../lib/types";
 import { cn } from "@/lib/utils";
 
 /* ── Wind Mark SVG ────────────────────────────────────────── */
@@ -38,8 +39,10 @@ function WindMark({ size }: { size: number }) {
 
 /* ── Logo ─────────────────────────────────────────────────── */
 
+export type LogoSize = Extract<Size, "sm" | "md" | "lg">;
+
 export interface LogoProps extends HTMLAttributes<HTMLDivElement> {
-  size?: "sm" | "md" | "lg";
+  size?: LogoSize;
   showText?: boolean;
 }
 

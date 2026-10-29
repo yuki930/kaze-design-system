@@ -12,7 +12,7 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     data: Array.from({ length: 30 }, (_, i) => ({
-      status:
+      tone:
         i % 7 === 0
           ? ("warning" as const)
           : i % 13 === 0

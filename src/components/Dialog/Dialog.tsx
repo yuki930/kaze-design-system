@@ -17,6 +17,7 @@ import { createPortal } from "react-dom";
 import { cn } from "@/lib/utils";
 import { useFocusTrap } from "@/hooks/useFocusTrap";
 import { lockScroll } from "@/utils/scrollLock";
+import { warnDeprecated } from "@/lib/deprecate";
 
 /* ── Dialog ────────────────────────────────────────────────── */
 
@@ -27,17 +28,34 @@ const dialogStack: object[] = [];
 
 export interface DialogProps extends HTMLAttributes<HTMLDivElement> {
   open: boolean;
-  onClose: () => void;
+  /** Escape / 背景クリック / 閉じる操作で呼ばれる。`open` を false にするのは呼び出し側 */
+  onOpenChange?: (open: boolean) => void;
+  /** @deprecated `onOpenChange` に改名。次のマイナーで削除 */
+  onClose?: () => void;
   /** @deprecated useFocusTrap handles focus restoration automatically. Kept for backward compat: ignored. */
   returnFocusRef?: RefObject<HTMLElement | null>;
 }
 
 export const Dialog = forwardRef<HTMLDivElement, DialogProps>(
-  ({ open, onClose, returnFocusRef: _returnFocusRef, className, children, ...rest }, ref) => {
+  (
+    { open, onOpenChange, onClose, returnFocusRef: _returnFocusRef, className, children, ...rest },
+    ref,
+  ) => {
     const titleId = useId();
     const internalRef = useRef<HTMLDivElement>(null);
     const [visible, setVisible] = useState(false);
     const [closing, setClosing] = useState(false);
+
+    const requestClose = useCallback(() => {
+      if (onClose) {
+        warnDeprecated(
+          "Dialog.onClose",
+          "Dialog の `onClose` は `onOpenChange` に改名しました。次のマイナーバージョンで削除します",
+        );
+      }
+      onOpenChange?.(false);
+      onClose?.();
+    }, [onOpenChange, onClose]);
 
     // ── Callback ref: merge forwarded ref with internal ref (M5) ──
     const mergedRef = useCallback(
@@ -110,7 +128,7 @@ export const Dialog = forwardRef<HTMLDivElement, DialogProps>(
       const onKeyDown = (e: globalThis.KeyboardEvent) => {
         if (e.key !== "Escape" || dialogStack[dialogStack.length - 1] !== token) return;
         e.stopPropagation();
-        onClose();
+        requestClose();
       };
       document.addEventListener("keydown", onKeyDown);
       return () => {
@@ -118,15 +136,15 @@ export const Dialog = forwardRef<HTMLDivElement, DialogProps>(
         const i = dialogStack.indexOf(token);
         if (i >= 0) dialogStack.splice(i, 1);
       };
-    }, [trapActive, onClose]);
+    }, [trapActive, requestClose]);
 
     const handleOverlayClick = useCallback(
       (e: MouseEvent<HTMLDivElement>) => {
         if (e.target === e.currentTarget) {
-          onClose();
+          requestClose();
         }
       },
-      [onClose],
+      [requestClose],
     );
 
     if (!visible) return null;
@@ -135,7 +153,11 @@ export const Dialog = forwardRef<HTMLDivElement, DialogProps>(
     return createPortal(
       // biome-ignore lint/a11y/useKeyWithClickEvents: Escape is handled on document (see above), so the backdrop needs no key handler.
       // biome-ignore lint/a11y/noStaticElementInteractions: the backdrop only handles click-outside-to-close; keyboard users close the dialog with Escape, and the backdrop itself must not be focusable.
-      <div className={cn("overlay", closing && "overlay--closing")} onClick={handleOverlayClick}>
+      <div
+        className={cn("overlay", closing && "overlay--closing")}
+        data-state={open && !closing ? "open" : "closed"}
+        onClick={handleOverlayClick}
+      >
         <div
           ref={mergedRef}
           role="dialog"
@@ -143,6 +165,7 @@ export const Dialog = forwardRef<HTMLDivElement, DialogProps>(
           aria-labelledby={titleId}
           tabIndex={-1}
           className={cn("dialog", className)}
+          data-state={open && !closing ? "open" : "closed"}
           {...rest}
         >
           <DialogTitleIdContext.Provider value={titleId}>{children}</DialogTitleIdContext.Provider>

@@ -1,7 +1,8 @@
 import { act, render } from "@testing-library/react";
 import { useState } from "react";
-import { describe, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { Dialog, DialogBody } from "@/components/Dialog";
+import { resetDeprecationWarnings } from "@/lib/deprecate";
 
 const settle = () => act(async () => new Promise((r) => setTimeout(r, 300)));
 
@@ -14,9 +15,9 @@ function Harness({ onClose }: { onClose?: () => void }) {
       </button>
       <Dialog
         open={open}
-        onClose={() => {
+        onOpenChange={(next) => {
           onClose?.();
-          setOpen(false);
+          setOpen(next);
         }}
       >
         <DialogBody>
@@ -87,5 +88,64 @@ describe("Dialog focus management", () => {
     });
     await settle();
     expect(container.hasAttribute("inert")).toBe(false);
+  });
+});
+
+let warn: ReturnType<typeof vi.spyOn>;
+beforeEach(() => {
+  resetDeprecationWarnings();
+  warn = vi.spyOn(console, "warn").mockImplementation(() => {});
+});
+afterEach(() => {
+  warn.mockRestore();
+});
+
+function Controlled({ onOpenChange }: { onOpenChange: (open: boolean) => void }) {
+  const [open, setOpen] = useState(true);
+  return (
+    <Dialog
+      open={open}
+      onOpenChange={(next) => {
+        onOpenChange(next);
+        setOpen(next);
+      }}
+    >
+      <DialogBody>本文</DialogBody>
+    </Dialog>
+  );
+}
+
+describe("Dialog API", () => {
+  it("calls onOpenChange(false) on Escape and flips data-state", async () => {
+    const onOpenChange = vi.fn();
+    render(<Controlled onOpenChange={onOpenChange} />);
+    await settle();
+    const dialog = document.querySelector('[role="dialog"]') as HTMLElement;
+    expect(dialog.dataset.state).toBe("open");
+    expect((dialog.parentElement as HTMLElement).dataset.state).toBe("open");
+    await act(async () => {
+      document.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape", bubbles: true }));
+    });
+    expect(onOpenChange).toHaveBeenCalledWith(false);
+    expect(dialog.dataset.state).toBe("closed");
+    await settle();
+    expect(warn).not.toHaveBeenCalled();
+  });
+
+  it("still calls the deprecated onClose and warns once", async () => {
+    const onClose = vi.fn();
+    render(
+      <Dialog open onClose={onClose}>
+        <DialogBody>本文</DialogBody>
+      </Dialog>,
+    );
+    await settle();
+    for (let i = 0; i < 2; i++) {
+      await act(async () => {
+        document.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape", bubbles: true }));
+      });
+    }
+    expect(onClose).toHaveBeenCalledTimes(2);
+    expect(warn).toHaveBeenCalledTimes(1);
   });
 });

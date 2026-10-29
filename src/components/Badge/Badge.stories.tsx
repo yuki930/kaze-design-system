@@ -14,42 +14,42 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    variant: "default",
+    tone: "default",
     children: "デフォルト",
   },
 };
 
 export const Positive: Story = {
   args: {
-    variant: "positive",
+    tone: "positive",
     children: "上昇",
   },
 };
 
 export const Negative: Story = {
   args: {
-    variant: "negative",
+    tone: "negative",
     children: "下落",
   },
 };
 
 export const Warning: Story = {
   args: {
-    variant: "warning",
+    tone: "warning",
     children: "注意",
   },
 };
 
 export const Info: Story = {
   args: {
-    variant: "info",
+    tone: "info",
     children: "情報",
   },
 };
 
 export const WithDot: Story = {
   args: {
-    variant: "positive",
+    tone: "positive",
     dot: true,
     children: "稼働中",
   },
@@ -58,11 +58,11 @@ export const WithDot: Story = {
 export const AllVariants: Story = {
   render: () => (
     <div style={{ display: "flex", gap: "8px", alignItems: "center" }}>
-      <Badge variant="default">デフォルト</Badge>
-      <Badge variant="positive">上昇</Badge>
-      <Badge variant="negative">下落</Badge>
-      <Badge variant="warning">注意</Badge>
-      <Badge variant="info">情報</Badge>
+      <Badge tone="default">デフォルト</Badge>
+      <Badge tone="positive">上昇</Badge>
+      <Badge tone="negative">下落</Badge>
+      <Badge tone="warning">注意</Badge>
+      <Badge tone="info">情報</Badge>
     </div>
   ),
 };

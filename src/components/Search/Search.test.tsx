@@ -1,6 +1,7 @@
-import { describe, it, expect, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { Search } from "./Search";
+import { resetDeprecationWarnings } from "@/lib/deprecate";
 
 describe("Search", () => {
   it("renders a type=search input with the Japanese default placeholder", () => {
@@ -11,10 +12,10 @@ describe("Search", () => {
     expect(input).toHaveAttribute("placeholder", "検索");
   });
 
-  it("calls onChange per keystroke but not onSearch", () => {
+  it("calls onValueChange per keystroke but not onSearch", () => {
     const onChange = vi.fn();
     const onSearch = vi.fn();
-    render(<Search onChange={onChange} onSearch={onSearch} />);
+    render(<Search onValueChange={onChange} onSearch={onSearch} />);
     fireEvent.change(screen.getByRole("searchbox"), { target: { value: "かぜ" } });
     expect(onChange).toHaveBeenCalledWith("かぜ");
     expect(onSearch).not.toHaveBeenCalled();
@@ -62,5 +63,41 @@ describe("Search", () => {
     const input = screen.getByRole("searchbox") as HTMLInputElement;
     fireEvent.change(input, { target: { value: "abc" } });
     expect(input.value).toBe("abc");
+  });
+});
+
+let warn: ReturnType<typeof vi.spyOn>;
+beforeEach(() => {
+  resetDeprecationWarnings();
+  warn = vi.spyOn(console, "warn").mockImplementation(() => {});
+});
+afterEach(() => {
+  warn.mockRestore();
+});
+
+describe("Search API", () => {
+  it("accepts defaultValue for uncontrolled use", () => {
+    render(<Search defaultValue="かぜ" />);
+    expect((screen.getByRole("searchbox") as HTMLInputElement).value).toBe("かぜ");
+  });
+
+  it("keeps the deprecated onChange working and warns once", () => {
+    const onChange = vi.fn();
+    render(<Search onChange={onChange} />);
+    const input = screen.getByRole("searchbox");
+    fireEvent.change(input, { target: { value: "a" } });
+    fireEvent.change(input, { target: { value: "ab" } });
+    expect(onChange).toHaveBeenLastCalledWith("ab");
+    expect(warn).toHaveBeenCalledTimes(1);
+  });
+
+  it("prefers onValueChange over onChange", () => {
+    const onChange = vi.fn();
+    const onValueChange = vi.fn();
+    render(<Search onChange={onChange} onValueChange={onValueChange} />);
+    fireEvent.change(screen.getByRole("searchbox"), { target: { value: "x" } });
+    expect(onValueChange).toHaveBeenCalledWith("x");
+    expect(onChange).not.toHaveBeenCalled();
+    expect(warn).not.toHaveBeenCalled();
   });
 });

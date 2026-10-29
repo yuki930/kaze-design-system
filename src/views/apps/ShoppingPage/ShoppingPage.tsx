@@ -1,5 +1,5 @@
 import { useState, useCallback, useRef, type KeyboardEvent } from "react";
-import { Button, Card, Badge, Input, Checkbox, Tabs, Tab, Text } from "@/components";
+import { Button, Card, Badge, Input, Checkbox, TabGroup, Tabs, Tab, Text } from "@/components";
 import { EmptyState } from "@/components/EmptyState/EmptyState";
 import { Progress } from "@/components/Progress/Progress";
 import {
@@ -165,7 +165,7 @@ export function ShoppingPage() {
           </Text>
         </div>
         <div className={styles.headerRight}>
-          <Badge variant="positive">{remainingCount} 品</Badge>
+          <Badge tone="positive">{remainingCount} 品</Badge>
           <Button variant="ghost" size="sm" iconOnly onClick={toggleTheme} aria-label="テーマ切替">
             {resolvedTheme === "light" ? <Moon size={18} /> : <Sun size={18} />}
           </Button>
@@ -182,7 +182,7 @@ export function ShoppingPage() {
             ¥{(estimatedTotal + purchasedTotal).toLocaleString()}
           </Text>
         </div>
-        <Progress value={progress} size="sm" color="positive" />
+        <Progress value={progress} size="sm" tone="positive" />
         <div className={styles.budgetMeta}>
           <Text as="span" variant="caption" color="subtle">
             購入済み ¥{purchasedTotal.toLocaleString()}
@@ -224,17 +224,13 @@ export function ShoppingPage() {
 
         {/* ── Filter tabs ──────────────────────────────────── */}
         <div className={styles.filterRow}>
-          <Tabs>
-            <Tab active={filter === "all"} onClick={() => setFilter("all")}>
-              すべて
-            </Tab>
-            <Tab active={filter === "remaining"} onClick={() => setFilter("remaining")}>
-              未購入
-            </Tab>
-            <Tab active={filter === "purchased"} onClick={() => setFilter("purchased")}>
-              購入済み
-            </Tab>
-          </Tabs>
+          <TabGroup value={filter} onValueChange={(v) => setFilter(v as Filter)}>
+            <Tabs>
+              <Tab value="all">すべて</Tab>
+              <Tab value="remaining">未購入</Tab>
+              <Tab value="purchased">購入済み</Tab>
+            </Tabs>
+          </TabGroup>
         </div>
 
         {/* ── Shopping list ────────────────────────────────── */}
@@ -276,7 +272,7 @@ export function ShoppingPage() {
                           </Text>
                         </div>
                         <div className={styles.itemMeta}>
-                          <Badge variant={categoryConfig[item.category].variant}>
+                          <Badge tone={categoryConfig[item.category].variant}>
                             {categoryConfig[item.category].label}
                           </Badge>
                         </div>

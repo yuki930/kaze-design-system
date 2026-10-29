@@ -162,7 +162,7 @@ export function HelpPage() {
                 <FileText size={16} className={styles.articleIcon} />
                 <span className={styles.articleTitle}>{article.title}</span>
                 {article.badge && (
-                  <Badge variant={article.badgeVariant} className={styles.articleBadge}>
+                  <Badge tone={article.badgeVariant} className={styles.articleBadge}>
                     {article.badge}
                   </Badge>
                 )}
@@ -183,7 +183,7 @@ export function HelpPage() {
                 <FileText size={16} className={styles.articleIcon} />
                 <span className={styles.articleTitle}>{article.title}</span>
                 {article.badge && (
-                  <Badge variant={article.badgeVariant} className={styles.articleBadge}>
+                  <Badge tone={article.badgeVariant} className={styles.articleBadge}>
                     {article.badge}
                   </Badge>
                 )}

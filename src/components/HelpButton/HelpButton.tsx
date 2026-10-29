@@ -2,10 +2,11 @@
 
 import { useState, useRef, useEffect, useCallback, useId, forwardRef, type ReactNode } from "react";
 import { createPortal } from "react-dom";
+import type { Size } from "../../lib/types";
 import { cn } from "@/lib/utils";
 
 export type HelpButtonPosition = "top" | "bottom" | "left" | "right";
-export type HelpButtonSize = "sm" | "md" | "lg";
+export type HelpButtonSize = Extract<Size, "sm" | "md" | "lg">;
 
 export interface HelpButtonProps {
   /** Popover title */
@@ -116,6 +117,7 @@ export const HelpButton = forwardRef<HTMLButtonElement, HelpButtonProps>(
           className={cn("help-button", className)}
           aria-label={ariaLabel}
           aria-expanded={open}
+          data-state={open ? "open" : "closed"}
           aria-controls={open ? popoverId : undefined}
           onClick={() => setOpen((v) => !v)}
         >
@@ -129,6 +131,7 @@ export const HelpButton = forwardRef<HTMLButtonElement, HelpButtonProps>(
               id={popoverId}
               role="dialog"
               aria-modal="false"
+              data-state="open"
               className={cn("help-popover", `help-popover--${size}`)}
               style={{ top: coords.top, left: coords.left }}
             >

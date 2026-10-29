@@ -14,6 +14,7 @@ import {
   LPFooter,
   Section,
   SectionHeader,
+  TabGroup,
   Tabs,
   Tab,
 } from "@/components";
@@ -66,7 +67,7 @@ export function PricingPage() {
       {/* ── 2. Hero ────────────────────────────────────────────── */}
       <Section size="lg">
         <div style={{ textAlign: "center", maxWidth: "720px", margin: "0 auto" }}>
-          <Badge variant="info" style={{ marginBottom: "var(--space-4)" }}>
+          <Badge tone="info" style={{ marginBottom: "var(--space-4)" }}>
             すべてのプランで14日間無料トライアル
           </Badge>
           <Heading
@@ -88,17 +89,20 @@ export function PricingPage() {
             gap: "var(--space-3)",
           }}
         >
-          <Tabs variant="pills">
-            <Tab active={!isYearly} onClick={() => setIsYearly(false)}>
-              月払い
-            </Tab>
-            <Tab active={isYearly} onClick={() => setIsYearly(true)}>
-              年払い
-              <Badge variant="positive" style={{ marginLeft: "var(--space-2)" }}>
-                20% OFF
-              </Badge>
-            </Tab>
-          </Tabs>
+          <TabGroup
+            value={isYearly ? "yearly" : "monthly"}
+            onValueChange={(v) => setIsYearly(v === "yearly")}
+          >
+            <Tabs variant="pills">
+              <Tab value="monthly">月払い</Tab>
+              <Tab value="yearly">
+                年払い
+                <Badge tone="positive" style={{ marginLeft: "var(--space-2)" }}>
+                  20% OFF
+                </Badge>
+              </Tab>
+            </Tabs>
+          </TabGroup>
         </div>
       </Section>
 

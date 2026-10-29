@@ -51,3 +51,12 @@ describe("FilterPill", () => {
     expect(btn).toHaveClass("filter-pill", "custom");
   });
 });
+
+describe("FilterPill data-state", () => {
+  it("switches between on and off with active", () => {
+    const { rerender } = render(<FilterPill>テスト</FilterPill>);
+    expect(screen.getByRole("button")).toHaveAttribute("data-state", "off");
+    rerender(<FilterPill active>テスト</FilterPill>);
+    expect(screen.getByRole("button")).toHaveAttribute("data-state", "on");
+  });
+});

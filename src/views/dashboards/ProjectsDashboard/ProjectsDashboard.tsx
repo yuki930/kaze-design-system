@@ -14,6 +14,7 @@ import {
   TableCell,
   Metric,
   Avatar,
+  TabGroup,
   Tabs,
   Tab,
   Search,
@@ -329,16 +330,16 @@ export function ProjectsDashboard() {
         <CardHeader>
           <div className={styles.projectHeaderTitle}>
             <CardTitle>Kaze Design System v2.0</CardTitle>
-            <Badge variant="info" dot>
+            <Badge tone="info" dot>
               進行中
             </Badge>
           </div>
         </CardHeader>
         <CardBody>
           <div className={styles.stepperWrapper}>
-            <Stepper steps={milestones} currentStep={2} />
+            <Stepper steps={milestones} step={2} />
           </div>
-          <Progress value={62} max={100} label="全体進捗" showValue color="info" />
+          <Progress value={62} max={100} label="全体進捗" showValue tone="info" />
         </CardBody>
       </Card>
 
@@ -384,13 +385,15 @@ export function ProjectsDashboard() {
           <CardHeader>
             <div className={layoutStyles.chartHeader}>
               <CardTitle>タスク状況</CardTitle>
-              <Tabs variant="pills">
-                {taskTabs.map((tab) => (
-                  <Tab key={tab} active={activeTab === tab} onClick={() => setActiveTab(tab)}>
-                    {tab}
-                  </Tab>
-                ))}
-              </Tabs>
+              <TabGroup value={activeTab} onValueChange={(v) => setActiveTab(v as TaskTab)}>
+                <Tabs variant="pills">
+                  {taskTabs.map((tab) => (
+                    <Tab key={tab} value={tab}>
+                      {tab}
+                    </Tab>
+                  ))}
+                </Tabs>
+              </TabGroup>
             </div>
           </CardHeader>
           <CardBody>
@@ -402,12 +405,12 @@ export function ProjectsDashboard() {
                   title={
                     <>
                       {task.title}{" "}
-                      <Badge variant={priorityVariant(task.priority)}>{task.priority}</Badge>
+                      <Badge tone={priorityVariant(task.priority)}>{task.priority}</Badge>
                     </>
                   }
                   description={`${task.id} · ${task.assignee} · 期限: ${task.dueDate}`}
                   trailing={
-                    <Badge variant={statusVariant(task.status)} dot>
+                    <Badge tone={statusVariant(task.status)} dot>
                       {task.status}
                     </Badge>
                   }
@@ -439,7 +442,7 @@ export function ProjectsDashboard() {
                     value={member.activeTasks}
                     max={member.maxTasks}
                     size="sm"
-                    color={workloadColor(member.activeTasks, member.maxTasks)}
+                    tone={workloadColor(member.activeTasks, member.maxTasks)}
                   />
                 </div>
                 <Text as="span" size="xs" color="muted" style={{ whiteSpace: "nowrap" }}>
@@ -465,7 +468,7 @@ export function ProjectsDashboard() {
                 key={`${activity.time}-${activity.title}`}
                 time={activity.time}
                 title={activity.title}
-                status={activity.status}
+                tone={activity.status}
               />
             ))}
           </Timeline>
@@ -506,14 +509,10 @@ export function ProjectsDashboard() {
                     </TableCell>
                     <TableCell>{deadline.dueDate}</TableCell>
                     <TableCell>
-                      <Badge variant={daysLeftVariant(deadline.daysLeft)}>
-                        {deadline.daysLeft}日
-                      </Badge>
+                      <Badge tone={daysLeftVariant(deadline.daysLeft)}>{deadline.daysLeft}日</Badge>
                     </TableCell>
                     <TableCell>
-                      <Badge variant={priorityVariant(deadline.priority)}>
-                        {deadline.priority}
-                      </Badge>
+                      <Badge tone={priorityVariant(deadline.priority)}>{deadline.priority}</Badge>
                     </TableCell>
                   </TableRow>
                 ))}

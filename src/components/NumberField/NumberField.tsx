@@ -11,6 +11,7 @@ import {
 } from "react";
 import { cn } from "@/lib/utils";
 import { composeEventHandlers } from "@/lib/composeEventHandlers";
+import { renamedProp } from "@/lib/deprecate";
 import { isComposingEvent, normalizeNumericInput } from "@/lib/jaText";
 
 export type NumberFieldCurrency = "JPY" | "USD" | "EUR" | "GBP" | "CNY" | "KRW";
@@ -24,7 +25,9 @@ export interface NumberFieldProps
   value?: number | null;
   /** Initial numeric value (uncontrolled) */
   defaultValue?: number | null;
-  /** Change handler */
+  /** Called with the parsed value (null when empty) */
+  onValueChange?: (value: number | null) => void;
+  /** @deprecated `onValueChange` に改名。次のマイナーで削除 */
   onChange?: (value: number | null) => void;
   /** Minimum allowed value */
   min?: number;
@@ -115,6 +118,7 @@ export const NumberField = forwardRef<HTMLInputElement, NumberFieldProps>(
     {
       value: valueProp,
       defaultValue,
+      onValueChange,
       onChange,
       min,
       max,
@@ -150,12 +154,20 @@ export const NumberField = forwardRef<HTMLInputElement, NumberFieldProps>(
     const value = isControlled ? valueProp : internalValue;
     const numberLocale = resolveLocale(locale, currency);
 
+    const handleValueChange = renamedProp(
+      "NumberField",
+      "onChange",
+      "onValueChange",
+      onChange,
+      onValueChange,
+    );
+
     const emit = useCallback(
       (next: number | null) => {
         if (!isControlled) setInternalValue(next);
-        onChange?.(next);
+        handleValueChange?.(next);
       },
-      [isControlled, onChange],
+      [isControlled, handleValueChange],
     );
 
     const resolvedPrefix = prefixProp ?? (currency ? currencyConfig[currency].symbol : undefined);

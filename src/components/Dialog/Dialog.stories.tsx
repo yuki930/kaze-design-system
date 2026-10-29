@@ -7,7 +7,7 @@ const meta = {
   component: Dialog,
   args: {
     open: true,
-    onClose: () => {},
+    onOpenChange: (_open: boolean) => {},
   },
 } satisfies Meta<typeof Dialog>;
 
@@ -27,7 +27,7 @@ export const Default: Story = {
         <p>この注文を確定してもよろしいですか？確定後の取り消しはできません。</p>
       </DialogBody>
       <DialogFooter>
-        <Button variant="outline" onClick={args.onClose}>
+        <Button variant="outline" onClick={() => args.onOpenChange?.(false)}>
           キャンセル
         </Button>
         <Button variant="primary">確認</Button>

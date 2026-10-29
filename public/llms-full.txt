@@ -75,7 +75,7 @@ Docs: https://kaze-design-system.vercel.app/docs/components/button
 - `variant?`: `"primary" | "secondary" | "outline" | "ghost" | "destructive"`
   - Default: `"primary"`
   - ボタンのスタイルバリアント
-- `size?`: `"xs" | "sm" | "md" | "lg"`
+- `size?`: `Extract<Size, "xs" | "sm" | "md" | "lg">`
   - Default: `"md"`
   - ボタンのサイズ
 - `fullWidth?`: `boolean`
@@ -84,6 +84,8 @@ Docs: https://kaze-design-system.vercel.app/docs/components/button
 - `iconOnly?`: `boolean`
   - Default: `false`
   - アイコンのみのボタンにするかどうか
+- `asChild?`: `boolean`
+  - 子要素にスタイルと振る舞いを委ねる（Next.js の Link など）
 - `disabled?`: `boolean`
   - Default: `false`
   - 無効状態にするかどうか
@@ -107,7 +109,7 @@ Docs: https://kaze-design-system.vercel.app/docs/components/fab
 - `variant?`: `"primary" | "secondary"`
   - Default: `"primary"`
   - スタイルバリアント
-- `size?`: `"sm" | "md" | "lg"`
+- `size?`: `Extract<Size, "sm" | "md" | "lg">`
   - Default: `"md"`
   - ボタンのサイズ
 - `position?`: `"bottom-right" | "bottom-left" | "top-right" | "top-left"`
@@ -116,6 +118,8 @@ Docs: https://kaze-design-system.vercel.app/docs/components/fab
 - `extended?`: `boolean`
   - Default: `false`
   - When true, shows icon + label side by side
+- `asChild?`: `boolean`
+  - 子要素にスタイルと振る舞いを委ねる（Next.js の Link など）
 
 **Usage**
 
@@ -160,8 +164,9 @@ Docs: https://kaze-design-system.vercel.app/docs/components/number-field
   - Current numeric value (controlled)
 - `defaultValue?`: `number | null`
   - Initial numeric value (uncontrolled)
+- `onValueChange?`: `(value: number | null) => void`
+  - Called with the parsed value (null when empty)
 - `onChange?`: `(value: number | null) => void`
-  - Change handler
 - `min?`: `number`
   - Minimum allowed value
 - `max?`: `number`
@@ -399,7 +404,7 @@ Docs: https://kaze-design-system.vercel.app/docs/components/segmented-control
   - Initial value when uncontrolled
 - `onValueChange?`: `(value: string) => void`
   - 選択変更時のコールバック
-- `size?`: `"sm" | "md"`
+- `size?`: `Extract<Size, "sm" | "md">`
   - Default: `"md"`
   - サイズ
 - `fullWidth?`: `boolean`
@@ -473,9 +478,10 @@ Docs: https://kaze-design-system.vercel.app/docs/components/badge
 
 **Props**
 
-- `variant?`: `"default" | "positive" | "negative" | "warning" | "info"`
+- `tone?`: `Tone`
   - Default: `"default"`
-  - バッジのスタイルバリアント
+  - 意味色（旧 variant）
+- `variant?`: `Tone`
 - `dot?`: `boolean`
   - Default: `false`
   - ドットインジケーターを表示するかどうか
@@ -488,8 +494,8 @@ Docs: https://kaze-design-system.vercel.app/docs/components/badge
 **Usage**
 
 ```tsx
-<Badge variant="positive">成功</Badge>
-<Badge variant="negative" solid>エラー</Badge>
+<Badge tone="positive">成功</Badge>
+<Badge tone="negative" solid>エラー</Badge>
 ```
 
 #### StatusBadge
@@ -590,7 +596,7 @@ Docs: https://kaze-design-system.vercel.app/docs/components/avatar
 
 **Props**
 
-- `size?`: `"xs" | "sm" | "md" | "lg"`
+- `size?`: `Extract<Size, "xs" | "sm" | "md" | "lg">`
   - Default: `"md"`
   - アバターのサイズ
 - `src?`: `string`
@@ -651,9 +657,9 @@ Docs: https://kaze-design-system.vercel.app/docs/components/tracker
 ```tsx
 <Tracker
   data={[
-    { status: "positive", tooltip: "正常" },
-    { status: "warning", tooltip: "遅延" },
-    { status: "negative", tooltip: "障害" },
+    { tone: "positive", tooltip: "正常" },
+    { tone: "warning", tooltip: "遅延" },
+    { tone: "negative", tooltip: "障害" },
   ]}
   label="サービス稼働状況"
 />
@@ -1077,9 +1083,10 @@ Docs: https://kaze-design-system.vercel.app/docs/components/alert
 
 **Props**
 
-- `variant?`: `"default" | "positive" | "negative" | "warning" | "info"`
+- `tone?`: `Tone`
   - Default: `"info"`
-  - アラートのスタイルバリアント
+  - 意味色（旧 variant）
+- `variant?`: `Tone`
 - `icon?`: `ReactNode`
   - 左側に表示するアイコン
 - `title?`: `string`
@@ -1090,13 +1097,13 @@ Docs: https://kaze-design-system.vercel.app/docs/components/alert
 **Usage**
 
 ```tsx
-<Alert variant="info" icon={<Info size={18} />}>
+<Alert tone="info" icon={<Info size={18} />}>
   新しいバージョンが利用可能です。
 </Alert>
-<Alert variant="positive" icon={<CheckCircle size={18} />}>
+<Alert tone="positive" icon={<CheckCircle size={18} />}>
   データが正常に保存されました。
 </Alert>
-<Alert variant="info" icon={<Info size={18} />} title="お知らせ">
+<Alert tone="info" icon={<Info size={18} />} title="お知らせ">
   タイトル付きのアラートです。
 </Alert>
 ```
@@ -1117,10 +1124,11 @@ Docs: https://kaze-design-system.vercel.app/docs/components/progress
 - `showValue?`: `boolean`
   - Default: `false`
   - パーセンテージ値を表示するかどうか
-- `color?`: `"default" | "positive" | "negative" | "warning" | "info"`
+- `tone?`: `Tone`
   - Default: `"default"`
-  - バーの色
-- `size?`: `"sm" | "md" | "lg"`
+  - バーの意味色（旧 color）
+- `color?`: `Tone`
+- `size?`: `Extract<Size, "sm" | "md" | "lg">`
   - Default: `"md"`
   - プログレスバーの高さ
 
@@ -1128,7 +1136,7 @@ Docs: https://kaze-design-system.vercel.app/docs/components/progress
 
 ```tsx
 <Progress value={72} label="アップロード中..." showValue />
-<Progress value={45} color="warning" size="lg" />
+<Progress value={45} tone="warning" size="lg" />
 ```
 
 #### Meter
@@ -1158,9 +1166,10 @@ Docs: https://kaze-design-system.vercel.app/docs/components/meter
 - `showValue?`: `boolean`
   - Default: `false`
   - Show percentage text
-- `color?`: `"default" | "positive" | "negative" | "warning" | "info"`
-  - Color variant (overrides threshold-based coloring)
-- `size?`: `"sm" | "md" | "lg"`
+- `tone?`: `Tone`
+  - Semantic color (overrides threshold-based coloring)
+- `color?`: `Tone`
+- `size?`: `Extract<Size, "sm" | "md" | "lg">`
   - Size
 
 **Usage**
@@ -1209,7 +1218,7 @@ Docs: https://kaze-design-system.vercel.app/docs/components/empty-state
   - 説明テキスト
 - `actions?`: `ReactNode`
   - アクションボタンなどの要素
-- `size?`: `"sm" | "md" | "lg"`
+- `size?`: `Extract<Size, "sm" | "md" | "lg">`
   - Default: `"md"`
   - 表示サイズ。sm はテーブルセル内、md はセクション、lg はページ全体向け
 
@@ -1248,7 +1257,7 @@ Docs: https://kaze-design-system.vercel.app/docs/components/toast
   - トーストのタイトル
 - `toast.description?`: `string`
   - 本文（省略可）
-- `toast.variant?`: `"default" | "positive" | "negative" | "warning" | "info"`
+- `toast.tone?`: `"default" | "positive" | "negative" | "warning" | "info"`
   - Default: `"default"`
   - 種類。negative / warning は role=alert で読み上げられる
 - `toast.duration?`: `number`
@@ -1268,7 +1277,7 @@ const { toast } = useToast();
 
 <Button
   onClick={() =>
-    toast({ title: "保存完了", description: "データが正常に保存されました。", variant: "positive" })
+    toast({ title: "保存完了", description: "データが正常に保存されました。", tone: "positive" })
   }
 >
   保存
@@ -1286,21 +1295,29 @@ Docs: https://kaze-design-system.vercel.app/docs/components/tabs
 **Props**
 
 - `variant?`: `"default" | "pills"`
-- `active?`: `boolean`
+- `value?`: `string`
+  - タブの識別子（Tab / TabPanel）
+- `defaultValue?`: `string`
+  - 初期選択のタブ（TabGroup。非制御）
+- `onValueChange?`: `(value: string) => void`
+  - 選択が変わる時のコールバック（TabGroup）
+- `asChild?`: `boolean`
   - Default: `false`
-  - アクティブ状態かどうか（Tab）
-- `onClick?`: `() => void`
-  - クリック時のコールバック（Tab）
+  - 子要素（リンクなど）にタブの振る舞いを委ねる（Tab）
 - `children?`: `React.ReactNode`
   - タブの内容
 
 **Usage**
 
 ```tsx
-<Tabs>
-  <Tab active>タブ1</Tab>
-  <Tab>タブ2</Tab>
-</Tabs>
+<TabGroup defaultValue="a">
+  <Tabs>
+    <Tab value="a">タブ1</Tab>
+    <Tab value="b">タブ2</Tab>
+  </Tabs>
+  <TabPanel value="a">内容1</TabPanel>
+  <TabPanel value="b">内容2</TabPanel>
+</TabGroup>
 ```
 
 #### Sidebar
@@ -1383,8 +1400,12 @@ Docs: https://kaze-design-system.vercel.app/docs/components/pagination
 
 **Props**
 
-- `currentPage`: `number`
-  - 現在のページ番号
+- `page?`: `number`
+  - 現在のページ（1 始まり、制御）
+- `defaultPage?`: `number`
+  - Default: `1`
+  - 初期ページ（非制御、既定 1）
+- `currentPage?`: `number`
 - `totalPages`: `number`
   - 総ページ数
 - `onPageChange?`: `(page: number) => void`
@@ -1405,7 +1426,7 @@ Docs: https://kaze-design-system.vercel.app/docs/components/pagination
 
 ```tsx
 <Pagination
-  currentPage={3}
+  page={3}
   totalPages={10}
   onPageChange={(page) => setCurrentPage(page)}
 />
@@ -1421,14 +1442,15 @@ Docs: https://kaze-design-system.vercel.app/docs/components/stepper
 
 - `steps`: `StepperStep[]`
   - ステップの配列 { label }
-- `currentStep`: `number`
-  - 現在のステップ番号（0始まり）
+- `step?`: `number`
+  - 現在のステップ（0 始まり）
+- `currentStep?`: `number`
 
 **Usage**
 
 ```tsx
 <Stepper
-  currentStep={2}
+  step={2}
   steps={[
     { label: "アカウント情報" },
     { label: "プロフィール設定" },
@@ -1465,7 +1487,7 @@ not auto-rotated.
 - `iconPosition?`: `"left" | "right"`
   - Default: `"left"`
   - Which side the marker appears on
-- `size?`: `"sm" | "md" | "lg"`
+- `size?`: `Extract<Size, "sm" | "md" | "lg">`
   - Default: `"md"`
   - Trigger row density
 - `variant?`: `"default" | "ghost" | "bordered"`
@@ -1510,8 +1532,9 @@ Docs: https://kaze-design-system.vercel.app/docs/components/dialog
 
 - `open`: `boolean`
   - ダイアログの表示状態
-- `onClose`: `() => void`
-  - 閉じる時のコールバック
+- `onOpenChange?`: `(open: boolean) => void`
+  - Escape / 背景クリック / 閉じる操作で呼ばれる。`open` を false にするのは呼び出し側
+- `onClose?`: `() => void`
 - `returnFocusRef?`: `RefObject<HTMLElement | null>`
 - `title?`: `string`
   - ダイアログのタイトル
@@ -1521,7 +1544,7 @@ Docs: https://kaze-design-system.vercel.app/docs/components/dialog
 **Usage**
 
 ```tsx
-<Dialog open={isOpen} onClose={() => setOpen(false)} title="確認">
+<Dialog open={isOpen} onOpenChange={setOpen} title="確認">
   <p>本当に削除しますか？</p>
 </Dialog>
 ```
@@ -1538,6 +1561,11 @@ Docs: https://kaze-design-system.vercel.app/docs/components/tooltip
   - Content to render inside the tooltip
 - `children`: `ReactElement`
   - The element that triggers the tooltip
+- `open?`: `boolean`
+  - Controlled open state. Hover / focus / Escape then only call `onOpenChange`
+- `defaultOpen?`: `boolean`
+  - Initial open state (uncontrolled)
+- `onOpenChange?`: `(open: boolean) => void`
 - `side?`: `"top" | "bottom" | "left" | "right"`
   - Default: `"top"`
   - Which side the tooltip appears on
@@ -1571,7 +1599,7 @@ Docs: https://kaze-design-system.vercel.app/docs/components/help-button
 - `position?`: `"top" | "bottom" | "left" | "right"`
   - Default: `"bottom"`
   - Preferred side the popover appears on
-- `size?`: `"sm" | "md" | "lg"`
+- `size?`: `Extract<Size, "sm" | "md" | "lg">`
   - Default: `"md"`
   - Popover width
 - `icon?`: `ReactNode`
@@ -1774,8 +1802,11 @@ Docs: https://kaze-design-system.vercel.app/docs/components/search
   - Called when the user submits with Enter (not during IME composition). Use onChange for every keystroke.
 - `value?`: `string`
   - Controlled value
+- `defaultValue?`: `string`
+  - Initial value (uncontrolled)
+- `onValueChange?`: `(value: string) => void`
+  - Called with the new value on every change
 - `onChange?`: `(value: string) => void`
-  - Change handler for controlled mode
 - `aria-label?`: `string`
   - Accessible label for the search input
 - `inputProps?`: `Omit<InputHTMLAttributes<HTMLInputElement>, "value" | "onChange" | "type">`
@@ -1795,7 +1826,7 @@ Docs: https://kaze-design-system.vercel.app/docs/components/logo
 
 **Props**
 
-- `size?`: `"sm" | "md" | "lg"`
+- `size?`: `Extract<Size, "sm" | "md" | "lg">`
   - Default: `"md"`
   - ロゴのサイズ
 - `showText?`: `boolean`
@@ -1819,7 +1850,7 @@ Docs: https://kaze-design-system.vercel.app/docs/components/icon
 
 - `icon`: `ComponentType<{ size?: number | string; strokeWidth?: number | string; }>`
   - An icon component such as a lucide-react icon
-- `size?`: `"xs" | "sm" | "md" | "lg" | "xl"`
+- `size?`: `Size`
   - Default: `"md"`
   - Size of the icon
 - `label?`: `string`
@@ -2005,9 +2036,9 @@ Docs: https://kaze-design-system.vercel.app/docs/components/timeline
   - イベントのタイトル（TimelineItem）
 - `description?`: `React.ReactNode`
   - イベントの詳細説明（TimelineItem）
-- `status?`: `"default" | "positive" | "negative" | "info" | "warning"`
+- `tone?`: `"default" | "positive" | "negative" | "warning" | "info"`
   - Default: `"default"`
-  - ドットの色（TimelineItem）
+  - ドットの意味色（TimelineItem。旧 status）
 
 **Usage**
 
@@ -2017,7 +2048,7 @@ Docs: https://kaze-design-system.vercel.app/docs/components/timeline
     time="2026-02-19"
     title="イベント名"
     description="詳細説明"
-    status="positive"
+    tone="positive"
   />
 </Timeline>
 ```
@@ -2104,7 +2135,7 @@ Docs: https://kaze-design-system.vercel.app/docs/components/section
 
 **Props**
 
-- `size?`: `"sm" | "md" | "lg"`
+- `size?`: `Extract<Size, "sm" | "md" | "lg">`
   - Default: `"md"`
   - 上下パディングのサイズ
 - `background?`: `"default" | "muted" | "dark"`

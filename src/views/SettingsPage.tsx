@@ -90,7 +90,7 @@ export function SettingsPage() {
 
         {/* ── Account Status Alert ────────────────────────── */}
         <Alert
-          variant="positive"
+          tone="positive"
           icon={<CheckCircle size={18} />}
           title="アカウントは正常です"
           style={{ marginBottom: "var(--space-8)" }}
@@ -313,7 +313,7 @@ export function SettingsPage() {
                     <p style={{ margin: 0, fontWeight: 600, color: "var(--color-fg)" }}>
                       プロプラン
                     </p>
-                    <Badge variant="info">現在のプラン</Badge>
+                    <Badge tone="info">現在のプラン</Badge>
                   </div>
                   <p
                     style={{
@@ -367,7 +367,7 @@ export function SettingsPage() {
                     7.2 GB / 10 GB
                   </span>
                 </div>
-                <Progress value={72} color="default" size="sm" />
+                <Progress value={72} tone="default" size="sm" />
               </div>
 
               <div>
@@ -397,7 +397,7 @@ export function SettingsPage() {
                     8 / 15 人
                   </span>
                 </div>
-                <Progress value={53} color="info" size="sm" />
+                <Progress value={53} tone="info" size="sm" />
               </div>
 
               <div>
@@ -427,7 +427,7 @@ export function SettingsPage() {
                     45,230 / 50,000
                   </span>
                 </div>
-                <Progress value={90} color="warning" size="sm" />
+                <Progress value={90} tone="warning" size="sm" />
               </div>
             </div>
           </CardBody>
@@ -456,7 +456,7 @@ export function SettingsPage() {
               </DescriptionItem>
               <DescriptionItem term="二要素認証">
                 <div style={{ display: "flex", alignItems: "center", gap: "var(--space-3)" }}>
-                  <Badge variant="positive" dot>
+                  <Badge tone="positive" dot>
                     有効
                   </Badge>
                   <Button variant="outline" size="sm">

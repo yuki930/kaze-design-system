@@ -7,6 +7,7 @@ import {
   Badge,
   Card,
   CardBody,
+  TabGroup,
   Tabs,
   Tab,
   Logo,
@@ -209,13 +210,15 @@ export function GalleryPage() {
 
       {/* Category Filter */}
       <div className={styles.filterBar}>
-        <Tabs variant="pills">
-          {categories.map((cat) => (
-            <Tab key={cat} active={activeCategory === cat} onClick={() => setActiveCategory(cat)}>
-              {cat}
-            </Tab>
-          ))}
-        </Tabs>
+        <TabGroup value={activeCategory} onValueChange={(v) => setActiveCategory(v as Category)}>
+          <Tabs variant="pills">
+            {categories.map((cat) => (
+              <Tab key={cat} value={cat}>
+                {cat}
+              </Tab>
+            ))}
+          </Tabs>
+        </TabGroup>
       </div>
 
       {/* Gallery Grid */}
@@ -248,7 +251,7 @@ export function GalleryPage() {
                         撮影: {item.author}
                       </Text>
                     </div>
-                    <Badge variant="default">{item.category}</Badge>
+                    <Badge tone="default">{item.category}</Badge>
                   </div>
                 </CardBody>
               </Card>

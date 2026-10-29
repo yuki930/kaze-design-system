@@ -175,6 +175,7 @@ export const DropdownTrigger = forwardRef<HTMLElement, DropdownTriggerProps>(
       "aria-haspopup": "menu" as const,
       "aria-expanded": open,
       "aria-controls": open ? menuId : undefined,
+      "data-state": open ? "open" : "closed",
       onClick: composeEventHandlers(childProps?.onClick, handleClick),
       onKeyDown: composeEventHandlers(childProps?.onKeyDown, handleKeyDown),
     };
@@ -309,6 +310,7 @@ export const DropdownMenu = forwardRef<HTMLDivElement, DropdownMenuProps>(
         tabIndex={-1}
         aria-labelledby={rest["aria-labelledby"] ?? triggerId}
         className={cn("dropdown__menu", className)}
+        data-state="open"
         style={{ ...style, top: position.top, left: position.left }}
         onKeyDown={composeEventHandlers(onKeyDown, handleKeyDown)}
       >

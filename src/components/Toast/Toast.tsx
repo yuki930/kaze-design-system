@@ -12,17 +12,22 @@ import {
   type ReactNode,
 } from "react";
 import { createPortal } from "react-dom";
+import { renamedProp } from "@/lib/deprecate";
+import type { Tone } from "../../lib/types";
 import { cn } from "@/lib/utils";
 
 /* ── Types ─────────────────────────────────────────────────── */
 
-export type ToastVariant = "default" | "positive" | "negative" | "warning" | "info";
+/** @deprecated `Tone` を使う */
+export type ToastVariant = Tone;
 
 export interface ToastData {
   id: string;
   title: string;
   description?: string;
-  variant?: ToastVariant;
+  tone?: Tone;
+  /** @deprecated `tone` に改名。次のマイナーで削除 */
+  variant?: Tone;
   duration?: number;
   /** Internal: set while the exit animation plays */
   removing?: boolean;
@@ -31,7 +36,9 @@ export interface ToastData {
 export interface ToastOptions {
   title: string;
   description?: string;
-  variant?: ToastVariant;
+  tone?: Tone;
+  /** @deprecated `tone` に改名。次のマイナーで削除 */
+  variant?: Tone;
   duration?: number;
 }
 
@@ -131,16 +138,18 @@ const ToastItem = forwardRef<HTMLDivElement, ToastItemProps>(function ToastItem(
     if (!hoverRef.current && !focusRef.current && !removing) startTimer();
   };
 
-  const variantClass =
-    data.variant && data.variant !== "default" ? `toast--${data.variant}` : undefined;
+  const tone = data.tone ?? data.variant ?? "default";
+  const variantClass = tone !== "default" ? `toast--${tone}` : undefined;
 
   return (
     // biome-ignore lint/a11y/noStaticElementInteractions: hover/focus handlers only pause the auto-dismiss timer (WCAG 2.2.1); the element is a live region, not a control.
     <div
       ref={ref}
       className={cn("toast", variantClass)}
-      role={data.variant === "negative" || data.variant === "warning" ? "alert" : "status"}
+      role={tone === "negative" || tone === "warning" ? "alert" : "status"}
       aria-atomic="true"
+      data-tone={tone}
+      data-state={removing ? "closing" : "open"}
       data-removing={removing || undefined}
       onMouseEnter={() => pause("hover")}
       onMouseLeave={() => resume("hover")}
@@ -149,9 +158,9 @@ const ToastItem = forwardRef<HTMLDivElement, ToastItemProps>(function ToastItem(
         if (!e.currentTarget.contains(e.relatedTarget as Node | null)) resume("focus");
       }}
     >
-      {data.variant && data.variant !== "default" && (
+      {tone !== "default" && (
         <span className="toast__icon" aria-hidden="true">
-          {data.variant === "positive" && (
+          {tone === "positive" && (
             <svg
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
@@ -167,7 +176,7 @@ const ToastItem = forwardRef<HTMLDivElement, ToastItemProps>(function ToastItem(
               <path d="M20 6 9 17l-5-5" />
             </svg>
           )}
-          {data.variant === "negative" && (
+          {tone === "negative" && (
             <svg
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
@@ -185,7 +194,7 @@ const ToastItem = forwardRef<HTMLDivElement, ToastItemProps>(function ToastItem(
               <path d="m9 9 6 6" />
             </svg>
           )}
-          {data.variant === "warning" && (
+          {tone === "warning" && (
             <svg
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
@@ -203,7 +212,7 @@ const ToastItem = forwardRef<HTMLDivElement, ToastItemProps>(function ToastItem(
               <path d="M12 17h.01" />
             </svg>
           )}
-          {data.variant === "info" && (
+          {tone === "info" && (
             <svg
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
@@ -269,7 +278,7 @@ export function ToastProvider({
       id,
       title: options.title,
       description: options.description,
-      variant: options.variant ?? "default",
+      tone: renamedProp("Toast", "variant", "tone", options.variant, options.tone) ?? "default",
       duration: options.duration ?? 4000,
     };
     setToasts((prev) => [...prev, newToast]);

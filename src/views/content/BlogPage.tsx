@@ -11,6 +11,7 @@ import {
   CardTitle,
   CardDescription,
   CardBody,
+  TabGroup,
   Tabs,
   Tab,
   Input,
@@ -502,17 +503,19 @@ export function BlogPage() {
 
       {/* ── Category Tabs ───────────────────────────────────── */}
       <div style={styles.tabsRow}>
-        <Tabs variant="pills">
-          <Tab active>
-            <TrendingUp size={14} style={{ marginRight: "var(--space-1)" }} />
-            トレンド
-          </Tab>
-          <Tab>最新</Tab>
-          <Tab>テクノロジー</Tab>
-          <Tab>デザイン</Tab>
-          <Tab>AI</Tab>
-          <Tab>キャリア</Tab>
-        </Tabs>
+        <TabGroup defaultValue="trend">
+          <Tabs variant="pills">
+            <Tab value="trend">
+              <TrendingUp size={14} style={{ marginRight: "var(--space-1)" }} />
+              トレンド
+            </Tab>
+            <Tab value="latest">最新</Tab>
+            <Tab value="tech">テクノロジー</Tab>
+            <Tab value="design">デザイン</Tab>
+            <Tab value="ai">AI</Tab>
+            <Tab value="career">キャリア</Tab>
+          </Tabs>
+        </TabGroup>
       </div>
 
       {/* ── Main Content ────────────────────────────────────── */}
@@ -530,7 +533,7 @@ export function BlogPage() {
                 style={styles.featuredImage}
               />
               <div style={styles.featuredBadge}>
-                <Badge variant="positive">{featuredArticle.category}</Badge>
+                <Badge tone="positive">{featuredArticle.category}</Badge>
               </div>
             </div>
             <div style={styles.featuredBody}>
@@ -565,7 +568,7 @@ export function BlogPage() {
                 <div style={styles.articleImageWrapper}>
                   <img src={article.image} alt={article.title} style={styles.articleImage} />
                   <div style={styles.articleBadge}>
-                    <Badge variant={article.categoryVariant}>{article.category}</Badge>
+                    <Badge tone={article.categoryVariant}>{article.category}</Badge>
                   </div>
                 </div>
                 <div style={styles.articleBody}>
@@ -722,7 +725,7 @@ export function BlogPage() {
 
       {/* ── Pagination ───────────────────────────────────────── */}
       <div style={styles.paginationWrapper}>
-        <Pagination currentPage={1} totalPages={12} />
+        <Pagination page={1} totalPages={12} />
       </div>
     </div>
   );

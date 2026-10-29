@@ -26,6 +26,11 @@ export interface TooltipProps {
   content: ReactNode;
   /** The element that triggers the tooltip */
   children: ReactElement;
+  /** Controlled open state. Hover / focus / Escape then only call `onOpenChange` */
+  open?: boolean;
+  /** Initial open state (uncontrolled) */
+  defaultOpen?: boolean;
+  onOpenChange?: (open: boolean) => void;
   /** Which side the tooltip appears on */
   side?: TooltipSide;
   /** Delay in ms before the tooltip shows */
@@ -110,8 +115,30 @@ function getChildRef(child: ReactElement): Ref<HTMLElement> {
 /* ── Tooltip ───────────────────────────────────────────────── */
 
 export const Tooltip = forwardRef<HTMLDivElement, TooltipProps>(
-  ({ content, children, side = "top", delay = 200, className, style }, ref) => {
-    const [open, setOpen] = useState(false);
+  (
+    {
+      content,
+      children,
+      open: openProp,
+      defaultOpen = false,
+      onOpenChange,
+      side = "top",
+      delay = 200,
+      className,
+      style,
+    },
+    ref,
+  ) => {
+    const [internalOpen, setInternalOpen] = useState(defaultOpen);
+    const isControlled = openProp !== undefined;
+    const open = isControlled ? openProp : internalOpen;
+    const setOpen = useCallback(
+      (next: boolean) => {
+        if (!isControlled) setInternalOpen(next);
+        onOpenChange?.(next);
+      },
+      [isControlled, onOpenChange],
+    );
     const [mounted, setMounted] = useState(false);
     const [position, setPosition] = useState<{ top: number; left: number }>({ top: 0, left: 0 });
     const triggerRef = useRef<HTMLElement | null>(null);
@@ -158,12 +185,12 @@ export const Tooltip = forwardRef<HTMLDivElement, TooltipProps>(
     const show = useCallback(() => {
       clearTimers();
       showTimerRef.current = setTimeout(() => setOpen(true), delay);
-    }, [delay, clearTimers]);
+    }, [delay, clearTimers, setOpen]);
 
     const hide = useCallback(() => {
       clearTimers();
       hideTimerRef.current = setTimeout(() => setOpen(false), HIDE_GRACE_MS);
-    }, [clearTimers]);
+    }, [clearTimers, setOpen]);
 
     // Keep open while the pointer is over the tooltip itself.
     const keepOpen = useCallback(() => {
@@ -182,7 +209,7 @@ export const Tooltip = forwardRef<HTMLDivElement, TooltipProps>(
       };
       document.addEventListener("keydown", onKeyDown);
       return () => document.removeEventListener("keydown", onKeyDown);
-    }, [open, clearTimers]);
+    }, [open, clearTimers, setOpen]);
 
     const childProps = children.props as Record<string, unknown>;
     const childRef = getChildRef(children);

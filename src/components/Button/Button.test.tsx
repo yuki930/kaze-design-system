@@ -91,4 +91,73 @@ describe("Button", () => {
     render(<Button ref={ref}>参照</Button>);
     expect(ref.current).toBeInstanceOf(HTMLButtonElement);
   });
+
+  describe("asChild", () => {
+    it("renders the child element with button classes and no button", () => {
+      render(
+        <Button asChild>
+          <a href="/x">リンク</a>
+        </Button>,
+      );
+      const link = screen.getByRole("link", { name: "リンク" });
+      expect(link).toHaveClass("btn", "btn--primary", "btn--md");
+      expect(link).toHaveAttribute("href", "/x");
+      expect(link).not.toHaveAttribute("type");
+      expect(screen.queryByRole("button")).not.toBeInTheDocument();
+    });
+
+    it("merges className and runs both onClick handlers", async () => {
+      const user = userEvent.setup();
+      const own = vi.fn();
+      const child = vi.fn();
+      render(
+        <Button asChild onClick={own}>
+          <a
+            href="/x"
+            className="extra"
+            onClick={(e) => {
+              e.preventDefault();
+              child(e.type);
+            }}
+          >
+            リンク
+          </a>
+        </Button>,
+      );
+      const link = screen.getByRole("link", { name: "リンク" });
+      expect(link).toHaveClass("btn", "extra");
+      await user.click(link);
+      expect(child).toHaveBeenCalledTimes(1);
+      // 子が preventDefault したので Button 側は呼ばれない（Slot の規約）
+      expect(own).not.toHaveBeenCalled();
+    });
+
+    it("runs Button onClick when the child does not prevent default", async () => {
+      const user = userEvent.setup();
+      const own = vi.fn((e: { preventDefault: () => void }) => e.preventDefault());
+      render(
+        <Button asChild onClick={own}>
+          <a href="/x">リンク</a>
+        </Button>,
+      );
+      await user.click(screen.getByRole("link", { name: "リンク" }));
+      expect(own).toHaveBeenCalledTimes(1);
+    });
+
+    it("marks disabled with aria-disabled and blocks clicks", async () => {
+      const user = userEvent.setup();
+      const own = vi.fn();
+      render(
+        <Button asChild disabled onClick={own}>
+          <a href="/x">リンク</a>
+        </Button>,
+      );
+      const link = screen.getByRole("link", { name: "リンク" });
+      expect(link).not.toHaveAttribute("disabled");
+      expect(link).toHaveAttribute("aria-disabled", "true");
+      expect(link).toHaveAttribute("data-disabled", "");
+      await user.click(link);
+      expect(own).not.toHaveBeenCalled();
+    });
+  });
 });

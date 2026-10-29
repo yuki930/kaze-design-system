@@ -125,3 +125,14 @@ describe("SegmentedControl", () => {
     expect(input?.value).toBe("3m");
   });
 });
+
+describe("SegmentedControl data-state", () => {
+  it("marks the selected option on and the rest off", () => {
+    render(<SegmentedControl aria-label="期間" options={options} defaultValue="3m" size="sm" />);
+    expect(screen.getByRole("radio", { name: "3M" })).toHaveAttribute("data-state", "on");
+    expect(screen.getByRole("radio", { name: "1W" })).toHaveAttribute("data-state", "off");
+    fireEvent.click(screen.getByRole("radio", { name: "1Y" }));
+    expect(screen.getByRole("radio", { name: "1Y" })).toHaveAttribute("data-state", "on");
+    expect(screen.getByRole("radio", { name: "3M" })).toHaveAttribute("data-state", "off");
+  });
+});

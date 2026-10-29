@@ -101,3 +101,10 @@ export const Disabled: Story = {
     children: "無効なボタン",
   },
 };
+
+export const AsChild: Story = {
+  args: {
+    asChild: true,
+    children: <a href="/as-child">リンクとして描画</a>,
+  },
+};

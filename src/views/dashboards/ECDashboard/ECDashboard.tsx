@@ -15,6 +15,7 @@ import {
   TableCell,
   Metric,
   Avatar,
+  TabGroup,
   Tabs,
   Tab,
   Search,
@@ -326,7 +327,7 @@ export function ECDashboard() {
     <AppLayout sidebar={sidebar} topbar={topbar} data-density="compact">
       {/* Alert Banner */}
       <div className={styles.alertSection}>
-        <Alert variant="warning" title="在庫アラート">
+        <Alert tone="warning" title="在庫アラート">
           3件の商品が在庫切れ間近です。早めの発注をおすすめします。
         </Alert>
       </div>
@@ -358,13 +359,15 @@ export function ECDashboard() {
           <CardHeader>
             <div className={layoutStyles.chartHeader}>
               <CardTitle>カテゴリ別売上</CardTitle>
-              <Tabs variant="pills">
-                {chartTabs.map((tab) => (
-                  <Tab key={tab} active={activeTab === tab} onClick={() => setActiveTab(tab)}>
-                    {tab}
-                  </Tab>
-                ))}
-              </Tabs>
+              <TabGroup value={activeTab} onValueChange={(v) => setActiveTab(v as ChartTab)}>
+                <Tabs variant="pills">
+                  {chartTabs.map((tab) => (
+                    <Tab key={tab} value={tab}>
+                      {tab}
+                    </Tab>
+                  ))}
+                </Tabs>
+              </TabGroup>
             </div>
           </CardHeader>
           <CardBody>
@@ -437,7 +440,7 @@ export function ECDashboard() {
                     <TableCell className={styles.tabularNums}>{order.total}</TableCell>
                     <TableCell>{order.payment}</TableCell>
                     <TableCell>
-                      <Badge variant={orderStatusVariant(order.status)} dot>
+                      <Badge tone={orderStatusVariant(order.status)} dot>
                         {order.status}
                       </Badge>
                     </TableCell>
@@ -448,7 +451,7 @@ export function ECDashboard() {
             </Table>
           </div>
           <div className={styles.paginationWrapper}>
-            <Pagination currentPage={currentPage} totalPages={12} onPageChange={setCurrentPage} />
+            <Pagination page={currentPage} totalPages={12} onPageChange={setCurrentPage} />
           </div>
         </CardBody>
       </Card>
@@ -477,7 +480,7 @@ export function ECDashboard() {
                         value={product.stockPercent}
                         max={100}
                         size="sm"
-                        color={stockColor(product.stockPercent)}
+                        tone={stockColor(product.stockPercent)}
                       />
                       <Text as="span" variant="caption" color="subtle">
                         在庫

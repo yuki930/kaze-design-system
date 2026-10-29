@@ -1,7 +1,8 @@
 import { forwardRef, type ReactNode, type HTMLAttributes } from "react";
+import type { Size } from "../../lib/types";
 import { cn } from "@/lib/utils";
 
-export type EmptyStateSize = "sm" | "md" | "lg";
+export type EmptyStateSize = Extract<Size, "sm" | "md" | "lg">;
 
 export interface EmptyStateProps extends HTMLAttributes<HTMLDivElement> {
   icon?: ReactNode;

@@ -533,7 +533,7 @@ export function Dashboard() {
                       {stock.profitLoss}
                     </TableCell>
                     <TableCell>
-                      <Badge variant={signalVariant(stock.signal)} dot>
+                      <Badge tone={signalVariant(stock.signal)} dot>
                         {stock.signal}
                       </Badge>
                     </TableCell>

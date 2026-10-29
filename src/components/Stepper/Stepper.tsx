@@ -1,5 +1,6 @@
 import { forwardRef, type HTMLAttributes } from "react";
 import { cn } from "@/lib/utils";
+import { renamedProp } from "@/lib/deprecate";
 
 const CheckIcon = () => (
   <svg
@@ -23,56 +24,63 @@ export interface StepperStep {
 
 export interface StepperProps extends HTMLAttributes<HTMLDivElement> {
   steps: StepperStep[];
-  currentStep: number;
+  /** 現在のステップ（0 始まり） */
+  step?: number;
+  /** @deprecated `step` に改名。次のマイナーで削除 */
+  currentStep?: number;
 }
 
 export const Stepper = forwardRef<HTMLDivElement, StepperProps>(
-  ({ steps, currentStep, className, ...rest }, ref) => (
-    <div ref={ref} className={cn("stepper", className)} {...rest}>
-      <ol className="stepper__list">
-        {steps.map((step, i) => {
-          const isCompleted = i < currentStep;
-          const isActive = i === currentStep;
-          return (
-            <li
-              // biome-ignore lint/suspicious/noArrayIndexKey: steps are ordinal (the index is rendered as the step number) and labels are not guaranteed unique.
-              key={i}
-              className="stepper__item"
-              aria-current={isActive ? "step" : undefined}
-            >
-              <div className={cn("stepper__step", isActive && "stepper__step--active")}>
-                <span
-                  className={cn(
-                    "stepper__circle",
-                    isActive && "stepper__circle--active",
-                    isCompleted && "stepper__circle--completed",
-                  )}
-                >
-                  {isCompleted ? (
-                    <>
-                      <CheckIcon />
-                      <span className="sr-only">完了</span>
-                    </>
-                  ) : (
-                    i + 1
-                  )}
-                </span>
-                <span className="stepper__label">{step.label}</span>
-              </div>
-              {i < steps.length - 1 && (
-                <span
-                  className={cn(
-                    "stepper__connector",
-                    isCompleted && "stepper__connector--completed",
-                  )}
-                />
-              )}
-            </li>
-          );
-        })}
-      </ol>
-    </div>
-  ),
+  ({ steps, step: stepProp, currentStep: currentStepProp, className, ...rest }, ref) => {
+    const currentStep =
+      renamedProp("Stepper", "currentStep", "step", currentStepProp, stepProp) ?? 0;
+    return (
+      <div ref={ref} className={cn("stepper", className)} {...rest}>
+        <ol className="stepper__list">
+          {steps.map((step, i) => {
+            const isCompleted = i < currentStep;
+            const isActive = i === currentStep;
+            return (
+              <li
+                // biome-ignore lint/suspicious/noArrayIndexKey: steps are ordinal (the index is rendered as the step number) and labels are not guaranteed unique.
+                key={i}
+                className="stepper__item"
+                aria-current={isActive ? "step" : undefined}
+              >
+                <div className={cn("stepper__step", isActive && "stepper__step--active")}>
+                  <span
+                    className={cn(
+                      "stepper__circle",
+                      isActive && "stepper__circle--active",
+                      isCompleted && "stepper__circle--completed",
+                    )}
+                  >
+                    {isCompleted ? (
+                      <>
+                        <CheckIcon />
+                        <span className="sr-only">完了</span>
+                      </>
+                    ) : (
+                      i + 1
+                    )}
+                  </span>
+                  <span className="stepper__label">{step.label}</span>
+                </div>
+                {i < steps.length - 1 && (
+                  <span
+                    className={cn(
+                      "stepper__connector",
+                      isCompleted && "stepper__connector--completed",
+                    )}
+                  />
+                )}
+              </li>
+            );
+          })}
+        </ol>
+      </div>
+    );
+  },
 );
 
 Stepper.displayName = "Stepper";

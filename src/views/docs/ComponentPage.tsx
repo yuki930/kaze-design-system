@@ -19,6 +19,7 @@ import {
   TableCell,
   Metric,
   Avatar,
+  TabGroup,
   Tabs,
   Tab,
   NavItem,
@@ -419,29 +420,29 @@ const componentDocs: Record<string, ComponentDoc> = {
       <div className={styles.previewColumn} style={{ gap: "1rem" }}>
         <div className={styles.preview}>
           <Badge>デフォルト</Badge>
-          <Badge variant="positive">成功</Badge>
-          <Badge variant="negative">エラー</Badge>
-          <Badge variant="warning">警告</Badge>
-          <Badge variant="info">情報</Badge>
+          <Badge tone="positive">成功</Badge>
+          <Badge tone="negative">エラー</Badge>
+          <Badge tone="warning">警告</Badge>
+          <Badge tone="info">情報</Badge>
         </div>
         <div className={styles.preview}>
           <Badge dot>ドット付き</Badge>
-          <Badge variant="positive" dot>
+          <Badge tone="positive" dot>
             オンライン
           </Badge>
         </div>
         <div className={styles.preview}>
           <Badge solid>デフォルト</Badge>
-          <Badge variant="positive" solid>
+          <Badge tone="positive" solid>
             成功
           </Badge>
-          <Badge variant="negative" solid>
+          <Badge tone="negative" solid>
             エラー
           </Badge>
-          <Badge variant="warning" solid>
+          <Badge tone="warning" solid>
             警告
           </Badge>
-          <Badge variant="info" solid>
+          <Badge tone="info" solid>
             情報
           </Badge>
         </div>
@@ -449,10 +450,10 @@ const componentDocs: Record<string, ComponentDoc> = {
     ),
     props: [
       {
-        name: "variant",
+        name: "tone",
         type: '"default" | "positive" | "negative" | "warning" | "info"',
         default: '"default"',
-        description: "バッジのスタイルバリアント",
+        description: "意味色（旧 variant）",
       },
       {
         name: "dot",
@@ -467,8 +468,8 @@ const componentDocs: Record<string, ComponentDoc> = {
         description: "反転スタイル（塗り背景 + 白文字）",
       },
     ],
-    usage: `<Badge variant="positive">成功</Badge>
-<Badge variant="negative" solid>エラー</Badge>`,
+    usage: `<Badge tone="positive">成功</Badge>
+<Badge tone="negative" solid>エラー</Badge>`,
   },
 
   "status-badge": {
@@ -597,23 +598,28 @@ const componentDocs: Record<string, ComponentDoc> = {
     title: "Tabs",
     description: "タブナビゲーション",
     preview: (
-      <Tabs>
-        <Tab active>タブ1</Tab>
-        <Tab>タブ2</Tab>
-        <Tab>タブ3</Tab>
-      </Tabs>
+      <TabGroup defaultValue="1">
+        <Tabs>
+          <Tab value="1">タブ1</Tab>
+          <Tab value="2">タブ2</Tab>
+          <Tab value="3">タブ3</Tab>
+        </Tabs>
+      </TabGroup>
     ),
     props: [
+      { name: "value", type: "string", description: "選択中のタブ（TabGroup。制御）" },
+      { name: "defaultValue", type: "string", description: "初期選択のタブ（TabGroup。非制御）" },
       {
-        name: "active",
+        name: "onValueChange",
+        type: "(value: string) => void",
+        description: "選択が変わる時のコールバック（TabGroup）",
+      },
+      { name: "value", type: "string", description: "タブの識別子（Tab / TabPanel）" },
+      {
+        name: "asChild",
         type: "boolean",
         default: "false",
-        description: "アクティブ状態かどうか（Tab）",
-      },
-      {
-        name: "onClick",
-        type: "() => void",
-        description: "クリック時のコールバック（Tab）",
+        description: "子要素（リンクなど）にタブの振る舞いを委ねる（Tab）",
       },
       {
         name: "children",
@@ -621,10 +627,14 @@ const componentDocs: Record<string, ComponentDoc> = {
         description: "タブの内容",
       },
     ],
-    usage: `<Tabs>
-  <Tab active>タブ1</Tab>
-  <Tab>タブ2</Tab>
-</Tabs>`,
+    usage: `<TabGroup defaultValue="a">
+  <Tabs>
+    <Tab value="a">タブ1</Tab>
+    <Tab value="b">タブ2</Tab>
+  </Tabs>
+  <TabPanel value="a">内容1</TabPanel>
+  <TabPanel value="b">内容2</TabPanel>
+</TabGroup>`,
   },
 
   avatar: {
@@ -727,9 +737,10 @@ const componentDocs: Record<string, ComponentDoc> = {
         description: "ダイアログの表示状態",
       },
       {
-        name: "onClose",
-        type: "() => void",
-        description: "閉じる時のコールバック",
+        name: "onOpenChange",
+        type: "(open: boolean) => void",
+        description:
+          "開閉が変わる時のコールバック。Escape・背景クリック・閉じるボタンで false が渡る（旧 onClose）",
       },
       {
         name: "title",
@@ -742,7 +753,7 @@ const componentDocs: Record<string, ComponentDoc> = {
         description: "ダイアログの内容",
       },
     ],
-    usage: `<Dialog open={isOpen} onClose={() => setOpen(false)} title="確認">
+    usage: `<Dialog open={isOpen} onOpenChange={setOpen} title="確認">
   <p>本当に削除しますか？</p>
 </Dialog>`,
   },
@@ -952,7 +963,7 @@ const componentDocs: Record<string, ComponentDoc> = {
         description: "本文（省略可）",
       },
       {
-        name: "toast.variant",
+        name: "toast.tone",
         type: '"default" | "positive" | "negative" | "warning" | "info"',
         default: '"default"',
         description: "種類。negative / warning は role=alert で読み上げられる",
@@ -974,7 +985,7 @@ const { toast } = useToast();
 
 <Button
   onClick={() =>
-    toast({ title: "保存完了", description: "データが正常に保存されました。", variant: "positive" })
+    toast({ title: "保存完了", description: "データが正常に保存されました。", tone: "positive" })
   }
 >
   保存
@@ -2256,13 +2267,13 @@ import { Icon } from "kaze-design-system";
           time="2026年2月19日"
           title="v0.1.0 リリース"
           description="初回公開バージョン。41コンポーネントを収録。"
-          status="positive"
+          tone="positive"
         />
         <TimelineItem
           time="2026年2月15日"
           title="ベータテスト開始"
           description="社内チームによるレビューとフィードバック。"
-          status="info"
+          tone="info"
         />
         <TimelineItem
           time="2026年2月10日"
@@ -2281,10 +2292,10 @@ import { Icon } from "kaze-design-system";
         description: "イベントの詳細説明（TimelineItem）",
       },
       {
-        name: "status",
-        type: '"default" | "positive" | "negative" | "info" | "warning"',
+        name: "tone",
+        type: '"default" | "positive" | "negative" | "warning" | "info"',
         default: '"default"',
-        description: "ドットの色（TimelineItem）",
+        description: "ドットの意味色（TimelineItem。旧 status）",
       },
     ],
     usage: `<Timeline>
@@ -2292,7 +2303,7 @@ import { Icon } from "kaze-design-system";
     time="2026-02-19"
     title="イベント名"
     description="詳細説明"
-    status="positive"
+    tone="positive"
   />
 </Timeline>`,
   },
@@ -2805,41 +2816,41 @@ import { Icon } from "kaze-design-system";
       "ユーザーに重要な情報を伝えるアラートコンポーネント。情報・成功・警告・エラーと中立の 5 バリアント。",
     preview: (
       <div className={styles.previewColumn} style={{ gap: "1rem" }}>
-        <Alert variant="info" icon={<Info size={18} />}>
+        <Alert tone="info" icon={<Info size={18} />}>
           新しいバージョンが利用可能です。
         </Alert>
-        <Alert variant="positive" icon={<CheckCircle size={18} />}>
+        <Alert tone="positive" icon={<CheckCircle size={18} />}>
           データが正常に保存されました。
         </Alert>
-        <Alert variant="warning" icon={<AlertTriangle size={18} />}>
+        <Alert tone="warning" icon={<AlertTriangle size={18} />}>
           ストレージの使用量が80%を超えています。
         </Alert>
-        <Alert variant="negative" icon={<AlertCircle size={18} />}>
+        <Alert tone="negative" icon={<AlertCircle size={18} />}>
           ネットワーク接続に失敗しました。再試行してください。
         </Alert>
-        <Alert variant="info" icon={<Info size={18} />} title="お知らせ">
+        <Alert tone="info" icon={<Info size={18} />} title="お知らせ">
           システムメンテナンスを2月25日に実施します。
         </Alert>
       </div>
     ),
     props: [
       {
-        name: "variant",
-        type: '"default" | "info" | "positive" | "warning" | "negative"',
+        name: "tone",
+        type: '"default" | "positive" | "negative" | "warning" | "info"',
         default: '"info"',
-        description: "アラートのスタイルバリアント",
+        description: "意味色（旧 variant）",
       },
       { name: "icon", type: "React.ReactNode", description: "左側に表示するアイコン" },
       { name: "title", type: "string", description: "アラートのタイトル（太字で表示）" },
       { name: "children", type: "React.ReactNode", description: "アラートの内容" },
     ],
-    usage: `<Alert variant="info" icon={<Info size={18} />}>
+    usage: `<Alert tone="info" icon={<Info size={18} />}>
   新しいバージョンが利用可能です。
 </Alert>
-<Alert variant="positive" icon={<CheckCircle size={18} />}>
+<Alert tone="positive" icon={<CheckCircle size={18} />}>
   データが正常に保存されました。
 </Alert>
-<Alert variant="info" icon={<Info size={18} />} title="お知らせ">
+<Alert tone="info" icon={<Info size={18} />} title="お知らせ">
   タイトル付きのアラートです。
 </Alert>`,
   },
@@ -2862,9 +2873,9 @@ import { Icon } from "kaze-design-system";
           <p style={{ fontSize: "0.875rem", fontWeight: 600, marginBottom: "0.5rem" }}>カラー</p>
           <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
             <Progress value={80} />
-            <Progress value={65} color="positive" />
-            <Progress value={45} color="warning" />
-            <Progress value={30} color="negative" />
+            <Progress value={65} tone="positive" />
+            <Progress value={45} tone="warning" />
+            <Progress value={30} tone="negative" />
           </div>
         </div>
         <div>
@@ -2884,10 +2895,10 @@ import { Icon } from "kaze-design-system";
         description: "プログレスバーの高さ",
       },
       {
-        name: "color",
+        name: "tone",
         type: '"default" | "positive" | "negative" | "warning" | "info"',
         default: '"default"',
-        description: "バーの色",
+        description: "バーの意味色（旧 color）",
       },
       { name: "label", type: "string", description: "バーの上に表示するラベルテキスト" },
       {
@@ -2898,7 +2909,7 @@ import { Icon } from "kaze-design-system";
       },
     ],
     usage: `<Progress value={72} label="アップロード中..." showValue />
-<Progress value={45} color="warning" size="lg" />`,
+<Progress value={45} tone="warning" size="lg" />`,
   },
 
   switch: {
@@ -3081,9 +3092,10 @@ import { Icon } from "kaze-design-system";
   pagination: {
     title: "Pagination",
     description: "ページ分割されたコンテンツをナビゲートするページネーションコンポーネント。",
-    preview: <Pagination currentPage={3} totalPages={10} />,
+    preview: <Pagination page={3} totalPages={10} />,
     props: [
-      { name: "currentPage", type: "number", description: "現在のページ番号" },
+      { name: "page", type: "number", description: "現在のページ番号（制御。旧 currentPage）" },
+      { name: "defaultPage", type: "number", default: "1", description: "初期ページ（非制御）" },
       { name: "totalPages", type: "number", description: "総ページ数" },
       {
         name: "onPageChange",
@@ -3098,7 +3110,7 @@ import { Icon } from "kaze-design-system";
       },
     ],
     usage: `<Pagination
-  currentPage={3}
+  page={3}
   totalPages={10}
   onPageChange={(page) => setCurrentPage(page)}
 />`,
@@ -3110,7 +3122,7 @@ import { Icon } from "kaze-design-system";
       "複数ステップの進行状況を表示するステッパーコンポーネント。ウィザードやフォームに最適。",
     preview: (
       <Stepper
-        currentStep={2}
+        step={2}
         steps={[
           { label: "アカウント情報" },
           { label: "プロフィール設定" },
@@ -3121,10 +3133,14 @@ import { Icon } from "kaze-design-system";
     ),
     props: [
       { name: "steps", type: "StepperStep[]", description: "ステップの配列 { label }" },
-      { name: "currentStep", type: "number", description: "現在のステップ番号（0始まり）" },
+      {
+        name: "step",
+        type: "number",
+        description: "現在のステップ番号（0始まり。旧 currentStep）",
+      },
     ],
     usage: `<Stepper
-  currentStep={2}
+  step={2}
   steps={[
     { label: "アカウント情報" },
     { label: "プロフィール設定" },
@@ -3339,9 +3355,9 @@ import { Icon } from "kaze-design-system";
       { name: "label", type: "string", description: "ラベルテキスト" },
       { name: "showValue", type: "boolean", default: "false", description: "値を表示するか" },
       {
-        name: "color",
+        name: "tone",
         type: '"default" | "positive" | "negative" | "warning" | "info"',
-        description: "カラーバリアント",
+        description: "意味色（旧 color）",
       },
       {
         name: "warningThreshold",
@@ -3366,18 +3382,18 @@ import { Icon } from "kaze-design-system";
       <div style={{ maxWidth: "500px" }}>
         <Tracker
           data={[
-            { status: "positive", tooltip: "正常" },
-            { status: "positive", tooltip: "正常" },
-            { status: "warning", tooltip: "遅延" },
-            { status: "positive", tooltip: "正常" },
-            { status: "negative", tooltip: "障害" },
-            { status: "positive", tooltip: "正常" },
-            { status: "positive", tooltip: "正常" },
-            { status: "positive", tooltip: "正常" },
-            { status: "warning", tooltip: "遅延" },
-            { status: "positive", tooltip: "正常" },
-            { status: "positive", tooltip: "正常" },
-            { status: "positive", tooltip: "正常" },
+            { tone: "positive", tooltip: "正常" },
+            { tone: "positive", tooltip: "正常" },
+            { tone: "warning", tooltip: "遅延" },
+            { tone: "positive", tooltip: "正常" },
+            { tone: "negative", tooltip: "障害" },
+            { tone: "positive", tooltip: "正常" },
+            { tone: "positive", tooltip: "正常" },
+            { tone: "positive", tooltip: "正常" },
+            { tone: "warning", tooltip: "遅延" },
+            { tone: "positive", tooltip: "正常" },
+            { tone: "positive", tooltip: "正常" },
+            { tone: "positive", tooltip: "正常" },
           ]}
           label="過去12時間のステータス"
         />
@@ -3389,9 +3405,9 @@ import { Icon } from "kaze-design-system";
     ],
     usage: `<Tracker
   data={[
-    { status: "positive", tooltip: "正常" },
-    { status: "warning", tooltip: "遅延" },
-    { status: "negative", tooltip: "障害" },
+    { tone: "positive", tooltip: "正常" },
+    { tone: "warning", tooltip: "遅延" },
+    { tone: "negative", tooltip: "障害" },
   ]}
   label="サービス稼働状況"
 />`,
@@ -3449,9 +3465,9 @@ import { Icon } from "kaze-design-system";
     props: [
       { name: "value", type: "number | null", description: "現在の数値" },
       {
-        name: "onChange",
+        name: "onValueChange",
         type: "(value: number | null) => void",
-        description: "値変更時のコールバック",
+        description: "値変更時のコールバック（旧 onChange）",
       },
       {
         name: "currency",
