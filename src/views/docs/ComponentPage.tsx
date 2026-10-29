@@ -1,6 +1,6 @@
 import styles from "./docs.module.css";
 import { repoTreeUrl } from "@/views/site/repo";
-import { DialogDemo, DrawerDemo } from "./OverlayDemos";
+import { DialogDemo, DrawerDemo, SortableTableDemo } from "./OverlayDemos";
 import { categories } from "./ComponentsOverview";
 import generatedProps from "./generated/props.json";
 import { guides } from "./guidelines";
@@ -42,6 +42,10 @@ import {
   PopoverClose,
   Combobox,
   DatePicker,
+  Spinner,
+  TypingIndicator,
+  Link,
+  VisuallyHidden,
 } from "@/components";
 import { Tooltip } from "@/components/Tooltip/Tooltip";
 import { Icon } from "@/components/Icon/Icon";
@@ -182,6 +186,14 @@ const componentDocs: Record<string, ComponentDoc> = {
             </Button>
           </div>
         </div>
+        <div>
+          <p style={{ fontSize: "0.875rem", fontWeight: 600, marginBottom: "0.5rem" }}>処理中</p>
+          <div className={styles.preview}>
+            <Button variant="primary" loading>
+              保存中
+            </Button>
+          </div>
+        </div>
       </div>
     ),
     props: [
@@ -215,8 +227,15 @@ const componentDocs: Record<string, ComponentDoc> = {
         default: "false",
         description: "無効状態にするかどうか",
       },
+      {
+        name: "loading",
+        type: "boolean",
+        default: "false",
+        description: "処理中。先頭にスピナーを出し、クリックを受け付けない（フォーカスは外れない）",
+      },
     ],
-    usage: `<Button variant="primary" size="md">ボタン</Button>`,
+    usage: `<Button variant="primary" size="md">ボタン</Button>
+<Button loading>保存中</Button>`,
   },
 
   input: {
@@ -542,32 +561,40 @@ const componentDocs: Record<string, ComponentDoc> = {
     title: "Table",
     description: "テーブル",
     preview: (
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead>名前</TableHead>
-            <TableHead>メール</TableHead>
-            <TableHead>役割</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          <TableRow>
-            <TableCell>堀内昌平</TableCell>
-            <TableCell>shohei.horiuchi@norn.co.jp</TableCell>
-            <TableCell>管理者</TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell>志摩このみ</TableCell>
-            <TableCell>konomi.shima@norn.co.jp</TableCell>
-            <TableCell>編集者</TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell>野々村圭</TableCell>
-            <TableCell>kei.nonomura@norn.co.jp</TableCell>
-            <TableCell>閲覧者</TableCell>
-          </TableRow>
-        </TableBody>
-      </Table>
+      <div className={styles.previewColumn} style={{ gap: "1.5rem" }}>
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead>名前</TableHead>
+              <TableHead>メール</TableHead>
+              <TableHead>役割</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            <TableRow>
+              <TableCell>堀内昌平</TableCell>
+              <TableCell>shohei.horiuchi@norn.co.jp</TableCell>
+              <TableCell>管理者</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>志摩このみ</TableCell>
+              <TableCell>konomi.shima@norn.co.jp</TableCell>
+              <TableCell>編集者</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>野々村圭</TableCell>
+              <TableCell>kei.nonomura@norn.co.jp</TableCell>
+              <TableCell>閲覧者</TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>
+        <div>
+          <p style={{ fontSize: "0.875rem", fontWeight: 600, marginBottom: "0.5rem" }}>
+            並べ替え（売上の降順）
+          </p>
+          <SortableTableDemo />
+        </div>
+      </div>
     ),
     props: [
       {
@@ -593,7 +620,8 @@ const componentDocs: Record<string, ComponentDoc> = {
       {
         name: "TableHead",
         type: "サブコンポーネント",
-        description: "ヘッダーセル（th）",
+        description:
+          "ヘッダーセル（th）。onSort を渡すと見出しが並べ替えボタンになり、sortDirection（ascending / descending / none）で矢印と aria-sort が決まる",
       },
       {
         name: "TableCell",
@@ -601,18 +629,30 @@ const componentDocs: Record<string, ComponentDoc> = {
         description: "データセル（td）",
       },
     ],
-    usage: `<Table>
+    usage: `import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell, useTableSort } from "kaze-design-system";
+
+const rows = [
+  { store: "渋谷", sales: 4820000 },
+  { store: "梅田", sales: 3915000 },
+];
+const { rows: sorted, getSortProps } = useTableSort(rows, {
+  initial: { key: "sales", direction: "descending" },
+});
+
+<Table>
   <TableHeader>
     <TableRow>
-      <TableHead>名前</TableHead>
-      <TableHead>メール</TableHead>
+      <TableHead {...getSortProps("store")}>店舗</TableHead>
+      <TableHead className="table__cell--numeric" {...getSortProps("sales")}>売上</TableHead>
     </TableRow>
   </TableHeader>
   <TableBody>
-    <TableRow>
-      <TableCell>堀内昌平</TableCell>
-      <TableCell>shohei.horiuchi@norn.co.jp</TableCell>
-    </TableRow>
+    {sorted.map((row) => (
+      <TableRow key={row.store}>
+        <TableCell>{row.store}</TableCell>
+        <TableCell className="table__cell--numeric">{row.sales}</TableCell>
+      </TableRow>
+    ))}
   </TableBody>
 </Table>`,
   },
@@ -2961,6 +3001,130 @@ import { Icon } from "kaze-design-system";
     ],
     usage: `<Switch label="通知を有効にする" />
 <Switch label="ダークモード" defaultChecked onChange={(v) => console.log(v)} />`,
+  },
+
+  spinner: {
+    title: "Spinner",
+    description: "読み込み中を伝える小さな表示。色は周りの文字色を受け継ぐ。",
+    preview: (
+      <div className={styles.preview} style={{ alignItems: "center" }}>
+        <Spinner size="sm" />
+        <Spinner />
+        <Spinner size="lg" />
+        <Button loading>保存中</Button>
+      </div>
+    ),
+    props: [
+      { name: "size", type: '"sm" | "md" | "lg"', default: '"md"', description: "14 / 18 / 24px" },
+      {
+        name: "label",
+        type: "string",
+        default: '"読み込み中"',
+        description: "読み上げ用の文言",
+      },
+    ],
+    usage: `<Spinner />
+<Spinner size="sm" label="同期しています" />
+<Button loading>保存中</Button>`,
+  },
+
+  "typing-indicator": {
+    title: "TypingIndicator",
+    description: "相手が入力中であることを示す、順に明るくなる 3 つの点。",
+    preview: (
+      <div className={styles.preview} style={{ alignItems: "center" }}>
+        <TypingIndicator size="sm" />
+        <TypingIndicator />
+        <TypingIndicator size="lg" />
+        <TypingIndicator size="sm" label="宮田 千夏さんが入力中" />
+      </div>
+    ),
+    props: [
+      { name: "size", type: '"sm" | "md" | "lg"', default: '"md"', description: "14 / 18 / 24px" },
+      {
+        name: "label",
+        type: "string",
+        default: '"入力中"',
+        description: "読み上げ用の文言",
+      },
+    ],
+    usage: `<TypingIndicator />
+<TypingIndicator size="sm" label="宮田 千夏さんが入力中" />`,
+  },
+
+  link: {
+    title: "Link",
+    description: "文中に置くリンク。外部サイトへは external で新しいタブと ↗ を付ける。",
+    preview: (
+      <div className={styles.preview}>
+        <p style={{ margin: 0, fontSize: "0.875rem", lineHeight: 1.75 }}>
+          請求書の発行方法は<Link href="#billing">請求書の設定</Link>で変更できます。詳しくは
+          <Link href="https://example.com" external>
+            ヘルプセンター
+          </Link>
+          を見てください。
+        </p>
+      </div>
+    ),
+    props: [
+      {
+        name: "asChild",
+        type: "boolean",
+        default: "false",
+        description: "子要素にスタイルと振る舞いを委ねる",
+      },
+      {
+        name: "external",
+        type: "boolean",
+        default: "false",
+        description: "新しいタブで開き、末尾に ↗ を付ける",
+      },
+      {
+        name: "externalLabel",
+        type: "string",
+        default: '"（新しいタブで開きます）"',
+        description: "external のときの読み上げ文言",
+      },
+    ],
+    usage: `<Link href="/settings">請求書の設定</Link>
+<Link href="https://example.com" external>ヘルプセンター</Link>
+<Link asChild>
+  <a href="/help">ヘルプ</a>
+</Link>`,
+  },
+
+  "visually-hidden": {
+    title: "VisuallyHidden",
+    description: "画面には出さず、読み上げソフトにだけ伝える文字を包む。",
+    preview: (
+      <div className={styles.preview} style={{ alignItems: "center" }}>
+        <Button variant="outline" iconOnly>
+          <Zap size={16} aria-hidden="true" />
+          <VisuallyHidden>クイック実行</VisuallyHidden>
+        </Button>
+        <p style={{ margin: 0, fontSize: "0.75rem" }}>
+          ボタンの名前は画面に見えませんが、読み上げでは「クイック実行」と伝わります。
+        </p>
+      </div>
+    ),
+    props: [
+      {
+        name: "asChild",
+        type: "boolean",
+        default: "false",
+        description: "子要素にスタイルを委ねる",
+      },
+      {
+        name: "focusable",
+        type: "boolean",
+        default: "false",
+        description: "フォーカスされたときだけ画面に表示する（スキップリンク用）",
+      },
+    ],
+    usage: `<VisuallyHidden>検索</VisuallyHidden>
+<VisuallyHidden asChild focusable>
+  <a href="#main">本文へ移動</a>
+</VisuallyHidden>`,
   },
 
   skeleton: {

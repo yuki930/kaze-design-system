@@ -160,4 +160,51 @@ describe("Button", () => {
       expect(own).not.toHaveBeenCalled();
     });
   });
+
+  describe("loading", () => {
+    it("shows a hidden spinner first, sets aria-busy and keeps the label", () => {
+      const { container } = render(<Button loading>保存</Button>);
+      const button = screen.getByRole("button", { name: "保存" });
+      expect(button).toHaveAttribute("aria-busy", "true");
+      expect(button).toHaveAttribute("aria-disabled", "true");
+      expect(button).not.toBeDisabled();
+      expect(button.firstElementChild).toHaveClass("spinner", "spinner--sm");
+      expect(container.querySelector(".spinner")).toHaveAttribute("aria-hidden", "true");
+    });
+
+    it("ignores clicks but stays focusable", async () => {
+      const onClick = vi.fn();
+      const user = userEvent.setup();
+      render(
+        <Button loading onClick={onClick}>
+          保存
+        </Button>,
+      );
+      const button = screen.getByRole("button", { name: "保存" });
+      await user.click(button);
+      button.focus();
+      expect(button).toHaveFocus();
+      expect(onClick).not.toHaveBeenCalled();
+    });
+
+    it("does not mark a normal button as busy", () => {
+      render(<Button>保存</Button>);
+      expect(screen.getByRole("button")).not.toHaveAttribute("aria-busy");
+    });
+
+    it("puts the spinner inside the child with asChild and blocks navigation", async () => {
+      const onClick = vi.fn();
+      const user = userEvent.setup();
+      render(
+        <Button asChild loading onClick={onClick}>
+          <a href="/next">次へ</a>
+        </Button>,
+      );
+      const link = screen.getByRole("link");
+      expect(link.firstElementChild).toHaveClass("spinner");
+      expect(link).toHaveAttribute("aria-busy", "true");
+      await user.click(link);
+      expect(onClick).not.toHaveBeenCalled();
+    });
+  });
 });

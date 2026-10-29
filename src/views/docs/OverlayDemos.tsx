@@ -15,7 +15,14 @@ import {
   DrawerHeader,
   DrawerTitle,
   type DrawerSide,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
 } from "@/components";
+import { useTableSort } from "@/hooks";
 import styles from "./docs.module.css";
 
 /** Live previews for the modal components, which cannot be rendered inline on the docs page. */
@@ -88,5 +95,47 @@ export function DrawerDemo() {
         </DrawerFooter>
       </Drawer>
     </div>
+  );
+}
+
+const salesRows = [
+  { store: "渋谷", sales: 4820000, yoy: 12.4 },
+  { store: "梅田", sales: 3915000, yoy: 3.1 },
+  { store: "天神", sales: 2140000, yoy: -1.8 },
+];
+
+/** 並べ替えは押したときの状態が要るので、ここ（クライアント）に置く。 */
+export function SortableTableDemo() {
+  const { rows, getSortProps } = useTableSort(salesRows, {
+    initial: { key: "sales", direction: "descending" },
+  });
+  return (
+    <Table compact aria-label="店舗別の売上">
+      <TableHeader>
+        <TableRow>
+          <TableHead {...getSortProps("store")}>店舗</TableHead>
+          <TableHead className="table__cell--numeric" {...getSortProps("sales")}>
+            売上
+          </TableHead>
+          <TableHead className="table__cell--numeric" {...getSortProps("yoy")}>
+            前年比
+          </TableHead>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        {rows.map((row) => (
+          <TableRow key={row.store}>
+            <TableCell>{row.store}</TableCell>
+            <TableCell className="table__cell--numeric">
+              ¥{row.sales.toLocaleString("ja-JP")}
+            </TableCell>
+            <TableCell className="table__cell--numeric">
+              {row.yoy < 0 ? "−" : "+"}
+              {Math.abs(row.yoy)}%
+            </TableCell>
+          </TableRow>
+        ))}
+      </TableBody>
+    </Table>
   );
 }

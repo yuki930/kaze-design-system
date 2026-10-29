@@ -65,7 +65,8 @@
   "table": {
     "use": [
       "同じ項目を持つ複数のデータを、行と列で比べる（ユーザー一覧、請求履歴、成績表）",
-      "数値の列は右揃えにして、桁をそろえる。TableCell と TableHead に className=\"table__cell--numeric\" を付けると、右揃えと等幅数字（tabular-nums）になる",
+      "数値の列は右揃えにして、桁をそろえる。TableCell に className=\"table__cell--numeric\" を付けると、右揃えと等幅数字（tabular-nums）になる。見出しのセルは左揃えのまま",
+      "並べ替えられる列は、TableHead に onSort と sortDirection を渡す。見出しがボタンになり、矢印が付く。並べ替えの状態管理は useTableSort が引き受ける（押すたびに 昇順、降順、解除）",
       "行数が多いときは compact で密度を上げる。Table は横にあふれると table-wrapper 内でスクロールする"
     ],
     "avoid": [
@@ -76,13 +77,24 @@
     "a11y": [
       "TableHead は scope=\"col\" が既定。行見出しの列には scope=\"row\" を指定する",
       "表のタイトルは、近くの見出しか aria-label / aria-labelledby で付ける。Table 自体は名前を持たない",
-      "ソートや選択の状態は、見た目だけにせず aria-sort やチェックボックスのラベルで伝える。Table は並べ替えの仕組みを持たないので、利用側で付ける"
+      "並べ替え中の列には aria-sort が付く（並べ替えていない列には付けない）。並べ替えるかどうかは onSort で利用側が決める。選択の状態は、見た目だけにせずチェックボックスのラベルで伝える",
+      "onSort を渡した見出しは <button> になる。Tab で見出しにフォーカスし、Enter か Space で並べ替える。矢印は装飾で、状態は aria-sort で伝わる"
     ],
     "writing": [
       "列見出しは名詞で短く。単位は見出しに入れる（「金額（円）」）。セルごとに単位を繰り返さない",
       "数値は小数の桁数をそろえ、3 桁区切りにする。空欄は「-」を使い、0 と区別する"
     ],
-    "related": ["description-list", "list", "pagination", "badge", "card"]
+    "related": ["description-list", "list", "pagination", "badge", "card"],
+    "keyboard": [
+      {
+        "keys": "Tab",
+        "action": "onSort がある列見出しのボタンにフォーカスを移す"
+      },
+      {
+        "keys": "Enter / Space",
+        "action": "その列で並べ替える（昇順、降順、解除の順に切り替わる）"
+      }
+    ]
   },
   "metric": {
     "use": [

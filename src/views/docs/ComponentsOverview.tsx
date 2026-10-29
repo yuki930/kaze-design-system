@@ -97,6 +97,12 @@ export const categories: Category[] = [
       { name: "Meter", path: "meter", description: "メーター（既知範囲の値表示）" },
       { name: "Skeleton", path: "skeleton", description: "ローディング表示" },
       { name: "EmptyState", path: "empty-state", description: "空状態" },
+      { name: "Spinner", path: "spinner", description: "読み込み中の小さな表示" },
+      {
+        name: "TypingIndicator",
+        path: "typing-indicator",
+        description: "相手が入力中であることを示す点の表示",
+      },
       { name: "Toast", path: "toast", description: "トースト通知" },
     ],
   },
@@ -107,6 +113,7 @@ export const categories: Category[] = [
       { name: "Tabs", path: "tabs", description: "タブナビゲーション" },
       { name: "Sidebar", path: "sidebar", description: "サイドバー" },
       { name: "TopBar", path: "topbar", description: "トップバー" },
+      { name: "Link", path: "link", description: "文中のリンク（外部リンク対応）" },
       { name: "Breadcrumb", path: "breadcrumb", description: "パンくずリスト" },
       { name: "Pagination", path: "pagination", description: "ページネーション" },
       { name: "Stepper", path: "stepper", description: "ステッパー" },
@@ -146,6 +153,11 @@ export const categories: Category[] = [
       { name: "Icon", path: "icon", description: "アイコン" },
       { name: "Heading", path: "heading", description: "見出しコンポーネント" },
       { name: "Text", path: "text", description: "テキストコンポーネント" },
+      {
+        name: "VisuallyHidden",
+        path: "visually-hidden",
+        description: "読み上げ専用の文字（スキップリンク対応）",
+      },
     ],
   },
   {

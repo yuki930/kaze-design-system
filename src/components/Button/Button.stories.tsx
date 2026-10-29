@@ -108,3 +108,10 @@ export const AsChild: Story = {
     children: <a href="/as-child">リンクとして描画</a>,
   },
 };
+
+export const Loading: Story = {
+  args: {
+    loading: true,
+    children: "保存中",
+  },
+};

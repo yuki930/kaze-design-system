@@ -1,8 +1,8 @@
 # kaze-design-system
 
-> Minimal React design system for dashboards, landing pages and Japanese UI: warm neutral grays, 73 components, SVG charts with zero dependencies, light/dark themes, typography tuned for CJK text
+> Minimal React design system for dashboards, landing pages and Japanese UI: warm neutral grays, 77 components, SVG charts with zero dependencies, light/dark themes, typography tuned for CJK text
 
-kaze-design-system is a React 18/19 + TypeScript design system with 73 components in two layers: Application UI (dashboards, business apps) and Marketing (landing pages, importable from `kaze-design-system/marketing`). It is built around a warm neutral gray palette, optimized for Japanese typography (PALT enabled globally), uses CSS custom properties for theming (light/dark via `data-theme`, cool palette via `data-palette="cool"`, compact density via `data-density="compact"`), and ships as ESM with peer dependencies on react and react-dom (lucide-react optional).
+kaze-design-system is a React 18/19 + TypeScript design system with 77 components in two layers: Application UI (dashboards, business apps) and Marketing (landing pages, importable from `kaze-design-system/marketing`). It is built around a warm neutral gray palette, optimized for Japanese typography (PALT enabled globally), uses CSS custom properties for theming (light/dark via `data-theme`, cool palette via `data-palette="cool"`, compact density via `data-density="compact"`), and ships as ESM with peer dependencies on react and react-dom (lucide-react optional).
 
 ## Installation
 
@@ -70,6 +70,8 @@ import { Hero, PricingGrid } from "kaze-design-system/marketing";
 - [Meter](https://kaze-design-system.vercel.app/docs/components/meter): メーター（既知範囲の値表示）
 - [Skeleton](https://kaze-design-system.vercel.app/docs/components/skeleton): コンテンツの読み込み中に表示するスケルトンプレースホルダーコンポーネント。
 - [EmptyState](https://kaze-design-system.vercel.app/docs/components/empty-state): データが存在しない場合に表示する空状態コンポーネント。sm / md / lg の3サイズに対応し、テーブルセル内の小さな表示からページ全体の大きな表示まで使い分けられます。role="status" が自動付与されます。
+- [Spinner](https://kaze-design-system.vercel.app/docs/components/spinner): 読み込み中を伝える小さな表示。色は周りの文字色を受け継ぐ。
+- [TypingIndicator](https://kaze-design-system.vercel.app/docs/components/typing-indicator): 相手が入力中であることを示す、順に明るくなる 3 つの点。
 - [Toast](https://kaze-design-system.vercel.app/docs/components/toast): トースト通知
 
 ### ナビゲーション
@@ -77,6 +79,7 @@ import { Hero, PricingGrid } from "kaze-design-system/marketing";
 - [Tabs](https://kaze-design-system.vercel.app/docs/components/tabs): タブナビゲーション
 - [Sidebar](https://kaze-design-system.vercel.app/docs/components/sidebar): サイドバーナビゲーション
 - [TopBar](https://kaze-design-system.vercel.app/docs/components/topbar): トップバー
+- [Link](https://kaze-design-system.vercel.app/docs/components/link): 文中に置くリンク。外部サイトへは external で新しいタブと ↗ を付ける。
 - [Breadcrumb](https://kaze-design-system.vercel.app/docs/components/breadcrumb): 現在のページ位置を階層的に表示するパンくずリストコンポーネント。
 - [Pagination](https://kaze-design-system.vercel.app/docs/components/pagination): ページ分割されたコンテンツをナビゲートするページネーションコンポーネント。
 - [Stepper](https://kaze-design-system.vercel.app/docs/components/stepper): 複数ステップの進行状況を表示するステッパーコンポーネント。ウィザードやフォームに最適。
@@ -102,6 +105,7 @@ import { Hero, PricingGrid } from "kaze-design-system/marketing";
 - [Icon](https://kaze-design-system.vercel.app/docs/components/icon): アイコン
 - [Heading](https://kaze-design-system.vercel.app/docs/components/heading): セマンティックな見出しコンポーネント。レベル1〜6、説明テキスト、ボーダー付きに対応。
 - [Text](https://kaze-design-system.vercel.app/docs/components/text): 汎用テキストコンポーネント。variant / size / weight / color / align を prop で制御。LP や UI で独自 CSS なしにテキストを扱える。
+- [VisuallyHidden](https://kaze-design-system.vercel.app/docs/components/visually-hidden): 画面には出さず、読み上げソフトにだけ伝える文字を包む。
 
 ### リスト
 

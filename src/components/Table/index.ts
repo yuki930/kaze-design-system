@@ -13,4 +13,5 @@ export type {
   TableRowProps,
   TableHeadProps,
   TableCellProps,
+  SortDirection,
 } from "./Table";
