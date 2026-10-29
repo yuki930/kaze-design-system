@@ -1,0 +1,2831 @@
+{
+  "primitive": {
+    "zinc-50": {
+      "$type": "color",
+      "$value": "#faf9f7",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Warm Zinc Scale (sand-tinted)"
+        }
+      }
+    },
+    "zinc-100": {
+      "$type": "color",
+      "$value": "#f5f3f0",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Warm Zinc Scale (sand-tinted)"
+        }
+      }
+    },
+    "zinc-200": {
+      "$type": "color",
+      "$value": "#e7e4df",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Warm Zinc Scale (sand-tinted)"
+        }
+      }
+    },
+    "zinc-300": {
+      "$type": "color",
+      "$value": "#d6d2cc",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Warm Zinc Scale (sand-tinted)"
+        }
+      }
+    },
+    "zinc-400": {
+      "$type": "color",
+      "$value": "#a8a29e",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Warm Zinc Scale (sand-tinted)"
+        }
+      }
+    },
+    "zinc-500": {
+      "$type": "color",
+      "$value": "#78716c",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Warm Zinc Scale (sand-tinted)"
+        }
+      }
+    },
+    "zinc-600": {
+      "$type": "color",
+      "$value": "#57534e",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Warm Zinc Scale (sand-tinted)"
+        }
+      }
+    },
+    "zinc-700": {
+      "$type": "color",
+      "$value": "#44403c",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Warm Zinc Scale (sand-tinted)"
+        }
+      }
+    },
+    "zinc-800": {
+      "$type": "color",
+      "$value": "#292524",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Warm Zinc Scale (sand-tinted)"
+        }
+      }
+    },
+    "zinc-900": {
+      "$type": "color",
+      "$value": "#1c1917",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Warm Zinc Scale (sand-tinted)"
+        }
+      }
+    },
+    "zinc-950": {
+      "$type": "color",
+      "$value": "#0c0a09",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Warm Zinc Scale (sand-tinted)"
+        }
+      }
+    },
+    "slate-50": {
+      "$type": "color",
+      "$value": "#f8f8fa",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Cool Slate Scale (purple-tinted)"
+        }
+      }
+    },
+    "slate-100": {
+      "$type": "color",
+      "$value": "#f0eff4",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Cool Slate Scale (purple-tinted)"
+        }
+      }
+    },
+    "slate-200": {
+      "$type": "color",
+      "$value": "#e0dfe8",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Cool Slate Scale (purple-tinted)"
+        }
+      }
+    },
+    "slate-300": {
+      "$type": "color",
+      "$value": "#cccad8",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Cool Slate Scale (purple-tinted)"
+        }
+      }
+    },
+    "slate-400": {
+      "$type": "color",
+      "$value": "#6b6880",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Cool Slate Scale (purple-tinted)"
+        }
+      }
+    },
+    "slate-500": {
+      "$type": "color",
+      "$value": "#56536b",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Cool Slate Scale (purple-tinted)"
+        }
+      }
+    },
+    "slate-600": {
+      "$type": "color",
+      "$value": "#423f57",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Cool Slate Scale (purple-tinted)"
+        }
+      }
+    },
+    "slate-700": {
+      "$type": "color",
+      "$value": "#302e40",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Cool Slate Scale (purple-tinted)"
+        }
+      }
+    },
+    "slate-800": {
+      "$type": "color",
+      "$value": "#211f2c",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Cool Slate Scale (purple-tinted)"
+        }
+      }
+    },
+    "slate-900": {
+      "$type": "color",
+      "$value": "#16141f",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Cool Slate Scale (purple-tinted)"
+        }
+      }
+    },
+    "slate-950": {
+      "$type": "color",
+      "$value": "#0f0e16",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Cool Slate Scale (purple-tinted)"
+        }
+      }
+    },
+    "red-50": {
+      "$type": "color",
+      "$value": "#fef2f2",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "red-100": {
+      "$type": "color",
+      "$value": "#fee2e2",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "red-200": {
+      "$type": "color",
+      "$value": "#fecaca",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "red-300": {
+      "$type": "color",
+      "$value": "#fca5a5",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "red-400": {
+      "$type": "color",
+      "$value": "#f87171",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "red-500": {
+      "$type": "color",
+      "$value": "#ef4444",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "red-600": {
+      "$type": "color",
+      "$value": "#dc2626",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "red-700": {
+      "$type": "color",
+      "$value": "#b91c1c",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "red-800": {
+      "$type": "color",
+      "$value": "#991b1b",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "red-900": {
+      "$type": "color",
+      "$value": "#7f1d1d",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "orange-50": {
+      "$type": "color",
+      "$value": "#fff7ed",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "orange-100": {
+      "$type": "color",
+      "$value": "#ffedd5",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "orange-200": {
+      "$type": "color",
+      "$value": "#fed7aa",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "orange-300": {
+      "$type": "color",
+      "$value": "#fdba74",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "orange-400": {
+      "$type": "color",
+      "$value": "#fb923c",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "orange-500": {
+      "$type": "color",
+      "$value": "#f97316",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "orange-600": {
+      "$type": "color",
+      "$value": "#ea580c",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "orange-700": {
+      "$type": "color",
+      "$value": "#c2410c",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "orange-800": {
+      "$type": "color",
+      "$value": "#9a3412",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "orange-900": {
+      "$type": "color",
+      "$value": "#7c2d12",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "amber-50": {
+      "$type": "color",
+      "$value": "#fffbeb",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "amber-100": {
+      "$type": "color",
+      "$value": "#fef3c7",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "amber-200": {
+      "$type": "color",
+      "$value": "#fde68a",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "amber-300": {
+      "$type": "color",
+      "$value": "#fcd34d",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "amber-400": {
+      "$type": "color",
+      "$value": "#fbbf24",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "amber-500": {
+      "$type": "color",
+      "$value": "#f59e0b",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "amber-600": {
+      "$type": "color",
+      "$value": "#d97706",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "amber-700": {
+      "$type": "color",
+      "$value": "#b45309",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "amber-800": {
+      "$type": "color",
+      "$value": "#92400e",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "amber-900": {
+      "$type": "color",
+      "$value": "#78350f",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "yellow-50": {
+      "$type": "color",
+      "$value": "#fefce8",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "yellow-100": {
+      "$type": "color",
+      "$value": "#fef9c3",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "yellow-200": {
+      "$type": "color",
+      "$value": "#fef08a",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "yellow-300": {
+      "$type": "color",
+      "$value": "#fde047",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "yellow-400": {
+      "$type": "color",
+      "$value": "#facc15",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "yellow-500": {
+      "$type": "color",
+      "$value": "#eab308",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "yellow-600": {
+      "$type": "color",
+      "$value": "#ca8a04",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "yellow-700": {
+      "$type": "color",
+      "$value": "#a16207",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "yellow-800": {
+      "$type": "color",
+      "$value": "#854d0e",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "yellow-900": {
+      "$type": "color",
+      "$value": "#713f12",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "lime-50": {
+      "$type": "color",
+      "$value": "#f7fee7",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "lime-100": {
+      "$type": "color",
+      "$value": "#ecfccb",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "lime-200": {
+      "$type": "color",
+      "$value": "#d9f99d",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "lime-300": {
+      "$type": "color",
+      "$value": "#bef264",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "lime-400": {
+      "$type": "color",
+      "$value": "#a3e635",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "lime-500": {
+      "$type": "color",
+      "$value": "#84cc16",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "lime-600": {
+      "$type": "color",
+      "$value": "#65a30d",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "lime-700": {
+      "$type": "color",
+      "$value": "#4d7c0f",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "lime-800": {
+      "$type": "color",
+      "$value": "#3f6212",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "lime-900": {
+      "$type": "color",
+      "$value": "#365314",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "green-50": {
+      "$type": "color",
+      "$value": "#f0fdf4",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "green-100": {
+      "$type": "color",
+      "$value": "#dcfce7",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "green-200": {
+      "$type": "color",
+      "$value": "#bbf7d0",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "green-300": {
+      "$type": "color",
+      "$value": "#86efac",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "green-400": {
+      "$type": "color",
+      "$value": "#4ade80",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "green-500": {
+      "$type": "color",
+      "$value": "#22c55e",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "green-600": {
+      "$type": "color",
+      "$value": "#16a34a",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "green-700": {
+      "$type": "color",
+      "$value": "#15803d",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "green-800": {
+      "$type": "color",
+      "$value": "#166534",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "green-900": {
+      "$type": "color",
+      "$value": "#14532d",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "emerald-50": {
+      "$type": "color",
+      "$value": "#ecfdf5",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "emerald-100": {
+      "$type": "color",
+      "$value": "#d1fae5",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "emerald-200": {
+      "$type": "color",
+      "$value": "#a7f3d0",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "emerald-300": {
+      "$type": "color",
+      "$value": "#6ee7b7",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "emerald-400": {
+      "$type": "color",
+      "$value": "#34d399",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "emerald-500": {
+      "$type": "color",
+      "$value": "#10b981",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "emerald-600": {
+      "$type": "color",
+      "$value": "#059669",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "emerald-700": {
+      "$type": "color",
+      "$value": "#047857",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "emerald-800": {
+      "$type": "color",
+      "$value": "#065f46",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "emerald-900": {
+      "$type": "color",
+      "$value": "#064e3b",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "teal-50": {
+      "$type": "color",
+      "$value": "#f0fdfa",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "teal-100": {
+      "$type": "color",
+      "$value": "#ccfbf1",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "teal-200": {
+      "$type": "color",
+      "$value": "#99f6e4",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "teal-300": {
+      "$type": "color",
+      "$value": "#5eead4",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "teal-400": {
+      "$type": "color",
+      "$value": "#2dd4bf",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "teal-500": {
+      "$type": "color",
+      "$value": "#14b8a6",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "teal-600": {
+      "$type": "color",
+      "$value": "#0d9488",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "teal-700": {
+      "$type": "color",
+      "$value": "#0f766e",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "teal-800": {
+      "$type": "color",
+      "$value": "#115e59",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "teal-900": {
+      "$type": "color",
+      "$value": "#134e4a",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "cyan-50": {
+      "$type": "color",
+      "$value": "#ecfeff",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "cyan-100": {
+      "$type": "color",
+      "$value": "#cffafe",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "cyan-200": {
+      "$type": "color",
+      "$value": "#a5f3fc",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "cyan-300": {
+      "$type": "color",
+      "$value": "#67e8f9",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "cyan-400": {
+      "$type": "color",
+      "$value": "#22d3ee",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "cyan-500": {
+      "$type": "color",
+      "$value": "#06b6d4",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "cyan-600": {
+      "$type": "color",
+      "$value": "#0891b2",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "cyan-700": {
+      "$type": "color",
+      "$value": "#0e7490",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "cyan-800": {
+      "$type": "color",
+      "$value": "#155e75",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "cyan-900": {
+      "$type": "color",
+      "$value": "#164e63",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "blue-50": {
+      "$type": "color",
+      "$value": "#eff6ff",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "blue-100": {
+      "$type": "color",
+      "$value": "#dbeafe",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "blue-200": {
+      "$type": "color",
+      "$value": "#bfdbfe",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "blue-300": {
+      "$type": "color",
+      "$value": "#93c5fd",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "blue-400": {
+      "$type": "color",
+      "$value": "#60a5fa",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "blue-500": {
+      "$type": "color",
+      "$value": "#3b82f6",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "blue-600": {
+      "$type": "color",
+      "$value": "#2563eb",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "blue-700": {
+      "$type": "color",
+      "$value": "#1d4ed8",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "blue-800": {
+      "$type": "color",
+      "$value": "#1e40af",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "blue-900": {
+      "$type": "color",
+      "$value": "#1e3a8a",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "violet-50": {
+      "$type": "color",
+      "$value": "#f5f3ff",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "violet-100": {
+      "$type": "color",
+      "$value": "#ede9fe",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "violet-200": {
+      "$type": "color",
+      "$value": "#ddd6fe",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "violet-300": {
+      "$type": "color",
+      "$value": "#c4b5fd",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "violet-400": {
+      "$type": "color",
+      "$value": "#a78bfa",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "violet-500": {
+      "$type": "color",
+      "$value": "#8b5cf6",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "violet-600": {
+      "$type": "color",
+      "$value": "#7c3aed",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "violet-700": {
+      "$type": "color",
+      "$value": "#6d28d9",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "violet-800": {
+      "$type": "color",
+      "$value": "#5b21b6",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "violet-900": {
+      "$type": "color",
+      "$value": "#4c1d95",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "pink-50": {
+      "$type": "color",
+      "$value": "#fdf2f8",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "pink-100": {
+      "$type": "color",
+      "$value": "#fce7f3",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "pink-200": {
+      "$type": "color",
+      "$value": "#fbcfe8",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "pink-300": {
+      "$type": "color",
+      "$value": "#f9a8d4",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "pink-400": {
+      "$type": "color",
+      "$value": "#f472b6",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "pink-500": {
+      "$type": "color",
+      "$value": "#ec4899",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "pink-600": {
+      "$type": "color",
+      "$value": "#db2777",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "pink-700": {
+      "$type": "color",
+      "$value": "#be185d",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "pink-800": {
+      "$type": "color",
+      "$value": "#9d174d",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "pink-900": {
+      "$type": "color",
+      "$value": "#831843",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Palette (12 hues × 10 shades)"
+        }
+      }
+    },
+    "font-size-2xs": {
+      "$type": "dimension",
+      "$value": "0.75rem",
+      "$description": "16px base — CJK body text standard 12px — micro labels",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Typography"
+        }
+      }
+    },
+    "font-size-xs": {
+      "$type": "dimension",
+      "$value": "0.8125rem",
+      "$description": "13px — captions",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Typography"
+        }
+      }
+    },
+    "font-size-sm": {
+      "$type": "dimension",
+      "$value": "0.875rem",
+      "$description": "14px — body small",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Typography"
+        }
+      }
+    },
+    "font-size-base": {
+      "$type": "dimension",
+      "$value": "1rem",
+      "$description": "16px — body",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Typography"
+        }
+      }
+    },
+    "font-size-md": {
+      "$type": "dimension",
+      "$value": "1.0625rem",
+      "$description": "17px",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Typography"
+        }
+      }
+    },
+    "font-size-lg": {
+      "$type": "dimension",
+      "$value": "1.125rem",
+      "$description": "18px",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Typography"
+        }
+      }
+    },
+    "font-size-xl": {
+      "$type": "dimension",
+      "$value": "1.25rem",
+      "$description": "20px",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Typography"
+        }
+      }
+    },
+    "font-size-2xl": {
+      "$type": "dimension",
+      "$value": "1.5rem",
+      "$description": "24px",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Typography"
+        }
+      }
+    },
+    "font-size-3xl": {
+      "$type": "dimension",
+      "$value": "1.875rem",
+      "$description": "30px",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Typography"
+        }
+      }
+    },
+    "font-size-4xl": {
+      "$type": "dimension",
+      "$value": "2.25rem",
+      "$description": "36px — hero numbers",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Typography"
+        }
+      }
+    },
+    "font-size-5xl": {
+      "$type": "dimension",
+      "$value": "2.5rem",
+      "$description": "40px — large hero",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Typography"
+        }
+      }
+    },
+    "font-weight-normal": {
+      "$type": "fontWeight",
+      "$value": "400",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Typography"
+        }
+      }
+    },
+    "font-weight-medium": {
+      "$type": "fontWeight",
+      "$value": "500",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Typography"
+        }
+      }
+    },
+    "font-weight-semibold": {
+      "$type": "fontWeight",
+      "$value": "600",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Typography"
+        }
+      }
+    },
+    "font-weight-bold": {
+      "$type": "fontWeight",
+      "$value": "700",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Typography"
+        }
+      }
+    },
+    "line-height-tight": {
+      "$type": "number",
+      "$value": "1.25",
+      "$description": "Line heights — taller for Japanese",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Typography"
+        }
+      }
+    },
+    "line-height-snug": {
+      "$type": "number",
+      "$value": "1.375",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Typography"
+        }
+      }
+    },
+    "line-height-normal": {
+      "$type": "number",
+      "$value": "1.5",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Typography"
+        }
+      }
+    },
+    "line-height-relaxed": {
+      "$type": "number",
+      "$value": "1.625",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Typography"
+        }
+      }
+    },
+    "line-height-loose": {
+      "$type": "number",
+      "$value": "1.75",
+      "$description": "CJK body text (body default)",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Typography"
+        }
+      }
+    },
+    "letter-spacing-tight": {
+      "$type": "dimension",
+      "$value": "-0.025em",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Typography"
+        }
+      }
+    },
+    "letter-spacing-normal": {
+      "$type": "dimension",
+      "$value": "0",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Typography"
+        }
+      }
+    },
+    "letter-spacing-wide": {
+      "$type": "dimension",
+      "$value": "0.025em",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Typography"
+        }
+      }
+    },
+    "letter-spacing-wider": {
+      "$type": "dimension",
+      "$value": "0.05em",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Typography"
+        }
+      }
+    },
+    "letter-spacing-widest": {
+      "$type": "dimension",
+      "$value": "0.1em",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Typography"
+        }
+      }
+    },
+    "space-0": {
+      "$type": "dimension",
+      "$value": "0",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Spacing"
+        }
+      }
+    },
+    "space-px": {
+      "$type": "dimension",
+      "$value": "1px",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Spacing"
+        }
+      }
+    },
+    "space-0-5": {
+      "$type": "dimension",
+      "$value": "0.125rem",
+      "$description": "2px",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Spacing"
+        }
+      }
+    },
+    "space-1": {
+      "$type": "dimension",
+      "$value": "0.25rem",
+      "$description": "4px",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Spacing"
+        }
+      }
+    },
+    "space-1-5": {
+      "$type": "dimension",
+      "$value": "0.375rem",
+      "$description": "6px",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Spacing"
+        }
+      }
+    },
+    "space-2": {
+      "$type": "dimension",
+      "$value": "0.5rem",
+      "$description": "8px",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Spacing"
+        }
+      }
+    },
+    "space-2-5": {
+      "$type": "dimension",
+      "$value": "0.625rem",
+      "$description": "10px",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Spacing"
+        }
+      }
+    },
+    "space-3": {
+      "$type": "dimension",
+      "$value": "0.75rem",
+      "$description": "12px",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Spacing"
+        }
+      }
+    },
+    "space-4": {
+      "$type": "dimension",
+      "$value": "1rem",
+      "$description": "16px",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Spacing"
+        }
+      }
+    },
+    "space-5": {
+      "$type": "dimension",
+      "$value": "1.25rem",
+      "$description": "20px",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Spacing"
+        }
+      }
+    },
+    "space-6": {
+      "$type": "dimension",
+      "$value": "1.5rem",
+      "$description": "24px",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Spacing"
+        }
+      }
+    },
+    "space-8": {
+      "$type": "dimension",
+      "$value": "2rem",
+      "$description": "32px",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Spacing"
+        }
+      }
+    },
+    "space-10": {
+      "$type": "dimension",
+      "$value": "2.5rem",
+      "$description": "40px",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Spacing"
+        }
+      }
+    },
+    "space-12": {
+      "$type": "dimension",
+      "$value": "3rem",
+      "$description": "48px",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Spacing"
+        }
+      }
+    },
+    "space-16": {
+      "$type": "dimension",
+      "$value": "4rem",
+      "$description": "64px",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Spacing"
+        }
+      }
+    },
+    "space-20": {
+      "$type": "dimension",
+      "$value": "5rem",
+      "$description": "80px",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Spacing"
+        }
+      }
+    },
+    "space-24": {
+      "$type": "dimension",
+      "$value": "6rem",
+      "$description": "96px",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Spacing"
+        }
+      }
+    },
+    "radius-none": {
+      "$type": "dimension",
+      "$value": "0",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Border Radius"
+        }
+      }
+    },
+    "radius-sharp": {
+      "$type": "dimension",
+      "$value": "0px",
+      "$description": "deliberate zero radius — typographic / tool UI",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Border Radius"
+        }
+      }
+    },
+    "radius-sm": {
+      "$type": "dimension",
+      "$value": "0.375rem",
+      "$description": "6px",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Border Radius"
+        }
+      }
+    },
+    "radius-md": {
+      "$type": "dimension",
+      "$value": "0.5rem",
+      "$description": "8px",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Border Radius"
+        }
+      }
+    },
+    "radius-lg": {
+      "$type": "dimension",
+      "$value": "0.625rem",
+      "$description": "10px — default card",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Border Radius"
+        }
+      }
+    },
+    "radius-xl": {
+      "$type": "dimension",
+      "$value": "0.75rem",
+      "$description": "12px",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Border Radius"
+        }
+      }
+    },
+    "radius-2xl": {
+      "$type": "dimension",
+      "$value": "1rem",
+      "$description": "16px",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Border Radius"
+        }
+      }
+    },
+    "radius-full": {
+      "$type": "dimension",
+      "$value": "9999px",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Border Radius"
+        }
+      }
+    },
+    "radius-box": {
+      "$type": "dimension",
+      "$value": "{primitive.radius-lg}",
+      "$description": "4-tier semantic radius (inspired by DaisyUI) Card, Modal, Panel",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Border Radius"
+        }
+      }
+    },
+    "radius-field": {
+      "$type": "dimension",
+      "$value": "{primitive.radius-md}",
+      "$description": "Input, Button, Select",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Border Radius"
+        }
+      }
+    },
+    "radius-selector": {
+      "$type": "dimension",
+      "$value": "{primitive.radius-sm}",
+      "$description": "Checkbox, Toggle, Badge",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Border Radius"
+        }
+      }
+    },
+    "duration-fast": {
+      "$type": "duration",
+      "$value": "100ms",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Transitions"
+        }
+      }
+    },
+    "duration-normal": {
+      "$type": "duration",
+      "$value": "150ms",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Transitions"
+        }
+      }
+    },
+    "duration-slow": {
+      "$type": "duration",
+      "$value": "200ms",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Transitions"
+        }
+      }
+    },
+    "duration-slower": {
+      "$type": "duration",
+      "$value": "300ms",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Transitions"
+        }
+      }
+    },
+    "ease-default": {
+      "$type": "cubicBezier",
+      "$value": "cubic-bezier(0.4, 0, 0.2, 1)",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Transitions"
+        }
+      }
+    },
+    "ease-in": {
+      "$type": "cubicBezier",
+      "$value": "cubic-bezier(0.4, 0, 1, 1)",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Transitions"
+        }
+      }
+    },
+    "ease-out": {
+      "$type": "cubicBezier",
+      "$value": "cubic-bezier(0, 0, 0.2, 1)",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Transitions"
+        }
+      }
+    },
+    "ease-spring": {
+      "$type": "cubicBezier",
+      "$value": "cubic-bezier(0.34, 1.56, 0.64, 1)",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Transitions"
+        }
+      }
+    },
+    "z-dropdown": {
+      "$type": "number",
+      "$value": "50",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Z-Index"
+        }
+      }
+    },
+    "z-sticky": {
+      "$type": "number",
+      "$value": "100",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Z-Index"
+        }
+      }
+    },
+    "z-overlay": {
+      "$type": "number",
+      "$value": "200",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Z-Index"
+        }
+      }
+    },
+    "z-modal": {
+      "$type": "number",
+      "$value": "300",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Z-Index"
+        }
+      }
+    },
+    "z-toast": {
+      "$type": "number",
+      "$value": "400",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Z-Index"
+        }
+      }
+    },
+    "z-tooltip": {
+      "$type": "number",
+      "$value": "500",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Z-Index"
+        }
+      }
+    }
+  },
+  "semantic": {
+    "color-accent-a": {
+      "$type": "color",
+      "$value": "{primitive.blue-500}",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Accent (dual-accent for category tagging)"
+        }
+      }
+    },
+    "color-accent-a-light": {
+      "$type": "color",
+      "$value": "{primitive.blue-50}",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Accent (dual-accent for category tagging)"
+        }
+      }
+    },
+    "color-accent-a-fg": {
+      "$type": "color",
+      "$value": "{primitive.blue-600}",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Accent (dual-accent for category tagging)"
+        }
+      }
+    },
+    "color-accent-b": {
+      "$type": "color",
+      "$value": "{primitive.red-500}",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Accent (dual-accent for category tagging)"
+        }
+      }
+    },
+    "color-accent-b-light": {
+      "$type": "color",
+      "$value": "{primitive.red-50}",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Accent (dual-accent for category tagging)"
+        }
+      }
+    },
+    "color-accent-b-fg": {
+      "$type": "color",
+      "$value": "{primitive.red-600}",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Accent (dual-accent for category tagging)"
+        }
+      }
+    },
+    "color-bg": {
+      "$type": "color",
+      "$value": "#ffffff",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Semantic"
+        }
+      }
+    },
+    "color-bg-secondary": {
+      "$type": "color",
+      "$value": "{primitive.zinc-50}",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Semantic"
+        }
+      }
+    },
+    "color-bg-tertiary": {
+      "$type": "color",
+      "$value": "{primitive.zinc-100}",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Semantic"
+        }
+      }
+    },
+    "color-bg-inverse": {
+      "$type": "color",
+      "$value": "{primitive.zinc-950}",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Semantic"
+        }
+      }
+    },
+    "color-fg": {
+      "$type": "color",
+      "$value": "{primitive.zinc-950}",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Semantic"
+        }
+      }
+    },
+    "color-fg-secondary": {
+      "$type": "color",
+      "$value": "{primitive.zinc-500}",
+      "$description": "NOTE: fg-secondary (zinc-500) is intentionally lighter than fg-muted (zinc-600). fg-secondary = supplementary text (timestamps, metadata) — lower emphasis. fg-muted = de-emphasized but still readable body text — mid emphasis. This follows the pattern: fg > fg-muted > fg-secondary > fg-tertiary.",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Semantic"
+        }
+      }
+    },
+    "color-fg-tertiary": {
+      "$type": "color",
+      "$value": "{primitive.zinc-500}",
+      "$description": "text: 4.8:1 on white (WCAG AA). zinc-400 is decorative only",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Semantic"
+        }
+      }
+    },
+    "color-fg-decorative": {
+      "$type": "color",
+      "$value": "{primitive.zinc-400}",
+      "$description": "icons, markers, separators: no text here",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Semantic"
+        }
+      }
+    },
+    "color-fg-placeholder": {
+      "$type": "color",
+      "$value": "{primitive.zinc-600}",
+      "$description": "6.9:1 on bg-tertiary (input background)",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Semantic"
+        }
+      }
+    },
+    "color-fg-inverse": {
+      "$type": "color",
+      "$value": "#ffffff",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Semantic"
+        }
+      }
+    },
+    "color-fg-muted": {
+      "$type": "color",
+      "$value": "{primitive.zinc-600}",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Semantic"
+        }
+      }
+    },
+    "color-border": {
+      "$type": "color",
+      "$value": "{primitive.zinc-200}",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Semantic"
+        }
+      }
+    },
+    "color-border-strong": {
+      "$type": "color",
+      "$value": "{primitive.zinc-300}",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Semantic"
+        }
+      }
+    },
+    "color-border-subtle": {
+      "$type": "color",
+      "$value": "{primitive.zinc-100}",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Semantic"
+        }
+      }
+    },
+    "color-surface": {
+      "$type": "color",
+      "$value": "#ffffff",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Semantic"
+        }
+      }
+    },
+    "color-surface-hover": {
+      "$type": "color",
+      "$value": "{primitive.zinc-50}",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Semantic"
+        }
+      }
+    },
+    "color-surface-active": {
+      "$type": "color",
+      "$value": "{primitive.zinc-100}",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Semantic"
+        }
+      }
+    },
+    "color-primary": {
+      "$type": "color",
+      "$value": "{primitive.zinc-950}",
+      "$description": "Primary = Black (zinc-950)",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Semantic"
+        }
+      }
+    },
+    "color-primary-fg": {
+      "$type": "color",
+      "$value": "#ffffff",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Semantic"
+        }
+      }
+    },
+    "color-primary-hover": {
+      "$type": "color",
+      "$value": "{primitive.zinc-800}",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Semantic"
+        }
+      }
+    },
+    "color-secondary": {
+      "$type": "color",
+      "$value": "{primitive.zinc-100}",
+      "$description": "Secondary",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Semantic"
+        }
+      }
+    },
+    "color-secondary-fg": {
+      "$type": "color",
+      "$value": "{primitive.zinc-900}",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Semantic"
+        }
+      }
+    },
+    "color-secondary-hover": {
+      "$type": "color",
+      "$value": "{primitive.zinc-200}",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Semantic"
+        }
+      }
+    },
+    "color-positive": {
+      "$type": "color",
+      "$value": "{primitive.emerald-500}",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Status (→ palette refs)"
+        }
+      }
+    },
+    "color-positive-light": {
+      "$type": "color",
+      "$value": "{primitive.emerald-50}",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Status (→ palette refs)"
+        }
+      }
+    },
+    "color-positive-fg": {
+      "$type": "color",
+      "$value": "{primitive.emerald-600}",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Status (→ palette refs)"
+        }
+      }
+    },
+    "color-positive-strong": {
+      "$type": "color",
+      "$value": "{primitive.emerald-700}",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Status (→ palette refs)"
+        }
+      }
+    },
+    "color-negative": {
+      "$type": "color",
+      "$value": "{primitive.red-500}",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Status (→ palette refs)"
+        }
+      }
+    },
+    "color-negative-light": {
+      "$type": "color",
+      "$value": "{primitive.red-50}",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Status (→ palette refs)"
+        }
+      }
+    },
+    "color-negative-fg": {
+      "$type": "color",
+      "$value": "{primitive.red-600}",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Status (→ palette refs)"
+        }
+      }
+    },
+    "color-negative-strong": {
+      "$type": "color",
+      "$value": "{primitive.red-700}",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Status (→ palette refs)"
+        }
+      }
+    },
+    "color-warning": {
+      "$type": "color",
+      "$value": "{primitive.amber-500}",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Status (→ palette refs)"
+        }
+      }
+    },
+    "color-warning-light": {
+      "$type": "color",
+      "$value": "{primitive.amber-50}",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Status (→ palette refs)"
+        }
+      }
+    },
+    "color-warning-fg": {
+      "$type": "color",
+      "$value": "{primitive.amber-600}",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Status (→ palette refs)"
+        }
+      }
+    },
+    "color-warning-strong": {
+      "$type": "color",
+      "$value": "{primitive.amber-700}",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Status (→ palette refs)"
+        }
+      }
+    },
+    "color-info": {
+      "$type": "color",
+      "$value": "{primitive.blue-500}",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Status (→ palette refs)"
+        }
+      }
+    },
+    "color-info-light": {
+      "$type": "color",
+      "$value": "{primitive.blue-50}",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Status (→ palette refs)"
+        }
+      }
+    },
+    "color-info-fg": {
+      "$type": "color",
+      "$value": "{primitive.blue-600}",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Status (→ palette refs)"
+        }
+      }
+    },
+    "color-info-strong": {
+      "$type": "color",
+      "$value": "{primitive.blue-700}",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Status (→ palette refs)"
+        }
+      }
+    },
+    "color-overlay": {
+      "$type": "color",
+      "$value": "rgba(0, 0, 0, 0.5)",
+      "$description": "Overlay & Error ring",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Status (→ palette refs)"
+        }
+      }
+    },
+    "color-error-ring": {
+      "$type": "color",
+      "$value": "rgba(239, 68, 68, 0.2)",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Status (→ palette refs)"
+        }
+      }
+    },
+    "chart-blue": {
+      "$type": "color",
+      "$value": "{primitive.blue-500}",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Charts (→ palette refs, 12 named)"
+        }
+      }
+    },
+    "chart-amber": {
+      "$type": "color",
+      "$value": "{primitive.amber-500}",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Charts (→ palette refs, 12 named)"
+        }
+      }
+    },
+    "chart-emerald": {
+      "$type": "color",
+      "$value": "{primitive.emerald-500}",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Charts (→ palette refs, 12 named)"
+        }
+      }
+    },
+    "chart-pink": {
+      "$type": "color",
+      "$value": "{primitive.pink-500}",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Charts (→ palette refs, 12 named)"
+        }
+      }
+    },
+    "chart-cyan": {
+      "$type": "color",
+      "$value": "{primitive.cyan-500}",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Charts (→ palette refs, 12 named)"
+        }
+      }
+    },
+    "chart-red": {
+      "$type": "color",
+      "$value": "{primitive.red-500}",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Charts (→ palette refs, 12 named)"
+        }
+      }
+    },
+    "chart-lime": {
+      "$type": "color",
+      "$value": "{primitive.lime-500}",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Charts (→ palette refs, 12 named)"
+        }
+      }
+    },
+    "chart-purple": {
+      "$type": "color",
+      "$value": "{primitive.violet-500}",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Charts (→ palette refs, 12 named)"
+        }
+      }
+    },
+    "chart-orange": {
+      "$type": "color",
+      "$value": "{primitive.orange-500}",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Charts (→ palette refs, 12 named)"
+        }
+      }
+    },
+    "chart-teal": {
+      "$type": "color",
+      "$value": "{primitive.teal-500}",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Charts (→ palette refs, 12 named)"
+        }
+      }
+    },
+    "chart-yellow": {
+      "$type": "color",
+      "$value": "{primitive.yellow-500}",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Charts (→ palette refs, 12 named)"
+        }
+      }
+    },
+    "chart-green": {
+      "$type": "color",
+      "$value": "{primitive.green-500}",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Charts (→ palette refs, 12 named)"
+        }
+      }
+    },
+    "chart-1": {
+      "$type": "color",
+      "$value": "{semantic.chart-blue}",
+      "$description": "Numbered aliases for programmatic access",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Charts (→ palette refs, 12 named)"
+        }
+      }
+    },
+    "chart-2": {
+      "$type": "color",
+      "$value": "{semantic.chart-emerald}",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Charts (→ palette refs, 12 named)"
+        }
+      }
+    },
+    "chart-3": {
+      "$type": "color",
+      "$value": "{semantic.chart-amber}",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Charts (→ palette refs, 12 named)"
+        }
+      }
+    },
+    "chart-4": {
+      "$type": "color",
+      "$value": "{semantic.chart-pink}",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Charts (→ palette refs, 12 named)"
+        }
+      }
+    },
+    "chart-5": {
+      "$type": "color",
+      "$value": "{semantic.chart-cyan}",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Charts (→ palette refs, 12 named)"
+        }
+      }
+    },
+    "chart-6": {
+      "$type": "color",
+      "$value": "{semantic.chart-red}",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Charts (→ palette refs, 12 named)"
+        }
+      }
+    },
+    "chart-7": {
+      "$type": "color",
+      "$value": "{semantic.chart-lime}",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Charts (→ palette refs, 12 named)"
+        }
+      }
+    },
+    "chart-8": {
+      "$type": "color",
+      "$value": "{semantic.chart-purple}",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Charts (→ palette refs, 12 named)"
+        }
+      }
+    },
+    "chart-9": {
+      "$type": "color",
+      "$value": "{semantic.chart-orange}",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Charts (→ palette refs, 12 named)"
+        }
+      }
+    },
+    "chart-10": {
+      "$type": "color",
+      "$value": "{semantic.chart-teal}",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Charts (→ palette refs, 12 named)"
+        }
+      }
+    },
+    "chart-11": {
+      "$type": "color",
+      "$value": "{semantic.chart-yellow}",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Charts (→ palette refs, 12 named)"
+        }
+      }
+    },
+    "chart-12": {
+      "$type": "color",
+      "$value": "{semantic.chart-green}",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Charts (→ palette refs, 12 named)"
+        }
+      }
+    },
+    "font-sans": {
+      "$type": "fontFamily",
+      "$value": "var(--font-noto-sans-jp, \"Noto Sans JP\"), -apple-system, BlinkMacSystemFont,\n    \"Segoe UI\", \"Hiragino Kaku Gothic ProN\", \"Hiragino Sans\", Meiryo,\n    sans-serif",
+      "$description": "Body: Japanese-first stack. Latin glyphs fall through to Noto's own Latin, so numbers and ASCII share x-height and weight with the kana.",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Typography"
+        }
+      }
+    },
+    "font-display": {
+      "$type": "fontFamily",
+      "$value": "var(--font-montserrat, \"Montserrat\"), var(--font-noto-sans-jp, \"Noto Sans JP\"), -apple-system,\n    \"Hiragino Sans\", Meiryo, sans-serif",
+      "$description": "Display: headings and large numerals. Montserrat for Latin, Noto for kana.",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Typography"
+        }
+      }
+    },
+    "font-feature-display": {
+      "$type": "dimension",
+      "$value": "\"palt\" 1",
+      "$description": "Proportional kana (palt) is applied to display text only. On body copy it tightens punctuation and hurts readability.",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Typography"
+        }
+      }
+    },
+    "font-mono": {
+      "$type": "fontFamily",
+      "$value": "\"SF Mono\", \"Fira Code\", \"Fira Mono\", \"Roboto Mono\", monospace",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Typography"
+        }
+      }
+    },
+    "measure-ja": {
+      "$type": "dimension",
+      "$value": "40em",
+      "$description": "max line length for Japanese prose (about 40 characters)",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Typography"
+        }
+      }
+    },
+    "shadow-none": {
+      "$type": "shadow",
+      "$value": "none",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Shadows — Minimal"
+        }
+      }
+    },
+    "shadow-xs": {
+      "$type": "shadow",
+      "$value": "0 1px 2px rgba(0, 0, 0, 0.04)",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Shadows — Minimal"
+        }
+      }
+    },
+    "shadow-sm": {
+      "$type": "shadow",
+      "$value": "0 1px 3px rgba(0, 0, 0, 0.06)",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Shadows — Minimal"
+        }
+      }
+    },
+    "shadow-md": {
+      "$type": "shadow",
+      "$value": "0 4px 12px rgba(0, 0, 0, 0.06)",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Shadows — Minimal"
+        }
+      }
+    },
+    "shadow-lg": {
+      "$type": "shadow",
+      "$value": "0 8px 24px rgba(0, 0, 0, 0.08)",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Shadows — Minimal"
+        }
+      }
+    },
+    "shadow-xl": {
+      "$type": "shadow",
+      "$value": "0 16px 48px rgba(0, 0, 0, 0.1)",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Shadows — Minimal"
+        }
+      }
+    },
+    "color-focus": {
+      "$type": "color",
+      "$value": "{semantic.color-fg}",
+      "$description": "Solid foreground colour so the ring passes WCAG 1.4.11 (3:1) on every theme. A translucent grey ring measured 1.5:1 and was effectively invisible.",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Ring (focus)"
+        }
+      }
+    },
+    "ring-color": {
+      "$type": "color",
+      "$value": "{semantic.color-focus}",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Ring (focus)"
+        }
+      }
+    },
+    "ring-offset": {
+      "$type": "dimension",
+      "$value": "2px",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Ring (focus)"
+        }
+      }
+    },
+    "ring-width": {
+      "$type": "dimension",
+      "$value": "2px",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Ring (focus)"
+        }
+      }
+    }
+  },
+  "component": {
+    "sidebar-width": {
+      "$type": "dimension",
+      "$value": "220px",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Layout"
+        }
+      }
+    },
+    "topbar-height": {
+      "$type": "dimension",
+      "$value": "3.5rem",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Layout"
+        }
+      }
+    },
+    "content-max-width": {
+      "$type": "dimension",
+      "$value": "1280px",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Layout"
+        }
+      }
+    },
+    "density-control-height": {
+      "$type": "dimension",
+      "$value": "2.25rem",
+      "$description": "Input / Select / Button (default size)",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Density (component sizing — orthogonal to color theme)",
+          "sectionNote": "Two-stage system: normal values here, [data-density=\"compact\"] overrides below. Attach the attribute to :root or any container; custom properties inherit down the subtree either way. Every normal value below equals the literal it replaces, so the default appearance does not change when this section is added."
+        }
+      }
+    },
+    "density-row-py": {
+      "$type": "dimension",
+      "$value": "{primitive.space-3}",
+      "$description": "Table cell / List-item vertical padding",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Density (component sizing — orthogonal to color theme)"
+        }
+      }
+    },
+    "density-row-px": {
+      "$type": "dimension",
+      "$value": "{primitive.space-4}",
+      "$description": "Table cell horizontal padding",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Density (component sizing — orthogonal to color theme)"
+        }
+      }
+    },
+    "density-font-size-ui": {
+      "$type": "dimension",
+      "$value": "{primitive.font-size-sm}",
+      "$description": "Table / List / Tabs / Dropdown / Sidebar / controls",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Density (component sizing — orthogonal to color theme)"
+        }
+      }
+    },
+    "density-line-height-ui": {
+      "$type": "dimension",
+      "$value": "{primitive.line-height-normal}",
+      "$description": "Table / List row line-height",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Density (component sizing — orthogonal to color theme)"
+        }
+      }
+    },
+    "density-nav-py": {
+      "$type": "dimension",
+      "$value": "{primitive.space-2}",
+      "$description": "Sidebar nav-item vertical padding",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Density (component sizing — orthogonal to color theme)"
+        }
+      }
+    },
+    "density-nav-gap": {
+      "$type": "dimension",
+      "$value": "{primitive.space-2-5}",
+      "$description": "Sidebar nav-item icon gap",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Density (component sizing — orthogonal to color theme)"
+        }
+      }
+    },
+    "density-dropdown-py": {
+      "$type": "dimension",
+      "$value": "{primitive.space-1-5}",
+      "$description": "Dropdown item vertical padding",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Density (component sizing — orthogonal to color theme)"
+        }
+      }
+    },
+    "density-tab-py": {
+      "$type": "dimension",
+      "$value": "{primitive.space-2}",
+      "$description": "Tabs vertical padding",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Density (component sizing — orthogonal to color theme)"
+        }
+      }
+    }
+  }
+}

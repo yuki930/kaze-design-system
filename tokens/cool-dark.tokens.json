@@ -1,0 +1,97 @@
+{
+  "semantic": {
+    "color-bg": {
+      "$type": "color",
+      "$value": "{primitive.slate-950}"
+    },
+    "color-bg-secondary": {
+      "$type": "color",
+      "$value": "{primitive.slate-900}"
+    },
+    "color-bg-tertiary": {
+      "$type": "color",
+      "$value": "{primitive.slate-800}"
+    },
+    "color-bg-inverse": {
+      "$type": "color",
+      "$value": "#ffffff"
+    },
+    "color-fg": {
+      "$type": "color",
+      "$value": "{primitive.slate-50}"
+    },
+    "color-fg-secondary": {
+      "$type": "color",
+      "$value": "{primitive.slate-300}",
+      "$description": "slate-400 is 3.6:1 on slate-950, below AA"
+    },
+    "color-fg-tertiary": {
+      "$type": "color",
+      "$value": "{primitive.slate-300}"
+    },
+    "color-fg-decorative": {
+      "$type": "color",
+      "$value": "{primitive.slate-500}"
+    },
+    "color-fg-placeholder": {
+      "$type": "color",
+      "$value": "{primitive.slate-300}"
+    },
+    "color-fg-inverse": {
+      "$type": "color",
+      "$value": "{primitive.slate-950}"
+    },
+    "color-fg-muted": {
+      "$type": "color",
+      "$value": "{primitive.slate-300}"
+    },
+    "color-border": {
+      "$type": "color",
+      "$value": "{primitive.slate-800}"
+    },
+    "color-border-strong": {
+      "$type": "color",
+      "$value": "{primitive.slate-700}"
+    },
+    "color-border-subtle": {
+      "$type": "color",
+      "$value": "{primitive.slate-900}"
+    },
+    "color-surface": {
+      "$type": "color",
+      "$value": "{primitive.slate-900}"
+    },
+    "color-surface-hover": {
+      "$type": "color",
+      "$value": "{primitive.slate-800}"
+    },
+    "color-surface-active": {
+      "$type": "color",
+      "$value": "{primitive.slate-700}"
+    },
+    "color-primary": {
+      "$type": "color",
+      "$value": "#ffffff"
+    },
+    "color-primary-fg": {
+      "$type": "color",
+      "$value": "{primitive.slate-950}"
+    },
+    "color-primary-hover": {
+      "$type": "color",
+      "$value": "{primitive.slate-200}"
+    },
+    "color-secondary": {
+      "$type": "color",
+      "$value": "{primitive.slate-800}"
+    },
+    "color-secondary-fg": {
+      "$type": "color",
+      "$value": "{primitive.slate-100}"
+    },
+    "color-secondary-hover": {
+      "$type": "color",
+      "$value": "{primitive.slate-700}"
+    }
+  }
+}
