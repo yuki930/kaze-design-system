@@ -12,6 +12,13 @@ Commit prefix determines the next version bump on release:
 - `feat!:`, `fix!:`, `refactor!:` or a commit body containing `BREAKING CHANGE:` → **major** bump
 
 CHANGELOG entries and version bumps are generated automatically by `.github/workflows/publish.yml` on every push to `main` that touches library source files.
+## [0.8.1] - 2026-10-29
+
+### Bug Fixes
+
+- fix: resolve all a11y lint warnings and stop charts jumping on first paint (#39)
+
+
 ## [0.8.0] - 2026-10-29
 
 ### Features
