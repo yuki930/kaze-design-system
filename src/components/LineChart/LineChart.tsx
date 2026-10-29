@@ -50,6 +50,8 @@ export interface LineChartProps extends Omit<HTMLAttributes<HTMLDivElement>, "ch
   showDots?: boolean;
   /** Width reserved for y axis labels in px (default: 48) */
   yAxisWidth?: number;
+  /** Include zero in the y axis (default: true). Set false to fit the data range, e.g. a price or balance line */
+  startAtZero?: boolean;
   /** Format values for y axis and tooltip */
   formatValue?: (value: number) => string;
   /** Accessible description of the chart (required) */
@@ -159,6 +161,7 @@ export const LineChart = forwardRef<HTMLDivElement, LineChartProps>(
       showLegend = true,
       showDots = false,
       yAxisWidth = 48,
+      startAtZero = true,
       formatValue = defaultFormat,
       "aria-label": ariaLabel,
       className,
@@ -217,7 +220,7 @@ export const LineChart = forwardRef<HTMLDivElement, LineChartProps>(
       lo = 0;
       hi = 1;
     }
-    const scale = niceScale(lo, hi, 5);
+    const scale = niceScale(lo, hi, 5, startAtZero);
     const yOf = linearScale([scale.min, scale.max], [PAD_TOP + plotH, PAD_TOP]);
     const xOf = (i: number) => padLeft + (n <= 1 ? plotW / 2 : (i / (n - 1)) * plotW);
 

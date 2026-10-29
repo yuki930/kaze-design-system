@@ -6,6 +6,10 @@
 
 /* ── Charts Row (2:1 ratio) ───────────────────────────────── */
 
+.trendCard {
+  margin-bottom: var(--space-6);
+}
+
 .chartsGrid {
   display: grid;
   grid-template-columns: 1fr;

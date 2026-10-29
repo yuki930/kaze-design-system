@@ -14,13 +14,14 @@ import {
   TableCell,
   Metric,
   Avatar,
-  Tabs,
-  Tab,
   Search,
   Divider,
   Grid,
   FAB,
   Text,
+  LineChart,
+  SegmentedControl,
+  CategoryBar,
 } from "@/components";
 import { AppLayout } from "@/components/Layout";
 import { Sidebar, NavItem } from "@/components/Sidebar";
@@ -119,14 +120,52 @@ const holdings: Holding[] = [
 ];
 
 const sectors = [
-  { name: "自動車", percent: 35, color: "Emerald" as const },
-  { name: "電機", percent: 25, color: "Blue" as const },
-  { name: "通信", percent: 18, color: "Purple" as const },
-  { name: "精密機器", percent: 12, color: "Amber" as const },
-  { name: "金融", percent: 10, color: "Red" as const },
+  { name: "自動車", percent: 35, color: "var(--chart-emerald)" },
+  { name: "電機", percent: 25, color: "var(--chart-blue)" },
+  { name: "通信", percent: 18, color: "var(--chart-purple)" },
+  { name: "精密機器", percent: 12, color: "var(--chart-amber)" },
+  { name: "金融", percent: 10, color: "var(--chart-red)" },
 ];
 
 const performancePeriods: PerformancePeriod[] = ["1W", "1M", "3M", "1Y", "ALL"];
+
+/** Portfolio value (万円) per period. Deterministic walk that ends at the current total. */
+function buildPerformance(labels: string[], start: number, end: number, wobble: number) {
+  const n = labels.length;
+  return labels.map((label, i) => {
+    const trend = start + ((end - start) * i) / Math.max(n - 1, 1);
+    const noise = i === n - 1 ? 0 : Math.sin(i * 1.7) * wobble + Math.cos(i * 0.9) * wobble * 0.5;
+    return { label, value: Math.round(trend + noise) };
+  });
+}
+
+const performanceData: Record<PerformancePeriod, { label: string; value: number }[]> = {
+  "1W": buildPerformance(
+    ["10/23", "10/24", "10/25", "10/26", "10/27", "10/28", "10/29"],
+    1262,
+    1285,
+    6,
+  ),
+  "1M": buildPerformance(
+    Array.from({ length: 30 }, (_, i) => `${i < 1 ? 9 : 10}/${i < 1 ? 30 : i}`),
+    1240,
+    1285,
+    9,
+  ),
+  "3M": buildPerformance(
+    Array.from({ length: 13 }, (_, i) => `${i + 1}週`),
+    1185,
+    1285,
+    16,
+  ),
+  "1Y": buildPerformance(
+    ["11月", "12月", "1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月"],
+    1020,
+    1285,
+    28,
+  ),
+  ALL: buildPerformance(["2021", "2022", "2023", "2024", "2025", "2026"], 610, 1285, 35),
+};
 
 /* ── Helpers ───────────────────────────────────────────────── */
 
@@ -380,33 +419,29 @@ export function Dashboard() {
           <CardHeader>
             <div className={layoutStyles.chartHeader}>
               <CardTitle>パフォーマンス</CardTitle>
-              <Tabs variant="pills">
-                {performancePeriods.map((period) => (
-                  <Tab
-                    key={period}
-                    active={activePeriod === period}
-                    onClick={() => setActivePeriod(period)}
-                  >
-                    {period}
-                  </Tab>
-                ))}
-              </Tabs>
+              <SegmentedControl
+                aria-label="表示期間"
+                size="sm"
+                options={performancePeriods.map((p) => ({ value: p, label: p }))}
+                value={activePeriod}
+                onValueChange={(v) => setActivePeriod(v as PerformancePeriod)}
+              />
             </div>
           </CardHeader>
           <CardBody>
-            <div className={styles.chartArea}>
-              <div className={styles.chartLine} />
-              <div className={styles.chartLinePath}>
-                <svg viewBox="0 0 600 240" preserveAspectRatio="none" fill="none">
-                  <polyline
-                    points="0,180 60,160 120,140 180,130 240,150 300,100 360,80 420,90 480,60 540,45 600,30"
-                    stroke="var(--color-positive)"
-                    strokeWidth="2"
-                    fill="none"
-                  />
-                </svg>
-              </div>
-            </div>
+            <LineChart
+              aria-label={`ポートフォリオ評価額の推移（${activePeriod}）`}
+              index="label"
+              data={performanceData[activePeriod]}
+              series={[{ key: "value", label: "評価額（万円）", color: "var(--chart-emerald)" }]}
+              area
+              curve="monotone"
+              showLegend={false}
+              startAtZero={false}
+              yAxisWidth={72}
+              height={220}
+              formatValue={(v) => `${v.toLocaleString("ja-JP")}万円`}
+            />
           </CardBody>
         </Card>
 
@@ -416,11 +451,18 @@ export function Dashboard() {
             <CardTitle>セクター配分</CardTitle>
           </CardHeader>
           <CardBody>
+            <CategoryBar
+              aria-label="セクター配分"
+              data={sectors.map((s) => ({ label: s.name, value: s.percent, color: s.color }))}
+              showLabels={false}
+              height={10}
+              className={styles.sectorBar}
+            />
             <div className={styles.sectorList}>
               {sectors.map((sector) => (
                 <div key={sector.name} className={styles.sectorItem}>
                   <span className={styles.sectorLabel}>
-                    <span className={cn(styles.sectorDot, styles[`sectorDot${sector.color}`])} />
+                    <span className={styles.sectorDot} style={{ background: sector.color }} />
                     {sector.name}
                   </span>
                   <Text

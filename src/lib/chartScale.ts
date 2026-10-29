@@ -22,12 +22,17 @@ export interface NiceScale {
 
 /**
  * Compute axis bounds and evenly spaced ticks that cover [min, max].
- * Zero is always included when the data does not cross it, so bars and areas
- * have a meaningful baseline.
+ * By default zero is included so bars and areas have a meaningful baseline;
+ * pass `includeZero: false` to fit the data range (e.g. a portfolio value line).
  */
-export function niceScale(dataMin: number, dataMax: number, tickCount = 5): NiceScale {
-  let lo = Math.min(dataMin, 0);
-  let hi = Math.max(dataMax, 0);
+export function niceScale(
+  dataMin: number,
+  dataMax: number,
+  tickCount = 5,
+  includeZero = true,
+): NiceScale {
+  let lo = includeZero ? Math.min(dataMin, 0) : dataMin;
+  let hi = includeZero ? Math.max(dataMax, 0) : dataMax;
   if (lo === hi) {
     hi = lo + 1;
   }

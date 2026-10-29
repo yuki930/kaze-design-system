@@ -21,6 +21,13 @@ describe("niceScale", () => {
     for (const t of s.ticks) expect(String(t).length).toBeLessThan(6);
   });
 
+  it("fits the data range when includeZero is false", () => {
+    const s = niceScale(1240, 1285, 5, false);
+    expect(s.min).toBeGreaterThan(1000);
+    expect(s.min).toBeLessThanOrEqual(1240);
+    expect(s.max).toBeGreaterThanOrEqual(1285);
+  });
+
   it("handles a flat series", () => {
     const s = niceScale(0, 0);
     expect(s.max).toBeGreaterThan(s.min);
