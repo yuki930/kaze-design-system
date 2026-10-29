@@ -58,7 +58,8 @@ jobs:
 
       - name: Update baselines
         if: ${{ inputs.update }}
-        run: npm run vrt -- --update-snapshots
+        # "all" rewrites every baseline, not only the ones outside the tolerance
+        run: npm run vrt -- --update-snapshots=all
 
       - name: Commit updated baselines
         if: ${{ inputs.update }}

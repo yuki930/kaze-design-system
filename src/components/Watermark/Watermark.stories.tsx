@@ -9,7 +9,14 @@ const meta = {
   title: "Components/Watermark",
   component: Watermark,
   args: {
-    text: "テキスト",
+    text: "社外秘",
+    children: (
+      <div
+        style={{ width: 480, height: 240, padding: 24, border: "1px solid var(--color-border)" }}
+      >
+        四半期の売上レポート（下書き）
+      </div>
+    ),
   },
 } satisfies Meta<typeof Watermark>;
 

@@ -12,6 +12,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    title: "ダッシュボード",
+    children: <strong>ダッシュボード</strong>,
+    actions: <span>宮田 千夏</span>,
   },
 };
