@@ -5,6 +5,10 @@
  */
 const warned = new Set<string>();
 
+// Only `process.env.NODE_ENV` is read, and bundlers replace it literally. Declared here so
+// the library does not depend on @types/node (TypeScript 6 no longer loads it implicitly).
+declare const process: { env: { NODE_ENV?: string } };
+
 function isProduction(): boolean {
   try {
     return typeof process !== "undefined" && process.env.NODE_ENV === "production";

@@ -12,6 +12,13 @@ updates:
         dependency-type: development
         update-types: ["minor", "patch"]
     open-pull-requests-limit: 5
+    ignore:
+      # TypeScript 7 is the native (Go) compiler and ships no JavaScript compiler
+      # API. Storybook's props docgen, Next.js type checking and
+      # scripts/generate-llms.mjs all need that API, so stay on 6.x until they
+      # support 7.
+      - dependency-name: typescript
+        versions: [">=7"]
   - package-ecosystem: github-actions
     directory: /
     schedule:
