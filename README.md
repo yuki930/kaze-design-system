@@ -3,14 +3,16 @@
 [![npm version](https://img.shields.io/npm/v/kaze-design-system)](https://www.npmjs.com/package/kaze-design-system)
 [![GitHub](https://img.shields.io/github/license/yuki930/kaze-design-system)](https://github.com/yuki930/kaze-design-system/blob/main/LICENSE)
 
-**Kaze (風)** は、管理画面・ダッシュボード・金融系アプリのための React デザインシステムです。**白と温かみのあるグレーを基調にした静かな配色**と、日本語組版への丁寧な最適化（PALT・和欧混植・読みやすい行間）、そしてコピペで完結する 69 のコンポーネントを 1 パッケージにまとめています。派手な色や装飾ではなく「読みやすさ」「情報密度」「長時間見続けても疲れないこと」を設計の中心に置いています。
+**Kaze（風）** は、業務アプリやダッシュボードのための React デザインシステムです。白と温かみのあるグレーを基調にした、落ち着いた見た目。数字と日本語を一日中読み続ける画面のために作っています。
 
-- **69 コンポーネント**: フォーム、テーブル、依存ゼロの SVG チャート（折れ線・縦棒・ヒートマップ等）、ダッシュボード UI、ランディングページ、マーケティングパーツまで
-- **日本語組版に最適化**: PALT グローバル適用、和欧混植、括弧ツメ、適切な line-height
-- **ライト / ダーク両対応**: `data-theme` 属性で切替、`prefers-color-scheme` 連動
-- **素の CSS + カスケードレイヤー**: `@layer kaze.tokens, kaze.reset, kaze.components, kaze.utilities` でカスケード管理、Tailwind/CSS-in-JS 不要
-- **ESM only + Tree-shakeable**: React 18 / 19 + TypeScript、peer deps は `react`, `react-dom`（`lucide-react` は任意）のみ
-- **AI フレンドリー**: [`/llms.txt`](https://kaze-design-system.vercel.app/llms.txt) で全コンポーネント API を 1 ファイル配信
+- **日本語がきれいに読める**: 本文は Noto Sans JP で、行間は 1.75 とゆったりめ。小さい「っ」や「ー」が行の頭に来ないようにし、行頭の括弧の余白も詰めます。文字詰め（palt）は見出しと大きな数字だけにかけ、本文は読みやすさを優先しています
+- **日本語入力でつまずかない**: 変換を確定する Enter では送信されません。全角の「１２３」や「ー」のマイナスも数値として受け取り、ひらがなとカタカナのどちらで検索しても見つかります
+- **69 のコンポーネント**: フォーム、テーブル、ダッシュボード、ランディングページまで。折れ線・縦棒・ヒートマップなどのグラフも、外部ライブラリなしの SVG で描きます
+- **だれでも使える**: 文字と背景のコントラストは、どのテーマでも WCAG 2.2 AA を満たします。ダイアログ・メニュー・タブはキーボードだけで操作できます
+- **テーマと密度を切り替えられる**: ライト / ダーク、温かみのあるグレー / 青みのグレー、ふつう / コンパクト。どれも HTML の属性ひとつで切り替わります
+- **素の CSS で動く**: CSS 変数とカスケードレイヤーだけで作っていて、CSS-in-JS は使いません。Tailwind と同じページでも併用できます
+- **軽い**: 実行時の依存パッケージはゼロ。ESM なので、使った分だけがバンドルに入ります。React 18 / 19 と TypeScript に対応しています
+- **AI にも読める**: [`/llms.txt`](https://kaze-design-system.vercel.app/llms.txt) に、全コンポーネントの API を 1 ファイルでまとめています
 
 ## Links
 
@@ -76,7 +78,7 @@ import "kaze-design-system/css/all";
 ```
 
 `css/all` は tokens / reset / components / utilities を `@layer` 付きでまとめたエントリポイントです。
-CSS カスケードレイヤーにより詳細度が管理されるため、上書きも容易です。
+カスケードレイヤーで詳細度を管理しているので、上書きもかんたんです。
 
 ### 個別読み込み
 

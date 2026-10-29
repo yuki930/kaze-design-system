@@ -407,6 +407,9 @@ export function ShowcasePage() {
           <NavbarLink href={REPO_URL} target="_blank" rel="noreferrer">
             GitHub
           </NavbarLink>
+          <NavbarLink href={NPM_URL} target="_blank" rel="noreferrer">
+            npm
+          </NavbarLink>
         </NavbarLinks>
       </Navbar>
 
@@ -414,7 +417,7 @@ export function ShowcasePage() {
       <Hero
         badge={`v${process.env.NEXT_PUBLIC_KAZE_VERSION} リリース`}
         title="Kaze Design System"
-        subtitle="風のように軽やかな、日本語に最適化されたデザインシステム。CSS-in-JS ランタイム不要の軽量設計で、React や Next.js にすぐ組み込めます。"
+        subtitle="数字と日本語を、一日中読み続ける画面のために。白と温かみのあるグレーでまとめた、React のデザインシステムです。"
         className={styles.heroSection}
       >
         <a href="/docs">
@@ -426,6 +429,11 @@ export function ShowcasePage() {
               <GitHubMark size={16} />
               GitHub
             </span>
+          </Button>
+        </a>
+        <a href={NPM_URL} target="_blank" rel="noreferrer">
+          <Button size="lg" variant="ghost">
+            npm
           </Button>
         </a>
       </Hero>
@@ -692,11 +700,11 @@ export function ShowcasePage() {
       {/* ── 7. CTA Banner ──────────────────────────────────────── */}
       <Section background="muted">
         <CTABanner
-          title="今すぐ始めましょう"
-          description="Kaze なら、きれいで速い画面をすぐに作れます。オープンソースで、今日から使えます。"
+          title="さっそく使ってみる"
+          description="npm からインストールして、いまのプロジェクトで試せます。MIT ライセンスのオープンソースです。"
         >
           <a href="/docs">
-            <Button size="lg">無料ではじめる</Button>
+            <Button size="lg">ドキュメントを読む</Button>
           </a>
           <a href={REPO_URL} target="_blank" rel="noreferrer">
             <Button size="lg" variant="outline">
