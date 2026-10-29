@@ -21,6 +21,17 @@ CHANGELOG entries and version bumps are generated automatically by `.github/work
 - **Patch** releases fix bugs and never change the public API.
 
 Before 1.0, minor releases could include breaking changes; see MIGRATION.md for moving from 0.x.
+## [1.2.1] - 2026-10-29
+
+### Bug Fixes
+
+- fix: readable default Badge text and positive Metric change; sample colours and LP2 card line (#72)
+
+### Other
+
+- ci: stop the baseline commit from skipping CI on main (#71)
+
+
 ## [1.2.0] - 2026-10-29
 
 ### Features
