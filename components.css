@@ -4863,6 +4863,201 @@ button.chart-legend__item:focus-visible {
   }
 }
 
+/* ── DatePicker ──────────────────────────────────────────── */
+.datepicker {
+  position: relative;
+  display: block;
+  width: 100%;
+}
+
+/* The input keeps the .input look (incl. aria-invalid); only room for the toggle is added */
+.datepicker__input {
+  padding-right: var(--space-10);
+}
+
+.datepicker--sm .datepicker__input {
+  height: calc(var(--density-control-height) - 0.25rem);
+  font-size: var(--font-size-xs);
+}
+
+.datepicker__toggle {
+  position: absolute;
+  top: 50%;
+  right: var(--space-1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(var(--density-control-height) - var(--space-2));
+  height: calc(var(--density-control-height) - var(--space-2));
+  color: var(--color-fg-secondary);
+  background: transparent;
+  border: 0;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transform: translateY(-50%);
+  transition: background-color var(--duration-fast) var(--ease-default);
+}
+
+.datepicker--sm .datepicker__toggle {
+  width: calc(var(--density-control-height) - var(--space-3));
+  height: calc(var(--density-control-height) - var(--space-3));
+}
+
+.datepicker__toggle:hover:not(:disabled) {
+  background: var(--color-surface-hover);
+}
+
+.datepicker__toggle:focus-visible {
+  outline: var(--ring-width) solid var(--color-focus);
+  outline-offset: var(--ring-offset);
+}
+
+.datepicker__toggle:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.datepicker__popover {
+  min-width: 0;
+  padding: var(--space-3);
+}
+
+.datepicker__calendar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  width: max-content;
+}
+
+.datepicker__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.datepicker__title {
+  font-size: var(--density-font-size-ui);
+  font-weight: var(--font-weight-semibold);
+  font-variant-numeric: tabular-nums;
+}
+
+.datepicker__nav {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--density-control-height);
+  height: var(--density-control-height);
+  color: var(--color-fg);
+  background: transparent;
+  border: 0;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}
+
+.datepicker__nav:hover:not(:disabled) {
+  background: var(--color-surface-hover);
+}
+
+.datepicker__nav:focus-visible {
+  outline: var(--ring-width) solid var(--color-focus);
+  outline-offset: -2px;
+}
+
+.datepicker__nav:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.datepicker__grid {
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.datepicker__weekday {
+  padding: var(--space-1) 0;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-fg-secondary);
+  text-align: center;
+}
+
+.datepicker__weekday abbr {
+  text-decoration: none;
+  cursor: default;
+}
+
+/* Weekend colors are a hint only: the column heading and each day's label already name the weekday */
+.datepicker__weekday--sun,
+.datepicker__day--sun {
+  color: var(--color-negative-fg);
+}
+
+.datepicker__weekday--sat,
+.datepicker__day--sat {
+  color: var(--color-info-fg);
+}
+
+.datepicker__grid td {
+  padding: 1px;
+  text-align: center;
+}
+
+.datepicker__day {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--density-control-height);
+  height: var(--density-control-height);
+  font-size: var(--density-font-size-ui);
+  font-variant-numeric: tabular-nums;
+  color: var(--color-fg);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}
+
+.datepicker__day:hover {
+  background: var(--color-surface-hover);
+}
+
+.datepicker__day:focus-visible {
+  outline: var(--ring-width) solid var(--color-focus);
+  outline-offset: -2px;
+}
+
+/* Today: a ring, so it stays visible on top of the weekend colors and without relying on hue */
+.datepicker__day[data-today="true"] {
+  border-color: var(--color-border-strong);
+  font-weight: var(--font-weight-semibold);
+}
+
+.datepicker__day[data-selected="true"],
+.datepicker__day[data-selected="true"]:hover {
+  color: var(--color-primary-fg);
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.datepicker__day[aria-disabled="true"] {
+  opacity: 0.4;
+  text-decoration: line-through;
+  cursor: not-allowed;
+}
+
+.datepicker__day[aria-disabled="true"]:hover {
+  background: transparent;
+}
+
+@media (forced-colors: active) {
+  .datepicker__day[data-selected="true"] {
+    forced-color-adjust: none;
+    color: HighlightText;
+    background: Highlight;
+  }
+}
+
 /* ── Reduced motion ─────────────────────────────────────────
    Shipped in the components layer so it applies even when utilities.css is
    not loaded. Covers every animated component above. */
@@ -4879,7 +5074,8 @@ button.chart-legend__item:focus-visible {
   .toast[data-removing="true"],
   .dropdown__menu,
   .popover__content,
-  .combobox__popup {
+  .combobox__popup,
+  .datepicker__popover {
     animation: none;
   }
 

@@ -37,6 +37,7 @@ import {
   PopoverContent,
   PopoverClose,
   Combobox,
+  DatePicker,
 } from "@/components";
 import { Tooltip } from "@/components/Tooltip/Tooltip";
 import { Icon } from "@/components/Icon/Icon";
@@ -3758,6 +3759,117 @@ const options = [
     options={options}
     value={prefecture}
     onValueChange={setPrefecture}
+  />
+</FormField>`,
+  },
+
+  "date-picker": {
+    title: "DatePicker",
+    description:
+      '日付入力とカレンダーのポップオーバー（WAI-ARIA の Date Picker Dialog）。値は "YYYY-MM-DD" の文字列で、Date のタイムゾーンずれが起きません。era="japanese" で「令和8年10月29日」の和暦表示になり、入力は 2026/10/29・20261029・令和8年10月29日・R8.10.29・全角数字を受け付けます。祝日データは持たないので、休業日などは isDateDisabled で渡します。',
+    preview: (
+      <div style={{ display: "grid", gap: "var(--space-4)", maxWidth: "20rem" }}>
+        <FormField label="開始日（西暦）">
+          <DatePicker defaultValue="2026-10-29" />
+        </FormField>
+        <FormField
+          label="開始日（和暦）"
+          description="R8.10.29 や 令和8年10月29日 でも入力できます"
+        >
+          <DatePicker era="japanese" defaultValue="2026-10-29" weekStartsOn={1} />
+        </FormField>
+      </div>
+    ),
+    props: [
+      {
+        name: "value",
+        type: "string | null",
+        description: '選択中の日付 "YYYY-MM-DD"（制御）。未入力は null',
+      },
+      {
+        name: "defaultValue",
+        type: "string | null",
+        default: "null",
+        description: "初期の日付（非制御）",
+      },
+      {
+        name: "onValueChange",
+        type: "(value: string | null) => void",
+        description:
+          "日付が決まった時のコールバック。入力を空にした時と、解釈できない・選べない日付を入力した時は null",
+      },
+      {
+        name: "era",
+        type: '"gregorian" | "japanese"',
+        default: '"gregorian"',
+        description: "表示の暦。入力欄とカレンダーの見出し・日付ラベルが切り替わる",
+      },
+      { name: "min", type: "string", description: '選べる最初の日 "YYYY-MM-DD"' },
+      { name: "max", type: "string", description: '選べる最後の日 "YYYY-MM-DD"' },
+      {
+        name: "isDateDisabled",
+        type: "(date: string) => boolean",
+        description: "個別に選べない日を指定する（祝日・休業日など）",
+      },
+      {
+        name: "weekStartsOn",
+        type: "0 | 1",
+        default: "0",
+        description: "週の始まり。0 = 日曜、1 = 月曜",
+      },
+      { name: "open", type: "boolean", description: "カレンダーの開閉（制御）" },
+      {
+        name: "defaultOpen",
+        type: "boolean",
+        default: "false",
+        description: "カレンダーの初期の開閉（非制御）",
+      },
+      {
+        name: "onOpenChange",
+        type: "(open: boolean) => void",
+        description: "カレンダーの開閉が変わる時のコールバック",
+      },
+      {
+        name: "name",
+        type: "string",
+        description: '指定すると hidden input で "YYYY-MM-DD" をフォーム送信する',
+      },
+      { name: "size", type: '"sm" | "md"', default: '"md"', description: "サイズ" },
+      {
+        name: "calendarButtonLabel",
+        type: "string",
+        default: '"カレンダーを開く"',
+        description: "カレンダーを開くボタンのラベル",
+      },
+      {
+        name: "dialogLabel",
+        type: "string",
+        default: '"日付を選択"',
+        description: "カレンダーダイアログのラベル",
+      },
+      {
+        name: "prevMonthLabel / nextMonthLabel",
+        type: "string",
+        default: '"前の月" / "次の月"',
+        description: "月送りボタンのラベル",
+      },
+      {
+        name: "aria-invalid",
+        type: "boolean | 'true' | 'false'",
+        description:
+          "true で Input と同じエラー表示。解釈できない日付を入力した時は自動で true になる。FormField の error からも渡される",
+      },
+    ],
+    usage: `import { DatePicker, FormField } from "kaze-design-system";
+
+<FormField label="開始日" error={error}>
+  <DatePicker
+    name="startDate"
+    era="japanese"
+    value={startDate}
+    onValueChange={setStartDate}
+    min="2026-04-01"
+    isDateDisabled={(date) => closedDays.has(date)}
   />
 </FormField>`,
   },

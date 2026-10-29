@@ -60,6 +60,9 @@ export type { InputProps } from "./Input";
 export { Combobox, defaultComboboxFilter } from "./Combobox";
 export type { ComboboxProps, ComboboxOption, ComboboxSize } from "./Combobox";
 
+export { DatePicker } from "./DatePicker";
+export type { DatePickerProps, DatePickerEra, DatePickerSize } from "./DatePicker";
+
 export { Select } from "./Select";
 export type { SelectProps } from "./Select";
 
