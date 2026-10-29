@@ -13,6 +13,7 @@
       "!dist",
       "!.next",
       "!storybook-static",
+      "!.claude",
       "!**/*.json",
       "!**/*.md",
       "!**/*.html",
