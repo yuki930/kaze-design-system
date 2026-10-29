@@ -13,9 +13,15 @@ Commit prefix determines the next version bump on release:
 
 CHANGELOG entries and version bumps are generated automatically by `.github/workflows/publish.yml` on every push to `main` that touches library source files.
 
-### 0.x policy
+### Compatibility policy (1.0 and later)
 
-While the major version is 0, a **minor** release may include breaking changes (they are called out in the release notes with a migration note); a **patch** release never does. The public API will be frozen at 1.0.
+- A **major** release is the only place a breaking change can land: a removed or renamed prop, export, CSS class or token, or a changed default that alters behaviour.
+- Before anything is removed it is deprecated for at least one **minor** release: it keeps working, is marked `@deprecated`, and warns once in development. Migration steps go in [MIGRATION.md](./MIGRATION.md).
+- **Minor** releases add components, props and tokens. Intended visual changes to existing components also ship in a minor release and are listed in the notes.
+- **Patch** releases fix bugs and never change the public API.
+
+Before 1.0, minor releases could include breaking changes; see MIGRATION.md for moving from 0.x.
+
 ## [0.13.2] - 2026-10-29
 
 ### Bug Fixes

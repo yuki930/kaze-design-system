@@ -1,15 +1,9 @@
 import { forwardRef, type HTMLAttributes } from "react";
-import { renamedProp } from "@/lib/deprecate";
 import type { Tone } from "../../lib/types";
 import { cn } from "@/lib/utils";
 
-/** @deprecated `Tone` を使う */
-export type BadgeVariant = Tone;
-
 export interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
   tone?: Tone;
-  /** @deprecated `tone` に改名。次のマイナーで削除 */
-  variant?: Tone;
   dot?: boolean;
   /** Solid (inverted) style: filled background with white text */
   solid?: boolean;
@@ -18,8 +12,7 @@ export interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
 }
 
 export const Badge = forwardRef<HTMLSpanElement, BadgeProps>(
-  ({ tone: toneProp, variant, dot, solid, live, className, children, ...rest }, ref) => {
-    const tone = renamedProp("Badge", "variant", "tone", variant, toneProp) ?? "default";
+  ({ tone = "default", dot, solid, live, className, children, ...rest }, ref) => {
     return (
       <span
         ref={ref}

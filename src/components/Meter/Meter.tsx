@@ -1,10 +1,6 @@
 import { forwardRef, type HTMLAttributes } from "react";
-import { renamedProp } from "@/lib/deprecate";
 import type { Size, Tone } from "../../lib/types";
 import { cn } from "@/lib/utils";
-
-/** @deprecated `Tone` を使う */
-export type MeterColor = Tone;
 
 export type MeterSize = Extract<Size, "sm" | "md" | "lg">;
 
@@ -25,8 +21,6 @@ export interface MeterProps extends HTMLAttributes<HTMLDivElement> {
   showValue?: boolean;
   /** Semantic color (overrides threshold-based coloring) */
   tone?: Tone;
-  /** @deprecated `tone` に改名。次のマイナーで削除 */
-  color?: Tone;
   /** Size */
   size?: MeterSize;
 }
@@ -48,7 +42,6 @@ export const Meter = forwardRef<HTMLDivElement, MeterProps>(
       label,
       showValue,
       tone: toneProp,
-      color,
       size = "md",
       className,
       ...rest
@@ -57,9 +50,7 @@ export const Meter = forwardRef<HTMLDivElement, MeterProps>(
   ) => {
     const range = max - min || 1;
     const pct = Math.min(1, Math.max(0, (value - min) / range));
-    const tone =
-      renamedProp("Meter", "color", "tone", color, toneProp) ??
-      autoColor(pct, warningThreshold, dangerThreshold);
+    const tone = toneProp ?? autoColor(pct, warningThreshold, dangerThreshold);
 
     return (
       <div ref={ref} data-tone={tone} className={cn("meter", className)} {...rest}>

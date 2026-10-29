@@ -1,8 +1,7 @@
 import { act, fireEvent, render, screen } from "@testing-library/react";
 import { createRef, useState } from "react";
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { Dialog, DialogBody, DialogFooter, DialogHeader, DialogTitle } from "@/components/Dialog";
-import { resetDeprecationWarnings } from "@/lib/deprecate";
 
 const settle = () => act(async () => new Promise((r) => setTimeout(r, 300)));
 
@@ -91,15 +90,6 @@ describe("Dialog focus management", () => {
   });
 });
 
-let warn: ReturnType<typeof vi.spyOn>;
-beforeEach(() => {
-  resetDeprecationWarnings();
-  warn = vi.spyOn(console, "warn").mockImplementation(() => {});
-});
-afterEach(() => {
-  warn.mockRestore();
-});
-
 function Controlled({ onOpenChange }: { onOpenChange: (open: boolean) => void }) {
   const [open, setOpen] = useState(true);
   return (
@@ -129,24 +119,6 @@ describe("Dialog API", () => {
     expect(onOpenChange).toHaveBeenCalledWith(false);
     expect(dialog.dataset.state).toBe("closed");
     await settle();
-    expect(warn).not.toHaveBeenCalled();
-  });
-
-  it("still calls the deprecated onClose and warns once", async () => {
-    const onClose = vi.fn();
-    render(
-      <Dialog open onClose={onClose}>
-        <DialogBody>本文</DialogBody>
-      </Dialog>,
-    );
-    await settle();
-    for (let i = 0; i < 2; i++) {
-      await act(async () => {
-        document.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape", bubbles: true }));
-      });
-    }
-    expect(onClose).toHaveBeenCalledTimes(2);
-    expect(warn).toHaveBeenCalledTimes(1);
   });
 });
 
@@ -343,21 +315,6 @@ describe("Dialog closing", () => {
 
     await pressEscape();
     expect(outer).toHaveBeenCalledWith(false);
-  });
-
-  it("calls both onOpenChange and the deprecated onClose when given together", async () => {
-    const onOpenChange = vi.fn();
-    const onClose = vi.fn();
-    render(
-      <Dialog open onOpenChange={onOpenChange} onClose={onClose}>
-        本文
-      </Dialog>,
-    );
-    await settle();
-    await pressEscape();
-    expect(onOpenChange).toHaveBeenCalledWith(false);
-    expect(onClose).toHaveBeenCalledTimes(1);
-    expect(warn).toHaveBeenCalledTimes(1);
   });
 
   it("does not throw when closed without any handler", async () => {

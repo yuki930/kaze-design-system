@@ -12,22 +12,16 @@ import {
   type ReactNode,
 } from "react";
 import { createPortal } from "react-dom";
-import { renamedProp } from "@/lib/deprecate";
 import type { Tone } from "../../lib/types";
 import { cn } from "@/lib/utils";
 
 /* ── Types ─────────────────────────────────────────────────── */
-
-/** @deprecated `Tone` を使う */
-export type ToastVariant = Tone;
 
 export interface ToastData {
   id: string;
   title: string;
   description?: string;
   tone?: Tone;
-  /** @deprecated `tone` に改名。次のマイナーで削除 */
-  variant?: Tone;
   duration?: number;
   /** Internal: set while the exit animation plays */
   removing?: boolean;
@@ -37,8 +31,6 @@ export interface ToastOptions {
   title: string;
   description?: string;
   tone?: Tone;
-  /** @deprecated `tone` に改名。次のマイナーで削除 */
-  variant?: Tone;
   duration?: number;
 }
 
@@ -138,7 +130,7 @@ const ToastItem = forwardRef<HTMLDivElement, ToastItemProps>(function ToastItem(
     if (!hoverRef.current && !focusRef.current && !removing) startTimer();
   };
 
-  const tone = data.tone ?? data.variant ?? "default";
+  const tone = data.tone ?? "default";
   const variantClass = tone !== "default" ? `toast--${tone}` : undefined;
 
   return (
@@ -278,7 +270,7 @@ export function ToastProvider({
       id,
       title: options.title,
       description: options.description,
-      tone: renamedProp("Toast", "variant", "tone", options.variant, options.tone) ?? "default",
+      tone: options.tone ?? "default",
       duration: options.duration ?? 4000,
     };
     setToasts((prev) => [...prev, newToast]);

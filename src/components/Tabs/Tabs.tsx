@@ -17,7 +17,6 @@ import {
 } from "react";
 import { cn } from "@/lib/utils";
 import { composeEventHandlers } from "@/lib/composeEventHandlers";
-import { warnDeprecated } from "@/lib/deprecate";
 import { Slot } from "@/lib/Slot";
 
 /* ── TabsContext ───────────────────────────────────────────── */
@@ -28,7 +27,7 @@ import { Slot } from "@/lib/Slot";
  */
 interface TabsContextValue {
   prefix: string;
-  /** undefined when the group has no value (legacy `active` / `selected` props then decide) */
+  /** undefined when the group has no selection yet */
   value: string | undefined;
   select: (value: string) => void;
 }
@@ -184,9 +183,8 @@ Tabs.displayName = "Tabs";
 
 /* ── Tab ───────────────────────────────────────────────────── */
 
+/** `TabGroup` で包んで使う。選択状態は `TabGroup` の `value` / `defaultValue` だけで決まり、外で使うと常に非選択になる */
 export interface TabProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  /** @deprecated `TabGroup` の `value` / `defaultValue` で選択を管理する。次のマイナーで削除 */
-  active?: boolean;
   id?: string;
   /** Tab の value。選択状態の判定と aria-controls / id の自動生成に使用 */
   value?: string;
@@ -195,19 +193,12 @@ export interface TabProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 export const Tab = forwardRef<HTMLButtonElement, TabProps>(
-  ({ active: activeProp, id, value, asChild, className, children, onClick, ...rest }, ref) => {
+  ({ id, value, asChild, className, children, onClick, ...rest }, ref) => {
     const context = useContext(TabsContext);
     const fallbackPrefix = useId();
     const prefix = context?.prefix ?? fallbackPrefix;
 
-    if (activeProp !== undefined) {
-      warnDeprecated(
-        "Tab.active",
-        "Tab の `active` は `TabGroup` の `value` / `defaultValue` に置き換わりました。次のマイナーバージョンで削除します",
-      );
-    }
-    const active =
-      context?.value !== undefined ? value !== undefined && value === context.value : activeProp;
+    const active = value !== undefined && value === context?.value;
 
     // Build unique ids for ARIA connection
     const tabId = id ?? (value ? `${prefix}-tab-${value}` : undefined);
@@ -247,15 +238,14 @@ Tab.displayName = "Tab";
 
 /* ── TabPanel ─────────────────────────────────────────────── */
 
+/** `TabGroup` で包んで使う。表示は `TabGroup` の `value` と一致したときだけで、外で使うと常に非表示になる */
 export interface TabPanelProps extends HTMLAttributes<HTMLDivElement> {
   /** Tab の value と対応する値 */
   value: string;
-  /** @deprecated `TabGroup` の `value` / `defaultValue` で選択を管理する。次のマイナーで削除 */
-  selected?: string;
 }
 
 export const TabPanel = forwardRef<HTMLDivElement, TabPanelProps>(
-  ({ value, selected: selectedProp, children, className, ...rest }, ref) => {
+  ({ value, children, className, ...rest }, ref) => {
     const context = useContext(TabsContext);
     const fallbackPrefix = useId();
     const prefix = context?.prefix ?? fallbackPrefix;
@@ -263,15 +253,7 @@ export const TabPanel = forwardRef<HTMLDivElement, TabPanelProps>(
     const panelId = `${prefix}-panel-${value}`;
     const tabId = `${prefix}-tab-${value}`;
 
-    if (selectedProp !== undefined) {
-      warnDeprecated(
-        "TabPanel.selected",
-        "TabPanel の `selected` は `TabGroup` の `value` / `defaultValue` に置き換わりました。次のマイナーバージョンで削除します",
-      );
-    }
-    const selected = context?.value !== undefined ? context.value : selectedProp;
-
-    if (value !== selected) return null;
+    if (value !== context?.value) return null;
     return (
       <div
         ref={ref}

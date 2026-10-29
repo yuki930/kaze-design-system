@@ -1,10 +1,19 @@
 {
-  "input": { "aria-describedby": "補足やエラー文言の要素 ID。FormField で包むと自動で結ばれる" },
-  "checkbox": { "error": "エラー状態にする（aria-invalid が付く）。aria-invalid を直接渡してもよい" },
-  "badge": { "live": "true のとき role=\"status\" を付け、変化を読み上げる" },
-  "table": { "compact": "行の高さを詰める" },
-  "tabs": { "variant": "見た目。default は下線、pills は塗りのピル" },
-  "dialog": { "returnFocusRef": "使われていない（閉じたときのフォーカスは自動で開いた要素に戻る）" },
+  "input": {
+    "aria-describedby": "補足やエラー文言の要素 ID。FormField で包むと自動で結ばれる"
+  },
+  "checkbox": {
+    "error": "エラー状態にする（aria-invalid が付く）。aria-invalid を直接渡してもよい"
+  },
+  "badge": {
+    "live": "true のとき role=\"status\" を付け、変化を読み上げる"
+  },
+  "table": {
+    "compact": "行の高さを詰める"
+  },
+  "tabs": {
+    "variant": "見た目。default は下線、pills は塗りのピル"
+  },
   "tooltip": {
     "open": "表示状態（制御）。指定すると、ホバー・フォーカス・Escape は onOpenChange を呼ぶだけになる",
     "defaultOpen": "初期の表示状態（非制御）",
@@ -13,15 +22,21 @@
     "className": "ツールチップ要素に足すクラス",
     "style": "ツールチップ要素のインラインスタイル（位置はコンポーネントが決める）"
   },
-  "help-button": { "className": "ルート要素に足すクラス" },
+  "help-button": {
+    "className": "ルート要素に足すクラス"
+  },
   "dropdown": {
     "children": "DropdownTrigger と DropdownMenu",
     "open": "開閉状態（制御）",
     "defaultOpen": "初期の開閉状態（非制御）",
     "onOpenChange": "開閉が変わる時のコールバック"
   },
-  "toast": { "children": "ToastProvider で包むアプリ全体" },
-  "form-field": { "children": "フォーム部品（Input、Select、Textarea など）。id と aria 属性が自動で結ばれる" },
+  "toast": {
+    "children": "ToastProvider で包むアプリ全体"
+  },
+  "form-field": {
+    "children": "フォーム部品（Input、Select、Textarea など）。id と aria 属性が自動で結ばれる"
+  },
   "command-palette": {
     "filter": "絞り込みの差し替え。既定は label と keywords を、全角半角・ひらがなカタカナ・大文字小文字を区別せずに照合する"
   },
@@ -31,16 +46,28 @@
     "onValueChange": "入力値が変わるたびに呼ばれる",
     "inputProps": "内側の input に渡す属性（name、disabled、autoComplete、onBlur など）"
   },
-  "pricing": { "description": "プラン名の下に出す短い説明" },
-  "testimonial": { "showIcon": "アバター画像かイニシャルを表示する" },
-  "heading": { "children": "見出しの文言" },
+  "pricing": {
+    "description": "プラン名の下に出す短い説明"
+  },
+  "testimonial": {
+    "showIcon": "アバター画像かイニシャルを表示する"
+  },
+  "heading": {
+    "children": "見出しの文言"
+  },
   "grid": {
     "gapMd": "1024px 以下での間隔。未指定なら gap",
     "gapSm": "640px 以下での間隔。未指定なら gapMd、それもなければ gap"
   },
-  "list": { "children": "ListItem の並び" },
-  "timeline": { "children": "TimelineItem の並び" },
-  "bar-chart": { "aria-label": "グラフの名前（必須）。読み上げで何のグラフかを伝える" },
+  "list": {
+    "children": "ListItem の並び"
+  },
+  "timeline": {
+    "children": "TimelineItem の並び"
+  },
+  "bar-chart": {
+    "aria-label": "グラフの名前（必須）。読み上げで何のグラフかを伝える"
+  },
   "line-chart": {
     "showGrid": "横の目盛り線を表示する",
     "showXAxis": "X 軸のラベルを表示する",
@@ -51,11 +78,15 @@
     "startDate": "calendar のときの開始日（YYYY-MM-DD）。未指定なら data の最初の日",
     "endDate": "calendar のときの終了日（YYYY-MM-DD）。未指定なら data の最後の日"
   },
-  "donut-chart": { "aria-label": "グラフの名前（必須）。読み上げで何のグラフかを伝える" },
+  "donut-chart": {
+    "aria-label": "グラフの名前（必須）。読み上げで何のグラフかを伝える"
+  },
   "sparkline": {
     "label": "読み上げ用の名前。指定すると画像として読まれ、省略すると装飾として読み飛ばされる"
   },
-  "progress": { "max": "最大値" },
+  "progress": {
+    "max": "最大値"
+  },
   "disclosure": {
     "className": "ルート要素に足すクラス",
     "triggerClassName": "開閉ボタンに足すクラス",
@@ -65,15 +96,24 @@
     "orientation": "並べる向き（horizontal は横、vertical は縦）",
     "errorMessage": "グループの下に出すエラー文言"
   },
-  "watermark": { "color": "透かし文字の色", "children": "透かしを重ねる中身" },
-  "meter": { "size": "バーの高さ" },
+  "watermark": {
+    "color": "透かし文字の色",
+    "children": "透かしを重ねる中身"
+  },
+  "meter": {
+    "size": "バーの高さ"
+  },
   "number-field": {
     "defaultValue": "初期値（非制御）",
     "locale": "数値の書式に使うロケール（既定は ja-JP）",
     "errorMessage": "入力欄の下に出すエラー文言（role=\"alert\" で読み上げる）"
   },
-  "popover": { "children": "PopoverTrigger と PopoverContent" },
-  "combobox": { "wrapperClassName": "外側の要素に足すクラス" },
+  "popover": {
+    "children": "PopoverTrigger と PopoverContent"
+  },
+  "combobox": {
+    "wrapperClassName": "外側の要素に足すクラス"
+  },
   "date-picker": {
     "prevMonthLabel": "前の月へ移るボタンの名前（既定は「前の月」）",
     "nextMonthLabel": "次の月へ移るボタンの名前（既定は「次の月」）",

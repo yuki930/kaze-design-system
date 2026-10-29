@@ -70,6 +70,10 @@ npm install kaze-design-system
 
 Peer dependencies: `react@^18 || ^19`, `react-dom@^18 || ^19`。`lucide-react` は任意（`Icon` に lucide のアイコンを渡す場合やサンプルコードで使用。コンポーネント本体は lucide なしで動きます）
 
+### バージョンと互換性
+
+v1.0 からは [Semantic Versioning](https://semver.org/lang/ja/) に従います。prop や型、CSS クラス、トークンの削除・改名はメジャーバージョンでだけ行い、その前に少なくとも 1 つのマイナーバージョンのあいだ、非推奨（開発中にコンソールへ警告）として残します。0.x から上げるときは [MIGRATION.md](./MIGRATION.md) を見てください。
+
 ## CSS の読み込み
 
 ### まとめて読み込む（推奨）
