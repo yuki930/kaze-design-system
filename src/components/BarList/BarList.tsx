@@ -1,5 +1,6 @@
 import { forwardRef, type HTMLAttributes } from "react";
 import { cn } from "@/lib/utils";
+import { withUniqueKeys } from "@/lib/uniqueKeys";
 
 export interface BarListItem {
   /** Label text */
@@ -38,11 +39,9 @@ export const BarList = forwardRef<HTMLDivElement, BarListProps>(
 
     return (
       <div ref={ref} className={cn("barlist", className)} {...rest}>
-        {sorted.map((item, i) => {
+        {withUniqueKeys(sorted, (d) => d.label).map(({ key, item }) => {
           // Negative values draw an empty bar rather than a negative width
           const pct = (Math.max(item.value, 0) / maxValue) * 100;
-          // Labels may repeat, so the index keeps keys unique
-          const key = `${item.label}-${i}`;
           const display =
             item.displayValue ?? (valueFormatter ? valueFormatter(item.value) : String(item.value));
 
