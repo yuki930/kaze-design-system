@@ -32,13 +32,14 @@ function getSystemTheme(): "light" | "dark" {
   return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
 }
 
-function getStoredTheme(): Theme {
-  if (typeof window === "undefined") return "light";
+/** The stored choice, or `fallback` (the provider's defaultTheme) when nothing valid is stored. */
+function getStoredTheme(fallback: Theme): Theme {
+  if (typeof window === "undefined") return fallback;
   const stored = localStorage.getItem(STORAGE_KEY);
   if (stored === "light" || stored === "dark" || stored === "system") {
     return stored;
   }
-  return "light";
+  return fallback;
 }
 
 function resolveTheme(theme: Theme): "light" | "dark" {
@@ -108,7 +109,7 @@ export function ThemeProvider({ children, defaultTheme }: ThemeProviderProps) {
   // Read stored theme & palette from localStorage on mount (client-side only)
   // biome-ignore lint/correctness/useExhaustiveDependencies: mount-only effect
   useEffect(() => {
-    const stored = getStoredTheme();
+    const stored = getStoredTheme(defaultTheme ?? "light");
     if (stored !== (defaultTheme ?? "light")) {
       setThemeState(stored);
     }

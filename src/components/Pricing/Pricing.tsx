@@ -48,8 +48,8 @@ export const PricingCard = forwardRef<HTMLDivElement, PricingCardProps>(
           {period && <span className="pricing-card__period">/{period}</span>}
         </div>
         <ul className="pricing-card__features">
-          {features.map((feature) => (
-            <li key={feature} className="pricing-card__feature">
+          {features.map((feature, i) => (
+            <li key={`${feature}-${i}`} className="pricing-card__feature">
               <svg
                 className="pricing-card__check"
                 width="16"

@@ -29,12 +29,12 @@ export const LPFooter = forwardRef<HTMLElement, LPFooterProps>(
               {description && <p className="lp-footer__brand-description">{description}</p>}
             </div>
             <div className="lp-footer__nav">
-              {columns.map((col) => (
-                <div key={col.title}>
+              {columns.map((col, colIndex) => (
+                <div key={`${col.title}-${colIndex}`}>
                   <h4 className="lp-footer__column-title">{col.title}</h4>
                   <ul className="lp-footer__links">
-                    {col.links.map((link) => (
-                      <li key={link.label}>
+                    {col.links.map((link, linkIndex) => (
+                      <li key={`${link.label}-${linkIndex}`}>
                         <a className="lp-footer__link" href={link.href}>
                           {link.label}
                         </a>
