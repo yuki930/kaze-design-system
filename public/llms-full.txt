@@ -332,7 +332,7 @@ Related: input, form-field, select, segmented-control
   label="金額"
   value={15000}
   currency="JPY"
-  onChange={(v) => setValue(v)}
+  onValueChange={(v) => setValue(v)}
 />
 ```
 
@@ -2467,21 +2467,27 @@ Related: alert, dialog, form-field, button
 **Usage**
 
 ```tsx
-// ルートで 1 回
-<ToastProvider>
-  <App />
-</ToastProvider>
+import type { ReactNode } from "react";
+import { Button, ToastProvider, useToast } from "kaze-design-system";
 
-// 任意のコンポーネント内
-const { toast } = useToast();
+// アプリのルートで 1 回だけ包む
+export function Providers({ children }: { children: ReactNode }) {
+  return <ToastProvider>{children}</ToastProvider>;
+}
 
-<Button
-  onClick={() =>
-    toast({ title: "保存完了", description: "データが正常に保存されました。", tone: "positive" })
-  }
->
-  保存
-</Button>
+// 配下のどのコンポーネントからでも呼べる
+export function SaveButton() {
+  const { toast } = useToast();
+  return (
+    <Button
+      onClick={() =>
+        toast({ title: "保存しました", description: "変更は次回の読み込みから反映されます。", tone: "positive" })
+      }
+    >
+      保存
+    </Button>
+  );
+}
 ```
 
 ### ナビゲーション
@@ -2918,7 +2924,7 @@ not auto-rotated.
   variant="bordered"
   defaultOpen
 >
-  <SomeDetailPanel />
+  <p>通知の頻度や、一覧に表示する件数を変更できます。</p>
 </Disclosure>
 ```
 

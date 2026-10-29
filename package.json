@@ -80,6 +80,7 @@
     "prebuild": "node scripts/generate-llms.mjs && npm run storybook:site",
     "build": "next build",
     "docs:llms": "node scripts/generate-llms.mjs",
+    "docs:check-usage": "node scripts/check-usage.mjs",
     "docs:stories": "node scripts/generate-stories.mjs",
     "size": "npm run build:lib && node scripts/measure-size.mjs",
     "test": "vitest run --project unit",

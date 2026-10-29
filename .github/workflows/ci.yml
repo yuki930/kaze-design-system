@@ -52,6 +52,10 @@ jobs:
       - name: Check tokens.css is up to date
         run: npm run tokens -- --check
 
+      # Every usage example on the docs site must type-check against the real API
+      - name: Check docs usage examples
+        run: npm run docs:check-usage
+
       # llms.txt is generated from the component catalog; a stale copy means
       # AI assistants get wrong props.
       - name: Check llms.txt is up to date
