@@ -15,7 +15,15 @@ afterEach(() => {
 
 const field = () => screen.getByRole<HTMLInputElement>("textbox");
 const toggle = () => screen.getByRole("button", { name: "カレンダーを開く" });
-const day = (label: string) => screen.getByRole("button", { name: label });
+// Day buttons are looked up by their accessible label directly: querying 42 buttons by
+// role + name is slow enough to time out the suite under load.
+const day = (label: string): HTMLButtonElement => {
+  const el = document.querySelector<HTMLButtonElement>(`button[data-iso][aria-label="${label}"]`);
+  if (!el) throw new Error(`No day button labelled ${label}`);
+  return el;
+};
+const dayButtons = (month: string) =>
+  Array.from(document.querySelectorAll<HTMLButtonElement>(`button[data-iso^="${month}-"]`));
 const grid = () => screen.getByRole("grid");
 
 function setup(props: Partial<DatePickerProps> = {}) {
@@ -345,7 +353,7 @@ describe("DatePicker grid structure", () => {
     const first = day("2026年10月1日木曜日");
     const cells = Array.from(first.closest("tr")?.children ?? []);
     expect(cells.indexOf(first.closest("td") as Element)).toBe(4);
-    expect(screen.getAllByRole("button", { name: /^2026年10月\d+日/ })).toHaveLength(31);
+    expect(dayButtons("2026-10")).toHaveLength(31);
   });
 
   it("labels weekday columns with abbr titles (日曜日 ... 土曜日)", () => {
@@ -457,9 +465,7 @@ describe("DatePicker grid keyboard", () => {
   it("keeps a single tab stop that follows the focused day", () => {
     openAt("2026-10-15");
     press(day("2026年10月15日木曜日"), "ArrowRight");
-    const stops = screen
-      .getAllByRole("button", { name: /^2026年10月\d+日/ })
-      .filter((b) => b.getAttribute("tabindex") === "0");
+    const stops = dayButtons("2026-10").filter((b) => b.getAttribute("tabindex") === "0");
     expect(stops).toHaveLength(1);
     expect(stops[0]).toBe(day("2026年10月16日金曜日"));
   });
