@@ -1,0 +1,82 @@
+name: Visual regression
+
+# Screenshots every Storybook story and compares it with vrt/__screenshots__.
+# Baselines must be rendered here (Linux) because fonts render differently per OS:
+# to create or accept new baselines, run this workflow manually on the branch
+# with "update" checked. It commits the new screenshots to that branch.
+
+on:
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      update:
+        description: Update the baseline screenshots and commit them to this branch
+        type: boolean
+        default: false
+
+concurrency:
+  group: vrt-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
+jobs:
+  vrt:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.head_ref || github.ref }}
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+
+      - run: npm ci
+
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Build Storybook
+        run: npm run vrt:build
+
+      - name: Skip when no baselines exist yet
+        id: baselines
+        if: ${{ !inputs.update }}
+        run: |
+          if ls vrt/__screenshots__/*.png >/dev/null 2>&1; then
+            echo "present=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "No baselines yet. Run this workflow with update checked to create them." >> "$GITHUB_STEP_SUMMARY"
+            echo "present=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Compare with baselines
+        if: ${{ !inputs.update && steps.baselines.outputs.present == 'true' }}
+        run: npm run vrt
+
+      - name: Update baselines
+        if: ${{ inputs.update }}
+        run: npm run vrt -- --update-snapshots
+
+      - name: Commit updated baselines
+        if: ${{ inputs.update }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add vrt/__screenshots__
+          if git diff --cached --quiet; then
+            echo "Baselines unchanged" >> "$GITHUB_STEP_SUMMARY"
+          else
+            git commit -m "test: update visual regression baselines [skip ci]"
+            git push
+          fi
+
+      - name: Upload the diff report
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: vrt-report
+          path: playwright-report
+          retention-days: 14

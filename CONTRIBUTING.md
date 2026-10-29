@@ -29,7 +29,7 @@ npm install
 | `npm run dev` | Next.js 開発サーバー (port 4173, Turbopack)。`/docs/components` にアクセスして全コンポーネントを確認 |
 | `npm run storybook` | Storybook 起動 (port 6006) |
 | `npm run typecheck` | TypeScript 型チェック |
-| `npm test` | Vitest の unit テスト（`npm run test:storybook` でブラウザテスト） |
+| `npm test` | Vitest の unit テスト（`npm run test:coverage` でカバレッジ、`npm run test:storybook` でブラウザテスト） |
 | `npm run test:watch` | Vitest watch モード |
 | `npm run build:lib` | ライブラリビルド (`dist/` 生成) |
 | `npm run docs:llms` | `public/llms.txt` / `public/llms-full.txt` 再生成 |
@@ -85,10 +85,23 @@ npm install
 - 新規コンポーネントは最低限 1 つの story を追加すること（自動で browser test の対象になる）
 
 ```bash
-npm test                 # ユニットテストのみ（CI / publish で実行）
+npm test                 # ユニットテストのみ（publish で実行）
+npm run test:coverage    # ユニットテスト + カバレッジ（CI で実行。基準を下回ると落ちる）
 npm run test:storybook   # Storybook ブラウザテストのみ
 npm run test:all         # 全テスト実行
 ```
+
+### カバレッジ
+
+`vitest.config.ts` の `coverage.thresholds` が基準です。今の数字のすぐ下に置いているので、テストを足して上がったら基準も上げてください。HTML のレポートは `coverage/index.html` に出ます。
+
+### 見た目の差分テスト（VRT）
+
+PR ごとに GitHub Actions の「Visual regression」が、Storybook の全ストーリーのスクリーンショットを `vrt/__screenshots__` の基準画像と比べます。差分があると落ち、Artifacts の `vrt-report` で差分の画像を確認できます。
+
+- 見た目を意図して変えたときは、Actions の「Visual regression」を PR のブランチで手動実行し、`update` にチェックを入れる。新しい基準画像がそのブランチにコミットされる
+- 基準画像はフォントの描画をそろえるため Linux（CI）で作る。ローカルの macOS で `--update-snapshots` を実行してコミットしない
+- ローカルで比べたいときは `npm run vrt:build && npm run vrt`（Chromium が必要: `npx playwright install chromium`）
 
 ---
 

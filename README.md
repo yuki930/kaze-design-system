@@ -21,6 +21,7 @@
 | **ライブプレビュー (ショーケース)** | https://kaze-design-system.vercel.app |
 | **コンポーネントドキュメント** | https://kaze-design-system.vercel.app/docs/components |
 | **サンプルページギャラリー** | https://kaze-design-system.vercel.app/gallery |
+| **Storybook** | https://kaze-design-system.vercel.app/storybook |
 | **npm パッケージ** | https://www.npmjs.com/package/kaze-design-system |
 | **GitHub** | https://github.com/yuki930/kaze-design-system |
 
