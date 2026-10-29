@@ -7,6 +7,7 @@ interface IndexEntry {
   title: string;
   name: string;
   type: "story" | "docs";
+  tags?: string[];
 }
 
 // Playwright runs from the repository root (npm run vrt)
@@ -21,6 +22,10 @@ const stories = Object.values(index.entries).filter((entry) => entry.type === "s
 
 for (const story of stories) {
   test(`${story.title} / ${story.name}`, async ({ page }) => {
+    // Stories tagged "vrt-phone" depend on viewport media queries (< 768px)
+    if (story.tags?.includes("vrt-phone")) {
+      await page.setViewportSize({ width: 375, height: 667 });
+    }
     await page.goto(`/iframe.html?id=${story.id}&viewMode=story`);
     // Storybook marks <body> once the story has rendered (or failed to)
     await page.waitForSelector("body.sb-show-main, body.sb-show-errordisplay");

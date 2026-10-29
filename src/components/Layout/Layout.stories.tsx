@@ -54,12 +54,14 @@ const phoneArgs = {
 export const PhoneClosed: Story = {
   args: phoneArgs,
   decorators: [phoneFrame],
+  tags: ["vrt-phone"],
   parameters: { viewport: { defaultViewport: "mobile1" } },
 };
 
 export const PhoneOpen: Story = {
   args: { ...phoneArgs, defaultNavOpen: true },
   decorators: [phoneFrame],
+  tags: ["vrt-phone"],
   parameters: { viewport: { defaultViewport: "mobile1" } },
 };
 
@@ -67,5 +69,6 @@ export const PhoneOpen: Story = {
 export const PhoneWithoutTopbar: Story = {
   args: { sidebar: navSidebar, children: phoneArgs.children },
   decorators: [phoneFrame],
+  tags: ["vrt-phone"],
   parameters: { viewport: { defaultViewport: "mobile1" } },
 };
