@@ -244,7 +244,6 @@ export function ImageLandingPage() {
                   borderRadius: "var(--radius-lg)",
                   width: "100%",
                   background: product.gradient,
-                  borderBottom: "2px solid var(--amber-500)",
                 }}
               />
               <CardBody>
