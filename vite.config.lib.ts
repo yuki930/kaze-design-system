@@ -20,6 +20,7 @@ export default defineConfig({
         marketing: resolve(root, "src/components/marketing.ts"),
         hooks: resolve(root, "src/hooks/index.ts"),
         tokens: resolve(root, "src/tokens/tokens.ts"),
+        writing: resolve(root, "src/writing/index.ts"),
       },
       formats: ["es"],
     },

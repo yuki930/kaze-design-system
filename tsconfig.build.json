@@ -17,7 +17,8 @@
     "src/components",
     "src/hooks",
     "src/lib",
-    "src/tokens"
+    "src/tokens",
+    "src/writing"
   ],
   "exclude": [
     "**/*.stories.tsx",

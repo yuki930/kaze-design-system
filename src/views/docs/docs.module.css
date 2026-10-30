@@ -638,3 +638,24 @@
     display: none;
   }
 }
+
+/* Writing guide rule tables: keep the example columns readable */
+.rulesTable {
+  table-layout: fixed;
+  min-width: 640px;
+}
+.rulesTable th:nth-child(1) {
+  width: 40%;
+}
+.rulesTable th:nth-child(2),
+.rulesTable th:nth-child(3) {
+  width: 24%;
+}
+.rulesTable th:nth-child(4) {
+  width: 12%;
+}
+.rulesTable td,
+.rulesTable td:first-child {
+  white-space: normal;
+  overflow-wrap: anywhere;
+}

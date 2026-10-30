@@ -59,6 +59,79 @@ Add `data-density="compact"` to an ancestor (`<html>` or a panel) to tighten con
 - Marketing: the 12 landing-page components (AnnouncementBar, Navbar, Hero, Section, SplitSection, FeatureGrid, Stats, Pricing, Testimonial, FAQ, CTABanner, LPFooter). Import from `kaze-design-system/marketing` (also re-exported from the root).
 - Hooks: `kaze-design-system/hooks` (useFocusTrap, useLegendToggle; useTheme is also exported from the root).
 - JS tokens: `kaze-design-system/tokens`.
+- Writing guide and copy checker: `kaze-design-system/writing` (checkCopy, fixCopy, copyRules, writingGuide) and the `kaze-copy` CLI.
+
+## Writing Japanese UI copy
+
+Follow these rules when you write labels, messages and page copy for a Kaze UI. After writing, run `npx kaze-copy <paths>` (or `checkCopy(text)` from `kaze-design-system/writing`) and fix what it reports. `npx kaze-copy <paths> --fix` rewrites the mechanical ones. Words quoted in 「」 are treated as examples and skipped.
+
+### Principles
+
+- 何が起きるかを書く: ボタンやリンクは、押したあとに起きることを動詞で書く。「OK」「はい」「こちら」は、それだけでは意味が伝わらない。
+- 結論から、短く: 1 文に 1 つのことだけを書く。理由や条件は結論のあとに足す。
+- 誰が何をするかを書く: 主語と述語を対応させる。画面や機能に気持ちを持たせず、起きることをそのまま書く。「アプリが寄り添います」ではなく「毎朝 9 時に残高を通知します」。
+- 開いた言葉で: 硬い漢語や、副詞・接続詞の漢字をひらく。「容易です」より「かんたんです」、「可能です」より「できます」。
+- 同じものは同じ言葉で: 画面ごとに「完了」「終了」「済み」を混ぜない。ボタンの言葉と、押したあとの通知の言葉をそろえる。
+- 飾らない: 「次世代の」「革新的な」のような形容ではなく、数字か具体的な成果で書く。
+- 書いていないことを足さない: AI に文言を直させるときも、元にない数字・理由・効果を足さない。分からないところは推測で埋めず、書き手に確かめる。
+
+### Tone
+
+- 文末は「です」「ます」。お願いは「〜してください」まで
+- 「させていただきます」「ございます」のように敬語を重ねない
+- 読み手を「ユーザー様」「お客様」と呼ばない。主語はできるだけ省く
+- 「！」で強調しない。伝えたいことを言葉で書く
+- 読点は意味の切れ目にだけ打つ。「この画面は、」のように短い主語のあとで間を作らない
+- 1 文は 40 字前後を目安にし、80 字を超えたら分ける
+- 比喩でぼかさない。「解像度が上がる」「地味に効く」ではなく、何がどう変わるかを書く
+
+### Patterns by scene
+
+- ボタン: 押すと何が起きるかを動詞で書く。よい例「保存する」「招待を送る」 避ける例「OK」「実行」
+- 確認ダイアログ: 見出しで問い、ボタンは問いに対応する動詞にする。取り消せないときは本文に書く。よい例「このプロジェクトを削除しますか」「削除する / キャンセル」 避ける例「よろしいですか？」「はい / いいえ」
+- 完了の通知: 結果を過去形で短く。ボタンと同じ言葉を使う。よい例「保存しました」「招待を送りました」 避ける例「保存処理が正常に完了しました」
+- エラー: 何が起きたかと、どう直すかを書く。よい例「カードの有効期限が切れています。新しいカードを登録してください」 避ける例「エラーが発生しました」
+- 入力のエラー: どこが違うかと、正しい書き方を示す。よい例「@ を含むメールアドレスを入力してください」 避ける例「入力内容に誤りがあります」
+- 空の状態: 状態を言い切り、次の行動をボタンで示す。よい例「プロジェクトはまだありません」「プロジェクトを作成する」 避ける例「データがありません」
+- 読み込み中: いま何をしているかを進行形で書く。よい例「画像をアップロードしています」 避ける例「しばらくお待ちください」
+- 入力欄のラベル: 名詞で書く。必須は文言に入れず、部品の required で示す。よい例「メールアドレス」 避ける例「メールアドレスを入力」「メールアドレス(必須)」
+- プレースホルダー: 入力例にとどめる。ラベルの繰り返しや説明は書かない。よい例「例: 相楽 実咲」 避ける例「お名前を入力してください」
+- リンク: 行き先か結果が分かる言葉にする。よい例「料金プランを見る」「請求書の設定」 避ける例「詳しくはこちら」
+- LP の見出し: 読み手が得るものを 1 文で言い切る。形容ではなく数字や成果を入れる。よい例「請求から入金確認まで、1 つの画面で終わる」 避ける例「次世代の請求管理プラットフォーム」
+- 説明の箇条書き: 太字のラベルとコロンで始めず、ラベルの意味を文に入れる。よい例「部品を使い回せるので、画面を早く組めます」 避ける例「開発速度の向上: 部品を使い回せます」
+
+### Rules (id, level, avoid → write)
+
+- `notation/em-dash` error: 「—」は使わない。読点、括弧、体言止めで区切る。「設定はかんたん — すぐに始められます」→「設定はかんたんで、すぐに始められます」
+- `notation/fullwidth-alnum` error: 英数字は半角で書く。「ｖ１．３を公開しました」→「v1.3 を公開しました」
+- `notation/halfwidth-kana` error: カタカナは全角で書く。「ﾃﾞｰﾀを書き出す」→「データを書き出す」
+- `notation/punctuation` error: 句読点は「、」と「。」を使う。「保存しました．」→「保存しました。」
+- `notation/ellipsis` error: 省略は「…」を使う。「読み込み中...」→「読み込み中…」
+- `notation/wave-dash` error: 範囲の「〜」は波ダッシュ（〜）を使う。「1～3 営業日」→「1〜3 営業日」
+- `notation/parentheses` error: 日本語を囲む括弧は全角（）を使う。「金額(税込)」→「金額（税込）」
+- `notation/fullwidth-space` warning: 全角スペースで位置をそろえない。間をあけるなら半角スペース、そろえるなら CSS で。「氏名　相楽 実咲」→「氏名 相楽 実咲」
+- `notation/exclamation` warning: 「！」で強調しない。伝えたいことを言葉で書く。「保存しました！」→「保存しました」
+- `notation/latin-spacing` warning: 英単語と日本語のあいだに半角スペースを入れる。「Kazeを使う」→「Kaze を使う」
+- `notation/number-spacing-tight` warning (off by default): 数字と日本語のあいだにスペースを入れない。「12 席」→「12席」
+- `notation/number-spacing-loose` warning (off by default): 数字と日本語のあいだに半角スペースを入れる。「12席」→「12 席」
+- `notation/long-vowel` warning: 語末の長音「ー」を付ける。「ブラウザで開く」→「ブラウザーで開く」
+- `notation/heading-emoji` error: 見出しに絵文字を使わない。「## 🚀 はじめに」→「## はじめに」
+- `plain/kantan` warning: 「容易」「簡単」は「かんたん」と開く。「導入は容易です」→「導入はかんたんです」
+- `plain/kanji-to-kana` warning: 副詞・接続詞・補助動詞はひらがなで書く。「全ての設定を保存して下さい」→「すべての設定を保存してください」
+- `plain/koto-toki` warning: 形式名詞の「事」「時」は「こと」「とき」と開く。「保存した時は通知します」→「保存したときは通知します」
+- `plain/dekiru` warning: 「〜できます」と短く書く。「CSV で書き出すことが可能です」→「CSV で書き出せます」
+- `plain/keigo` warning: 敬語を重ねない。「〜します」「〜です」で言い切る。「メールを送信させていただきます」→「メールを送ります」
+- `plain/stiff-verbs` warning: 硬い漢語の動詞を避ける。「用意しています」「します」「使えます」のように書く。「テンプレートを提供します」→「テンプレートを用意しています」
+- `clarity/link-kochira` warning: 「こちら」ではなく、行き先や結果が分かる言葉にする。「詳しくはこちら」→「料金プランを見る」
+- `clarity/vague-error` warning: 何が起きて、どう直せばよいかを書く。「エラーが発生しました」→「カードの有効期限が切れています。新しいカードを登録してください」
+- `clarity/vague-wait` warning: 待たせる理由を書く。「保存しています」のように、いま何をしているかを伝える。「しばらくお待ちください」→「画像をアップロードしています」
+- `clarity/hype` warning: 形容で飾らない。数字か具体的な成果で書く。「次世代の請求管理」→「請求から入金確認まで、1 つの画面で終わる」
+- `ai/closing` warning: 中身のない決まり文句。消すか、言いたいことをそのまま書く。「いかがでしたでしょうか。ぜひ参考にしてみてください」→「（結びの定型は書かない）」
+- `ai/preface` warning: 前置きを外して、結論の文から書き始める。「重要なのは、設定を保存することです」→「設定を保存してください」
+- `ai/metaphor` warning: 比喩でぼかさない。何がどう変わるかを、ふだんの言葉で書く。「チームの解像度が上がります」→「チームが同じ画面を見て判断できます」
+- `ai/buzzword` warning: 決まり文句で飾らない。何ができるようになるかを書く。画面や機能に気持ちを持たせない。「シームレスな体験を提供します」→「ログインし直さずに請求書を開けます」
+- `clarity/long-sentence` warning: 1 文が長い。80 字を超えたら 2 文に分ける。「（81 字以上の 1 文）」→「結論の文と、理由や条件の文に分ける」
+- `clarity/many-commas` warning: 読点が多い。1 文の読点は 3 つまでにして、多ければ文を分ける。「まず、この画面は、注文を、順番に、表示します。」→「まず、この画面は注文を順番に表示します。」
 
 ## Components
 
