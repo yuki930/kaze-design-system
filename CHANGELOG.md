@@ -21,6 +21,13 @@ CHANGELOG entries and version bumps are generated automatically by `.github/work
 - **Patch** releases fix bugs and never change the public API.
 
 Before 1.0, minor releases could include breaking changes; see MIGRATION.md for moving from 0.x.
+## [1.7.0] - 2026-10-30
+
+### Features
+
+- feat: choose a font set with data-font, with Japanese typesetting tokens (#79)
+
+
 ## [1.6.0] - 2026-10-30
 
 ### Features
