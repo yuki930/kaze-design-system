@@ -33,6 +33,39 @@
   --slate-900: #16141f;
   --slate-950: #0f0e16;
 
+  /* ── Color: Ink Scale (neutral, no tint) ───────────────── */
+  --ink-50: #fafafa;
+  --ink-100: #f4f4f4;
+  --ink-200: #e5e5e5;
+  --ink-300: #d4d4d4;
+  --ink-400: #a3a3a3;
+  --ink-500: #6b6b6b;
+  --ink-600: #525252;
+  --ink-700: #404040;
+  --ink-800: #262626;
+  --ink-900: #141414;
+  --ink-950: #0a0a0a;
+
+  /* ── Color: Ai Scale (indigo-tinted gray) ──────────────── */
+  --ai-50: #f7f8fb;
+  --ai-100: #eef1f6;
+  --ai-200: #e0e5ee;
+  --ai-300: #cbd2df;
+  --ai-400: #9aa6ba;
+  --ai-500: #5f6a80;
+  --ai-600: #465065;
+  --ai-700: #33415a;
+  --ai-800: #1b2533;
+  --ai-900: #121a26;
+  --ai-950: #0b1018;
+
+  /* ── Color: Aizome accent (indigo palette) ─────────────── */
+  --aizome-50: #e8eef7;
+  --aizome-200: #bcd2f0;
+  --aizome-300: #a9c4ea;
+  --aizome-700: #1d3f6e;
+  --aizome-800: #16325a;
+
   /* ── Color: Palette (12 hues × 10 shades) ──────────────── */
   --red-50: #fef2f2;
   --red-100: #fee2e2;
@@ -442,7 +475,7 @@
   --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.5);
 }
 
-/* Cool palette (slate-based) */
+/* Cool palette 霞 (slate, purple-tinted gray) */
 [data-palette="cool"] {
   --color-bg: #ffffff;
   --color-bg-secondary: var(--slate-50);
@@ -493,6 +526,118 @@
   --color-secondary: var(--slate-800);
   --color-secondary-fg: var(--slate-100);
   --color-secondary-hover: var(--slate-700);
+}
+
+/* Ink palette 墨 (neutral gray, black primary) */
+[data-palette="ink"] {
+  --color-bg: #ffffff;
+  --color-bg-secondary: var(--ink-50);
+  --color-bg-tertiary: var(--ink-100);
+  --color-bg-inverse: var(--ink-950);
+  --color-fg: var(--ink-950);
+  --color-fg-secondary: var(--ink-500);
+  --color-fg-tertiary: var(--ink-500);
+  --color-fg-decorative: var(--ink-400);
+  --color-fg-placeholder: var(--ink-600);
+  --color-fg-inverse: #ffffff;
+  --color-fg-muted: var(--ink-600);
+  --color-border: var(--ink-200);
+  --color-border-strong: var(--ink-300);
+  --color-border-subtle: var(--ink-100);
+  --color-surface: #ffffff;
+  --color-surface-hover: var(--ink-50);
+  --color-surface-active: var(--ink-100);
+  --color-primary: var(--ink-950);
+  --color-primary-fg: #ffffff;
+  --color-primary-hover: var(--ink-800);
+  --color-secondary: var(--ink-100);
+  --color-secondary-fg: var(--ink-900);
+  --color-secondary-hover: var(--ink-200);
+}
+
+[data-palette="ink"][data-theme="dark"] {
+  --color-bg: var(--ink-950);
+  --color-bg-secondary: var(--ink-900);
+  --color-bg-tertiary: var(--ink-800);
+  --color-bg-inverse: #ffffff;
+  --color-fg: var(--ink-50);
+  --color-fg-secondary: var(--ink-400);
+  --color-fg-tertiary: var(--ink-400);
+  --color-fg-decorative: var(--ink-600);
+  --color-fg-placeholder: var(--ink-400);
+  --color-fg-inverse: var(--ink-950);
+  --color-fg-muted: var(--ink-400);
+  --color-border: var(--ink-800);
+  --color-border-strong: var(--ink-700);
+  --color-border-subtle: var(--ink-900);
+  --color-surface: var(--ink-900);
+  --color-surface-hover: var(--ink-800);
+  --color-surface-active: var(--ink-700);
+  --color-primary: #ffffff;
+  --color-primary-fg: var(--ink-950);
+  --color-primary-hover: var(--ink-200);
+  --color-secondary: var(--ink-800);
+  --color-secondary-fg: var(--ink-100);
+  --color-secondary-hover: var(--ink-700);
+}
+
+/* Indigo palette 藍 (indigo-tinted gray, indigo primary and accent) */
+[data-palette="indigo"] {
+  --color-bg: #ffffff;
+  --color-bg-secondary: var(--ai-50);
+  --color-bg-tertiary: var(--ai-100);
+  --color-bg-inverse: var(--ai-950);
+  --color-fg: var(--ai-950);
+  --color-fg-secondary: var(--ai-500);
+  --color-fg-tertiary: var(--ai-500);
+  --color-fg-decorative: var(--ai-400);
+  --color-fg-placeholder: var(--ai-600);
+  --color-fg-inverse: #ffffff;
+  --color-fg-muted: var(--ai-600);
+  --color-border: var(--ai-200);
+  --color-border-strong: var(--ai-300);
+  --color-border-subtle: var(--ai-100);
+  --color-surface: #ffffff;
+  --color-surface-hover: var(--ai-50);
+  --color-surface-active: var(--ai-100);
+  --color-primary: var(--aizome-700);
+  --color-primary-fg: #ffffff;
+  --color-primary-hover: var(--aizome-800);
+  --color-secondary: var(--ai-100);
+  --color-secondary-fg: var(--ai-900);
+  --color-secondary-hover: var(--ai-200);
+  --color-accent-a: var(--aizome-700);
+  --color-accent-a-light: var(--aizome-50);
+  --color-accent-a-fg: var(--aizome-700);
+}
+
+[data-palette="indigo"][data-theme="dark"] {
+  --color-bg: var(--ai-950);
+  --color-bg-secondary: var(--ai-900);
+  --color-bg-tertiary: var(--ai-800);
+  --color-bg-inverse: #ffffff;
+  --color-fg: var(--ai-50);
+  --color-fg-secondary: var(--ai-400);
+  --color-fg-tertiary: var(--ai-400);
+  --color-fg-decorative: var(--ai-600);
+  --color-fg-placeholder: var(--ai-400);
+  --color-fg-inverse: var(--ai-950);
+  --color-fg-muted: var(--ai-400);
+  --color-border: var(--ai-800);
+  --color-border-strong: var(--ai-700);
+  --color-border-subtle: var(--ai-900);
+  --color-surface: var(--ai-900);
+  --color-surface-hover: var(--ai-800);
+  --color-surface-active: var(--ai-700);
+  --color-primary: var(--aizome-300);
+  --color-primary-fg: var(--ai-950);
+  --color-primary-hover: var(--aizome-200);
+  --color-secondary: var(--ai-800);
+  --color-secondary-fg: var(--ai-100);
+  --color-secondary-hover: var(--ai-700);
+  --color-accent-a: var(--aizome-300);
+  --color-accent-a-light: rgba(169, 196, 234, 0.14);
+  --color-accent-a-fg: var(--aizome-200);
 }
 
 /* Dark fallback when no data-theme is set (JS disabled or before hydration).
@@ -553,8 +698,8 @@
   }
 }
 
-/* Cool + dark fallback. Needs its own selector: it has the same specificity as
-   the zinc fallback above and would otherwise lose to it. */
+/* Palette + dark fallbacks. Each needs its own selector: it has the same
+   specificity as the warm fallback above and would otherwise lose to it. */
 @media (prefers-color-scheme: dark) {
   :root[data-palette="cool"]:not([data-theme="light"]) {
     --color-bg: var(--slate-950);
@@ -580,6 +725,59 @@
     --color-secondary: var(--slate-800);
     --color-secondary-fg: var(--slate-100);
     --color-secondary-hover: var(--slate-700);
+  }
+  :root[data-palette="ink"]:not([data-theme="light"]) {
+    --color-bg: var(--ink-950);
+    --color-bg-secondary: var(--ink-900);
+    --color-bg-tertiary: var(--ink-800);
+    --color-bg-inverse: #ffffff;
+    --color-fg: var(--ink-50);
+    --color-fg-secondary: var(--ink-400);
+    --color-fg-tertiary: var(--ink-400);
+    --color-fg-decorative: var(--ink-600);
+    --color-fg-placeholder: var(--ink-400);
+    --color-fg-inverse: var(--ink-950);
+    --color-fg-muted: var(--ink-400);
+    --color-border: var(--ink-800);
+    --color-border-strong: var(--ink-700);
+    --color-border-subtle: var(--ink-900);
+    --color-surface: var(--ink-900);
+    --color-surface-hover: var(--ink-800);
+    --color-surface-active: var(--ink-700);
+    --color-primary: #ffffff;
+    --color-primary-fg: var(--ink-950);
+    --color-primary-hover: var(--ink-200);
+    --color-secondary: var(--ink-800);
+    --color-secondary-fg: var(--ink-100);
+    --color-secondary-hover: var(--ink-700);
+  }
+  :root[data-palette="indigo"]:not([data-theme="light"]) {
+    --color-bg: var(--ai-950);
+    --color-bg-secondary: var(--ai-900);
+    --color-bg-tertiary: var(--ai-800);
+    --color-bg-inverse: #ffffff;
+    --color-fg: var(--ai-50);
+    --color-fg-secondary: var(--ai-400);
+    --color-fg-tertiary: var(--ai-400);
+    --color-fg-decorative: var(--ai-600);
+    --color-fg-placeholder: var(--ai-400);
+    --color-fg-inverse: var(--ai-950);
+    --color-fg-muted: var(--ai-400);
+    --color-border: var(--ai-800);
+    --color-border-strong: var(--ai-700);
+    --color-border-subtle: var(--ai-900);
+    --color-surface: var(--ai-900);
+    --color-surface-hover: var(--ai-800);
+    --color-surface-active: var(--ai-700);
+    --color-primary: var(--aizome-300);
+    --color-primary-fg: var(--ai-950);
+    --color-primary-hover: var(--aizome-200);
+    --color-secondary: var(--ai-800);
+    --color-secondary-fg: var(--ai-100);
+    --color-secondary-hover: var(--ai-700);
+    --color-accent-a: var(--aizome-300);
+    --color-accent-a-light: rgba(169, 196, 234, 0.14);
+    --color-accent-a-fg: var(--aizome-200);
   }
 }
 }

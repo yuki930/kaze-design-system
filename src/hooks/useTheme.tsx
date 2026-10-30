@@ -11,7 +11,13 @@ import {
 } from "react";
 
 export type Theme = "light" | "dark" | "system";
-export type Palette = "warm" | "cool";
+/**
+ * Color palette. "warm" (砂) is the default and sets no attribute; the others set
+ * `data-palette` on <html>: "cool" (霞), "ink" (墨), "indigo" (藍).
+ */
+export type Palette = "warm" | "cool" | "ink" | "indigo";
+
+const PALETTES: readonly Palette[] = ["warm", "cool", "ink", "indigo"];
 
 export interface ThemeContextValue {
   theme: Theme;
@@ -50,14 +56,14 @@ function resolveTheme(theme: Theme): "light" | "dark" {
 function getStoredPalette(): Palette {
   if (typeof window === "undefined") return "warm";
   const stored = localStorage.getItem(PALETTE_STORAGE_KEY);
-  if (stored === "warm" || stored === "cool") return stored;
+  if (stored && (PALETTES as readonly string[]).includes(stored)) return stored as Palette;
   return "warm";
 }
 
 function applyPalette(palette: Palette) {
   if (typeof document === "undefined") return;
-  if (palette === "cool") {
-    document.documentElement.setAttribute("data-palette", "cool");
+  if (palette !== "warm") {
+    document.documentElement.setAttribute("data-palette", palette);
   } else {
     document.documentElement.removeAttribute("data-palette");
   }

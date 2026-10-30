@@ -532,7 +532,7 @@ function main() {
   shortLines.push(`> ${pkg.description}`);
   shortLines.push("");
   shortLines.push(
-    `kaze-design-system is a React 18/19 + TypeScript design system with ${totalComponents} components in two layers: Application UI (dashboards, business apps) and Marketing (landing pages, importable from \`${pkg.name}/marketing\`). It is built around a warm neutral gray palette, optimized for Japanese typography (PALT enabled globally), uses CSS custom properties for theming (light/dark via \`data-theme\`, cool palette via \`data-palette="cool"\`, compact density via \`data-density="compact"\`), and ships as ESM with peer dependencies on react and react-dom (lucide-react optional).`,
+    `kaze-design-system is a React 18/19 + TypeScript design system with ${totalComponents} components in two layers: Application UI (dashboards, business apps) and Marketing (landing pages, importable from \`${pkg.name}/marketing\`). It is built around a warm neutral gray palette, optimized for Japanese typography (PALT enabled globally), uses CSS custom properties for theming (light/dark via \`data-theme\`, four palettes via \`data-palette\` (default warm 砂, "cool" 霞, "ink" 墨, "indigo" 藍), compact density via \`data-density="compact"\`), and ships as ESM with peer dependencies on react and react-dom (lucide-react optional).`,
   );
   shortLines.push("");
   shortLines.push("## Installation");
@@ -644,7 +644,7 @@ function main() {
   fullLines.push("```");
   fullLines.push("");
   fullLines.push(
-    'Add `data-palette="cool"` to switch from the warm zinc palette to cool slate (works with both light and dark).',
+    'Palettes: the default is warm 砂 (no attribute). Add `data-palette="cool"` (霞, purple-tinted gray), `data-palette="ink"` (墨, neutral gray) or `data-palette="indigo"` (藍, indigo primary and accent). Each works with light and dark, and `useTheme().setPalette()` switches and stores it. Status colors (positive, negative, warning, info) and chart colors are the same in every palette.',
   );
   fullLines.push("");
   fullLines.push("## Density");

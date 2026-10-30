@@ -1,0 +1,108 @@
+{
+  "semantic": {
+    "color-bg": {
+      "$type": "color",
+      "$value": "#ffffff"
+    },
+    "color-bg-secondary": {
+      "$type": "color",
+      "$value": "{primitive.ai-50}"
+    },
+    "color-bg-tertiary": {
+      "$type": "color",
+      "$value": "{primitive.ai-100}"
+    },
+    "color-bg-inverse": {
+      "$type": "color",
+      "$value": "{primitive.ai-950}"
+    },
+    "color-fg": {
+      "$type": "color",
+      "$value": "{primitive.ai-950}"
+    },
+    "color-fg-secondary": {
+      "$type": "color",
+      "$value": "{primitive.ai-500}"
+    },
+    "color-fg-tertiary": {
+      "$type": "color",
+      "$value": "{primitive.ai-500}"
+    },
+    "color-fg-decorative": {
+      "$type": "color",
+      "$value": "{primitive.ai-400}"
+    },
+    "color-fg-placeholder": {
+      "$type": "color",
+      "$value": "{primitive.ai-600}"
+    },
+    "color-fg-inverse": {
+      "$type": "color",
+      "$value": "#ffffff"
+    },
+    "color-fg-muted": {
+      "$type": "color",
+      "$value": "{primitive.ai-600}"
+    },
+    "color-border": {
+      "$type": "color",
+      "$value": "{primitive.ai-200}"
+    },
+    "color-border-strong": {
+      "$type": "color",
+      "$value": "{primitive.ai-300}"
+    },
+    "color-border-subtle": {
+      "$type": "color",
+      "$value": "{primitive.ai-100}"
+    },
+    "color-surface": {
+      "$type": "color",
+      "$value": "#ffffff"
+    },
+    "color-surface-hover": {
+      "$type": "color",
+      "$value": "{primitive.ai-50}"
+    },
+    "color-surface-active": {
+      "$type": "color",
+      "$value": "{primitive.ai-100}"
+    },
+    "color-primary": {
+      "$type": "color",
+      "$value": "{primitive.aizome-700}"
+    },
+    "color-primary-fg": {
+      "$type": "color",
+      "$value": "#ffffff"
+    },
+    "color-primary-hover": {
+      "$type": "color",
+      "$value": "{primitive.aizome-800}"
+    },
+    "color-secondary": {
+      "$type": "color",
+      "$value": "{primitive.ai-100}"
+    },
+    "color-secondary-fg": {
+      "$type": "color",
+      "$value": "{primitive.ai-900}"
+    },
+    "color-secondary-hover": {
+      "$type": "color",
+      "$value": "{primitive.ai-200}"
+    },
+    "color-accent-a": {
+      "$type": "color",
+      "$value": "{primitive.aizome-700}"
+    },
+    "color-accent-a-light": {
+      "$type": "color",
+      "$value": "{primitive.aizome-50}"
+    },
+    "color-accent-a-fg": {
+      "$type": "color",
+      "$value": "{primitive.aizome-700}"
+    }
+  }
+}
