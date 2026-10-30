@@ -116,7 +116,8 @@
 }
 
 .btn--destructive {
-  background-color: var(--color-negative);
+  /* negative-fg (red-600 in light): white text reaches 4.8:1. Dark is unchanged (red-400) */
+  background-color: var(--color-negative-fg);
   color: var(--color-fg-inverse);
 }
 .btn--destructive:hover {
