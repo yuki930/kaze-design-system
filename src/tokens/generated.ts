@@ -342,6 +342,12 @@ export const tokenNames = [
   "density-nav-gap",
   "density-dropdown-py",
   "density-tab-py",
+  "layout-gutter",
+  "layout-gutter-sm",
+  "card-padding-x",
+  "card-padding-y",
+  "card-padding-x-sm",
+  "card-padding-y-sm",
 ] as const;
 
 export type TokenName = (typeof tokenNames)[number];

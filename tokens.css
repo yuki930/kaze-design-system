@@ -411,6 +411,14 @@
   --density-dropdown-py: var(--space-1-5); /* Dropdown item vertical padding */
   --density-tab-py: var(--space-2); /* Tabs vertical padding */
 
+  /* ── Layout spacing (phones use the -sm values below 768px) ─── */
+  --layout-gutter: var(--space-6); /* Padding around page content (AppLayout content, TopBar) */
+  --layout-gutter-sm: var(--space-4); /* The same below 768px */
+  --card-padding-x: var(--space-5); /* Card header, body and footer */
+  --card-padding-y: var(--space-5);
+  --card-padding-x-sm: var(--space-3); /* Card padding below 768px, compact cards included */
+  --card-padding-y-sm: 0.875rem;
+
   /* Proportional kana (palt) for all text. */
   font-feature-settings: "palt" 1;
 

@@ -407,11 +407,13 @@ export function Dashboard() {
       {/* Summary Metric Cards */}
       <Grid
         columns={3}
-        columnsSm={1}
+        columnsSm={2}
         gap="var(--space-4)"
+        gapSm="var(--space-3)"
         style={{ marginBottom: "var(--space-6)" }}
       >
-        <Card variant="compact">
+        {/* On phones the two short metrics sit side by side under this one */}
+        <Card variant="compact" className={styles.spanAllSm}>
           <CardBody>
             <Metric
               label="含み損益"

@@ -220,14 +220,14 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-box);
   /* Inner radius = outer - padding for nested rounded elements */
-  --card-inner-radius: calc(var(--radius-box) - var(--space-5));
+  --card-inner-radius: calc(var(--radius-box) - var(--card-padding-x));
 }
 
 .card__header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: var(--space-5) var(--space-5) var(--space-0);
+  padding: var(--card-padding-y) var(--card-padding-x) var(--space-0);
 }
 
 .card__title {
@@ -243,7 +243,7 @@
 }
 
 .card__body {
-  padding: var(--space-5);
+  padding: var(--card-padding-y) var(--card-padding-x);
 }
 
 .card__header + .card__body {
@@ -251,7 +251,7 @@
 }
 
 .card__footer {
-  padding: var(--space-0) var(--space-5) var(--space-5);
+  padding: var(--space-0) var(--card-padding-x) var(--card-padding-y);
   display: flex;
   align-items: center;
   gap: var(--space-2);
@@ -288,9 +288,19 @@
 }
 
 /* Compact card */
-.card--compact .card__header { padding: var(--space-4) var(--space-4) var(--space-0); }
-.card--compact .card__body   { padding: var(--space-4); }
-.card--compact .card__footer { padding: var(--space-0) var(--space-4) var(--space-4); }
+.card--compact {
+  --card-padding-x: var(--space-4);
+  --card-padding-y: var(--space-4);
+}
+
+/* Phones: one tighter padding for every card, compact or not */
+@media (max-width: 767.98px) {
+  .card,
+  .card--compact {
+    --card-padding-x: var(--card-padding-x-sm);
+    --card-padding-y: var(--card-padding-y-sm);
+  }
+}
 
 /* ── Input ───────────────────────────────────────────────── */
 .input {
@@ -4413,7 +4423,7 @@ button.chart-legend__item:focus-visible {
 
 .app-layout__content {
   flex: 1;
-  padding: var(--space-6);
+  padding: var(--layout-gutter);
   max-width: var(--content-max-width);
   width: 100%;
 }
@@ -4440,10 +4450,18 @@ button.chart-legend__item:focus-visible {
     display: flex;
     align-items: center;
     height: var(--topbar-height);
-    padding: 0 var(--space-4);
+    padding: 0 var(--layout-gutter-sm);
     background-color: var(--color-bg);
     border-bottom: 1px solid var(--color-border);
     z-index: var(--z-sticky);
+  }
+
+  .app-layout__content {
+    padding: var(--layout-gutter-sm);
+  }
+
+  .app-layout .top-bar {
+    padding: 0 var(--layout-gutter-sm);
   }
 
   .top-bar__lead {
@@ -4453,16 +4471,19 @@ button.chart-legend__item:focus-visible {
   }
 }
 
-/* The sidebar inside the drawer fills it instead of sticking to the viewport */
-.app-layout__drawer-body {
+/* The sidebar inside the drawer fills it instead of sticking to the viewport.
+   Two classes so this wins over .drawer__body, which is defined later. */
+.drawer__body.app-layout__drawer-body {
   padding: 0;
 }
 
+/* Logo and nav icons line up with the page gutter (16px on phones) */
 .app-layout__drawer .sidebar {
   position: static;
   width: auto;
   height: auto;
   border-right: 0;
+  padding-inline: var(--space-1);
 }
 
 /* ── TopBar ──────────────────────────────────────────────── */
@@ -4476,7 +4497,7 @@ button.chart-legend__item:focus-visible {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 var(--space-6);
+  padding: 0 var(--layout-gutter);
   z-index: var(--z-sticky);
 }
 
