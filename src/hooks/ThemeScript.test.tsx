@@ -43,4 +43,15 @@ describe("ThemeScript", () => {
       document.documentElement.removeAttribute("data-theme");
     },
   );
+
+  it("applies a stored font set", () => {
+    localStorage.setItem("kaze-font", "neutral");
+    const { container } = render(<ThemeScript />);
+    new Function(container.querySelector("script")?.innerHTML ?? "")();
+    expect(document.documentElement.getAttribute("data-font")).toBe("neutral");
+    localStorage.clear();
+    document.documentElement.removeAttribute("data-font");
+    document.documentElement.removeAttribute("data-theme");
+    document.documentElement.removeAttribute("data-palette");
+  });
 });

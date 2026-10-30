@@ -67,7 +67,7 @@ tsconfig.build.json     # ライブラリビルド用 TypeScript 設定
 
 ## CSS 設計
 - **PALT**: `font-feature-settings: "palt" 1` は `tokens.css` の `:root` でグローバル適用（本文も含む）
-- **書体**: 英数字は Montserrat、かなと漢字は Noto Sans JP（`--font-sans`）。palt と書体はオーナーのこだわりなので、組版の一般論を理由に変えない。文字の見た目が変わる変更は事前に確認する
+- **書体**: 3 つの組み合わせから `data-font` で選ぶ（2026-10 にオーナーが決定）。既定の standard は英字 DM Sans、表示する数字 Montserrat（`--font-numeric`）、和文 Noto Sans JP。neutral は Inter + Noto Sans JP、crisp は IBM Plex Sans JP。見出しは太さ 600・字間 0.01em、本文の字間 0.02em。palt と書体はオーナーのこだわりなので、組版の一般論を理由に変えない。文字の見た目が変わる変更は事前に確認する。和文の書体を足すときは palt が効くかを測ってから
 - **ダークモード**: `[data-theme="dark"]` セレクタ + `@media (prefers-color-scheme: dark)` フォールバック
   - フォールバックは `:root:not([data-theme="light"])` パターン
   - `[data-theme="dark"]` だけのルールを書いたら、同じ内容を `@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) ... }` にも書く

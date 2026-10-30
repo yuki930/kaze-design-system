@@ -693,6 +693,8 @@
 
 /* Numeric column — right-aligned with tabular figures */
 .table__cell--numeric {
+  font-family: var(--font-numeric);
+  letter-spacing: var(--letter-spacing-numeric);
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
@@ -995,11 +997,12 @@
 }
 
 .metric__value {
+  font-family: var(--font-numeric);
   font-size: var(--font-size-2xl);
   font-weight: var(--font-weight-semibold);
   color: var(--color-fg);
   font-variant-numeric: tabular-nums;
-  letter-spacing: var(--letter-spacing-tight);
+  letter-spacing: var(--letter-spacing-numeric);
 }
 
 .metric__value--lg {
@@ -1440,9 +1443,9 @@
 }
 .section-header__title {
   font-size: var(--font-size-3xl);
-  font-weight: var(--font-weight-bold);
+  font-weight: var(--font-weight-heading);
   color: var(--color-fg);
-  letter-spacing: var(--letter-spacing-tight);
+  letter-spacing: var(--letter-spacing-heading);
   margin: 0 0 var(--space-3);
 }
 .section-header__description {
@@ -1561,8 +1564,8 @@
 
 .hero__title {
   font-size: var(--font-size-3xl);
-  font-weight: var(--font-weight-bold);
-  letter-spacing: var(--letter-spacing-tight);
+  font-weight: var(--font-weight-heading);
+  letter-spacing: var(--letter-spacing-heading);
   line-height: var(--line-height-tight);
   margin: 0 0 var(--space-4);
 }
@@ -1652,10 +1655,11 @@
 }
 
 .feature-card__figure {
+  font-family: var(--font-numeric);
   /* 3rem から 4.5rem。対応するトークンがない大きさ（--font-size-5xl は 2.5rem） */
   font-size: clamp(3rem, 8vw, 4.5rem);
   font-weight: var(--font-weight-bold);
-  letter-spacing: var(--letter-spacing-tight);
+  letter-spacing: var(--letter-spacing-numeric);
   line-height: 1;
   font-variant-numeric: tabular-nums;
 }
@@ -1717,9 +1721,10 @@
 }
 
 .stat__value {
+  font-family: var(--font-numeric);
   font-size: var(--font-size-4xl);
   font-weight: var(--font-weight-bold);
-  letter-spacing: var(--letter-spacing-tight);
+  letter-spacing: var(--letter-spacing-numeric);
   line-height: 1;
 }
 
@@ -1792,9 +1797,10 @@
 }
 
 .pricing-card__amount {
+  font-family: var(--font-numeric);
   font-size: var(--font-size-4xl);
   font-weight: var(--font-weight-bold);
-  letter-spacing: var(--letter-spacing-tight);
+  letter-spacing: var(--letter-spacing-numeric);
   line-height: 1;
 }
 
@@ -1970,8 +1976,8 @@
 
 .cta-banner__title {
   font-size: var(--font-size-xl);
-  font-weight: var(--font-weight-bold);
-  letter-spacing: var(--letter-spacing-tight);
+  font-weight: var(--font-weight-heading);
+  letter-spacing: var(--letter-spacing-heading);
   margin: 0 0 var(--space-3);
 }
 
@@ -2192,7 +2198,7 @@
 /* ── Prose Typography ────────────────────────────────────── */
 .prose {
   font-size: var(--font-size-base);
-  line-height: var(--line-height-loose);
+  line-height: var(--line-height-body);
   color: var(--color-fg);
 }
 
@@ -2202,8 +2208,8 @@
 
 .prose h2 {
   font-size: var(--font-size-2xl);
-  font-weight: var(--font-weight-bold);
-  letter-spacing: var(--letter-spacing-tight);
+  font-weight: var(--font-weight-heading);
+  letter-spacing: var(--letter-spacing-heading);
   line-height: var(--line-height-snug);
   margin-top: var(--space-12);
   margin-bottom: var(--space-4);
@@ -2621,10 +2627,10 @@
 
 .heading {
   font-family: var(--font-sans);
-  font-weight: var(--font-weight-bold);
+  font-weight: var(--font-weight-heading);
   color: var(--color-fg);
   line-height: 1.5;  /* CJK headings need ≥1.5 for proper readability */
-  letter-spacing: var(--letter-spacing-tight);  /* negative tracking collides kana; palt already tightens */
+  letter-spacing: var(--letter-spacing-heading);  /* negative tracking collides kana; palt already tightens */
   margin: 0;
 }
 
@@ -3060,6 +3066,8 @@
 }
 
 .bar-chart__value {
+  font-family: var(--font-numeric);
+  letter-spacing: var(--letter-spacing-numeric);
   font-size: var(--font-size-xs);
   font-weight: var(--font-weight-medium);
   color: var(--color-fg);
@@ -3134,6 +3142,8 @@ button.chart-legend__item:focus-visible {
 }
 
 .chart-axis text {
+  font-family: var(--font-numeric);
+  letter-spacing: var(--letter-spacing-numeric);
   fill: var(--color-fg-tertiary);
   font-size: var(--font-size-xs);
   font-variant-numeric: tabular-nums;
@@ -3191,6 +3201,8 @@ button.chart-legend__item:focus-visible {
 }
 
 .chart-tooltip__value {
+  font-family: var(--font-numeric);
+  letter-spacing: var(--letter-spacing-numeric);
   font-weight: var(--font-weight-medium);
   font-variant-numeric: tabular-nums;
 }
@@ -3458,6 +3470,8 @@ button.chart-legend__item:focus-visible {
 }
 
 .category-bar__value {
+  font-family: var(--font-numeric);
+  letter-spacing: var(--letter-spacing-numeric);
   font-weight: var(--font-weight-medium);
   color: var(--color-fg);
   font-variant-numeric: tabular-nums;
@@ -3575,6 +3589,8 @@ button.chart-legend__item:focus-visible {
 }
 
 .donut-chart__center-label {
+  font-family: var(--font-numeric);
+  letter-spacing: var(--letter-spacing-numeric);
   transform: rotate(90deg);
   font-size: var(--font-size-lg);
   font-weight: var(--font-weight-bold);
@@ -3609,6 +3625,8 @@ button.chart-legend__item:focus-visible {
 }
 
 .donut-chart__legend-value {
+  font-family: var(--font-numeric);
+  letter-spacing: var(--letter-spacing-numeric);
   margin-left: auto;
   font-weight: var(--font-weight-medium);
   color: var(--color-fg);
@@ -3754,6 +3772,8 @@ button.chart-legend__item:focus-visible {
 }
 
 .progress__value-text {
+  font-family: var(--font-numeric);
+  letter-spacing: var(--letter-spacing-numeric);
   font-size: var(--font-size-xs);
   color: var(--color-fg-secondary);
   font-variant-numeric: tabular-nums;
@@ -4118,6 +4138,8 @@ button.chart-legend__item:focus-visible {
 }
 
 .meter__value-text {
+  font-family: var(--font-numeric);
+  letter-spacing: var(--letter-spacing-numeric);
   font-size: var(--font-size-xs);
   color: var(--color-fg-secondary);
   font-variant-numeric: tabular-nums;
@@ -4250,6 +4272,8 @@ button.chart-legend__item:focus-visible {
 }
 
 .barlist__value {
+  font-family: var(--font-numeric);
+  letter-spacing: var(--letter-spacing-numeric);
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-medium);
   color: var(--color-fg-secondary);

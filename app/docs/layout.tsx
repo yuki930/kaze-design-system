@@ -60,6 +60,11 @@ const navSections: { title: string; items: NavItem[] }[] = [
       },
       { href: "/docs/colors", label: "カラー", keywords: ["colors", "色", "パレット", "チャート"] },
       {
+        href: "/docs/fonts",
+        label: "書体",
+        keywords: ["fonts", "書体", "フォント", "typography", "data-font", "Noto Sans JP"],
+      },
+      {
         href: "/docs/writing",
         label: "文言ガイド",
         keywords: ["writing", "文言", "コピー", "ライティング", "表記", "kaze-copy"],

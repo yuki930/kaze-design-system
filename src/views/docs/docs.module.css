@@ -667,3 +667,9 @@
   gap: var(--space-3);
   margin-block: var(--space-4) var(--space-8);
 }
+
+.switcherNote {
+  margin: 0;
+  font-size: var(--font-size-xs);
+  color: var(--color-fg-tertiary);
+}

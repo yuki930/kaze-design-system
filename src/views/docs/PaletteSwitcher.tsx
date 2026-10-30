@@ -35,12 +35,12 @@ export function PaletteSwitcher() {
         onValueChange={(v) => setPalette(v as Palette)}
         options={options.map(({ value, label }) => ({ value, label }))}
       />
-      <p className={styles.tableNote}>{current.description}</p>
+      <p className={styles.switcherNote}>{current.description}</p>
       <pre className={styles.codeBlock}>
         {current.value === "warm" ? "<html>" : `<html data-palette="${current.value}">`}
       </pre>
       {current.value === "warm" && (
-        <p className={styles.tableNote}>砂は既定なので、属性を付けなくても使えます。</p>
+        <p className={styles.switcherNote}>砂は既定なので、属性を付けなくても使えます。</p>
       )}
     </div>
   );

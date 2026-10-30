@@ -350,15 +350,26 @@
   --chart-12: var(--chart-green);
 
   /* ── Typography ────────────────────────────────────────── */
-  /* Montserrat for Latin and numerals, Noto Sans JP for kana and kanji. */
-  --font-sans: var(--font-montserrat, "Montserrat"), var(--font-noto-sans-jp, "Noto Sans JP"), -apple-system, BlinkMacSystemFont,
+  /* Body and UI text. Font set "standard": DM Sans for Latin, Noto Sans JP
+     for kana and kanji. Switch with data-font. */
+  --font-sans: var(--font-dm-sans, "DM Sans"), var(--font-noto-sans-jp, "Noto Sans JP"), -apple-system, BlinkMacSystemFont,
     "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo,
     sans-serif;
   /* Same as font-sans. Kept so code that references it keeps working. */
   --font-display: var(--font-sans);
+  /* Displayed numbers (Metric, Stats, table numeric cells, chart values).
+     Montserrat in the standard set, the body font in the others. */
+  --font-numeric: var(--font-montserrat, "Montserrat"), var(--font-sans);
   /* palt is applied to all text from :root; this token stays for code that
      references it. */
   --font-feature-display: "palt" 1;
+  /* Headings (Heading, Hero, SectionHeader, CTABanner, article titles) */
+  --font-weight-heading: var(--font-weight-semibold);
+  --letter-spacing-heading: 0.01em;
+  /* Applied to <body>; palt tightens kana, this keeps them from touching */
+  --letter-spacing-body: 0.02em;
+  --letter-spacing-numeric: 0;
+  --line-height-body: 1.85; /* Running text such as Prose and articles */
   --font-mono: "SF Mono", "Fira Code", "Fira Mono", "Roboto Mono", monospace;
   --measure-ja: 40em; /* max line length for Japanese prose (about 40 characters) */
 
@@ -418,6 +429,24 @@
   --density-nav-gap: var(--space-2);
   --density-dropdown-py: var(--space-1);
   --density-tab-py: var(--space-1-5);
+}
+
+/* Font set neutral: Inter + Noto Sans JP. Works on :root or any container. */
+[data-font="neutral"] {
+  --font-sans: var(--font-inter, "Inter"), var(--font-noto-sans-jp, "Noto Sans JP"), -apple-system, BlinkMacSystemFont,
+    "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo,
+    sans-serif;
+  --font-display: var(--font-sans);
+  --font-numeric: var(--font-sans);
+}
+
+/* Font set crisp: IBM Plex Sans JP for both scripts. Works on :root or any container. */
+[data-font="crisp"] {
+  --font-sans: var(--font-ibm-plex-sans-jp, "IBM Plex Sans JP"), -apple-system, BlinkMacSystemFont,
+    "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo,
+    sans-serif;
+  --font-display: var(--font-sans);
+  --font-numeric: var(--font-sans);
 }
 
 /* Dark theme */

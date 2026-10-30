@@ -23,6 +23,7 @@ beforeEach(() => {
   localStorage.clear();
   document.documentElement.removeAttribute("data-theme");
   document.documentElement.removeAttribute("data-palette");
+  document.documentElement.removeAttribute("data-font");
   vi.stubGlobal(
     "matchMedia",
     vi.fn((query: string) => ({
@@ -177,6 +178,31 @@ describe("ThemeProvider / useTheme", () => {
       expect(localStorage.getItem("kaze-palette")).toBe(palette);
     },
   );
+
+  it.each(["neutral", "crisp"] as const)(
+    "setFontSet(%s) sets data-font and stores it",
+    (fontSet) => {
+      const { result } = setup();
+      act(() => result.current.setFontSet(fontSet));
+      expect(result.current.fontSet).toBe(fontSet);
+      expect(root()).toHaveAttribute("data-font", fontSet);
+      expect(localStorage.getItem("kaze-font")).toBe(fontSet);
+      act(() => result.current.setFontSet("standard"));
+      expect(root()).not.toHaveAttribute("data-font");
+    },
+  );
+
+  it("restores a stored font set and ignores unknown ones", () => {
+    localStorage.setItem("kaze-font", "crisp");
+    const first = setup();
+    expect(first.result.current.fontSet).toBe("crisp");
+    expect(root()).toHaveAttribute("data-font", "crisp");
+    first.unmount();
+    localStorage.setItem("kaze-font", "comic");
+    const second = setup();
+    expect(second.result.current.fontSet).toBe("standard");
+    expect(root()).not.toHaveAttribute("data-font");
+  });
 
   it("ignores an unknown stored palette", () => {
     localStorage.setItem("kaze-palette", "sepia");
