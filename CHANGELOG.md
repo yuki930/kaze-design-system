@@ -21,6 +21,17 @@ CHANGELOG entries and version bumps are generated automatically by `.github/work
 - **Patch** releases fix bugs and never change the public API.
 
 Before 1.0, minor releases could include breaking changes; see MIGRATION.md for moving from 0.x.
+## [1.6.0] - 2026-10-30
+
+### Features
+
+- feat: ink (墨) and indigo (藍) palettes, with a contrast check for every palette (#78)
+
+### Other
+
+- docs(site): redesign the top page around the real screen, AI and writing (#77)
+
+
 ## [1.5.0] - 2026-10-30
 
 ### Features
