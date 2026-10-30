@@ -292,7 +292,7 @@ cssVar("color-bg"); // "var(--color-bg)"。存在しない名前は型エラー
 `data-theme="light"` / `data-theme="dark"` で切り替え。
 `ThemeProvider` で自動管理。`prefers-color-scheme` による OS 設定連動にも対応。
 
-`data-palette="cool"` を付けると warm zinc から cool slate のパレットに切り替わります（ライト / ダークどちらとも併用可）。
+色は 4 つから選べます。既定の「砂」（温かみのあるグレー）に加えて、`data-palette="cool"`（霞）、`data-palette="ink"`（墨）、`data-palette="indigo"`（藍）があります。どれもライトとダークの両方と組み合わせられます。
 
 ダークモード利用者の初回描画がライトで一瞬光るのを防ぐには、`<head>` に `ThemeScript` を置きます。React が動く前に保存済みのテーマを `<html>` に適用します。
 

@@ -361,7 +361,7 @@ export type {
   UseTableSortResult,
   TableSortProps,
 } from "../hooks/useTableSort";
-export type { Theme, ThemeContextValue, ThemeProviderProps } from "../hooks/useTheme";
+export type { Palette, Theme, ThemeContextValue, ThemeProviderProps } from "../hooks/useTheme";
 
 /* ── Shared vocabulary ─────────────────────────────────────── */
 

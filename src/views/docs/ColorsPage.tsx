@@ -1,4 +1,5 @@
 import styles from "./docs.module.css";
+import { PaletteSwitcher } from "./PaletteSwitcher";
 
 /* ── Palette data (12 hues × 10 shades) ──────────────────── */
 
@@ -417,6 +418,15 @@ export function ColorsPage() {
         Kaze のカラーシステムは 3 層構造で設計されています。12 色×10 階調のプリミティブパレット、
         温かみのあるニュートラルグレースケール（`zinc-*`）、そしてテーマ対応のセマンティックトークン。
       </p>
+
+      {/* ── Color themes ───────────────────────────────────── */}
+      <h2 className={styles.sectionTitle}>色の組み合わせ</h2>
+      <p>
+        灰色の土台と主ボタンの色を、厳選した 4
+        つから選べます。成功やエラーの色、チャートの色はどれでも同じです。
+        切り替えるとサイト全体の色が変わります。ライトとダークのどちらとも組み合わせられます。
+      </p>
+      <PaletteSwitcher />
 
       {/* ── Palette ────────────────────────────────────────── */}
       <h2 className={styles.sectionTitle}>カラーパレット（12 色×10 階調）</h2>

@@ -71,7 +71,8 @@ tsconfig.build.json     # ライブラリビルド用 TypeScript 設定
 - **ダークモード**: `[data-theme="dark"]` セレクタ + `@media (prefers-color-scheme: dark)` フォールバック
   - フォールバックは `:root:not([data-theme="light"])` パターン
   - `[data-theme="dark"]` だけのルールを書いたら、同じ内容を `@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) ... }` にも書く
-  - `data-palette="cool"` のダークは `:root[data-palette="cool"]:not([data-theme="light"])` のフォールバックを別に持つ（zinc のフォールバックと詳細度が同じで負けるため）
+  - 色は 4 つ: 既定の砂（属性なし）、霞 `cool`、墨 `ink`、藍 `indigo`。`tokens/<palette>.tokens.json` と `<palette>-dark.tokens.json` で上書きし、`scripts/build-tokens.mjs` の `PALETTES` に足すと tokens.css に出る。色を足すときは `src/tokens/contrast.test.ts` が 4.5:1 を検査する
+  - 各色のダークは `:root[data-palette="<palette>"]:not([data-theme="light"])` のフォールバックを別に持つ（砂のフォールバックと詳細度が同じで負けるため。生成スクリプトが出力する）
 - **密度**: `data-density="compact"` で `--density-*` を切り替える。コントロール高さ・行パディング・UI フォントサイズは固定値ではなく density トークンを使う
 - **カスケードレイヤー**: `@layer kaze.tokens, kaze.reset, kaze.components, kaze.utilities;`（kaze.css と globals.css で宣言。各 CSS ファイルも自分のレイヤーで自身を包む。`kaze` 配下にネストしているのは Tailwind の `components` / `utilities` と衝突させないため）
 - **未定義トークン禁止**: `var(--x, fallback)` のフォールバックに頼らず、tokens.css に存在するトークンだけを参照する

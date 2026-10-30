@@ -659,3 +659,11 @@
   white-space: normal;
   overflow-wrap: anywhere;
 }
+
+.paletteSwitcher {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-3);
+  margin-block: var(--space-4) var(--space-8);
+}

@@ -5,8 +5,9 @@
  *
  *   tokens/base.tokens.json       every token, light theme / warm palette / default density
  *   tokens/dark.tokens.json       overrides for [data-theme="dark"] (and the prefers-color-scheme fallback)
- *   tokens/cool.tokens.json       overrides for [data-palette="cool"]
- *   tokens/cool-dark.tokens.json  overrides for cool + dark
+ *   tokens/<palette>.tokens.json       overrides for [data-palette="<palette>"]
+ *   tokens/<palette>-dark.tokens.json  overrides for that palette + dark
+ *     palettes: cool (霞), ink (墨), indigo (藍). The default warm palette (砂) is base.
  *   tokens/compact.tokens.json    overrides for [data-density="compact"]
  *
  * Each file groups tokens into three tiers: primitive (raw scales), semantic
@@ -32,11 +33,21 @@ const check = process.argv.includes("--check");
 const read = (name) =>
   JSON.parse(fs.readFileSync(path.join(TOKENS_DIR, `${name}.tokens.json`), "utf8"));
 const base = read("base");
+/** Palettes other than the default warm one, with the comment shown in tokens.css */
+const PALETTES = [
+  ["cool", "Cool palette 霞 (slate, purple-tinted gray)"],
+  ["ink", "Ink palette 墨 (neutral gray, black primary)"],
+  ["indigo", "Indigo palette 藍 (indigo-tinted gray, indigo primary and accent)"],
+];
 const modes = {
   dark: read("dark"),
-  cool: read("cool"),
-  "cool-dark": read("cool-dark"),
   compact: read("compact"),
+  ...Object.fromEntries(
+    PALETTES.flatMap(([name]) => [
+      [name, read(name)],
+      [`${name}-dark`, read(`${name}-dark`)],
+    ]),
+  ),
 };
 
 /** Flattens a tier-grouped file into [name, token] pairs, primitive → semantic → component. */
@@ -133,24 +144,28 @@ const css = [
   "/* Dark theme */",
   block('[data-theme="dark"]', declarations(modes.dark, "  ")),
   "",
-  "/* Cool palette (slate-based) */",
-  block('[data-palette="cool"]', declarations(modes.cool, "  ")),
-  "",
-  block('[data-palette="cool"][data-theme="dark"]', declarations(modes["cool-dark"], "  ")),
-  "",
+  ...PALETTES.flatMap(([name, label]) => [
+    `/* ${label} */`,
+    block(`[data-palette="${name}"]`, declarations(modes[name], "  ")),
+    "",
+    block(`[data-palette="${name}"][data-theme="dark"]`, declarations(modes[`${name}-dark`], "  ")),
+    "",
+  ]),
   `/* Dark fallback when no data-theme is set (JS disabled or before hydration).
    :root:not([data-theme="light"]) lets an explicit light choice win. */`,
   "@media (prefers-color-scheme: dark) {",
   block(':root:not([data-theme="light"])', declarations(modes.dark, "    "), "  "),
   "}",
   "",
-  `/* Cool + dark fallback. Needs its own selector: it has the same specificity as
-   the zinc fallback above and would otherwise lose to it. */`,
+  `/* Palette + dark fallbacks. Each needs its own selector: it has the same
+   specificity as the warm fallback above and would otherwise lose to it. */`,
   "@media (prefers-color-scheme: dark) {",
-  block(
-    ':root[data-palette="cool"]:not([data-theme="light"])',
-    declarations(modes["cool-dark"], "    "),
-    "  ",
+  ...PALETTES.map(([name]) =>
+    block(
+      `:root[data-palette="${name}"]:not([data-theme="light"])`,
+      declarations(modes[`${name}-dark`], "    "),
+      "  ",
+    ),
   ),
   "}",
   "}",

@@ -43,7 +43,7 @@ function App() {
 }
 ```
 
-Add `data-palette="cool"` to switch from the warm zinc palette to cool slate (works with both light and dark).
+Palettes: the default is warm 砂 (no attribute). Add `data-palette="cool"` (霞, purple-tinted gray), `data-palette="ink"` (墨, neutral gray) or `data-palette="indigo"` (藍, indigo primary and accent). Each works with light and dark, and `useTheme().setPalette()` switches and stores it. Status colors (positive, negative, warning, info) and chart colors are the same in every palette.
 
 ## Density
 

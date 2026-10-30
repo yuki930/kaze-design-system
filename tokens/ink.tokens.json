@@ -1,0 +1,96 @@
+{
+  "semantic": {
+    "color-bg": {
+      "$type": "color",
+      "$value": "#ffffff"
+    },
+    "color-bg-secondary": {
+      "$type": "color",
+      "$value": "{primitive.ink-50}"
+    },
+    "color-bg-tertiary": {
+      "$type": "color",
+      "$value": "{primitive.ink-100}"
+    },
+    "color-bg-inverse": {
+      "$type": "color",
+      "$value": "{primitive.ink-950}"
+    },
+    "color-fg": {
+      "$type": "color",
+      "$value": "{primitive.ink-950}"
+    },
+    "color-fg-secondary": {
+      "$type": "color",
+      "$value": "{primitive.ink-500}"
+    },
+    "color-fg-tertiary": {
+      "$type": "color",
+      "$value": "{primitive.ink-500}"
+    },
+    "color-fg-decorative": {
+      "$type": "color",
+      "$value": "{primitive.ink-400}"
+    },
+    "color-fg-placeholder": {
+      "$type": "color",
+      "$value": "{primitive.ink-600}"
+    },
+    "color-fg-inverse": {
+      "$type": "color",
+      "$value": "#ffffff"
+    },
+    "color-fg-muted": {
+      "$type": "color",
+      "$value": "{primitive.ink-600}"
+    },
+    "color-border": {
+      "$type": "color",
+      "$value": "{primitive.ink-200}"
+    },
+    "color-border-strong": {
+      "$type": "color",
+      "$value": "{primitive.ink-300}"
+    },
+    "color-border-subtle": {
+      "$type": "color",
+      "$value": "{primitive.ink-100}"
+    },
+    "color-surface": {
+      "$type": "color",
+      "$value": "#ffffff"
+    },
+    "color-surface-hover": {
+      "$type": "color",
+      "$value": "{primitive.ink-50}"
+    },
+    "color-surface-active": {
+      "$type": "color",
+      "$value": "{primitive.ink-100}"
+    },
+    "color-primary": {
+      "$type": "color",
+      "$value": "{primitive.ink-950}"
+    },
+    "color-primary-fg": {
+      "$type": "color",
+      "$value": "#ffffff"
+    },
+    "color-primary-hover": {
+      "$type": "color",
+      "$value": "{primitive.ink-800}"
+    },
+    "color-secondary": {
+      "$type": "color",
+      "$value": "{primitive.ink-100}"
+    },
+    "color-secondary-fg": {
+      "$type": "color",
+      "$value": "{primitive.ink-900}"
+    },
+    "color-secondary-hover": {
+      "$type": "color",
+      "$value": "{primitive.ink-200}"
+    }
+  }
+}

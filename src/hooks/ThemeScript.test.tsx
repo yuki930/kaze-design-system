@@ -24,4 +24,23 @@ describe("ThemeScript", () => {
     document.documentElement.removeAttribute("data-theme");
     document.documentElement.removeAttribute("data-palette");
   });
+
+  it.each(["ink", "indigo"])(
+    "applies the stored %s palette and ignores unknown ones",
+    (palette) => {
+      const run = () => {
+        const { container, unmount } = render(<ThemeScript />);
+        new Function(container.querySelector("script")?.innerHTML ?? "")();
+        unmount();
+      };
+      localStorage.setItem("kaze-palette", palette);
+      run();
+      expect(document.documentElement.getAttribute("data-palette")).toBe(palette);
+      localStorage.setItem("kaze-palette", "sepia");
+      run();
+      expect(document.documentElement.hasAttribute("data-palette")).toBe(false);
+      localStorage.clear();
+      document.documentElement.removeAttribute("data-theme");
+    },
+  );
 });

@@ -168,6 +168,23 @@ describe("ThemeProvider / useTheme", () => {
     expect(listeners.size).toBe(0);
   });
 
+  it.each(["ink", "indigo"] as const)(
+    "setPalette(%s) sets data-palette to that name",
+    (palette) => {
+      const { result } = setup();
+      act(() => result.current.setPalette(palette));
+      expect(root()).toHaveAttribute("data-palette", palette);
+      expect(localStorage.getItem("kaze-palette")).toBe(palette);
+    },
+  );
+
+  it("ignores an unknown stored palette", () => {
+    localStorage.setItem("kaze-palette", "sepia");
+    const { result } = setup();
+    expect(result.current.palette).toBe("warm");
+    expect(root()).not.toHaveAttribute("data-palette");
+  });
+
   it("setPalette persists and toggles data-palette", () => {
     const { result } = setup();
     act(() => result.current.setPalette("cool"));
