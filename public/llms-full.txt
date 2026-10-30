@@ -60,6 +60,7 @@ Add `data-density="compact"` to an ancestor (`<html>` or a panel) to tighten con
 - Hooks: `kaze-design-system/hooks` (useFocusTrap, useLegendToggle; useTheme is also exported from the root).
 - JS tokens: `kaze-design-system/tokens`.
 - Writing guide and copy checker: `kaze-design-system/writing` (checkCopy, fixCopy, copyRules, writingGuide) and the `kaze-copy` CLI.
+- `npx kaze-init` writes Kaze rules for AI assistants into AGENTS.md and makes CLAUDE.md import it. This file is also shipped at `node_modules/kaze-design-system/dist/llms-full.txt`, matching the installed version.
 
 ## Writing Japanese UI copy
 

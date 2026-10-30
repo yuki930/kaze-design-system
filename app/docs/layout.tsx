@@ -49,6 +49,11 @@ const navSections: { title: string; items: NavItem[] }[] = [
         keywords: ["getting started", "インストール"],
       },
       {
+        href: "/docs/ai",
+        label: "AI と始める",
+        keywords: ["ai", "claude", "cursor", "codex", "agents", "kaze-init", "雛形", "starter"],
+      },
+      {
         href: "/docs/tokens",
         label: "デザイントークン",
         keywords: ["tokens", "余白", "角丸", "フォント"],

@@ -20,6 +20,7 @@ import { Hero, PricingGrid } from "kaze-design-system/marketing";
 
 - [Full API reference (llms-full.txt)](https://kaze-design-system.vercel.app/llms-full.txt): every component with props, types, and usage examples
 - [Interactive docs](https://kaze-design-system.vercel.app/docs/components): live previews of every component
+- [Start with AI](https://kaze-design-system.vercel.app/docs/ai): `npx kaze-init` writes the Kaze section into AGENTS.md (and makes CLAUDE.md read it). Next.js starter: `npx create-next-app@latest my-app --example "https://github.com/yuki930/kaze-design-system/tree/main/examples/nextjs"`
 - [Writing guide](https://kaze-design-system.vercel.app/docs/writing): how to write Japanese UI copy for Kaze. Check copy with `npx kaze-copy <paths>`; the full rules are in llms-full.txt
 
 ## Components

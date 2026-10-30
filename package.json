@@ -54,16 +54,37 @@
       "import": "./dist/components/*/*.js"
     },
     "./package.json": "./package.json",
-    "./css/tokens": "./tokens.css",
-    "./css/reset": "./reset.css",
-    "./css/components": "./components.css",
-    "./css/utilities": "./utilities.css",
-    "./css/all": "./kaze.css",
-    "./css/core": "./core.css"
+    "./css/tokens": {
+      "types": "./types/css.d.ts",
+      "default": "./tokens.css"
+    },
+    "./css/reset": {
+      "types": "./types/css.d.ts",
+      "default": "./reset.css"
+    },
+    "./css/components": {
+      "types": "./types/css.d.ts",
+      "default": "./components.css"
+    },
+    "./css/utilities": {
+      "types": "./types/css.d.ts",
+      "default": "./utilities.css"
+    },
+    "./css/all": {
+      "types": "./types/css.d.ts",
+      "default": "./kaze.css"
+    },
+    "./css/core": {
+      "types": "./types/css.d.ts",
+      "default": "./core.css"
+    }
   },
   "files": [
     "dist",
     "bin",
+    "!bin/*.test.ts",
+    "templates",
+    "types",
     "tokens.css",
     "tokens",
     "reset.css",
@@ -96,7 +117,7 @@
     "test:all": "vitest run",
     "test:watch": "vitest",
     "start": "next start",
-    "build:lib": "rm -rf dist && vite build --config vite.config.lib.ts && tsc -p tsconfig.build.json",
+    "build:lib": "rm -rf dist && vite build --config vite.config.lib.ts && tsc -p tsconfig.build.json && cp public/llms.txt public/llms-full.txt dist/",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "storybook:site": "storybook build -o public/storybook --quiet --disable-telemetry",
@@ -105,7 +126,7 @@
     "format": "biome format .",
     "format:fix": "biome check --write .",
     "tokens": "node scripts/build-tokens.mjs",
-    "docs:check-copy": "node bin/kaze-copy.mjs src/views src/components README.md --strict"
+    "docs:check-copy": "node bin/kaze-copy.mjs src/views src/components README.md templates examples/nextjs/app examples/nextjs/README.md --strict"
   },
   "peerDependencies": {
     "lucide-react": "^0.575.0 || ^1.0.0",
@@ -147,6 +168,7 @@
     "vitest": "^5.0.5"
   },
   "bin": {
-    "kaze-copy": "./bin/kaze-copy.mjs"
+    "kaze-copy": "./bin/kaze-copy.mjs",
+    "kaze-init": "./bin/kaze-init.mjs"
   }
 }

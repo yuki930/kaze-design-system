@@ -556,6 +556,9 @@ function main() {
     `- [Interactive docs](${SITE_URL}/docs/components): live previews of every component`,
   );
   shortLines.push(
+    `- [Start with AI](${SITE_URL}/docs/ai): \`npx kaze-init\` writes the Kaze section into AGENTS.md (and makes CLAUDE.md read it). Next.js starter: \`npx create-next-app@latest my-app --example "https://github.com/yuki930/kaze-design-system/tree/main/examples/nextjs"\``,
+  );
+  shortLines.push(
     `- [Writing guide](${SITE_URL}/docs/writing): how to write Japanese UI copy for Kaze. Check copy with \`npx kaze-copy <paths>\`; the full rules are in llms-full.txt`,
   );
   shortLines.push("");
@@ -666,6 +669,9 @@ function main() {
   fullLines.push(`- JS tokens: \`${pkg.name}/tokens\`.`);
   fullLines.push(
     `- Writing guide and copy checker: \`${pkg.name}/writing\` (checkCopy, fixCopy, copyRules, writingGuide) and the \`kaze-copy\` CLI.`,
+  );
+  fullLines.push(
+    "- `npx kaze-init` writes Kaze rules for AI assistants into AGENTS.md and makes CLAUDE.md import it. This file is also shipped at `node_modules/kaze-design-system/dist/llms-full.txt`, matching the installed version.",
   );
   fullLines.push("");
   fullLines.push(...writingSection(pkg.name));
