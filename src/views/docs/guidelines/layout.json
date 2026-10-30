@@ -3,7 +3,9 @@
     "use": [
       "サイドバー + トップバー + 本文の構成で、業務アプリやダッシュボードの画面全体を組む",
       "画面ごとに 1 つだけ置き、sidebar と topbar に Sidebar / Topbar を渡す",
-      "本文は children に渡す。内側が <main> になるので、ページ内に別の <main> を作らない"
+      "本文は children に渡す。内側が <main> になるので、ページ内に別の <main> を作らない",
+      "スマホ（768px 未満）ではサイドバーが隠れ、TopBar の左端にメニューボタンが出る。押すと同じサイドバーが左のドロワーで開く。topbar に TopBar を使うとボタンが自動で付く",
+      "開閉を親が持ちたいときは navOpen と onNavOpenChange、初期状態だけ決めたいときは defaultNavOpen。ボタンとドロワーの名前は navLabel（既定は「メニュー」）で変える"
     ],
     "avoid": [
       "LP やマーケティングページの骨組み。Navbar、Section、LPFooter を並べる",
@@ -13,6 +15,8 @@
     "a11y": [
       "本文は <main> で包まれるため、スクリーンリーダーの「メインコンテンツへ移動」で本文に飛べる",
       "sidebar と topbar は渡した要素のままなので、Sidebar や Topbar 側のランドマーク（<nav> など）が読み上げに使われる",
+      "メニューボタンは aria-expanded と aria-controls を持ち、aria-haspopup=\"dialog\" で開く。ドロワーはダイアログとして開き、フォーカスは中に入る。Escape・背景クリック・中のリンクで閉じ、閉じるとフォーカスはメニューボタンに戻る",
+      "独自の要素を topbar に渡すと自動のメニューボタンは付かない。スマホでサイドバーに届かなくなるので、TopBar を使うか、navOpen で開閉できるボタンを自分で置く",
       "スキップリンクは用意していない。キーボード利用者のためにサイドバーの項目が多い画面では、利用側で本文へのスキップリンクを足す"
     ],
     "related": ["sidebar", "topbar", "grid", "breadcrumb"]
