@@ -101,11 +101,11 @@ const milestones: StepperStep[] = [
 const tasks: Task[] = [
   {
     id: "KZ-142",
-    title: "Buttonコンポーネントのa11y改善",
+    title: "Button コンポーネントの a11y 改善",
     assignee: "三隅 拓海",
     assigneeInitials: "MT",
     priority: "高",
-    dueDate: "2月25日",
+    dueDate: "2 月 25 日",
     status: "進行中",
   },
   {
@@ -114,34 +114,34 @@ const tasks: Task[] = [
     assignee: "綿貫 玲奈",
     assigneeInitials: "WR",
     priority: "高",
-    dueDate: "2月22日",
+    dueDate: "2 月 22 日",
     status: "レビュー待ち",
   },
   {
     id: "KZ-145",
-    title: "Tableコンポーネントのソート機能",
+    title: "Table コンポーネントのソート機能",
     assignee: "大迫 航",
     assigneeInitials: "OK",
     priority: "中",
-    dueDate: "3月1日",
+    dueDate: "3 月 1 日",
     status: "未着手",
   },
   {
     id: "KZ-138",
-    title: "Storybook v8へのマイグレーション",
+    title: "Storybook v8 へのマイグレーション",
     assignee: "三隅 拓海",
     assigneeInitials: "MT",
     priority: "中",
-    dueDate: "3月5日",
+    dueDate: "3 月 5 日",
     status: "進行中",
   },
   {
     id: "KZ-150",
-    title: "CI/CDパイプラインの最適化",
+    title: "CI/CD パイプラインの最適化",
     assignee: "藤枝 蒼",
     assigneeInitials: "FA",
     priority: "低",
-    dueDate: "3月10日",
+    dueDate: "3 月 10 日",
     status: "未着手",
   },
 ];
@@ -182,11 +182,11 @@ const teamMembers: TeamMember[] = [
 ];
 
 const activities = [
-  { time: "14:32", title: "三隅 拓海がKZ-142を進行中に変更", status: "info" as const },
-  { time: "13:15", title: "綿貫 玲奈がKZ-139のレビューを依頼", status: "warning" as const },
-  { time: "11:48", title: "大迫 航がKZ-136を完了", status: "positive" as const },
-  { time: "10:20", title: "藤枝 蒼がKZ-150を作成", status: "default" as const },
-  { time: "09:05", title: "三隅 拓海がKZ-138にコメントを追加", status: "info" as const },
+  { time: "14:32", title: "三隅 拓海が KZ-142 を進行中に変更", status: "info" as const },
+  { time: "13:15", title: "綿貫 玲奈が KZ-139 のレビューを依頼", status: "warning" as const },
+  { time: "11:48", title: "大迫 航が KZ-136 を完了", status: "positive" as const },
+  { time: "10:20", title: "藤枝 蒼が KZ-150 を作成", status: "default" as const },
+  { time: "09:05", title: "三隅 拓海が KZ-138 にコメントを追加", status: "info" as const },
 ];
 
 const deadlines: Deadline[] = [
@@ -195,34 +195,34 @@ const deadlines: Deadline[] = [
     project: "Design System v2",
     assignee: "綿貫 玲奈",
     assigneeInitials: "WR",
-    dueDate: "2月22日",
+    dueDate: "2 月 22 日",
     daysLeft: 2,
     priority: "高",
   },
   {
-    task: "KZ-142: Button a11y改善",
+    task: "KZ-142: Button a11y 改善",
     project: "Design System v2",
     assignee: "三隅 拓海",
     assigneeInitials: "MT",
-    dueDate: "2月25日",
+    dueDate: "2 月 25 日",
     daysLeft: 5,
     priority: "高",
   },
   {
-    task: "KZ-145: Tableソート機能",
+    task: "KZ-145: Table ソート機能",
     project: "Design System v2",
     assignee: "大迫 航",
     assigneeInitials: "OK",
-    dueDate: "3月1日",
+    dueDate: "3 月 1 日",
     daysLeft: 9,
     priority: "中",
   },
   {
-    task: "KZ-138: Storybook移行",
+    task: "KZ-138: Storybook 移行",
     project: "Design System v2",
     assignee: "三隅 拓海",
     assigneeInitials: "MT",
-    dueDate: "3月5日",
+    dueDate: "3 月 5 日",
     daysLeft: 13,
     priority: "中",
   },
@@ -317,7 +317,7 @@ export function ProjectsDashboard() {
         </div>
       }
     >
-      <Search placeholder="タスクやプロジェクトを検索..." shortcut="⌘K" />
+      <Search placeholder="タスクやプロジェクトを検索…" shortcut="⌘K" />
     </TopBar>
   );
 
@@ -480,7 +480,7 @@ export function ProjectsDashboard() {
         <CardHeader>
           <div className={styles.tableHeader}>
             <CardTitle>今後の期限</CardTitle>
-            <Badge>4件</Badge>
+            <Badge>4 件</Badge>
           </div>
         </CardHeader>
         <CardBody>

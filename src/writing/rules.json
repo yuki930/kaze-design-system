@@ -1,0 +1,355 @@
+[
+  {
+    "id": "notation/em-dash",
+    "category": "notation",
+    "level": "error",
+    "default": true,
+    "pattern": "[—―]",
+    "message": "「—」は使わない。読点、括弧、体言止めで区切る",
+    "bad": "設定はかんたん — すぐに始められます",
+    "good": "設定はかんたんで、すぐに始められます"
+  },
+  {
+    "id": "notation/fullwidth-alnum",
+    "category": "notation",
+    "level": "error",
+    "default": true,
+    "pattern": "[Ａ-Ｚａ-ｚ０-９][Ａ-Ｚａ-ｚ０-９．，％＋－]*",
+    "fix": {
+      "nfkc": true
+    },
+    "message": "英数字は半角で書く",
+    "bad": "ｖ１．３を公開しました",
+    "good": "v1.3 を公開しました"
+  },
+  {
+    "id": "notation/halfwidth-kana",
+    "category": "notation",
+    "level": "error",
+    "default": true,
+    "pattern": "[ｦ-ﾟ]+",
+    "fix": {
+      "nfkc": true
+    },
+    "message": "カタカナは全角で書く",
+    "bad": "ﾃﾞｰﾀを書き出す",
+    "good": "データを書き出す"
+  },
+  {
+    "id": "notation/punctuation",
+    "category": "notation",
+    "level": "error",
+    "default": true,
+    "pattern": "(?<={ja})[，．]",
+    "fix": {
+      "map": {
+        "，": "、",
+        "．": "。"
+      }
+    },
+    "message": "句読点は「、」と「。」を使う",
+    "bad": "保存しました．",
+    "good": "保存しました。"
+  },
+  {
+    "id": "notation/ellipsis",
+    "category": "notation",
+    "level": "error",
+    "default": true,
+    "pattern": "(?<={ja})(?:\\.{3}|・{2,3}|･{2,3})",
+    "fix": "…",
+    "message": "省略は「…」を使う",
+    "bad": "読み込み中...",
+    "good": "読み込み中…"
+  },
+  {
+    "id": "notation/wave-dash",
+    "category": "notation",
+    "level": "error",
+    "default": true,
+    "pattern": "～",
+    "fix": "〜",
+    "message": "範囲の「〜」は波ダッシュ（〜）を使う",
+    "bad": "1～3 営業日",
+    "good": "1〜3 営業日"
+  },
+  {
+    "id": "notation/parentheses",
+    "category": "notation",
+    "level": "error",
+    "default": true,
+    "pattern": " ?\\(([^()\"'`{}|\\[\\]^$\\\\]*{ja}[^()\"'`{}|\\[\\]^$\\\\]*)\\) ?",
+    "fix": "（$1）",
+    "message": "日本語を囲む括弧は全角（）を使い、前後にスペースを入れない",
+    "bad": "金額 (税込) は",
+    "good": "金額（税込）は"
+  },
+  {
+    "id": "notation/fullwidth-space",
+    "category": "notation",
+    "level": "warning",
+    "default": true,
+    "pattern": "　",
+    "fix": " ",
+    "message": "全角スペースで位置をそろえない。間をあけるなら半角スペース、そろえるなら CSS で",
+    "bad": "氏名　相楽 実咲",
+    "good": "氏名 相楽 実咲"
+  },
+  {
+    "id": "notation/exclamation",
+    "category": "notation",
+    "level": "warning",
+    "default": true,
+    "pattern": "(?<={ja})[！!]",
+    "message": "「！」で強調しない。伝えたいことを言葉で書く",
+    "bad": "保存しました！",
+    "good": "保存しました"
+  },
+  {
+    "id": "notation/latin-spacing",
+    "category": "notation",
+    "level": "warning",
+    "default": true,
+    "pattern": "(?<={ja})(?=[A-Za-z])|(?<=[A-Za-z])(?<!(?:^|[^A-Za-z])[A-Z])(?={ja})",
+    "fix": " ",
+    "message": "英単語と日本語のあいだに半角スペースを入れる",
+    "bad": "Kazeを使う",
+    "good": "Kaze を使う"
+  },
+  {
+    "id": "notation/number-spacing-tight",
+    "category": "notation",
+    "level": "warning",
+    "default": false,
+    "pattern": "(?<=[0-9%]) (?={ja})|(?<={ja}) (?=[0-9])",
+    "fix": "",
+    "message": "数字と日本語のあいだにスペースを入れない",
+    "bad": "12 席",
+    "good": "12席"
+  },
+  {
+    "id": "notation/number-spacing-loose",
+    "category": "notation",
+    "level": "warning",
+    "default": true,
+    "pattern": "(?<=[0-9])(?={ja})|(?<={ja})(?=[0-9])",
+    "fix": " ",
+    "message": "数字と日本語のあいだに半角スペースを入れる",
+    "bad": "12席",
+    "good": "12 席"
+  },
+  {
+    "id": "notation/long-vowel",
+    "category": "notation",
+    "level": "warning",
+    "default": true,
+    "pattern": "(ブラウザ|フォルダ|パラメータ|セレクタ|インジケータ|エディタ|コンピュータ|スキャナ|アダプタ|プロバイダ|コンテナ|イテレータ|コンパイラ)ー",
+    "fix": "$1",
+    "message": "技術用語の語末に長音を付けない（ブラウザ、パラメータ）。ユーザー、サーバー、メンバーのように定着した語はそのまま",
+    "bad": "ブラウザーで開く",
+    "good": "ブラウザで開く"
+  },
+  {
+    "id": "notation/heading-emoji",
+    "category": "notation",
+    "level": "error",
+    "default": true,
+    "pattern": "^#{1,3}\\s.*\\p{Extended_Pictographic}|<h[1-3][^>]*>[^<]*\\p{Extended_Pictographic}",
+    "message": "見出しに絵文字を使わない",
+    "bad": "## 🚀 はじめに",
+    "good": "## はじめに"
+  },
+  {
+    "id": "plain/kantan",
+    "category": "plain",
+    "level": "warning",
+    "default": true,
+    "pattern": "容易|簡単",
+    "fix": "かんたん",
+    "message": "「容易」「簡単」は「かんたん」と開く",
+    "bad": "導入は容易です",
+    "good": "導入はかんたんです"
+  },
+  {
+    "id": "plain/kanji-to-kana",
+    "category": "plain",
+    "level": "warning",
+    "default": true,
+    "pattern": "全て|様々|色々|既に|(?<!変)更に|予め|是非|又は|及び|但し|殆ど|宜しく|沢山|恐らく|敢えて|何故|例えば|一旦|下さい|出来(?=る|ます|ない|ません|た|て)|頂(?=き|く|け|いて|いた|こう)|(?<![一合誘招拉筆極送])致(?=し|す|さ|せ)",
+    "fix": {
+      "map": {
+        "全て": "すべて",
+        "様々": "さまざま",
+        "色々": "いろいろ",
+        "既に": "すでに",
+        "更に": "さらに",
+        "予め": "あらかじめ",
+        "是非": "ぜひ",
+        "又は": "または",
+        "及び": "および",
+        "但し": "ただし",
+        "殆ど": "ほとんど",
+        "宜しく": "よろしく",
+        "沢山": "たくさん",
+        "恐らく": "おそらく",
+        "敢えて": "あえて",
+        "何故": "なぜ",
+        "例えば": "たとえば",
+        "一旦": "いったん",
+        "下さい": "ください",
+        "出来": "でき",
+        "頂": "いただ",
+        "致": "いた"
+      }
+    },
+    "message": "副詞・接続詞・補助動詞はひらがなで書く",
+    "bad": "全ての設定を保存して下さい",
+    "good": "すべての設定を保存してください"
+  },
+  {
+    "id": "plain/koto-toki",
+    "category": "plain",
+    "level": "warning",
+    "default": true,
+    "pattern": "(?<=[るたいうくすつぬむ])(事|時)(?=[がをはにもでの、])",
+    "fix": {
+      "map": {
+        "事": "こと",
+        "時": "とき"
+      }
+    },
+    "message": "形式名詞の「事」「時」は「こと」「とき」と開く",
+    "bad": "保存した時は通知します",
+    "good": "保存したときは通知します"
+  },
+  {
+    "id": "plain/dekiru",
+    "category": "plain",
+    "level": "warning",
+    "default": true,
+    "pattern": "することができ|可能(?:です|となります|になります)",
+    "message": "「〜できます」と短く書く",
+    "bad": "CSV で書き出すことが可能です",
+    "good": "CSV で書き出せます"
+  },
+  {
+    "id": "plain/keigo",
+    "category": "plain",
+    "level": "warning",
+    "default": true,
+    "pattern": "させていただ[きくけ]|ございます|(?<=\\S)となります",
+    "message": "敬語を重ねない。「〜します」「〜です」で言い切る",
+    "bad": "メールを送信させていただきます",
+    "good": "メールを送ります"
+  },
+  {
+    "id": "plain/stiff-verbs",
+    "category": "plain",
+    "level": "warning",
+    "default": true,
+    "pattern": "提供(?:します|しています|いたします)|実施(?:する|します|して|いたします)|利用可能",
+    "message": "硬い漢語の動詞を避ける。「用意しています」「します」「使えます」のように書く",
+    "bad": "テンプレートを提供します",
+    "good": "テンプレートを用意しています"
+  },
+  {
+    "id": "clarity/link-kochira",
+    "category": "clarity",
+    "level": "warning",
+    "default": true,
+    "pattern": "(?:詳しくは|詳細は)?こちら(?=から|を|$|[。」<\"'])",
+    "message": "「こちら」ではなく、行き先や結果が分かる言葉にする",
+    "bad": "詳しくはこちら",
+    "good": "料金プランを見る"
+  },
+  {
+    "id": "clarity/vague-error",
+    "category": "clarity",
+    "level": "warning",
+    "default": true,
+    "pattern": "エラーが(?:発生しました|起きました)|入力内容に誤りがあります",
+    "message": "何が起きて、どう直せばよいかを書く",
+    "bad": "エラーが発生しました",
+    "good": "カードの有効期限が切れています。新しいカードを登録してください"
+  },
+  {
+    "id": "clarity/vague-wait",
+    "category": "clarity",
+    "level": "warning",
+    "default": true,
+    "pattern": "しばらくお待ちください",
+    "message": "待たせる理由を書く。「保存しています」のように、いま何をしているかを伝える",
+    "bad": "しばらくお待ちください",
+    "good": "画像をアップロードしています"
+  },
+  {
+    "id": "clarity/hype",
+    "category": "clarity",
+    "level": "warning",
+    "default": true,
+    "pattern": "次世代|革新的|圧倒的|画期的|最先端|業界初|No\\.?\\s?1",
+    "message": "形容で飾らない。数字か具体的な成果で書く",
+    "bad": "次世代の請求管理",
+    "good": "請求から入金確認まで、1 つの画面で終わる"
+  },
+  {
+    "id": "ai/closing",
+    "category": "ai",
+    "level": "warning",
+    "default": true,
+    "pattern": "いかがでしたでしょうか|いかがでしたか|参考になれば幸いです|お役に立てれば幸いです|ぜひ参考にしてみてください|と言っても過言ではありません",
+    "message": "中身のない決まり文句。消すか、言いたいことをそのまま書く",
+    "bad": "いかがでしたでしょうか。ぜひ参考にしてみてください",
+    "good": "（結びの定型は書かない）"
+  },
+  {
+    "id": "ai/preface",
+    "category": "ai",
+    "level": "warning",
+    "default": true,
+    "pattern": "結論から言うと|重要なのは|大切なのは|ここで注目すべきは|それでは見ていきましょう",
+    "message": "前置きを外して、結論の文から書き始める",
+    "bad": "重要なのは、設定を保存することです",
+    "good": "設定を保存してください"
+  },
+  {
+    "id": "ai/metaphor",
+    "category": "ai",
+    "level": "warning",
+    "default": true,
+    "pattern": "解像度(?:が上が|を上げ|が高)|地味に効|時間を溶か|腹落ち|(?<=側に)倒(?:す|し)|静かに壊れ",
+    "message": "比喩でぼかさない。何がどう変わるかを、ふだんの言葉で書く",
+    "bad": "チームの解像度が上がります",
+    "good": "チームが同じ画面を見て判断できます"
+  },
+  {
+    "id": "ai/buzzword",
+    "category": "ai",
+    "level": "warning",
+    "default": true,
+    "pattern": "シームレス|シナジー|価値を最大化|次のレベルへ|ソリューションを提供|寄り添",
+    "message": "決まり文句で飾らない。何ができるようになるかを書く。画面や機能に気持ちを持たせない",
+    "bad": "シームレスな体験を提供します",
+    "good": "ログインし直さずに請求書を開けます"
+  },
+  {
+    "id": "clarity/long-sentence",
+    "category": "clarity",
+    "level": "warning",
+    "default": true,
+    "pattern": "[^。？！\\n<>{}\"`\\[\\]()]{81,}[。？！]",
+    "message": "1 文が長い。80 字を超えたら 2 文に分ける",
+    "bad": "（81 字以上の 1 文）",
+    "good": "結論の文と、理由や条件の文に分ける"
+  },
+  {
+    "id": "clarity/many-commas",
+    "category": "clarity",
+    "level": "warning",
+    "default": true,
+    "pattern": "[^。？！\\n、]*(?:、[^。？！\\n、]*){4,}[。？！]",
+    "message": "読点が多い。1 文の読点は 3 つまでにして、多ければ文を分ける",
+    "bad": "まず、この画面は、注文を、順番に、表示します。",
+    "good": "まず、この画面は注文を順番に表示します。"
+  }
+]

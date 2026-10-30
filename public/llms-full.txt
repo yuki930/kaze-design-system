@@ -59,6 +59,79 @@ Add `data-density="compact"` to an ancestor (`<html>` or a panel) to tighten con
 - Marketing: the 12 landing-page components (AnnouncementBar, Navbar, Hero, Section, SplitSection, FeatureGrid, Stats, Pricing, Testimonial, FAQ, CTABanner, LPFooter). Import from `kaze-design-system/marketing` (also re-exported from the root).
 - Hooks: `kaze-design-system/hooks` (useFocusTrap, useLegendToggle; useTheme is also exported from the root).
 - JS tokens: `kaze-design-system/tokens`.
+- Writing guide and copy checker: `kaze-design-system/writing` (checkCopy, fixCopy, copyRules, writingGuide) and the `kaze-copy` CLI.
+
+## Writing Japanese UI copy
+
+Follow these rules when you write labels, messages and page copy for a Kaze UI. After writing, run `npx kaze-copy <paths>` (or `checkCopy(text)` from `kaze-design-system/writing`) and fix what it reports. `npx kaze-copy <paths> --fix` rewrites the mechanical ones. Words quoted in 「」 are treated as examples and skipped.
+
+### Principles
+
+- 何が起きるかを書く: ボタンやリンクは、押したあとに起きることを動詞で書く。「OK」「はい」「こちら」は、それだけでは意味が伝わらない。
+- 結論から、短く: 1 文に 1 つのことだけを書く。理由や条件は結論のあとに足す。
+- 誰が何をするかを書く: 主語と述語を対応させる。画面や機能に気持ちを持たせず、起きることをそのまま書く。「アプリが寄り添います」ではなく「毎朝 9 時に残高を通知します」。
+- 開いた言葉で: 硬い漢語や、副詞・接続詞の漢字をひらく。「容易です」より「かんたんです」、「可能です」より「できます」。
+- 同じものは同じ言葉で: 画面ごとに「完了」「終了」「済み」を混ぜない。ボタンの言葉と、押したあとの通知の言葉をそろえる。
+- 飾らない: 「次世代の」「革新的な」のような形容ではなく、数字か具体的な成果で書く。
+- 書いていないことを足さない: AI に文言を直させるときも、元にない数字・理由・効果を足さない。分からないところは推測で埋めず、書き手に確かめる。
+
+### Tone
+
+- 文末は「です」「ます」。お願いは「〜してください」まで
+- 「させていただきます」「ございます」のように敬語を重ねない
+- 読み手を「ユーザー様」「お客様」と呼ばない。主語はできるだけ省く
+- 「！」で強調しない。伝えたいことを言葉で書く
+- 読点は意味の切れ目にだけ打つ。「この画面は、」のように短い主語のあとで間を作らない
+- 1 文は 40 字前後を目安にし、80 字を超えたら分ける
+- 比喩でぼかさない。「解像度が上がる」「地味に効く」ではなく、何がどう変わるかを書く
+
+### Patterns by scene
+
+- ボタン: 押すと何が起きるかを動詞で書く。よい例「保存する」「招待を送る」 避ける例「OK」「実行」
+- 確認ダイアログ: 見出しで問い、ボタンは問いに対応する動詞にする。取り消せないときは本文に書く。よい例「このプロジェクトを削除しますか」「削除する / キャンセル」 避ける例「よろしいですか？」「はい / いいえ」
+- 完了の通知: 結果を過去形で短く。ボタンと同じ言葉を使う。よい例「保存しました」「招待を送りました」 避ける例「保存処理が正常に完了しました」
+- エラー: 何が起きたかと、どう直すかを書く。よい例「カードの有効期限が切れています。新しいカードを登録してください」 避ける例「エラーが発生しました」
+- 入力のエラー: どこが違うかと、正しい書き方を示す。よい例「@ を含むメールアドレスを入力してください」 避ける例「入力内容に誤りがあります」
+- 空の状態: 状態を言い切り、次の行動をボタンで示す。よい例「プロジェクトはまだありません」「プロジェクトを作成する」 避ける例「データがありません」
+- 読み込み中: いま何をしているかを進行形で書く。よい例「画像をアップロードしています」 避ける例「しばらくお待ちください」
+- 入力欄のラベル: 名詞で書く。必須は文言に入れず、部品の required で示す。よい例「メールアドレス」 避ける例「メールアドレスを入力」「メールアドレス(必須)」
+- プレースホルダー: 入力例にとどめる。ラベルの繰り返しや説明は書かない。よい例「例: 相楽 実咲」 避ける例「お名前を入力してください」
+- リンク: 行き先か結果が分かる言葉にする。よい例「料金プランを見る」「請求書の設定」 避ける例「詳しくはこちら」
+- LP の見出し: 読み手が得るものを 1 文で言い切る。形容ではなく数字や成果を入れる。よい例「請求から入金確認まで、1 つの画面で終わる」 避ける例「次世代の請求管理プラットフォーム」
+- 説明の箇条書き: 太字のラベルとコロンで始めず、ラベルの意味を文に入れる。よい例「部品を使い回せるので、画面を早く組めます」 避ける例「開発速度の向上: 部品を使い回せます」
+
+### Rules (id, level, avoid → write)
+
+- `notation/em-dash` error: 「—」は使わない。読点、括弧、体言止めで区切る。「設定はかんたん — すぐに始められます」→「設定はかんたんで、すぐに始められます」
+- `notation/fullwidth-alnum` error: 英数字は半角で書く。「ｖ１．３を公開しました」→「v1.3 を公開しました」
+- `notation/halfwidth-kana` error: カタカナは全角で書く。「ﾃﾞｰﾀを書き出す」→「データを書き出す」
+- `notation/punctuation` error: 句読点は「、」と「。」を使う。「保存しました．」→「保存しました。」
+- `notation/ellipsis` error: 省略は「…」を使う。「読み込み中...」→「読み込み中…」
+- `notation/wave-dash` error: 範囲の「〜」は波ダッシュ（〜）を使う。「1～3 営業日」→「1〜3 営業日」
+- `notation/parentheses` error: 日本語を囲む括弧は全角（）を使い、前後にスペースを入れない。「金額 (税込) は」→「金額（税込）は」
+- `notation/fullwidth-space` warning: 全角スペースで位置をそろえない。間をあけるなら半角スペース、そろえるなら CSS で。「氏名　相楽 実咲」→「氏名 相楽 実咲」
+- `notation/exclamation` warning: 「！」で強調しない。伝えたいことを言葉で書く。「保存しました！」→「保存しました」
+- `notation/latin-spacing` warning: 英単語と日本語のあいだに半角スペースを入れる。「Kazeを使う」→「Kaze を使う」
+- `notation/number-spacing-tight` warning (off by default): 数字と日本語のあいだにスペースを入れない。「12 席」→「12席」
+- `notation/number-spacing-loose` warning: 数字と日本語のあいだに半角スペースを入れる。「12席」→「12 席」
+- `notation/long-vowel` warning: 技術用語の語末に長音を付けない（ブラウザ、パラメータ）。ユーザー、サーバー、メンバーのように定着した語はそのまま。「ブラウザーで開く」→「ブラウザで開く」
+- `notation/heading-emoji` error: 見出しに絵文字を使わない。「## 🚀 はじめに」→「## はじめに」
+- `plain/kantan` warning: 「容易」「簡単」は「かんたん」と開く。「導入は容易です」→「導入はかんたんです」
+- `plain/kanji-to-kana` warning: 副詞・接続詞・補助動詞はひらがなで書く。「全ての設定を保存して下さい」→「すべての設定を保存してください」
+- `plain/koto-toki` warning: 形式名詞の「事」「時」は「こと」「とき」と開く。「保存した時は通知します」→「保存したときは通知します」
+- `plain/dekiru` warning: 「〜できます」と短く書く。「CSV で書き出すことが可能です」→「CSV で書き出せます」
+- `plain/keigo` warning: 敬語を重ねない。「〜します」「〜です」で言い切る。「メールを送信させていただきます」→「メールを送ります」
+- `plain/stiff-verbs` warning: 硬い漢語の動詞を避ける。「用意しています」「します」「使えます」のように書く。「テンプレートを提供します」→「テンプレートを用意しています」
+- `clarity/link-kochira` warning: 「こちら」ではなく、行き先や結果が分かる言葉にする。「詳しくはこちら」→「料金プランを見る」
+- `clarity/vague-error` warning: 何が起きて、どう直せばよいかを書く。「エラーが発生しました」→「カードの有効期限が切れています。新しいカードを登録してください」
+- `clarity/vague-wait` warning: 待たせる理由を書く。「保存しています」のように、いま何をしているかを伝える。「しばらくお待ちください」→「画像をアップロードしています」
+- `clarity/hype` warning: 形容で飾らない。数字か具体的な成果で書く。「次世代の請求管理」→「請求から入金確認まで、1 つの画面で終わる」
+- `ai/closing` warning: 中身のない決まり文句。消すか、言いたいことをそのまま書く。「いかがでしたでしょうか。ぜひ参考にしてみてください」→「（結びの定型は書かない）」
+- `ai/preface` warning: 前置きを外して、結論の文から書き始める。「重要なのは、設定を保存することです」→「設定を保存してください」
+- `ai/metaphor` warning: 比喩でぼかさない。何がどう変わるかを、ふだんの言葉で書く。「チームの解像度が上がります」→「チームが同じ画面を見て判断できます」
+- `ai/buzzword` warning: 決まり文句で飾らない。何ができるようになるかを書く。画面や機能に気持ちを持たせない。「シームレスな体験を提供します」→「ログインし直さずに請求書を開けます」
+- `clarity/long-sentence` warning: 1 文が長い。80 字を超えたら 2 文に分ける。「（81 字以上の 1 文）」→「結論の文と、理由や条件の文に分ける」
+- `clarity/many-commas` warning: 読点が多い。1 文の読点は 3 つまでにして、多ければ文を分ける。「まず、この画面は、注文を、順番に、表示します。」→「まず、この画面は注文を順番に表示します。」
 
 ## Components
 
@@ -113,7 +186,7 @@ Related: fab, dialog, tooltip, dropdown
   - ボタンのサイズ
 - `fullWidth?`: `boolean`
   - Default: `false`
-  - 幅を100%にするかどうか
+  - 幅を 100%にするかどうか
 - `iconOnly?`: `boolean`
   - Default: `false`
   - アイコンのみのボタンにするかどうか
@@ -243,7 +316,7 @@ Related: form-field, textarea, number-field, date-picker, combobox
   - ID of the element that describes this input (e.g. error or helper text)
 - `className?`: `string`
   - Default: `undefined`
-  - 追加のCSSクラス名
+  - 追加の CSS クラス名
 
 **Usage**
 
@@ -388,14 +461,14 @@ Related: combobox, radio, segmented-control, dropdown, form-field
   - Default: `false`
   - エラー状態を表示するかどうか
 - `children?`: `React.ReactNode`
-  - optionエレメント
+  - option エレメント
 
 **Usage**
 
 ```tsx
 <Select>
-  <option>選択肢1</option>
-  <option>選択肢2</option>
+  <option>選択肢 1</option>
+  <option>選択肢 2</option>
 </Select>
 ```
 
@@ -490,14 +563,14 @@ const options = [
 
 #### DatePicker
 
-日付入力とカレンダーのポップオーバー（WAI-ARIA の Date Picker Dialog）。値は "YYYY-MM-DD" の文字列で、Date のタイムゾーンずれが起きません。era="japanese" で「令和8年10月29日」の和暦表示になり、入力は 2026/10/29・20261029・令和8年10月29日・R8.10.29・全角数字を受け付けます。祝日データは持たないので、休業日などは isDateDisabled で渡します。
+日付入力とカレンダーのポップオーバー（WAI-ARIA の Date Picker Dialog）。値は "YYYY-MM-DD" の文字列で、Date のタイムゾーンずれが起きません。era="japanese" で「令和8年10月29日」の和暦表示になり、入力は 2026/10/29・20261029・「令和8年10月29日」・R8.10.29・全角数字を受け付けます。祝日データは持たないので、休業日などは isDateDisabled で渡します。
 
 Docs: https://kaze-design-system.vercel.app/docs/components/date-picker
 
 **使う場面**
 
 - 誕生日、締切日、利用開始日など、カレンダーから選べる日付 1 つ
-- 和暦（令和8年10月29日）で入力・表示したい日本向けのフォーム。era="japanese" で切り替える
+- 和暦（「令和8年10月29日」）で入力・表示したい日本向けのフォーム。era="japanese" で切り替える
 - 休業日や過去日を選べなくしたいとき。min / max は範囲、isDateDisabled は個別の日に使う
 
 **使わない場面**
@@ -528,7 +601,7 @@ Docs: https://kaze-design-system.vercel.app/docs/components/date-picker
 
 **文言**
 
-- 入力できる形式を description に書く。受け付けるのは 2026/10/29、2026-10-29、20261029、令和8年10月29日、R8.10.29 など
+- 入力できる形式を description に書く。受け付けるのは 2026/10/29、2026-10-29、20261029、「令和8年10月29日」、R8.10.29 など
 - value と name で送られる値は、和暦の設定でも常に YYYY-MM-DD（西暦）。サーバーで和暦を扱わなくてよい
 - 不正な日付のエラーは「日付を 2026/10/29 の形式で入力してください」のように、書き方を示す
 
@@ -562,7 +635,7 @@ field is emptied or holds text that is not a selectable date.
   - Default: `false`
   - カレンダーの初期の開閉（非制御）
 - `onOpenChange?`: `(open: boolean) => void`
-  - カレンダーの開閉が変わる時のコールバック
+  - カレンダーの開閉が変わるときのコールバック
 - `name?`: `string`
   - Submitted through a hidden input as "YYYY-MM-DD" (empty string when no date)
 - `size?`: `"sm" | "md"`
@@ -582,7 +655,7 @@ field is emptied or holds text that is not a selectable date.
   - Default: `"前の月" / "次の月"`
   - 月送りボタンのラベル
 - `aria-invalid?`: `boolean | 'true' | 'false'`
-  - true で Input と同じエラー表示。解釈できない日付を入力した時は自動で true になる。FormField の error からも渡される
+  - true で Input と同じエラー表示。解釈できない日付を入力したときは自動で true になる。FormField の error からも渡される
 
 **Usage**
 
@@ -652,7 +725,7 @@ Related: switch, radio, filter-pill, form-field
 - `onChange?`: `(e: ChangeEvent) => void`
   - 変更時のコールバック
 - `id?`: `string`
-  - 要素のID（labelとの紐付けに使用）
+  - 要素の ID（label との紐付けに使用）
 
 **Usage**
 
@@ -715,8 +788,8 @@ Related: select, segmented-control, checkbox, form-field
 
 ```tsx
 <RadioGroup label="選択肢">
-  <Radio label="選択肢A" name="choice" value="a" />
-  <Radio label="選択肢B" name="choice" value="b" />
+  <Radio label="選択肢 A" name="choice" value="a" />
+  <Radio label="選択肢 B" name="choice" value="b" />
 </RadioGroup>
 ```
 
@@ -765,7 +838,7 @@ Related: input, form-field
   - エラー状態を表示するかどうか
 - `className?`: `string`
   - Default: `undefined`
-  - 追加のCSSクラス名
+  - 追加の CSS クラス名
 
 **Usage**
 
@@ -1133,7 +1206,7 @@ Related: status-badge, filter-pill, alert, table
   - 意味色（旧 variant）
 - `dot?`: `boolean`
   - Default: `false`
-  - ドットインジケーターを表示するかどうか
+  - ドットインジケータを表示するかどうか
 - `solid?`: `boolean`
   - Default: `false`
   - Solid (inverted) style: filled background with white text
@@ -1185,7 +1258,7 @@ Related: badge, metric, alert, skeleton, tracker
   - Overrides the default label for the given status
 - `dot?`: `boolean`
   - Default: `true`
-  - ドットインジケーターを表示するかどうか
+  - ドットインジケータを表示するかどうか
 
 **Usage**
 
@@ -1367,7 +1440,7 @@ Related: badge, list, dropdown, logo
   - Default: `"md"`
   - アバターのサイズ
 - `src?`: `string`
-  - アバター画像のURL
+  - アバター画像の URL
 - `alt?`: `string`
   - 画像の代替テキスト
 - `fallback?`: `string`
@@ -1597,7 +1670,7 @@ Related: bar-list, column-chart, donut-chart, category-bar, chart-legend
 
 #### DonutChart
 
-SVGベースのドーナツチャート。凡例とセンターラベル付き。
+SVG ベースのドーナツチャート。凡例とセンターラベル付き。
 
 Docs: https://kaze-design-system.vercel.app/docs/components/donut-chart
 
@@ -1633,7 +1706,7 @@ Related: category-bar, bar-chart, chart-legend, metric
   - { label, value, color? } の配列
 - `size?`: `number`
   - Default: `120`
-  - SVGのサイズ（px）
+  - SVG のサイズ（px）
 - `strokeWidth?`: `number`
   - Default: `16`
   - リングの太さ
@@ -1692,10 +1765,10 @@ Related: metric, line-chart, table, tracker
   - 数値の配列
 - `width?`: `number`
   - Default: `80`
-  - SVGの幅
+  - SVG の幅
 - `height?`: `number`
   - Default: `24`
-  - SVGの高さ
+  - SVG の高さ
 - `color?`: `string`
   - Default: `var(--chart-emerald)`
   - 線の色
@@ -1803,8 +1876,8 @@ Related: column-chart, sparkline, chart-legend, bar-chart, heatmap
   aria-label="月別の売上と利用者数"
   index="month"
   data={[
-    { month: "4月", sales: 320, users: 210 },
-    { month: "5月", sales: 340, users: 230 },
+    { month: "4 月", sales: 320, users: 210 },
+    { month: "5 月", sales: 340, users: 230 },
   ]}
   series={[
     { key: "sales", label: "売上（万円）" },
@@ -1902,8 +1975,8 @@ Related: line-chart, bar-chart, chart-legend, table, donut-chart
   index="month"
   layout="stacked"
   data={[
-    { month: "4月", web: 420, app: 310 },
-    { month: "5月", web: 380, app: 340 },
+    { month: "4 月", web: 420, app: 310 },
+    { month: "5 月", web: 380, app: 340 },
   ]}
   series={[
     { key: "web", label: "Web" },
@@ -1914,7 +1987,7 @@ Related: line-chart, bar-chart, chart-legend, table, donut-chart
 
 #### Heatmap
 
-2次元の密度を単一色相の濃淡で見せるヒートマップ。曜日×時間帯などの行×列（matrix）と、日別カレンダー（calendar）に対応。
+2 次元の密度を単一色相の濃淡で見せるヒートマップ。曜日×時間帯などの行×列（matrix）と、日別カレンダー（calendar）に対応。
 
 Docs: https://kaze-design-system.vercel.app/docs/components/heatmap
 
@@ -2015,7 +2088,7 @@ Related: column-chart, line-chart, tracker, table
 
 #### CategoryBar
 
-構成比を1本の帯で見せるコンポーネント。予算消化やストレージ使用量の内訳、NPS の分布に。
+構成比を 1 本の帯で見せるコンポーネント。予算消化やストレージ使用量の内訳、NPS の分布に。
 
 Docs: https://kaze-design-system.vercel.app/docs/components/category-bar
 
@@ -2192,7 +2265,7 @@ Related: toast, dialog, form-field, empty-state, badge
 
 ```tsx
 <Alert tone="info" icon={<Info size={18} />}>
-  新しいバージョンが利用可能です。
+  新しいバージョンを使えます。
 </Alert>
 <Alert tone="positive" icon={<CheckCircle size={18} />}>
   データが正常に保存されました。
@@ -2254,7 +2327,7 @@ Related: meter, stepper, skeleton, toast
 **Usage**
 
 ```tsx
-<Progress value={72} label="アップロード中..." showValue />
+<Progress value={72} label="アップロード中…" showValue />
 <Progress value={45} tone="warning" size="lg" />
 ```
 
@@ -2267,7 +2340,7 @@ Docs: https://kaze-design-system.vercel.app/docs/components/meter
 **使う場面**
 
 - ストレージ、API の呼び出し回数、予算など、上限に対して今どれだけ使っているか
-- warningThreshold（既定 0.7）と dangerThreshold（既定 0.9）を超えると、色が positive から warning、negative に変わる。しきい値は 0 から 1 の割合で渡す
+- warningThreshold（既定 0.7）を超えると warning の色になる。dangerThreshold（既定 0.9）を超えると negative の色になる。しきい値は 0 から 1 の割合で渡す
 - min と max で範囲を指定できる。showValue は「value / max」の形で表示する
 
 **使わない場面**
@@ -2369,7 +2442,7 @@ Related: progress, spinner, empty-state, card, table
 
 #### EmptyState
 
-データが存在しない場合に表示する空状態コンポーネント。sm / md / lg の3サイズに対応し、テーブルセル内の小さな表示からページ全体の大きな表示まで使い分けられます。role="status" が自動付与されます。
+データが存在しない場合に表示する空状態コンポーネント。sm / md / lg の 3 サイズに対応し、テーブルセル内の小さな表示からページ全体の大きな表示まで使い分けられます。role="status" が自動付与されます。
 
 Docs: https://kaze-design-system.vercel.app/docs/components/empty-state
 
@@ -2663,7 +2736,7 @@ Related: segmented-control, stepper, sidebar, disclosure
 - `defaultValue?`: `string`
   - 初期選択のタブ（TabGroup。非制御）
 - `onValueChange?`: `(value: string) => void`
-  - 選択が変わる時のコールバック（TabGroup）
+  - 選択が変わるときのコールバック（TabGroup）
 - `asChild?`: `boolean`
   - Default: `false`
   - 子要素（リンクなど）にタブの振る舞いを委ねる（Tab）
@@ -2675,11 +2748,11 @@ Related: segmented-control, stepper, sidebar, disclosure
 ```tsx
 <TabGroup defaultValue="a">
   <Tabs>
-    <Tab value="a">タブ1</Tab>
-    <Tab value="b">タブ2</Tab>
+    <Tab value="a">タブ 1</Tab>
+    <Tab value="b">タブ 2</Tab>
   </Tabs>
-  <TabPanel value="a">内容1</TabPanel>
-  <TabPanel value="b">内容2</TabPanel>
+  <TabPanel value="a">内容 1</TabPanel>
+  <TabPanel value="b">内容 2</TabPanel>
 </TabGroup>
 ```
 
@@ -3173,7 +3246,7 @@ Related: drawer, toast, alert, popover, button
 
 #### Drawer
 
-画面の端から出るモーダルパネル。Dialog と同じ挙動（フォーカストラップ・背景の inert 化・スクロールロック・Escape・背景クリック・閉じアニメ・フォーカス復帰）で、フィルターや詳細表示のように一覧を見たまま操作したい場面に向きます。モバイル幅では side="bottom"（ボトムシート）を推奨します。
+画面の端から出るモーダルパネル。フォーカストラップ・背景の inert 化・スクロールロック・Escape や背景クリックで閉じる動き・フォーカス復帰は、Dialog と同じです。フィルターや詳細表示のように、一覧を見たまま操作したい場面に向きます。モバイル幅では side="bottom"（ボトムシート）を推奨します。
 
 Docs: https://kaze-design-system.vercel.app/docs/components/drawer
 
@@ -3326,7 +3399,7 @@ Docs: https://kaze-design-system.vercel.app/docs/components/popover
 
 **使う場面**
 
-- ボタンやリンク、入力欄など、操作できる中身を、クリックで開く小さなパネルに入れる（フィルター、簡単な設定、日付の選択）
+- ボタンやリンク、入力欄など、操作できる中身を、クリックで開く小さなパネルに入れる（フィルター、かんたんな設定、日付の選択）
 - PopoverTrigger と PopoverContent を Popover で包み、中の閉じるボタンには PopoverClose を使う
 - side（既定 "bottom"）と align で出る位置を決める。画面の端では反対側に切り替わる。anchorRef で別の要素に寄せられる
 
@@ -3363,7 +3436,7 @@ Related: tooltip, help-button, dialog, dropdown, date-picker
   - Default: `false`
   - Initial open state (uncontrolled)
 - `onOpenChange?`: `(open: boolean) => void`
-  - 開閉が変わる時のコールバック
+  - 開閉が変わるときのコールバック
 - `PopoverTrigger.asChild?`: `boolean`
   - Default: `false`
   - 子要素をそのままトリガーにする。aria-expanded / aria-controls / aria-haspopup="dialog" が注入される
@@ -3404,7 +3477,7 @@ import { Button, Popover, PopoverClose, PopoverContent, PopoverTrigger } from "k
 
 #### HelpButton
 
-ラベルの横に配置する「?」ボタン。クリックで詳細説明の popover が開きます。outside click / ESC キーで閉じ、Portal でレンダリングされるためスクロールや z-index の影響を受けません。Tooltip（ホバー起動・一時表示）と異なり、クリックで開閉する永続モードを提供します。
+ラベルの横に配置する「?」ボタン。クリックで詳細説明の popover が開きます。outside click / ESC キーで閉じ、Portal でレンダリングされるためスクロールや z-index の影響を受けません。Tooltip（ホバー起動・一時表示）と異なり、クリックで開閉する永続モードもあります。
 
 Docs: https://kaze-design-system.vercel.app/docs/components/help-button
 
@@ -3466,8 +3539,8 @@ Related: tooltip, popover, form-field, disclosure
 **Usage**
 
 ```tsx
-<HelpButton title="AI系リファラルの判定ロジック">
-  <p>GA4 の sessionSource に以下のドメインが含まれる場合...</p>
+<HelpButton title="AI 系リファラルの判定ロジック">
+  <p>GA4 の sessionSource に以下のドメインが含まれる場合…</p>
   <ul>
     <li>chatgpt.com</li>
     <li>perplexity.ai</li>
@@ -3544,8 +3617,8 @@ Related: select, popover, button, dialog
     <Button>メニュー</Button>
   </DropdownTrigger>
   <DropdownMenu>
-    <DropdownItem>項目1</DropdownItem>
-    <DropdownItem>項目2</DropdownItem>
+    <DropdownItem>項目 1</DropdownItem>
+    <DropdownItem>項目 2</DropdownItem>
   </DropdownMenu>
 </Dropdown>
 ```
@@ -3602,7 +3675,7 @@ Related: search, dialog, dropdown, combobox
 - `commands`: `Command[]`
   - コマンドの配列 { id, label, icon?, group?, onSelect }
 - `placeholder?`: `string`
-  - Default: `"コマンドを検索..."`
+  - Default: `"コマンドを検索…"`
   - 検索入力のプレースホルダー
 - `searchLabel?`: `string`
   - Accessible label for the search input (default: "コマンド検索")
@@ -3850,7 +3923,7 @@ Related: input, command-palette, combobox, topbar, empty-state
 **Usage**
 
 ```tsx
-<Search placeholder="検索..." shortcut="⌘K" onSearch={handleSearch} />
+<Search placeholder="検索…" shortcut="⌘K" onSearch={handleSearch} />
 ```
 
 #### Logo
@@ -3862,7 +3935,7 @@ Docs: https://kaze-design-system.vercel.app/docs/components/logo
 **使う場面**
 
 - Navbar、Sidebar、LPFooter の先頭に置くブランド表示
-- 狭い場所や既にサービス名が見える場所では showText={false} でマークだけにする
+- 狭い場所やすでにサービス名が見える場所では showText={false} でマークだけにする
 - size は sm、md、lg の 3 つ。ナビゲーションは md、LP の大きな見出し周りは lg
 
 **使わない場面**
@@ -3946,7 +4019,7 @@ import { Icon } from "kaze-design-system";
 
 #### Heading
 
-セマンティックな見出しコンポーネント。レベル1〜6、説明テキスト、ボーダー付きに対応。
+セマンティックな見出しコンポーネント。レベル 1〜6、説明テキスト、ボーダー付きに対応。
 
 Docs: https://kaze-design-system.vercel.app/docs/components/heading
 
@@ -3968,7 +4041,7 @@ Docs: https://kaze-design-system.vercel.app/docs/components/heading
 
 - スクリーンリーダー利用者は見出し一覧から目的の節へ移動する。ページ全体で h1、h2、h3 の順に入れ子になっているかを確認する
 - level の既定は 2。ページの最上位に置くなら level={1} を明示する
-- Section 内の SectionHeader は h2、FeatureCard と PricingCard は h3、LPFooter の列見出しは h4 を出力する。これらの下や前後に Heading を置くときは階層を合わせる
+- Section 内の SectionHeader は h2 を出力する。FeatureCard と PricingCard は h3、LPFooter の列見出しは h4 を出力する。これらの下や前後に Heading を置くときは階層を合わせる
 
 **文言**
 
@@ -3983,7 +4056,7 @@ Related: text, section, hero, description-list
   - Default: `2`
   - 見出しレベル（サイズとセマンティクス）
 - `as?`: ``h${HeadingLevel}``
-  - レンダリングするHTML要素を上書き
+  - レンダリングする HTML 要素を上書き
 - `description?`: `ReactNode`
   - 見出し下の説明テキスト
 - `bordered?`: `boolean`
@@ -4054,7 +4127,7 @@ Related: heading, badge, description-list, form-field
 ```tsx
 <Text variant="lead">サービスの説明文がここに入ります。</Text>
 <Text>通常の本文テキスト。</Text>
-<Text variant="caption" color="muted">2024年1月1日 公開</Text>
+<Text variant="caption" color="muted">2024 年 1 月 1 日 公開</Text>
 <Text variant="overline">カテゴリ</Text>
 <Text weight="bold" color="primary">重要なテキスト</Text>
 ```
@@ -4201,8 +4274,8 @@ Related: description-list, table, timeline, avatar, dropdown
 
 {/* 番号付き */}
 <List marker="decimal">
-  <ListItem title="手順1" />
-  <ListItem title="手順2" />
+  <ListItem title="手順 1" />
+  <ListItem title="手順 2" />
 </List>
 ```
 
@@ -4492,7 +4565,7 @@ Related: announcement-bar, navbar, section, cta-banner, button, split-section
 - `overlay?`: `boolean | number`
   - Dark overlay opacity (0–1). true = 0.5. Useful for readability on images.
 - `children?`: `React.ReactNode`
-  - CTAボタンなどのアクション要素
+  - CTA ボタンなどのアクション要素
 
 **Usage**
 
@@ -4683,7 +4756,7 @@ Related: section, split-section, stats, card, icon
 
 {/* 主役を 1 つ、残りは脇に */}
 <FeatureGrid variant="spotlight">
-  <FeatureCard figure={<>23<small>KB</small></>} title="圧倒的な軽量さ" description="説明テキスト">
+  <FeatureCard figure={<>23<small>KB</small></>} title="CSS だけで動く" description="説明テキスト">
     <pre><code>import "kaze-design-system/css/all";</code></pre>
   </FeatureCard>
   <FeatureCard title="デザイントークン" description="説明テキスト" />
@@ -4736,7 +4809,7 @@ Related: section, metric, feature-grid, testimonial
 
 ```tsx
 <Stats>
-  <StatItem value="24+" label="コンポーネント" description="UIライブラリに含まれる総数" />
+  <StatItem value="24+" label="コンポーネント" description="UI ライブラリに含まれる総数" />
   <StatItem value="100%" label="TypeScript" />
 </Stats>
 ```
@@ -4796,7 +4869,7 @@ Related: section, cta-banner, faq, table, button
 
 ```tsx
 <PricingGrid>
-  <PricingCard name="Pro" price="¥2,980" period="/月" features={["機能1", "機能2"]} featured badge="おすすめ">
+  <PricingCard name="Pro" price="¥2,980" period="/月" features={["機能 1", "機能 2"]} featured badge="おすすめ">
     <Button fullWidth>選択</Button>
   </PricingCard>
 </PricingGrid>
@@ -4844,7 +4917,7 @@ Related: section, stats, avatar, faq, cta-banner
 - `authorRole?`: `string`
   - 役職
 - `authorImage?`: `string`
-  - 著者画像URL
+  - 著者画像 URL
 - `showIcon?`: `boolean`
   - Show avatar or initials icon
 
@@ -4904,7 +4977,7 @@ Related: section, disclosure, pricing, cta-banner, hero
 - `answer?`: `string`
   - 回答テキスト（FAQItem）
 - `children?`: `React.ReactNode`
-  - 回答コンテンツ（FAQItem、answerの代替）
+  - 回答コンテンツ（FAQItem、answer の代替）
 
 **Usage**
 

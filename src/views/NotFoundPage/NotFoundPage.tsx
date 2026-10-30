@@ -20,7 +20,7 @@ export function NotFoundPage() {
         {/* EmptyState message */}
         <EmptyState
           title="お探しのページが見つかりません"
-          description="申し訳ございません。お探しのページは移動、削除されたか、URLが正しくない可能性があります。以下のリンクからお探しの情報にアクセスしてください。"
+          description="申し訳ございません。お探しのページは移動、削除されたか、URL が正しくない可能性があります。以下のリンクからお探しの情報にアクセスしてください。"
           actions={
             <div className={styles.actions}>
               <Button size="lg" onClick={() => (window.location.href = "/")}>

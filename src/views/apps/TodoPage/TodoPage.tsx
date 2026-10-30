@@ -248,7 +248,7 @@ export function TodoPage() {
         <div className={styles.addSection}>
           <Input
             ref={inputRef}
-            placeholder="新しいタスクを追加..."
+            placeholder="新しいタスクを追加…"
             value={newTodoText}
             onChange={(e) => setNewTodoText(e.target.value)}
             onKeyDown={handleKeyDown}

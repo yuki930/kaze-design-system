@@ -89,9 +89,9 @@ export function ImageLandingPage() {
           サイトのライト/ダーク切替に連動しないため、hero__title・
           hero__subtitle の文字色も styles.heroFixed で明示的に固定する。 */}
       <Hero
-        title={"暮らしを、\nデザインする。"}
+        title={"暮らしを、\n デザインする。"}
         subtitle={
-          "日本の美意識から生まれたプロダクトブランド KAZE。\n機能美と素材の質感にこだわった、上質な日常をお届けします。"
+          "日本の美意識から生まれたプロダクトブランド KAZE。\n 機能美と素材の質感にこだわった、上質な日常をお届けします。"
         }
         bg="linear-gradient(135deg, var(--zinc-950) 0%, var(--zinc-800) 40%, var(--zinc-700) 100%)"
         overlay={0.5}
@@ -268,7 +268,7 @@ export function ImageLandingPage() {
 
         <TestimonialGrid>
           <TestimonialCard
-            quote="KAZEのチェアに座ると、仕事への集中力が変わりました。見た目の美しさだけでなく、長時間座っても疲れない設計が素晴らしいです。"
+            quote="KAZE のチェアに座ると、仕事への集中力が変わりました。見た目の美しさだけでなく、長時間座っても疲れない設計が素晴らしいです。"
             authorName="呉羽 直樹"
             authorRole="建築デザイナー"
             showIcon
@@ -291,8 +291,8 @@ export function ImageLandingPage() {
       {/* ── CTA Section ───────────────────────────────────────── */}
       <Section size="lg">
         <CTABanner
-          title="あなたの日常に、KAZEを。"
-          description="オンラインストアで全コレクションをご覧いただけます。送料無料・30日間返品保証。"
+          title="あなたの日常に、KAZE を。"
+          description="オンラインストアで全コレクションをご覧いただけます。送料無料・30 日間返品保証。"
         >
           <Button size="lg">ストアへ行く</Button>
           <Button size="lg" variant="outline">

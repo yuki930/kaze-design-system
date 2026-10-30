@@ -88,7 +88,7 @@
   "logo": {
     "use": [
       "Navbar、Sidebar、LPFooter の先頭に置くブランド表示",
-      "狭い場所や既にサービス名が見える場所では showText={false} でマークだけにする",
+      "狭い場所やすでにサービス名が見える場所では showText={false} でマークだけにする",
       "size は sm、md、lg の 3 つ。ナビゲーションは md、LP の大きな見出し周りは lg"
     ],
     "avoid": [
@@ -139,7 +139,7 @@
     "a11y": [
       "スクリーンリーダー利用者は見出し一覧から目的の節へ移動する。ページ全体で h1、h2、h3 の順に入れ子になっているかを確認する",
       "level の既定は 2。ページの最上位に置くなら level={1} を明示する",
-      "Section 内の SectionHeader は h2、FeatureCard と PricingCard は h3、LPFooter の列見出しは h4 を出力する。これらの下や前後に Heading を置くときは階層を合わせる"
+      "Section 内の SectionHeader は h2 を出力する。FeatureCard と PricingCard は h3、LPFooter の列見出しは h4 を出力する。これらの下や前後に Heading を置くときは階層を合わせる"
     ],
     "writing": [
       "見出しだけを読んで、その節に何が書いてあるか分かるようにする。「概要」より「請求書の発行方法」",

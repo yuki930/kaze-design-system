@@ -59,7 +59,7 @@ const popularArticles = [
   { title: "二要素認証を有効にする", badge: null, badgeVariant: "default" as const },
   { title: "プランをアップグレードする方法", badge: null, badgeVariant: "default" as const },
   { title: "チームメンバーを招待する", badge: "人気", badgeVariant: "info" as const },
-  { title: "APIキーを発行・管理する", badge: null, badgeVariant: "default" as const },
+  { title: "API キーを発行・管理する", badge: null, badgeVariant: "default" as const },
   { title: "請求書をダウンロードする", badge: null, badgeVariant: "default" as const },
   { title: "Webhook の設定方法", badge: "NEW", badgeVariant: "positive" as const },
   { title: "データのエクスポート方法", badge: null, badgeVariant: "default" as const },
@@ -67,11 +67,11 @@ const popularArticles = [
 
 const recentArticles = [
   {
-    title: "2026年2月のアップデート：ダッシュボード改善",
+    title: "2026 年 2 月のアップデート：ダッシュボード改善",
     badge: "NEW",
     badgeVariant: "positive" as const,
   },
-  { title: "Slack連携の設定手順が変わりました", badge: "更新", badgeVariant: "warning" as const },
+  { title: "Slack 連携の設定手順が変わりました", badge: "更新", badgeVariant: "warning" as const },
   { title: "新しい権限モデルについて", badge: "NEW", badgeVariant: "positive" as const },
   { title: "モバイルアプリ v2.0 リリースノート", badge: null, badgeVariant: "default" as const },
 ];
@@ -207,7 +207,7 @@ export function HelpPage() {
                 チャットサポート
               </Text>
               <Text variant="caption">
-                平日 9:00〜18:00 にリアルタイムでお答えします。平均応答時間は3分です。
+                平日 9:00〜18:00 にリアルタイムでお答えします。平均応答時間は 3 分です。
               </Text>
               <Button size="sm">チャットを開始</Button>
             </CardBody>
@@ -220,7 +220,7 @@ export function HelpPage() {
               <Text as="div" size="sm" weight="semibold">
                 メールサポート
               </Text>
-              <Text variant="caption">24時間受付。通常1営業日以内にご返信いたします。</Text>
+              <Text variant="caption">24 時間受付。通常 1 営業日以内にご返信いたします。</Text>
               <Button size="sm" variant="outline">
                 メールを送る
               </Button>

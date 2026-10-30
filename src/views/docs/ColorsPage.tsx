@@ -414,12 +414,12 @@ export function ColorsPage() {
     <div>
       <h1 className={styles.pageTitle}>カラー</h1>
       <p className={styles.pageDescription}>
-        Kaze のカラーシステムは 3層構造で設計されています。12色×10階調のプリミティブパレット、
+        Kaze のカラーシステムは 3 層構造で設計されています。12 色×10 階調のプリミティブパレット、
         温かみのあるニュートラルグレースケール（`zinc-*`）、そしてテーマ対応のセマンティックトークン。
       </p>
 
       {/* ── Palette ────────────────────────────────────────── */}
-      <h2 className={styles.sectionTitle}>カラーパレット（12色×10階調）</h2>
+      <h2 className={styles.sectionTitle}>カラーパレット（12 色×10 階調）</h2>
       <p
         style={{
           fontSize: "var(--font-size-sm)",
@@ -428,7 +428,7 @@ export function ColorsPage() {
         }}
       >
         チャート、イラスト、装飾背景、ステータスカラーの基盤となるプリミティブパレット。 各色
-        50〜900 の10段階。ホバーで shade 番号を表示します。
+        50〜900 の 10 段階。ホバーで shade 番号を表示します。
       </p>
 
       {/* Shade header */}
@@ -505,7 +505,7 @@ export function ColorsPage() {
         }}
       >
         Sand-tinted な暖かいグレースケール。セマンティックカラー（bg / fg / border 等）の基盤です。
-        11段階（50〜950）。
+        11 段階（50〜950）。
       </p>
       <div className={styles.tokenGrid}>
         {zincScale.map((c) => (
@@ -538,7 +538,7 @@ export function ColorsPage() {
       />
       <SemanticSection
         title="前景色（テキスト）"
-        description="テキストやアイコンの色。プライマリ、セカンダリ、ミュートの3段階。"
+        description="テキストやアイコンの色。プライマリ、セカンダリ、ミュートの 3 段階。"
         colors={fgColors}
       />
       <SemanticSection
@@ -629,7 +629,7 @@ export function ColorsPage() {
         ))}
       </div>
 
-      <h3 className={styles.subsectionTitle}>Categorical（12色）</h3>
+      <h3 className={styles.subsectionTitle}>Categorical（12 色）</h3>
       <p
         style={{
           fontSize: "var(--font-size-sm)",

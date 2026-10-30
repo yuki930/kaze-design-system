@@ -5,10 +5,9 @@ export function UtilitiesPage() {
     <div>
       <h1 className={styles.pageTitle}>CSS ユーティリティ</h1>
       <p className={styles.pageDescription}>
-        Kaze は、素早い UI 開発のための包括的な CSS ユーティリティクラスを提供します。
-        これらの低レベルなユーティリティクラスを使えば、カスタム CSS
-        を書かずに自由なデザインを構築できます。 ユーティリティは自由に組み合わせることができ、Kaze
-        コンポーネントと併用できるように設計されています。
+        余白や配置、文字の大きさを、クラス名だけで整えるための CSS ユーティリティです。CSS
+        を書き足さなくても、画面の細かい調整ができます。Kaze
+        のコンポーネントと組み合わせて使えます。
       </p>
 
       {/* ============================================================
@@ -1015,7 +1014,7 @@ export function UtilitiesPage() {
             borderRadius: "4px",
           }}
         >
-          この文章はコンテナの幅を超えると省略記号で省略されます...
+          この文章はコンテナの幅を超えると省略記号で省略されます…
         </div>
         <p style={{ marginTop: "4px", fontSize: "12px", color: "var(--color-fg-tertiary)" }}>
           max-width を設定したコンテナに .truncate を適用
@@ -1443,7 +1442,7 @@ export function UtilitiesPage() {
             <td>
               <span className={styles.inlineCode}>.animate-spin</span>
             </td>
-            <td>360 度の連続回転アニメーション（ローディングインジケーターに最適）</td>
+            <td>360 度の連続回転アニメーション（ローディングインジケータに最適）</td>
           </tr>
           <tr>
             <td>
@@ -1480,7 +1479,7 @@ export function UtilitiesPage() {
 </div>
 
 <button class="animate-pulse">
-  読み込み中...
+  読み込み中…
 </button>
 
 <svg class="animate-spin" ...>

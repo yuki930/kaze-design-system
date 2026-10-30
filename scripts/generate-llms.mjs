@@ -25,6 +25,43 @@ const OVERVIEW_PAGE = path.join(root, "src/views/docs/ComponentsOverview.tsx");
 const PACKAGE_JSON = path.join(root, "package.json");
 const OUT_SHORT = path.join(root, "public/llms.txt");
 const OUT_FULL = path.join(root, "public/llms-full.txt");
+const writingRules = JSON.parse(fs.readFileSync(path.join(root, "src/writing/rules.json"), "utf8"));
+const writingGuide = JSON.parse(fs.readFileSync(path.join(root, "src/writing/guide.json"), "utf8"));
+
+/** The Japanese writing guide as markdown lines, shared by the docs page data. */
+function writingSection(pkgName) {
+  const lines = [];
+  lines.push("## Writing Japanese UI copy");
+  lines.push("");
+  lines.push(
+    `Follow these rules when you write labels, messages and page copy for a Kaze UI. After writing, run \`npx kaze-copy <paths>\` (or \`checkCopy(text)\` from \`${pkgName}/writing\`) and fix what it reports. \`npx kaze-copy <paths> --fix\` rewrites the mechanical ones. Words quoted in 「」 are treated as examples and skipped.`,
+  );
+  lines.push("");
+  lines.push("### Principles");
+  lines.push("");
+  for (const p of writingGuide.principles) lines.push(`- ${p.title}: ${p.body}`);
+  lines.push("");
+  lines.push("### Tone");
+  lines.push("");
+  for (const t of writingGuide.tone) lines.push(`- ${t}`);
+  lines.push("");
+  lines.push("### Patterns by scene");
+  lines.push("");
+  for (const p of writingGuide.patterns) {
+    lines.push(
+      `- ${p.scene}: ${p.rule}。よい例「${p.good.join("」「")}」 避ける例「${p.bad.join("」「")}」`,
+    );
+  }
+  lines.push("");
+  lines.push("### Rules (id, level, avoid → write)");
+  lines.push("");
+  for (const r of writingRules) {
+    const off = r.default ? "" : " (off by default)";
+    lines.push(`- \`${r.id}\` ${r.level}${off}: ${r.message}。「${r.bad}」→「${r.good}」`);
+  }
+  lines.push("");
+  return lines;
+}
 // Props table rendered on /docs/components/[name]; generated so it cannot drift from the types
 const OUT_PROPS = path.join(root, "src/views/docs/generated/props.json");
 const GUIDES_DIR = path.join(root, "src/views/docs/guidelines");
@@ -518,6 +555,9 @@ function main() {
   shortLines.push(
     `- [Interactive docs](${SITE_URL}/docs/components): live previews of every component`,
   );
+  shortLines.push(
+    `- [Writing guide](${SITE_URL}/docs/writing): how to write Japanese UI copy for Kaze. Check copy with \`npx kaze-copy <paths>\`; the full rules are in llms-full.txt`,
+  );
   shortLines.push("");
   shortLines.push("## Components");
   shortLines.push("");
@@ -624,7 +664,11 @@ function main() {
     `- Hooks: \`${pkg.name}/hooks\` (useFocusTrap, useLegendToggle; useTheme is also exported from the root).`,
   );
   fullLines.push(`- JS tokens: \`${pkg.name}/tokens\`.`);
+  fullLines.push(
+    `- Writing guide and copy checker: \`${pkg.name}/writing\` (checkCopy, fixCopy, copyRules, writingGuide) and the \`kaze-copy\` CLI.`,
+  );
   fullLines.push("");
+  fullLines.push(...writingSection(pkg.name));
   fullLines.push("## Components");
   fullLines.push("");
 

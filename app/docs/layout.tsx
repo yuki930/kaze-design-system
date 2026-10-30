@@ -54,6 +54,11 @@ const navSections: { title: string; items: NavItem[] }[] = [
         keywords: ["tokens", "余白", "角丸", "フォント"],
       },
       { href: "/docs/colors", label: "カラー", keywords: ["colors", "色", "パレット", "チャート"] },
+      {
+        href: "/docs/writing",
+        label: "文言ガイド",
+        keywords: ["writing", "文言", "コピー", "ライティング", "表記", "kaze-copy"],
+      },
     ],
   },
   {

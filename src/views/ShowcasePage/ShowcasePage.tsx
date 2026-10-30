@@ -78,7 +78,7 @@ interface SamplePage {
 const samplePages: SamplePage[] = [
   {
     title: "ダッシュボード",
-    description: "SaaS管理画面。データ可視化、チャート、主要指標の一覧。",
+    description: "SaaS 管理画面。データ可視化、チャート、主要指標の一覧。",
     href: "/dashboard",
     icon: <PieChart size={20} />,
     category: "SaaS",
@@ -126,7 +126,7 @@ const samplePages: SamplePage[] = [
     category: "認証",
   },
   {
-    title: "404エラー",
+    title: "404 エラー",
     description: "エラーページ。ページが見つかりません。",
     href: "/404",
     icon: <AlertTriangle size={20} />,
@@ -147,7 +147,7 @@ const samplePages: SamplePage[] = [
     category: "SaaS",
   },
   {
-    title: "EC管理画面",
+    title: "EC 管理画面",
     description: "コマース管理。注文、売上、在庫、顧客。",
     href: "/ec-dashboard",
     icon: <ShoppingCart size={20} />,
@@ -168,7 +168,7 @@ const samplePages: SamplePage[] = [
     category: "マーケティング",
   },
   {
-    title: "Todoアプリ",
+    title: "Todo アプリ",
     description: "タスク管理。フィルター、優先度、進捗表示。",
     href: "/todo",
     icon: <CheckSquare size={20} />,
@@ -189,7 +189,7 @@ const samplePages: SamplePage[] = [
     category: "アプリ",
   },
   {
-    title: "SaaS統計",
+    title: "SaaS 統計",
     description: "統計セクション。ドーナツチャート、数値カード、背景色切替。",
     href: "/saas-stats",
     icon: <BarChart3 size={20} />,
@@ -204,21 +204,21 @@ const samplePages: SamplePage[] = [
   },
   {
     title: "注文確認メール",
-    description: "HTMLメール。注文明細、お届け先、合計金額。",
+    description: "HTML メール。注文明細、お届け先、合計金額。",
     href: "/examples/email-order-confirmation.html",
     icon: <Package size={20} />,
     category: "メール",
   },
   {
     title: "ウェルカムメール",
-    description: "HTMLメール。会員登録完了、クーポン、ガイド。",
+    description: "HTML メール。会員登録完了、クーポン、ガイド。",
     href: "/examples/email-welcome.html",
     icon: <PartyPopper size={20} />,
     category: "メール",
   },
   {
     title: "ニュースレター",
-    description: "HTMLメール。特集記事、おすすめ商品、SNSリンク。",
+    description: "HTML メール。特集記事、おすすめ商品、SNS リンク。",
     href: "/examples/email-newsletter.html",
     icon: <Newspaper size={20} />,
     category: "メール",
@@ -236,10 +236,10 @@ interface ComponentCategory {
 }
 
 /* Kaze は Foundation → Application UI → Marketing の3層構成（1パッケージ・3レイヤー）。
-   Foundation は共有前提のためカード化しない。ここでは Application UI 8カテゴリ /
-   Marketing 1カタログの2層で見せる。データ可視化系(データ表示・チャート)だけ
+   Foundation は共有前提のためカード化しない。ここでは Application UI 8 カテゴリ /
+   Marketing 1 カタログの 2 層で見せる。データ可視化系（データ表示・チャート）だけ
    単一アクセントで強調し、残りはニュートラルトーンに統一する。
-   内訳は docs の ComponentsOverview の分類（計73）と一致させる。 */
+   内訳は docs の ComponentsOverview の分類（計 73）と一致させる。 */
 const componentCategories: ComponentCategory[] = [
   {
     name: "フォーム",
@@ -461,9 +461,9 @@ export function ShowcasePage() {
                 </div>
                 <div className={styles.statsCardNumber}>78</div>
                 <Text size="sm" color="muted">
-                  9カテゴリのコンポーネントで
+                  9 カテゴリのコンポーネントで
                   <br />
-                  あらゆるUIを構築できます。
+                  あらゆる UI を構築できます。
                 </Text>
               </div>
               <div className={styles.statsCardChart}>
@@ -492,7 +492,7 @@ export function ShowcasePage() {
                 </div>
                 <div className={styles.statsCardNumber}>{samplePages.length}</div>
                 <Text size="sm" color="muted">
-                  ダッシュボードからLP、メールまで
+                  ダッシュボードから LP、メールまで
                   <br />
                   実践的なサンプルを収録。
                 </Text>
@@ -528,8 +528,8 @@ export function ShowcasePage() {
                 </div>
                 <div className={styles.statsCardNumber}>12×10</div>
                 <Text size="sm" color="muted">
-                  12色相 × 10階調のカラーパレットに、温かみのあるニュートラルグレーの
-                  11段階。テーマを切り替えると配色が自動で変わります。
+                  12 色相 × 10 階調のカラーパレットに、温かみのあるニュートラルグレーの 11
+                  段階。テーマを切り替えると配色が自動で変わります。
                 </Text>
               </div>
               <div className={styles.statsCardChart}>
@@ -562,14 +562,14 @@ export function ShowcasePage() {
                       className={styles.miniLegendDot}
                       style={{ background: "var(--chart-blue)" }}
                     />
-                    <span>12色相 × 10階調</span>
+                    <span>12 色相 × 10 階調</span>
                   </div>
                   <div className={styles.miniLegendItem}>
                     <span
                       className={styles.miniLegendDot}
                       style={{ background: "var(--color-fg-tertiary)" }}
                     />
-                    <span>ニュートラル 11段階</span>
+                    <span>ニュートラル 11 段階</span>
                   </div>
                 </div>
               </div>
@@ -615,9 +615,9 @@ export function ShowcasePage() {
           <div className={styles.sectionHeading}>
             <Heading
               level={2}
-              description="Foundation の上に、Application UI と Marketing の2つのカタログを揃えています。"
+              description="Foundation の上に、Application UI と Marketing の 2 つのカタログを揃えています。"
             >
-              78のコンポーネント
+              78 のコンポーネント
             </Heading>
           </div>
 
@@ -724,7 +724,7 @@ export function ShowcasePage() {
           </a>
           <a href={REPO_URL} target="_blank" rel="noreferrer">
             <Button size="lg" variant="outline">
-              GitHubで見る
+              GitHub で見る
             </Button>
           </a>
         </CTABanner>

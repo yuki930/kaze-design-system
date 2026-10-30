@@ -31,7 +31,7 @@ import styles from "./LandingPage.module.css";
 // 先頭が主役（spotlight の左の列）。残りは脇に並ぶ
 const [leadFeature, ...minorFeatures] = [
   {
-    title: "圧倒的な軽量さ",
+    title: "CSS だけで動く",
     description:
       "ランタイム JavaScript ゼロ。gzip 後 23KB 程度の CSS で、すべてのコンポーネントをスタイリングします。パフォーマンスを犠牲にしません。",
   },
@@ -57,7 +57,7 @@ const [leadFeature, ...minorFeatures] = [
 const testimonials = [
   {
     quote:
-      "Kaze を導入してから、UIの実装スピードが劇的に向上しました。デザイントークンのおかげで、デザイナーとエンジニアの認識のズレがなくなり、手戻りが大幅に減りました。",
+      "Kaze を導入してから、UI の実装スピードが劇的に向上しました。デザイントークンのおかげで、デザイナーとエンジニアの認識のズレがなくなり、手戻りが大幅に減りました。",
     name: "相楽 実咲",
     role: "デザインエンジニア（八十八株式会社）",
     initial: "実",
@@ -73,7 +73,7 @@ const testimonials = [
     quote:
       "依存関係ゼロというのは本当に心強い。バンドルサイズを気にせず使えるので、パフォーマンスを最優先にするプロジェクトでも安心して採用できます。",
     name: "宮田 千夏",
-    role: "取締役CTO（燕コンピュータ株式会社）",
+    role: "取締役 CTO（燕コンピュータ株式会社）",
     initial: "千",
   },
 ];
@@ -128,8 +128,8 @@ export function LandingPage() {
 
       {/* ── 2. Hero ────────────────────────────────────────── */}
       <Hero
-        title="美しいUIを、もっと速く"
-        subtitle="Kaze は、人にもAIにも扱いやすいデザインシステムです。明快なトークン設計と軽量な CSS で、AI コーディングツールとの協業でも、手書きでも、迷わず美しい UI を組み立てられます。"
+        title="美しい UI を、もっと速く"
+        subtitle="Kaze は、人にも AI にも扱いやすいデザインシステムです。明快なトークン設計と軽量な CSS で、AI コーディングツールとの協業でも、手書きでも、迷わず美しい UI を組み立てられます。"
         bg="var(--color-bg-inverse)"
         className={styles.heroSection}
       >
@@ -194,7 +194,7 @@ export function LandingPage() {
             price="¥0"
             period="月"
             features={[
-              "全コンポーネント利用可能",
+              "全コンポーネントを使える",
               "MIT ライセンス",
               "コミュニティサポート",
               "Issue トラッカーでの質問",
@@ -216,7 +216,7 @@ export function LandingPage() {
               "Free プランのすべて",
               "デザインファイル",
               "優先メールサポート",
-              "プライベートDiscordチャンネル",
+              "プライベート Discord チャンネル",
               "新コンポーネントの先行アクセス",
             ]}
           >
@@ -279,7 +279,7 @@ export function LandingPage() {
           />
           <FAQItem
             question="他の CSS フレームワークと併用できますか？"
-            answer="Kaze は BEM 命名規則に基づいたスコープ付きクラス名を使用しているため、Tailwind CSS や他のフレームワークとの競合が発生しにくい設計になっています。"
+            answer="できます。Kaze のクラス名は BEM の命名規則で範囲を区切っています。Tailwind CSS などのフレームワークと名前がぶつかりにくい作りです。"
           />
           <FAQItem
             question="ダークモードはどのように実装されていますか？"
@@ -287,7 +287,7 @@ export function LandingPage() {
           />
           <FAQItem
             question="サポートされているブラウザを教えてください。"
-            answer="モダンブラウザ（Chrome、Firefox、Safari、Edge）の最新2バージョンをサポートしています。IE 11 はサポート対象外です。"
+            answer="モダンブラウザ（Chrome、Firefox、Safari、Edge）の最新 2 バージョンをサポートしています。IE 11 はサポート対象外です。"
           />
         </FAQ>
       </Section>
@@ -310,7 +310,7 @@ export function LandingPage() {
             rel="noopener noreferrer"
           >
             <Button size="lg" variant="outline" className={styles.bandBtnOutline}>
-              GitHubで見る
+              GitHub で見る
             </Button>
           </a>
         </CTABanner>
@@ -319,7 +319,7 @@ export function LandingPage() {
       {/* ── 9. Footer ──────────────────────────────────────── */}
       <LPFooter
         logo={<Logo size="sm" />}
-        description="日本発のオープンソースデザインシステム。美しく、軽く、アクセシブルなUIをすべての開発者に。"
+        description="日本発のオープンソースデザインシステム。美しく、軽く、アクセシブルな UI をすべての開発者に。"
         columns={[
           {
             title: "プロダクト",

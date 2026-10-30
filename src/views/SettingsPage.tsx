@@ -123,13 +123,13 @@ export function SettingsPage() {
               <DescriptionList horizontal bordered style={{ flex: 1 }}>
                 <DescriptionItem term="表示名">早瀬 遼平</DescriptionItem>
                 <DescriptionItem term="メールアドレス">ryohei.hayase@norn.co.jp</DescriptionItem>
-                <DescriptionItem term="ユーザーID">@r-hayase</DescriptionItem>
+                <DescriptionItem term="ユーザー ID">@r-hayase</DescriptionItem>
                 <DescriptionItem term="自己紹介">
                   フロントエンドエンジニア。デザインシステムとアクセシビリティに情熱を持っています。TypeScript
                   / React / CSS が得意です。
                 </DescriptionItem>
                 <DescriptionItem term="所在地">東京都千代田区</DescriptionItem>
-                <DescriptionItem term="参加日">2024年4月12日</DescriptionItem>
+                <DescriptionItem term="参加日">2024 年 4 月 12 日</DescriptionItem>
               </DescriptionList>
             </div>
           </CardBody>
@@ -322,7 +322,7 @@ export function SettingsPage() {
                       color: "var(--color-fg-secondary)",
                     }}
                   >
-                    月額 ¥1,980 / 次回請求日: 2026年3月12日
+                    月額 ¥1,980 / 次回請求日: 2026 年 3 月 12 日
                   </p>
                 </div>
               </div>
@@ -419,7 +419,7 @@ export function SettingsPage() {
                     }}
                   >
                     <Zap size={14} />
-                    API リクエスト (今月)
+                    API リクエスト（今月）
                   </span>
                   <span
                     style={{ fontSize: "var(--font-size-sm)", color: "var(--color-fg-secondary)" }}
@@ -447,7 +447,7 @@ export function SettingsPage() {
               <DescriptionItem term="パスワード">
                 <div style={{ display: "flex", alignItems: "center", gap: "var(--space-3)" }}>
                   <span style={{ color: "var(--color-fg-secondary)" }}>
-                    最終更新: 2025年12月15日
+                    最終更新: 2025 年 12 月 15 日
                   </span>
                   <Button variant="outline" size="sm">
                     変更

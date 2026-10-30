@@ -8,7 +8,7 @@ export function GettingStarted() {
       {/* Introduction */}
       <h1 className={styles.pageTitle}>はじめに</h1>
       <p className={styles.pageDescription}>
-        Kaze (風) は、白と温かみのあるグレーを基調にした超ミニマルな React デザインシステムです。
+        Kaze（風）は、白と温かみのあるグレーを基調にした超ミニマルな React デザインシステムです。
         日本語組版とデータ密度の高い管理画面・金融 UI に最適化されており、明快さ・情報密度・
         落ち着いた美しさを軸に設計しています。派手な装飾ではなく、長時間見続けても疲れない静かな
         インターフェースを目指しています。
@@ -122,7 +122,7 @@ function App() {
         テーマは CSS custom properties （カスタムプロパティ）で実装されています。
         <code className={styles.inlineCode}>data-theme</code>{" "}
         属性の切り替えだけで全コンポーネントが自動的にテーマに追従するため、ランタイムコストはゼロです。
-        トークンの上書きも通常の CSS で簡単に行えます。
+        トークンの上書きも通常の CSS でかんたんに行えます。
       </p>
 
       {/* Available Components */}

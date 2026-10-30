@@ -44,6 +44,10 @@
       "types": "./dist/types/tokens/tokens.d.ts",
       "import": "./dist/tokens.js"
     },
+    "./writing": {
+      "types": "./dist/types/writing/index.d.ts",
+      "import": "./dist/writing.js"
+    },
     "./tokens/*.json": "./tokens/*.tokens.json",
     "./components/*": {
       "types": "./dist/types/components/*/index.d.ts",
@@ -59,6 +63,7 @@
   },
   "files": [
     "dist",
+    "bin",
     "tokens.css",
     "tokens",
     "reset.css",
@@ -99,7 +104,8 @@
     "lint": "biome lint .",
     "format": "biome format .",
     "format:fix": "biome check --write .",
-    "tokens": "node scripts/build-tokens.mjs"
+    "tokens": "node scripts/build-tokens.mjs",
+    "docs:check-copy": "node bin/kaze-copy.mjs src/views src/components README.md --strict"
   },
   "peerDependencies": {
     "lucide-react": "^0.575.0 || ^1.0.0",
@@ -139,5 +145,8 @@
     "typescript": "^6.0.3",
     "vite": "^8.3.5",
     "vitest": "^5.0.5"
+  },
+  "bin": {
+    "kaze-copy": "./bin/kaze-copy.mjs"
   }
 }
