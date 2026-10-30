@@ -48,6 +48,15 @@ jobs:
       - name: Check package contents
         run: npm pack --dry-run
 
+      # The Next.js starter (examples/nextjs) must build against this package.
+      # Its other dependencies resolve from the repository's node_modules.
+      - name: Build the Next.js starter
+        run: |
+          mkdir -p "$RUNNER_TEMP/kaze" examples/nextjs/node_modules/kaze-design-system
+          npm pack --pack-destination "$RUNNER_TEMP/kaze"
+          tar -xzf "$RUNNER_TEMP"/kaze/kaze-design-system-*.tgz -C examples/nextjs/node_modules/kaze-design-system --strip-components=1
+          cd examples/nextjs && NEXT_TELEMETRY_DISABLED=1 ../../node_modules/.bin/next build
+
       # Copy on the docs site, demos and README must follow the writing guide
       # (/docs/writing). Uses the kaze-copy CLI from the library just built.
       - name: Check Japanese copy

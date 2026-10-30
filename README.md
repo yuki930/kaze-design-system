@@ -62,6 +62,12 @@ AI コーディングアシスタントは以下のファイルからライブ�
 
 `llms-full.txt` には 78 コンポーネントの `Props` / `Usage` / カテゴリが機械可読形式で入っています。Storybook を見なくても、AI が正確なコードを提案できます。[llmstxt.org](https://llmstxt.org) 準拠。
 
+AI に Kaze で画面を作らせるときは、`npx kaze-init` を実行してください。AGENTS.md に Kaze の組み方と文言の規則が書き込まれ、CLAUDE.md からも読み込まれます。新しく始めるなら、Next.js の雛形が使えます。
+
+```bash
+npx create-next-app@latest my-app --example "https://github.com/yuki930/kaze-design-system/tree/main/examples/nextjs"
+```
+
 画面の文言は[文言ガイド](https://kaze-design-system.vercel.app/docs/writing)に沿って書き、`npx kaze-copy src` で検査できます。`--fix` を付けると、表記の揺れは自動で直ります。
 
 ## インストール

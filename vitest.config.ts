@@ -36,6 +36,7 @@ export default defineConfig({
         "src/lib/**/*.{ts,tsx}",
         "src/utils/**/*.ts",
         "src/tokens/**/*.ts",
+        "src/writing/**/*.ts",
       ],
       exclude: [
         "**/*.stories.tsx",
@@ -53,7 +54,7 @@ export default defineConfig({
         test: {
           name: "unit",
           environment: "jsdom",
-          include: ["src/**/*.test.{ts,tsx}"],
+          include: ["src/**/*.test.{ts,tsx}", "bin/**/*.test.ts"],
           setupFiles: ["src/test/setup.ts"],
           pool: "threads",
           testTimeout: 10000,

@@ -1,0 +1,14 @@
+/* 狭い画面では表を縮めず、横にスクロールさせる（Table の外側の入れ物がスクロールする） */
+.invoiceTable {
+  min-width: 40rem;
+}
+
+/* 請求番号と日付は途中で折り返さない */
+.invoiceTable td:first-child,
+.invoiceTable td:nth-child(3) {
+  white-space: nowrap;
+}
+
+.section {
+  margin-top: var(--space-6);
+}
