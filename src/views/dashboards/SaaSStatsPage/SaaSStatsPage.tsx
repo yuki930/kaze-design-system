@@ -7,10 +7,10 @@ import styles from "./SaaSStatsPage.module.css";
 /* ── Data ─────────────────────────────────────────────────────
    すべて kaze-design-system 自身の実数。
    コンポーネントカテゴリは src/views/docs/ComponentsOverview.tsx の
-   分類（全63コンポーネント）と一致させている。Kaze は Foundation →
-   Application UI → Marketing の3層構成。Foundation は共有前提のため
-   ドーナツには乗せず、Application UI 8カテゴリ / Marketing 1カタログの
-   2層が読み取れるよう layer でグルーピングする。
+   分類（全 63 コンポーネント）と一致させている。Kaze は Foundation →
+   Application UI → Marketing の 3 層構成。Foundation は共有前提のため
+   ドーナツには乗せず、Application UI 8 カテゴリ / Marketing 1 カタログの
+   2 層が読み取れるよう layer でグルーピングする。
    ------------------------------------------------------------ */
 
 type ComponentLayer = "application-ui" | "marketing";
@@ -76,7 +76,7 @@ export function SaaSStatsPage() {
           </h2>
           <p className={styles.statsSubtitle}>
             {COMPONENT_TOTAL}個のコンポーネントと{SAMPLE_PAGE_TOTAL}件のサンプルページを、light /
-            dark 2テーマ・gzip {BUNDLE_TOTAL_KB.toFixed(1)}KB の軽量な CSS で提供しています。
+            dark 2 テーマ・gzip {BUNDLE_TOTAL_KB.toFixed(1)}KB の軽い CSS にまとめています。
           </p>
 
           {/* ── Cards Grid ────────────────────────────────── */}
@@ -91,8 +91,8 @@ export function SaaSStatsPage() {
                   </div>
                   <div className={styles.cardNumber}>{COMPONENT_TOTAL}</div>
                   <Text size="sm" color="muted">
-                    Application UI {APPLICATION_UI_TOTAL} + Marketing {MARKETING_TOTAL}{" "}
-                    の2カタログ。
+                    Application UI {APPLICATION_UI_TOTAL} + Marketing {MARKETING_TOTAL} の 2
+                    カタログ。
                     <br />
                     内訳は /docs/components を参照。
                   </Text>
@@ -160,7 +160,7 @@ export function SaaSStatsPage() {
                 </div>
                 <div className={styles.cardChart}>
                   <DonutChart
-                    aria-label="CSSバンドル構成"
+                    aria-label="CSS バンドル構成"
                     data={bundleData}
                     size={130}
                     strokeWidth={22}
@@ -190,7 +190,8 @@ export function SaaSStatsPage() {
                   </div>
                   <div className={styles.cardNumberLg}>{SAMPLE_PAGE_TOTAL}</div>
                   <Text size="sm" color="muted">
-                    ダッシュボードからメールテンプレートまで6カテゴリの作例を収録。すべてトップの「サンプル集」から実際に動く状態で閲覧できます。
+                    ダッシュボードからメールテンプレートまで 6
+                    カテゴリの作例を収録。すべてトップの「サンプル集」から実際に動く状態で閲覧できます。
                   </Text>
                 </div>
                 <div className={styles.barChart}>

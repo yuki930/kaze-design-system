@@ -159,7 +159,20 @@ const performanceData: Record<PerformancePeriod, { label: string; value: number 
     16,
   ),
   "1Y": buildPerformance(
-    ["11月", "12月", "1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月"],
+    [
+      "11 月",
+      "12 月",
+      "1 月",
+      "2 月",
+      "3 月",
+      "4 月",
+      "5 月",
+      "6 月",
+      "7 月",
+      "8 月",
+      "9 月",
+      "10 月",
+    ],
     1020,
     1285,
     28,
@@ -373,7 +386,7 @@ export function Dashboard() {
         </div>
       }
     >
-      <Search placeholder="検索..." shortcut="⌘K" />
+      <Search placeholder="検索…" shortcut="⌘K" />
     </TopBar>
   );
 
@@ -494,7 +507,7 @@ export function Dashboard() {
         <CardHeader>
           <div className={styles.holdingsHeader}>
             <CardTitle>保有銘柄</CardTitle>
-            <Badge>6銘柄</Badge>
+            <Badge>6 銘柄</Badge>
           </div>
         </CardHeader>
         <CardBody>

@@ -32,7 +32,7 @@ import { Hero, PricingGrid } from "kaze-design-system/marketing";
 - [NumberField](https://kaze-design-system.vercel.app/docs/components/number-field): 通貨対応数値入力
 - [Select](https://kaze-design-system.vercel.app/docs/components/select): セレクトボックス
 - [Combobox](https://kaze-design-system.vercel.app/docs/components/combobox): 入力しながら候補を絞り込んで選ぶフォーム部品（WAI-ARIA の combobox + listbox）。既定の絞り込みはひらがな・カタカナ・全角半角・大文字小文字を区別せず、IME 変換中の Enter や矢印キーは無視します。選択肢が少なく絞り込みが不要なら Select を使います。
-- [DatePicker](https://kaze-design-system.vercel.app/docs/components/date-picker): 日付入力とカレンダーのポップオーバー（WAI-ARIA の Date Picker Dialog）。値は "YYYY-MM-DD" の文字列で、Date のタイムゾーンずれが起きません。era="japanese" で「令和8年10月29日」の和暦表示になり、入力は 2026/10/29・20261029・令和8年10月29日・R8.10.29・全角数字を受け付けます。祝日データは持たないので、休業日などは isDateDisabled で渡します。
+- [DatePicker](https://kaze-design-system.vercel.app/docs/components/date-picker): 日付入力とカレンダーのポップオーバー（WAI-ARIA の Date Picker Dialog）。値は "YYYY-MM-DD" の文字列で、Date のタイムゾーンずれが起きません。era="japanese" で「令和8年10月29日」の和暦表示になり、入力は 2026/10/29・20261029・「令和8年10月29日」・R8.10.29・全角数字を受け付けます。祝日データは持たないので、休業日などは isDateDisabled で渡します。
 - [Checkbox](https://kaze-design-system.vercel.app/docs/components/checkbox): チェックボックス
 - [Radio](https://kaze-design-system.vercel.app/docs/components/radio): ラジオボタン
 - [Textarea](https://kaze-design-system.vercel.app/docs/components/textarea): テキストエリア
@@ -56,12 +56,12 @@ import { Hero, PricingGrid } from "kaze-design-system/marketing";
 ### チャート
 
 - [BarChart](https://kaze-design-system.vercel.app/docs/components/bar-chart): 水平棒グラフコンポーネント。データの比較を直感的に表示。
-- [DonutChart](https://kaze-design-system.vercel.app/docs/components/donut-chart): SVGベースのドーナツチャート。凡例とセンターラベル付き。
+- [DonutChart](https://kaze-design-system.vercel.app/docs/components/donut-chart): SVG ベースのドーナツチャート。凡例とセンターラベル付き。
 - [Sparkline](https://kaze-design-system.vercel.app/docs/components/sparkline): インラインのミニ折れ線グラフ。テーブルやメトリクスの横に配置。
 - [LineChart](https://kaze-design-system.vercel.app/docs/components/line-chart): 時系列データの折れ線 / 面グラフ。複数系列、凡例での表示切替、ホバーとキーボードのツールチップに対応。SVG 手書きで依存ゼロ。
 - [ColumnChart](https://kaze-design-system.vercel.app/docs/components/column-chart): 縦棒グラフコンポーネント。複数系列をグループ表示・積み上げ表示で比較できる。カテゴリや期間の比較向け。
-- [Heatmap](https://kaze-design-system.vercel.app/docs/components/heatmap): 2次元の密度を単一色相の濃淡で見せるヒートマップ。曜日×時間帯などの行×列（matrix）と、日別カレンダー（calendar）に対応。
-- [CategoryBar](https://kaze-design-system.vercel.app/docs/components/category-bar): 構成比を1本の帯で見せるコンポーネント。予算消化やストレージ使用量の内訳、NPS の分布に。
+- [Heatmap](https://kaze-design-system.vercel.app/docs/components/heatmap): 2 次元の密度を単一色相の濃淡で見せるヒートマップ。曜日×時間帯などの行×列（matrix）と、日別カレンダー（calendar）に対応。
+- [CategoryBar](https://kaze-design-system.vercel.app/docs/components/category-bar): 構成比を 1 本の帯で見せるコンポーネント。予算消化やストレージ使用量の内訳、NPS の分布に。
 - [ChartLegend](https://kaze-design-system.vercel.app/docs/components/chart-legend): チャート共通の凡例。onToggle を渡すと系列の表示 / 非表示を切り替えるボタンになる。LineChart / ColumnChart の内部でも使用。
 
 ### フィードバック
@@ -70,7 +70,7 @@ import { Hero, PricingGrid } from "kaze-design-system/marketing";
 - [Progress](https://kaze-design-system.vercel.app/docs/components/progress): 処理の進捗状況を視覚的に表示するプログレスバーコンポーネント。サイズ・カラー・ラベル対応。
 - [Meter](https://kaze-design-system.vercel.app/docs/components/meter): メーター（既知範囲の値表示）
 - [Skeleton](https://kaze-design-system.vercel.app/docs/components/skeleton): コンテンツの読み込み中に表示するスケルトンプレースホルダーコンポーネント。
-- [EmptyState](https://kaze-design-system.vercel.app/docs/components/empty-state): データが存在しない場合に表示する空状態コンポーネント。sm / md / lg の3サイズに対応し、テーブルセル内の小さな表示からページ全体の大きな表示まで使い分けられます。role="status" が自動付与されます。
+- [EmptyState](https://kaze-design-system.vercel.app/docs/components/empty-state): データが存在しない場合に表示する空状態コンポーネント。sm / md / lg の 3 サイズに対応し、テーブルセル内の小さな表示からページ全体の大きな表示まで使い分けられます。role="status" が自動付与されます。
 - [Spinner](https://kaze-design-system.vercel.app/docs/components/spinner): 読み込み中を伝える小さな表示。色は周りの文字色を受け継ぐ。
 - [TypingIndicator](https://kaze-design-system.vercel.app/docs/components/typing-indicator): 相手が入力中であることを示す、順に明るくなる 3 つの点。
 - [Toast](https://kaze-design-system.vercel.app/docs/components/toast): トースト通知
@@ -89,10 +89,10 @@ import { Hero, PricingGrid } from "kaze-design-system/marketing";
 ### オーバーレイ
 
 - [Dialog](https://kaze-design-system.vercel.app/docs/components/dialog): ダイアログ
-- [Drawer](https://kaze-design-system.vercel.app/docs/components/drawer): 画面の端から出るモーダルパネル。Dialog と同じ挙動（フォーカストラップ・背景の inert 化・スクロールロック・Escape・背景クリック・閉じアニメ・フォーカス復帰）で、フィルターや詳細表示のように一覧を見たまま操作したい場面に向きます。モバイル幅では side="bottom"（ボトムシート）を推奨します。
+- [Drawer](https://kaze-design-system.vercel.app/docs/components/drawer): 画面の端から出るモーダルパネル。フォーカストラップ・背景の inert 化・スクロールロック・Escape や背景クリックで閉じる動き・フォーカス復帰は、Dialog と同じです。フィルターや詳細表示のように、一覧を見たまま操作したい場面に向きます。モバイル幅では side="bottom"（ボトムシート）を推奨します。
 - [Tooltip](https://kaze-design-system.vercel.app/docs/components/tooltip): ツールチップ
 - [Popover](https://kaze-design-system.vercel.app/docs/components/popover): クリックで開く非モーダルの浮遊パネル。Dialog と違い背景は操作でき、Escape・外側クリックで閉じてトリガーにフォーカスを戻します。ホバーで出る補足は Tooltip、メニュー項目は Dropdown を使います。
-- [HelpButton](https://kaze-design-system.vercel.app/docs/components/help-button): ラベルの横に配置する「?」ボタン。クリックで詳細説明の popover が開きます。outside click / ESC キーで閉じ、Portal でレンダリングされるためスクロールや z-index の影響を受けません。Tooltip（ホバー起動・一時表示）と異なり、クリックで開閉する永続モードを提供します。
+- [HelpButton](https://kaze-design-system.vercel.app/docs/components/help-button): ラベルの横に配置する「?」ボタン。クリックで詳細説明の popover が開きます。outside click / ESC キーで閉じ、Portal でレンダリングされるためスクロールや z-index の影響を受けません。Tooltip（ホバー起動・一時表示）と異なり、クリックで開閉する永続モードもあります。
 - [Dropdown](https://kaze-design-system.vercel.app/docs/components/dropdown): ドロップダウンメニュー
 - [CommandPalette](https://kaze-design-system.vercel.app/docs/components/command-palette): コマンドパレット
 
@@ -104,7 +104,7 @@ import { Hero, PricingGrid } from "kaze-design-system/marketing";
 - [Search](https://kaze-design-system.vercel.app/docs/components/search): 検索入力
 - [Logo](https://kaze-design-system.vercel.app/docs/components/logo): ロゴ
 - [Icon](https://kaze-design-system.vercel.app/docs/components/icon): アイコン
-- [Heading](https://kaze-design-system.vercel.app/docs/components/heading): セマンティックな見出しコンポーネント。レベル1〜6、説明テキスト、ボーダー付きに対応。
+- [Heading](https://kaze-design-system.vercel.app/docs/components/heading): セマンティックな見出しコンポーネント。レベル 1〜6、説明テキスト、ボーダー付きに対応。
 - [Text](https://kaze-design-system.vercel.app/docs/components/text): 汎用テキストコンポーネント。variant / size / weight / color / align を prop で制御。LP や UI で独自 CSS なしにテキストを扱える。
 - [VisuallyHidden](https://kaze-design-system.vercel.app/docs/components/visually-hidden): 画面には出さず、読み上げソフトにだけ伝える文字を包む。
 

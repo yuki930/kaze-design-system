@@ -41,20 +41,20 @@ interface ShoppingItem {
 /* ── Seed data ─────────────────────────────────────────────── */
 
 const initialItems: ShoppingItem[] = [
-  { id: "1", name: "トマト", quantity: "3個", purchased: false, category: "vegetable" },
-  { id: "2", name: "にんじん", quantity: "2本", purchased: false, category: "vegetable" },
-  { id: "3", name: "ほうれん草", quantity: "1袋", purchased: true, category: "vegetable" },
+  { id: "1", name: "トマト", quantity: "3 個", purchased: false, category: "vegetable" },
+  { id: "2", name: "にんじん", quantity: "2 本", purchased: false, category: "vegetable" },
+  { id: "3", name: "ほうれん草", quantity: "1 袋", purchased: true, category: "vegetable" },
   { id: "4", name: "鶏もも肉", quantity: "300g", purchased: false, category: "meat" },
   { id: "5", name: "豚バラ薄切り", quantity: "200g", purchased: false, category: "meat" },
-  { id: "6", name: "牛乳", quantity: "1本", purchased: true, category: "dairy" },
-  { id: "7", name: "ヨーグルト", quantity: "4個パック", purchased: false, category: "dairy" },
-  { id: "8", name: "卵", quantity: "1パック", purchased: false, category: "dairy" },
-  { id: "9", name: "食パン", quantity: "1斤", purchased: true, category: "staple" },
+  { id: "6", name: "牛乳", quantity: "1 本", purchased: true, category: "dairy" },
+  { id: "7", name: "ヨーグルト", quantity: "4 個パック", purchased: false, category: "dairy" },
+  { id: "8", name: "卵", quantity: "1 パック", purchased: false, category: "dairy" },
+  { id: "9", name: "食パン", quantity: "1 斤", purchased: true, category: "staple" },
   { id: "10", name: "お米", quantity: "5kg", purchased: false, category: "staple" },
-  { id: "11", name: "パスタ", quantity: "2袋", purchased: false, category: "staple" },
-  { id: "12", name: "チョコレート", quantity: "1箱", purchased: false, category: "snack" },
-  { id: "13", name: "醤油", quantity: "1本", purchased: false, category: "other" },
-  { id: "14", name: "オリーブオイル", quantity: "1本", purchased: true, category: "other" },
+  { id: "11", name: "パスタ", quantity: "2 袋", purchased: false, category: "staple" },
+  { id: "12", name: "チョコレート", quantity: "1 箱", purchased: false, category: "snack" },
+  { id: "13", name: "醤油", quantity: "1 本", purchased: false, category: "other" },
+  { id: "14", name: "オリーブオイル", quantity: "1 本", purchased: true, category: "other" },
 ];
 
 /* ── Helpers ───────────────────────────────────────────────── */
@@ -118,7 +118,7 @@ export function ShoppingPage() {
       {
         id: String(nextId++),
         name,
-        quantity: newItemQty.trim() || "1個",
+        quantity: newItemQty.trim() || "1 個",
         purchased: false,
         category: "other",
       },
@@ -199,7 +199,7 @@ export function ShoppingPage() {
         <div className={styles.addSection}>
           <Input
             ref={inputRef}
-            placeholder="商品名..."
+            placeholder="商品名…"
             value={newItemName}
             onChange={(e) => setNewItemName(e.target.value)}
             onKeyDown={handleKeyDown}

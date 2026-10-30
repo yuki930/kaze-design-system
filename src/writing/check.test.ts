@@ -55,9 +55,9 @@ describe("checkCopy", () => {
     expect(issue).toMatchObject({ column: 5, match: "", suggestion: " " });
   });
 
-  it("keeps the number-spacing rules off by default", () => {
+  it("spaces numbers by default and keeps the tight variant off", () => {
     expect(ids("12 席と12席")).not.toContain("notation/number-spacing-tight");
-    expect(ids("12 席と12席")).not.toContain("notation/number-spacing-loose");
+    expect(ids("12席")).toContain("notation/number-spacing-loose");
     expect(ids("12 席", { rules: { "notation/number-spacing-tight": true } })).toContain(
       "notation/number-spacing-tight",
     );
@@ -68,7 +68,7 @@ describe("checkCopy", () => {
     expect(ids("設定を変更に合わせる", only("plain/kanji-to-kana"))).toEqual([]);
     expect(ids("条件に一致します", only("plain/kanji-to-kana"))).toEqual([]);
     expect(ids("同時に開く", only("plain/koto-toki"))).toEqual([]);
-    expect(ids("ユーザーとユーザビリティ", only("notation/long-vowel"))).toEqual([]);
+    expect(ids("ユーザーとサーバーとブラウザ", only("notation/long-vowel"))).toEqual([]);
     expect(ids('toast("保存しました")', only("notation/parentheses"))).toEqual([]);
   });
 
@@ -84,6 +84,7 @@ describe("checkCopy", () => {
     expect(ids("/^(明治|大正)/", only("notation/parentheses"))).toEqual([]);
     expect(ids("{/* 補足 (独立行) */}", { mode: "code" })).toEqual([]);
     expect(ids("燕コンピュータ株式会社", only("notation/long-vowel"))).toEqual([]);
+    expect(ids("v1.3 を 12.4% 改善", only("notation/number-spacing-loose"))).toEqual([]);
   });
 
   it("reads only Japanese, non-comment lines in code mode", () => {

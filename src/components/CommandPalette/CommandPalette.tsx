@@ -62,7 +62,7 @@ export const CommandPalette = forwardRef<HTMLDivElement, CommandPaletteProps>(
       open,
       onOpenChange,
       commands,
-      placeholder = "コマンドを検索...",
+      placeholder = "コマンドを検索…",
       searchLabel = "コマンド検索",
       label,
       emptyMessage = "該当するコマンドが見つかりません",

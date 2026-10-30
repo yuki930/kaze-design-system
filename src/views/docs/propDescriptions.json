@@ -17,7 +17,7 @@
   "tooltip": {
     "open": "表示状態（制御）。指定すると、ホバー・フォーカス・Escape は onOpenChange を呼ぶだけになる",
     "defaultOpen": "初期の表示状態（非制御）",
-    "onOpenChange": "表示状態が変わる時のコールバック",
+    "onOpenChange": "表示状態が変わるときのコールバック",
     "delay": "表示までの待ち時間（ミリ秒）",
     "className": "ツールチップ要素に足すクラス",
     "style": "ツールチップ要素のインラインスタイル（位置はコンポーネントが決める）"
@@ -29,7 +29,7 @@
     "children": "DropdownTrigger と DropdownMenu",
     "open": "開閉状態（制御）",
     "defaultOpen": "初期の開閉状態（非制御）",
-    "onOpenChange": "開閉が変わる時のコールバック"
+    "onOpenChange": "開閉が変わるときのコールバック"
   },
   "toast": {
     "children": "ToastProvider で包むアプリ全体"

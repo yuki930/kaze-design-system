@@ -105,7 +105,7 @@
     "format": "biome format .",
     "format:fix": "biome check --write .",
     "tokens": "node scripts/build-tokens.mjs",
-    "docs:check-copy": "node bin/kaze-copy.mjs src/views src/components README.md"
+    "docs:check-copy": "node bin/kaze-copy.mjs src/views src/components README.md --strict"
   },
   "peerDependencies": {
     "lucide-react": "^0.575.0 || ^1.0.0",

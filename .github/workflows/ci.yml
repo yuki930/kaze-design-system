@@ -48,6 +48,11 @@ jobs:
       - name: Check package contents
         run: npm pack --dry-run
 
+      # Copy on the docs site, demos and README must follow the writing guide
+      # (/docs/writing). Uses the kaze-copy CLI from the library just built.
+      - name: Check Japanese copy
+        run: npm run docs:check-copy
+
       # tokens.css and src/tokens/generated.ts are generated from tokens/*.tokens.json
       - name: Check tokens.css is up to date
         run: npm run tokens -- --check

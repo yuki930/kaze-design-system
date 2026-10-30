@@ -214,7 +214,7 @@ const componentDocs: Record<string, ComponentDoc> = {
         name: "fullWidth",
         type: "boolean",
         default: "false",
-        description: "幅を100%にするかどうか",
+        description: "幅を 100%にするかどうか",
       },
       {
         name: "iconOnly",
@@ -260,7 +260,7 @@ const componentDocs: Record<string, ComponentDoc> = {
         name: "className",
         type: "string",
         default: "undefined",
-        description: "追加のCSSクラス名",
+        description: "追加の CSS クラス名",
       },
     ],
     usage: `<Input placeholder="入力してください" />`,
@@ -273,9 +273,9 @@ const componentDocs: Record<string, ComponentDoc> = {
       <div className={styles.previewColumn} style={{ gap: "1rem", maxWidth: "320px" }}>
         <Select>
           <option value="">選択してください</option>
-          <option value="1">選択肢1</option>
-          <option value="2">選択肢2</option>
-          <option value="3">選択肢3</option>
+          <option value="1">選択肢 1</option>
+          <option value="2">選択肢 2</option>
+          <option value="3">選択肢 3</option>
         </Select>
         <Select error>
           <option value="">エラー状態</option>
@@ -292,12 +292,12 @@ const componentDocs: Record<string, ComponentDoc> = {
       {
         name: "children",
         type: "React.ReactNode",
-        description: "optionエレメント",
+        description: "option エレメント",
       },
     ],
     usage: `<Select>
-  <option>選択肢1</option>
-  <option>選択肢2</option>
+  <option>選択肢 1</option>
+  <option>選択肢 2</option>
 </Select>`,
   },
 
@@ -330,7 +330,7 @@ const componentDocs: Record<string, ComponentDoc> = {
       {
         name: "id",
         type: "string",
-        description: "要素のID（labelとの紐付けに使用）",
+        description: "要素の ID（label との紐付けに使用）",
       },
     ],
     usage: `<Checkbox label="同意する" />`,
@@ -356,7 +356,7 @@ const componentDocs: Record<string, ComponentDoc> = {
         name: "className",
         type: "string",
         default: "undefined",
-        description: "追加のCSSクラス名",
+        description: "追加の CSS クラス名",
       },
     ],
     usage: `<Textarea placeholder="メッセージ" />`,
@@ -502,7 +502,7 @@ const componentDocs: Record<string, ComponentDoc> = {
         name: "dot",
         type: "boolean",
         default: "false",
-        description: "ドットインジケーターを表示するかどうか",
+        description: "ドットインジケータを表示するかどうか",
       },
       {
         name: "solid",
@@ -530,7 +530,7 @@ const componentDocs: Record<string, ComponentDoc> = {
         </div>
         <div className={styles.preview}>
           <StatusBadge status="live" label="リアルタイム" />
-          <StatusBadge status="stale" label="5分前更新" />
+          <StatusBadge status="stale" label="5 分前更新" />
         </div>
       </div>
     ),
@@ -549,7 +549,7 @@ const componentDocs: Record<string, ComponentDoc> = {
         name: "dot",
         type: "boolean",
         default: "true",
-        description: "ドットインジケーターを表示するかどうか",
+        description: "ドットインジケータを表示するかどうか",
       },
     ],
     usage: `<StatusBadge status="live" />
@@ -664,9 +664,9 @@ const { rows: sorted, getSortProps } = useTableSort(rows, {
     preview: (
       <TabGroup defaultValue="1">
         <Tabs>
-          <Tab value="1">タブ1</Tab>
-          <Tab value="2">タブ2</Tab>
-          <Tab value="3">タブ3</Tab>
+          <Tab value="1">タブ 1</Tab>
+          <Tab value="2">タブ 2</Tab>
+          <Tab value="3">タブ 3</Tab>
         </Tabs>
       </TabGroup>
     ),
@@ -676,7 +676,7 @@ const { rows: sorted, getSortProps } = useTableSort(rows, {
       {
         name: "onValueChange",
         type: "(value: string) => void",
-        description: "選択が変わる時のコールバック（TabGroup）",
+        description: "選択が変わるときのコールバック（TabGroup）",
       },
       { name: "value", type: "string", description: "タブの識別子（Tab / TabPanel）" },
       {
@@ -693,11 +693,11 @@ const { rows: sorted, getSortProps } = useTableSort(rows, {
     ],
     usage: `<TabGroup defaultValue="a">
   <Tabs>
-    <Tab value="a">タブ1</Tab>
-    <Tab value="b">タブ2</Tab>
+    <Tab value="a">タブ 1</Tab>
+    <Tab value="b">タブ 2</Tab>
   </Tabs>
-  <TabPanel value="a">内容1</TabPanel>
-  <TabPanel value="b">内容2</TabPanel>
+  <TabPanel value="a">内容 1</TabPanel>
+  <TabPanel value="b">内容 2</TabPanel>
 </TabGroup>`,
   },
 
@@ -716,7 +716,7 @@ const { rows: sorted, getSortProps } = useTableSort(rows, {
       {
         name: "src",
         type: "string",
-        description: "アバター画像のURL",
+        description: "アバター画像の URL",
       },
       {
         name: "alt",
@@ -789,7 +789,7 @@ const { rows: sorted, getSortProps } = useTableSort(rows, {
         name: "onOpenChange",
         type: "(open: boolean) => void",
         description:
-          "開閉が変わる時のコールバック。Escape・背景クリック・閉じるボタンで false が渡る（旧 onClose）",
+          "開閉が変わるときのコールバック。Escape・背景クリック・閉じるボタンで false が渡る（旧 onClose）",
       },
       {
         name: "title",
@@ -846,16 +846,16 @@ const { rows: sorted, getSortProps } = useTableSort(rows, {
   "help-button": {
     title: "HelpButton",
     description:
-      "ラベルの横に配置する「?」ボタン。クリックで詳細説明の popover が開きます。outside click / ESC キーで閉じ、Portal でレンダリングされるためスクロールや z-index の影響を受けません。Tooltip（ホバー起動・一時表示）と異なり、クリックで開閉する永続モードを提供します。",
+      "ラベルの横に配置する「?」ボタン。クリックで詳細説明の popover が開きます。outside click / ESC キーで閉じ、Portal でレンダリングされるためスクロールや z-index の影響を受けません。Tooltip（ホバー起動・一時表示）と異なり、クリックで開閉する永続モードもあります。",
     preview: (
       <div className={styles.previewColumn} style={{ gap: "1rem" }}>
         <div className={styles.preview} style={{ alignItems: "center", gap: "2rem" }}>
           <span style={{ display: "inline-flex", alignItems: "center", gap: "0.375rem" }}>
-            AI系リファラル数
-            <HelpButton title="AI系リファラルの判定ロジック" position="bottom">
+            AI 系リファラル数
+            <HelpButton title="AI 系リファラルの判定ロジック" position="bottom">
               <p>
-                GA4 の sessionSource
-                に以下のドメインが含まれる場合、AI系リファラルとして集計しています。
+                GA4 の sessionSource に以下のドメインが含まれる場合、AI
+                系リファラルとして集計しています。
               </p>
               <ul style={{ margin: "0.5rem 0 0 1rem", padding: 0 }}>
                 <li>chatgpt.com</li>
@@ -909,8 +909,8 @@ const { rows: sorted, getSortProps } = useTableSort(rows, {
         description: "トリガーボタンの aria-label",
       },
     ],
-    usage: `<HelpButton title="AI系リファラルの判定ロジック">
-  <p>GA4 の sessionSource に以下のドメインが含まれる場合...</p>
+    usage: `<HelpButton title="AI 系リファラルの判定ロジック">
+  <p>GA4 の sessionSource に以下のドメインが含まれる場合…</p>
   <ul>
     <li>chatgpt.com</li>
     <li>perplexity.ai</li>
@@ -967,8 +967,8 @@ const { rows: sorted, getSortProps } = useTableSort(rows, {
     <Button>メニュー</Button>
   </DropdownTrigger>
   <DropdownMenu>
-    <DropdownItem>項目1</DropdownItem>
-    <DropdownItem>項目2</DropdownItem>
+    <DropdownItem>項目 1</DropdownItem>
+    <DropdownItem>項目 2</DropdownItem>
   </DropdownMenu>
 </Dropdown>`,
   },
@@ -1323,7 +1323,7 @@ import { Icon } from "kaze-design-system";
       {
         name: "placeholder",
         type: "string",
-        default: '"コマンドを検索..."',
+        default: '"コマンドを検索…"',
         description: "検索入力のプレースホルダー",
       },
     ],
@@ -1513,7 +1513,7 @@ import { Icon } from "kaze-design-system";
     description: "検索入力",
     preview: (
       <div className={styles.previewColumn} style={{ gap: "1rem", maxWidth: "320px" }}>
-        <SearchComponent placeholder="検索..." />
+        <SearchComponent placeholder="検索…" />
         <SearchComponent placeholder="⌘K で検索" shortcut="⌘K" />
       </div>
     ),
@@ -1539,7 +1539,7 @@ import { Icon } from "kaze-design-system";
         description: "アクセシビリティ用のラベル",
       },
     ],
-    usage: `<Search placeholder="検索..." shortcut="⌘K" onSearch={handleSearch} />`,
+    usage: `<Search placeholder="検索…" shortcut="⌘K" onSearch={handleSearch} />`,
   },
 
   logo: {
@@ -1666,7 +1666,7 @@ import { Icon } from "kaze-design-system";
     title: "Hero",
     description: "ヒーローセクション",
     preview: (
-      <Hero title="美しいUIを、もっと速く" subtitle="最小限のコードで最大限のデザインを。">
+      <Hero title="美しい UI を、もっと速く" subtitle="最小限のコードで最大限のデザインを。">
         <Button>はじめる</Button>
         <Button variant="outline">ドキュメント</Button>
       </Hero>
@@ -1687,7 +1687,7 @@ import { Icon } from "kaze-design-system";
         type: "boolean | number",
         description: "暗めオーバーレイの不透明度。true = 0.5",
       },
-      { name: "children", type: "React.ReactNode", description: "CTAボタンなどのアクション要素" },
+      { name: "children", type: "React.ReactNode", description: "CTA ボタンなどのアクション要素" },
     ],
     usage: `<Hero title="メインタイトル" subtitle="説明テキスト">
   <Button>はじめる</Button>
@@ -1821,7 +1821,7 @@ import { Icon } from "kaze-design-system";
         <FeatureCard
           icon={<Zap size={20} />}
           title="高速"
-          description="最適化されたCSSで高速な描画"
+          description="最適化された CSS で高速な描画"
         />
         <FeatureCard
           icon={<SearchIcon size={20} />}
@@ -1867,7 +1867,7 @@ import { Icon } from "kaze-design-system";
 
 {/* 主役を 1 つ、残りは脇に */}
 <FeatureGrid variant="spotlight">
-  <FeatureCard figure={<>23<small>KB</small></>} title="圧倒的な軽量さ" description="説明テキスト">
+  <FeatureCard figure={<>23<small>KB</small></>} title="CSS だけで動く" description="説明テキスト">
     <pre><code>import "kaze-design-system/css/all";</code></pre>
   </FeatureCard>
   <FeatureCard title="デザイントークン" description="説明テキスト" />
@@ -1880,7 +1880,7 @@ import { Icon } from "kaze-design-system";
     description: "数値ハイライト",
     preview: (
       <Stats>
-        <StatItem value="24+" label="コンポーネント" description="UIライブラリに含まれる総数" />
+        <StatItem value="24+" label="コンポーネント" description="UI ライブラリに含まれる総数" />
         <StatItem value="100%" label="TypeScript" />
         <StatItem value="0" label="依存関係" />
       </Stats>
@@ -1896,7 +1896,7 @@ import { Icon } from "kaze-design-system";
       },
     ],
     usage: `<Stats>
-  <StatItem value="24+" label="コンポーネント" description="UIライブラリに含まれる総数" />
+  <StatItem value="24+" label="コンポーネント" description="UI ライブラリに含まれる総数" />
   <StatItem value="100%" label="TypeScript" />
 </Stats>`,
   },
@@ -1911,7 +1911,7 @@ import { Icon } from "kaze-design-system";
           description="個人利用向け"
           price="¥0"
           period="/月"
-          features={["5プロジェクト", "基本コンポーネント"]}
+          features={["5 プロジェクト", "基本コンポーネント"]}
         >
           <Button variant="outline" fullWidth>
             はじめる
@@ -1938,7 +1938,7 @@ import { Icon } from "kaze-design-system";
       { name: "badge", type: "string", description: "バッジテキスト" },
     ],
     usage: `<PricingGrid>
-  <PricingCard name="Pro" price="¥2,980" period="/月" features={["機能1", "機能2"]} featured badge="おすすめ">
+  <PricingCard name="Pro" price="¥2,980" period="/月" features={["機能 1", "機能 2"]} featured badge="おすすめ">
     <Button fullWidth>選択</Button>
   </PricingCard>
 </PricingGrid>`,
@@ -1950,7 +1950,7 @@ import { Icon } from "kaze-design-system";
     preview: (
       <TestimonialGrid>
         <TestimonialCard
-          quote="Kazeのおかげで開発速度が2倍になりました。"
+          quote="Kaze のおかげで開発速度が 2 倍になりました。"
           authorName="堀内昌平"
           authorRole="フロントエンドエンジニア"
         />
@@ -1965,7 +1965,7 @@ import { Icon } from "kaze-design-system";
       { name: "quote", type: "string", description: "引用テキスト" },
       { name: "authorName", type: "string", description: "著者名" },
       { name: "authorRole", type: "string", description: "役職" },
-      { name: "authorImage", type: "string", description: "著者画像URL" },
+      { name: "authorImage", type: "string", description: "著者画像 URL" },
     ],
     usage: `<TestimonialGrid>
   <TestimonialCard quote="素晴らしいです。" authorName="堀内昌平" authorRole="エンジニア" />
@@ -1978,12 +1978,12 @@ import { Icon } from "kaze-design-system";
     preview: (
       <FAQ>
         <FAQItem
-          question="Kazeは無料ですか？"
-          answer="はい、MITライセンスで完全無料でご利用いただけます。"
+          question="Kaze は無料ですか？"
+          answer="はい、MIT ライセンスで完全無料でご利用いただけます。"
         />
         <FAQItem
-          question="TypeScriptに対応していますか？"
-          answer="はい、全コンポーネントがTypeScript Strict Modeで型定義されています。"
+          question="TypeScript に対応していますか？"
+          answer="はい、全コンポーネントが TypeScript Strict Mode で型定義されています。"
         />
       </FAQ>
     ),
@@ -1993,7 +1993,7 @@ import { Icon } from "kaze-design-system";
       {
         name: "children",
         type: "React.ReactNode",
-        description: "回答コンテンツ（FAQItem、answerの代替）",
+        description: "回答コンテンツ（FAQItem、answer の代替）",
       },
     ],
     usage: `<FAQ>
@@ -2035,7 +2035,7 @@ import { Icon } from "kaze-design-system";
       >
         <LPFooter
           logo={<Logo size="sm" />}
-          description="美しいUIを、もっと速く。"
+          description="美しい UI を、もっと速く。"
           columns={[
             {
               title: "プロダクト",
@@ -2082,7 +2082,7 @@ import { Icon } from "kaze-design-system";
   heading: {
     title: "Heading",
     description:
-      "セマンティックな見出しコンポーネント。レベル1〜6、説明テキスト、ボーダー付きに対応。",
+      "セマンティックな見出しコンポーネント。レベル 1〜6、説明テキスト、ボーダー付きに対応。",
     preview: (
       <div className={styles.previewColumn} style={{ gap: "1.5rem" }}>
         <Heading level={1}>大見出し (h1)</Heading>
@@ -2108,7 +2108,7 @@ import { Icon } from "kaze-design-system";
       {
         name: "as",
         type: '"h1" | "h2" | ... | "h6"',
-        description: "レンダリングするHTML要素を上書き",
+        description: "レンダリングする HTML 要素を上書き",
       },
       { name: "description", type: "React.ReactNode", description: "見出し下の説明テキスト" },
       { name: "bordered", type: "boolean", default: "false", description: "下線ボーダーを表示" },
@@ -2173,7 +2173,7 @@ import { Icon } from "kaze-design-system";
     ],
     usage: `<Text variant="lead">サービスの説明文がここに入ります。</Text>
 <Text>通常の本文テキスト。</Text>
-<Text variant="caption" color="muted">2024年1月1日 公開</Text>
+<Text variant="caption" color="muted">2024 年 1 月 1 日 公開</Text>
 <Text variant="overline">カテゴリ</Text>
 <Text weight="bold" color="primary">重要なテキスト</Text>`,
   },
@@ -2222,7 +2222,7 @@ import { Icon } from "kaze-design-system";
         name: "gap",
         type: "number | string",
         default: "var(--space-6)",
-        description: "アイテム間のギャップ（space トークン/数値/CSS値）",
+        description: "アイテム間のギャップ（space トークン/数値/CSS 値）",
       },
     ],
     usage: `<Grid columns={3} columnsMd={2} columnsSm={1}>
@@ -2263,7 +2263,7 @@ import { Icon } from "kaze-design-system";
               leading={<Users size={16} />}
               title="チームメンバー"
               description="メンバーの管理と招待"
-              trailing="5人"
+              trailing="5 人"
             />
           </List>
         </div>
@@ -2348,8 +2348,8 @@ import { Icon } from "kaze-design-system";
 
 {/* 番号付き */}
 <List marker="decimal">
-  <ListItem title="手順1" />
-  <ListItem title="手順2" />
+  <ListItem title="手順 1" />
+  <ListItem title="手順 2" />
 </List>`,
   },
 
@@ -2370,7 +2370,7 @@ import { Icon } from "kaze-design-system";
           <p style={{ fontSize: "0.875rem", fontWeight: 600, marginBottom: "0.5rem" }}>横並び</p>
           <DescriptionList horizontal>
             <DescriptionItem term="ステータス">公開中</DescriptionItem>
-            <DescriptionItem term="最終更新">2026年2月19日</DescriptionItem>
+            <DescriptionItem term="最終更新">2026 年 2 月 19 日</DescriptionItem>
             <DescriptionItem term="コンポーネント数">54</DescriptionItem>
           </DescriptionList>
         </div>
@@ -2410,23 +2410,23 @@ import { Icon } from "kaze-design-system";
     preview: (
       <Timeline>
         <TimelineItem
-          time="2026年2月19日"
+          time="2026 年 2 月 19 日"
           title="v0.1.0 リリース"
-          description="初回公開バージョン。41コンポーネントを収録。"
+          description="初回公開バージョン。41 コンポーネントを収録。"
           tone="positive"
         />
         <TimelineItem
-          time="2026年2月15日"
+          time="2026 年 2 月 15 日"
           title="ベータテスト開始"
           description="社内チームによるレビューとフィードバック。"
           tone="info"
         />
         <TimelineItem
-          time="2026年2月10日"
+          time="2026 年 2 月 10 日"
           title="デザイントークン策定"
           description="カラー、タイポグラフィ、スペーシングの定義。"
         />
-        <TimelineItem time="2026年2月1日" title="プロジェクト開始" />
+        <TimelineItem time="2026 年 2 月 1 日" title="プロジェクト開始" />
       </Timeline>
     ),
     props: [
@@ -2500,14 +2500,14 @@ import { Icon } from "kaze-design-system";
         aria-label="月別の売上と利用者数"
         index="month"
         data={[
-          { month: "4月", sales: 320, users: 210 },
-          { month: "5月", sales: 340, users: 230 },
-          { month: "6月", sales: 310, users: 245 },
-          { month: "7月", sales: 390, users: 260 },
-          { month: "8月", sales: 420, users: 300 },
-          { month: "9月", sales: 460, users: 310 },
-          { month: "10月", sales: 450, users: 340 },
-          { month: "11月", sales: 510, users: 360 },
+          { month: "4 月", sales: 320, users: 210 },
+          { month: "5 月", sales: 340, users: 230 },
+          { month: "6 月", sales: 310, users: 245 },
+          { month: "7 月", sales: 390, users: 260 },
+          { month: "8 月", sales: 420, users: 300 },
+          { month: "9 月", sales: 460, users: 310 },
+          { month: "10 月", sales: 450, users: 340 },
+          { month: "11 月", sales: 510, users: 360 },
         ]}
         series={[
           { key: "sales", label: "売上（万円）" },
@@ -2569,8 +2569,8 @@ import { Icon } from "kaze-design-system";
   aria-label="月別の売上と利用者数"
   index="month"
   data={[
-    { month: "4月", sales: 320, users: 210 },
-    { month: "5月", sales: 340, users: 230 },
+    { month: "4 月", sales: 320, users: 210 },
+    { month: "5 月", sales: 340, users: 230 },
   ]}
   series={[
     { key: "sales", label: "売上（万円）" },
@@ -2591,12 +2591,12 @@ import { Icon } from "kaze-design-system";
         index="month"
         layout="stacked"
         data={[
-          { month: "4月", web: 420, app: 310, store: 180 },
-          { month: "5月", web: 380, app: 340, store: 210 },
-          { month: "6月", web: 520, app: 390, store: 240 },
-          { month: "7月", web: 610, app: 420, store: 230 },
-          { month: "8月", web: 570, app: 480, store: 260 },
-          { month: "9月", web: 690, app: 510, store: 290 },
+          { month: "4 月", web: 420, app: 310, store: 180 },
+          { month: "5 月", web: 380, app: 340, store: 210 },
+          { month: "6 月", web: 520, app: 390, store: 240 },
+          { month: "7 月", web: 610, app: 420, store: 230 },
+          { month: "8 月", web: 570, app: 480, store: 260 },
+          { month: "9 月", web: 690, app: 510, store: 290 },
         ]}
         series={[
           { key: "web", label: "Web" },
@@ -2663,8 +2663,8 @@ import { Icon } from "kaze-design-system";
   index="month"
   layout="stacked"
   data={[
-    { month: "4月", web: 420, app: 310 },
-    { month: "5月", web: 380, app: 340 },
+    { month: "4 月", web: 420, app: 310 },
+    { month: "5 月", web: 380, app: 340 },
   ]}
   series={[
     { key: "web", label: "Web" },
@@ -2676,7 +2676,7 @@ import { Icon } from "kaze-design-system";
   heatmap: {
     title: "Heatmap",
     description:
-      "2次元の密度を単一色相の濃淡で見せるヒートマップ。曜日×時間帯などの行×列（matrix）と、日別カレンダー（calendar）に対応。",
+      "2 次元の密度を単一色相の濃淡で見せるヒートマップ。曜日×時間帯などの行×列（matrix）と、日別カレンダー（calendar）に対応。",
     preview: (
       <div
         style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr)", gap: "var(--space-6)" }}
@@ -2782,7 +2782,7 @@ import { Icon } from "kaze-design-system";
   "category-bar": {
     title: "CategoryBar",
     description:
-      "構成比を1本の帯で見せるコンポーネント。予算消化やストレージ使用量の内訳、NPS の分布に。",
+      "構成比を 1 本の帯で見せるコンポーネント。予算消化やストレージ使用量の内訳、NPS の分布に。",
     preview: (
       <CategoryBar
         aria-label="ストレージ使用量の内訳"
@@ -2883,7 +2883,7 @@ import { Icon } from "kaze-design-system";
 
   "donut-chart": {
     title: "DonutChart",
-    description: "SVGベースのドーナツチャート。凡例とセンターラベル付き。",
+    description: "SVG ベースのドーナツチャート。凡例とセンターラベル付き。",
     preview: (
       <DonutChart
         aria-label="デバイス別アクセス数"
@@ -2897,7 +2897,7 @@ import { Icon } from "kaze-design-system";
     ),
     props: [
       { name: "data", type: "DonutChartSegment[]", description: "{ label, value, color? } の配列" },
-      { name: "size", type: "number", default: "120", description: "SVGのサイズ（px）" },
+      { name: "size", type: "number", default: "120", description: "SVG のサイズ（px）" },
       { name: "strokeWidth", type: "number", default: "16", description: "リングの太さ" },
       { name: "centerLabel", type: "string", description: "中央に表示するテキスト" },
       { name: "showLegend", type: "boolean", default: "true", description: "凡例を表示するか" },
@@ -2939,8 +2939,8 @@ import { Icon } from "kaze-design-system";
     ),
     props: [
       { name: "data", type: "number[]", description: "数値の配列" },
-      { name: "width", type: "number", default: "80", description: "SVGの幅" },
-      { name: "height", type: "number", default: "24", description: "SVGの高さ" },
+      { name: "width", type: "number", default: "80", description: "SVG の幅" },
+      { name: "height", type: "number", default: "24", description: "SVG の高さ" },
       { name: "color", type: "string", default: "var(--chart-emerald)", description: "線の色" },
       {
         name: "showArea",
@@ -2965,19 +2965,19 @@ import { Icon } from "kaze-design-system";
     preview: (
       <div className={styles.previewColumn} style={{ gap: "1rem" }}>
         <Alert tone="info" icon={<Info size={18} />}>
-          新しいバージョンが利用可能です。
+          新しいバージョンを使えます。
         </Alert>
         <Alert tone="positive" icon={<CheckCircle size={18} />}>
           データが正常に保存されました。
         </Alert>
         <Alert tone="warning" icon={<AlertTriangle size={18} />}>
-          ストレージの使用量が80%を超えています。
+          ストレージの使用量が 80%を超えています。
         </Alert>
         <Alert tone="negative" icon={<AlertCircle size={18} />}>
           ネットワーク接続に失敗しました。再試行してください。
         </Alert>
         <Alert tone="info" icon={<Info size={18} />} title="お知らせ">
-          システムメンテナンスを2月25日に実施します。
+          システムメンテナンスを 2 月 25 日に行います。
         </Alert>
       </div>
     ),
@@ -2993,7 +2993,7 @@ import { Icon } from "kaze-design-system";
       { name: "children", type: "React.ReactNode", description: "アラートの内容" },
     ],
     usage: `<Alert tone="info" icon={<Info size={18} />}>
-  新しいバージョンが利用可能です。
+  新しいバージョンを使えます。
 </Alert>
 <Alert tone="positive" icon={<CheckCircle size={18} />}>
   データが正常に保存されました。
@@ -3030,7 +3030,7 @@ import { Icon } from "kaze-design-system";
           <p style={{ fontSize: "0.875rem", fontWeight: 600, marginBottom: "0.5rem" }}>
             ラベル付き
           </p>
-          <Progress value={72} label="アップロード中..." showValue />
+          <Progress value={72} label="アップロード中…" showValue />
         </div>
       </div>
     ),
@@ -3056,7 +3056,7 @@ import { Icon } from "kaze-design-system";
         description: "パーセンテージ値を表示するかどうか",
       },
     ],
-    usage: `<Progress value={72} label="アップロード中..." showValue />
+    usage: `<Progress value={72} label="アップロード中…" showValue />
 <Progress value={45} tone="warning" size="lg" />`,
   },
 
@@ -3269,7 +3269,7 @@ import { Icon } from "kaze-design-system";
   "empty-state": {
     title: "EmptyState",
     description:
-      'データが存在しない場合に表示する空状態コンポーネント。sm / md / lg の3サイズに対応し、テーブルセル内の小さな表示からページ全体の大きな表示まで使い分けられます。role="status" が自動付与されます。',
+      'データが存在しない場合に表示する空状態コンポーネント。sm / md / lg の 3 サイズに対応し、テーブルセル内の小さな表示からページ全体の大きな表示まで使い分けられます。role="status" が自動付与されます。',
     preview: (
       <div className={styles.previewColumn} style={{ gap: "2rem" }}>
         <div>
@@ -3408,7 +3408,7 @@ import { Icon } from "kaze-design-system";
       {
         name: "step",
         type: "number",
-        description: "現在のステップ番号（0始まり。旧 currentStep）",
+        description: "現在のステップ番号（0 始まり。旧 currentStep）",
       },
     ],
     usage: `<Stepper
@@ -3523,8 +3523,8 @@ import { Icon } from "kaze-design-system";
       { name: "error", type: "boolean", default: "false", description: "エラー状態" },
     ],
     usage: `<RadioGroup label="選択肢">
-  <Radio label="選択肢A" name="choice" value="a" />
-  <Radio label="選択肢B" name="choice" value="b" />
+  <Radio label="選択肢 A" name="choice" value="a" />
+  <Radio label="選択肢 B" name="choice" value="b" />
 </RadioGroup>`,
   },
 
@@ -3667,7 +3667,7 @@ import { Icon } from "kaze-design-system";
             { tone: "positive", tooltip: "正常" },
             { tone: "positive", tooltip: "正常" },
           ]}
-          label="過去12時間のステータス"
+          label="過去 12 時間のステータス"
         />
       </div>
     ),
@@ -3840,7 +3840,7 @@ import { Icon } from "kaze-design-system";
         default: "false",
         description: "アクティブ（選択中）状態",
       },
-      { name: "color", type: "string", description: "アクセントカラー（CSS色値）" },
+      { name: "color", type: "string", description: "アクセントカラー（CSS 色値）" },
       {
         name: "dot",
         type: "boolean",
@@ -3883,7 +3883,7 @@ import { Icon } from "kaze-design-system";
       {
         name: "onOpenChange",
         type: "(open: boolean) => void",
-        description: "開閉が変わる時のコールバック",
+        description: "開閉が変わるときのコールバック",
       },
       {
         name: "PopoverTrigger.asChild",
@@ -3982,7 +3982,7 @@ import { Icon } from "kaze-design-system";
       {
         name: "onValueChange",
         type: "(value: string | null) => void",
-        description: "選択が変わる時のコールバック。入力を空にして離れると null",
+        description: "選択が変わるときのコールバック。入力を空にして離れると null",
       },
       {
         name: "filter",
@@ -4032,7 +4032,7 @@ const options = [
   "date-picker": {
     title: "DatePicker",
     description:
-      '日付入力とカレンダーのポップオーバー（WAI-ARIA の Date Picker Dialog）。値は "YYYY-MM-DD" の文字列で、Date のタイムゾーンずれが起きません。era="japanese" で「令和8年10月29日」の和暦表示になり、入力は 2026/10/29・20261029・令和8年10月29日・R8.10.29・全角数字を受け付けます。祝日データは持たないので、休業日などは isDateDisabled で渡します。',
+      '日付入力とカレンダーのポップオーバー（WAI-ARIA の Date Picker Dialog）。値は "YYYY-MM-DD" の文字列で、Date のタイムゾーンずれが起きません。era="japanese" で「令和8年10月29日」の和暦表示になり、入力は 2026/10/29・20261029・「令和8年10月29日」・R8.10.29・全角数字を受け付けます。祝日データは持たないので、休業日などは isDateDisabled で渡します。',
     preview: (
       <div style={{ display: "grid", gap: "var(--space-4)", maxWidth: "20rem" }}>
         <FormField label="開始日（西暦）">
@@ -4040,7 +4040,7 @@ const options = [
         </FormField>
         <FormField
           label="開始日（和暦）"
-          description="R8.10.29 や 令和8年10月29日 でも入力できます"
+          description="「R8.10.29」や「令和8年10月29日」でも入力できます"
         >
           <DatePicker era="japanese" defaultValue="2026-10-29" weekStartsOn={1} />
         </FormField>
@@ -4062,7 +4062,7 @@ const options = [
         name: "onValueChange",
         type: "(value: string | null) => void",
         description:
-          "日付が決まった時のコールバック。入力を空にした時と、解釈できない・選べない日付を入力した時は null",
+          "日付が決まったときのコールバック。入力を空にした時と、解釈できない・選べない日付を入力したときは null",
       },
       {
         name: "era",
@@ -4093,7 +4093,7 @@ const options = [
       {
         name: "onOpenChange",
         type: "(open: boolean) => void",
-        description: "カレンダーの開閉が変わる時のコールバック",
+        description: "カレンダーの開閉が変わるときのコールバック",
       },
       {
         name: "name",
@@ -4123,7 +4123,7 @@ const options = [
         name: "aria-invalid",
         type: "boolean | 'true' | 'false'",
         description:
-          "true で Input と同じエラー表示。解釈できない日付を入力した時は自動で true になる。FormField の error からも渡される",
+          "true で Input と同じエラー表示。解釈できない日付を入力したときは自動で true になる。FormField の error からも渡される",
       },
     ],
     usage: `import { DatePicker, FormField } from "kaze-design-system";
@@ -4143,7 +4143,7 @@ const options = [
   drawer: {
     title: "Drawer",
     description:
-      '画面の端から出るモーダルパネル。Dialog と同じ挙動（フォーカストラップ・背景の inert 化・スクロールロック・Escape・背景クリック・閉じアニメ・フォーカス復帰）で、フィルターや詳細表示のように一覧を見たまま操作したい場面に向きます。モバイル幅では side="bottom"（ボトムシート）を推奨します。',
+      '画面の端から出るモーダルパネル。フォーカストラップ・背景の inert 化・スクロールロック・Escape や背景クリックで閉じる動き・フォーカス復帰は、Dialog と同じです。フィルターや詳細表示のように、一覧を見たまま操作したい場面に向きます。モバイル幅では side="bottom"（ボトムシート）を推奨します。',
     preview: <DrawerDemo />,
     props: [
       { name: "open", type: "boolean", description: "表示状態" },

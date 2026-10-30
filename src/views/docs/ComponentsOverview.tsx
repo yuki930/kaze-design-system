@@ -117,7 +117,7 @@ export const categories: Category[] = [
       { name: "Breadcrumb", path: "breadcrumb", description: "パンくずリスト" },
       { name: "Pagination", path: "pagination", description: "ページネーション" },
       { name: "Stepper", path: "stepper", description: "ステッパー" },
-      { name: "Disclosure", path: "disclosure", description: "単一項目の展開UI（コラプシブル）" },
+      { name: "Disclosure", path: "disclosure", description: "単一項目の展開 UI（コラプシブル）" },
     ],
   },
   {
@@ -204,7 +204,7 @@ const foundationLinks: FoundationLink[] = [
   {
     name: "カラー",
     href: "/docs/colors",
-    description: "12色相 × 10階調のパレットとセマンティックカラー",
+    description: "12 色相 × 10 階調のパレットとセマンティックカラー",
   },
   {
     name: "ユーティリティ",
@@ -319,8 +319,8 @@ export function ComponentsOverview() {
       <p className={styles.pageDescription}>
         Kaze Design System は Foundation（デザイントークンとユーティリティ）を土台に、Application
         UI（
-        {applicationCount}）と Marketing（{marketingCount}）の2つのカタログで全{totalCount}
-        個のコンポーネントを提供します。
+        {applicationCount}）と Marketing（{marketingCount}）の 2 つのカタログに、全 {totalCount}{" "}
+        個のコンポーネントがあります。
         各コンポーネントをクリックすると、詳細なドキュメントとプレビューを確認できます。
       </p>
 
@@ -347,7 +347,8 @@ export function ComponentsOverview() {
       <section style={{ marginBottom: "var(--space-12)" }}>
         <LayerHeading count={applicationCount}>Application UI</LayerHeading>
         <p style={layerDescriptionStyle}>
-          管理画面やダッシュボードなど、業務アプリケーションの画面を組み立てるための8カテゴリです。
+          管理画面やダッシュボードなど、業務アプリケーションの画面を組み立てるための 8
+          カテゴリです。
         </p>
 
         {applicationCategories.map((category) => (

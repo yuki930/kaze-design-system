@@ -25,13 +25,13 @@ import { Heart, Search, Bookmark, TrendingUp } from "lucide-react";
 const featuredArticle = {
   image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1200&h=600&fit=crop",
   category: "テクノロジー",
-  title: "2026年のフロントエンド開発：React Server Componentsがもたらす変革",
+  title: "2026 年のフロントエンド開発：React Server Components がもたらす変革",
   excerpt:
-    "React Server Componentsが本格的に普及し始めた2026年。サーバーとクライアントの境界が曖昧になる中、フロントエンドエンジニアはどのようにアーキテクチャを設計すべきなのか。最新のベストプラクティスを徹底解説します。",
+    "React Server Components が本格的に普及し始めた 2026 年。サーバーとクライアントの境界が曖昧になる中、フロントエンドエンジニアはどのようにアーキテクチャを設計すべきなのか。最新のベストプラクティスを徹底解説します。",
   author: "原山 悠",
   authorFallback: "YH",
-  date: "2026年2月18日",
-  readTime: "12分",
+  date: "2026 年 2 月 18 日",
+  readTime: "12 分",
   likes: 342,
 };
 
@@ -42,34 +42,34 @@ const articles = [
     categoryVariant: "info" as const,
     title: "デザインシステムを小さく始める方法",
     excerpt:
-      "大規模なデザインシステムを構築する必要はありません。最小限のトークンと5つのコンポーネントから始める実践的なアプローチを紹介します。",
+      "大規模なデザインシステムを構築する必要はありません。最小限のトークンと 5 つのコンポーネントから始める実践的なアプローチを紹介します。",
     author: "相楽 実咲",
     authorFallback: "SM",
-    date: "2026年2月16日",
+    date: "2026 年 2 月 16 日",
     likes: 198,
   },
   {
     image: "https://images.unsplash.com/photo-1550439062-609e1531270e?w=600&h=400&fit=crop",
     category: "テクノロジー",
     categoryVariant: "positive" as const,
-    title: "TypeScript 5.8の新機能を徹底解説",
+    title: "TypeScript 5.8 の新機能を徹底解説",
     excerpt:
-      "TypeScript 5.8で追加された型推論の改善、パフォーマンス最適化、新しいユーティリティ型について、実際のコード例を交えて解説します。",
+      "TypeScript 5.8 で追加された型推論の改善、パフォーマンス最適化、新しいユーティリティ型について、実際のコード例を交えて解説します。",
     author: "堀内 昌平",
     authorFallback: "HS",
-    date: "2026年2月14日",
+    date: "2026 年 2 月 14 日",
     likes: 256,
   },
   {
     image: "https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=600&h=400&fit=crop",
     category: "AI",
     categoryVariant: "warning" as const,
-    title: "AIコーディングアシスタントを最大限活用するプロンプト術",
+    title: "AI コーディングアシスタントを最大限活用するプロンプト術",
     excerpt:
-      "AIコーディングツールを日常の開発で活用するための具体的なプロンプトテクニック。効率を3倍にする実践的な使い方を紹介。",
+      "AI コーディングツールを日常の開発で活用するための具体的なプロンプトテクニック。効率を 3 倍にする実践的な使い方を紹介。",
     author: "早瀬 遼平",
     authorFallback: "HR",
-    date: "2026年2月12日",
+    date: "2026 年 2 月 12 日",
     likes: 421,
   },
   {
@@ -81,7 +81,7 @@ const articles = [
       "サーバーレスの次のステップとして注目されるエッジコンピューティング。エッジワーカーを使った実装パターンをゼロから解説します。",
     author: "宮田 千夏",
     authorFallback: "MC",
-    date: "2026年2月10日",
+    date: "2026 年 2 月 10 日",
     likes: 167,
   },
   {
@@ -90,22 +90,22 @@ const articles = [
     categoryVariant: "info" as const,
     title: "エンジニアからプロダクトマネージャーへの転身記",
     excerpt:
-      "5年間のフロントエンド開発経験を経てPMに転身した筆者が、技術バックグラウンドを活かしたプロダクトマネジメントの実践を語ります。",
+      "5 年間のフロントエンド開発経験を経て PM に転身した筆者が、技術バックグラウンドを活かしたプロダクトマネジメントの実践を語ります。",
     author: "呉羽 直樹",
     authorFallback: "KN",
-    date: "2026年2月8日",
+    date: "2026 年 2 月 8 日",
     likes: 189,
   },
   {
     image: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=600&h=400&fit=crop",
     category: "デザイン",
     categoryVariant: "info" as const,
-    title: "CSSカスタムプロパティでダークモードを完全攻略する",
+    title: "CSS カスタムプロパティでダークモードを完全攻略する",
     excerpt:
-      "CSS変数を使ったダークモード実装の決定版。デザイントークンの設計からアニメーション付きトランジションまで、包括的に解説します。",
+      "CSS 変数を使ったダークモード実装の決定版。デザイントークンの設計からアニメーション付きトランジションまで、包括的に解説します。",
     author: "桐生 あかね",
     authorFallback: "KA",
-    date: "2026年2月6日",
+    date: "2026 年 2 月 6 日",
     likes: 234,
   },
 ];
@@ -439,12 +439,12 @@ const styles = {
 
 const trendingArticles = [
   {
-    title: "Bunが実現する高速なJavaScriptランタイムの未来",
+    title: "Bun が実現する高速な JavaScript ランタイムの未来",
     author: "野々村 圭",
     likes: 534,
   },
   {
-    title: "WebAssemblyでブラウザゲーム開発を始めよう",
+    title: "WebAssembly でブラウザゲーム開発を始めよう",
     author: "志摩 このみ",
     likes: 412,
   },
@@ -454,7 +454,7 @@ const trendingArticles = [
     likes: 387,
   },
   {
-    title: "モノレポ管理のベストプラクティス 2026年版",
+    title: "モノレポ管理のベストプラクティス 2026 年版",
     author: "堀内 昌平",
     likes: 356,
   },
@@ -494,7 +494,7 @@ export function BlogPage() {
           エンジニアとデザイナーのための技術メディア。最新のフロントエンド、UI/UX、AI、インフラの知見を日本語でお届けします。
         </p>
         <div style={styles.heroSearch}>
-          <Input placeholder="記事を検索..." style={{ flex: 1 }} />
+          <Input placeholder="記事を検索…" style={{ flex: 1 }} />
           <Button>
             <Search size={16} />
           </Button>

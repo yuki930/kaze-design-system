@@ -18,7 +18,7 @@
 
 | | |
 |---|---|
-| **ライブプレビュー (ショーケース)** | https://kaze-design-system.vercel.app |
+| **ライブプレビュー（ショーケース）** | https://kaze-design-system.vercel.app |
 | **コンポーネントドキュメント** | https://kaze-design-system.vercel.app/docs/components |
 | **サンプルページギャラリー** | https://kaze-design-system.vercel.app/gallery |
 | **Storybook** | https://kaze-design-system.vercel.app/storybook |
@@ -50,7 +50,7 @@
 - [**Article**](https://kaze-design-system.vercel.app/article): 記事ページ
 - [**Help**](https://kaze-design-system.vercel.app/help): ヘルプセンター
 
-> **ESM only**: このパッケージは ES Modules のみを提供します。
+> **ESM only**: このパッケージは ES Modules だけで配布しています。
 > `"type": "module"` が設定された環境、または ESM 対応バンドラー（Vite, Next.js, webpack 5+）で使用してください。
 
 ## For AI assistants (Claude / Cursor / ChatGPT)
@@ -60,7 +60,9 @@ AI コーディングアシスタントは以下のファイルからライブ�
 - **Short index**: https://kaze-design-system.vercel.app/llms.txt
 - **Full API reference**: https://kaze-design-system.vercel.app/llms-full.txt
 
-`llms-full.txt` には 78 コンポーネントの `Props` / `Usage` / カテゴリが機械可読形式で含まれており、Storybook を参照しなくても正確なコード提案が可能です。[llmstxt.org](https://llmstxt.org) 準拠。
+`llms-full.txt` には 78 コンポーネントの `Props` / `Usage` / カテゴリが機械可読形式で入っています。Storybook を見なくても、AI が正確なコードを提案できます。[llmstxt.org](https://llmstxt.org) 準拠。
+
+画面の文言は[文言ガイド](https://kaze-design-system.vercel.app/docs/writing)に沿って書き、`npx kaze-copy src` で検査できます。`--fix` を付けると、表記の揺れは自動で直ります。
 
 ## インストール
 
@@ -72,7 +74,7 @@ Peer dependencies: `react@^18 || ^19`, `react-dom@^18 || ^19`。`lucide-react` �
 
 ### バージョンと互換性
 
-v1.0 からは [Semantic Versioning](https://semver.org/lang/ja/) に従います。prop や型、CSS クラス、トークンの削除・改名はメジャーバージョンでだけ行い、その前に少なくとも 1 つのマイナーバージョンのあいだ、非推奨（開発中にコンソールへ警告）として残します。0.x から上げるときは [MIGRATION.md](./MIGRATION.md) を見てください。
+v1.0 からは [Semantic Versioning](https://semver.org/lang/ja/) に従います。prop や型、CSS クラス、トークンの削除・改名は、メジャーバージョンでだけ行います。その前の少なくとも 1 つのマイナーバージョンでは、非推奨（開発中にコンソールへ警告）として残します。0.x から上げるときは [MIGRATION.md](./MIGRATION.md) を見てください。
 
 ## CSS の読み込み
 
@@ -126,11 +128,11 @@ function App() {
 
 ## レイヤー構成
 
-kaze は1パッケージ・3レイヤーで構成されています。
+kaze は 1 パッケージ・3 レイヤーで構成されています。
 
 - **Foundation**: デザイントークン（カラー・タイポグラフィ・スペーシング）と CSS。両レイヤー共通の土台
-- **Application UI**: 管理画面・アプリ向けの66コンポーネント。`kaze-design-system` から import
-- **Marketing**: LP・キャンペーンページ向けの12コンポーネント。`kaze-design-system/marketing` から import
+- **Application UI**: 管理画面・アプリ向けの 66 コンポーネント。`kaze-design-system` から import
+- **Marketing**: LP・キャンペーンページ向けの 12 コンポーネント。`kaze-design-system/marketing` から import
 
 ```tsx
 // Application UI
@@ -225,7 +227,7 @@ import { useFocusTrap, useLegendToggle } from "kaze-design-system/hooks";
 
 | 区分 | 生サイズ | gzip |
 |---|---:|---:|
-| JS: 全コンポーネント合計 (tree-shake 対象) | 110 kB | **38 kB** |
+| JS: 全コンポーネント合計（tree-shake 対象）| 110 kB | **38 kB** |
 | JS: 最大 (CommandPalette) | 6.4 kB | 1.9 kB |
 | JS: 中央値 (StatusBadge) | 896 B | 476 B |
 | JS: 最小 (Textarea) | 481 B | 280 B |
@@ -303,7 +305,7 @@ import { ThemeProvider, ThemeScript } from "kaze-design-system/hooks";
 
 ## Server Components から使う
 
-ルートの barrel（`kaze-design-system`）は `"use client"` 付きなので、そこから import したコンポーネントはすべてクライアント境界に入ります。state を持たない静的コンポーネント（Card、Badge、Heading、Table など 54 個）を Server Component のまま使いたい場合は、個別のサブパスから import してください。
+ルートの barrel（`kaze-design-system`）は `"use client"` 付きなので、そこから import したコンポーネントはすべてクライアント境界に入ります。state を持たない静的コンポーネントは 54 個あります（Card、Badge、Heading、Table など）。これらを Server Component のまま使いたい場合は、個別のサブパスから import してください。
 
 ```tsx
 import { Card, CardHeader, CardTitle } from "kaze-design-system/components/Card";
@@ -314,7 +316,7 @@ state を持つコンポーネント（Dialog、Dropdown、Tabs など）は個�
 
 ## 密度（Density）
 
-`data-density="compact"` を祖先要素（`<html>` やパネル単位）に付けると、Input / Select / Table / List / Tabs / Dropdown / Sidebar などが詰まった表示になります。テーマ・パレットとは独立に組み合わせられます。
+`data-density="compact"` を祖先要素（`<html>` やパネル単位）に付けると、表示が詰まります。対象は Input / Select / Table / List / Tabs / Dropdown / Sidebar などです。テーマ・パレットとは独立に組み合わせられます。
 
 ```html
 <html data-theme="dark" data-density="compact">

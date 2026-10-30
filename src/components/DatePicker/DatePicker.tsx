@@ -85,6 +85,7 @@ export interface DatePickerProps
 
 const PLACEHOLDERS: Record<Era, string> = {
   gregorian: "2026/10/29",
+  // Matches what formatDate(…, "japanese") shows in the field. kaze-copy-ignore-next-line
   japanese: "令和8年10月29日",
 };
 

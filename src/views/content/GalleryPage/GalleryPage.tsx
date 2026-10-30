@@ -55,7 +55,7 @@ const galleryItems: GalleryItem[] = [
   },
   {
     id: 2,
-    title: "EC管理画面",
+    title: "EC 管理画面",
     pageHref: "/ec-dashboard",
     author: "堀内 昌平",
     category: "ダッシュボード",
@@ -109,7 +109,7 @@ const galleryItems: GalleryItem[] = [
   },
   {
     id: 8,
-    title: "Todoアプリ",
+    title: "Todo アプリ",
     pageHref: "/todo",
     author: "志摩 このみ",
     category: "アプリ",

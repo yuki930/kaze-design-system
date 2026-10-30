@@ -18,7 +18,7 @@
       "name": "fullWidth",
       "type": "boolean",
       "optional": true,
-      "description": "幅を100%にするかどうか",
+      "description": "幅を 100%にするかどうか",
       "default": "false"
     },
     {
@@ -69,7 +69,7 @@
       "name": "className",
       "type": "string",
       "optional": true,
-      "description": "追加のCSSクラス名",
+      "description": "追加の CSS クラス名",
       "default": "undefined"
     }
   ],
@@ -85,7 +85,7 @@
       "name": "children",
       "type": "React.ReactNode",
       "optional": true,
-      "description": "optionエレメント",
+      "description": "option エレメント",
       "default": ""
     }
   ],
@@ -122,7 +122,7 @@
       "name": "id",
       "type": "string",
       "optional": true,
-      "description": "要素のID（labelとの紐付けに使用）",
+      "description": "要素の ID（label との紐付けに使用）",
       "default": ""
     }
   ],
@@ -138,7 +138,7 @@
       "name": "className",
       "type": "string",
       "optional": true,
-      "description": "追加のCSSクラス名",
+      "description": "追加の CSS クラス名",
       "default": "undefined"
     }
   ],
@@ -198,7 +198,7 @@
       "name": "dot",
       "type": "boolean",
       "optional": true,
-      "description": "ドットインジケーターを表示するかどうか",
+      "description": "ドットインジケータを表示するかどうか",
       "default": "false"
     },
     {
@@ -235,7 +235,7 @@
       "name": "dot",
       "type": "boolean",
       "optional": true,
-      "description": "ドットインジケーターを表示するかどうか",
+      "description": "ドットインジケータを表示するかどうか",
       "default": "true"
     }
   ],
@@ -316,7 +316,7 @@
       "name": "onValueChange",
       "type": "(value: string) => void",
       "optional": true,
-      "description": "選択が変わる時のコールバック（TabGroup）",
+      "description": "選択が変わるときのコールバック（TabGroup）",
       "default": ""
     },
     {
@@ -346,7 +346,7 @@
       "name": "src",
       "type": "string",
       "optional": true,
-      "description": "アバター画像のURL",
+      "description": "アバター画像の URL",
       "default": ""
     },
     {
@@ -406,7 +406,7 @@
       "name": "onOpenChange",
       "type": "(open: boolean) => void",
       "optional": true,
-      "description": "開閉が変わる時のコールバック。Escape・背景クリック・閉じるボタンで false が渡る（旧 onClose）",
+      "description": "開閉が変わるときのコールバック。Escape・背景クリック・閉じるボタンで false が渡る（旧 onClose）",
       "default": ""
     },
     {
@@ -457,7 +457,7 @@
       "name": "onOpenChange",
       "type": "(open: boolean) => void",
       "optional": true,
-      "description": "表示状態が変わる時のコールバック",
+      "description": "表示状態が変わるときのコールバック",
       "default": ""
     },
     {
@@ -566,7 +566,7 @@
       "name": "onOpenChange",
       "type": "(open: boolean) => void",
       "optional": true,
-      "description": "開閉が変わる時のコールバック",
+      "description": "開閉が変わるときのコールバック",
       "default": ""
     },
     {
@@ -817,7 +817,7 @@
       "type": "string",
       "optional": true,
       "description": "検索入力のプレースホルダー",
-      "default": "\"コマンドを検索...\""
+      "default": "\"コマンドを検索…\""
     },
     {
       "name": "searchLabel",
@@ -1089,7 +1089,7 @@
       "name": "children",
       "type": "React.ReactNode",
       "optional": true,
-      "description": "CTAボタンなどのアクション要素",
+      "description": "CTA ボタンなどのアクション要素",
       "default": ""
     },
     {
@@ -1284,7 +1284,7 @@
       "name": "authorImage",
       "type": "string",
       "optional": true,
-      "description": "著者画像URL",
+      "description": "著者画像 URL",
       "default": ""
     },
     {
@@ -1314,7 +1314,7 @@
       "name": "children",
       "type": "React.ReactNode",
       "optional": true,
-      "description": "回答コンテンツ（FAQItem、answerの代替）",
+      "description": "回答コンテンツ（FAQItem、answer の代替）",
       "default": ""
     }
   ],
@@ -1390,7 +1390,7 @@
       "name": "as",
       "type": "`h${HeadingLevel}`",
       "optional": true,
-      "description": "レンダリングするHTML要素を上書き",
+      "description": "レンダリングする HTML 要素を上書き",
       "default": ""
     },
     {
@@ -1485,7 +1485,7 @@
       "name": "gap",
       "type": "\"xs\" | \"sm\" | \"md\" | \"lg\" | \"xl\" | SpaceToken | number | (string & {})",
       "optional": true,
-      "description": "アイテム間のギャップ（space トークン/数値/CSS値）",
+      "description": "アイテム間のギャップ（space トークン/数値/CSS 値）",
       "default": "var(--space-6)"
     },
     {
@@ -2079,7 +2079,7 @@
       "name": "size",
       "type": "number",
       "optional": true,
-      "description": "SVGのサイズ（px）",
+      "description": "SVG のサイズ（px）",
       "default": "120"
     },
     {
@@ -2123,14 +2123,14 @@
       "name": "width",
       "type": "number",
       "optional": true,
-      "description": "SVGの幅",
+      "description": "SVG の幅",
       "default": "80"
     },
     {
       "name": "height",
       "type": "number",
       "optional": true,
-      "description": "SVGの高さ",
+      "description": "SVG の高さ",
       "default": "24"
     },
     {
@@ -2490,7 +2490,7 @@
       "name": "step",
       "type": "number",
       "optional": true,
-      "description": "現在のステップ番号（0始まり。旧 currentStep）",
+      "description": "現在のステップ番号（0 始まり。旧 currentStep）",
       "default": ""
     }
   ],
@@ -3000,7 +3000,7 @@
       "name": "color",
       "type": "string",
       "optional": true,
-      "description": "アクセントカラー（CSS色値）",
+      "description": "アクセントカラー（CSS 色値）",
       "default": ""
     },
     {
@@ -3037,7 +3037,7 @@
       "name": "onOpenChange",
       "type": "(open: boolean) => void",
       "optional": true,
-      "description": "開閉が変わる時のコールバック",
+      "description": "開閉が変わるときのコールバック",
       "default": ""
     },
     {
@@ -3116,7 +3116,7 @@
       "name": "onValueChange",
       "type": "(value: string | null) => void",
       "optional": true,
-      "description": "選択が変わる時のコールバック。入力を空にして離れると null",
+      "description": "選択が変わるときのコールバック。入力を空にして離れると null",
       "default": ""
     },
     {
@@ -3181,7 +3181,7 @@
       "name": "onValueChange",
       "type": "(value: string | null) => void",
       "optional": true,
-      "description": "日付が決まった時のコールバック。入力を空にした時と、解釈できない・選べない日付を入力した時は null",
+      "description": "日付が決まったときのコールバック。入力を空にした時と、解釈できない・選べない日付を入力したときは null",
       "default": ""
     },
     {
@@ -3237,7 +3237,7 @@
       "name": "onOpenChange",
       "type": "(open: boolean) => void",
       "optional": true,
-      "description": "カレンダーの開閉が変わる時のコールバック",
+      "description": "カレンダーの開閉が変わるときのコールバック",
       "default": ""
     },
     {
@@ -3300,7 +3300,7 @@
       "name": "aria-invalid",
       "type": "boolean | 'true' | 'false'",
       "optional": true,
-      "description": "true で Input と同じエラー表示。解釈できない日付を入力した時は自動で true になる。FormField の error からも渡される",
+      "description": "true で Input と同じエラー表示。解釈できない日付を入力したときは自動で true になる。FormField の error からも渡される",
       "default": ""
     }
   ],

@@ -45,9 +45,9 @@ export function ArticlePage() {
               <span className="article__meta-author-name">原山 悠</span>
             </div>
             <span className="article__meta-dot" />
-            <time>2026年2月18日</time>
+            <time>2026 年 2 月 18 日</time>
             <span className="article__meta-dot" />
-            <span>8分で読めます</span>
+            <span>8 分で読めます</span>
           </div>
         </header>
 
@@ -63,7 +63,8 @@ export function ArticlePage() {
           <h2>デザインシステムとは何か</h2>
 
           <p>
-            デザインシステムとは、UIコンポーネント、デザイントークン（色・タイポグラフィ・スペーシング）、
+            デザインシステムとは、UI
+            コンポーネント、デザイントークン（色・タイポグラフィ・スペーシング）、
             そしてそれらの使い方を定めたガイドラインの集合体です。
             単なるコンポーネントライブラリではなく、
             <strong>チーム全体の共通言語</strong>として機能します。
@@ -74,13 +75,13 @@ export function ArticlePage() {
             チームが一貫した体験を効率的に構築するための基盤だ。
           </blockquote>
 
-          <h2>小さなチームこそ必要な3つの理由</h2>
+          <h2>小さなチームこそ必要な 3 つの理由</h2>
 
           <h3>1. 意思決定の疲労を減らす</h3>
 
           <p>
-            ボタンの角丸は何pxにするか。テキストカラーは<code>#333</code>か<code>#1a1a1a</code>か。
-            小さなチームでは、こうした細かい意思決定が一人ひとりにのしかかります。
+            ボタンの角丸は何 px にするか。テキストカラーは<code>#333</code>か<code>#1a1a1a</code>
+            か。 小さなチームでは、こうした細かい意思決定が一人ひとりにのしかかります。
             デザイントークンとして定義しておけば、毎回悩む必要がなくなります。
           </p>
 
@@ -110,10 +111,10 @@ export function ArticlePage() {
           <h3>3. 品質の一貫性を保てる</h3>
 
           <p>
-            大企業のように品質保証チームがいない小さなチームでは、
-            UIの一貫性を維持するのは特に困難です。
+            大企業のように品質保証チームがいない小さなチームでは、 UI
+            の一貫性を維持するのは特に困難です。
             デザインシステムは、コンポーネント単位でアクセシビリティとレスポンシブ対応を
-            テスト済みの状態で提供します。
+            テスト済みの状態で届けます。
           </p>
 
           <figure>
@@ -130,18 +131,18 @@ export function ArticlePage() {
 
           <p>
             デザインシステムを一から作る必要はありません。
-            最小限のトークン定義と、よく使うコンポーネント5〜6個から始めましょう。
+            最小限のトークン定義と、よく使うコンポーネント 5〜6 個から始めましょう。
           </p>
 
           <ol>
             <li>
-              <strong>カラートークン</strong>を定義する（背景、テキスト、ボーダーの3種）
+              <strong>カラートークン</strong>を定義する（背景、テキスト、ボーダーの 3 種）
             </li>
             <li>
-              <strong>タイポグラフィスケール</strong>を決める（4〜5段階で十分）
+              <strong>タイポグラフィスケール</strong>を決める（4〜5 段階で十分）
             </li>
             <li>
-              <strong>スペーシングスケール</strong>を設定する（4の倍数が基本）
+              <strong>スペーシングスケール</strong>を設定する（4 の倍数が基本）
             </li>
             <li>
               <strong>Button、Input、Card</strong>を最初のコンポーネントとして実装する
@@ -180,7 +181,7 @@ export function ArticlePage() {
           <Badge>フロントエンド</Badge>
           <Badge>CSS</Badge>
           <Badge>React</Badge>
-          <Badge>UI設計</Badge>
+          <Badge>UI 設計</Badge>
         </div>
 
         {/* Actions */}
@@ -212,7 +213,7 @@ export function ArticlePage() {
             <h3 className="article__author-card-name">原山 悠</h3>
             <p className="article__author-card-bio">
               フロントエンドエンジニア / デザインシステムを作るのが好き。
-              日々の開発で「あったらいいな」を形にしています。 TypeScript、React、CSSが得意。
+              日々の開発で「あったらいいな」を形にしています。 TypeScript、React、CSS が得意。
             </p>
             <Button variant="outline" size="sm">
               フォロー
@@ -226,25 +227,25 @@ export function ArticlePage() {
           <div className="article__related-grid">
             {[
               {
-                title: "CSSカスタムプロパティで作るダークモード",
+                title: "CSS カスタムプロパティで作るダークモード",
                 image:
                   "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=400&h=250&fit=crop",
                 author: "呉羽 直樹",
-                date: "2026年2月12日",
+                date: "2026 年 2 月 12 日",
               },
               {
                 title: "アクセシビリティを最初から考える設計",
                 image:
                   "https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?w=400&h=250&fit=crop",
                 author: "志摩 このみ",
-                date: "2026年2月10日",
+                date: "2026 年 2 月 10 日",
               },
               {
-                title: "Reactコンポーネントの命名規則ベストプラクティス",
+                title: "React コンポーネントの命名規則ベストプラクティス",
                 image:
                   "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400&h=250&fit=crop",
                 author: "野々村 圭",
-                date: "2026年2月8日",
+                date: "2026 年 2 月 8 日",
               },
             ].map((article) => (
               <a key={article.title} href="/article" className="article__related-card">

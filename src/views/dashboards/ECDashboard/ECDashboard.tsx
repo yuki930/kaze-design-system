@@ -96,8 +96,8 @@ const kpis: KpiData[] = [
   },
   {
     label: "注文件数",
-    value: "142件",
-    change: { value: "+12件", trend: "positive" },
+    value: "142 件",
+    change: { value: "+12 件", trend: "positive" },
     sparkData: [20, 25, 18, 30, 28, 35, 42],
   },
   {
@@ -135,7 +135,7 @@ const recentOrders: Order[] = [
     orderId: "ORD-20250220-001",
     customer: "相楽 実咲",
     customerInitials: "SM",
-    items: "ワイヤレスイヤホン 他2点",
+    items: "ワイヤレスイヤホン 他 2 点",
     total: "¥18,500",
     status: "発送準備中",
     date: "14:25",
@@ -145,7 +145,7 @@ const recentOrders: Order[] = [
     orderId: "ORD-20250220-002",
     customer: "堀内 昌平",
     customerInitials: "HS",
-    items: "オーガニックコットンTシャツ",
+    items: "オーガニックコットン Tシャツ",
     total: "¥4,980",
     status: "処理中",
     date: "13:58",
@@ -204,7 +204,7 @@ const topProducts: TopProduct[] = [
   },
   {
     rank: 2,
-    name: "オーガニックコットンTシャツ",
+    name: "オーガニックコットン Tシャツ",
     category: "アパレル",
     sold: 198,
     revenue: "¥985,020",
@@ -317,7 +317,7 @@ export function ECDashboard() {
         </div>
       }
     >
-      <Search placeholder="注文番号・商品名で検索..." shortcut="⌘K" />
+      <Search placeholder="注文番号・商品名で検索…" shortcut="⌘K" />
     </TopBar>
   );
 
@@ -328,7 +328,7 @@ export function ECDashboard() {
       {/* Alert Banner */}
       <div className={styles.alertSection}>
         <Alert tone="warning" title="在庫アラート">
-          3件の商品が在庫切れ間近です。早めの発注をおすすめします。
+          3 件の商品が在庫切れ間近です。早めの発注をおすすめします。
         </Alert>
       </div>
 
@@ -402,7 +402,7 @@ export function ECDashboard() {
         <CardHeader>
           <div className={styles.ordersHeader}>
             <CardTitle>最近の注文</CardTitle>
-            <Badge>本日142件</Badge>
+            <Badge>本日 142 件</Badge>
             <div className={styles.ordersHeaderActions}>
               <Button variant="ghost" size="sm">
                 すべて表示
@@ -500,12 +500,12 @@ export function ECDashboard() {
           </CardHeader>
           <CardBody>
             <DescriptionList horizontal bordered>
-              <DescriptionItem term="新規顧客">18人</DescriptionItem>
+              <DescriptionItem term="新規顧客">18 人</DescriptionItem>
               <DescriptionItem term="リピート率">42.3%</DescriptionItem>
               <DescriptionItem term="最高額注文">¥34,800</DescriptionItem>
-              <DescriptionItem term="返品依頼">2件</DescriptionItem>
-              <DescriptionItem term="問い合わせ">8件</DescriptionItem>
-              <DescriptionItem term="レビュー投稿">15件</DescriptionItem>
+              <DescriptionItem term="返品依頼">2 件</DescriptionItem>
+              <DescriptionItem term="問い合わせ">8 件</DescriptionItem>
+              <DescriptionItem term="レビュー投稿">15 件</DescriptionItem>
             </DescriptionList>
           </CardBody>
           <CardFooter>

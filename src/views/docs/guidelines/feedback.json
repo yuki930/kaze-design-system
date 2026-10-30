@@ -48,7 +48,7 @@
   "meter": {
     "use": [
       "ストレージ、API の呼び出し回数、予算など、上限に対して今どれだけ使っているか",
-      "warningThreshold（既定 0.7）と dangerThreshold（既定 0.9）を超えると、色が positive から warning、negative に変わる。しきい値は 0 から 1 の割合で渡す",
+      "warningThreshold（既定 0.7）を超えると warning の色になる。dangerThreshold（既定 0.9）を超えると negative の色になる。しきい値は 0 から 1 の割合で渡す",
       "min と max で範囲を指定できる。showValue は「value / max」の形で表示する"
     ],
     "avoid": [

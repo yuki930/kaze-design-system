@@ -131,7 +131,7 @@ const popularPages: PopularPage[] = [
   {
     rank: 3,
     path: "/blog/seo-guide-2025",
-    title: "SEO完全ガイド 2025年版",
+    title: "SEO 完全ガイド 2025 年版",
     views: "45,600",
     share: 32,
   },
@@ -172,7 +172,20 @@ const sessionTrend: Record<ChartPeriod, ReturnType<typeof buildSessions>> = {
     68000,
   ),
   月別: buildSessions(
-    ["11月", "12月", "1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月"],
+    [
+      "11 月",
+      "12 月",
+      "1 月",
+      "2 月",
+      "3 月",
+      "4 月",
+      "5 月",
+      "6 月",
+      "7 月",
+      "8 月",
+      "9 月",
+      "10 月",
+    ],
     284000,
   ),
 };
@@ -234,16 +247,16 @@ export function AnalyticsDashboard() {
       actions={
         <div className={layoutStyles.topBarActions}>
           <Select defaultValue="30d">
-            <option value="7d">過去7日間</option>
-            <option value="30d">過去30日間</option>
-            <option value="90d">過去90日間</option>
-            <option value="1y">過去1年間</option>
+            <option value="7d">過去 7 日間</option>
+            <option value="30d">過去 30 日間</option>
+            <option value="90d">過去 90 日間</option>
+            <option value="1y">過去 1 年間</option>
           </Select>
           <Avatar size="sm" fallback="MC" />
         </div>
       }
     >
-      <Search placeholder="ページURLや指標を検索..." shortcut="⌘K" />
+      <Search placeholder="ページ URL や指標を検索…" shortcut="⌘K" />
     </TopBar>
   );
 
@@ -287,7 +300,7 @@ export function AnalyticsDashboard() {
           <CardBody>
             <Metric
               label="平均セッション時間"
-              value="4分32秒"
+              value="4 分 32 秒"
               change={{ value: "+0:18", trend: "positive" }}
             />
           </CardBody>
@@ -388,7 +401,7 @@ export function AnalyticsDashboard() {
         <CardHeader>
           <div className={styles.tableHeader}>
             <CardTitle>流入元ランキング</CardTitle>
-            <Badge>上位5</Badge>
+            <Badge>上位 5</Badge>
           </div>
         </CardHeader>
         <CardBody>
@@ -399,7 +412,7 @@ export function AnalyticsDashboard() {
                   <TableHead>順位</TableHead>
                   <TableHead>流入元</TableHead>
                   <TableHead>セッション</TableHead>
-                  <TableHead>CV率</TableHead>
+                  <TableHead>CV 率</TableHead>
                   <TableHead>収益</TableHead>
                   <TableHead>トレンド</TableHead>
                 </TableRow>
