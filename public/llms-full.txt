@@ -45,6 +45,8 @@ function App() {
 
 Palettes: the default is warm 砂 (no attribute). Add `data-palette="cool"` (霞, purple-tinted gray), `data-palette="ink"` (墨, neutral gray) or `data-palette="indigo"` (藍, indigo primary and accent). Each works with light and dark, and `useTheme().setPalette()` switches and stores it. Status colors (positive, negative, warning, info) and chart colors are the same in every palette.
 
+Font sets: the default "standard" uses DM Sans for Latin, Montserrat for displayed numbers (`--font-numeric`: Metric, Stats, numeric table cells, chart values) and Noto Sans JP for kana and kanji. `data-font="neutral"` uses Inter + Noto Sans JP; `data-font="crisp"` uses IBM Plex Sans JP for both scripts. Kaze only switches the font stacks: load the fonts yourself and expose them as CSS variables `--font-dm-sans`, `--font-montserrat`, `--font-noto-sans-jp`, `--font-inter`, `--font-ibm-plex-sans-jp` (next/font `variable`). `useTheme().setFontSet()` switches and stores it. Japanese typesetting tokens: headings `--font-weight-heading` (600) and `--letter-spacing-heading` (0.01em, never negative), body `--letter-spacing-body` (0.02em), numbers `--letter-spacing-numeric` (0), long text `--line-height-body` (1.85).
+
 ## Density
 
 Add `data-density="compact"` to an ancestor (`<html>` or a panel) to tighten controls, table/list rows, tabs, dropdowns and sidebar items. Independent of theme and palette. Tokens: `--density-control-height`, `--density-row-py`, `--density-row-px`, `--density-font-size-ui`, `--density-line-height-ui`, `--density-nav-py`, `--density-nav-gap`, `--density-dropdown-py`, `--density-tab-py`.

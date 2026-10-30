@@ -14,7 +14,8 @@
 - 部品は `kaze-design-system` から import する。LP の部品は `kaze-design-system/marketing` からでもよい
 - 色、余白、角丸、文字サイズは CSS 変数のトークンを使う。たとえば `var(--color-fg)` `var(--space-4)` `var(--radius-box)` `var(--font-size-sm)`。色コードや px を直書きしない。tokens.css にない変数を作らない
 - ダークモードは `<html data-theme="dark">` で切り替わる。`<head>` に `ThemeScript`、`<body>` の中を `ThemeProvider` で包む（どちらも `kaze-design-system/hooks`）
-- 書体は英数字が Montserrat、かなと漢字が Noto Sans JP。next/font の `variable` で `--font-montserrat` と `--font-noto-sans-jp` を `<html>` に渡すと、Kaze のトークンがそのまま使う
+- 書体は、英字が DM Sans、表示する数字が Montserrat、かなと漢字が Noto Sans JP。next/font の `variable` で `--font-dm-sans`、`--font-montserrat`、`--font-noto-sans-jp` を `<html>` に渡すと、Kaze のトークンがそのまま使う。組み合わせは `data-font` で替えられる（https://kaze-design-system.vercel.app/docs/fonts）
+- 見出しの字間を負にしない。かなが潰れる。見出しの太さは `var(--font-weight-heading)` を使う
 - アイコンは lucide-react などを `icon` に渡す。部品の中で特定のアイコンライブラリに依存させない
 
 ### 見た目の決まり

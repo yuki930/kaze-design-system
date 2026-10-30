@@ -2686,8 +2686,8 @@
     },
     "font-sans": {
       "$type": "fontFamily",
-      "$value": "var(--font-montserrat, \"Montserrat\"), var(--font-noto-sans-jp, \"Noto Sans JP\"), -apple-system, BlinkMacSystemFont,\n    \"Segoe UI\", \"Hiragino Kaku Gothic ProN\", \"Hiragino Sans\", Meiryo,\n    sans-serif",
-      "$description": "Montserrat for Latin and numerals, Noto Sans JP for kana and kanji.",
+      "$value": "var(--font-dm-sans, \"DM Sans\"), var(--font-noto-sans-jp, \"Noto Sans JP\"), -apple-system, BlinkMacSystemFont,\n    \"Segoe UI\", \"Hiragino Kaku Gothic ProN\", \"Hiragino Sans\", Meiryo,\n    sans-serif",
+      "$description": "Body and UI text. Font set \"standard\": DM Sans for Latin, Noto Sans JP for kana and kanji. Switch with data-font.",
       "$extensions": {
         "jp.kaze": {
           "section": "Typography"
@@ -2704,6 +2704,11 @@
         }
       }
     },
+    "font-numeric": {
+      "$type": "fontFamily",
+      "$value": "var(--font-montserrat, \"Montserrat\"), {semantic.font-sans}",
+      "$description": "Displayed numbers (Metric, Stats, table numeric cells, chart values). Montserrat in the standard set, the body font in the others."
+    },
     "font-feature-display": {
       "$type": "dimension",
       "$value": "\"palt\" 1",
@@ -2713,6 +2718,29 @@
           "section": "Typography"
         }
       }
+    },
+    "font-weight-heading": {
+      "$type": "fontWeight",
+      "$value": "{primitive.font-weight-semibold}",
+      "$description": "Headings (Heading, Hero, SectionHeader, CTABanner, article titles)"
+    },
+    "letter-spacing-heading": {
+      "$type": "dimension",
+      "$value": "0.01em"
+    },
+    "letter-spacing-body": {
+      "$type": "dimension",
+      "$value": "0.02em",
+      "$description": "Applied to <body>; palt tightens kana, this keeps them from touching"
+    },
+    "letter-spacing-numeric": {
+      "$type": "dimension",
+      "$value": "0"
+    },
+    "line-height-body": {
+      "$type": "number",
+      "$value": "1.85",
+      "$description": "Running text such as Prose and articles"
     },
     "font-mono": {
       "$type": "fontFamily",

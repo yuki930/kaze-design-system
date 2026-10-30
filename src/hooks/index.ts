@@ -1,7 +1,7 @@
 "use client";
 
 export { useTheme, ThemeProvider } from "./useTheme";
-export type { Palette, Theme, ThemeContextValue, ThemeProviderProps } from "./useTheme";
+export type { FontSet, Palette, Theme, ThemeContextValue, ThemeProviderProps } from "./useTheme";
 export { ThemeScript } from "./ThemeScript";
 export type { ThemeScriptProps } from "./ThemeScript";
 export { useFocusTrap } from "./useFocusTrap";

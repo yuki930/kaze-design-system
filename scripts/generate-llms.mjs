@@ -532,7 +532,7 @@ function main() {
   shortLines.push(`> ${pkg.description}`);
   shortLines.push("");
   shortLines.push(
-    `kaze-design-system is a React 18/19 + TypeScript design system with ${totalComponents} components in two layers: Application UI (dashboards, business apps) and Marketing (landing pages, importable from \`${pkg.name}/marketing\`). It is built around a warm neutral gray palette, optimized for Japanese typography (PALT enabled globally), uses CSS custom properties for theming (light/dark via \`data-theme\`, four palettes via \`data-palette\` (default warm 砂, "cool" 霞, "ink" 墨, "indigo" 藍), compact density via \`data-density="compact"\`), and ships as ESM with peer dependencies on react and react-dom (lucide-react optional).`,
+    `kaze-design-system is a React 18/19 + TypeScript design system with ${totalComponents} components in two layers: Application UI (dashboards, business apps) and Marketing (landing pages, importable from \`${pkg.name}/marketing\`). It is built around a warm neutral gray palette, optimized for Japanese typography (PALT enabled globally), uses CSS custom properties for theming (light/dark via \`data-theme\`, four palettes via \`data-palette\` (default warm 砂, "cool" 霞, "ink" 墨, "indigo" 藍), three font sets via \`data-font\` (default "standard", "neutral", "crisp"), compact density via \`data-density="compact"\`), and ships as ESM with peer dependencies on react and react-dom (lucide-react optional).`,
   );
   shortLines.push("");
   shortLines.push("## Installation");
@@ -645,6 +645,10 @@ function main() {
   fullLines.push("");
   fullLines.push(
     'Palettes: the default is warm 砂 (no attribute). Add `data-palette="cool"` (霞, purple-tinted gray), `data-palette="ink"` (墨, neutral gray) or `data-palette="indigo"` (藍, indigo primary and accent). Each works with light and dark, and `useTheme().setPalette()` switches and stores it. Status colors (positive, negative, warning, info) and chart colors are the same in every palette.',
+  );
+  fullLines.push("");
+  fullLines.push(
+    'Font sets: the default "standard" uses DM Sans for Latin, Montserrat for displayed numbers (`--font-numeric`: Metric, Stats, numeric table cells, chart values) and Noto Sans JP for kana and kanji. `data-font="neutral"` uses Inter + Noto Sans JP; `data-font="crisp"` uses IBM Plex Sans JP for both scripts. Kaze only switches the font stacks: load the fonts yourself and expose them as CSS variables `--font-dm-sans`, `--font-montserrat`, `--font-noto-sans-jp`, `--font-inter`, `--font-ibm-plex-sans-jp` (next/font `variable`). `useTheme().setFontSet()` switches and stores it. Japanese typesetting tokens: headings `--font-weight-heading` (600) and `--letter-spacing-heading` (0.01em, never negative), body `--letter-spacing-body` (0.02em), numbers `--letter-spacing-numeric` (0), long text `--line-height-body` (1.85).',
   );
   fullLines.push("");
   fullLines.push("## Density");

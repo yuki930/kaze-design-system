@@ -39,11 +39,13 @@ npm run dev`}</pre>
       <pre className={styles.codeBlock}>{`npm install kaze-design-system
 npx kaze-init`}</pre>
       <p>
-        CSS をアプリの入口で 1 回だけ読み込みます。書体は next/font で Montserrat と Noto Sans JP
-        を読み込み、<span className={styles.inlineCode}>--font-montserrat</span> と{" "}
+        CSS をアプリの入口で 1 回だけ読み込みます。書体は next/font で DM Sans、Montserrat、Noto
+        Sans JP を読み込み、<span className={styles.inlineCode}>--font-dm-sans</span>、
+        <span className={styles.inlineCode}>--font-montserrat</span>、
         <span className={styles.inlineCode}>--font-noto-sans-jp</span> を{" "}
         <span className={styles.inlineCode}>{"<html>"}</span> に渡します。書き方は雛形の
-        app/layout.tsx と同じです。
+        app/layout.tsx と同じです。ほかの組み合わせは
+        <a href="/docs/fonts">書体</a>のページにあります。
       </p>
       <pre className={styles.codeBlock}>{`import "kaze-design-system/css/all";`}</pre>
 

@@ -1,0 +1,16 @@
+{
+  "semantic": {
+    "font-sans": {
+      "$type": "fontFamily",
+      "$value": "var(--font-inter, \"Inter\"), var(--font-noto-sans-jp, \"Noto Sans JP\"), -apple-system, BlinkMacSystemFont,\n    \"Segoe UI\", \"Hiragino Kaku Gothic ProN\", \"Hiragino Sans\", Meiryo,\n    sans-serif"
+    },
+    "font-display": {
+      "$type": "fontFamily",
+      "$value": "{semantic.font-sans}"
+    },
+    "font-numeric": {
+      "$type": "fontFamily",
+      "$value": "{semantic.font-sans}"
+    }
+  }
+}

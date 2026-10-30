@@ -19,6 +19,16 @@ export type Palette = "warm" | "cool" | "ink" | "indigo";
 
 const PALETTES: readonly Palette[] = ["warm", "cool", "ink", "indigo"];
 
+/**
+ * Font set. "standard" is the default and sets no attribute: DM Sans for Latin,
+ * Montserrat for displayed numbers, Noto Sans JP for kana and kanji. The others
+ * set `data-font` on <html>: "neutral" (Inter + Noto Sans JP), "crisp" (IBM Plex Sans JP).
+ * Load the fonts yourself (next/font or a <link>); Kaze only switches the stacks.
+ */
+export type FontSet = "standard" | "neutral" | "crisp";
+
+const FONT_SETS: readonly FontSet[] = ["standard", "neutral", "crisp"];
+
 export interface ThemeContextValue {
   theme: Theme;
   resolvedTheme: "light" | "dark";
@@ -26,10 +36,13 @@ export interface ThemeContextValue {
   toggleTheme: () => void;
   palette: Palette;
   setPalette: (palette: Palette) => void;
+  fontSet: FontSet;
+  setFontSet: (fontSet: FontSet) => void;
 }
 
 const STORAGE_KEY = "kaze-theme";
 const PALETTE_STORAGE_KEY = "kaze-palette";
+const FONT_STORAGE_KEY = "kaze-font";
 
 const ThemeContext = createContext<ThemeContextValue | undefined>(undefined);
 
@@ -69,6 +82,22 @@ function applyPalette(palette: Palette) {
   }
 }
 
+function getStoredFontSet(): FontSet {
+  if (typeof window === "undefined") return "standard";
+  const stored = localStorage.getItem(FONT_STORAGE_KEY);
+  if (stored && (FONT_SETS as readonly string[]).includes(stored)) return stored as FontSet;
+  return "standard";
+}
+
+function applyFontSet(fontSet: FontSet) {
+  if (typeof document === "undefined") return;
+  if (fontSet !== "standard") {
+    document.documentElement.setAttribute("data-font", fontSet);
+  } else {
+    document.documentElement.removeAttribute("data-font");
+  }
+}
+
 export interface ThemeProviderProps {
   children: ReactNode;
   defaultTheme?: Theme;
@@ -77,6 +106,7 @@ export interface ThemeProviderProps {
 export function ThemeProvider({ children, defaultTheme }: ThemeProviderProps) {
   const [theme, setThemeState] = useState<Theme>(defaultTheme ?? "light");
   const [palette, setPaletteState] = useState<Palette>("warm");
+  const [fontSet, setFontSetState] = useState<FontSet>("standard");
 
   const [resolvedTheme, setResolvedTheme] = useState<"light" | "dark">(
     defaultTheme === "dark" ? "dark" : "light",
@@ -112,7 +142,15 @@ export function ThemeProvider({ children, defaultTheme }: ThemeProviderProps) {
     applyPalette(newPalette);
   }, []);
 
-  // Read stored theme & palette from localStorage on mount (client-side only)
+  const setFontSet = useCallback((newFontSet: FontSet) => {
+    setFontSetState(newFontSet);
+    if (typeof window !== "undefined") {
+      localStorage.setItem(FONT_STORAGE_KEY, newFontSet);
+    }
+    applyFontSet(newFontSet);
+  }, []);
+
+  // Read stored theme, palette & font set from localStorage on mount (client-side only)
   // biome-ignore lint/correctness/useExhaustiveDependencies: mount-only effect
   useEffect(() => {
     const stored = getStoredTheme(defaultTheme ?? "light");
@@ -124,6 +162,10 @@ export function ThemeProvider({ children, defaultTheme }: ThemeProviderProps) {
     const storedPalette = getStoredPalette();
     setPaletteState(storedPalette);
     applyPalette(storedPalette);
+
+    const storedFontSet = getStoredFontSet();
+    setFontSetState(storedFontSet);
+    applyFontSet(storedFontSet);
   }, []);
 
   // Apply theme when theme changes (after initial mount)
@@ -145,8 +187,17 @@ export function ThemeProvider({ children, defaultTheme }: ThemeProviderProps) {
   }, [theme, applyTheme]);
 
   const value = useMemo<ThemeContextValue>(
-    () => ({ theme, resolvedTheme, setTheme, toggleTheme, palette, setPalette }),
-    [theme, resolvedTheme, setTheme, toggleTheme, palette, setPalette],
+    () => ({
+      theme,
+      resolvedTheme,
+      setTheme,
+      toggleTheme,
+      palette,
+      setPalette,
+      fontSet,
+      setFontSet,
+    }),
+    [theme, resolvedTheme, setTheme, toggleTheme, palette, setPalette, fontSet, setFontSet],
   );
 
   return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;

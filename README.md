@@ -5,7 +5,7 @@
 
 **Kaze（風）** は、業務アプリやダッシュボードのための React デザインシステムです。白と温かみのあるグレーを基調にした、落ち着いた見た目。数字と日本語を一日中読み続ける画面のために作っています。
 
-- **日本語がきれいに見える**: 英数字は Montserrat、かなと漢字は Noto Sans JP で組みます。プロポーショナルかな（palt）を全体にかけて字間を整え、行間はゆったりめにとっています
+- **日本語がきれいに見える**: 英字は DM Sans、数字は Montserrat、かなと漢字は Noto Sans JP で組みます。書体の組み合わせは 3 つから選べます。プロポーショナルかな（palt）を全体にかけて字間を整え、行間はゆったりめにとっています
 - **日本語入力でつまずかない**: 変換を確定する Enter では送信されません。全角の「１２３」や「ー」のマイナスも数値として受け取り、ひらがなとカタカナのどちらで検索しても見つかります
 - **78 のコンポーネント**: フォーム、テーブル、ダッシュボード、ランディングページまで。折れ線・縦棒・ヒートマップなどのグラフも、外部ライブラリなしの SVG で描きます
 - **だれでも使える**: 文字と背景のコントラストは、どのテーマでも WCAG 2.2 AA を満たします。ダイアログ・メニュー・タブはキーボードだけで操作できます
@@ -251,7 +251,7 @@ CSS カスタムプロパティベース:
 - カラー: `--color-*`（warm zinc パレット）。文字色は `fg` / `fg-muted` / `fg-secondary` / `fg-tertiary` がすべて WCAG AA（4.5:1）を満たし、`fg-decorative` だけが装飾専用
 - フォーカス: `--color-focus`（既定は `fg`。全テーマで 3:1 以上の実線リング）
 - スペーシング: `--space-*`
-- タイポグラフィ: `--font-size-*`, `--font-weight-*`, `--font-sans`（英数字は Montserrat、かなと漢字は Noto Sans JP）
+- タイポグラフィ: `--font-size-*`, `--font-weight-*`, `--font-sans`（英字 DM Sans、和文 Noto Sans JP）、`--font-numeric`（表示する数字。標準は Montserrat）
 - ボーダー: `--radius-*`
 - シャドウ: `--shadow-*`
 - 密度: `--density-*`（コントロール高さ・行パディング・UI フォントサイズ。下記「密度」参照）
@@ -282,10 +282,11 @@ cssVar("color-bg"); // "var(--color-bg)"。存在しない名前は型エラー
 
 `reset.css` と `tokens.css` が、日本語の本文と UI に合わせた既定値を適用します。
 
-- 英数字は Montserrat、かなと漢字は Noto Sans JP（`--font-sans`）
-- プロポーショナルかな（palt）を `:root` で全体に適用
-- 本文の行間は 1.625（`--line-height-relaxed`）、見出しは `--letter-spacing-tight` で引き締める
-- 数値は `tabular-nums`
+- 書体は 3 つの組み合わせから選ぶ。既定の「標準」は英字 DM Sans、数字 Montserrat、和文 Noto Sans JP。`data-font="neutral"`（Inter + Noto Sans JP）と `data-font="crisp"`（IBM Plex Sans JP）がある。書体の読み込みは利用者側で行う（[書体のページ](https://kaze-design-system.vercel.app/docs/fonts)）
+- プロポーショナルかな（palt）を `:root` で全体に適用し、本文の字間は 0.02em（`--letter-spacing-body`）
+- 見出しは太さ 600、字間 0.01em。負の字間はかなを潰すので使わない
+- 長い文章の行間は 1.85（`--line-height-body`）
+- 数値は `tabular-nums`、字間 0、書体は `--font-numeric`
 
 ## テーマ（ライト / ダーク）
 

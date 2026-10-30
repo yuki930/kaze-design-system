@@ -9,6 +9,7 @@
  *   tokens/<palette>-dark.tokens.json  overrides for that palette + dark
  *     palettes: cool (霞), ink (墨), indigo (藍). The default warm palette (砂) is base.
  *   tokens/compact.tokens.json    overrides for [data-density="compact"]
+ *   tokens/font-<set>.tokens.json overrides for [data-font="<set>"] (font sets other than the default "standard")
  *
  * Each file groups tokens into three tiers: primitive (raw scales), semantic
  * (roles such as color-bg) and component (sizes for specific components).
@@ -39,9 +40,15 @@ const PALETTES = [
   ["ink", "Ink palette 墨 (neutral gray, black primary)"],
   ["indigo", "Indigo palette 藍 (indigo-tinted gray, indigo primary and accent)"],
 ];
+/** Font sets other than the default "standard" (DM Sans + Montserrat numerals + Noto Sans JP) */
+const FONT_SETS = [
+  ["neutral", "Font set neutral: Inter + Noto Sans JP"],
+  ["crisp", "Font set crisp: IBM Plex Sans JP for both scripts"],
+];
 const modes = {
   dark: read("dark"),
   compact: read("compact"),
+  ...Object.fromEntries(FONT_SETS.map(([name]) => [`font-${name}`, read(`font-${name}`)])),
   ...Object.fromEntries(
     PALETTES.flatMap(([name]) => [
       [name, read(name)],
@@ -62,10 +69,10 @@ for (const [mode, file] of Object.entries(modes)) {
   }
 }
 
-/** "{semantic.color-fg}" → "var(--color-fg)" */
+/** "{semantic.color-fg}" → "var(--color-fg)", also inside a longer value such as a font stack */
 function toCss(value) {
   if (typeof value !== "string") throw new Error(`unsupported value ${JSON.stringify(value)}`);
-  return value.replace(/^\{(primitive|semantic|component)\.([a-z0-9-]+)\}$/, (_, tier, name) => {
+  return value.replace(/\{(primitive|semantic|component)\.([a-z0-9-]+)\}/g, (_, tier, name) => {
     if (!known.has(name)) throw new Error(`reference to unknown token "${tier}.${name}"`);
     return `var(--${name})`;
   });
@@ -141,6 +148,11 @@ const css = [
   "/* Density: compact. Works on :root or any container; orthogonal to theme and palette. */",
   block('[data-density="compact"]', declarations(modes.compact, "  ")),
   "",
+  ...FONT_SETS.flatMap(([name, label]) => [
+    `/* ${label}. Works on :root or any container. */`,
+    block(`[data-font="${name}"]`, declarations(modes[`font-${name}`], "  ")),
+    "",
+  ]),
   "/* Dark theme */",
   block('[data-theme="dark"]', declarations(modes.dark, "  ")),
   "",
