@@ -26,6 +26,9 @@ for (const story of stories) {
     if (story.tags?.includes("vrt-phone")) {
       await page.setViewportSize({ width: 375, height: 667 });
     }
+    // Freeze "today" so calendars do not shift when the date changes. The
+    // baselines were rendered on this day.
+    await page.clock.setFixedTime(new Date("2026-10-29T12:00:00Z"));
     await page.goto(`/iframe.html?id=${story.id}&viewMode=story`);
     // Storybook marks <body> once the story has rendered (or failed to)
     await page.waitForSelector("body.sb-show-main, body.sb-show-errordisplay");
