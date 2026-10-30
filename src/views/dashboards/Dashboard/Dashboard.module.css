@@ -95,3 +95,10 @@
   }
 }
 
+
+/* Grid's columnsSm applies at 640px and below; the wide metric spans both columns there */
+@media (max-width: 640px) {
+  .spanAllSm {
+    grid-column: 1 / -1;
+  }
+}

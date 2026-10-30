@@ -2971,6 +2971,39 @@
           "section": "Density (component sizing — orthogonal to color theme)"
         }
       }
+    },
+    "layout-gutter": {
+      "$type": "dimension",
+      "$value": "{primitive.space-6}",
+      "$description": "Padding around page content (AppLayout content, TopBar)",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Layout spacing (phones use the -sm values below 768px)"
+        }
+      }
+    },
+    "layout-gutter-sm": {
+      "$type": "dimension",
+      "$value": "{primitive.space-4}",
+      "$description": "The same below 768px"
+    },
+    "card-padding-x": {
+      "$type": "dimension",
+      "$value": "{primitive.space-5}",
+      "$description": "Card header, body and footer"
+    },
+    "card-padding-y": {
+      "$type": "dimension",
+      "$value": "{primitive.space-5}"
+    },
+    "card-padding-x-sm": {
+      "$type": "dimension",
+      "$value": "{primitive.space-3}",
+      "$description": "Card padding below 768px, compact cards included"
+    },
+    "card-padding-y-sm": {
+      "$type": "dimension",
+      "$value": "0.875rem"
     }
   }
 }
