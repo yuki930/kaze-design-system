@@ -1,6 +1,6 @@
 # Kaze Next.js Starter
 
-[Kaze Design System](https://kaze-design-system.vercel.app) で組んだ Next.js の雛形です。請求書の一覧画面が 1 枚入っています。AI コーディングアシスタントが Kaze で画面を組めるように、AGENTS.md と CLAUDE.md を最初から置いています。
+[Kaze Design System](https://kaze-design-system.vercel.app) で組んだ Next.js の雛形です。請求書の一覧画面が 1 枚入っています。AI コーディングアシスタントが Kaze で画面を組めるように、指示書を最初から置いています。AGENTS.md、CLAUDE.md、Gemini CLI の設定（.gemini/settings.json）の 3 つです。
 
 ## 始め方
 
@@ -14,7 +14,7 @@ http://localhost:3000 を開くと、請求書の一覧が表示されます。
 
 ## AI に頼む
 
-Claude Code、Codex、Cursor などで、そのまま頼めます。AGENTS.md に Kaze の組み方と文言の規則が書いてあるので、AI はそれに沿って部品を選びます。
+Claude Code や Gemini CLI などで、そのまま頼めます。AGENTS.md に Kaze の組み方と文言の規則が書いてあるので、AI はそれに沿って部品を選びます。
 
 - 「取引先の一覧画面を、請求書の画面と同じ組み方で作って」
 - 「請求書の詳細を Drawer で開けるようにして」

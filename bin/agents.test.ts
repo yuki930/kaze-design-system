@@ -2,7 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
 import { checkCopy } from "../src/writing";
-import { END, START, mergeAgents, mergeClaude } from "./agents.mjs";
+import { END, START, mergeAgents, mergeClaude, mergeGeminiSettings } from "./agents.mjs";
 
 const root = path.resolve(__dirname, "..");
 const template = fs.readFileSync(path.join(root, "templates/AGENTS.kaze.md"), "utf8");
@@ -36,6 +36,37 @@ describe("mergeClaude", () => {
   it("appends the import once", () => {
     expect(mergeClaude("# Rules\n")).toBe("# Rules\n\n@AGENTS.md\n");
     expect(mergeClaude("# Rules\n\n@AGENTS.md\n")).toBeNull();
+  });
+});
+
+describe("mergeGeminiSettings", () => {
+  it("creates settings that read AGENTS.md in every Gemini CLI version", () => {
+    const { content } = mergeGeminiSettings(null);
+    expect(JSON.parse(content ?? "")).toEqual({
+      contextFileName: ["AGENTS.md", "GEMINI.md"],
+      context: { fileName: ["AGENTS.md", "GEMINI.md"] },
+    });
+  });
+
+  it("keeps other settings and existing context files", () => {
+    const before = JSON.stringify({
+      theme: "Dracula",
+      context: { fileName: "TEAM.md", includeDirectories: ["../x"] },
+    });
+    const after = JSON.parse(mergeGeminiSettings(before).content ?? "");
+    expect(after.theme).toBe("Dracula");
+    expect(after.context.includeDirectories).toEqual(["../x"]);
+    expect(after.context.fileName).toEqual(["TEAM.md", "AGENTS.md", "GEMINI.md"]);
+    expect(after.contextFileName).toEqual(["AGENTS.md", "GEMINI.md"]);
+  });
+
+  it("changes nothing on a second run", () => {
+    const once = mergeGeminiSettings(null).content;
+    expect(mergeGeminiSettings(once).content).toBeNull();
+  });
+
+  it("leaves broken JSON alone", () => {
+    expect(mergeGeminiSettings("{ not json")).toEqual({ content: null, error: "invalid JSON" });
   });
 });
 
