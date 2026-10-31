@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 /**
  * kaze-init: AI コーディングアシスタント（Claude Code、Codex、Cursor など）が
- * Kaze で画面を組めるように、AGENTS.md に Kaze の節を書き込み、CLAUDE.md から読ませる。
+ * Kaze で画面を組めるように、AGENTS.md に Kaze の節を書き込み、CLAUDE.md と
+ * Gemini CLI（.gemini/settings.json）から読ませる。
  *
  *   npx kaze-init            # カレントディレクトリに書く
  *   npx kaze-init --dir app  # 別のディレクトリに書く
@@ -12,7 +13,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { mergeAgents, mergeClaude } from "./agents.mjs";
+import { mergeAgents, mergeClaude, mergeGeminiSettings } from "./agents.mjs";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const template = fs.readFileSync(path.join(here, "../templates/AGENTS.kaze.md"), "utf8");
@@ -49,6 +50,23 @@ if (claudeAfter !== null) {
     `${claudeBefore === null ? "作成" : "更新"}: ${path.relative(process.cwd(), claudePath) || "CLAUDE.md"}（AGENTS.md を読み込む）`,
   );
   if (!dryRun) fs.writeFileSync(claudePath, claudeAfter);
+}
+
+const geminiPath = path.join(dir, ".gemini", "settings.json");
+const geminiBefore = read(geminiPath);
+const gemini = mergeGeminiSettings(geminiBefore);
+if (gemini.error) {
+  report.push(
+    `そのまま: .gemini/settings.json（${gemini.error}のため読み込めませんでした。AGENTS.md を context.fileName に足してください）`,
+  );
+} else if (gemini.content !== null) {
+  report.push(
+    `${geminiBefore === null ? "作成" : "更新"}: .gemini/settings.json（Gemini CLI が AGENTS.md を読み込む）`,
+  );
+  if (!dryRun) {
+    fs.mkdirSync(path.dirname(geminiPath), { recursive: true });
+    fs.writeFileSync(geminiPath, gemini.content);
+  }
 }
 
 if (dryRun) {

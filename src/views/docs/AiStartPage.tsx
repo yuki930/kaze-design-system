@@ -14,7 +14,7 @@ export function AiStartPage() {
     <div>
       <h1 className={styles.pageTitle}>AI と始める</h1>
       <p className={styles.pageDescription}>
-        Claude Code、Codex、Cursor などの AI に頼むだけで、Kaze
+        Claude Code、Codex、Cursor、Gemini CLI などの AI に頼むだけで、Kaze
         の部品と文言の規則に沿った画面ができるようにする手順です。AI
         が読む指示書を置き、書いた文言をコマンドで検査します。
       </p>
@@ -34,7 +34,8 @@ npm run dev`}</pre>
       <p>
         パッケージを入れてから <span className={styles.inlineCode}>kaze-init</span>{" "}
         を実行すると、AGENTS.md に Kaze の節が書き込まれます。すでに AGENTS.md
-        があるときは、その内容を残したまま節を足します。CLAUDE.md からも読み込まれるようにします。
+        があるときは、その内容を残したまま節を足します。CLAUDE.md と Gemini CLI
+        の設定からも読み込まれるようにします。
       </p>
       <pre className={styles.codeBlock}>{`npm install kaze-design-system
 npx kaze-init`}</pre>
@@ -76,6 +77,10 @@ npx kaze-init`}</pre>
             <tr>
               <td>CLAUDE.md</td>
               <td>Claude Code 向け。AGENTS.md を読み込む 1 行だけ</td>
+            </tr>
+            <tr>
+              <td>.gemini/settings.json</td>
+              <td>Gemini CLI 向け。AGENTS.md も読み込む設定。ほかの設定は残す</td>
             </tr>
             <tr>
               <td>node_modules/kaze-design-system/dist/llms-full.txt</td>
