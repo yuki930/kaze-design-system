@@ -401,6 +401,9 @@ Related: input, form-field, select, segmented-control
   - Prefix text (e.g. "¥"): auto-set by currency
 - `suffix?`: `string`
   - Suffix text (e.g. "%", "件")
+- `hint?`: `ReactNode | ((value: number | null) => ReactNode)`
+  - Help text under the field. Pass a function to derive it from the current value, e.g. a reading aid
+for large amounts: `hint={(v) => v != null && v >= 10000 ? `約${Math.round(v / 10000)}万円` : null}`
 - `decrementLabel?`: `string`
   - Accessible label for decrement button (default: "減少")
 - `incrementLabel?`: `string`
@@ -414,6 +417,15 @@ Related: input, form-field, select, segmented-control
   value={15000}
   currency="JPY"
   onValueChange={(v) => setValue(v)}
+/>
+
+{/* 大きい金額の読みやすさ（値から補助表示を作る） */}
+<NumberField
+  label="予算"
+  currency="JPY"
+  value={value}
+  onValueChange={setValue}
+  hint={(v) => (v != null && v >= 10000 ? `約${Math.round(v / 10000)}万円` : null)}
 />
 ```
 
@@ -970,6 +982,81 @@ Related: input, select, textarea, combobox, date-picker
 </FormField>
 ```
 
+#### FormSection
+
+長いフォームの中で、関係する入力をまとめる。fieldset と legend で組むので、読み上げでも各入力がどのまとまりに属するか伝わる。続けて置くと区切り線が入る。
+
+Docs: https://kaze-design-system.vercel.app/docs/components/form-section
+
+**Props**
+
+- `title`: `ReactNode`
+  - Name of the group; rendered as the fieldset legend so screen readers announce it with each field
+- `description?`: `ReactNode`
+  - まとまりの説明
+- `disabled?`: `boolean`
+  - 中の入力をまとめて無効にする
+
+**Usage**
+
+```tsx
+<form>
+  <FormSection title="連絡先" description="請求書の送付先です。">
+    <FormField label="メールアドレス"><Input type="email" /></FormField>
+  </FormSection>
+  <FormSection title="支払い">
+    <NumberField label="月の上限" currency="JPY" />
+  </FormSection>
+</form>
+```
+
+#### Slider
+
+範囲の中から数を選ぶ。結果を見ながら値を動かす場面（シミュレーション、配分）に使う。正確な数を打ちたいときは NumberField。
+
+Docs: https://kaze-design-system.vercel.app/docs/components/slider
+
+**Props**
+
+- `label?`: `string`
+  - Visible label (required unless aria-label is given)
+- `value?`: `number`
+  - Current value (controlled)
+- `defaultValue?`: `number`
+  - Initial value (uncontrolled)
+- `onValueChange?`: `(value: number) => void`
+  - 値が変わったとき
+- `min?`: `number`
+- `max?`: `number`
+- `step?`: `number`
+- `formatValue?`: `(value: number) => string`
+  - Formats the value shown next to the label and read out by screen readers
+- `showValue?`: `boolean`
+  - Default: `true`
+  - Show the formatted value next to the label (default: true)
+- `marks?`: `number[]`
+  - Values to mark under the track, e.g. [0, 50, 100]
+- `description?`: `string`
+  - Help text under the slider
+- `min / max / step?`: `number`
+  - Default: `0 / 100 / 1`
+  - 範囲と刻み
+
+**Usage**
+
+```tsx
+const [rate, setRate] = useState(5);
+<Slider
+  label="想定年利"
+  min={-2}
+  max={10}
+  step={0.1}
+  value={rate}
+  onValueChange={setRate}
+  formatValue={(v) => `${v.toFixed(1)}%`}
+/>
+```
+
 #### FilterPill
 
 フィルター用ピル型トグルボタン
@@ -1169,6 +1256,14 @@ Related: list, table, metric, divider, grid
 <Card variant="fill">
   <CardBody>背景カード</CardBody>
 </Card>
+
+{/* 右上の操作と、グラフの系列との対応 */}
+<Card>
+  <CardHeader actions={<Button size="sm" variant="outline">編集</Button>}>
+    <CardTitle marker="var(--chart-1)">プランA</CardTitle>
+  </CardHeader>
+  <CardBody>...</CardBody>
+</Card>
 ```
 
 #### Badge
@@ -1356,6 +1451,18 @@ const { rows: sorted, getSortProps } = useTableSort(rows, {
       </TableRow>
     ))}
   </TableBody>
+</Table>
+
+{/* 合計行 */}
+<Table>
+  <TableHeader>...</TableHeader>
+  <TableBody>...</TableBody>
+  <TableFooter>
+    <TableRow>
+      <TableCell>合計</TableCell>
+      <TableCell className="table__cell--numeric">¥150,000</TableCell>
+    </TableRow>
+  </TableFooter>
 </Table>
 ```
 
@@ -1867,6 +1974,15 @@ Related: column-chart, sparkline, chart-legend, bar-chart, heatmap
   - Include zero in the y axis (default: true). Set false to fit the data range, e.g. a price or balance line
 - `formatValue?`: `(value: number) => string`
   - Format values for y axis and tooltip
+- `band?`: `LineChartBand`
+  - Shaded range between two keys, e.g. a forecast's 10th to 90th percentile. Gaps (null) break the band
+- `indexLabel?`: `ChartIndexLabel<LineChartDatum>`
+  - x axis label per row as one or more lines, e.g. a year with the ages of each person under it.
+Defaults to the `index` field. The tooltip title uses the first line.
+- `selectedIndex?`: `number | null`
+  - Index of the selected point, marked with a solid line. Pair with onSelectIndex
+- `onSelectIndex?`: `(index: number) => void`
+  - Called when the plot is clicked, or Enter / Space is pressed on the focused point
 - `aria-label`: `string`
   - Accessible description of the chart (required)
 - `showGrid / showXAxis / showYAxis / showLegend?`: `boolean`
@@ -1888,6 +2004,18 @@ Related: column-chart, sparkline, chart-legend, bar-chart, heatmap
   ]}
   curve="monotone"
   area
+/>
+
+{/* 予測の幅（帯）・複数行の軸ラベル・選択 */}
+<LineChart
+  aria-label="売上予測"
+  data={rows}
+  index="month"
+  series={[{ key: "mid", label: "中央値" }]}
+  band={{ low: "p10", high: "p90", label: "80%の範囲" }}
+  indexLabel={(row) => [row.month, `担当 ${row.owner}`]}
+  selectedIndex={selected}
+  onSelectIndex={setSelected}
 />
 ```
 
@@ -1967,6 +2095,13 @@ Related: line-chart, bar-chart, chart-legend, table, donut-chart
 - `barRadius?`: `number`
   - Default: `2`
   - Corner radius of the bar end that faces away from the baseline
+- `indexLabel?`: `ChartIndexLabel<Record<string, string | number>>`
+  - x axis label per row as one or more lines, e.g. a year with the ages of each person under it.
+Defaults to the `index` field. The tooltip title uses the first line.
+- `selectedIndex?`: `number | null`
+  - Index of the selected column, highlighted until another is chosen. Pair with onSelectIndex
+- `onSelectIndex?`: `(index: number) => void`
+  - Called when a column is clicked, or Enter / Space is pressed on the focused column
 - `aria-label`: `string`
   - Accessible label for the chart (required for accessibility)
 
@@ -1986,6 +2121,20 @@ Related: line-chart, bar-chart, chart-legend, table, donut-chart
     { key: "app", label: "アプリ" },
   ]}
 />
+
+{/* 選択して内訳を切り替える・複数行の軸ラベル */}
+const [selected, setSelected] = useState(0);
+<ColumnChart
+  aria-label="年ごとの費用の内訳"
+  layout="stacked"
+  data={rows}
+  index="year"
+  series={series}
+  indexLabel={(row) => [row.year, `第${row.term}期`]}
+  selectedIndex={selected}
+  onSelectIndex={setSelected}
+/>
+<Table>{/* rows[selected] の内訳 */}</Table>
 ```
 
 #### Heatmap
@@ -3864,6 +4013,160 @@ Related: card, metric, feature-grid, layout
 <Grid columns={4} columnsSm={2} gap="var(--space-4)">
   {items.map(item => <Card key={item.id}>...</Card>)}
 </Grid>
+```
+
+#### Stack
+
+子要素を縦に並べ、間隔をそろえる。カードの本文、フォームの段落、注釈の並びに使う。横に並べるときは Inline、2次元に並べるときは Grid。
+
+Docs: https://kaze-design-system.vercel.app/docs/components/stack
+
+**Props**
+
+- `gap?`: `LayoutGap`
+  - Default: `"md"`
+  - Space between children (default: "md" = --space-4)
+- `align?`: `"start" | "center" | "end" | "stretch"`
+  - Cross-axis alignment (default: "stretch")
+- `as?`: `ElementType`
+  - Default: `"div"`
+  - Element to render (default: "div"). Use "ul" / "ol" / "section" when the content calls for it
+
+**Usage**
+
+```tsx
+<Card>
+  <CardBody>
+    <Stack gap="sm">
+      <Text>説明</Text>
+      <Text variant="caption" color="muted">注釈</Text>
+    </Stack>
+  </CardBody>
+</Card>
+
+<Stack as="ul" gap="xs">
+  <li>項目1</li>
+  <li>項目2</li>
+</Stack>
+```
+
+#### Inline
+
+子要素を横に並べ、入りきらなければ折り返す。保存と取り消しのボタン、フィルターと期間の切り替えなど、操作の組に使う。
+
+Docs: https://kaze-design-system.vercel.app/docs/components/inline
+
+**Props**
+
+- `gap?`: `LayoutGap`
+  - Default: `"sm"`
+  - Space between children (default: "sm" = --space-2)
+- `wrap?`: `boolean`
+  - Default: `true`
+  - Wrap onto the next line when there is no room (default: true)
+- `align?`: `"start" | "center" | "end" | "baseline" | "stretch"`
+  - Default: `"center"`
+  - Cross-axis alignment (default: "center")
+- `justify?`: `"start" | "center" | "end" | "between"`
+  - Default: `"start"`
+  - Main-axis distribution (default: "start")
+- `as?`: `ElementType`
+  - Default: `"div"`
+  - Element to render (default: "div")
+
+**Usage**
+
+```tsx
+<Inline gap="sm">
+  <Button variant="primary">保存</Button>
+  <Button variant="outline">取り消す</Button>
+</Inline>
+
+<Inline justify="between">
+  <Text>3件選択中</Text>
+  <Button size="sm" variant="ghost">選択を解除</Button>
+</Inline>
+```
+
+#### Toolbar
+
+表やグラフの上に置く操作の列。左に絞り込みや切り替え、右に書き出しなどの補助操作。role=toolbar と名前を持つ。狭い画面では右の組が下に回る。
+
+Docs: https://kaze-design-system.vercel.app/docs/components/toolbar
+
+**Props**
+
+- `end?`: `ReactNode`
+  - Controls placed at the end of the row (e.g. export, settings)
+- `aria-label`: `string`
+  - Name of the toolbar for assistive technology (required)
+
+**Usage**
+
+```tsx
+<Toolbar aria-label="表示の切り替え" end={<Button size="sm" variant="outline">CSVで書き出す</Button>}>
+  <SegmentedControl aria-label="期間" options={periods} value={period} onValueChange={setPeriod} />
+  <FilterPill active={onlyActive} onClick={toggle}>有効のみ</FilterPill>
+</Toolbar>
+<Table>...</Table>
+```
+
+#### PageHeader
+
+ページの先頭。パンくず、ページの見出し（h1）、説明、ページ全体の操作をまとめる。
+
+Docs: https://kaze-design-system.vercel.app/docs/components/page-header
+
+**Props**
+
+- `title`: `ReactNode`
+  - ページの見出し
+- `description?`: `ReactNode`
+  - One or two sentences under the title
+- `actions?`: `ReactNode`
+  - Buttons for the whole page, placed at the end of the title row
+- `breadcrumb?`: `ReactNode`
+  - Breadcrumb shown above the title
+- `level?`: `1 | 2`
+  - Default: `1`
+  - Heading level of the title (default: 1)
+
+**Usage**
+
+```tsx
+<PageHeader
+  breadcrumb={<Breadcrumb items={[{ label: "ホーム", href: "/" }, { label: "請求書" }]} />}
+  title="請求書"
+  description="今月発行した請求書の一覧です。"
+  actions={<Button variant="primary">新規作成</Button>}
+/>
+```
+
+#### PanelHeader
+
+アプリの画面の中のまとまりにつける見出しの行。見出し、説明、そのまとまりの操作を並べる。LP では Marketing の Section を使う。
+
+Docs: https://kaze-design-system.vercel.app/docs/components/panel-header
+
+**Props**
+
+- `title`: `ReactNode`
+  - 見出し
+- `description?`: `ReactNode`
+  - 見出しの下の説明
+- `actions?`: `ReactNode`
+  - Controls for this section, placed at the end of the title row
+- `level?`: `2 | 3 | 4`
+  - Default: `2`
+  - Heading level of the title (default: 2)
+
+**Usage**
+
+```tsx
+<section>
+  <PanelHeader title="最近の注文" description="直近30日" actions={<Button size="sm" variant="ghost">すべて見る</Button>} />
+  <Table>...</Table>
+</section>
 ```
 
 #### Search

@@ -46,6 +46,14 @@ import {
   TypingIndicator,
   Link,
   VisuallyHidden,
+  Stack,
+  Inline,
+  Toolbar,
+  PageHeader,
+  PanelHeader,
+  FormSection,
+  Slider,
+  TableFooter,
 } from "@/components";
 import { Tooltip } from "@/components/Tooltip/Tooltip";
 import { Icon } from "@/components/Icon/Icon";
@@ -366,47 +374,63 @@ const componentDocs: Record<string, ComponentDoc> = {
     title: "Card",
     description: "カードコンポーネント",
     preview: (
-      <div className={styles.previewColumn} style={{ gap: "1.5rem", maxWidth: "400px" }}>
-        <div>
-          <p style={{ fontSize: "0.875rem", fontWeight: 600, marginBottom: "0.5rem" }}>
-            デフォルト
-          </p>
-          <Card>
-            <CardHeader>
-              <CardTitle>カードタイトル</CardTitle>
-            </CardHeader>
-            <CardBody>
-              <p style={{ margin: 0, color: "var(--color-fg-secondary)" }}>
-                ボーダー + 白背景のスタンダードなカードです。
-              </p>
-            </CardBody>
-          </Card>
+      <div className={styles.previewColumn} style={{ gap: "2rem" }}>
+        <div className={styles.previewColumn} style={{ gap: "1.5rem", maxWidth: "400px" }}>
+          <div>
+            <p style={{ fontSize: "0.875rem", fontWeight: 600, marginBottom: "0.5rem" }}>
+              デフォルト
+            </p>
+            <Card>
+              <CardHeader>
+                <CardTitle>カードタイトル</CardTitle>
+              </CardHeader>
+              <CardBody>
+                <p style={{ margin: 0, color: "var(--color-fg-secondary)" }}>
+                  ボーダー + 白背景のスタンダードなカードです。
+                </p>
+              </CardBody>
+            </Card>
+          </div>
+          <div>
+            <p style={{ fontSize: "0.875rem", fontWeight: 600, marginBottom: "0.5rem" }}>Fill</p>
+            <Card variant="fill">
+              <CardHeader>
+                <CardTitle>背景カード</CardTitle>
+              </CardHeader>
+              <CardBody>
+                <p style={{ margin: 0, color: "var(--color-fg-secondary)" }}>
+                  ボーダーなし、背景色のみのカードです。
+                </p>
+              </CardBody>
+            </Card>
+          </div>
+          <div>
+            <p style={{ fontSize: "0.875rem", fontWeight: 600, marginBottom: "0.5rem" }}>
+              Interactive
+            </p>
+            <Card variant="interactive">
+              <CardBody>
+                <p style={{ margin: 0, color: "var(--color-fg-secondary)" }}>
+                  ホバーでボーダーが強調されるカードです。
+                </p>
+              </CardBody>
+            </Card>
+          </div>
         </div>
-        <div>
-          <p style={{ fontSize: "0.875rem", fontWeight: 600, marginBottom: "0.5rem" }}>Fill</p>
-          <Card variant="fill">
-            <CardHeader>
-              <CardTitle>背景カード</CardTitle>
-            </CardHeader>
-            <CardBody>
-              <p style={{ margin: 0, color: "var(--color-fg-secondary)" }}>
-                ボーダーなし、背景色のみのカードです。
-              </p>
-            </CardBody>
-          </Card>
-        </div>
-        <div>
-          <p style={{ fontSize: "0.875rem", fontWeight: 600, marginBottom: "0.5rem" }}>
-            Interactive
-          </p>
-          <Card variant="interactive">
-            <CardBody>
-              <p style={{ margin: 0, color: "var(--color-fg-secondary)" }}>
-                ホバーでボーダーが強調されるカードです。
-              </p>
-            </CardBody>
-          </Card>
-        </div>
+        <Card>
+          <CardHeader
+            actions={
+              <Button size="sm" variant="outline">
+                編集
+              </Button>
+            }
+          >
+            <CardTitle marker="var(--chart-1)">プランA</CardTitle>
+          </CardHeader>
+          <CardBody>
+            右上の操作と、グラフの系列に対応させる色の丸。見出しの文字は中立色のまま。
+          </CardBody>
+        </Card>
       </div>
     ),
     props: [
@@ -453,6 +477,14 @@ const componentDocs: Record<string, ComponentDoc> = {
 {/* Fill（背景のみ、ボーダーなし） */}
 <Card variant="fill">
   <CardBody>背景カード</CardBody>
+</Card>
+
+{/* 右上の操作と、グラフの系列との対応 */}
+<Card>
+  <CardHeader actions={<Button size="sm" variant="outline">編集</Button>}>
+    <CardTitle marker="var(--chart-1)">プランA</CardTitle>
+  </CardHeader>
+  <CardBody>...</CardBody>
 </Card>`,
   },
 
@@ -562,39 +594,65 @@ const componentDocs: Record<string, ComponentDoc> = {
     title: "Table",
     description: "テーブル",
     preview: (
-      <div className={styles.previewColumn} style={{ gap: "1.5rem" }}>
+      <div className={styles.previewColumn} style={{ gap: "2rem" }}>
+        <div className={styles.previewColumn} style={{ gap: "1.5rem" }}>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>名前</TableHead>
+                <TableHead>メール</TableHead>
+                <TableHead>役割</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow>
+                <TableCell>堀内昌平</TableCell>
+                <TableCell>shohei.horiuchi@norn.co.jp</TableCell>
+                <TableCell>管理者</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>志摩このみ</TableCell>
+                <TableCell>konomi.shima@norn.co.jp</TableCell>
+                <TableCell>編集者</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>野々村圭</TableCell>
+                <TableCell>kei.nonomura@norn.co.jp</TableCell>
+                <TableCell>閲覧者</TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+          <div>
+            <p style={{ fontSize: "0.875rem", fontWeight: 600, marginBottom: "0.5rem" }}>
+              並べ替え（売上の降順）
+            </p>
+            <SortableTableDemo />
+          </div>
+        </div>
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>名前</TableHead>
-              <TableHead>メール</TableHead>
-              <TableHead>役割</TableHead>
+              <TableHead>項目</TableHead>
+              <TableHead className="table__cell--numeric">金額</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             <TableRow>
-              <TableCell>堀内昌平</TableCell>
-              <TableCell>shohei.horiuchi@norn.co.jp</TableCell>
-              <TableCell>管理者</TableCell>
+              <TableCell>ライセンス</TableCell>
+              <TableCell className="table__cell--numeric">¥120,000</TableCell>
             </TableRow>
             <TableRow>
-              <TableCell>志摩このみ</TableCell>
-              <TableCell>konomi.shima@norn.co.jp</TableCell>
-              <TableCell>編集者</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>野々村圭</TableCell>
-              <TableCell>kei.nonomura@norn.co.jp</TableCell>
-              <TableCell>閲覧者</TableCell>
+              <TableCell>サポート</TableCell>
+              <TableCell className="table__cell--numeric">¥30,000</TableCell>
             </TableRow>
           </TableBody>
+          <TableFooter>
+            <TableRow>
+              <TableCell>合計</TableCell>
+              <TableCell className="table__cell--numeric">¥150,000</TableCell>
+            </TableRow>
+          </TableFooter>
         </Table>
-        <div>
-          <p style={{ fontSize: "0.875rem", fontWeight: 600, marginBottom: "0.5rem" }}>
-            並べ替え（売上の降順）
-          </p>
-          <SortableTableDemo />
-        </div>
       </div>
     ),
     props: [
@@ -655,6 +713,18 @@ const { rows: sorted, getSortProps } = useTableSort(rows, {
       </TableRow>
     ))}
   </TableBody>
+</Table>
+
+{/* 合計行 */}
+<Table>
+  <TableHeader>...</TableHeader>
+  <TableBody>...</TableBody>
+  <TableFooter>
+    <TableRow>
+      <TableCell>合計</TableCell>
+      <TableCell className="table__cell--numeric">¥150,000</TableCell>
+    </TableRow>
+  </TableFooter>
 </Table>`,
   },
 
@@ -2236,6 +2306,251 @@ import { Icon } from "kaze-design-system";
 </Grid>`,
   },
 
+  stack: {
+    title: "Stack",
+    description:
+      "子要素を縦に並べ、間隔をそろえる。カードの本文、フォームの段落、注釈の並びに使う。横に並べるときは Inline、2次元に並べるときは Grid。",
+    preview: (
+      <Stack gap="md">
+        <div
+          style={{
+            background: "var(--color-bg-secondary)",
+            borderRadius: "var(--radius-md)",
+            padding: "var(--space-3)",
+          }}
+        >
+          見出しの下の説明
+        </div>
+        <div
+          style={{
+            background: "var(--color-bg-secondary)",
+            borderRadius: "var(--radius-md)",
+            padding: "var(--space-3)",
+          }}
+        >
+          本文の段落
+        </div>
+        <div
+          style={{
+            background: "var(--color-bg-secondary)",
+            borderRadius: "var(--radius-md)",
+            padding: "var(--space-3)",
+          }}
+        >
+          注釈
+        </div>
+      </Stack>
+    ),
+    props: [
+      {
+        name: "gap",
+        type: '"none" | "xs" | "sm" | "md" | "lg" | "xl" | number | string',
+        default: '"md"',
+        description: "子要素の間隔。sm=8px, md=16px, lg=24px",
+      },
+      {
+        name: "align",
+        type: '"start" | "center" | "end" | "stretch"',
+        description: "横方向の揃え",
+      },
+      {
+        name: "as",
+        type: "ElementType",
+        default: '"div"',
+        description: "描画する要素。ul / ol / section など",
+      },
+    ],
+    usage: `<Card>
+  <CardBody>
+    <Stack gap="sm">
+      <Text>説明</Text>
+      <Text variant="caption" color="muted">注釈</Text>
+    </Stack>
+  </CardBody>
+</Card>
+
+<Stack as="ul" gap="xs">
+  <li>項目1</li>
+  <li>項目2</li>
+</Stack>`,
+  },
+
+  inline: {
+    title: "Inline",
+    description:
+      "子要素を横に並べ、入りきらなければ折り返す。保存と取り消しのボタン、フィルターと期間の切り替えなど、操作の組に使う。",
+    preview: (
+      <Inline gap="sm">
+        <Button variant="primary">保存</Button>
+        <Button variant="outline">取り消す</Button>
+        <Button variant="ghost">下書きに戻す</Button>
+      </Inline>
+    ),
+    props: [
+      {
+        name: "gap",
+        type: '"none" | "xs" | "sm" | "md" | "lg" | "xl" | number | string',
+        default: '"sm"',
+        description: "子要素の間隔",
+      },
+      { name: "wrap", type: "boolean", default: "true", description: "入りきらないときに折り返す" },
+      {
+        name: "align",
+        type: '"start" | "center" | "end" | "baseline" | "stretch"',
+        default: '"center"',
+        description: "縦方向の揃え",
+      },
+      {
+        name: "justify",
+        type: '"start" | "center" | "end" | "between"',
+        default: '"start"',
+        description: "横方向の配置",
+      },
+      { name: "as", type: "ElementType", default: '"div"', description: "描画する要素" },
+    ],
+    usage: `<Inline gap="sm">
+  <Button variant="primary">保存</Button>
+  <Button variant="outline">取り消す</Button>
+</Inline>
+
+<Inline justify="between">
+  <Text>3件選択中</Text>
+  <Button size="sm" variant="ghost">選択を解除</Button>
+</Inline>`,
+  },
+
+  toolbar: {
+    title: "Toolbar",
+    description:
+      "表やグラフの上に置く操作の列。左に絞り込みや切り替え、右に書き出しなどの補助操作。role=toolbar と名前を持つ。狭い画面では右の組が下に回る。",
+    preview: (
+      <Toolbar
+        aria-label="表示の切り替え"
+        end={
+          <Button size="sm" variant="outline">
+            CSVで書き出す
+          </Button>
+        }
+      >
+        <SegmentedControl
+          aria-label="期間"
+          size="sm"
+          defaultValue="month"
+          options={[
+            { value: "week", label: "週" },
+            { value: "month", label: "月" },
+            { value: "year", label: "年" },
+          ]}
+        />
+        <FilterPill active>有効のみ</FilterPill>
+      </Toolbar>
+    ),
+    props: [
+      { name: "aria-label", type: "string", description: "操作の列の名前（必須）" },
+      { name: "end", type: "ReactNode", description: "右端に置く補助操作" },
+    ],
+    usage: `<Toolbar aria-label="表示の切り替え" end={<Button size="sm" variant="outline">CSVで書き出す</Button>}>
+  <SegmentedControl aria-label="期間" options={periods} value={period} onValueChange={setPeriod} />
+  <FilterPill active={onlyActive} onClick={toggle}>有効のみ</FilterPill>
+</Toolbar>
+<Table>...</Table>`,
+  },
+
+  "page-header": {
+    title: "PageHeader",
+    description: "ページの先頭。パンくず、ページの見出し（h1）、説明、ページ全体の操作をまとめる。",
+    preview: (
+      <PageHeader
+        title="請求書"
+        description="今月発行した請求書の一覧です。支払期限を過ぎたものは上に並びます。"
+        actions={<Button variant="primary">新規作成</Button>}
+      />
+    ),
+    props: [
+      { name: "title", type: "ReactNode", description: "ページの見出し" },
+      { name: "description", type: "ReactNode", description: "見出しの下の説明（1〜2文）" },
+      {
+        name: "actions",
+        type: "ReactNode",
+        description: "見出しの行の右端に置く、ページ全体の操作",
+      },
+      { name: "breadcrumb", type: "ReactNode", description: "見出しの上に出すパンくず" },
+      { name: "level", type: "1 | 2", default: "1", description: "見出しのレベル" },
+    ],
+    usage: `<PageHeader
+  breadcrumb={<Breadcrumb items={[{ label: "ホーム", href: "/" }, { label: "請求書" }]} />}
+  title="請求書"
+  description="今月発行した請求書の一覧です。"
+  actions={<Button variant="primary">新規作成</Button>}
+/>`,
+  },
+
+  "panel-header": {
+    title: "PanelHeader",
+    description:
+      "アプリの画面の中のまとまりにつける見出しの行。見出し、説明、そのまとまりの操作を並べる。LP では Marketing の Section を使う。",
+    preview: (
+      <PanelHeader
+        title="最近の注文"
+        description="直近30日の注文です。"
+        actions={
+          <Button size="sm" variant="ghost">
+            すべて見る
+          </Button>
+        }
+      />
+    ),
+    props: [
+      { name: "title", type: "ReactNode", description: "見出し" },
+      { name: "description", type: "ReactNode", description: "見出しの下の説明" },
+      { name: "actions", type: "ReactNode", description: "見出しの行の右端に置く操作" },
+      {
+        name: "level",
+        type: "2 | 3 | 4",
+        default: "2",
+        description: "見出しのレベル。ページの h1 から飛ばさない",
+      },
+    ],
+    usage: `<section>
+  <PanelHeader title="最近の注文" description="直近30日" actions={<Button size="sm" variant="ghost">すべて見る</Button>} />
+  <Table>...</Table>
+</section>`,
+  },
+
+  "form-section": {
+    title: "FormSection",
+    description:
+      "長いフォームの中で、関係する入力をまとめる。fieldset と legend で組むので、読み上げでも各入力がどのまとまりに属するか伝わる。続けて置くと区切り線が入る。",
+    preview: (
+      <div style={{ maxWidth: 480 }}>
+        <FormSection title="連絡先" description="請求書の送付先です。">
+          <FormField label="メールアドレス">
+            <Input type="email" />
+          </FormField>
+          <FormField label="電話番号">
+            <Input type="tel" />
+          </FormField>
+        </FormSection>
+        <FormSection title="支払い">
+          <NumberField label="月の上限" currency="JPY" defaultValue={50000} />
+        </FormSection>
+      </div>
+    ),
+    props: [
+      { name: "title", type: "ReactNode", description: "まとまりの名前（legend になる）" },
+      { name: "description", type: "ReactNode", description: "まとまりの説明" },
+      { name: "disabled", type: "boolean", description: "中の入力をまとめて無効にする" },
+    ],
+    usage: `<form>
+  <FormSection title="連絡先" description="請求書の送付先です。">
+    <FormField label="メールアドレス"><Input type="email" /></FormField>
+  </FormSection>
+  <FormSection title="支払い">
+    <NumberField label="月の上限" currency="JPY" />
+  </FormSection>
+</form>`,
+  },
+
   /* ── Lists ───────────────────────────────────────────────── */
 
   list: {
@@ -2496,26 +2811,44 @@ import { Icon } from "kaze-design-system";
     description:
       "時系列データの折れ線 / 面グラフ。複数系列、凡例での表示切替、ホバーとキーボードのツールチップに対応。SVG 手書きで依存ゼロ。",
     preview: (
-      <LineChart
-        aria-label="月別の売上と利用者数"
-        index="month"
-        data={[
-          { month: "4 月", sales: 320, users: 210 },
-          { month: "5 月", sales: 340, users: 230 },
-          { month: "6 月", sales: 310, users: 245 },
-          { month: "7 月", sales: 390, users: 260 },
-          { month: "8 月", sales: 420, users: 300 },
-          { month: "9 月", sales: 460, users: 310 },
-          { month: "10 月", sales: 450, users: 340 },
-          { month: "11 月", sales: 510, users: 360 },
-        ]}
-        series={[
-          { key: "sales", label: "売上（万円）" },
-          { key: "users", label: "利用者数（人）" },
-        ]}
-        curve="monotone"
-        area
-      />
+      <div className={styles.previewColumn} style={{ gap: "2rem" }}>
+        <LineChart
+          aria-label="月別の売上と利用者数"
+          index="month"
+          data={[
+            { month: "4 月", sales: 320, users: 210 },
+            { month: "5 月", sales: 340, users: 230 },
+            { month: "6 月", sales: 310, users: 245 },
+            { month: "7 月", sales: 390, users: 260 },
+            { month: "8 月", sales: 420, users: 300 },
+            { month: "9 月", sales: 460, users: 310 },
+            { month: "10 月", sales: 450, users: 340 },
+            { month: "11 月", sales: 510, users: 360 },
+          ]}
+          series={[
+            { key: "sales", label: "売上（万円）" },
+            { key: "users", label: "利用者数（人）" },
+          ]}
+          curve="monotone"
+          area
+        />
+        <LineChart
+          aria-label="来期までの売上予測。中央値と80%の範囲"
+          data={[
+            { month: "1月", mid: 120, lo: 120, hi: 120 },
+            { month: "2月", mid: 128, lo: 118, hi: 138 },
+            { month: "3月", mid: 135, lo: 116, hi: 152 },
+            { month: "4月", mid: 141, lo: 114, hi: 166 },
+            { month: "5月", mid: 150, lo: 112, hi: 182 },
+          ]}
+          index="month"
+          series={[{ key: "mid", label: "中央値" }]}
+          band={{ low: "lo", high: "hi", label: "80%の範囲" }}
+          indexLabel={(row) => [String(row.month), "見込み"]}
+          selectedIndex={2}
+          startAtZero={false}
+        />
+      </div>
     ),
     props: [
       {
@@ -2578,6 +2911,18 @@ import { Icon } from "kaze-design-system";
   ]}
   curve="monotone"
   area
+/>
+
+{/* 予測の幅（帯）・複数行の軸ラベル・選択 */}
+<LineChart
+  aria-label="売上予測"
+  data={rows}
+  index="month"
+  series={[{ key: "mid", label: "中央値" }]}
+  band={{ low: "p10", high: "p90", label: "80%の範囲" }}
+  indexLabel={(row) => [row.month, \`担当 \${row.owner}\`]}
+  selectedIndex={selected}
+  onSelectIndex={setSelected}
 />`,
   },
 
@@ -2586,26 +2931,44 @@ import { Icon } from "kaze-design-system";
     description:
       "縦棒グラフコンポーネント。複数系列をグループ表示・積み上げ表示で比較できる。カテゴリや期間の比較向け。",
     preview: (
-      <ColumnChart
-        aria-label="チャネル別の月次売上"
-        index="month"
-        layout="stacked"
-        data={[
-          { month: "4 月", web: 420, app: 310, store: 180 },
-          { month: "5 月", web: 380, app: 340, store: 210 },
-          { month: "6 月", web: 520, app: 390, store: 240 },
-          { month: "7 月", web: 610, app: 420, store: 230 },
-          { month: "8 月", web: 570, app: 480, store: 260 },
-          { month: "9 月", web: 690, app: 510, store: 290 },
-        ]}
-        series={[
-          { key: "web", label: "Web" },
-          { key: "app", label: "アプリ" },
-          { key: "store", label: "店舗" },
-        ]}
-        formatValue={(v) => `${v}万円`}
-        yAxisWidth={64}
-      />
+      <div className={styles.previewColumn} style={{ gap: "2rem" }}>
+        <ColumnChart
+          aria-label="チャネル別の月次売上"
+          index="month"
+          layout="stacked"
+          data={[
+            { month: "4 月", web: 420, app: 310, store: 180 },
+            { month: "5 月", web: 380, app: 340, store: 210 },
+            { month: "6 月", web: 520, app: 390, store: 240 },
+            { month: "7 月", web: 610, app: 420, store: 230 },
+            { month: "8 月", web: 570, app: 480, store: 260 },
+            { month: "9 月", web: 690, app: 510, store: 290 },
+          ]}
+          series={[
+            { key: "web", label: "Web" },
+            { key: "app", label: "アプリ" },
+            { key: "store", label: "店舗" },
+          ]}
+          formatValue={(v) => `${v}万円`}
+          yAxisWidth={64}
+        />
+        <ColumnChart
+          aria-label="年ごとの費用の内訳。クリックで年を選ぶ"
+          layout="stacked"
+          data={[
+            { year: "2027", fixed: 120, other: 40 },
+            { year: "2028", fixed: 125, other: 60 },
+            { year: "2029", fixed: 130, other: 30 },
+          ]}
+          index="year"
+          series={[
+            { key: "fixed", label: "固定費" },
+            { key: "other", label: "その他", color: "var(--chart-neutral)" },
+          ]}
+          indexLabel={(row) => [String(row.year), "第2期"]}
+          selectedIndex={1}
+        />
+      </div>
     ),
     props: [
       {
@@ -2670,7 +3033,21 @@ import { Icon } from "kaze-design-system";
     { key: "web", label: "Web" },
     { key: "app", label: "アプリ" },
   ]}
-/>`,
+/>
+
+{/* 選択して内訳を切り替える・複数行の軸ラベル */}
+const [selected, setSelected] = useState(0);
+<ColumnChart
+  aria-label="年ごとの費用の内訳"
+  layout="stacked"
+  data={rows}
+  index="year"
+  series={series}
+  indexLabel={(row) => [row.year, \`第\${row.term}期\`]}
+  selectedIndex={selected}
+  onSelectIndex={setSelected}
+/>
+<Table>{/* rows[selected] の内訳 */}</Table>`,
   },
 
   heatmap: {
@@ -3728,10 +4105,22 @@ import { Icon } from "kaze-design-system";
     title: "NumberField",
     description: "通貨対応数値入力",
     preview: (
-      <div className={styles.previewColumn} style={{ gap: "1.5rem", maxWidth: "320px" }}>
-        <NumberField label="数量" value={100} />
-        <NumberField label="金額" value={15000} currency="JPY" />
-        <NumberField label="割引率" value={25} suffix="%" min={0} max={100} />
+      <div className={styles.previewColumn} style={{ gap: "2rem" }}>
+        <div className={styles.previewColumn} style={{ gap: "1.5rem", maxWidth: "320px" }}>
+          <NumberField label="数量" value={100} />
+          <NumberField label="金額" value={15000} currency="JPY" />
+          <NumberField label="割引率" value={25} suffix="%" min={0} max={100} />
+        </div>
+        <NumberField
+          label="予算"
+          currency="JPY"
+          defaultValue={155000000}
+          hint={(v) =>
+            v != null && v >= 10000
+              ? `約${Math.round(v / 10000).toLocaleString("ja-JP")}万円`
+              : null
+          }
+        />
       </div>
     ),
     props: [
@@ -3765,6 +4154,73 @@ import { Icon } from "kaze-design-system";
   value={15000}
   currency="JPY"
   onValueChange={(v) => setValue(v)}
+/>
+
+{/* 大きい金額の読みやすさ（値から補助表示を作る） */}
+<NumberField
+  label="予算"
+  currency="JPY"
+  value={value}
+  onValueChange={setValue}
+  hint={(v) => (v != null && v >= 10000 ? \`約\${Math.round(v / 10000)}万円\` : null)}
+/>`,
+  },
+
+  slider: {
+    title: "Slider",
+    description:
+      "範囲の中から数を選ぶ。結果を見ながら値を動かす場面（シミュレーション、配分）に使う。正確な数を打ちたいときは NumberField。",
+    preview: (
+      <div className={styles.previewColumn} style={{ gap: "2rem", maxWidth: 420 }}>
+        <Slider
+          label="想定年利"
+          min={-2}
+          max={10}
+          step={0.1}
+          defaultValue={5}
+          formatValue={(v) => `${v.toFixed(1)}%`}
+          marks={[0, 5, 10]}
+        />
+        <Slider
+          label="月の予算"
+          min={0}
+          max={500000}
+          step={10000}
+          defaultValue={200000}
+          formatValue={(v) => `${(v / 10000).toLocaleString("ja-JP")}万円`}
+          description="1万円刻み"
+        />
+      </div>
+    ),
+    props: [
+      { name: "label", type: "string", description: "見出し" },
+      { name: "value", type: "number", description: "現在の値（制御）" },
+      { name: "defaultValue", type: "number", description: "初期値（非制御）" },
+      { name: "onValueChange", type: "(value: number) => void", description: "値が変わったとき" },
+      {
+        name: "min / max / step",
+        type: "number",
+        default: "0 / 100 / 1",
+        description: "範囲と刻み",
+      },
+      {
+        name: "formatValue",
+        type: "(value: number) => string",
+        description: "表示と読み上げに使う書式",
+      },
+      { name: "showValue", type: "boolean", default: "true", description: "見出しの右に値を出す" },
+      { name: "marks", type: "number[]", description: "下に目盛りとして出す値" },
+      { name: "description", type: "string", description: "下に出す補足" },
+    ],
+    usage: `const [rate, setRate] = useState(5);
+<Slider
+  label="想定年利"
+  min={-2}
+  max={10}
+  step={0.1}
+  value={rate}
+  onValueChange={setRate}
+  formatValue={(v) => \`\${v.toFixed(1)}%\`}
 />`,
   },
 

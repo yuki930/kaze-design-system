@@ -58,6 +58,23 @@ export const TableBody = forwardRef<HTMLTableSectionElement, TableBodyProps>(
 
 TableBody.displayName = "TableBody";
 
+/* ── TableFooter ───────────────────────────────────────────── */
+
+export interface TableFooterProps extends HTMLAttributes<HTMLTableSectionElement> {}
+
+/** Totals or summary rows under the body. Use TableCell with the numeric class for amounts. */
+export const TableFooter = forwardRef<HTMLTableSectionElement, TableFooterProps>(
+  ({ className, children, ...rest }, ref) => {
+    return (
+      <tfoot ref={ref} className={cn("table__footer", className)} {...rest}>
+        {children}
+      </tfoot>
+    );
+  },
+);
+
+TableFooter.displayName = "TableFooter";
+
 /* ── TableRow ──────────────────────────────────────────────── */
 
 export interface TableRowProps extends HTMLAttributes<HTMLTableRowElement> {}

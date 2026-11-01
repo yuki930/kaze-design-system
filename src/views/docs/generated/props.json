@@ -1503,6 +1503,172 @@
       "default": ""
     }
   ],
+  "stack": [
+    {
+      "name": "gap",
+      "type": "LayoutGap",
+      "optional": true,
+      "description": "子要素の間隔。sm=8px、md=16px、lg=24px、数値なら space トークン",
+      "default": "\"md\""
+    },
+    {
+      "name": "align",
+      "type": "\"start\" | \"center\" | \"end\" | \"stretch\"",
+      "optional": true,
+      "description": "横方向の揃え",
+      "default": ""
+    },
+    {
+      "name": "as",
+      "type": "ElementType",
+      "optional": true,
+      "description": "描画する要素（ul / ol / section など）",
+      "default": "\"div\""
+    }
+  ],
+  "inline": [
+    {
+      "name": "gap",
+      "type": "LayoutGap",
+      "optional": true,
+      "description": "子要素の間隔",
+      "default": "\"sm\""
+    },
+    {
+      "name": "wrap",
+      "type": "boolean",
+      "optional": true,
+      "description": "入りきらないときに折り返す",
+      "default": "true"
+    },
+    {
+      "name": "align",
+      "type": "\"start\" | \"center\" | \"end\" | \"baseline\" | \"stretch\"",
+      "optional": true,
+      "description": "縦方向の揃え",
+      "default": "\"center\""
+    },
+    {
+      "name": "justify",
+      "type": "\"start\" | \"center\" | \"end\" | \"between\"",
+      "optional": true,
+      "description": "横方向の配置。between で両端に寄せる",
+      "default": "\"start\""
+    },
+    {
+      "name": "as",
+      "type": "ElementType",
+      "optional": true,
+      "description": "描画する要素",
+      "default": "\"div\""
+    }
+  ],
+  "toolbar": [
+    {
+      "name": "end",
+      "type": "ReactNode",
+      "optional": true,
+      "description": "右端に置く補助操作（書き出し・設定など）",
+      "default": ""
+    },
+    {
+      "name": "aria-label",
+      "type": "string",
+      "optional": false,
+      "description": "操作の列の名前（必須）",
+      "default": ""
+    }
+  ],
+  "page-header": [
+    {
+      "name": "title",
+      "type": "ReactNode",
+      "optional": false,
+      "description": "ページの見出し",
+      "default": ""
+    },
+    {
+      "name": "description",
+      "type": "ReactNode",
+      "optional": true,
+      "description": "見出しの下の説明（1〜2文）",
+      "default": ""
+    },
+    {
+      "name": "actions",
+      "type": "ReactNode",
+      "optional": true,
+      "description": "見出しの行の右端に置く、ページ全体の操作",
+      "default": ""
+    },
+    {
+      "name": "breadcrumb",
+      "type": "ReactNode",
+      "optional": true,
+      "description": "見出しの上に出すパンくず",
+      "default": ""
+    },
+    {
+      "name": "level",
+      "type": "1 | 2",
+      "optional": true,
+      "description": "見出しのレベル（既定は h1）",
+      "default": "1"
+    }
+  ],
+  "panel-header": [
+    {
+      "name": "title",
+      "type": "ReactNode",
+      "optional": false,
+      "description": "見出し",
+      "default": ""
+    },
+    {
+      "name": "description",
+      "type": "ReactNode",
+      "optional": true,
+      "description": "見出しの下の説明",
+      "default": ""
+    },
+    {
+      "name": "actions",
+      "type": "ReactNode",
+      "optional": true,
+      "description": "見出しの行の右端に置く、そのまとまりの操作",
+      "default": ""
+    },
+    {
+      "name": "level",
+      "type": "2 | 3 | 4",
+      "optional": true,
+      "description": "見出しのレベル（既定は h2）。ページの h1 から飛ばさない",
+      "default": "2"
+    }
+  ],
+  "form-section": [
+    {
+      "name": "title",
+      "type": "ReactNode",
+      "optional": false,
+      "description": "まとまりの名前。legend になり、読み上げで各入力と一緒に伝わる",
+      "default": ""
+    },
+    {
+      "name": "description",
+      "type": "ReactNode",
+      "optional": true,
+      "description": "まとまりの説明",
+      "default": ""
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "optional": true,
+      "description": "中の入力をまとめて無効にする",
+      "default": ""
+    }
+  ],
   "list": [
     {
       "name": "divided",
@@ -1758,6 +1924,34 @@
       "default": ""
     },
     {
+      "name": "band",
+      "type": "LineChartBand",
+      "optional": true,
+      "description": "2つのキーの間を塗る帯（予測の上下幅など）",
+      "default": ""
+    },
+    {
+      "name": "indexLabel",
+      "type": "ChartIndexLabel<LineChartDatum>",
+      "optional": true,
+      "description": "横軸のラベルを行ごとに1行または複数行で返す",
+      "default": ""
+    },
+    {
+      "name": "selectedIndex",
+      "type": "number | null",
+      "optional": true,
+      "description": "選択中の点。実線で示す",
+      "default": ""
+    },
+    {
+      "name": "onSelectIndex",
+      "type": "(index: number) => void",
+      "optional": true,
+      "description": "クリック、またはフォーカス中に Enter / Space で呼ばれる",
+      "default": ""
+    },
+    {
       "name": "aria-label",
       "type": "string",
       "optional": false,
@@ -1856,6 +2050,27 @@
       "optional": true,
       "description": "棒の先端の角丸（px）",
       "default": "2"
+    },
+    {
+      "name": "indexLabel",
+      "type": "ChartIndexLabel<Record<string, string | number>>",
+      "optional": true,
+      "description": "横軸のラベルを行ごとに1行または複数行で返す",
+      "default": ""
+    },
+    {
+      "name": "selectedIndex",
+      "type": "number | null",
+      "optional": true,
+      "description": "選択中の列。背景を塗って示す",
+      "default": ""
+    },
+    {
+      "name": "onSelectIndex",
+      "type": "(index: number) => void",
+      "optional": true,
+      "description": "列のクリック、またはフォーカス中に Enter / Space で呼ばれる",
+      "default": ""
     },
     {
       "name": "aria-label",
@@ -2916,6 +3131,13 @@
       "default": ""
     },
     {
+      "name": "hint",
+      "type": "ReactNode | ((value: number | null) => ReactNode)",
+      "optional": true,
+      "description": "欄の下の補足。関数を渡すと値から作れる（大きい金額の「約X万円」など）",
+      "default": ""
+    },
+    {
       "name": "decrementLabel",
       "type": "string",
       "optional": true,
@@ -2928,6 +3150,92 @@
       "optional": true,
       "description": "Accessible label for increment button (default: \"増加\")",
       "default": ""
+    }
+  ],
+  "slider": [
+    {
+      "name": "label",
+      "type": "string",
+      "optional": true,
+      "description": "見出し（aria-label を渡さない場合は必須）",
+      "default": ""
+    },
+    {
+      "name": "value",
+      "type": "number",
+      "optional": true,
+      "description": "現在の値（制御）",
+      "default": ""
+    },
+    {
+      "name": "defaultValue",
+      "type": "number",
+      "optional": true,
+      "description": "初期値（非制御）",
+      "default": ""
+    },
+    {
+      "name": "onValueChange",
+      "type": "(value: number) => void",
+      "optional": true,
+      "description": "値が変わったときに呼ばれる",
+      "default": ""
+    },
+    {
+      "name": "min",
+      "type": "number",
+      "optional": true,
+      "description": "最小値",
+      "default": ""
+    },
+    {
+      "name": "max",
+      "type": "number",
+      "optional": true,
+      "description": "最大値",
+      "default": ""
+    },
+    {
+      "name": "step",
+      "type": "number",
+      "optional": true,
+      "description": "刻み",
+      "default": ""
+    },
+    {
+      "name": "formatValue",
+      "type": "(value: number) => string",
+      "optional": true,
+      "description": "見出しの右の値と読み上げに使う書式",
+      "default": ""
+    },
+    {
+      "name": "showValue",
+      "type": "boolean",
+      "optional": true,
+      "description": "見出しの右に値を出す",
+      "default": "true"
+    },
+    {
+      "name": "marks",
+      "type": "number[]",
+      "optional": true,
+      "description": "下に目盛りとして出す値",
+      "default": ""
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "optional": true,
+      "description": "下に出す補足",
+      "default": ""
+    },
+    {
+      "name": "min / max / step",
+      "type": "number",
+      "optional": true,
+      "description": "範囲と刻み",
+      "default": "0 / 100 / 1"
     }
   ],
   "segmented-control": [

@@ -2,7 +2,7 @@
 
 > Minimal React design system for dashboards, landing pages and Japanese UI: warm neutral grays, 78 components, SVG charts with zero dependencies, light/dark themes, typography tuned for CJK text
 
-kaze-design-system is a React 18/19 + TypeScript design system with 78 components in two layers: Application UI (dashboards, business apps) and Marketing (landing pages, importable from `kaze-design-system/marketing`). It is built around a warm neutral gray palette, optimized for Japanese typography (PALT enabled globally), uses CSS custom properties for theming (light/dark via `data-theme`, four palettes via `data-palette` (default warm 砂, "cool" 霞, "ink" 墨, "indigo" 藍), three font sets via `data-font` (default "standard", "neutral", "crisp"), compact density via `data-density="compact"`), and ships as ESM with peer dependencies on react and react-dom (lucide-react optional).
+kaze-design-system is a React 18/19 + TypeScript design system with 85 components in two layers: Application UI (dashboards, business apps) and Marketing (landing pages, importable from `kaze-design-system/marketing`). It is built around a warm neutral gray palette, optimized for Japanese typography (PALT enabled globally), uses CSS custom properties for theming (light/dark via `data-theme`, four palettes via `data-palette` (default warm 砂, "cool" 霞, "ink" 墨, "indigo" 藍), three font sets via `data-font` (default "standard", "neutral", "crisp"), compact density via `data-density="compact"`), and ships as ESM with peer dependencies on react and react-dom (lucide-react optional).
 
 ## Installation
 
@@ -39,6 +39,8 @@ import { Hero, PricingGrid } from "kaze-design-system/marketing";
 - [Textarea](https://kaze-design-system.vercel.app/docs/components/textarea): テキストエリア
 - [Switch](https://kaze-design-system.vercel.app/docs/components/switch): オン・オフを切り替えるトグルスイッチコンポーネント。ラベル付きで使用可能。
 - [FormField](https://kaze-design-system.vercel.app/docs/components/form-field): フォームフィールド
+- [FormSection](https://kaze-design-system.vercel.app/docs/components/form-section): 長いフォームの中で、関係する入力をまとめる。fieldset と legend で組むので、読み上げでも各入力がどのまとまりに属するか伝わる。続けて置くと区切り線が入る。
+- [Slider](https://kaze-design-system.vercel.app/docs/components/slider): 範囲の中から数を選ぶ。結果を見ながら値を動かす場面（シミュレーション、配分）に使う。正確な数を打ちたいときは NumberField。
 - [FilterPill](https://kaze-design-system.vercel.app/docs/components/filter-pill): フィルター用ピル型トグルボタン
 - [SegmentedControl](https://kaze-design-system.vercel.app/docs/components/segmented-control): 単一選択のセグメント切り替え。期間（1W / 1M / 3M / 1Y）や表示モードの切り替えに。
 
@@ -102,6 +104,11 @@ import { Hero, PricingGrid } from "kaze-design-system/marketing";
 - [Layout (AppLayout)](https://kaze-design-system.vercel.app/docs/components/layout): アプリレイアウト
 - [Divider](https://kaze-design-system.vercel.app/docs/components/divider): 区切り線
 - [Grid](https://kaze-design-system.vercel.app/docs/components/grid): レスポンシブ対応のグリッドレイアウト。ブレイクポイントごとのカラム数を prop で制御。
+- [Stack](https://kaze-design-system.vercel.app/docs/components/stack): 子要素を縦に並べ、間隔をそろえる。カードの本文、フォームの段落、注釈の並びに使う。横に並べるときは Inline、2次元に並べるときは Grid。
+- [Inline](https://kaze-design-system.vercel.app/docs/components/inline): 子要素を横に並べ、入りきらなければ折り返す。保存と取り消しのボタン、フィルターと期間の切り替えなど、操作の組に使う。
+- [Toolbar](https://kaze-design-system.vercel.app/docs/components/toolbar): 表やグラフの上に置く操作の列。左に絞り込みや切り替え、右に書き出しなどの補助操作。role=toolbar と名前を持つ。狭い画面では右の組が下に回る。
+- [PageHeader](https://kaze-design-system.vercel.app/docs/components/page-header): ページの先頭。パンくず、ページの見出し（h1）、説明、ページ全体の操作をまとめる。
+- [PanelHeader](https://kaze-design-system.vercel.app/docs/components/panel-header): アプリの画面の中のまとまりにつける見出しの行。見出し、説明、そのまとまりの操作を並べる。LP では Marketing の Section を使う。
 - [Search](https://kaze-design-system.vercel.app/docs/components/search): 検索入力
 - [Logo](https://kaze-design-system.vercel.app/docs/components/logo): ロゴ
 - [Icon](https://kaze-design-system.vercel.app/docs/components/icon): アイコン

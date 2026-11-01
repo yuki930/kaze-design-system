@@ -82,6 +82,7 @@ export {
   Table,
   TableHeader,
   TableBody,
+  TableFooter,
   TableRow,
   TableHead,
   TableCell,
@@ -90,6 +91,7 @@ export type {
   TableProps,
   TableHeaderProps,
   TableBodyProps,
+  TableFooterProps,
   TableRowProps,
   TableHeadProps,
   TableCellProps,
@@ -146,6 +148,18 @@ export type {
 
 export { Divider } from "./Divider";
 export type { DividerProps } from "./Divider";
+export { Stack } from "./Stack";
+export type { StackProps } from "./Stack";
+export { Inline } from "./Inline";
+export type { InlineProps } from "./Inline";
+export { Toolbar } from "./Toolbar";
+export type { ToolbarProps } from "./Toolbar";
+export { PageHeader } from "./PageHeader";
+export type { PageHeaderProps } from "./PageHeader";
+export { PanelHeader } from "./PanelHeader";
+export type { PanelHeaderProps } from "./PanelHeader";
+export { FormSection } from "./FormSection";
+export type { FormSectionProps } from "./FormSection";
 
 export { Sidebar, NavItem, SidebarGroupLabel, SidebarDivider } from "./Sidebar";
 export type {
@@ -238,7 +252,7 @@ export { Sparkline } from "./Sparkline";
 export type { SparklineProps } from "./Sparkline";
 
 export { LineChart } from "./LineChart";
-export type { LineChartProps, LineChartSeries, LineChartDatum } from "./LineChart";
+export type { LineChartProps, LineChartSeries, LineChartDatum, LineChartBand } from "./LineChart";
 
 export { ColumnChart } from "./ColumnChart";
 export type { ColumnChartProps, ColumnChartSeries } from "./ColumnChart";
@@ -351,6 +365,8 @@ export type { BarListProps, BarListItem } from "./BarList";
 
 export { NumberField } from "./NumberField";
 export type { NumberFieldProps, NumberFieldCurrency } from "./NumberField";
+export { Slider } from "./Slider";
+export type { SliderProps } from "./Slider";
 
 /* ── Theme ─────────────────────────────────────────────────── */
 

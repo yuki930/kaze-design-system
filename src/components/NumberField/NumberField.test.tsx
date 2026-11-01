@@ -350,3 +350,32 @@ describe("NumberField structure", () => {
     expect(screen.getByTestId("nf")).toHaveAttribute("placeholder", "0");
   });
 });
+
+describe("NumberField hint", () => {
+  it("shows a static hint and links it", () => {
+    render(<NumberField label="予算" hint="税込みで入力" />);
+    const input = screen.getByRole("textbox", { name: "予算" });
+    expect(screen.getByText("税込みで入力")).toHaveClass("number-field__hint");
+    expect(input.getAttribute("aria-describedby")).toContain("-hint");
+  });
+  it("derives the hint from the value", () => {
+    render(
+      <NumberField
+        label="資産"
+        currency="JPY"
+        value={155452213}
+        onValueChange={() => {}}
+        hint={(v) =>
+          v != null && v >= 10000 ? `約${Math.round(v / 10000).toLocaleString("ja-JP")}万円` : null
+        }
+      />,
+    );
+    expect(screen.getByText("約15,545万円")).toBeInTheDocument();
+  });
+  it("renders nothing when the hint function returns null", () => {
+    const { container } = render(
+      <NumberField label="x" value={5} onValueChange={() => {}} hint={() => null} />,
+    );
+    expect(container.querySelector(".number-field__hint")).toBeNull();
+  });
+});

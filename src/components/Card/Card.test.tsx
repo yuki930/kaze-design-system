@@ -74,3 +74,26 @@ describe("CardFooter", () => {
     expect(footer).toHaveTextContent("フッター");
   });
 });
+
+describe("Card header actions and title marker", () => {
+  it("puts actions at the end of the header", () => {
+    const { container } = render(
+      <CardHeader actions={<button type="button">編集</button>}>
+        <CardTitle>概要</CardTitle>
+      </CardHeader>,
+    );
+    expect(container.querySelector(".card__header-main")).toHaveTextContent("概要");
+    expect(container.querySelector(".card__actions")).toHaveTextContent("編集");
+  });
+  it("keeps the plain header when no actions are given", () => {
+    const { container } = render(<CardHeader>概要</CardHeader>);
+    expect(container.querySelector(".card__header-main")).toBeNull();
+  });
+  it("adds a decorative series marker before the title", () => {
+    const { container } = render(<CardTitle marker="var(--chart-1)">プランA</CardTitle>);
+    const marker = container.querySelector(".card__marker") as HTMLElement;
+    expect(marker).toHaveAttribute("aria-hidden", "true");
+    expect(marker.style.background).toBe("var(--chart-1)");
+    expect(screen.getByRole("heading", { name: "プランA" })).toHaveClass("card__title--marker");
+  });
+});

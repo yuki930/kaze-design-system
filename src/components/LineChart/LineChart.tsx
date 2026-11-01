@@ -7,12 +7,14 @@ import {
   useState,
   type HTMLAttributes,
   type KeyboardEvent,
+  type MouseEvent,
   type PointerEvent,
 } from "react";
 import { cn } from "@/lib/utils";
 import { CHART_COLORS } from "../../lib/chartColors";
 import { defaultFormat, linearScale, niceScale } from "../../lib/chartScale";
 import { useChartWidth } from "../../lib/useChartWidth";
+import { LABEL_LINE_HEIGHT, labelLines, type ChartIndexLabel } from "../../lib/chartLabels";
 import { ChartLegend } from "../ChartLegend";
 
 export interface LineChartSeries {
@@ -25,6 +27,17 @@ export interface LineChartSeries {
 }
 
 export type LineChartDatum = Record<string, string | number | null | undefined>;
+
+export interface LineChartBand {
+  /** Key of the lower bound in each data row */
+  low: string;
+  /** Key of the upper bound in each data row */
+  high: string;
+  /** Label for the range in the tooltip (e.g. "80%の範囲") */
+  label?: string;
+  /** Fill color (default: the first series color) */
+  color?: string;
+}
 
 export interface LineChartProps extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {
   /** One row per x point. Missing values (null / undefined) break the line. */
@@ -54,6 +67,17 @@ export interface LineChartProps extends Omit<HTMLAttributes<HTMLDivElement>, "ch
   startAtZero?: boolean;
   /** Format values for y axis and tooltip */
   formatValue?: (value: number) => string;
+  /** Shaded range between two keys, e.g. a forecast's 10th to 90th percentile. Gaps (null) break the band */
+  band?: LineChartBand;
+  /**
+   * x axis label per row as one or more lines, e.g. a year with the ages of each person under it.
+   * Defaults to the `index` field. The tooltip title uses the first line.
+   */
+  indexLabel?: ChartIndexLabel<LineChartDatum>;
+  /** Index of the selected point, marked with a solid line. Pair with onSelectIndex */
+  selectedIndex?: number | null;
+  /** Called when the plot is clicked, or Enter / Space is pressed on the focused point */
+  onSelectIndex?: (index: number) => void;
   /** Accessible description of the chart (required) */
   "aria-label": string;
 }
@@ -163,6 +187,10 @@ export const LineChart = forwardRef<HTMLDivElement, LineChartProps>(
       yAxisWidth = 48,
       startAtZero = true,
       formatValue = defaultFormat,
+      band,
+      indexLabel,
+      selectedIndex = null,
+      onSelectIndex,
       "aria-label": ariaLabel,
       className,
       ...rest
@@ -186,8 +214,10 @@ export const LineChart = forwardRef<HTMLDivElement, LineChartProps>(
     const visible = items.filter((s) => !hidden.includes(s.key));
 
     const n = data.length;
+    const lines = data.map((row, i) => labelLines(row, i, String(row[index] ?? ""), indexLabel));
+    const lineCount = lines.reduce((m, l) => Math.max(m, l.length), 1);
     const padLeft = showYAxis ? yAxisWidth : 8;
-    const padBottom = showXAxis ? PAD_BOTTOM : 4;
+    const padBottom = showXAxis ? PAD_BOTTOM + (lineCount - 1) * LABEL_LINE_HEIGHT : 4;
     const plotW = Math.max(width - padLeft - PAD_RIGHT, 1);
     const plotH = Math.max(height - PAD_TOP - padBottom, 1);
 
@@ -201,6 +231,16 @@ export const LineChart = forwardRef<HTMLDivElement, LineChartProps>(
         hi = Math.max(hi, v);
       }
     }
+    if (band) {
+      for (const row of data) {
+        for (const key of [band.low, band.high]) {
+          const v = toNumber(row[key]);
+          if (v === null) continue;
+          lo = Math.min(lo, v);
+          hi = Math.max(hi, v);
+        }
+      }
+    }
     if (!Number.isFinite(lo)) {
       lo = 0;
       hi = 1;
@@ -211,7 +251,7 @@ export const LineChart = forwardRef<HTMLDivElement, LineChartProps>(
 
     const labelStep = Math.max(1, Math.ceil(X_LABEL_MIN_GAP / (n <= 1 ? plotW : plotW / (n - 1))));
 
-    const indexFromPointer = (e: PointerEvent<SVGSVGElement>) => {
+    const indexFromPointer = (e: PointerEvent<SVGSVGElement> | MouseEvent<SVGSVGElement>) => {
       const rect = svgRef.current?.getBoundingClientRect();
       if (!rect || n === 0) return null;
       const scaleX = rect.width ? width / rect.width : 1;
@@ -236,8 +276,28 @@ export const LineChart = forwardRef<HTMLDivElement, LineChartProps>(
         setActive(n - 1);
       } else if (e.key === "Escape") {
         setActive(null);
+      } else if ((e.key === "Enter" || e.key === " ") && onSelectIndex && active !== null) {
+        e.preventDefault();
+        onSelectIndex(active);
       }
     };
+
+    const bandColor = band?.color ?? items[0]?.color ?? "var(--chart-neutral)";
+    const bandRuns: { hi: Pt; lo: Pt }[][] = [];
+    if (band) {
+      let cur: { hi: Pt; lo: Pt }[] = [];
+      data.forEach((row, i) => {
+        const l = toNumber(row[band.low]);
+        const h = toNumber(row[band.high]);
+        if (l === null || h === null) {
+          if (cur.length) bandRuns.push(cur);
+          cur = [];
+          return;
+        }
+        cur.push({ hi: { x: xOf(i), y: yOf(h) }, lo: { x: xOf(i), y: yOf(l) } });
+      });
+      if (cur.length) bandRuns.push(cur);
+    }
 
     const activeX = active !== null && active < n ? xOf(active) : null;
     const activeRow = active !== null ? data[active] : undefined;
@@ -259,6 +319,14 @@ export const LineChart = forwardRef<HTMLDivElement, LineChartProps>(
             tabIndex={0}
             onPointerMove={(e) => setActive(indexFromPointer(e))}
             onPointerLeave={() => setActive(null)}
+            onClick={
+              onSelectIndex
+                ? (e) => {
+                    const i = indexFromPointer(e);
+                    if (i !== null) onSelectIndex(i);
+                  }
+                : undefined
+            }
             onKeyDown={onKeyDown}
             onBlur={() => setActive(null)}
           >
@@ -286,7 +354,7 @@ export const LineChart = forwardRef<HTMLDivElement, LineChartProps>(
             )}
             {showXAxis && (
               <g className="chart-axis">
-                {data.map((row, i) =>
+                {lines.map((ls, i) =>
                   i % labelStep === 0 ? (
                     <text
                       // biome-ignore lint/suspicious/noArrayIndexKey: x points are positional
@@ -295,13 +363,45 @@ export const LineChart = forwardRef<HTMLDivElement, LineChartProps>(
                       y={PAD_TOP + plotH + 16}
                       textAnchor="middle"
                     >
-                      {String(row[index] ?? "")}
+                      {ls.length === 1
+                        ? ls[0]
+                        : ls.map((line, li) => (
+                            // biome-ignore lint/suspicious/noArrayIndexKey: lines are positional
+                            <tspan key={li} x={xOf(i)} dy={li === 0 ? 0 : LABEL_LINE_HEIGHT}>
+                              {line}
+                            </tspan>
+                          ))}
                     </text>
                   ) : null,
                 )}
               </g>
             )}
 
+            {bandRuns
+              .filter((r) => r.length > 1)
+              .map((r) => (
+                <path
+                  key={`b${at(r, 0).hi.x}`}
+                  className="line-chart__band"
+                  style={{ fill: bandColor }}
+                  d={`${linePath(
+                    r.map((p) => p.hi),
+                    curve,
+                  )}L${[...r]
+                    .reverse()
+                    .map((p) => `${num(p.lo.x)},${num(p.lo.y)}`)
+                    .join("L")}Z`}
+                />
+              ))}
+            {selectedIndex !== null && selectedIndex >= 0 && selectedIndex < n && (
+              <line
+                className="chart-crosshair chart-crosshair--selected"
+                x1={xOf(selectedIndex)}
+                x2={xOf(selectedIndex)}
+                y1={PAD_TOP}
+                y2={PAD_TOP + plotH}
+              />
+            )}
             {visible.map((s) => {
               const pts = data.map((row, i) => {
                 const v = toNumber(row[s.key]);
@@ -378,7 +478,7 @@ export const LineChart = forwardRef<HTMLDivElement, LineChartProps>(
                 transform: `translateX(${flip ? "calc(-100% - 12px)" : "12px"})`,
               }}
             >
-              <div className="chart-tooltip__title">{String(activeRow[index] ?? "")}</div>
+              <div className="chart-tooltip__title">{lines[active ?? 0]?.[0] ?? ""}</div>
               {visible.map((s) => {
                 const v = toNumber(activeRow[s.key]);
                 return (
@@ -391,6 +491,23 @@ export const LineChart = forwardRef<HTMLDivElement, LineChartProps>(
                   </div>
                 );
               })}
+              {band &&
+                (() => {
+                  const l = toNumber(activeRow[band.low]);
+                  const h = toNumber(activeRow[band.high]);
+                  return (
+                    <div className="chart-tooltip__row">
+                      <span
+                        className="chart-tooltip__swatch line-chart__band-swatch"
+                        style={{ background: bandColor }}
+                      />
+                      <span className="chart-tooltip__label">{band.label ?? "範囲"}</span>
+                      <span className="chart-tooltip__value">
+                        {l === null || h === null ? "-" : `${formatValue(l)}〜${formatValue(h)}`}
+                      </span>
+                    </div>
+                  );
+                })()}
             </div>
           )}
         </div>

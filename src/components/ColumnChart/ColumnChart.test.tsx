@@ -128,3 +128,39 @@ describe("ColumnChart", () => {
     expect(bars(container)[0]?.getAttribute("fill")).toMatch(/^var\(--chart-/);
   });
 });
+
+describe("ColumnChart selection and labels", () => {
+  it("reports clicks and Enter on the focused column, and marks the selection", () => {
+    const onSelectIndex = (i: number) => calls.push(i);
+    const calls: number[] = [];
+    const { container } = render(
+      <ColumnChart
+        aria-label="x"
+        data={data}
+        index="month"
+        series={series}
+        selectedIndex={1}
+        onSelectIndex={onSelectIndex}
+      />,
+    );
+    expect(container.querySelector(".column-chart__selected")).not.toBeNull();
+    const hits = container.querySelectorAll(".column-chart__hit");
+    fireEvent.click(hits[2] as Element);
+    const fig = screen.getByRole("img", { name: "x" });
+    fireEvent.keyDown(fig, { key: "ArrowRight" });
+    fireEvent.keyDown(fig, { key: "Enter" });
+    expect(calls).toEqual([2, 0]);
+  });
+  it("draws multi-line axis labels", () => {
+    const { container } = render(
+      <ColumnChart
+        aria-label="x"
+        data={data}
+        index="month"
+        series={series}
+        indexLabel={(row) => [String(row.month), "補足"]}
+      />,
+    );
+    expect(container.querySelector(".chart-axis text tspan + tspan")).toHaveTextContent("補足");
+  });
+});

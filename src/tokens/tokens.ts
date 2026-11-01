@@ -55,6 +55,14 @@ export const chart = {
   teal: "var(--chart-teal)",
   yellow: "var(--chart-yellow)",
   green: "var(--chart-green)",
+  /** Series that should not compete with the others: "other", totals, baselines */
+  neutral: "var(--chart-neutral)",
+} as const;
+
+/** Fills behind a series (chart bands, areas, selected-row tint) */
+export const opacity = {
+  subtle: "var(--opacity-subtle)",
+  muted: "var(--opacity-muted)",
 } as const;
 
 export const space = {

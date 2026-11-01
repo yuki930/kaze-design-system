@@ -429,3 +429,53 @@ describe("LineChart", () => {
     expect(svg).toHaveAttribute("tabindex", "0");
   });
 });
+
+describe("LineChart band, selection and labels", () => {
+  const rows = [
+    { y: "1", v: 10, lo: 8, hi: 12 },
+    { y: "2", v: 11, lo: 7, hi: 15 },
+    { y: "3", v: 12, lo: 6, hi: 18 },
+  ];
+  it("draws the band and includes it in the scale", () => {
+    const { container } = render(
+      <LineChart
+        aria-label="b"
+        data={rows}
+        index="y"
+        series={[{ key: "v", label: "中央" }]}
+        band={{ low: "lo", high: "hi", label: "80%" }}
+      />,
+    );
+    expect(container.querySelector(".line-chart__band")).not.toBeNull();
+  });
+  it("marks the selected point and reports Enter", () => {
+    const calls: number[] = [];
+    const { container } = render(
+      <LineChart
+        aria-label="s"
+        data={rows}
+        index="y"
+        series={[{ key: "v", label: "中央" }]}
+        selectedIndex={2}
+        onSelectIndex={(i) => calls.push(i)}
+      />,
+    );
+    expect(container.querySelector(".chart-crosshair--selected")).not.toBeNull();
+    const svg = screen.getByRole("img", { name: "s" });
+    fireEvent.keyDown(svg, { key: "ArrowRight" });
+    fireEvent.keyDown(svg, { key: " " });
+    expect(calls).toEqual([0]);
+  });
+  it("draws multi-line axis labels", () => {
+    const { container } = render(
+      <LineChart
+        aria-label="l"
+        data={rows}
+        index="y"
+        series={[{ key: "v", label: "中央" }]}
+        indexLabel={(r) => [`${r.y}年`, "a 10歳"]}
+      />,
+    );
+    expect(container.querySelector(".chart-axis text tspan + tspan")).not.toBeNull();
+  });
+});

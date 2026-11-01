@@ -348,6 +348,14 @@
   --chart-10: var(--chart-teal);
   --chart-11: var(--chart-yellow);
   --chart-12: var(--chart-green);
+  /* Series that should not compete with the others: "other", totals,
+     baselines, reference lines. zinc-500 keeps 3:1 against the background
+     for graphical objects. */
+  --chart-neutral: var(--zinc-500);
+
+  /* ── Opacity ───────────────────────────────────────────── */
+  --opacity-subtle: 0.12; /* Fill behind a series: chart bands and areas, selected-row tint. */
+  --opacity-muted: 0.24; /* Stronger fill: hovered band, de-emphasised series. */
 
   /* ── Typography ────────────────────────────────────────── */
   /* Body and UI text. Font set "standard": DM Sans for Latin, Noto Sans JP
@@ -510,6 +518,7 @@
   --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.3);
   --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.4);
   --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.5);
+  --chart-neutral: var(--zinc-400); /* zinc-400 keeps 3:1 against the dark background. */
 }
 
 /* Cool palette 霞 (slate, purple-tinted gray) */
@@ -732,6 +741,7 @@
     --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.3);
     --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.4);
     --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.5);
+    --chart-neutral: var(--zinc-400); /* zinc-400 keeps 3:1 against the dark background. */
   }
 }
 

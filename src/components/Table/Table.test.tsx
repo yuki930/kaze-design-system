@@ -3,7 +3,15 @@ import { describe, expect, it } from "vitest";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { vi } from "vitest";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "./Table";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableFooter,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "./Table";
 
 function Sample(props: { compact?: boolean; className?: string }) {
   return (
@@ -135,5 +143,27 @@ describe("TableHead sorting", () => {
   it("keeps the numeric class on the th", () => {
     const th = renderHead({ onSort: () => {}, className: "table__cell--numeric" });
     expect(th).toHaveClass("table__cell--numeric");
+  });
+});
+
+describe("TableFooter", () => {
+  it("renders a tfoot for totals", () => {
+    const { container } = render(
+      <Table>
+        <TableBody>
+          <TableRow>
+            <TableCell>1</TableCell>
+          </TableRow>
+        </TableBody>
+        <TableFooter>
+          <TableRow>
+            <TableCell>合計</TableCell>
+          </TableRow>
+        </TableFooter>
+      </Table>,
+    );
+    const foot = container.querySelector("tfoot");
+    expect(foot).toHaveClass("table__footer");
+    expect(foot).toHaveTextContent("合計");
   });
 });

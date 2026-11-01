@@ -12,6 +12,7 @@ import { cn } from "@/lib/utils";
 import { CHART_COLORS } from "@/lib/chartColors";
 import { defaultFormat, linearScale, niceScale } from "@/lib/chartScale";
 import { useChartWidth } from "@/lib/useChartWidth";
+import { LABEL_LINE_HEIGHT, labelLines, type ChartIndexLabel } from "../../lib/chartLabels";
 import { ChartLegend } from "../ChartLegend";
 
 export interface ColumnChartSeries {
@@ -43,6 +44,15 @@ export interface ColumnChartProps extends Omit<HTMLAttributes<HTMLDivElement>, "
   formatValue?: (value: number) => string;
   /** Corner radius of the bar end that faces away from the baseline */
   barRadius?: number;
+  /**
+   * x axis label per row as one or more lines, e.g. a year with the ages of each person under it.
+   * Defaults to the `index` field. The tooltip title uses the first line.
+   */
+  indexLabel?: ChartIndexLabel<Record<string, string | number>>;
+  /** Index of the selected column, highlighted until another is chosen. Pair with onSelectIndex */
+  selectedIndex?: number | null;
+  /** Called when a column is clicked, or Enter / Space is pressed on the focused column */
+  onSelectIndex?: (index: number) => void;
   /** Accessible label for the chart (required for accessibility) */
   "aria-label": string;
 }
@@ -94,6 +104,9 @@ export const ColumnChart = forwardRef<HTMLDivElement, ColumnChartProps>(
       yAxisWidth = 48,
       formatValue = defaultFormat,
       barRadius = 2,
+      indexLabel,
+      selectedIndex = null,
+      onSelectIndex,
       "aria-label": ariaLabel,
       className,
       onKeyDown,
@@ -116,8 +129,10 @@ export const ColumnChart = forwardRef<HTMLDivElement, ColumnChartProps>(
     const visible = useMemo(() => series.filter((s) => !hidden.includes(s.key)), [series, hidden]);
     const stacked = layout === "stacked";
 
+    const lines = data.map((row, i) => labelLines(row, i, String(row[index] ?? ""), indexLabel));
+    const lineCount = lines.reduce((m, l) => Math.max(m, l.length), 1);
     const left = showYAxis ? yAxisWidth : 4;
-    const bottom = showXAxis ? 24 : 4;
+    const bottom = showXAxis ? 24 + (lineCount - 1) * LABEL_LINE_HEIGHT : 4;
     const plotW = Math.max(width - left - PAD_RIGHT, 1);
     const plotH = Math.max(height - PAD_TOP - bottom, 1);
     const n = data.length;
@@ -194,8 +209,8 @@ export const ColumnChart = forwardRef<HTMLDivElement, ColumnChartProps>(
       });
     }, [data, visible, stacked, step, left]);
 
-    const labels = data.map((row) => String(row[index] ?? ""));
-    const longest = labels.reduce((m, l) => Math.max(m, l.length), 0);
+    const labels = lines.map((l) => l[0] ?? "");
+    const longest = lines.flat().reduce((m, l) => Math.max(m, l.length), 0);
     const labelEvery = Math.max(1, Math.ceil((longest * 8 + 12) / step));
 
     const onKey = (e: KeyboardEvent<HTMLDivElement>) => {
@@ -207,7 +222,11 @@ export const ColumnChart = forwardRef<HTMLDivElement, ColumnChartProps>(
       else if (e.key === "Home") next = 0;
       else if (e.key === "End") next = n - 1;
       else if (e.key === "Escape") next = null;
-      else return;
+      else if ((e.key === "Enter" || e.key === " ") && onSelectIndex && active !== null) {
+        e.preventDefault();
+        onSelectIndex(active);
+        return;
+      } else return;
       e.preventDefault();
       setActive(next ?? null);
     };
@@ -258,6 +277,15 @@ export const ColumnChart = forwardRef<HTMLDivElement, ColumnChartProps>(
                   ))}
                 </g>
               )}
+              {selectedIndex !== null && selectedIndex >= 0 && selectedIndex < n && (
+                <rect
+                  className="column-chart__selected"
+                  x={left + selectedIndex * step}
+                  y={PAD_TOP}
+                  width={step}
+                  height={plotH}
+                />
+              )}
               {active !== null && (
                 <rect
                   className="column-chart__band"
@@ -286,7 +314,7 @@ export const ColumnChart = forwardRef<HTMLDivElement, ColumnChartProps>(
               <g className="chart-axis">
                 <line x1={left} x2={left + plotW} y1={y0} y2={y0} />
                 {showXAxis &&
-                  labels.map((l, ci) =>
+                  lines.map((ls, ci) =>
                     ci % labelEvery === 0 ? (
                       <text
                         // biome-ignore lint/suspicious/noArrayIndexKey: labels may repeat
@@ -295,21 +323,37 @@ export const ColumnChart = forwardRef<HTMLDivElement, ColumnChartProps>(
                         y={PAD_TOP + plotH + 16}
                         textAnchor="middle"
                       >
-                        {l}
+                        {ls.length === 1
+                          ? ls[0]
+                          : ls.map((line, li) => (
+                              <tspan
+                                // biome-ignore lint/suspicious/noArrayIndexKey: lines are positional
+                                key={li}
+                                x={left + (ci + 0.5) * step}
+                                dy={li === 0 ? 0 : LABEL_LINE_HEIGHT}
+                              >
+                                {line}
+                              </tspan>
+                            ))}
                       </text>
                     ) : null,
                   )}
               </g>
               {labels.map((l, ci) => (
+                // biome-ignore lint/a11y/noStaticElementInteractions: the focusable figure handles Enter / Space for keyboard selection
                 <rect
                   // biome-ignore lint/suspicious/noArrayIndexKey: labels may repeat
                   key={ci}
-                  className="column-chart__hit"
+                  className={cn(
+                    "column-chart__hit",
+                    onSelectIndex && "column-chart__hit--selectable",
+                  )}
                   x={left + ci * step}
                   y={PAD_TOP}
                   width={step}
                   height={plotH}
                   onPointerEnter={() => setActive(ci)}
+                  onClick={onSelectIndex ? () => onSelectIndex(ci) : undefined}
                 >
                   <title>{l}</title>
                 </rect>

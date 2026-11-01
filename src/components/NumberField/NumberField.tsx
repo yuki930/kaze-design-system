@@ -8,6 +8,7 @@ import {
   useEffect,
   useId,
   type InputHTMLAttributes,
+  type ReactNode,
 } from "react";
 import { cn } from "@/lib/utils";
 import { composeEventHandlers } from "@/lib/composeEventHandlers";
@@ -48,6 +49,11 @@ export interface NumberFieldProps
   prefix?: string;
   /** Suffix text (e.g. "%", "件") */
   suffix?: string;
+  /**
+   * Help text under the field. Pass a function to derive it from the current value, e.g. a reading aid
+   * for large amounts: `hint={(v) => v != null && v >= 10000 ? `約${Math.round(v / 10000)}万円` : null}`
+   */
+  hint?: ReactNode | ((value: number | null) => ReactNode);
   /** Accessible label for decrement button (default: "減少") */
   decrementLabel?: string;
   /** Accessible label for increment button (default: "増加") */
@@ -127,6 +133,7 @@ export const NumberField = forwardRef<HTMLInputElement, NumberFieldProps>(
       errorMessage,
       prefix: prefixProp,
       suffix,
+      hint,
       decrementLabel = "減少",
       incrementLabel = "増加",
       className,
@@ -228,6 +235,8 @@ export const NumberField = forwardRef<HTMLInputElement, NumberFieldProps>(
         ? formatNumber(value, locale, currency)
         : "";
 
+    const hintContent = typeof hint === "function" ? hint(value ?? null) : hint;
+
     return (
       <div className={cn("number-field", error && "number-field--error", className)}>
         {label && (
@@ -275,7 +284,11 @@ export const NumberField = forwardRef<HTMLInputElement, NumberFieldProps>(
             // Keep an aria-invalid passed in from outside (e.g. FormField error) when `error` is unset
             aria-invalid={error ? true : rest["aria-invalid"]}
             aria-describedby={
-              [rest["aria-describedby"], errorMessage ? `${id}-error` : undefined]
+              [
+                rest["aria-describedby"],
+                hintContent ? `${id}-hint` : undefined,
+                errorMessage ? `${id}-error` : undefined,
+              ]
                 .filter(Boolean)
                 .join(" ") || undefined
             }
@@ -309,6 +322,11 @@ export const NumberField = forwardRef<HTMLInputElement, NumberFieldProps>(
             </button>
           )}
         </div>
+        {hintContent && (
+          <p className="number-field__hint" id={`${id}-hint`}>
+            {hintContent}
+          </p>
+        )}
         {errorMessage && (
           <p className="number-field__error" id={`${id}-error`} role="alert">
             {errorMessage}

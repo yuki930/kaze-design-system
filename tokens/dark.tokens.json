@@ -208,6 +208,11 @@
     "shadow-xl": {
       "$type": "shadow",
       "$value": "0 16px 48px rgba(0, 0, 0, 0.5)"
+    },
+    "chart-neutral": {
+      "$type": "color",
+      "$value": "{primitive.zinc-400}",
+      "$description": "zinc-400 keeps 3:1 against the dark background."
     }
   }
 }

@@ -15,6 +15,13 @@ export type {
   CopyRuleLevel,
 } from "./check";
 export { checkCopy, copyRules, fixCopy } from "./check";
+export type {
+  FormatManYenOptions,
+  FormatPercentOptions,
+  FormatYenOptions,
+  NumericInput,
+} from "./format";
+export { formatManYen, formatPercent, formatSigned, formatYen } from "./format";
 
 export interface WritingPrinciple {
   title: string;

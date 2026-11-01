@@ -2684,6 +2684,36 @@
         }
       }
     },
+    "chart-neutral": {
+      "$type": "color",
+      "$value": "{primitive.zinc-500}",
+      "$description": "Series that should not compete with the others: \"other\", totals, baselines, reference lines. zinc-500 keeps 3:1 against the background for graphical objects.",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Color: Charts (→ palette refs, 12 named)"
+        }
+      }
+    },
+    "opacity-subtle": {
+      "$type": "number",
+      "$value": "0.12",
+      "$description": "Fill behind a series: chart bands and areas, selected-row tint.",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Opacity"
+        }
+      }
+    },
+    "opacity-muted": {
+      "$type": "number",
+      "$value": "0.24",
+      "$description": "Stronger fill: hovered band, de-emphasised series.",
+      "$extensions": {
+        "jp.kaze": {
+          "section": "Opacity"
+        }
+      }
+    },
     "font-sans": {
       "$type": "fontFamily",
       "$value": "var(--font-dm-sans, \"DM Sans\"), var(--font-noto-sans-jp, \"Noto Sans JP\"), -apple-system, BlinkMacSystemFont,\n    \"Segoe UI\", \"Hiragino Kaku Gothic ProN\", \"Hiragino Sans\", Meiryo,\n    sans-serif",
