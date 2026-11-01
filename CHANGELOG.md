@@ -21,6 +21,13 @@ CHANGELOG entries and version bumps are generated automatically by `.github/work
 - **Patch** releases fix bugs and never change the public API.
 
 Before 1.0, minor releases could include breaking changes; see MIGRATION.md for moving from 0.x.
+## [1.11.0] - 2026-11-01
+
+### Features
+
+- feat: chart y range options and smaller axis labels
+
+
 ## [1.10.0] - 2026-11-01
 
 ### Features
