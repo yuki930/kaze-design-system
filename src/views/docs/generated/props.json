@@ -1924,10 +1924,38 @@
       "default": ""
     },
     {
+      "name": "formatTick",
+      "type": "(value: number) => string",
+      "optional": true,
+      "description": "縦軸のラベルだけの書式。省略時は formatValue",
+      "default": ""
+    },
+    {
       "name": "band",
       "type": "LineChartBand",
       "optional": true,
       "description": "2つのキーの間を塗る帯（予測の上下幅など）",
+      "default": ""
+    },
+    {
+      "name": "bandInScale",
+      "type": "boolean",
+      "optional": true,
+      "description": "帯を縦軸の自動範囲に含める。false にすると線に合わせ、はみ出た帯は切る",
+      "default": ""
+    },
+    {
+      "name": "yMin",
+      "type": "number",
+      "optional": true,
+      "description": "縦軸の下限を固定する（0 でマイナスを出さない）。下回る値は切るが、ツールチップには実際の値を出す",
+      "default": ""
+    },
+    {
+      "name": "yMax",
+      "type": "number",
+      "optional": true,
+      "description": "縦軸の上限を固定する。上回る値は切るが、ツールチップには実際の値を出す",
       "default": ""
     },
     {
@@ -2042,6 +2070,13 @@
       "type": "(value: number) => string",
       "optional": true,
       "description": "軸とツールチップの値フォーマット",
+      "default": ""
+    },
+    {
+      "name": "formatTick",
+      "type": "(value: number) => string",
+      "optional": true,
+      "description": "縦軸のラベルだけの書式。省略時は formatValue",
       "default": ""
     },
     {

@@ -76,7 +76,11 @@
     "band": "2つのキーの間を塗る帯（予測の上下幅など）",
     "indexLabel": "横軸のラベルを行ごとに1行または複数行で返す",
     "selectedIndex": "選択中の点。実線で示す",
-    "onSelectIndex": "クリック、またはフォーカス中に Enter / Space で呼ばれる"
+    "onSelectIndex": "クリック、またはフォーカス中に Enter / Space で呼ばれる",
+    "bandInScale": "帯を縦軸の自動範囲に含める。false にすると線に合わせ、はみ出た帯は切る",
+    "yMin": "縦軸の下限を固定する（0 でマイナスを出さない）。下回る値は切るが、ツールチップには実際の値を出す",
+    "yMax": "縦軸の上限を固定する。上回る値は切るが、ツールチップには実際の値を出す",
+    "formatTick": "縦軸のラベルだけの書式。省略時は formatValue"
   },
   "heatmap": {
     "startDate": "calendar のときの開始日（YYYY-MM-DD）。未指定なら data の最初の日",
@@ -177,6 +181,7 @@
   "column-chart": {
     "indexLabel": "横軸のラベルを行ごとに1行または複数行で返す",
     "selectedIndex": "選択中の列。背景を塗って示す",
-    "onSelectIndex": "列のクリック、またはフォーカス中に Enter / Space で呼ばれる"
+    "onSelectIndex": "列のクリック、またはフォーカス中に Enter / Space で呼ばれる",
+    "formatTick": "縦軸のラベルだけの書式。省略時は formatValue"
   }
 }

@@ -42,6 +42,8 @@ export interface ColumnChartProps extends Omit<HTMLAttributes<HTMLDivElement>, "
   yAxisWidth?: number;
   /** Formats axis labels and tooltip values */
   formatValue?: (value: number) => string;
+  /** Format y axis labels only, e.g. a shorter unit than the tooltip ("15億" vs "15億4,000万円"). Defaults to formatValue */
+  formatTick?: (value: number) => string;
   /** Corner radius of the bar end that faces away from the baseline */
   barRadius?: number;
   /**
@@ -103,6 +105,7 @@ export const ColumnChart = forwardRef<HTMLDivElement, ColumnChartProps>(
       showLegend = true,
       yAxisWidth = 48,
       formatValue = defaultFormat,
+      formatTick,
       barRadius = 2,
       indexLabel,
       selectedIndex = null,
@@ -272,7 +275,7 @@ export const ColumnChart = forwardRef<HTMLDivElement, ColumnChartProps>(
                 <g className="chart-axis column-chart__y-axis">
                   {scale.ticks.map((t) => (
                     <text key={t} x={left - 8} y={y(t)} textAnchor="end" dominantBaseline="middle">
-                      {formatValue(t)}
+                      {(formatTick ?? formatValue)(t)}
                     </text>
                   ))}
                 </g>

@@ -2844,9 +2844,12 @@ import { Icon } from "kaze-design-system";
           index="month"
           series={[{ key: "mid", label: "中央値" }]}
           band={{ low: "lo", high: "hi", label: "80%の範囲" }}
+          bandInScale={false}
+          yMin={0}
           indexLabel={(row) => [String(row.month), "見込み"]}
           selectedIndex={2}
-          startAtZero={false}
+          formatTick={(v) => `${v}`}
+          formatValue={(v) => `${v}万円`}
         />
       </div>
     ),
@@ -2920,6 +2923,10 @@ import { Icon } from "kaze-design-system";
   index="month"
   series={[{ key: "mid", label: "中央値" }]}
   band={{ low: "p10", high: "p90", label: "80%の範囲" }}
+  bandInScale={false}   // 帯が線より極端に広いときは、縦軸を線に合わせて帯をはみ出させる
+  yMin={0}              // マイナスを出さない（ツールチップには実際の値が出る）
+  formatTick={(v) => \`\${v / 10000}万\`}
+  formatValue={(v) => \`\${v.toLocaleString()}円\`}
   indexLabel={(row) => [row.month, \`担当 \${row.owner}\`]}
   selectedIndex={selected}
   onSelectIndex={setSelected}

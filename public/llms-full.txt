@@ -1974,8 +1974,17 @@ Related: column-chart, sparkline, chart-legend, bar-chart, heatmap
   - Include zero in the y axis (default: true). Set false to fit the data range, e.g. a price or balance line
 - `formatValue?`: `(value: number) => string`
   - Format values for y axis and tooltip
+- `formatTick?`: `(value: number) => string`
+  - Format y axis labels only, e.g. a shorter unit than the tooltip ("15億" vs "15億4,000万円"). Defaults to formatValue
 - `band?`: `LineChartBand`
   - Shaded range between two keys, e.g. a forecast's 10th to 90th percentile. Gaps (null) break the band
+- `bandInScale?`: `boolean`
+  - Include the band in the automatic y range (default: true). Set false when the band is much wider than the
+lines, so the lines keep their resolution; the part of the band outside the range is cut off.
+- `yMin?`: `number`
+  - Fix the bottom of the y axis, e.g. 0 to hide negative values. Values below are cut off; the tooltip still shows them
+- `yMax?`: `number`
+  - Fix the top of the y axis. Values above are cut off; the tooltip still shows them
 - `indexLabel?`: `ChartIndexLabel<LineChartDatum>`
   - x axis label per row as one or more lines, e.g. a year with the ages of each person under it.
 Defaults to the `index` field. The tooltip title uses the first line.
@@ -2013,6 +2022,10 @@ Defaults to the `index` field. The tooltip title uses the first line.
   index="month"
   series={[{ key: "mid", label: "中央値" }]}
   band={{ low: "p10", high: "p90", label: "80%の範囲" }}
+  bandInScale={false}   // 帯が線より極端に広いときは、縦軸を線に合わせて帯をはみ出させる
+  yMin={0}              // マイナスを出さない（ツールチップには実際の値が出る）
+  formatTick={(v) => `${v / 10000}万`}
+  formatValue={(v) => `${v.toLocaleString()}円`}
   indexLabel={(row) => [row.month, `担当 ${row.owner}`]}
   selectedIndex={selected}
   onSelectIndex={setSelected}
@@ -2092,6 +2105,8 @@ Related: line-chart, bar-chart, chart-legend, table, donut-chart
   - Width in px reserved for y axis labels
 - `formatValue?`: `(value: number) => string`
   - Formats axis labels and tooltip values
+- `formatTick?`: `(value: number) => string`
+  - Format y axis labels only, e.g. a shorter unit than the tooltip ("15億" vs "15億4,000万円"). Defaults to formatValue
 - `barRadius?`: `number`
   - Default: `2`
   - Corner radius of the bar end that faces away from the baseline

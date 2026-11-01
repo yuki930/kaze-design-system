@@ -3189,8 +3189,15 @@ button.chart-legend__item:focus-visible {
   font-family: var(--font-numeric);
   letter-spacing: var(--letter-spacing-numeric);
   fill: var(--color-fg-tertiary);
-  font-size: var(--font-size-xs);
+  font-size: var(--font-size-2xs);
   font-variant-numeric: tabular-nums;
+}
+
+/* Extra lines of a multi-line axis label (indexLabel) are supporting text: body font, muted */
+.chart-axis tspan + tspan {
+  font-family: var(--font-sans);
+  letter-spacing: var(--letter-spacing-normal);
+  fill: var(--color-fg-muted);
 }
 
 .chart-axis line {

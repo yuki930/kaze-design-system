@@ -3,6 +3,7 @@
 import {
   forwardRef,
   useCallback,
+  useId,
   useRef,
   useState,
   type HTMLAttributes,
@@ -67,8 +68,19 @@ export interface LineChartProps extends Omit<HTMLAttributes<HTMLDivElement>, "ch
   startAtZero?: boolean;
   /** Format values for y axis and tooltip */
   formatValue?: (value: number) => string;
+  /** Format y axis labels only, e.g. a shorter unit than the tooltip ("15億" vs "15億4,000万円"). Defaults to formatValue */
+  formatTick?: (value: number) => string;
   /** Shaded range between two keys, e.g. a forecast's 10th to 90th percentile. Gaps (null) break the band */
   band?: LineChartBand;
+  /**
+   * Include the band in the automatic y range (default: true). Set false when the band is much wider than the
+   * lines, so the lines keep their resolution; the part of the band outside the range is cut off.
+   */
+  bandInScale?: boolean;
+  /** Fix the bottom of the y axis, e.g. 0 to hide negative values. Values below are cut off; the tooltip still shows them */
+  yMin?: number;
+  /** Fix the top of the y axis. Values above are cut off; the tooltip still shows them */
+  yMax?: number;
   /**
    * x axis label per row as one or more lines, e.g. a year with the ages of each person under it.
    * Defaults to the `index` field. The tooltip title uses the first line.
@@ -187,7 +199,11 @@ export const LineChart = forwardRef<HTMLDivElement, LineChartProps>(
       yAxisWidth = 48,
       startAtZero = true,
       formatValue = defaultFormat,
+      formatTick,
       band,
+      bandInScale = true,
+      yMin,
+      yMax,
       indexLabel,
       selectedIndex = null,
       onSelectIndex,
@@ -231,7 +247,7 @@ export const LineChart = forwardRef<HTMLDivElement, LineChartProps>(
         hi = Math.max(hi, v);
       }
     }
-    if (band) {
+    if (band && bandInScale) {
       for (const row of data) {
         for (const key of [band.low, band.high]) {
           const v = toNumber(row[key]);
@@ -245,7 +261,19 @@ export const LineChart = forwardRef<HTMLDivElement, LineChartProps>(
       lo = 0;
       hi = 1;
     }
-    const scale = niceScale(lo, hi, 5, startAtZero);
+    if (yMin !== undefined) lo = Math.max(lo, yMin);
+    if (yMax !== undefined) hi = Math.min(hi, yMax);
+    if (hi <= lo) hi = lo + 1;
+    const auto = niceScale(lo, hi, 5, startAtZero && yMin === undefined);
+    const scaleMin = yMin ?? auto.min;
+    const scaleMax = yMax ?? auto.max;
+    const scale = {
+      ...auto,
+      min: scaleMin,
+      max: scaleMax,
+      ticks: auto.ticks.filter((t) => t >= scaleMin - 1e-9 && t <= scaleMax + 1e-9),
+    };
+    const clipId = `line-chart-clip-${useId().replace(/:/g, "")}`;
     const yOf = linearScale([scale.min, scale.max], [PAD_TOP + plotH, PAD_TOP]);
     const xOf = (i: number) => padLeft + (n <= 1 ? plotW / 2 : (i / (n - 1)) * plotW);
 
@@ -330,6 +358,11 @@ export const LineChart = forwardRef<HTMLDivElement, LineChartProps>(
             onKeyDown={onKeyDown}
             onBlur={() => setActive(null)}
           >
+            <defs>
+              <clipPath id={clipId}>
+                <rect x={padLeft} y={PAD_TOP} width={plotW} height={plotH} />
+              </clipPath>
+            </defs>
             {showGrid && (
               <g className="chart-grid">
                 {scale.ticks.map((t) => (
@@ -347,7 +380,7 @@ export const LineChart = forwardRef<HTMLDivElement, LineChartProps>(
                     textAnchor="end"
                     dominantBaseline="middle"
                   >
-                    {formatValue(t)}
+                    {(formatTick ?? formatValue)(t)}
                   </text>
                 ))}
               </g>
@@ -377,86 +410,87 @@ export const LineChart = forwardRef<HTMLDivElement, LineChartProps>(
               </g>
             )}
 
-            {bandRuns
-              .filter((r) => r.length > 1)
-              .map((r) => (
-                <path
-                  key={`b${at(r, 0).hi.x}`}
-                  className="line-chart__band"
-                  style={{ fill: bandColor }}
-                  d={`${linePath(
-                    r.map((p) => p.hi),
-                    curve,
-                  )}L${[...r]
-                    .reverse()
-                    .map((p) => `${num(p.lo.x)},${num(p.lo.y)}`)
-                    .join("L")}Z`}
+            <g clipPath={`url(#${clipId})`}>
+              {bandRuns
+                .filter((r) => r.length > 1)
+                .map((r) => (
+                  <path
+                    key={`b${at(r, 0).hi.x}`}
+                    className="line-chart__band"
+                    style={{ fill: bandColor }}
+                    d={`${linePath(
+                      r.map((p) => p.hi),
+                      curve,
+                    )}L${[...r]
+                      .reverse()
+                      .map((p) => `${num(p.lo.x)},${num(p.lo.y)}`)
+                      .join("L")}Z`}
+                  />
+                ))}
+              {selectedIndex !== null && selectedIndex >= 0 && selectedIndex < n && (
+                <line
+                  className="chart-crosshair chart-crosshair--selected"
+                  x1={xOf(selectedIndex)}
+                  x2={xOf(selectedIndex)}
+                  y1={PAD_TOP}
+                  y2={PAD_TOP + plotH}
                 />
-              ))}
-            {selectedIndex !== null && selectedIndex >= 0 && selectedIndex < n && (
-              <line
-                className="chart-crosshair chart-crosshair--selected"
-                x1={xOf(selectedIndex)}
-                x2={xOf(selectedIndex)}
-                y1={PAD_TOP}
-                y2={PAD_TOP + plotH}
-              />
-            )}
-            {visible.map((s) => {
-              const pts = data.map((row, i) => {
-                const v = toNumber(row[s.key]);
-                return v === null ? null : { x: xOf(i), y: yOf(v) };
-              });
-              const runs = splitRuns(pts);
-              const base = yOf(Math.max(scale.min, Math.min(0, scale.max)));
-              return (
-                <g key={s.key} className="line-chart__series" style={{ color: s.color }}>
-                  {area &&
-                    runs
-                      .filter((r) => r.length > 1)
-                      .map((r) => (
+              )}
+              {visible.map((s) => {
+                const pts = data.map((row, i) => {
+                  const v = toNumber(row[s.key]);
+                  return v === null ? null : { x: xOf(i), y: yOf(v) };
+                });
+                const runs = splitRuns(pts);
+                const base = yOf(Math.max(scale.min, Math.min(0, scale.max)));
+                return (
+                  <g key={s.key} className="line-chart__series" style={{ color: s.color }}>
+                    {area &&
+                      runs
+                        .filter((r) => r.length > 1)
+                        .map((r) => (
+                          <path
+                            key={`a${at(r, 0).x}`}
+                            className="line-chart__area"
+                            d={`${linePath(r, curve)}L${num(at(r, r.length - 1).x)},${num(base)}L${num(at(r, 0).x)},${num(base)}Z`}
+                          />
+                        ))}
+                    {runs.map((r) =>
+                      r.length > 1 ? (
                         <path
-                          key={`a${at(r, 0).x}`}
-                          className="line-chart__area"
-                          d={`${linePath(r, curve)}L${num(at(r, r.length - 1).x)},${num(base)}L${num(at(r, 0).x)},${num(base)}Z`}
+                          key={`l${at(r, 0).x}`}
+                          className="line-chart__line"
+                          d={linePath(r, curve)}
                         />
-                      ))}
-                  {runs.map((r) =>
-                    r.length > 1 ? (
-                      <path
-                        key={`l${at(r, 0).x}`}
-                        className="line-chart__line"
-                        d={linePath(r, curve)}
-                      />
-                    ) : (
+                      ) : (
+                        <circle
+                          key={`s${at(r, 0).x}`}
+                          className="line-chart__dot"
+                          cx={at(r, 0).x}
+                          cy={at(r, 0).y}
+                          r={3}
+                        />
+                      ),
+                    )}
+                    {showDots &&
+                      runs
+                        .filter((r) => r.length > 1)
+                        .flat()
+                        .map((p) => (
+                          <circle key={p.x} className="line-chart__dot" cx={p.x} cy={p.y} r={3} />
+                        ))}
+                    {active !== null && pts[active] && (
                       <circle
-                        key={`s${at(r, 0).x}`}
-                        className="line-chart__dot"
-                        cx={at(r, 0).x}
-                        cy={at(r, 0).y}
-                        r={3}
+                        className="line-chart__dot line-chart__dot--active"
+                        cx={pts[active]?.x}
+                        cy={pts[active]?.y}
+                        r={4.5}
                       />
-                    ),
-                  )}
-                  {showDots &&
-                    runs
-                      .filter((r) => r.length > 1)
-                      .flat()
-                      .map((p) => (
-                        <circle key={p.x} className="line-chart__dot" cx={p.x} cy={p.y} r={3} />
-                      ))}
-                  {active !== null && pts[active] && (
-                    <circle
-                      className="line-chart__dot line-chart__dot--active"
-                      cx={pts[active]?.x}
-                      cy={pts[active]?.y}
-                      r={4.5}
-                    />
-                  )}
-                </g>
-              );
-            })}
-
+                    )}
+                  </g>
+                );
+              })}
+            </g>
             {activeX !== null && (
               <line
                 className="chart-crosshair"

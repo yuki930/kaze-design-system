@@ -479,3 +479,31 @@ describe("LineChart band, selection and labels", () => {
     expect(container.querySelector(".chart-axis text tspan + tspan")).not.toBeNull();
   });
 });
+
+describe("LineChart range options", () => {
+  const rows = [
+    { y: "1", v: 100, lo: 50, hi: 1000 },
+    { y: "2", v: -40, lo: -200, hi: 2000 },
+  ];
+  it("keeps the band out of the auto range and clips at yMin, formatting ticks separately", () => {
+    const { container } = render(
+      <LineChart
+        aria-label="r"
+        data={rows}
+        index="y"
+        series={[{ key: "v", label: "v" }]}
+        band={{ low: "lo", high: "hi" }}
+        bandInScale={false}
+        yMin={0}
+        formatValue={(v) => `${v}円`}
+        formatTick={(v) => `${v}`}
+      />,
+    );
+    const ticks = [...container.querySelectorAll(".chart-axis text")].map((t) => t.textContent);
+    expect(ticks).toContain("0");
+    expect(ticks.every((t) => !t?.includes("円"))).toBe(true);
+    expect(ticks.some((t) => Number(t) >= 1000)).toBe(false);
+    expect(ticks.some((t) => Number(t) < 0)).toBe(false);
+    expect(container.querySelector("clipPath rect")).not.toBeNull();
+  });
+});
