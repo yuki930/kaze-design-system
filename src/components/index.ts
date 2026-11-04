@@ -390,3 +390,9 @@ export type {
 export type { Tone, Size } from "../lib/types";
 export { Slot } from "../lib/Slot";
 export type { SlotProps } from "../lib/Slot";
+
+export { DataStatus } from "./DataStatus";
+export type { DataStatusProps } from "./DataStatus";
+
+export { SaveBar } from "./SaveBar";
+export type { SaveBarProps, SaveState } from "./SaveBar";

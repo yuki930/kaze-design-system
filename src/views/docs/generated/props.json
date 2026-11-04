@@ -1563,6 +1563,87 @@
       "default": "\"div\""
     }
   ],
+  "data-status": [
+    {
+      "name": "status",
+      "type": "\"available\" | \"partial\" | \"stale\" | \"missing\"",
+      "optional": false,
+      "description": "アプリが判定した取得状態（必須）",
+      "default": ""
+    },
+    {
+      "name": "fetchedAt",
+      "type": "ReactNode",
+      "optional": true,
+      "description": "整形済みの取得日時",
+      "default": ""
+    },
+    {
+      "name": "asOf",
+      "type": "ReactNode",
+      "optional": true,
+      "description": "データの基準日時または期間",
+      "default": ""
+    },
+    {
+      "name": "children",
+      "type": "ReactNode",
+      "optional": true,
+      "description": "不足範囲や次の操作",
+      "default": ""
+    }
+  ],
+  "save-bar": [
+    {
+      "name": "state",
+      "type": "\"idle\" | \"dirty\" | \"saving\" | \"saved\" | \"error\"",
+      "optional": false,
+      "description": "保存状態（必須）",
+      "default": ""
+    },
+    {
+      "name": "onSave",
+      "type": "() => void",
+      "optional": false,
+      "description": "保存操作（必須）。完了時の状態遷移はアプリで行う",
+      "default": ""
+    },
+    {
+      "name": "onReset",
+      "type": "() => void",
+      "optional": true,
+      "description": "変更を戻す操作。省略時はボタン非表示",
+      "default": ""
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "optional": true,
+      "description": "入力エラー等で保存を無効化。変更を戻す操作には影響しない",
+      "default": ""
+    },
+    {
+      "name": "message",
+      "type": "ReactNode",
+      "optional": true,
+      "description": "状態の補足やエラー詳細",
+      "default": ""
+    },
+    {
+      "name": "saveLabel",
+      "type": "string",
+      "optional": true,
+      "description": "保存ボタンの文言",
+      "default": ""
+    },
+    {
+      "name": "resetLabel",
+      "type": "string",
+      "optional": true,
+      "description": "変更を戻すボタンの文言",
+      "default": ""
+    }
+  ],
   "toolbar": [
     {
       "name": "end",
@@ -1591,7 +1672,7 @@
       "name": "description",
       "type": "ReactNode",
       "optional": true,
-      "description": "見出しの下の説明（1〜2文）",
+      "description": "見出しの下の説明（1〜2 文）",
       "default": ""
     },
     {
@@ -1934,7 +2015,7 @@
       "name": "band",
       "type": "LineChartBand",
       "optional": true,
-      "description": "2つのキーの間を塗る帯（予測の上下幅など）",
+      "description": "2 つのキーの間を塗る帯（予測の上下幅など）",
       "default": ""
     },
     {
@@ -1962,7 +2043,7 @@
       "name": "indexLabel",
       "type": "ChartIndexLabel<LineChartDatum>",
       "optional": true,
-      "description": "横軸のラベルを行ごとに1行または複数行で返す",
+      "description": "横軸のラベルを行ごとに 1 行または複数行で返す",
       "default": ""
     },
     {
@@ -2090,7 +2171,7 @@
       "name": "indexLabel",
       "type": "ChartIndexLabel<Record<string, string | number>>",
       "optional": true,
-      "description": "横軸のラベルを行ごとに1行または複数行で返す",
+      "description": "横軸のラベルを行ごとに 1 行または複数行で返す",
       "default": ""
     },
     {

@@ -73,8 +73,8 @@
     "showXAxis": "X 軸のラベルを表示する",
     "showYAxis": "Y 軸のラベルを表示する",
     "showLegend": "クリックで系列を切り替えられる凡例を表示する",
-    "band": "2つのキーの間を塗る帯（予測の上下幅など）",
-    "indexLabel": "横軸のラベルを行ごとに1行または複数行で返す",
+    "band": "2 つのキーの間を塗る帯（予測の上下幅など）",
+    "indexLabel": "横軸のラベルを行ごとに 1 行または複数行で返す",
     "selectedIndex": "選択中の点。実線で示す",
     "onSelectIndex": "クリック、またはフォーカス中に Enter / Space で呼ばれる",
     "bandInScale": "帯を縦軸の自動範囲に含める。false にすると線に合わせ、はみ出た帯は切る",
@@ -146,7 +146,7 @@
   },
   "page-header": {
     "title": "ページの見出し",
-    "description": "見出しの下の説明（1〜2文）",
+    "description": "見出しの下の説明（1〜2 文）",
     "actions": "見出しの行の右端に置く、ページ全体の操作",
     "breadcrumb": "見出しの上に出すパンくず",
     "level": "見出しのレベル（既定は h1）"
@@ -179,7 +179,7 @@
     "marker": "見出しの前に出す色の丸（CardTitle）。グラフの系列と対応させる。見出しの文字は中立色のまま"
   },
   "column-chart": {
-    "indexLabel": "横軸のラベルを行ごとに1行または複数行で返す",
+    "indexLabel": "横軸のラベルを行ごとに 1 行または複数行で返す",
     "selectedIndex": "選択中の列。背景を塗って示す",
     "onSelectIndex": "列のクリック、またはフォーカス中に Enter / Space で呼ばれる",
     "formatTick": "縦軸のラベルだけの書式。省略時は formatValue"

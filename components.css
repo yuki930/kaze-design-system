@@ -5907,4 +5907,15 @@ h2.page-header__title {
 @media (prefers-reduced-motion: reduce) {
   .slider__input::-webkit-slider-thumb { transition: none; }
 }
+
+/* Dashboard feedback patterns: wrap without hiding actions or dates. */
+.data-status, .save-bar { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3); padding: var(--space-4); border: 1px solid var(--color-border); border-radius: var(--radius-md); background: var(--color-bg); min-width: 0; }
+.data-status__dates { display: flex; flex-wrap: wrap; gap: var(--space-4); margin: 0; font-size: var(--font-size-sm); }
+.data-status__dates > div { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.data-status__dates dt { color: var(--color-fg-muted); }
+.data-status__dates dd { margin: 0; overflow-wrap: anywhere; }
+.data-status__description { flex-basis: 100%; font-size: var(--font-size-sm); color: var(--color-fg-secondary); }
+.save-bar { justify-content: space-between; }
+.save-bar__message { flex: 1 1 16rem; font-size: var(--font-size-sm); overflow-wrap: anywhere; }
+.save-bar__actions { display: flex; flex-wrap: wrap; gap: var(--space-2); }
 }
