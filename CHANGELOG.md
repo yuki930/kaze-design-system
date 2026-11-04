@@ -21,6 +21,13 @@ CHANGELOG entries and version bumps are generated automatically by `.github/work
 - **Patch** releases fix bugs and never change the public API.
 
 Before 1.0, minor releases could include breaking changes; see MIGRATION.md for moving from 0.x.
+## [1.12.0] - 2026-11-04
+
+### Features
+
+- feat: 更新・保存状態の共通部品とダッシュボードの画面パターン (#84)
+
+
 ## [1.11.0] - 2026-11-01
 
 ### Features
