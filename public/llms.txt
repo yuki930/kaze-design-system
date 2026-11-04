@@ -106,7 +106,7 @@ import { Hero, PricingGrid } from "kaze-design-system/marketing";
 - [Layout (AppLayout)](https://kaze-design-system.vercel.app/docs/components/layout): アプリレイアウト
 - [Divider](https://kaze-design-system.vercel.app/docs/components/divider): 区切り線
 - [Grid](https://kaze-design-system.vercel.app/docs/components/grid): レスポンシブ対応のグリッドレイアウト。ブレイクポイントごとのカラム数を prop で制御。
-- [Stack](https://kaze-design-system.vercel.app/docs/components/stack): 子要素を縦に並べ、間隔をそろえる。カードの本文、フォームの段落、注釈の並びに使う。横に並べるときは Inline、2次元に並べるときは Grid。
+- [Stack](https://kaze-design-system.vercel.app/docs/components/stack): 子要素を縦に並べ、間隔をそろえる。カードの本文、フォームの段落、注釈の並びに使う。横に並べるときは Inline、2 次元に並べるときは Grid。
 - [Inline](https://kaze-design-system.vercel.app/docs/components/inline): 子要素を横に並べ、入りきらなければ折り返す。保存と取り消しのボタン、フィルターと期間の切り替えなど、操作の組に使う。
 - [Toolbar](https://kaze-design-system.vercel.app/docs/components/toolbar): 表やグラフの上に置く操作の列。左に絞り込みや切り替え、右に書き出しなどの補助操作。role=toolbar と名前を持つ。狭い画面では右の組が下に回る。
 - [PageHeader](https://kaze-design-system.vercel.app/docs/components/page-header): ページの先頭。パンくず、ページの見出し（h1）、説明、ページ全体の操作をまとめる。

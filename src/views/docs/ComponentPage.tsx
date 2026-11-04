@@ -427,7 +427,7 @@ const componentDocs: Record<string, ComponentDoc> = {
               </Button>
             }
           >
-            <CardTitle marker="var(--chart-1)">プランA</CardTitle>
+            <CardTitle marker="var(--chart-1)">プラン A</CardTitle>
           </CardHeader>
           <CardBody>
             右上の操作と、グラフの系列に対応させる色の丸。見出しの文字は中立色のまま。
@@ -484,7 +484,7 @@ const componentDocs: Record<string, ComponentDoc> = {
 {/* 右上の操作と、グラフの系列との対応 */}
 <Card>
   <CardHeader actions={<Button size="sm" variant="outline">編集</Button>}>
-    <CardTitle marker="var(--chart-1)">プランA</CardTitle>
+    <CardTitle marker="var(--chart-1)">プラン A</CardTitle>
   </CardHeader>
   <CardBody>...</CardBody>
 </Card>`,
@@ -2311,7 +2311,7 @@ import { Icon } from "kaze-design-system";
   stack: {
     title: "Stack",
     description:
-      "子要素を縦に並べ、間隔をそろえる。カードの本文、フォームの段落、注釈の並びに使う。横に並べるときは Inline、2次元に並べるときは Grid。",
+      "子要素を縦に並べ、間隔をそろえる。カードの本文、フォームの段落、注釈の並びに使う。横に並べるときは Inline、2 次元に並べるときは Grid。",
     preview: (
       <Stack gap="md">
         <div
@@ -2372,8 +2372,8 @@ import { Icon } from "kaze-design-system";
 </Card>
 
 <Stack as="ul" gap="xs">
-  <li>項目1</li>
-  <li>項目2</li>
+  <li>項目 1</li>
+  <li>項目 2</li>
 </Stack>`,
   },
 
@@ -2416,7 +2416,7 @@ import { Icon } from "kaze-design-system";
 </Inline>
 
 <Inline justify="between">
-  <Text>3件選択中</Text>
+  <Text>3 件選択中</Text>
   <Button size="sm" variant="ghost">選択を解除</Button>
 </Inline>`,
   },
@@ -2426,7 +2426,11 @@ import { Icon } from "kaze-design-system";
     description:
       "取得日時とデータ基準を区別して表示します。鮮度は自動判定しません。状態・日付の整形・タイムゾーンはアプリ側で指定します。",
     preview: (
-      <DataStatus status="partial" fetchedAt="2026年1月8日 10:00 JST" asOf="2026年1月6日〜7日">
+      <DataStatus
+        status="partial"
+        fetchedAt="2026 年 1 月 8 日 10:00 JST"
+        asOf="2026 年 1 月 6 日〜7 日"
+      >
         一部に前日のデータが含まれます。
       </DataStatus>
     ),
@@ -2440,7 +2444,7 @@ import { Icon } from "kaze-design-system";
       { name: "asOf", type: "ReactNode", description: "データの基準日時または期間" },
       { name: "children", type: "ReactNode", description: "不足範囲や次の操作" },
     ],
-    usage: `<DataStatus status="partial" fetchedAt="2026年1月8日 10:00 JST" asOf="2026年1月6日〜7日">一部に前日のデータが含まれます。</DataStatus>`,
+    usage: `<DataStatus status="partial" fetchedAt="2026 年 1 月 8 日 10:00 JST" asOf="2026 年 1 月 6 日〜7 日">一部に前日のデータが含まれます。</DataStatus>`,
   },
   "save-bar": {
     title: "SaveBar",
@@ -2479,7 +2483,7 @@ import { Icon } from "kaze-design-system";
         aria-label="表示の切り替え"
         end={
           <Button size="sm" variant="outline">
-            CSVで書き出す
+            CSV で書き出す
           </Button>
         }
       >
@@ -2500,7 +2504,7 @@ import { Icon } from "kaze-design-system";
       { name: "aria-label", type: "string", description: "操作の列の名前（必須）" },
       { name: "end", type: "ReactNode", description: "右端に置く補助操作" },
     ],
-    usage: `<Toolbar aria-label="表示の切り替え" end={<Button size="sm" variant="outline">CSVで書き出す</Button>}>
+    usage: `<Toolbar aria-label="表示の切り替え" end={<Button size="sm" variant="outline">CSV で書き出す</Button>}>
   <SegmentedControl aria-label="期間" options={periods} value={period} onValueChange={setPeriod} />
   <FilterPill active={onlyActive} onClick={toggle}>有効のみ</FilterPill>
 </Toolbar>
@@ -2519,7 +2523,7 @@ import { Icon } from "kaze-design-system";
     ),
     props: [
       { name: "title", type: "ReactNode", description: "ページの見出し" },
-      { name: "description", type: "ReactNode", description: "見出しの下の説明（1〜2文）" },
+      { name: "description", type: "ReactNode", description: "見出しの下の説明（1〜2 文）" },
       {
         name: "actions",
         type: "ReactNode",
@@ -2543,7 +2547,7 @@ import { Icon } from "kaze-design-system";
     preview: (
       <PanelHeader
         title="最近の注文"
-        description="直近30日の注文です。"
+        description="直近 30 日の注文です。"
         actions={
           <Button size="sm" variant="ghost">
             すべて見る
@@ -2563,7 +2567,7 @@ import { Icon } from "kaze-design-system";
       },
     ],
     usage: `<section>
-  <PanelHeader title="最近の注文" description="直近30日" actions={<Button size="sm" variant="ghost">すべて見る</Button>} />
+  <PanelHeader title="最近の注文" description="直近 30 日" actions={<Button size="sm" variant="ghost">すべて見る</Button>} />
   <Table>...</Table>
 </section>`,
   },
@@ -2884,13 +2888,13 @@ import { Icon } from "kaze-design-system";
           area
         />
         <LineChart
-          aria-label="来期までの売上予測。中央値と80%の範囲"
+          aria-label="来期までの売上予測。中央値と 80%の範囲"
           data={[
-            { month: "1月", mid: 120, lo: 120, hi: 120 },
-            { month: "2月", mid: 128, lo: 118, hi: 138 },
-            { month: "3月", mid: 135, lo: 116, hi: 152 },
-            { month: "4月", mid: 141, lo: 114, hi: 166 },
-            { month: "5月", mid: 150, lo: 112, hi: 182 },
+            { month: "1 月", mid: 120, lo: 120, hi: 120 },
+            { month: "2 月", mid: 128, lo: 118, hi: 138 },
+            { month: "3 月", mid: 135, lo: 116, hi: 152 },
+            { month: "4 月", mid: 141, lo: 114, hi: 166 },
+            { month: "5 月", mid: 150, lo: 112, hi: 182 },
           ]}
           index="month"
           series={[{ key: "mid", label: "中央値" }]}
@@ -3023,7 +3027,7 @@ import { Icon } from "kaze-design-system";
             { key: "fixed", label: "固定費" },
             { key: "other", label: "その他", color: "var(--chart-neutral)" },
           ]}
-          indexLabel={(row) => [String(row.year), "第2期"]}
+          indexLabel={(row) => [String(row.year), "第 2 期"]}
           selectedIndex={1}
         />
       </div>
@@ -4246,7 +4250,7 @@ const [selected, setSelected] = useState(0);
           step={10000}
           defaultValue={200000}
           formatValue={(v) => `${(v / 10000).toLocaleString("ja-JP")}万円`}
-          description="1万円刻み"
+          description="1 万円刻み"
         />
       </div>
     ),

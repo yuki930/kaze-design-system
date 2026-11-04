@@ -173,7 +173,7 @@ export function DashboardPatterns() {
             で揃えます。実績と試算は見出しで区別します。
           </Text>
           <DescriptionList horizontal bordered>
-            <DescriptionItem term="期間">12か月</DescriptionItem>
+            <DescriptionItem term="期間">12 か月</DescriptionItem>
             <DescriptionItem term="月額上限">
               {budget === null ? "未入力" : `${budget.toLocaleString("ja-JP")}円`}
             </DescriptionItem>
@@ -193,7 +193,7 @@ export function DashboardPatterns() {
             <Card>
               <CardBody>
                 <Metric
-                  label="月額を10%抑えた年間予算（試算）"
+                  label="月額を 10%抑えた年間予算（試算）"
                   value={
                     budget === null
                       ? "未入力"
@@ -210,8 +210,8 @@ export function DashboardPatterns() {
           <Heading level={2}>4. データ不足：影響と次の操作</Heading>
           <DataStatus
             status={available ? "available" : "partial"}
-            fetchedAt="2026年1月8日 10:00 JST"
-            asOf={available ? "2026年1月7日" : "2026年1月6日〜7日"}
+            fetchedAt="2026 年 1 月 8 日 10:00 JST"
+            asOf={available ? "2026 年 1 月 7 日" : "2026 年 1 月 6 日〜7 日"}
           >
             {available
               ? "サンプルデータの基準日が揃いました。"
