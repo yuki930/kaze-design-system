@@ -1426,7 +1426,7 @@ Related: description-list, list, pagination, badge, card
 **Usage**
 
 ```tsx
-import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell, useTableSort } from "kaze-design-system";
+import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell, TableFooter, useTableSort } from "kaze-design-system";
 
 const rows = [
   { store: "渋谷", sales: 4820000 },
@@ -2026,7 +2026,7 @@ Defaults to the `index` field. The tooltip title uses the first line.
   yMin={0}              // マイナスを出さない（ツールチップには実際の値が出る）
   formatTick={(v) => `${v / 10000}万`}
   formatValue={(v) => `${v.toLocaleString()}円`}
-  indexLabel={(row) => [row.month, `担当 ${row.owner}`]}
+  indexLabel={(row) => [String(row.month ?? ""), `担当 ${row.owner}`]}
   selectedIndex={selected}
   onSelectIndex={setSelected}
 />
@@ -2145,7 +2145,7 @@ const [selected, setSelected] = useState(0);
   data={rows}
   index="year"
   series={series}
-  indexLabel={(row) => [row.year, `第${row.term}期`]}
+  indexLabel={(row) => [String(row.year ?? ""), `第${row.term}期`]}
   selectedIndex={selected}
   onSelectIndex={setSelected}
 />
@@ -2605,6 +2605,58 @@ Related: progress, spinner, empty-state, card, table
 <Skeleton width="80%" height="1em" />
 <Skeleton circle width={48} height={48} />
 <Skeleton width="100%" height={120} />
+```
+
+#### DataStatus
+
+取得日時とデータ基準を区別して表示します。鮮度は自動判定しません。状態・日付の整形・タイムゾーンはアプリ側で指定します。
+
+Docs: https://kaze-design-system.vercel.app/docs/components/data-status
+
+**Props**
+
+- `status`: `"available" | "partial" | "stale" | "missing"`
+  - Explicit status supplied by the application; no freshness is inferred.
+- `fetchedAt?`: `ReactNode`
+  - Already formatted timestamps, including timezone when relevant.
+- `asOf?`: `ReactNode`
+  - データの基準日時または期間
+- `children?`: `ReactNode`
+  - Explain the missing scope or next action.
+
+**Usage**
+
+```tsx
+<DataStatus status="partial" fetchedAt="2026年1月8日 10:00 JST" asOf="2026年1月6日〜7日">一部に前日のデータが含まれます。</DataStatus>
+```
+
+#### SaveBar
+
+保存状態と保存・変更を戻す操作。状態と処理はアプリが管理します。保存中は操作を抑止し、失敗時は再試行できます。操作できる例は「画面パターン」にあります。
+
+Docs: https://kaze-design-system.vercel.app/docs/components/save-bar
+
+**Props**
+
+- `state`: `"idle" | "dirty" | "saving" | "saved" | "error"`
+  - 保存状態（必須）
+- `onSave`: `() => void`
+  - 保存操作（必須）。完了時の状態遷移はアプリで行う
+- `onReset?`: `() => void`
+  - 変更を戻す操作。省略時はボタン非表示
+- `disabled?`: `boolean`
+  - Validation can disable saving without disabling reset.
+- `message?`: `ReactNode`
+  - 状態の補足やエラー詳細
+- `saveLabel?`: `string`
+  - 保存ボタンの文言
+- `resetLabel?`: `string`
+  - 変更を戻すボタンの文言
+
+**Usage**
+
+```tsx
+<SaveBar state={state} disabled={!valid} onSave={save} onReset={reset} />
 ```
 
 #### EmptyState

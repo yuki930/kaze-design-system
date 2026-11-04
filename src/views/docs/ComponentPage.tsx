@@ -1,3 +1,5 @@
+import { DataStatus } from "@/components/DataStatus";
+import { SaveBar } from "@/components/SaveBar";
 import styles from "./docs.module.css";
 import { repoTreeUrl } from "@/views/site/repo";
 import { DialogDemo, DrawerDemo, SortableTableDemo } from "./OverlayDemos";
@@ -688,7 +690,7 @@ const componentDocs: Record<string, ComponentDoc> = {
         description: "データセル（td）",
       },
     ],
-    usage: `import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell, useTableSort } from "kaze-design-system";
+    usage: `import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell, TableFooter, useTableSort } from "kaze-design-system";
 
 const rows = [
   { store: "渋谷", sales: 4820000 },
@@ -2419,6 +2421,55 @@ import { Icon } from "kaze-design-system";
 </Inline>`,
   },
 
+  "data-status": {
+    title: "DataStatus",
+    description:
+      "取得日時とデータ基準を区別して表示します。鮮度は自動判定しません。状態・日付の整形・タイムゾーンはアプリ側で指定します。",
+    preview: (
+      <DataStatus status="partial" fetchedAt="2026年1月8日 10:00 JST" asOf="2026年1月6日〜7日">
+        一部に前日のデータが含まれます。
+      </DataStatus>
+    ),
+    props: [
+      {
+        name: "status",
+        type: '"available" | "partial" | "stale" | "missing"',
+        description: "アプリが判定した取得状態（必須）",
+      },
+      { name: "fetchedAt", type: "ReactNode", description: "整形済みの取得日時" },
+      { name: "asOf", type: "ReactNode", description: "データの基準日時または期間" },
+      { name: "children", type: "ReactNode", description: "不足範囲や次の操作" },
+    ],
+    usage: `<DataStatus status="partial" fetchedAt="2026年1月8日 10:00 JST" asOf="2026年1月6日〜7日">一部に前日のデータが含まれます。</DataStatus>`,
+  },
+  "save-bar": {
+    title: "SaveBar",
+    description:
+      "保存状態と保存・変更を戻す操作。状態と処理はアプリが管理します。保存中は操作を抑止し、失敗時は再試行できます。操作できる例は「画面パターン」にあります。",
+    preview: <SaveBar state="idle" onSave={() => {}} />,
+    props: [
+      {
+        name: "state",
+        type: '"idle" | "dirty" | "saving" | "saved" | "error"',
+        description: "保存状態（必須）",
+      },
+      {
+        name: "onSave",
+        type: "() => void",
+        description: "保存操作（必須）。完了時の状態遷移はアプリで行う",
+      },
+      { name: "onReset", type: "() => void", description: "変更を戻す操作。省略時はボタン非表示" },
+      {
+        name: "disabled",
+        type: "boolean",
+        description: "入力エラー等で保存を無効化。変更を戻す操作には影響しない",
+      },
+      { name: "message", type: "ReactNode", description: "状態の補足やエラー詳細" },
+      { name: "saveLabel", type: "string", description: "保存ボタンの文言" },
+      { name: "resetLabel", type: "string", description: "変更を戻すボタンの文言" },
+    ],
+    usage: `<SaveBar state={state} disabled={!valid} onSave={save} onReset={reset} />`,
+  },
   toolbar: {
     title: "Toolbar",
     description:
@@ -2927,7 +2978,7 @@ import { Icon } from "kaze-design-system";
   yMin={0}              // マイナスを出さない（ツールチップには実際の値が出る）
   formatTick={(v) => \`\${v / 10000}万\`}
   formatValue={(v) => \`\${v.toLocaleString()}円\`}
-  indexLabel={(row) => [row.month, \`担当 \${row.owner}\`]}
+  indexLabel={(row) => [String(row.month ?? ""), \`担当 \${row.owner}\`]}
   selectedIndex={selected}
   onSelectIndex={setSelected}
 />`,
@@ -3050,7 +3101,7 @@ const [selected, setSelected] = useState(0);
   data={rows}
   index="year"
   series={series}
-  indexLabel={(row) => [row.year, \`第\${row.term}期\`]}
+  indexLabel={(row) => [String(row.year ?? ""), \`第\${row.term}期\`]}
   selectedIndex={selected}
   onSelectIndex={setSelected}
 />

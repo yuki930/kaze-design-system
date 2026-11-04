@@ -43,6 +43,11 @@ const navSections: { title: string; items: NavItem[] }[] = [
     title: "はじめに",
     items: [
       {
+        href: "/docs/patterns",
+        label: "画面パターン",
+        keywords: ["保存", "更新", "グルーピング", "一覧", "比較"],
+      },
+      {
         href: "/docs",
         label: "はじめに",
         exact: true,

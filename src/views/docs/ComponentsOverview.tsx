@@ -98,6 +98,8 @@ export const categories: Category[] = [
       { name: "Progress", path: "progress", description: "プログレスバー" },
       { name: "Meter", path: "meter", description: "メーター（既知範囲の値表示）" },
       { name: "Skeleton", path: "skeleton", description: "ローディング表示" },
+      { name: "DataStatus", path: "data-status", description: "取得日時・基準日時と取得状態" },
+      { name: "SaveBar", path: "save-bar", description: "保存状態と保存・取り消し操作" },
       { name: "EmptyState", path: "empty-state", description: "空状態" },
       { name: "Spinner", path: "spinner", description: "読み込み中の小さな表示" },
       {
