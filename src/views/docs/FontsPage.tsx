@@ -69,6 +69,19 @@ export function FontsPage() {
         </section>
       ))}
 
+      <h2 className={styles.sectionTitle}>Montserrat を自己配信する</h2>
+      <p>
+        Next.js の <code>next/font</code> を使わないアプリでは、数字用の Montserrat Latin
+        可変フォントをKazeパッケージから任意で読み込めます。フォントとCSSは同一オリジンから配信されるため、
+        <code>font-src 'self'</code> のCSPでも利用できます。
+      </p>
+      <pre className={styles.codeBlock}>{`import "kaze-design-system/css/all";
+import "kaze-design-system/css/font-montserrat";`}</pre>
+      <p>
+        このCSSは数字用の <code>--font-montserrat</code> だけを設定します。本文の DM Sans と Noto
+        Sans JPは、利用するアプリ側で引き続き読み込んでください。
+      </p>
+
       <h2 className={styles.sectionTitle}>組版の値</h2>
       <p>どの組み合わせでも、次のトークンで日本語向けに組みます。</p>
       <div className={styles.tableScroll}>

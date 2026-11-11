@@ -282,7 +282,7 @@ cssVar("color-bg"); // "var(--color-bg)"。存在しない名前は型エラー
 
 `reset.css` と `tokens.css` が、日本語の本文と UI に合わせた既定値を適用します。
 
-- 書体は 3 つの組み合わせから選ぶ。既定の「標準」は英字 DM Sans、数字 Montserrat、和文 Noto Sans JP。`data-font="neutral"`（Inter + Noto Sans JP）と `data-font="crisp"`（IBM Plex Sans JP）がある。書体の読み込みは利用者側で行う（[書体のページ](https://kaze-design-system.vercel.app/docs/fonts)）
+- 書体は 3 つの組み合わせから選ぶ。既定の「標準」は英字 DM Sans、数字 Montserrat、和文 Noto Sans JP。`data-font="neutral"`（Inter + Noto Sans JP）と `data-font="crisp"`（IBM Plex Sans JP）がある。書体の読み込みは利用者側で行う（[書体のページ](https://kaze-design-system.vercel.app/docs/fonts)）。Viteなどで数字用Montserratだけを自己配信する場合は `import "kaze-design-system/css/font-montserrat"` を追加できる
 - プロポーショナルかな（palt）を `:root` で全体に適用し、本文の字間は 0.02em（`--letter-spacing-body`）
 - 見出しは太さ 600、字間 0.01em。負の字間はかなを潰すので使わない
 - 長い文章の行間は 1.85（`--line-height-body`）

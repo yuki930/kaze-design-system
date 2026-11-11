@@ -99,6 +99,7 @@ function main() {
     ["components.css", "all components"],
     ["utilities.css", "utilities"],
     ["kaze.css", "umbrella (@layer wrapper)"],
+    ["font-montserrat.css", "optional self-hosted Montserrat"],
   ];
   let cssRawTotal = 0;
   let cssGzTotal = 0;
@@ -111,6 +112,16 @@ function main() {
     }
   }
   console.log(row("TOTAL CSS", { raw: cssRawTotal, gzip: cssGzTotal }));
+
+  console.log();
+  console.log("Optional font assets");
+  console.log("-".repeat(72));
+  console.log(
+    row(
+      "Montserrat Latin variable woff2",
+      measure(path.join(root, "fonts/montserrat-latin-wght-normal.woff2")),
+    ),
+  );
 
   console.log();
   console.log(
