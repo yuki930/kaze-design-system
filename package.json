@@ -114,6 +114,7 @@
     "build": "next build",
     "docs:llms": "node scripts/generate-llms.mjs",
     "docs:check-usage": "node scripts/check-usage.mjs",
+    "docs:check-catalog": "node scripts/check-catalog.mjs",
     "docs:stories": "node scripts/generate-stories.mjs",
     "size": "npm run build:lib && node scripts/measure-size.mjs",
     "test": "vitest run --project unit",

@@ -70,6 +70,11 @@ jobs:
       - name: Check docs usage examples
         run: npm run docs:check-usage
 
+      # README, package.json, CLAUDE.md and the LP state the component count;
+      # they must match the catalog in ComponentsOverview.tsx.
+      - name: Check component counts match the catalog
+        run: npm run docs:check-catalog
+
       # llms.txt is generated from the component catalog; a stale copy means
       # AI assistants get wrong props.
       - name: Check llms.txt is up to date
