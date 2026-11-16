@@ -52,11 +52,11 @@ export function useTableSort<T>(
     if (!sort) return [...rows];
     const sign = sort.direction === "ascending" ? 1 : -1;
     const { key } = sort;
-    const valueOf = sortBy?.[key] ?? ((row: T) => row[key]);
+    const sortValue = sortBy?.[key] ?? ((row: T) => row[key]);
     return [...rows].sort((a, b) => {
       if (compare) return sign * compare(a, b, key);
-      const x = valueOf(a);
-      const y = valueOf(b);
+      const x = sortValue(a);
+      const y = sortValue(b);
       // null / undefined は向きに関わらず末尾に置く
       if (isEmpty(x) || isEmpty(y)) return Number(isEmpty(x)) - Number(isEmpty(y));
       return sign * defaultCompare(x, y);
