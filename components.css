@@ -5951,7 +5951,8 @@ h2.page-header__title {
 .address-field__row--postal {
   gap: var(--space-1-5);
 }
-.address-field__row--postal .form-field {
+/* Only the code input is narrow; its description and error use the full width */
+.address-field__row--postal .postal-code-field {
   max-width: 12rem;
 }
 .address-field__status:empty {
