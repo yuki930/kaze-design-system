@@ -25,8 +25,8 @@ html {
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
   hanging-punctuation: first allow-end last;
-  /* Japanese line breaking: strict kinsoku, trim doubled-up brackets. Both are
-     ignored by browsers that do not support them. */
+  /* line-break: strict and text-spacing-trim are intentionally not set: the
+     owner restored the v0.8 typography in #56. Ask before adding them back. */
   tab-size: 4;
   line-height: var(--line-height-normal);
   font-size: var(--font-size-base);
