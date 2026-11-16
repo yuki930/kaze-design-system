@@ -21,6 +21,17 @@ CHANGELOG entries and version bumps are generated automatically by `.github/work
 - **Patch** releases fix bugs and never change the public API.
 
 Before 1.0, minor releases could include breaking changes; see MIGRATION.md for moving from 0.x.
+## [1.14.0] - 2026-11-16
+
+### Features
+
+- feat: useTableSort に sortBy を追加し、漢字の列を読みの順で並べられるようにする (#91)
+
+### Other
+
+- docs: correct the component count to 87 and explain the removed line-break rules (#89)
+
+
 ## [1.13.0] - 2026-11-11
 
 ### Features
