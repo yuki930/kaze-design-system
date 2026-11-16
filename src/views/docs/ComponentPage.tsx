@@ -693,11 +693,13 @@ const componentDocs: Record<string, ComponentDoc> = {
     usage: `import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell, TableFooter, useTableSort } from "kaze-design-system";
 
 const rows = [
-  { store: "渋谷", sales: 4820000 },
-  { store: "梅田", sales: 3915000 },
+  { store: "渋谷", reading: "しぶや", sales: 4820000 },
+  { store: "梅田", reading: "うめだ", sales: 3915000 },
 ];
 const { rows: sorted, getSortProps } = useTableSort(rows, {
   initial: { key: "sales", direction: "descending" },
+  // 漢字は辞書順では読みの順に並ばない。読みで並べる
+  sortBy: { store: (row) => row.reading },
 });
 
 <Table>
