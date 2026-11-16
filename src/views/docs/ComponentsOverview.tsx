@@ -40,6 +40,7 @@ export const categories: Category[] = [
       { name: "Switch", path: "switch", description: "トグルスイッチ" },
       { name: "FormField", path: "form-field", description: "フォームフィールド" },
       { name: "FormSection", path: "form-section", description: "入力のまとまり（fieldset）" },
+      { name: "NameField", path: "name-field", description: "氏名とフリガナ（読みの自動入力）" },
       {
         name: "PhoneField",
         path: "phone-field",

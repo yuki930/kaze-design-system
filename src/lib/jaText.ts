@@ -39,3 +39,18 @@ const MINUS_SIGNS = /[−－ー‐-―]/g;
 export function normalizeNumericInput(input: string): string {
   return input.normalize("NFKC").replace(MINUS_SIGNS, "-").replace(/\s+/g, "");
 }
+
+/** Hiragana to katakana. Other characters are left as they are. */
+export function toKatakana(input: string): string {
+  return input.replace(/[ぁ-ゖ]/g, (ch) => String.fromCharCode(ch.charCodeAt(0) + 0x60));
+}
+
+/** Katakana to hiragana. Other characters (including ヷ-ヺ, which have no hiragana) are left. */
+export function toHiragana(input: string): string {
+  return input.replace(/[ァ-ヶ]/g, (ch) => String.fromCharCode(ch.charCodeAt(0) - 0x60));
+}
+
+/** Only kana, the long vowel mark, the middle dot and spaces: what an IME shows before conversion. */
+export function isKanaOnly(input: string): boolean {
+  return /^[ぁ-ゖァ-ヺー・ 　]+$/.test(input);
+}

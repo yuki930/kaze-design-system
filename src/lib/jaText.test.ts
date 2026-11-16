@@ -1,5 +1,13 @@
 import { describe, expect, it } from "vitest";
-import { includesJa, isComposingEvent, normalizeJa, normalizeNumericInput } from "./jaText";
+import {
+  includesJa,
+  isComposingEvent,
+  normalizeJa,
+  normalizeNumericInput,
+  isKanaOnly,
+  toHiragana,
+  toKatakana,
+} from "./jaText";
 
 describe("normalizeJa", () => {
   it("folds width, kana and case", () => {
@@ -31,5 +39,27 @@ describe("normalizeNumericInput", () => {
     expect(normalizeNumericInput("１２３")).toBe("123");
     expect(normalizeNumericInput("－１，０００")).toBe("-1,000");
     expect(normalizeNumericInput(" 1 000 ")).toBe("1000");
+  });
+});
+
+describe("toKatakana / toHiragana", () => {
+  it("converts kana and leaves everything else", () => {
+    expect(toKatakana("さがら みさき")).toBe("サガラ ミサキ");
+    expect(toKatakana("ゔぁー")).toBe("ヴァー");
+    expect(toHiragana("サガラ・ミサキ")).toBe("さがら・みさき");
+    expect(toHiragana("相楽ABC")).toBe("相楽ABC");
+  });
+});
+
+describe("isKanaOnly", () => {
+  it("accepts the reading an IME shows before conversion", () => {
+    expect(isKanaOnly("さがら")).toBe(true);
+    expect(isKanaOnly("サガラ")).toBe(true);
+    expect(isKanaOnly("のの むら")).toBe(true);
+  });
+  it("rejects kanji, half-typed romaji and the empty string", () => {
+    expect(isKanaOnly("相楽")).toBe(false);
+    expect(isKanaOnly("さg")).toBe(false);
+    expect(isKanaOnly("")).toBe(false);
   });
 });

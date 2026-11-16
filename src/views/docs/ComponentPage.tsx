@@ -58,6 +58,7 @@ import {
   Slider,
   TableFooter,
   PhoneField,
+  NameField,
 } from "@/components";
 import { Tooltip } from "@/components/Tooltip/Tooltip";
 import { Icon } from "@/components/Icon/Icon";
@@ -2608,6 +2609,51 @@ import { Icon } from "kaze-design-system";
     <NumberField label="月の上限" currency="JPY" />
   </FormSection>
 </form>`,
+  },
+
+  "name-field": {
+    title: "NameField",
+    description:
+      "氏名を姓と名の 2 欄で受け取り、それぞれにフリガナの欄を付ける。漢字を変換したときの読みから、フリガナを自動で入れる。フリガナを手で直した部分は、それ以降は自動で触らない。",
+    preview: (
+      <div style={{ maxWidth: 480 }}>
+        <NameField required description="漢字で入力すると、フリガナが自動で入ります。" />
+      </div>
+    ),
+    props: [
+      { name: "value", type: "NameValue", description: "氏名の値（制御）" },
+      { name: "defaultValue", type: "Partial<NameValue>", description: "初期値（非制御）" },
+      {
+        name: "onValueChange",
+        type: "(value: NameValue) => void",
+        description: "どれかの欄が変わったときに呼ばれる",
+      },
+      {
+        name: "kana",
+        type: '"katakana" | "hiragana" | false',
+        default: '"katakana"',
+        description: "フリガナの字種。false でフリガナ欄を出さない",
+      },
+      {
+        name: "autoKana",
+        type: "boolean",
+        default: "true",
+        description: "変換前の読みからフリガナを入れる",
+      },
+      { name: "required", type: "boolean", description: "すべての欄を必須にする" },
+    ],
+    usage: `import { useState } from "react";
+import { NameField, type NameValue } from "kaze-design-system";
+
+const [name, setName] = useState<NameValue>({ family: "", given: "", familyKana: "", givenKana: "" });
+
+<NameField
+  required
+  value={name}
+  onValueChange={setName}
+  names={{ family: "family", given: "given", familyKana: "family_kana", givenKana: "given_kana" }}
+/>
+// 「さがら」と打って「相楽」に変換すると familyKana は "サガラ"`,
   },
 
   "phone-field": {

@@ -160,6 +160,8 @@ export { PanelHeader } from "./PanelHeader";
 export type { PanelHeaderProps } from "./PanelHeader";
 export { FormSection } from "./FormSection";
 export type { FormSectionProps } from "./FormSection";
+export { NameField } from "./NameField";
+export type { NameFieldProps, NameValue } from "./NameField";
 export { PhoneField } from "./PhoneField";
 export type { PhoneFieldProps } from "./PhoneField";
 export { AddressField, PostalCodeField, PREFECTURES } from "./AddressField";

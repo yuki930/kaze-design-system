@@ -1,6 +1,6 @@
 # kaze-design-system: Full API Reference
 
-> Minimal React design system for dashboards, landing pages and Japanese UI: warm neutral grays, 89 components, SVG charts with zero dependencies, light/dark themes, typography tuned for CJK text
+> Minimal React design system for dashboards, landing pages and Japanese UI: warm neutral grays, 90 components, SVG charts with zero dependencies, light/dark themes, typography tuned for CJK text
 
 Version: 1.14.0
 Site: https://kaze-design-system.vercel.app
@@ -281,7 +281,7 @@ Docs: https://kaze-design-system.vercel.app/docs/components/input
 
 **使う場面**
 
-- 氏名、メールアドレス、検索語など、1 行で収まる自由入力
+- メールアドレス、検索語など、1 行で収まる自由入力
 - type で用途を指定する（email、tel、url、password）。モバイルのキーボードと自動入力が合う
 - 検証に失敗した状態は error で赤枠にし、理由は FormField の error か近くの文言で伝える
 
@@ -291,7 +291,7 @@ Docs: https://kaze-design-system.vercel.app/docs/components/input
 - 日付。書き方のゆれと和暦の入力を受けたいなら DatePicker
 - 改行を含む長文。Textarea を使う
 - 選択肢が決まっている入力。Select（少数）か Combobox（多数）にして、打ち間違いをなくす
-- 電話番号や住所。ハイフンのゆれと全角数字を吸収する PhoneField、AddressField を使う
+- 氏名、電話番号、住所。フリガナの自動入力やハイフンのゆれの吸収がある NameField、PhoneField、AddressField を使う
 
 **キーボード操作**
 
@@ -1009,6 +1009,86 @@ Docs: https://kaze-design-system.vercel.app/docs/components/form-section
     <NumberField label="月の上限" currency="JPY" />
   </FormSection>
 </form>
+```
+
+#### NameField
+
+氏名を姓と名の 2 欄で受け取り、それぞれにフリガナの欄を付ける。漢字を変換したときの読みから、フリガナを自動で入れる。フリガナを手で直した部分は、それ以降は自動で触らない。
+
+Docs: https://kaze-design-system.vercel.app/docs/components/name-field
+
+**使う場面**
+
+- 会員登録や申し込みで、氏名とフリガナを受け取る。姓と名は 2 欄に分ける
+- 漢字を変換すると、変換前の読みがフリガナ欄に入る。予測変換で選ぶと読みが途中までになることがあるので、フリガナ欄は必ず見せて直せるようにする
+- フリガナの字種は kana で決める。既定はカタカナ
+
+**使わない場面**
+
+- 姓と名に分けられない名前も受け取る画面。Input で 1 欄にする
+- フリガナ欄を隠して自動入力の結果だけを送ること。読みは取り違えることがある
+
+**キーボード操作**
+
+| キー | 動作 |
+|---|---|
+| Tab | 姓、名、セイ、メイの順に移る |
+
+**アクセシビリティ**
+
+- fieldset と legend で組むので、各欄が「氏名」のまとまりとして読み上げられる
+- autocomplete は姓が family-name、名が given-name。フリガナ欄はブラウザの自動入力で漢字が入らないよう off にする
+
+**文言**
+
+- 欄のラベルは「姓」「名」「セイ」「メイ」。必須は required で示し、文言に書かない
+- エラーは「メイをカタカナで入力してください」のように、どの欄をどう直すかを書く
+
+Related: address-field, phone-field, form-field
+
+**Props**
+
+- `label?`: `ReactNode`
+  - Name of the group, rendered as the legend (default: "氏名")
+- `description?`: `ReactNode`
+  - Shown under the legend
+- `value?`: `NameValue`
+  - 氏名の値（制御）
+- `defaultValue?`: `Partial<NameValue>`
+  - 初期値（非制御）
+- `onValueChange?`: `(value: NameValue) => void`
+  - どれかの欄が変わったときに呼ばれる
+- `kana?`: `"katakana" | "hiragana" | false`
+  - Default: `"katakana"`
+  - Script of the reading fields, or `false` for no reading fields (default: "katakana")
+- `autoKana?`: `boolean`
+  - Default: `true`
+  - Fill the reading from what the IME showed before conversion (default: true).
+Stops for a part once the user edits its reading by hand, and resumes when that reading is cleared
+- `required?`: `boolean`
+  - Marks every field as required
+- `errors?`: `Partial<Record<NameKey, string>>`
+  - Error message per field
+- `names?`: `Partial<Record<NameKey, string>>`
+  - Form field names per field. Fields without a name are not submitted
+- `labels?`: `Partial<Record<NameKey, string>>`
+  - Labels per field, to replace the defaults (姓, 名, セイ, メイ)
+
+**Usage**
+
+```tsx
+import { useState } from "react";
+import { NameField, type NameValue } from "kaze-design-system";
+
+const [name, setName] = useState<NameValue>({ family: "", given: "", familyKana: "", givenKana: "" });
+
+<NameField
+  required
+  value={name}
+  onValueChange={setName}
+  names={{ family: "family", given: "given", familyKana: "family_kana", givenKana: "given_kana" }}
+/>
+// 「さがら」と打って「相楽」に変換すると familyKana は "サガラ"
 ```
 
 #### PhoneField

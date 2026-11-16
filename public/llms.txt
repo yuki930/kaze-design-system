@@ -1,8 +1,8 @@
 # kaze-design-system
 
-> Minimal React design system for dashboards, landing pages and Japanese UI: warm neutral grays, 89 components, SVG charts with zero dependencies, light/dark themes, typography tuned for CJK text
+> Minimal React design system for dashboards, landing pages and Japanese UI: warm neutral grays, 90 components, SVG charts with zero dependencies, light/dark themes, typography tuned for CJK text
 
-kaze-design-system is a React 18/19 + TypeScript design system with 89 components in two layers: Application UI (dashboards, business apps) and Marketing (landing pages, importable from `kaze-design-system/marketing`). It is built around a warm neutral gray palette, optimized for Japanese typography (PALT enabled globally), uses CSS custom properties for theming (light/dark via `data-theme`, four palettes via `data-palette` (default warm 砂, "cool" 霞, "ink" 墨, "indigo" 藍), three font sets via `data-font` (default "standard", "neutral", "crisp"), compact density via `data-density="compact"`), and ships as ESM with peer dependencies on react and react-dom (lucide-react optional).
+kaze-design-system is a React 18/19 + TypeScript design system with 90 components in two layers: Application UI (dashboards, business apps) and Marketing (landing pages, importable from `kaze-design-system/marketing`). It is built around a warm neutral gray palette, optimized for Japanese typography (PALT enabled globally), uses CSS custom properties for theming (light/dark via `data-theme`, four palettes via `data-palette` (default warm 砂, "cool" 霞, "ink" 墨, "indigo" 藍), three font sets via `data-font` (default "standard", "neutral", "crisp"), compact density via `data-density="compact"`), and ships as ESM with peer dependencies on react and react-dom (lucide-react optional).
 
 ## Installation
 
@@ -40,6 +40,7 @@ import { Hero, PricingGrid } from "kaze-design-system/marketing";
 - [Switch](https://kaze-design-system.vercel.app/docs/components/switch): オン・オフを切り替えるトグルスイッチコンポーネント。ラベル付きで使用可能。
 - [FormField](https://kaze-design-system.vercel.app/docs/components/form-field): フォームフィールド
 - [FormSection](https://kaze-design-system.vercel.app/docs/components/form-section): 長いフォームの中で、関係する入力をまとめる。fieldset と legend で組むので、読み上げでも各入力がどのまとまりに属するか伝わる。続けて置くと区切り線が入る。
+- [NameField](https://kaze-design-system.vercel.app/docs/components/name-field): 氏名を姓と名の 2 欄で受け取り、それぞれにフリガナの欄を付ける。漢字を変換したときの読みから、フリガナを自動で入れる。フリガナを手で直した部分は、それ以降は自動で触らない。
 - [PhoneField](https://kaze-design-system.vercel.app/docs/components/phone-field): 電話番号の入力。ハイフンの有無や全角数字、括弧、+81 を吸収し、値は数字だけで受け取る。携帯・050・0120 など区切りが決まっている番号は、フォーカスが外れたときにハイフンを入れる。
 - [AddressField](https://kaze-design-system.vercel.app/docs/components/address-field): 日本の住所。郵便番号から建物名までを 1 つのまとまりで組む。onLookup に住所検索を渡すと、7 桁そろった時点で都道府県・市区町村・町域を埋める。住所データは同梱しない。郵便番号の欄は PostalCodeField として単体でも使える。
 - [Slider](https://kaze-design-system.vercel.app/docs/components/slider): 範囲の中から数を選ぶ。結果を見ながら値を動かす場面（シミュレーション、配分）に使う。正確な数を打ちたいときは NumberField。
