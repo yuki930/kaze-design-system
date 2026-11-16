@@ -21,6 +21,14 @@ CHANGELOG entries and version bumps are generated automatically by `.github/work
 - **Patch** releases fix bugs and never change the public API.
 
 Before 1.0, minor releases could include breaking changes; see MIGRATION.md for moving from 0.x.
+## [1.15.1] - 2026-11-16
+
+### Other
+
+- chore(deps-dev): bump the dev-dependencies group across 1 directory with 18 updates (#93)
+- ci: build CHANGELOG entries from commit subjects only (#97)
+
+
 ## [1.15.0] - 2026-11-16
 
 ### Features
