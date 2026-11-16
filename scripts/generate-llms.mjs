@@ -15,13 +15,13 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import ts from "typescript";
+import { parseCategories } from "./catalog.mjs";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const root = path.resolve(__dirname, "..");
 
 const COMPONENT_PAGE = path.join(root, "src/views/docs/ComponentPage.tsx");
-const OVERVIEW_PAGE = path.join(root, "src/views/docs/ComponentsOverview.tsx");
 const PACKAGE_JSON = path.join(root, "package.json");
 const OUT_SHORT = path.join(root, "public/llms.txt");
 const OUT_FULL = path.join(root, "public/llms-full.txt");
@@ -195,62 +195,6 @@ function parseComponentDocs() {
   }
 
   return entries;
-}
-
-/** Parse the `categories` array from ComponentsOverview.tsx. */
-function parseCategories() {
-  const sf = parseSourceFile(OVERVIEW_PAGE);
-  let categoriesNode = null;
-
-  walk(sf, (node) => {
-    if (
-      ts.isVariableDeclaration(node) &&
-      ts.isIdentifier(node.name) &&
-      node.name.text === "categories" &&
-      node.initializer
-    ) {
-      categoriesNode = node.initializer;
-    }
-  });
-
-  if (!categoriesNode || !ts.isArrayLiteralExpression(categoriesNode)) {
-    throw new Error("Could not find categories array literal");
-  }
-
-  const categories = [];
-
-  for (const el of categoriesNode.elements) {
-    if (!ts.isObjectLiteralExpression(el)) continue;
-    const cat = { title: "", components: [] };
-    for (const field of el.properties) {
-      if (!ts.isPropertyAssignment(field)) continue;
-      const name = ts.isIdentifier(field.name)
-        ? field.name.text
-        : field.name.getText().replace(/['"]/g, "");
-      if (name === "title") {
-        cat.title = extractStringLike(field.initializer);
-      } else if (name === "components") {
-        if (!ts.isArrayLiteralExpression(field.initializer)) continue;
-        for (const compEl of field.initializer.elements) {
-          if (!ts.isObjectLiteralExpression(compEl)) continue;
-          const comp = { name: "", path: "", description: "" };
-          for (const f of compEl.properties) {
-            if (!ts.isPropertyAssignment(f)) continue;
-            const fn = ts.isIdentifier(f.name)
-              ? f.name.text
-              : f.name.getText().replace(/['"]/g, "");
-            if (Object.hasOwn(comp, fn)) {
-              comp[fn] = extractStringLike(f.initializer);
-            }
-          }
-          cat.components.push(comp);
-        }
-      }
-    }
-    categories.push(cat);
-  }
-
-  return categories;
 }
 
 /** Merge every src/views/docs/guidelines/*.json into one slug-keyed map. */
