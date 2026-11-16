@@ -26,10 +26,8 @@ Before 1.0, minor releases could include breaking changes; see MIGRATION.md for 
 ### Features
 
 - feat: 氏名とフリガナの NameField（変換前の読みからフリガナを自動入力） (#96)
-
-### Other
-
-- feat: 氏名とフリガナの NameField（変換前の読みからフリガナを自動入力） (#96)
+- feat: 電話番号の PhoneField（ハイフンの有無や全角数字、+81 を吸収し、数字だけで受け取る） (#96)
+- feat: 郵便番号から住所までの AddressField と、郵便番号の欄の PostalCodeField（onLookup で住所を補完） (#96)
 
 
 ## [1.14.1] - 2026-11-16
