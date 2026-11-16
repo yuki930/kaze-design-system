@@ -69,4 +69,54 @@ describe("useTableSort", () => {
     );
     expect(result.current.rows).toHaveLength(4);
   });
+  describe("sortBy", () => {
+    interface Person {
+      name: string;
+      kana: string | null;
+      age: number;
+    }
+    // 辞書順（コード順）では 斎藤 < 佐藤 < 渡辺 < 伊藤 にならず、読みの順とずれる
+    const people: Person[] = [
+      { name: "渡辺", kana: "わたなべ", age: 41 },
+      { name: "佐藤", kana: "さとう", age: 28 },
+      { name: "伊藤", kana: "いとう", age: 35 },
+      { name: "斎藤", kana: "さいとう", age: 52 },
+    ];
+    const byKana = { name: (row: Person) => row.kana };
+
+    it("sorts a kanji column by the reading it returns", () => {
+      const { result } = renderHook(() => useTableSort(people, { sortBy: byKana }));
+      act(() => result.current.getSortProps("name").onSort());
+      expect(result.current.rows.map((r) => r.name)).toEqual(["伊藤", "斎藤", "佐藤", "渡辺"]);
+      act(() => result.current.getSortProps("name").onSort());
+      expect(result.current.rows.map((r) => r.name)).toEqual(["渡辺", "佐藤", "斎藤", "伊藤"]);
+    });
+
+    it("puts rows without a reading last in both directions", () => {
+      const withMissing = [{ name: "未登録", kana: null, age: 20 }, ...people];
+      const { result } = renderHook(() => useTableSort(withMissing, { sortBy: byKana }));
+      act(() => result.current.getSortProps("name").onSort());
+      expect(result.current.rows[withMissing.length - 1]?.name).toBe("未登録");
+      act(() => result.current.getSortProps("name").onSort());
+      expect(result.current.rows[withMissing.length - 1]?.name).toBe("未登録");
+    });
+
+    it("leaves other columns on their own values", () => {
+      const { result } = renderHook(() =>
+        useTableSort(people, { sortBy: byKana, initial: { key: "age", direction: "ascending" } }),
+      );
+      expect(result.current.rows.map((r) => r.age)).toEqual([28, 35, 41, 52]);
+    });
+
+    it("lets compare take precedence", () => {
+      const { result } = renderHook(() =>
+        useTableSort(people, {
+          sortBy: byKana,
+          compare: (a, b) => a.age - b.age,
+          initial: { key: "name", direction: "ascending" },
+        }),
+      );
+      expect(result.current.rows.map((r) => r.name)).toEqual(["佐藤", "伊藤", "渡辺", "斎藤"]);
+    });
+  });
 });

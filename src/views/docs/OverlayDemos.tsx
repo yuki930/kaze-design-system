@@ -99,15 +99,17 @@ export function DrawerDemo() {
 }
 
 const salesRows = [
-  { store: "渋谷", sales: 4820000, yoy: 12.4 },
-  { store: "梅田", sales: 3915000, yoy: 3.1 },
-  { store: "天神", sales: 2140000, yoy: -1.8 },
+  { store: "渋谷", reading: "しぶや", sales: 4820000, yoy: 12.4 },
+  { store: "梅田", reading: "うめだ", sales: 3915000, yoy: 3.1 },
+  { store: "天神", reading: "てんじん", sales: 2140000, yoy: -1.8 },
 ];
+const sortByReading = { store: (row: (typeof salesRows)[number]) => row.reading };
 
 /** 並べ替えは押したときの状態が要るので、ここ（クライアント）に置く。 */
 export function SortableTableDemo() {
   const { rows, getSortProps } = useTableSort(salesRows, {
     initial: { key: "sales", direction: "descending" },
+    sortBy: sortByReading,
   });
   return (
     <Table compact aria-label="店舗別の売上">

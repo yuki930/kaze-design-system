@@ -1378,6 +1378,7 @@ Docs: https://kaze-design-system.vercel.app/docs/components/table
 - 同じ項目を持つ複数のデータを、行と列で比べる（ユーザー一覧、請求履歴、成績表）
 - 数値の列は右揃えにして、桁をそろえる。TableCell に className="table__cell--numeric" を付けると、右揃えと等幅数字（tabular-nums）になる。見出しのセルは左揃えのまま
 - 並べ替えられる列は、TableHead に onSort と sortDirection を渡す。見出しがボタンになり、矢印が付く。並べ替えの状態管理は useTableSort が引き受ける（押すたびに 昇順、降順、解除）
+- 人名や地名など漢字の列は、そのままでは読みの順に並ばない。useTableSort の sortBy で読みを渡す
 - 行数が多いときは compact で密度を上げる。Table は横にあふれると table-wrapper 内でスクロールする
 
 **使わない場面**
@@ -1429,11 +1430,13 @@ Related: description-list, list, pagination, badge, card
 import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell, TableFooter, useTableSort } from "kaze-design-system";
 
 const rows = [
-  { store: "渋谷", sales: 4820000 },
-  { store: "梅田", sales: 3915000 },
+  { store: "渋谷", reading: "しぶや", sales: 4820000 },
+  { store: "梅田", reading: "うめだ", sales: 3915000 },
 ];
 const { rows: sorted, getSortProps } = useTableSort(rows, {
   initial: { key: "sales", direction: "descending" },
+  // 漢字は辞書順では読みの順に並ばない。読みで並べる
+  sortBy: { store: (row) => row.reading },
 });
 
 <Table>
