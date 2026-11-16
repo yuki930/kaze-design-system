@@ -21,6 +21,13 @@ CHANGELOG entries and version bumps are generated automatically by `.github/work
 - **Patch** releases fix bugs and never change the public API.
 
 Before 1.0, minor releases could include breaking changes; see MIGRATION.md for moving from 0.x.
+## [1.14.1] - 2026-11-16
+
+### Other
+
+- ci: check that stated component counts and the README table match the catalog (#94)
+
+
 ## [1.14.0] - 2026-11-16
 
 ### Features
