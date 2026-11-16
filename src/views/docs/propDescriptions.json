@@ -183,5 +183,25 @@
     "selectedIndex": "選択中の列。背景を塗って示す",
     "onSelectIndex": "列のクリック、またはフォーカス中に Enter / Space で呼ばれる",
     "formatTick": "縦軸のラベルだけの書式。省略時は formatValue"
+  },
+  "phone-field": {
+    "value": "数字だけの電話番号（制御）",
+    "defaultValue": "初期値（非制御）",
+    "onValueChange": "数字だけの電話番号で呼ばれる。区切りだけを変えたときは呼ばれない",
+    "name": "数字だけの値を hidden input で送る名前。見えている欄には name が付かない",
+    "error": "エラー表示（FormField の error でも付く）"
+  },
+  "address-field": {
+    "label": "まとまりの名前（既定は「住所」）。legend になる",
+    "description": "まとまりの説明",
+    "value": "住所の値（制御）",
+    "defaultValue": "初期値（非制御）。ここで渡した郵便番号では住所を探さない",
+    "onValueChange": "どれかの欄が変わったときに呼ばれる",
+    "onLookup": "郵便番号から住所を探す。7 桁そろったときに 1 回呼ぶ。見つからなければ null を返す",
+    "required": "建物名以外を必須にする",
+    "errors": "欄ごとのエラー文言",
+    "names": "欄ごとの送信名。名前のない欄は送信しない",
+    "labels": "欄ごとのラベルの差し替え",
+    "autoCompleteSection": "1 つのフォームに住所が 2 つあるときの autocomplete の区切り（例: shipping）"
   }
 }

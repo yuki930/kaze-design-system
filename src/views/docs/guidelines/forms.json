@@ -82,7 +82,8 @@
       "数量・金額・割合などの数値。カンマ区切り、全角入力、増減ボタンが要るなら NumberField",
       "日付。書き方のゆれと和暦の入力を受けたいなら DatePicker",
       "改行を含む長文。Textarea を使う",
-      "選択肢が決まっている入力。Select（少数）か Combobox（多数）にして、打ち間違いをなくす"
+      "選択肢が決まっている入力。Select（少数）か Combobox（多数）にして、打ち間違いをなくす",
+      "電話番号や住所。ハイフンのゆれと全角数字を吸収する PhoneField、AddressField を使う"
     ],
     "keyboard": [
       {
@@ -113,7 +114,7 @@
       "全角数字や「−」の入力を受けたい日本語のフォーム。全角は半角に直して解釈する"
     ],
     "avoid": [
-      "郵便番号、電話番号、会員番号など、数値ではない数字の並び。先頭の 0 や区切りが意味を持つので Input を使う",
+      "郵便番号、電話番号、会員番号など、数値ではない数字の並び。先頭の 0 や区切りが意味を持つ。郵便番号は AddressField（PostalCodeField）、電話番号は PhoneField、それ以外は Input",
       "範囲の大まかな指定。選択肢が少なければ SegmentedControl か Select",
       "値が長い桁になる ID。桁区切りを付けて表示されてしまう"
     ],
@@ -581,6 +582,68 @@
       "filter-pill",
       "switch",
       "select"
+    ]
+  },
+  "phone-field": {
+    "use": [
+      "電話番号の入力。ハイフンの有無や全角数字、括弧、+81 を吸収し、値は数字だけで受け取る",
+      "区切りが決まっている番号は、フォーカスが外れたときにハイフンを入れる。対象は携帯（070 / 080 / 090）と 050 / 020 / 0120 / 0800 / 0570 / 03 / 06",
+      "それ以外の固定電話は市外局番の桁数が決まらない。打った区切りをそのまま残す",
+      "FormField で包み、ラベル・説明・エラーを付ける"
+    ],
+    "avoid": [
+      "内線や国外の番号を含む自由な連絡先。Input を使う",
+      "入力中に書式を強制すること。PhoneField は入力中の文字を書き換えない"
+    ],
+    "keyboard": [
+      {
+        "keys": "Tab",
+        "action": "確定して次へ移る。このときハイフンが入る"
+      }
+    ],
+    "a11y": [
+      "type=\"tel\" と inputMode=\"tel\" で、スマートフォンでは数字のキーボードが出る",
+      "autocomplete は tel-national。ブラウザの自動入力がそのまま使える",
+      "FormField の id、aria-describedby、aria-invalid、required は入力欄に渡る"
+    ],
+    "writing": [
+      "ラベルは「電話番号」。書式の説明は description に「ハイフンはなくてもかまいません」と書く",
+      "placeholder に書式を書かない。どの書き方でも受け取れる"
+    ],
+    "related": [
+      "address-field",
+      "form-field",
+      "input"
+    ]
+  },
+  "address-field": {
+    "use": [
+      "配送先や請求先など、日本の住所をまとめて入力する",
+      "onLookup に住所検索を渡すと、郵便番号が 7 桁そろった時点で都道府県・市区町村・町域を埋める。住所データは同梱しないので、自前の API や公開データを呼ぶ",
+      "郵便番号だけが要るときは、PostalCodeField を FormField で包んで使う"
+    ],
+    "avoid": [
+      "国外の住所。欄の分け方が合わないので、Input と Textarea で組む",
+      "onLookup の結果で、ユーザーが打った欄を上書きすること。AddressField は空の欄と、前回の検索で入れた欄だけを埋める"
+    ],
+    "keyboard": [
+      {
+        "keys": "Tab",
+        "action": "郵便番号から順に次の欄へ移る。検索で埋まってもフォーカスは動かない"
+      }
+    ],
+    "a11y": [
+      "fieldset と legend で組むので、各欄が「住所」のまとまりとして読み上げられる",
+      "検索中・見つかった・見つからないは role=\"status\" で伝える。フォーカスは動かさない",
+      "autocomplete は欄ごとに postal-code や address-level1 などを付ける。住所が 2 つあるフォームでは autoCompleteSection で分ける"
+    ],
+    "writing": [
+      "欄のラベルは「郵便番号」「都道府県」「市区町村」「番地」「建物名・部屋番号」。必須は required で示し、文言に書かない"
+    ],
+    "related": [
+      "phone-field",
+      "form-section",
+      "form-field"
     ]
   }
 }

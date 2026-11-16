@@ -3,6 +3,7 @@ import { SaveBar } from "@/components/SaveBar";
 import styles from "./docs.module.css";
 import { repoTreeUrl } from "@/views/site/repo";
 import { DialogDemo, DrawerDemo, SortableTableDemo } from "./OverlayDemos";
+import { AddressFieldDemo } from "./FormDemos";
 import { categories } from "./ComponentsOverview";
 import generatedProps from "./generated/props.json";
 import { guides } from "./guidelines";
@@ -56,6 +57,7 @@ import {
   FormSection,
   Slider,
   TableFooter,
+  PhoneField,
 } from "@/components";
 import { Tooltip } from "@/components/Tooltip/Tooltip";
 import { Icon } from "@/components/Icon/Icon";
@@ -2606,6 +2608,93 @@ import { Icon } from "kaze-design-system";
     <NumberField label="月の上限" currency="JPY" />
   </FormSection>
 </form>`,
+  },
+
+  "phone-field": {
+    title: "PhoneField",
+    description:
+      "電話番号の入力。ハイフンの有無や全角数字、括弧、+81 を吸収し、値は数字だけで受け取る。携帯・050・0120 など区切りが決まっている番号は、フォーカスが外れたときにハイフンを入れる。",
+    preview: (
+      <div style={{ maxWidth: 320 }}>
+        <FormField label="電話番号" description="ハイフンはなくてもかまいません">
+          <PhoneField defaultValue="09012345678" />
+        </FormField>
+      </div>
+    ),
+    props: [
+      { name: "value", type: "string", description: "数字だけの電話番号（制御）" },
+      { name: "defaultValue", type: "string", description: "初期値（非制御）" },
+      {
+        name: "onValueChange",
+        type: "(value: string) => void",
+        description: "数字だけの電話番号で呼ばれる",
+      },
+      { name: "name", type: "string", description: "数字だけの値を hidden input で送る名前" },
+      { name: "error", type: "boolean", description: "エラー表示" },
+    ],
+    usage: `const [tel, setTel] = useState("");
+
+<FormField label="電話番号" description="ハイフンはなくてもかまいません">
+  <PhoneField value={tel} onValueChange={setTel} name="tel" />
+</FormField>
+// 「０９０ー１２３４ー５６７８」と打つと tel は "09012345678"`,
+  },
+
+  "address-field": {
+    title: "AddressField",
+    description:
+      "日本の住所。郵便番号から建物名までを 1 つのまとまりで組む。onLookup に住所検索を渡すと、7 桁そろった時点で都道府県・市区町村・町域を埋める。住所データは同梱しない。郵便番号の欄は PostalCodeField として単体でも使える。",
+    preview: <AddressFieldDemo />,
+    props: [
+      { name: "value", type: "AddressValue", description: "住所の値（制御）" },
+      { name: "defaultValue", type: "Partial<AddressValue>", description: "初期値（非制御）" },
+      {
+        name: "onValueChange",
+        type: "(value: AddressValue) => void",
+        description: "どれかの欄が変わったときに呼ばれる",
+      },
+      {
+        name: "onLookup",
+        type: "(postalCode: string) => Promise<AddressLookupResult | null>",
+        description: "郵便番号から住所を探す。見つからなければ null を返す",
+      },
+      { name: "required", type: "boolean", description: "建物名以外を必須にする" },
+      {
+        name: "errors",
+        type: "Partial<Record<keyof AddressValue, string>>",
+        description: "欄ごとのエラー",
+      },
+      {
+        name: "names",
+        type: "Partial<Record<keyof AddressValue, string>>",
+        description: "欄ごとの送信名",
+      },
+    ],
+    usage: `import { useState } from "react";
+import { AddressField, FormField, PostalCodeField, type AddressValue } from "kaze-design-system";
+
+const [address, setAddress] = useState<AddressValue>({
+  postalCode: "",
+  prefecture: "",
+  city: "",
+  line1: "",
+  line2: "",
+});
+
+<AddressField
+  required
+  value={address}
+  onValueChange={setAddress}
+  onLookup={async (postalCode) => {
+    const res = await fetch(\`/api/address?zip=\${postalCode}\`);
+    return res.ok ? res.json() : null;
+  }}
+/>
+
+{/* 郵便番号だけ */}
+<FormField label="郵便番号">
+  <PostalCodeField name="zip" />
+</FormField>`,
   },
 
   /* ── Lists ───────────────────────────────────────────────── */
