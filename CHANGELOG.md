@@ -21,6 +21,17 @@ CHANGELOG entries and version bumps are generated automatically by `.github/work
 - **Patch** releases fix bugs and never change the public API.
 
 Before 1.0, minor releases could include breaking changes; see MIGRATION.md for moving from 0.x.
+## [1.15.0] - 2026-11-16
+
+### Features
+
+- feat: 氏名とフリガナの NameField（変換前の読みからフリガナを自動入力） (#96)
+
+### Other
+
+- feat: 氏名とフリガナの NameField（変換前の読みからフリガナを自動入力） (#96)
+
+
 ## [1.14.1] - 2026-11-16
 
 ### Other
