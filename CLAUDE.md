@@ -30,6 +30,7 @@ npm run lint          # biome lint（a11y の一部はまだ warn。新規コー
 npm run test          # ユニットテスト（jsdom。CI / publish で実行）
 npm run test:storybook # Storybook ブラウザテスト（Playwright Chromium。sandbox 内では起動できない）
 npm run docs:llms     # llms.txt / llms-full.txt を再生成
+npm run docs:check-catalog # README 等のコンポーネント数と一覧表がカタログと一致するか検査
 npm run docs:stories  # 未作成の story 雛形を生成
 npm run size          # バンドルサイズ計測
 ```
@@ -90,7 +91,7 @@ Kaze は「1パッケージ・3レイヤー」構成。上位レイヤーは下�
 - **Foundation**: `tokens.css` / `utilities.css` など、両カタログが共有する土台。単独のコンポーネントは持たず、`/docs/tokens`・`/docs/colors`・`/docs/utilities` として提示する。
 - **Application UI**: 業務アプリ・ダッシュボードの画面を組む75コンポーネント。フォーム/データ表示/チャート/フィードバック/ナビゲーション/オーバーレイ/レイアウト/リストの8カテゴリ。
 - **Marketing**: LP・プロダクトサイトを組む正準12コンポーネント。AnnouncementBar, Navbar, Hero, Section, SplitSection, FeatureGrid, Stats, Pricing, Testimonial, FAQ, CTABanner, LPFooter。AnnouncementBar はオーナーの承認を得て追加した（2026-10）。それ以外を追加する場合は Issue で合意を取ってから増やす（勝手に一点ものを足さない）。追加・削除したときは `src/components/marketing.ts` の export も合わせる。
-- コンポーネント総数は 87（75 + 12）。`src/views/docs/ComponentsOverview.tsx` の `categories` 配列がこの2カタログ + Foundation 導線の唯一のソース。`scripts/generate-llms.mjs` がこの配列を TypeScript Compiler API で解析して `llms.txt` / `llms-full.txt` を生成するため、カテゴリ構造を変える際は両方を追従修正し `npm run docs:llms` で87個出力されることを確認する。
+- コンポーネント総数は 87（75 + 12）。`src/views/docs/ComponentsOverview.tsx` の `categories` 配列がこの2カタログ + Foundation 導線の唯一のソース。`scripts/generate-llms.mjs` がこの配列を TypeScript Compiler API で解析して `llms.txt` / `llms-full.txt` を生成するため、カテゴリ構造を変える際は両方を追従修正し `npm run docs:llms` で87個出力されることを確認する。数を書いている README・package.json・CLAUDE.md・LP は `npm run docs:check-catalog`（CI でも実行）で検査される。
 
 ### Marketing コンポーネントのデモ制約
 Marketing はランディングページの世界観を見せる場なので、Application UI より表現の自由度は上げてよいが、以下は例外なく守る。
