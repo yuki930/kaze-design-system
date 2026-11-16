@@ -151,10 +151,15 @@ jobs:
             RANGE="${LAST_TAG}..HEAD"
           fi
 
-          # Collect commits, grouped by type.
-          FEATURES=$(git log $RANGE --pretty=format:'- %s' --grep='^feat' || true)
-          FIXES=$(git log $RANGE --pretty=format:'- %s' --grep='^fix' || true)
-          OTHER=$(git log $RANGE --pretty=format:'- %s' --grep='^\(perf\|refactor\|docs\|chore\|build\|ci\)' || true)
+          # Collect commits, grouped by the type in the subject. `git log --grep`
+          # also matches body lines, so a squash merge whose body has a line
+          # starting with e.g. "city" was listed under Other: match the subject
+          # only, and require the "type:" form.
+          SUBJECTS=$(git log $RANGE --pretty=format:'%s' || true)
+          by_type() { printf '%s\n' "$SUBJECTS" | grep -E "^($1)(\([^)]*\))?!?:" | sed 's/^/- /' || true; }
+          FEATURES=$(by_type 'feat')
+          FIXES=$(by_type 'fix')
+          OTHER=$(by_type 'perf|refactor|docs|chore|build|ci')
 
           # Written to a file (not a step output) so commit subjects are never
           # interpolated into a shell script through an Actions expression.
