@@ -7,7 +7,7 @@
 
 - **日本語がきれいに見える**: 英字は DM Sans、数字は Montserrat、かなと漢字は Noto Sans JP で組みます。書体の組み合わせは 3 つから選べます。プロポーショナルかな（palt）を全体にかけて字間を整え、行間はゆったりめにとっています
 - **日本語入力でつまずかない**: 変換を確定する Enter では送信されません。全角の「１２３」や「ー」のマイナスも数値として受け取り、ひらがなとカタカナのどちらで検索しても見つかります
-- **87 のコンポーネント**: フォーム、テーブル、ダッシュボード、ランディングページまで。折れ線・縦棒・ヒートマップなどのグラフも、外部ライブラリなしの SVG で描きます
+- **90 のコンポーネント**: フォーム、テーブル、ダッシュボード、ランディングページまで。折れ線・縦棒・ヒートマップなどのグラフも、外部ライブラリなしの SVG で描きます
 - **だれでも使える**: 文字と背景のコントラストは、どのテーマでも WCAG 2.2 AA を満たします。ダイアログ・メニュー・タブはキーボードだけで操作できます
 - **テーマと密度を切り替えられる**: ライト / ダーク、温かみのあるグレー / 青みのグレー、ふつう / コンパクト。どれも HTML の属性ひとつで切り替わります
 - **素の CSS で動く**: CSS 変数とカスケードレイヤーだけで作っていて、CSS-in-JS は使いません。Tailwind と同じページでも併用できます
@@ -60,7 +60,7 @@ AI コーディングアシスタントは以下のファイルからライブ�
 - **Short index**: https://kaze-design-system.vercel.app/llms.txt
 - **Full API reference**: https://kaze-design-system.vercel.app/llms-full.txt
 
-`llms-full.txt` には 87 コンポーネントの `Props` / `Usage` / カテゴリが機械可読形式で入っています。Storybook を見なくても、AI が正確なコードを提案できます。[llmstxt.org](https://llmstxt.org) 準拠。
+`llms-full.txt` には 90 コンポーネントの `Props` / `Usage` / カテゴリが機械可読形式で入っています。Storybook を見なくても、AI が正確なコードを提案できます。[llmstxt.org](https://llmstxt.org) 準拠。
 
 AI に Kaze で画面を作らせるときは、`npx kaze-init` を実行してください。AGENTS.md に Kaze の組み方と文言の規則が書き込まれ、CLAUDE.md と Gemini CLI（`.gemini/settings.json`）からも読み込まれます。新しく始めるなら、Next.js の雛形が使えます。
 
@@ -137,7 +137,7 @@ function App() {
 kaze は 1 パッケージ・3 レイヤーで構成されています。
 
 - **Foundation**: デザイントークン（カラー・タイポグラフィ・スペーシング）と CSS。両レイヤー共通の土台
-- **Application UI**: 管理画面・アプリ向けの 75 コンポーネント。`kaze-design-system` から import
+- **Application UI**: 管理画面・アプリ向けの 78 コンポーネント。`kaze-design-system` から import
 - **Marketing**: LP・キャンペーンページ向けの 12 コンポーネント。`kaze-design-system/marketing` から import
 
 ```tsx
@@ -148,13 +148,13 @@ import { Table, Sidebar, CommandPalette } from "kaze-design-system";
 import { Hero, PricingGrid, CTABanner } from "kaze-design-system/marketing";
 ```
 
-## コンポーネント一覧（87 コンポーネント）
+## コンポーネント一覧（90 コンポーネント）
 
-### Application UI（75）
+### Application UI（78）
 
 | カテゴリ | コンポーネント |
 |---|---|
-| **フォーム** | Button, FAB, Input, NumberField, Select, Combobox, DatePicker, Checkbox, Radio, Textarea, Switch, FormField, FormSection, Slider, FilterPill, SegmentedControl |
+| **フォーム** | Button, FAB, Input, NumberField, Select, Combobox, DatePicker, Checkbox, Radio, Textarea, Switch, FormField, FormSection, NameField, PhoneField, AddressField, Slider, FilterPill, SegmentedControl |
 | **データ表示** | Card, Badge, StatusBadge, Table, Metric, Avatar, BarList, Tracker, Watermark |
 | **チャート** | BarChart, DonutChart, Sparkline, LineChart, ColumnChart, Heatmap, CategoryBar, ChartLegend |
 | **フィードバック** | Alert, Progress, Meter, Skeleton, DataStatus, SaveBar, EmptyState, Spinner, TypingIndicator, Toast |

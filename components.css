@@ -5918,4 +5918,64 @@ h2.page-header__title {
 .save-bar { justify-content: space-between; }
 .save-bar__message { flex: 1 1 16rem; font-size: var(--font-size-sm); overflow-wrap: anywhere; }
 .save-bar__actions { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+/* ===== AddressField / PostalCodeField / NameField ===== */
+.address-field,
+.name-field {
+  margin: 0;
+  padding: 0;
+  border: none;
+  min-width: 0;
+}
+.address-field__legend,
+.name-field__legend {
+  padding: 0;
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-heading);
+  letter-spacing: var(--letter-spacing-heading);
+  color: var(--color-fg);
+}
+.address-field__description,
+.name-field__description {
+  margin: var(--space-1) 0 0;
+  font-size: var(--font-size-xs);
+  color: var(--color-fg-muted);
+  line-height: var(--line-height-normal);
+}
+.address-field__body,
+.name-field__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  margin-top: var(--space-4);
+}
+.address-field__row {
+  display: grid;
+  gap: var(--space-4);
+}
+/* Family and given names stay side by side, even on phones: both are short */
+.name-field__row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-3);
+}
+.address-field__row--postal {
+  gap: var(--space-1-5);
+}
+/* Only the code input is narrow; its description and error use the full width */
+.address-field__row--postal .postal-code-field {
+  max-width: 12rem;
+}
+.address-field__status:empty {
+  display: none;
+}
+.address-field__status {
+  font-size: var(--font-size-xs);
+  color: var(--color-fg-muted);
+  line-height: var(--line-height-normal);
+}
+@media (min-width: 640px) {
+  .address-field__row--region {
+    grid-template-columns: minmax(9rem, 12rem) 1fr;
+  }
+}
 }

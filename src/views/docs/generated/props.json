@@ -1750,6 +1750,201 @@
       "default": ""
     }
   ],
+  "name-field": [
+    {
+      "name": "label",
+      "type": "ReactNode",
+      "optional": true,
+      "description": "まとまりの名前（既定は「氏名」）。legend になる",
+      "default": ""
+    },
+    {
+      "name": "description",
+      "type": "ReactNode",
+      "optional": true,
+      "description": "まとまりの説明",
+      "default": ""
+    },
+    {
+      "name": "value",
+      "type": "NameValue",
+      "optional": true,
+      "description": "氏名の値（制御）",
+      "default": ""
+    },
+    {
+      "name": "defaultValue",
+      "type": "Partial<NameValue>",
+      "optional": true,
+      "description": "初期値（非制御）",
+      "default": ""
+    },
+    {
+      "name": "onValueChange",
+      "type": "(value: NameValue) => void",
+      "optional": true,
+      "description": "どれかの欄が変わったときに呼ばれる",
+      "default": ""
+    },
+    {
+      "name": "kana",
+      "type": "\"katakana\" | \"hiragana\" | false",
+      "optional": true,
+      "description": "フリガナの字種（既定はカタカナ）。false でフリガナ欄を出さない",
+      "default": "\"katakana\""
+    },
+    {
+      "name": "autoKana",
+      "type": "boolean",
+      "optional": true,
+      "description": "変換前の読みからフリガナを入れる。手で直した部分は、フリガナを消すまで自動で触らない",
+      "default": "true"
+    },
+    {
+      "name": "required",
+      "type": "boolean",
+      "optional": true,
+      "description": "すべての欄を必須にする",
+      "default": ""
+    },
+    {
+      "name": "errors",
+      "type": "Partial<Record<NameKey, string>>",
+      "optional": true,
+      "description": "欄ごとのエラー文言",
+      "default": ""
+    },
+    {
+      "name": "names",
+      "type": "Partial<Record<NameKey, string>>",
+      "optional": true,
+      "description": "欄ごとの送信名。名前のない欄は送信しない",
+      "default": ""
+    },
+    {
+      "name": "labels",
+      "type": "Partial<Record<NameKey, string>>",
+      "optional": true,
+      "description": "欄ごとのラベルの差し替え（既定は 姓、名、セイ、メイ）",
+      "default": ""
+    }
+  ],
+  "phone-field": [
+    {
+      "name": "value",
+      "type": "string",
+      "optional": true,
+      "description": "数字だけの電話番号（制御）",
+      "default": ""
+    },
+    {
+      "name": "defaultValue",
+      "type": "string",
+      "optional": true,
+      "description": "初期値（非制御）",
+      "default": ""
+    },
+    {
+      "name": "onValueChange",
+      "type": "(value: string) => void",
+      "optional": true,
+      "description": "数字だけの電話番号で呼ばれる。区切りだけを変えたときは呼ばれない",
+      "default": ""
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "optional": true,
+      "description": "数字だけの値を hidden input で送る名前。見えている欄には name が付かない",
+      "default": ""
+    },
+    {
+      "name": "error",
+      "type": "boolean",
+      "optional": true,
+      "description": "エラー表示（FormField の error でも付く）",
+      "default": ""
+    }
+  ],
+  "address-field": [
+    {
+      "name": "label",
+      "type": "ReactNode",
+      "optional": true,
+      "description": "まとまりの名前（既定は「住所」）。legend になる",
+      "default": ""
+    },
+    {
+      "name": "description",
+      "type": "ReactNode",
+      "optional": true,
+      "description": "まとまりの説明",
+      "default": ""
+    },
+    {
+      "name": "value",
+      "type": "AddressValue",
+      "optional": true,
+      "description": "住所の値（制御）",
+      "default": ""
+    },
+    {
+      "name": "defaultValue",
+      "type": "Partial<AddressValue>",
+      "optional": true,
+      "description": "初期値（非制御）。ここで渡した郵便番号では住所を探さない",
+      "default": ""
+    },
+    {
+      "name": "onValueChange",
+      "type": "(value: AddressValue) => void",
+      "optional": true,
+      "description": "どれかの欄が変わったときに呼ばれる",
+      "default": ""
+    },
+    {
+      "name": "onLookup",
+      "type": "(postalCode: string) => Promise<AddressLookupResult | null>",
+      "optional": true,
+      "description": "郵便番号から住所を探す。7 桁そろったときに 1 回呼ぶ。見つからなければ null を返す",
+      "default": ""
+    },
+    {
+      "name": "required",
+      "type": "boolean",
+      "optional": true,
+      "description": "建物名以外を必須にする",
+      "default": ""
+    },
+    {
+      "name": "errors",
+      "type": "Partial<Record<AddressKey, string>>",
+      "optional": true,
+      "description": "欄ごとのエラー文言",
+      "default": ""
+    },
+    {
+      "name": "names",
+      "type": "Partial<Record<AddressKey, string>>",
+      "optional": true,
+      "description": "欄ごとの送信名。名前のない欄は送信しない",
+      "default": ""
+    },
+    {
+      "name": "labels",
+      "type": "Partial<Record<AddressKey, string>>",
+      "optional": true,
+      "description": "欄ごとのラベルの差し替え",
+      "default": ""
+    },
+    {
+      "name": "autoCompleteSection",
+      "type": "string",
+      "optional": true,
+      "description": "1 つのフォームに住所が 2 つあるときの autocomplete の区切り（例: shipping）",
+      "default": ""
+    }
+  ],
   "list": [
     {
       "name": "divided",

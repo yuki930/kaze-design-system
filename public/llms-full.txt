@@ -1,6 +1,6 @@
 # kaze-design-system: Full API Reference
 
-> Minimal React design system for dashboards, landing pages and Japanese UI: warm neutral grays, 87 components, SVG charts with zero dependencies, light/dark themes, typography tuned for CJK text
+> Minimal React design system for dashboards, landing pages and Japanese UI: warm neutral grays, 90 components, SVG charts with zero dependencies, light/dark themes, typography tuned for CJK text
 
 Version: 1.14.1
 Site: https://kaze-design-system.vercel.app
@@ -281,7 +281,7 @@ Docs: https://kaze-design-system.vercel.app/docs/components/input
 
 **使う場面**
 
-- 氏名、メールアドレス、検索語など、1 行で収まる自由入力
+- メールアドレス、検索語など、1 行で収まる自由入力
 - type で用途を指定する（email、tel、url、password）。モバイルのキーボードと自動入力が合う
 - 検証に失敗した状態は error で赤枠にし、理由は FormField の error か近くの文言で伝える
 
@@ -291,6 +291,7 @@ Docs: https://kaze-design-system.vercel.app/docs/components/input
 - 日付。書き方のゆれと和暦の入力を受けたいなら DatePicker
 - 改行を含む長文。Textarea を使う
 - 選択肢が決まっている入力。Select（少数）か Combobox（多数）にして、打ち間違いをなくす
+- 氏名、電話番号、住所。フリガナの自動入力やハイフンのゆれの吸収がある NameField、PhoneField、AddressField を使う
 
 **キーボード操作**
 
@@ -341,7 +342,7 @@ Docs: https://kaze-design-system.vercel.app/docs/components/number-field
 
 **使わない場面**
 
-- 郵便番号、電話番号、会員番号など、数値ではない数字の並び。先頭の 0 や区切りが意味を持つので Input を使う
+- 郵便番号、電話番号、会員番号など、数値ではない数字の並び。先頭の 0 や区切りが意味を持つ。郵便番号は AddressField（PostalCodeField）、電話番号は PhoneField、それ以外は Input
 - 範囲の大まかな指定。選択肢が少なければ SegmentedControl か Select
 - 値が長い桁になる ID。桁区切りを付けて表示されてしまう
 
@@ -1008,6 +1009,238 @@ Docs: https://kaze-design-system.vercel.app/docs/components/form-section
     <NumberField label="月の上限" currency="JPY" />
   </FormSection>
 </form>
+```
+
+#### NameField
+
+氏名を姓と名の 2 欄で受け取り、それぞれにフリガナの欄を付ける。漢字を変換したときの読みから、フリガナを自動で入れる。フリガナを手で直した部分は、それ以降は自動で触らない。
+
+Docs: https://kaze-design-system.vercel.app/docs/components/name-field
+
+**使う場面**
+
+- 会員登録や申し込みで、氏名とフリガナを受け取る。姓と名は 2 欄に分ける
+- 漢字を変換すると、変換前の読みがフリガナ欄に入る。予測変換で選ぶと読みが途中までになることがあるので、フリガナ欄は必ず見せて直せるようにする
+- フリガナの字種は kana で決める。既定はカタカナ
+
+**使わない場面**
+
+- 姓と名に分けられない名前も受け取る画面。Input で 1 欄にする
+- フリガナ欄を隠して自動入力の結果だけを送ること。読みは取り違えることがある
+
+**キーボード操作**
+
+| キー | 動作 |
+|---|---|
+| Tab | 姓、名、セイ、メイの順に移る |
+
+**アクセシビリティ**
+
+- fieldset と legend で組むので、各欄が「氏名」のまとまりとして読み上げられる
+- autocomplete は姓が family-name、名が given-name。フリガナ欄はブラウザの自動入力で漢字が入らないよう off にする
+
+**文言**
+
+- 欄のラベルは「姓」「名」「セイ」「メイ」。必須は required で示し、文言に書かない
+- エラーは「メイをカタカナで入力してください」のように、どの欄をどう直すかを書く
+
+Related: address-field, phone-field, form-field
+
+**Props**
+
+- `label?`: `ReactNode`
+  - Name of the group, rendered as the legend (default: "氏名")
+- `description?`: `ReactNode`
+  - Shown under the legend
+- `value?`: `NameValue`
+  - 氏名の値（制御）
+- `defaultValue?`: `Partial<NameValue>`
+  - 初期値（非制御）
+- `onValueChange?`: `(value: NameValue) => void`
+  - どれかの欄が変わったときに呼ばれる
+- `kana?`: `"katakana" | "hiragana" | false`
+  - Default: `"katakana"`
+  - Script of the reading fields, or `false` for no reading fields (default: "katakana")
+- `autoKana?`: `boolean`
+  - Default: `true`
+  - Fill the reading from what the IME showed before conversion (default: true).
+Stops for a part once the user edits its reading by hand, and resumes when that reading is cleared
+- `required?`: `boolean`
+  - Marks every field as required
+- `errors?`: `Partial<Record<NameKey, string>>`
+  - Error message per field
+- `names?`: `Partial<Record<NameKey, string>>`
+  - Form field names per field. Fields without a name are not submitted
+- `labels?`: `Partial<Record<NameKey, string>>`
+  - Labels per field, to replace the defaults (姓, 名, セイ, メイ)
+
+**Usage**
+
+```tsx
+import { useState } from "react";
+import { NameField, type NameValue } from "kaze-design-system";
+
+const [name, setName] = useState<NameValue>({ family: "", given: "", familyKana: "", givenKana: "" });
+
+<NameField
+  required
+  value={name}
+  onValueChange={setName}
+  names={{ family: "family", given: "given", familyKana: "family_kana", givenKana: "given_kana" }}
+/>
+// 「さがら」と打って「相楽」に変換すると familyKana は "サガラ"
+```
+
+#### PhoneField
+
+電話番号の入力。ハイフンの有無や全角数字、括弧、+81 を吸収し、値は数字だけで受け取る。携帯・050・0120 など区切りが決まっている番号は、フォーカスが外れたときにハイフンを入れる。
+
+Docs: https://kaze-design-system.vercel.app/docs/components/phone-field
+
+**使う場面**
+
+- 電話番号の入力。ハイフンの有無や全角数字、括弧、+81 を吸収し、値は数字だけで受け取る
+- 区切りが決まっている番号は、フォーカスが外れたときにハイフンを入れる。対象は携帯（070 / 080 / 090）と 050 / 020 / 0120 / 0800 / 0570 / 03 / 06
+- それ以外の固定電話は市外局番の桁数が決まらない。打った区切りをそのまま残す
+- FormField で包み、ラベル・説明・エラーを付ける
+
+**使わない場面**
+
+- 内線や国外の番号を含む自由な連絡先。Input を使う
+- 入力中に書式を強制すること。PhoneField は入力中の文字を書き換えない
+
+**キーボード操作**
+
+| キー | 動作 |
+|---|---|
+| Tab | 確定して次へ移る。このときハイフンが入る |
+
+**アクセシビリティ**
+
+- type="tel" と inputMode="tel" で、スマートフォンでは数字のキーボードが出る
+- autocomplete は tel-national。ブラウザの自動入力がそのまま使える
+- FormField の id、aria-describedby、aria-invalid、required は入力欄に渡る
+
+**文言**
+
+- ラベルは「電話番号」。書式の説明は description に「ハイフンはなくてもかまいません」と書く
+- placeholder に書式を書かない。どの書き方でも受け取れる
+
+Related: address-field, form-field, input
+
+**Props**
+
+- `value?`: `string`
+  - Phone number as digits only, e.g. "09012345678" (controlled)
+- `defaultValue?`: `string`
+  - Initial digits (uncontrolled)
+- `onValueChange?`: `(value: string) => void`
+  - Called with the digits only, whether typed with or without hyphens
+- `name?`: `string`
+  - Submitted through a hidden input as digits only. The visible field has no name
+- `error?`: `boolean`
+  - Error state (FormField's error also sets it through aria-invalid)
+
+**Usage**
+
+```tsx
+const [tel, setTel] = useState("");
+
+<FormField label="電話番号" description="ハイフンはなくてもかまいません">
+  <PhoneField value={tel} onValueChange={setTel} name="tel" />
+</FormField>
+// 「０９０ー１２３４ー５６７８」と打つと tel は "09012345678"
+```
+
+#### AddressField
+
+日本の住所。郵便番号から建物名までを 1 つのまとまりで組む。onLookup に住所検索を渡すと、7 桁そろった時点で都道府県・市区町村・町域を埋める。住所データは同梱しない。郵便番号の欄は PostalCodeField として単体でも使える。
+
+Docs: https://kaze-design-system.vercel.app/docs/components/address-field
+
+**使う場面**
+
+- 配送先や請求先など、日本の住所をまとめて入力する
+- onLookup に住所検索を渡すと、郵便番号が 7 桁そろった時点で都道府県・市区町村・町域を埋める。住所データは同梱しないので、自前の API や公開データを呼ぶ
+- 郵便番号だけが要るときは、PostalCodeField を FormField で包んで使う
+
+**使わない場面**
+
+- 国外の住所。欄の分け方が合わないので、Input と Textarea で組む
+- onLookup の結果で、ユーザーが打った欄を上書きすること。AddressField は空の欄と、前回の検索で入れた欄だけを埋める
+
+**キーボード操作**
+
+| キー | 動作 |
+|---|---|
+| Tab | 郵便番号から順に次の欄へ移る。検索で埋まってもフォーカスは動かない |
+
+**アクセシビリティ**
+
+- fieldset と legend で組むので、各欄が「住所」のまとまりとして読み上げられる
+- 検索中・見つかった・見つからないは role="status" で伝える。フォーカスは動かさない
+- autocomplete は欄ごとに postal-code や address-level1 などを付ける。住所が 2 つあるフォームでは autoCompleteSection で分ける
+
+**文言**
+
+- 欄のラベルは「郵便番号」「都道府県」「市区町村」「番地」「建物名・部屋番号」。必須は required で示し、文言に書かない
+
+Related: phone-field, form-section, form-field
+
+**Props**
+
+- `label?`: `ReactNode`
+  - Name of the group, rendered as the legend (default: "住所")
+- `description?`: `ReactNode`
+  - Shown under the legend
+- `value?`: `AddressValue`
+  - 住所の値（制御）
+- `defaultValue?`: `Partial<AddressValue>`
+  - 初期値（非制御）
+- `onValueChange?`: `(value: AddressValue) => void`
+  - どれかの欄が変わったときに呼ばれる
+- `onLookup?`: `(postalCode: string) => Promise<AddressLookupResult | null>`
+  - Looks up an address from a 7-digit postal code. Called once per code; resolve
+`null` when nothing matches. Kaze ships no address data: call your own API here.
+- `required?`: `boolean`
+  - Marks every field except line2 as required
+- `errors?`: `Partial<Record<AddressKey, string>>`
+  - Error message per field
+- `names?`: `Partial<Record<AddressKey, string>>`
+  - Form field names per field. Fields without a name are not submitted
+- `labels?`: `Partial<Record<AddressKey, string>>`
+  - Labels per field, to replace the defaults (郵便番号, 都道府県, 市区町村, 番地, 建物名・部屋番号)
+- `autoCompleteSection?`: `string`
+  - Prefix for autocomplete tokens when a form has two addresses, e.g. "shipping"
+
+**Usage**
+
+```tsx
+import { useState } from "react";
+import { AddressField, FormField, PostalCodeField, type AddressValue } from "kaze-design-system";
+
+const [address, setAddress] = useState<AddressValue>({
+  postalCode: "",
+  prefecture: "",
+  city: "",
+  line1: "",
+  line2: "",
+});
+
+<AddressField
+  required
+  value={address}
+  onValueChange={setAddress}
+  onLookup={async (postalCode) => {
+    const res = await fetch(`/api/address?zip=${postalCode}`);
+    return res.ok ? res.json() : null;
+  }}
+/>
+
+{/* 郵便番号だけ */}
+<FormField label="郵便番号">
+  <PostalCodeField name="zip" />
+</FormField>
 ```
 
 #### Slider
