@@ -21,6 +21,13 @@ CHANGELOG entries and version bumps are generated automatically by `.github/work
 - **Patch** releases fix bugs and never change the public API.
 
 Before 1.0, minor releases could include breaking changes; see MIGRATION.md for moving from 0.x.
+## [1.15.2] - 2026-11-17
+
+### Bug Fixes
+
+- fix(breadcrumb): include the position in item keys so repeated labels do not pile up (#102)
+
+
 ## [1.15.1] - 2026-11-16
 
 ### Other
