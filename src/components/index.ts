@@ -280,7 +280,7 @@ export type { ChartLegendProps, ChartLegendItem } from "./ChartLegend";
 /* ── Feedback & UI ─────────────────────────────────────────── */
 
 export { Alert } from "./Alert";
-export type { AlertProps } from "./Alert";
+export type { AlertLive, AlertProps } from "./Alert";
 
 export { Progress } from "./Progress";
 export type { ProgressProps, ProgressSize } from "./Progress";
