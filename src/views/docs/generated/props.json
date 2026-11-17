@@ -3111,6 +3111,20 @@
       "optional": true,
       "description": "トリガーを無効化",
       "default": "false"
+    },
+    {
+      "name": "lazy",
+      "type": "boolean",
+      "optional": true,
+      "description": "初めて開くまで中身をマウントしない。一度開いたあとは閉じても保持する",
+      "default": "false"
+    },
+    {
+      "name": "unmountOnClose",
+      "type": "boolean",
+      "optional": true,
+      "description": "閉じるたびに中身をアンマウントし、開くたびに作り直す",
+      "default": "false"
     }
   ],
   "radio": [

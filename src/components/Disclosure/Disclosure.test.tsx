@@ -1,4 +1,4 @@
-import { createRef } from "react";
+import { createRef, useEffect } from "react";
 import { fireEvent, render, screen } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 import { Disclosure } from "./Disclosure";
@@ -179,5 +179,91 @@ describe("Disclosure behaviour", () => {
       </Disclosure>,
     );
     expect(ref.current).toBe(container.firstElementChild);
+  });
+});
+
+function Probe({ onMount }: { onMount: () => void }) {
+  useEffect(() => onMount(), [onMount]);
+  return <p>中身</p>;
+}
+
+describe("Disclosure mounting", () => {
+  it("mounts children while closed by default", () => {
+    const onMount = vi.fn();
+    render(
+      <Disclosure title="詳細">
+        <Probe onMount={onMount} />
+      </Disclosure>,
+    );
+    expect(onMount).toHaveBeenCalledTimes(1);
+  });
+
+  it("lazy mounts on first open and keeps the content after closing", () => {
+    const onMount = vi.fn();
+    render(
+      <Disclosure title="詳細" lazy>
+        <Probe onMount={onMount} />
+      </Disclosure>,
+    );
+    const trigger = screen.getByRole("button", { name: "詳細" });
+    expect(onMount).not.toHaveBeenCalled();
+    expect(screen.queryByText("中身")).toBeNull();
+    fireEvent.click(trigger);
+    expect(onMount).toHaveBeenCalledTimes(1);
+    fireEvent.click(trigger);
+    expect(screen.getByText("中身")).not.toBeVisible();
+    fireEvent.click(trigger);
+    expect(onMount).toHaveBeenCalledTimes(1);
+  });
+
+  it("lazy renders immediately when it starts open", () => {
+    render(
+      <Disclosure title="詳細" lazy defaultOpen>
+        中身
+      </Disclosure>,
+    );
+    expect(screen.getByText("中身")).toBeVisible();
+  });
+
+  it("lazy works when controlled", () => {
+    const onMount = vi.fn();
+    const { rerender } = render(
+      <Disclosure title="詳細" lazy open={false}>
+        <Probe onMount={onMount} />
+      </Disclosure>,
+    );
+    expect(onMount).not.toHaveBeenCalled();
+    rerender(
+      <Disclosure title="詳細" lazy open>
+        <Probe onMount={onMount} />
+      </Disclosure>,
+    );
+    expect(onMount).toHaveBeenCalledTimes(1);
+  });
+
+  it("unmountOnClose removes the content on close and remounts on open", () => {
+    const onMount = vi.fn();
+    render(
+      <Disclosure title="詳細" unmountOnClose>
+        <Probe onMount={onMount} />
+      </Disclosure>,
+    );
+    const trigger = screen.getByRole("button", { name: "詳細" });
+    expect(onMount).not.toHaveBeenCalled();
+    fireEvent.click(trigger);
+    fireEvent.click(trigger);
+    expect(screen.queryByText("中身")).toBeNull();
+    fireEvent.click(trigger);
+    expect(onMount).toHaveBeenCalledTimes(2);
+  });
+
+  it("keeps the region and its aria wiring while the content is not mounted", () => {
+    render(
+      <Disclosure title="詳細" lazy>
+        中身
+      </Disclosure>,
+    );
+    const trigger = screen.getByRole("button", { name: "詳細" });
+    expect(document.getElementById(trigger.getAttribute("aria-controls") ?? "")).not.toBeNull();
   });
 });

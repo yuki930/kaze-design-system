@@ -48,6 +48,13 @@ export interface DisclosureProps {
   contentClassName?: string;
   /** Disables the trigger */
   disabled?: boolean;
+  /**
+   * 初めて開くまで children をマウントしない。一度開いたあとは、閉じても保持する。
+   * 開かれない限り不要な描画や通信（チャート、API 取得など）を走らせたくないときに使う
+   */
+  lazy?: boolean;
+  /** 閉じるたびに children をアンマウントする。開くたびに中身を作り直したいときに使う */
+  unmountOnClose?: boolean;
 }
 
 /* Inline SVGs (same paths as lucide's ChevronRight / Plus) so the component
@@ -99,12 +106,19 @@ export const Disclosure = forwardRef<HTMLDivElement, DisclosureProps>(
       triggerClassName,
       contentClassName,
       disabled = false,
+      lazy = false,
+      unmountOnClose = false,
     },
     ref,
   ) => {
     const [uncontrolledOpen, setUncontrolledOpen] = useState(defaultOpen);
     const isControlled = controlledOpen !== undefined;
     const isOpen = isControlled ? controlledOpen : uncontrolledOpen;
+
+    // 一度でも開いたか。lazy のとき、開いたあとは閉じても中身を保持するために使う
+    const [hasOpened, setHasOpened] = useState(isOpen);
+    if (isOpen && !hasOpened) setHasOpened(true);
+    const shouldRender = unmountOnClose ? isOpen : !lazy || hasOpened;
 
     const setOpen = useCallback(
       (next: boolean) => {
@@ -191,7 +205,7 @@ export const Disclosure = forwardRef<HTMLDivElement, DisclosureProps>(
           hidden={!isOpen}
           data-state={isOpen ? "open" : "closed"}
         >
-          <div className="disclosure__content-inner">{children}</div>
+          {shouldRender && <div className="disclosure__content-inner">{children}</div>}
         </section>
       </div>
     );
