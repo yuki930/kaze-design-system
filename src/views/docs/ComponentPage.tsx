@@ -1499,7 +1499,7 @@ import { Icon } from "kaze-design-system";
         name: "sidebar",
         type: "React.ReactNode",
         description:
-          "サイドバー要素。768px 以上では左に固定表示。768px 未満では隠れ、メニューボタンで左のドロワーに同じ中身が開く（開いている間だけ DOM に置く。ドロワー内のリンクを押すと閉じる）",
+          "サイドバー要素。768px 以上では左に固定表示。768px 未満では隠れ、メニューボタンで左のドロワーに同じ中身が開く（開いている間だけ DOM に置く。ドロワー内のリンクか NavItem を押すと閉じる）",
       },
       {
         name: "topbar",
@@ -1522,7 +1522,7 @@ import { Icon } from "kaze-design-system";
         name: "onNavOpenChange",
         type: "(open: boolean) => void",
         description:
-          "Escape、背景クリック、ドロワー内のリンク、メニューボタンで開閉が求められたとき",
+          "Escape、背景クリック、ドロワー内のリンクと NavItem、メニューボタンで開閉が求められたとき",
       },
       {
         name: "navLabel",

@@ -1,6 +1,7 @@
 import { createRef } from "react";
 import { describe, expect, it, vi } from "vitest";
 import { act, fireEvent, render, screen, within } from "@testing-library/react";
+import { NavItem } from "../Sidebar/Sidebar";
 import { TopBar } from "../TopBar/TopBar";
 import { AppLayout } from "./Layout";
 
@@ -70,6 +71,31 @@ describe("AppLayout nav drawer (below 768px)", () => {
     fireEvent.click(inDrawer.getByRole("button", { name: "操作" }));
     expect(drawer()).not.toBeNull();
     fireEvent.click(inDrawer.getByRole("link", { name: "ホーム" }));
+    await settle();
+    expect(drawer()).toBeNull();
+  });
+
+  it("closes when a NavItem rendered as a button is clicked (SPA navigation)", async () => {
+    const navigate = vi.fn();
+    render(
+      <AppLayout
+        sidebar={
+          <aside>
+            <NavItem onClick={navigate}>
+              <span>口座</span>
+            </NavItem>
+          </aside>
+        }
+        topbar={<TopBar>T</TopBar>}
+      >
+        C
+      </AppLayout>,
+    );
+    fireEvent.click(menuButton());
+    const item = within(drawer() as HTMLElement).getByRole("button", { name: "口座" });
+    expect(item.tagName).toBe("BUTTON");
+    fireEvent.click(item.querySelector("span") as HTMLElement);
+    expect(navigate).toHaveBeenCalledTimes(1);
     await settle();
     expect(drawer()).toBeNull();
   });
