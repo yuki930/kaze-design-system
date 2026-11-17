@@ -21,6 +21,13 @@ CHANGELOG entries and version bumps are generated automatically by `.github/work
 - **Patch** releases fix bugs and never change the public API.
 
 Before 1.0, minor releases could include breaking changes; see MIGRATION.md for moving from 0.x.
+## [1.17.0] - 2026-11-17
+
+### Features
+
+- feat(alert): add live and stop interrupting screen readers for static notes (#105)
+
+
 ## [1.16.0] - 2026-11-17
 
 ### Features
