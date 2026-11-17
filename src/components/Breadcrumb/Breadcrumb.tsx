@@ -21,7 +21,8 @@ export const Breadcrumb = forwardRef<HTMLElement, BreadcrumbProps>(
           const LinkComponent = item.as ?? "a";
           const isLast = i === items.length - 1;
           return (
-            <li key={item.href ?? item.label} className="breadcrumb__item">
+            // biome-ignore lint/suspicious/noArrayIndexKey: a breadcrumb trail is ordinal (the position is the hierarchy level) and labels can repeat, e.g. a section and a page with the same name.
+            <li key={`${i}:${item.href ?? item.label}`} className="breadcrumb__item">
               {!isLast && item.href ? (
                 <LinkComponent href={item.href} className="breadcrumb__link">
                   {item.label}
