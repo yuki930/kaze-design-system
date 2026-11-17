@@ -3553,6 +3553,7 @@ Docs: https://kaze-design-system.vercel.app/docs/components/disclosure
 
 - 補足、FAQ、詳細設定など、必要な人だけが開けばよい内容をたたんでおく
 - defaultOpen で初期状態、open と onOpenChange で制御する
+- 中にチャートや API 取得を伴う部品を置くときは lazy を付ける。閉じている間は描画も通信も走らず、初めて開いたときにマウントされる。開くたびに作り直したいときは unmountOnClose
 - icon は "chevron"（既定）か "plus"、variant は default / ghost / bordered から選ぶ
 
 **使わない場面**
@@ -3619,6 +3620,13 @@ not auto-rotated.
 - `disabled?`: `boolean`
   - Default: `false`
   - Disables the trigger
+- `lazy?`: `boolean`
+  - Default: `false`
+  - 初めて開くまで children をマウントしない。一度開いたあとは、閉じても保持する。
+開かれない限り不要な描画や通信（チャート、API 取得など）を走らせたくないときに使う
+- `unmountOnClose?`: `boolean`
+  - Default: `false`
+  - 閉じるたびに children をアンマウントする。開くたびに中身を作り直したいときに使う
 
 **Usage**
 

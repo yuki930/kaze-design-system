@@ -4063,6 +4063,18 @@ const [selected, setSelected] = useState(0);
           "ビジュアル（default: 背景ホバーあり / ghost: 背景なし / bordered: 枠線で囲む）",
       },
       { name: "disabled", type: "boolean", default: "false", description: "トリガーを無効化" },
+      {
+        name: "lazy",
+        type: "boolean",
+        default: "false",
+        description: "初めて開くまで中身をマウントしない。一度開いたあとは閉じても保持する",
+      },
+      {
+        name: "unmountOnClose",
+        type: "boolean",
+        default: "false",
+        description: "閉じるたびに中身をアンマウントし、開くたびに作り直す",
+      },
     ],
     usage: `<Disclosure title="詳細を見る">
   <p>補足情報をここに。</p>

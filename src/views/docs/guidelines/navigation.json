@@ -148,6 +148,7 @@
     "use": [
       "補足、FAQ、詳細設定など、必要な人だけが開けばよい内容をたたんでおく",
       "defaultOpen で初期状態、open と onOpenChange で制御する",
+      "中にチャートや API 取得を伴う部品を置くときは lazy を付ける。閉じている間は描画も通信も走らず、初めて開いたときにマウントされる。開くたびに作り直したいときは unmountOnClose",
       "icon は \"chevron\"（既定）か \"plus\"、variant は default / ghost / bordered から選ぶ"
     ],
     "avoid": [
