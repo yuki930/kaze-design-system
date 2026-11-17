@@ -2641,8 +2641,9 @@ Docs: https://kaze-design-system.vercel.app/docs/components/alert
 
 **アクセシビリティ**
 
-- role="alert" が付くため、表示された瞬間に割り込んで読み上げられる。tone に関わらず同じ強さ
-- ページを開いた時点から置いてある補足まで割り込ませたくない場合は、Alert ではなく Card や Text で書く
+- 既定では tone="negative" だけが role="alert" になり、表示された瞬間に割り込んで読み上げられる。ほかの tone は role を付けず、ページを開いた時点から置いてある注記として扱う
+- 操作の結果として出す Alert は live で強さを決める。失敗やブロックは "assertive"（negative の既定）、注意や完了の報告は "polite"（role="status"）
+- 最初から置いてある negative の注記（「表示できる口座はありません」など）は live="off" にして、画面を開くたびに割り込ませない
 - 色だけに頼らず、title か本文で「エラー」「注意」のように種類を言葉にする。icon は装飾なので読み上げられない前提で使う
 
 **文言**
@@ -2661,6 +2662,10 @@ Related: toast, dialog, form-field, empty-state, badge
   - 左側に表示するアイコン
 - `title?`: `string`
   - アラートのタイトル（太字で表示）
+- `live?`: `"assertive" | "polite" | "off"`
+  - Default: `tone="negative" なら "assertive"、ほかは "off"`
+  - 読み上げの強さ。既定は tone="negative" なら "assertive"、それ以外は "off"。
+操作のあとで出す注意や完了の報告には "polite" を渡す
 - `children`: `ReactNode`
   - アラートの内容
 

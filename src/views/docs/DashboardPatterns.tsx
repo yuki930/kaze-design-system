@@ -218,7 +218,7 @@ export function DashboardPatterns() {
               : "一部のデータは前日の値です。取得日時とデータ基準日は異なります。"}
           </DataStatus>
           {!available && (
-            <Alert tone="warning" role="status">
+            <Alert tone="warning" live="polite">
               同じ基準日での比較はまだできません。取得済みの内容のみ確認できます。
             </Alert>
           )}

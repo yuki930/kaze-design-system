@@ -2704,6 +2704,13 @@
       "default": ""
     },
     {
+      "name": "live",
+      "type": "\"assertive\" | \"polite\" | \"off\"",
+      "optional": true,
+      "description": "読み上げの強さ。assertive は role=alert で割り込む、polite は role=status で待って伝える、off は role なし",
+      "default": "tone=\"negative\" なら \"assertive\"、ほかは \"off\""
+    },
+    {
       "name": "children",
       "type": "ReactNode",
       "optional": false,

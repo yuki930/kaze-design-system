@@ -3566,6 +3566,13 @@ const [selected, setSelected] = useState(0);
       },
       { name: "icon", type: "React.ReactNode", description: "左側に表示するアイコン" },
       { name: "title", type: "string", description: "アラートのタイトル（太字で表示）" },
+      {
+        name: "live",
+        type: '"assertive" | "polite" | "off"',
+        default: 'tone="negative" なら "assertive"、ほかは "off"',
+        description:
+          "読み上げの強さ。assertive は role=alert で割り込む、polite は role=status で待って伝える、off は role なし",
+      },
       { name: "children", type: "React.ReactNode", description: "アラートの内容" },
     ],
     usage: `<Alert tone="info" icon={<Info size={18} />}>
