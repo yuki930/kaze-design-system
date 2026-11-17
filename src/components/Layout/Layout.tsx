@@ -24,7 +24,7 @@ export interface AppLayoutProps extends HTMLAttributes<HTMLDivElement> {
   navOpen?: boolean;
   /** ドロワーの初期状態（非制御）。既定は閉じている */
   defaultNavOpen?: boolean;
-  /** ドロワーの開閉要求。Escape、背景クリック、ドロワー内のリンク、メニューボタンで呼ばれる */
+  /** ドロワーの開閉要求。Escape、背景クリック、ドロワー内のリンクと NavItem、メニューボタンで呼ばれる */
   onNavOpenChange?: (open: boolean) => void;
   /** メニューボタンとドロワーの名前 */
   navLabel?: string;
@@ -106,10 +106,11 @@ export const AppLayout = forwardRef<HTMLDivElement, AppLayoutProps>(
       [hasNav, open, setOpen, navLabel, panelId],
     );
 
-    // ドロワー内のリンクを押したら、遷移の邪魔にならないよう閉じる
-    const closeOnLink = useCallback(
+    // ドロワー内のリンクか NavItem を押したら、遷移の邪魔にならないよう閉じる。
+    // NavItem は href がないと <button> になり、onClick で SPA 遷移する使い方が多いため含める
+    const closeOnNavigate = useCallback(
       (e: MouseEvent<HTMLDivElement>) => {
-        if ((e.target as HTMLElement).closest("a")) setOpen(false);
+        if ((e.target as HTMLElement).closest("a, .nav-item")) setOpen(false);
       },
       [setOpen],
     );
@@ -137,7 +138,7 @@ export const AppLayout = forwardRef<HTMLDivElement, AppLayoutProps>(
               aria-label={navLabel}
               className="app-layout__drawer"
             >
-              <DrawerBody className="app-layout__drawer-body" onClick={closeOnLink}>
+              <DrawerBody className="app-layout__drawer-body" onClick={closeOnNavigate}>
                 {sidebar}
               </DrawerBody>
             </Drawer>
